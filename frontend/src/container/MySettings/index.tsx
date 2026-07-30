@@ -12,6 +12,7 @@ import useThemeMode, { useIsDarkMode, useSystemTheme } from 'hooks/useDarkMode';
 import { useNotifications } from 'hooks/useNotifications';
 import { MonitorCog, Moon, Sun } from '@signozhq/icons';
 import { useAppContext } from 'providers/App/App';
+import { useTranslation } from 'react-i18next';
 import { UserPreference } from 'types/api/preferences/preference';
 import { showErrorNotification } from 'utils/error';
 
@@ -22,6 +23,7 @@ import UserInfo from './UserInfo';
 import './MySettings.styles.scss';
 
 function MySettings(): JSX.Element {
+	const { t } = useTranslation('settings');
 	const isDarkMode = useIsDarkMode();
 	const { userPreferences, updateUserPreferenceInContext } = useAppContext();
 	const { toggleTheme, autoSwitch, setAutoSwitch } = useThemeMode();
@@ -56,7 +58,7 @@ function MySettings(): JSX.Element {
 		{
 			label: (
 				<div className="theme-option">
-					<Moon data-testid="dark-theme-icon" size={12} /> Dark{' '}
+					<Moon data-testid="dark-theme-icon" size={12} /> {t('dark')}{' '}
 				</div>
 			),
 			value: 'dark',
@@ -64,8 +66,8 @@ function MySettings(): JSX.Element {
 		{
 			label: (
 				<div className="theme-option">
-					<Sun size={12} data-testid="light-theme-icon" /> Light{' '}
-					<Badge color="robin">Beta</Badge>
+					<Sun size={12} data-testid="light-theme-icon" /> {t('light')}{' '}
+					<Badge color="robin">{t('beta')}</Badge>
 				</div>
 			),
 			value: 'light',
@@ -73,7 +75,7 @@ function MySettings(): JSX.Element {
 		{
 			label: (
 				<div className="theme-option">
-					<MonitorCog size={12} data-testid="auto-theme-icon" /> System{' '}
+					<MonitorCog size={12} data-testid="auto-theme-icon" /> {t('system')}{' '}
 				</div>
 			),
 			value: 'auto',
@@ -88,7 +90,7 @@ function MySettings(): JSX.Element {
 	});
 
 	const handleThemeChange = (value: string): void => {
-		logEvent('Account Settings: Theme Changed', {
+		void logEvent('Account Settings: Theme Changed', {
 			theme: value,
 		});
 		setTheme(value);
@@ -119,7 +121,7 @@ function MySettings(): JSX.Element {
 	}, [autoSwitch, isDarkMode]);
 
 	const handleSideNavPinnedChange = (checked: boolean): void => {
-		logEvent('Account Settings: Sidebar Pinned Changed', {
+		void logEvent('Account Settings: Sidebar Pinned Changed', {
 			pinned: checked,
 		});
 		// Optimistically update the UI
@@ -161,10 +163,10 @@ function MySettings(): JSX.Element {
 		<div className="my-settings-container">
 			<div className="user-info-section">
 				<div className="user-info-section-header">
-					<div className="user-info-section-title">Account </div>
+					<div className="user-info-section-title">{t('account')} </div>
 
 					<div className="user-info-section-subtitle">
-						Manage your account settings.
+						{t('account_description')}
 					</div>
 				</div>
 
@@ -175,17 +177,19 @@ function MySettings(): JSX.Element {
 
 			<div className="user-preference-section">
 				<div className="user-preference-section-header">
-					<div className="user-preference-section-title">User Preferences</div>
+					<div className="user-preference-section-title">
+						{t('user_preferences')}
+					</div>
 
 					<div className="user-preference-section-subtitle">
-						Tailor the SigNoz console to work according to your needs.
+						{t('user_preferences_description')}
 					</div>
 				</div>
 
 				<div className="user-preference-section-content">
 					<div className="user-preference-section-content-item theme-selector">
 						<div className="user-preference-section-content-item-title-action">
-							Select your theme
+							{t('select_theme')}
 							<ToggleGroupSimple
 								type="single"
 								onChange={handleThemeChange}
@@ -196,14 +200,13 @@ function MySettings(): JSX.Element {
 						</div>
 
 						<div className="user-preference-section-content-item-description">
-							Select if SigNoz&apos;s appearance should be light, dark, or
-							automatically follow your system preference
+							{t('theme_description')}
 						</div>
 
 						{autoSwitch && (
 							<div className="auto-theme-info">
 								<div className="auto-theme-status">
-									Currently following system theme:{' '}
+									{t('currently_following_system_theme')}{' '}
 									<strong>{systemTheme === 'dark' ? 'Dark' : 'Light'}</strong>
 								</div>
 							</div>
@@ -214,7 +217,7 @@ function MySettings(): JSX.Element {
 
 					<div className="user-preference-section-content-item">
 						<div className="user-preference-section-content-item-title-action">
-							Keep the primary sidebar always open{' '}
+							{t('side_nav_pinned')}{' '}
 							<Switch
 								value={sideNavPinned}
 								onChange={handleSideNavPinnedChange}
@@ -224,8 +227,7 @@ function MySettings(): JSX.Element {
 						</div>
 
 						<div className="user-preference-section-content-item-description">
-							Keep the primary sidebar always open by default, unless collapsed with
-							the keyboard shortcut
+							{t('side_nav_pinned_description')}
 						</div>
 					</div>
 				</div>

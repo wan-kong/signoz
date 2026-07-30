@@ -1,12 +1,14 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { Dot } from '@signozhq/icons';
+import { Dot, Globe, Inbox, SquarePen } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
-import Noz from 'components/Noz/Noz';
-import { NOZ_TOOLTIP_TITLE } from 'components/Noz/Noz.constants';
+import { Typography } from '@signozhq/ui/typography';
 import { Popover } from 'antd';
 import logEvent from 'api/common/logEvent';
+import Noz from 'components/Noz/Noz';
+import { NOZ_TOOLTIP_TITLE } from 'components/Noz/Noz.constants';
 import { AIAssistantEvents } from 'container/AIAssistant/events';
 import { normalizePage } from 'container/AIAssistant/hooks/useAIAssistantAnalyticsContext';
 import {
@@ -16,14 +18,13 @@ import {
 import { selectPendingUserInputStreamCount } from 'container/AIAssistant/store/pendingInputSelectors';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 import { useIsAIAssistantEnabled } from 'hooks/useIsAIAssistantEnabled';
-import { Globe, Inbox, SquarePen } from '@signozhq/icons';
 
 import AnnouncementsModal from './AnnouncementsModal';
 import FeedbackModal from './FeedbackModal';
+import LanguageSelector from './LanguageSelector';
 import ShareURLModal, { type ShareURLExtraOption } from './ShareURLModal';
 
 import './HeaderRightSection.styles.scss';
-import { Typography } from '@signozhq/ui/typography';
 
 interface HeaderRightSectionProps {
 	enableAnnouncements: boolean;
@@ -39,6 +40,7 @@ function HeaderRightSection({
 	enableFeedback,
 	shareModalExtraOption,
 }: HeaderRightSectionProps): JSX.Element | null {
+	const { t } = useTranslation('common');
 	const location = useLocation();
 
 	const [openFeedbackModal, setOpenFeedbackModal] = useState(false);
@@ -49,7 +51,7 @@ function HeaderRightSection({
 	const isAIAssistantEnabled = useIsAIAssistantEnabled();
 
 	const handleOpenFeedbackModal = useCallback((): void => {
-		logEvent('Feedback: Clicked', {
+		void logEvent('Feedback: Clicked', {
 			page: location.pathname,
 		});
 
@@ -67,7 +69,7 @@ function HeaderRightSection({
 	}, [location.pathname]);
 
 	const handleOpenShareURLModal = useCallback((): void => {
-		logEvent('Share: Clicked', {
+		void logEvent('Share: Clicked', {
 			page: location.pathname,
 		});
 
@@ -122,9 +124,11 @@ function HeaderRightSection({
 							aria-label={
 								showHeaderPendingBadge
 									? pendingUserInputCount === 1
-										? 'Open Noz, 1 action needs your response'
-										: `Open Noz, ${pendingUserInputCount} actions need your response`
-									: 'Open Noz'
+										? t('open_noz_one_action')
+										: t('open_noz_many_actions', {
+												count: pendingUserInputCount,
+											})
+									: t('open_noz')
 							}
 							prefix={<Noz size={20} />}
 						>
@@ -133,6 +137,8 @@ function HeaderRightSection({
 					</TooltipSimple>
 				</div>
 			)}
+
+			<LanguageSelector />
 
 			{enableFeedback && isLicenseEnabled && (
 				<Popover
@@ -150,7 +156,7 @@ function HeaderRightSection({
 						variant="ghost"
 						size="icon"
 						className="share-feedback-btn"
-						aria-label="Feedback"
+						aria-label={t('feedback')}
 						prefix={<SquarePen size={14} />}
 						onClick={handleOpenFeedbackModal}
 					/>
@@ -172,10 +178,10 @@ function HeaderRightSection({
 					<Button
 						variant="ghost"
 						size="icon"
-						aria-label="Announcements"
+						aria-label={t('announcements')}
 						prefix={<Inbox size={14} />}
 						onClick={(): void => {
-							logEvent('Announcements: Clicked', {
+							void logEvent('Announcements: Clicked', {
 								page: location.pathname,
 							});
 						}}
@@ -198,7 +204,7 @@ function HeaderRightSection({
 					<Button
 						variant="ghost"
 						size="icon"
-						aria-label="Share"
+						aria-label={t('share')}
 						prefix={<Globe size={14} />}
 						onClick={handleOpenShareURLModal}
 					/>

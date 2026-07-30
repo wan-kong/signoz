@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import { matchPath, useLocation } from 'react-router-dom';
@@ -40,6 +41,7 @@ interface ShareURLModalProps {
 }
 
 function ShareURLModal({ extraOption }: ShareURLModalProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const urlQuery = useUrlQuery();
 	const location = useLocation();
 	const { selectedTime } = useSelector<AppState, GlobalReducer>(
@@ -125,7 +127,7 @@ function ShareURLModal({ extraOption }: ShareURLModalProps): JSX.Element {
 		handleCopyToClipboard(URL);
 		setIsURLCopied(true);
 
-		logEvent('Share: Copy link clicked', {
+		void logEvent('Share: Copy link clicked', {
 			page: location.pathname,
 			URL,
 		});
@@ -141,7 +143,7 @@ function ShareURLModal({ extraOption }: ShareURLModalProps): JSX.Element {
 				<>
 					<div className="absolute-relative-time-toggler-container">
 						<Typography.Text className="absolute-relative-time-toggler-label">
-							Enable absolute time
+							{t('enable_absolute_time')}
 						</Typography.Text>
 
 						<div className="absolute-relative-time-toggler">
@@ -160,7 +162,7 @@ function ShareURLModal({ extraOption }: ShareURLModalProps): JSX.Element {
 
 					{!isValidateRelativeTime && (
 						<div className="absolute-relative-time-error">
-							Please select / enter valid relative time to toggle.
+							{t('relative_time_toggle_error')}
 						</div>
 					)}
 				</>
@@ -184,10 +186,10 @@ function ShareURLModal({ extraOption }: ShareURLModalProps): JSX.Element {
 				<div className="url-share-container">
 					<div className="url-share-container-header">
 						<Typography.Text className="url-share-title">
-							Share page link
+							{t('share_page_link')}
 						</Typography.Text>
 						<Typography.Text className="url-share-sub-title">
-							Share the current page link with your team member
+							{t('share_page_link_description')}
 						</Typography.Text>
 					</div>
 
@@ -196,7 +198,7 @@ function ShareURLModal({ extraOption }: ShareURLModalProps): JSX.Element {
 						onClick={handleCopyURL}
 						icon={isURLCopied ? <Check size={14} /> : <Link2 size={14} />}
 					>
-						Copy page link
+						{t('copy_page_link')}
 					</Button>
 				</div>
 			</div>

@@ -4,10 +4,12 @@ import { Switch } from '@signozhq/ui/switch';
 import logEvent from 'api/common/logEvent';
 import { Delete } from '@signozhq/icons';
 import { useTimezone } from 'providers/Timezone';
+import { useTranslation } from 'react-i18next';
 
 import './TimezoneAdaptation.styles.scss';
 
 function TimezoneAdaptation(): JSX.Element {
+	const { t } = useTranslation('settings');
 	const {
 		timezone,
 		browserTimezone,
@@ -28,13 +30,13 @@ function TimezoneAdaptation(): JSX.Element {
 
 	const handleOverrideClear = (): void => {
 		updateTimezone(browserTimezone);
-		logEvent('Account Settings: Timezone override cleared', {});
+		void logEvent('Account Settings: Timezone override cleared', {});
 	};
 
 	const handleSwitchChange = (): void => {
 		setIsAdaptationEnabled((prev) => {
 			const isEnabled = !prev;
-			logEvent(
+			void logEvent(
 				`Account Settings: Timezone adaptation ${
 					isEnabled ? 'enabled' : 'disabled'
 				}`,
@@ -47,7 +49,7 @@ function TimezoneAdaptation(): JSX.Element {
 	return (
 		<div className="timezone-adaption">
 			<div className="timezone-adaption__header">
-				<h2 className="timezone-adaption__title">Adapt to my timezone</h2>
+				<h2 className="timezone-adaption__title">{t('adapt_timezone')}</h2>
 				<Switch
 					value={isAdaptationEnabled}
 					onChange={handleSwitchChange}
@@ -57,7 +59,7 @@ function TimezoneAdaptation(): JSX.Element {
 			</div>
 
 			<p className="timezone-adaption__description">
-				Adapt the timestamps shown in the SigNoz console to my active timezone.
+				{t('adapt_timezone_description')}
 			</p>
 
 			<div className="timezone-adaption__note">
@@ -66,16 +68,13 @@ function TimezoneAdaptation(): JSX.Element {
 					<span className="timezone-adaption__note-text">
 						{isTimezoneOverridden ? (
 							<>
-								Your current timezone is overridden to
+								{t('timezone_overridden')}
 								<span className="timezone-adaption__note-text-overridden">
 									{timezone.offset}
 								</span>
 							</>
 						) : (
-							<>
-								You can override the timezone adaption for any view with the time
-								picker.
-							</>
+							<>{t('timezone_override_hint')}</>
 						)}
 					</span>
 				</div>
@@ -87,7 +86,7 @@ function TimezoneAdaptation(): JSX.Element {
 						onClick={handleOverrideClear}
 					>
 						<Delete height={12} width={12} color={Color.BG_ROBIN_300} />
-						Clear override
+						{t('clear_override')}
 					</button>
 				)}
 			</div>

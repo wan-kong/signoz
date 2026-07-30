@@ -1,16 +1,30 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from 'tests/test-utils';
 
 import AnnouncementsModal from '../AnnouncementsModal';
 
+const i18nProviderProps = {
+	i18nLanguage: 'en',
+	i18nResources: {
+		en: {
+			common: {
+				announcements: 'Announcements',
+			},
+		},
+	},
+};
+
+const renderAnnouncementsModal = (): ReturnType<typeof render> =>
+	render(<AnnouncementsModal />, undefined, i18nProviderProps);
+
 describe('AnnouncementsModal', () => {
 	it('should render announcements modal with title', () => {
-		render(<AnnouncementsModal />);
+		renderAnnouncementsModal();
 
 		expect(screen.getByText('Announcements')).toBeInTheDocument();
 	});
 
 	it('should have proper structure and classes', () => {
-		render(<AnnouncementsModal />);
+		renderAnnouncementsModal();
 
 		const container = screen
 			.getByText('Announcements')
@@ -24,6 +38,6 @@ describe('AnnouncementsModal', () => {
 	});
 
 	it('should render without any errors', () => {
-		expect(() => render(<AnnouncementsModal />)).not.toThrow();
+		expect(() => renderAnnouncementsModal()).not.toThrow();
 	});
 });

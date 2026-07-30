@@ -5,6 +5,7 @@ import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { formatDateTime } from './i18nFormat';
 
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
@@ -39,8 +40,7 @@ export const getRemainingDays = (billingEndDate: number): number => {
 	const endDate = new Date(billingEndDate * 1000); // Convert seconds to milliseconds
 
 	// Calculate the time difference in milliseconds
-	// @ts-expect-error
-	const timeDifference = endDate - startDate;
+	const timeDifference = endDate.getTime() - startDate.getTime();
 
 	return Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 };
@@ -101,8 +101,8 @@ export function formatEpochTimestamp(epoch: number): string {
 		hour12: false,
 	};
 
-	const formattedDate = date.toLocaleDateString('en-US', optionsDate);
-	const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
+	const formattedDate = formatDateTime(date, optionsDate);
+	const formattedTime = formatDateTime(date, optionsTime);
 
 	return `${formattedDate} ⎯ ${formattedTime}`;
 }
@@ -152,7 +152,7 @@ export const epochToTimeString = (epochMs: number): string => {
 		minute: '2-digit',
 		hour12: false,
 	};
-	return date.toLocaleTimeString('en-US', options);
+	return formatDateTime(date, options);
 };
 
 /**

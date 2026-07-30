@@ -6,6 +6,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "i18n:generate-hash": "node ./i18-generate-hash.cjs",
+    "i18n:check": "node ./scripts/check-i18n.mjs",
+    "i18n:check:test": "node --test ./scripts/check-i18n.test.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

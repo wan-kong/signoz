@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
 import ROUTES from 'constants/routes';
 import { handleContactSupport } from 'container/Integrations/utils';
@@ -11,6 +12,8 @@ import cloudUrl from '@/assets/Images/cloud.svg';
 import './ErrorBoundaryFallback.styles.scss';
 
 function ErrorBoundaryFallback(): JSX.Element {
+	const { t } = useTranslation('common');
+
 	const handleReload = (): void => {
 		// Hard reload resets Sentry.ErrorBoundary state; withBasePath preserves any /signoz/ prefix.
 		window.location.href = withBasePath(ROUTES.HOME);
@@ -28,12 +31,9 @@ function ErrorBoundaryFallback(): JSX.Element {
 				<div className="error-icon">
 					<img src={cloudUrl} alt="error-cloud-icon" />
 				</div>
-				<div className="title">Something went wrong :/</div>
+				<div className="title">{t('something_went_wrong_friendly')}</div>
 
-				<div className="description">
-					Our team is getting on top to resolve this. Please reach out to support if
-					the issue persists.
-				</div>
+				<div className="description">{t('error_boundary_description')}</div>
 
 				<div className="actions">
 					<Button
@@ -42,7 +42,7 @@ function ErrorBoundaryFallback(): JSX.Element {
 						icon={<Home size={16} />}
 						className="periscope-btn primary"
 					>
-						Go to Home
+						{t('go_to_home')}
 					</Button>
 
 					<Button
@@ -51,7 +51,7 @@ function ErrorBoundaryFallback(): JSX.Element {
 						onClick={handleSupport}
 						icon={<LifeBuoy size={16} />}
 					>
-						Contact Support
+						{t('contact_support')}
 					</Button>
 				</div>
 			</div>

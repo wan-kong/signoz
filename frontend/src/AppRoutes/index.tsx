@@ -2,7 +2,6 @@ import { Suspense, useCallback, useEffect, useState } from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
 import { CompatRouter } from 'react-router-dom-v5-compat';
 import * as Sentry from '@sentry/react';
-import { ConfigProvider } from 'antd';
 import getLocalStorageApi from 'api/browser/localstorage/get';
 import setLocalStorageApi from 'api/browser/localstorage/set';
 import logEvent from 'api/common/logEvent';
@@ -31,8 +30,10 @@ import { useAppContext } from 'providers/App/App';
 import { IUser } from 'providers/App/types';
 import { CmdKProvider } from 'providers/cmdKProvider';
 import { ErrorModalProvider } from 'providers/ErrorModalProvider';
+import { LocaleProvider } from 'providers/LocaleProvider';
 import { PreferenceContextProvider } from 'providers/preferences/context/PreferenceContextProvider';
 import { QueryBuilderProvider } from 'providers/QueryBuilder';
+import { useTranslation } from 'react-i18next';
 import { LicenseStatus } from 'types/api/licensesV3/getActive';
 import { extractDomain } from 'utils/app';
 
@@ -44,8 +45,13 @@ import defaultRoutes, {
 	SUPPORT_ROUTE,
 } from './routes';
 
+function getRouteKey(path: AppRoutes['path']): string {
+	return Array.isArray(path) ? path.join('|') : String(path);
+}
+
 function App(): JSX.Element {
 	const themeConfig = useThemeConfig();
+	const { t } = useTranslation('common');
 	const {
 		user,
 		isFetchingUser,
@@ -111,11 +117,11 @@ function App(): JSX.Element {
 				};
 
 				if (email) {
-					logEvent('Email Identified', identifyPayload, 'identify');
+					void logEvent('Email Identified', identifyPayload, 'identify');
 				}
 
 				if (domain) {
-					logEvent('Domain Identified', groupTraits, 'group');
+					void logEvent('Domain Identified', groupTraits, 'group');
 				}
 				if (window && window.Appcues) {
 					window.Appcues.identify(id, {
@@ -390,13 +396,13 @@ function App(): JSX.Element {
 			}
 		} else {
 			posthog.reset();
-			Sentry.close();
+			void Sentry.close();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isCloudUser, isEnterpriseSelfHostedUser]);
 
 	if (isPreflightLoading) {
-		return <Spinner tip="Loading..." />;
+		return <Spinner tip={t('loading')} />;
 	}
 
 	// if the user is in logged in state
@@ -419,13 +425,13 @@ function App(): JSX.Element {
 			!userFetchError &&
 			!activeLicenseFetchError
 		) {
-			return <Spinner tip="Loading..." />;
+			return <Spinner tip={t('loading')} />;
 		}
 	}
 
 	return (
 		<Sentry.ErrorBoundary fallback={<ErrorBoundaryFallback />}>
-			<ConfigProvider theme={themeConfig}>
+			<LocaleProvider theme={themeConfig}>
 				<Router history={history}>
 					<CompatRouter>
 						<CmdKProvider>
@@ -441,11 +447,11 @@ function App(): JSX.Element {
 												<KeyboardHotkeysProvider>
 													<AppLayout>
 														<PreferenceContextProvider>
-															<Suspense fallback={<Spinner size="large" tip="Loading..." />}>
+															<Suspense fallback={<Spinner size="large" tip={t('loading')} />}>
 																<Switch>
 																	{routes.map(({ path, component, exact }) => (
 																		<Route
-																			key={`${path}`}
+																			key={getRouteKey(path)}
 																			exact={exact}
 																			path={path}
 																			component={component}
@@ -466,7 +472,7 @@ function App(): JSX.Element {
 						</CmdKProvider>
 					</CompatRouter>
 				</Router>
-			</ConfigProvider>
+			</LocaleProvider>
 		</Sentry.ErrorBoundary>
 	);
 }

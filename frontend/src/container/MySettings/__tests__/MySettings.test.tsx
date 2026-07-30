@@ -4,7 +4,7 @@ import { logEventMock } from '__tests__/logEventMock';
 import {
 	act,
 	fireEvent,
-	render,
+	render as baseRender,
 	screen,
 	waitFor,
 	within,
@@ -81,6 +81,57 @@ const NEW_PASSWORD_TEST_ID = 'new-password-textbox';
 const UPDATE_NAME_BUTTON_TEST_ID = 'update-name-btn';
 const RESET_PASSWORD_BUTTON_TEST_ID = 'reset-password-btn';
 const UPDATE_NAME_BUTTON_TEXT = 'Update name';
+const SETTINGS_I18N_RESOURCES = {
+	en: {
+		settings: {
+			account: 'Account',
+			account_description: 'Manage your account settings.',
+			user_preferences: 'User Preferences',
+			user_preferences_description:
+				'Tailor the SigNoz console to work according to your needs.',
+			dark: 'Dark',
+			light: 'Light',
+			system: 'System',
+			beta: 'Beta',
+			select_theme: 'Select your theme',
+			theme_description:
+				"Select if SigNoz's appearance should be light, dark, or automatically follow your system preference",
+			currently_following_system_theme: 'Currently following system theme:',
+			side_nav_pinned: 'Keep the primary sidebar always open',
+			side_nav_pinned_description:
+				'Keep the primary sidebar always open by default, unless collapsed with the keyboard shortcut',
+			adapt_timezone: 'Adapt to my timezone',
+			adapt_timezone_description:
+				'Adapt the timestamps shown in the SigNoz console to my active timezone.',
+			timezone_overridden: 'Your current timezone is overridden to',
+			timezone_override_hint:
+				'You can override the timezone adaption for any view with the time picker.',
+			clear_override: 'Clear override',
+			license: 'License',
+			license_key: 'License key',
+			copy_license_key: 'Copy license key',
+			license_key_description: 'Your SigNoz license key.',
+			copied_to_clipboard: 'Copied to clipboard',
+			update_name: 'Update name',
+			reset_password: 'Reset password',
+			name: 'Name',
+			name_placeholder: 'e.g. John Doe',
+			name_updated_successfully: 'Name updated successfully',
+			password_updated_successfully: 'Password updated successfully',
+			passwords_must_be_different:
+				'New password must be different from current password',
+			current_password: 'Current password',
+			new_password: 'New password',
+		},
+	},
+};
+
+const render: typeof baseRender = (ui, options, providerProps = {}) =>
+	baseRender(ui, options, {
+		i18nLanguage: 'en',
+		i18nResources: SETTINGS_I18N_RESOURCES,
+		...providerProps,
+	});
 
 describe('MySettings Flows', () => {
 	beforeEach(() => {

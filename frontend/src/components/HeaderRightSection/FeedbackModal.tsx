@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { toast } from '@signozhq/ui/sonner';
 import { Button, Input } from 'antd';
@@ -9,6 +10,7 @@ import { handleContactSupport } from 'container/Integrations/utils';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 
 function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
+	const { t } = useTranslation('common');
 	const [activeTab, setActiveTab] = useState('feedback');
 	const [feedback, setFeedback] = useState('');
 	const location = useLocation();
@@ -20,32 +22,43 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 
 		let entityName = 'Feedback';
 		if (activeTab === 'reportBug') {
-			entityName = 'Bug report';
+			entityName = t('bug_report');
 		} else if (activeTab === 'featureRequest') {
-			entityName = 'Feature request';
+			entityName = t('feature_request');
+		} else {
+			entityName = t('feedback');
 		}
 
-		logEvent('Feedback: Submitted', {
-			data: feedback,
-			type: activeTab,
-			page: location.pathname,
-		})
-			.then(() => {
-				onClose();
-
-				toast.success(`${entityName} submitted successfully`, {
-					position: 'top-right',
-				});
-			})
-			.catch(() => {
-				console.error(`Failed to submit ${entityName}`);
-				toast.error(`Failed to submit ${entityName}`, {
-					position: 'top-right',
-				});
-			})
-			.finally(() => {
-				setIsLoading(false);
+		try {
+			await logEvent('Feedback: Submitted', {
+				data: feedback,
+				type: activeTab,
+				page: location.pathname,
 			});
+
+			onClose();
+
+			toast.success(
+				t('feedback_submit_success', {
+					entity: entityName,
+				}),
+				{
+					position: 'top-right',
+				},
+			);
+		} catch {
+			console.error(`Failed to submit ${entityName}`);
+			toast.error(
+				t('feedback_submit_error', {
+					entity: entityName,
+				}),
+				{
+					position: 'top-right',
+				},
+			);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	useEffect(
@@ -61,7 +74,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 			label: (
 				<div className="feedback-modal-tab-label">
 					<div className="tab-icon dot feedback-tab" />
-					Feedback
+					{t('feedback')}
 				</div>
 			),
 			key: 'feedback',
@@ -71,7 +84,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 			label: (
 				<div className="feedback-modal-tab-label">
 					<div className="tab-icon dot bug-tab" />
-					Report a bug
+					{t('report_a_bug')}
 				</div>
 			),
 			key: 'reportBug',
@@ -81,7 +94,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 			label: (
 				<div className="feedback-modal-tab-label">
 					<div className="tab-icon dot feature-tab" />
-					Feature request
+					{t('feature_request')}
 				</div>
 			),
 			key: 'featureRequest',
@@ -113,7 +126,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 			<div className="feedback-modal-content">
 				<div className="feedback-modal-content-header">
 					<Input.TextArea
-						placeholder="Write your feedback here..."
+						placeholder={t('write_feedback_placeholder')}
 						rows={6}
 						required
 						className="feedback-input"
@@ -131,26 +144,34 @@ function FeedbackModal({ onClose }: { onClose: () => void }): JSX.Element {
 					loading={isLoading}
 					disabled={feedback.length === 0}
 				>
-					Submit
+					{t('submit')}
 				</Button>
 				<div className="feedback-modal-content-footer-info-text">
 					<Typography.Text>
-						Have a specific issue?{' '}
-						<Typography.Link
-							className="contact-support-link"
-							onClick={handleContactSupportClick}
-						>
-							Contact Support{' '}
-						</Typography.Link>
-						or{' '}
-						<a
-							href="https://signoz.io/docs/introduction/"
-							target="_blank"
-							rel="noreferrer"
-							className="read-docs-link"
-						>
-							Read our docs
-						</a>
+						<Trans
+							t={t}
+							i18nKey="feedback_footer_help"
+							components={{
+								supportLink: (
+									<Typography.Link
+										className="contact-support-link"
+										onClick={handleContactSupportClick}
+									>
+										{t('contact_support')}
+									</Typography.Link>
+								),
+								docsLink: (
+									<a
+										href="https://signoz.io/docs/introduction/"
+										target="_blank"
+										rel="noreferrer"
+										className="read-docs-link"
+									>
+										{t('read_our_docs')}
+									</a>
+								),
+							}}
+						/>
 					</Typography.Text>
 				</div>
 			</div>

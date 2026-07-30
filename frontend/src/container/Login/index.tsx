@@ -15,6 +15,7 @@ import { ArrowRight } from '@signozhq/icons';
 import { ErrorV2 } from 'types/api';
 import APIError from 'types/api/error';
 import { SessionsContext } from 'types/api/v2/sessions/context/get';
+import { useTranslation } from 'react-i18next';
 
 import tvUrl from '@/assets/svgs/tv.svg';
 
@@ -43,6 +44,7 @@ type FormValues = {
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function Login(): JSX.Element {
+	const { t } = useTranslation('login');
 	const urlQueryParams = useUrlQuery();
 	// override for callbackAuthN in case of some misconfiguration
 	const isPasswordAuthNEnabled = (urlQueryParams.get('password') || 'N') === 'Y';
@@ -310,24 +312,23 @@ function Login(): JSX.Element {
 						<img src={tvUrl} alt="TV" width="32" height="32" />
 					</div>
 					<Typography.Title level={4} className="login-form-title">
-						Sign in to your workspace
+						{t('workspace_login_title')}
 					</Typography.Title>
 					<Typography.Text className="login-form-description">
-						Sign in to monitor, trace, and troubleshoot your applications
-						effortlessly.
+						{t('workspace_login_description')}
 					</Typography.Text>
 				</div>
 
 				<div className="login-form-card">
 					<ParentContainer>
-						<Label htmlFor="signupEmail">Email address</Label>
+						<Label htmlFor="signupEmail">{t('label_email_address')}</Label>
 						<FormContainer.Item name="email">
 							<Input
 								type="email"
 								id="email"
 								data-testid="email"
 								required
-								placeholder="e.g. john@signoz.io"
+								placeholder={t('placeholder_workspace_email')}
 								disabled={versionLoading}
 								className="login-form-input"
 								onPressEnter={onNextHandler}
@@ -337,13 +338,13 @@ function Login(): JSX.Element {
 
 					{sessionsContext && sessionsContext.orgs.length > 1 && (
 						<ParentContainer>
-							<Label htmlFor="orgId">Organization Name</Label>
+							<Label htmlFor="orgId">{t('label_organization_name')}</Label>
 							<FormContainer.Item name="orgId">
 								<Select
 									id="orgId"
 									data-testid="orgId"
 									className="login-form-input login-form-select-no-border"
-									placeholder="Select your organization"
+									placeholder={t('placeholder_select_organization')}
 									options={sessionsContext.orgs.map((org) => ({
 										value: org.id,
 										label: org.name || 'default',
@@ -359,7 +360,7 @@ function Login(): JSX.Element {
 					{sessionsContext && isPasswordAuthN && (
 						<ParentContainer>
 							<div className="password-label-container">
-								<Label htmlFor="Password">Password</Label>
+								<Label htmlFor="Password">{t('label_password')}</Label>
 								<Typography.Link
 									className="forgot-password-link"
 									onClick={(event): void => {
@@ -367,13 +368,13 @@ function Login(): JSX.Element {
 										handleForgotPasswordClick();
 									}}
 								>
-									Forgot password?
+									{t('forgot_password')}
 								</Typography.Link>
 							</div>
 							<FormContainer.Item name="password">
 								<Input.Password
 									required
-									placeholder="Enter password"
+									placeholder={t('placeholder_password')}
 									id="currentPassword"
 									data-testid="password"
 									disabled={isSubmitting}
@@ -396,7 +397,7 @@ function Login(): JSX.Element {
 							className="login-submit-btn"
 							suffix={<ArrowRight />}
 						>
-							Next
+							{t('button_initiate_login')}
 						</Button>
 					)}
 
@@ -411,7 +412,7 @@ function Login(): JSX.Element {
 							className="login-submit-btn"
 							suffix={<ArrowRight />}
 						>
-							Sign in with SSO
+							{t('button_sign_in_sso')}
 						</Button>
 					)}
 
@@ -426,7 +427,7 @@ function Login(): JSX.Element {
 							className="login-submit-btn"
 							suffix={<ArrowRight />}
 						>
-							Sign in with Password
+							{t('button_sign_in_password')}
 						</Button>
 					)}
 				</div>

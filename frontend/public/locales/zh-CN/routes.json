@@ -1,0 +1,23 @@
+{
+	"general": "通用",
+	"alert_channels": "告警渠道",
+	"organization_settings": "组织设置",
+	"ingestion_settings": "接入设置",
+	"api_keys": "API 密钥",
+	"my_settings": "我的设置",
+	"overview_metrics": "概览指标",
+	"custom_domain_settings": "自定义域名设置",
+	"dbcall_metrics": "数据库调用",
+	"external_metrics": "外部调用",
+	"pipeline": "流水线",
+	"pipelines": "流水线",
+	"archives": "归档",
+	"logs_to_metrics": "日志转指标",
+	"roles": "角色",
+	"role_details": "角色详情",
+	"role_edit": "编辑角色",
+	"role_create": "创建角色",
+	"members": "成员",
+	"service_accounts": "服务账号",
+	"mcp_server": "MCP Server"
+}

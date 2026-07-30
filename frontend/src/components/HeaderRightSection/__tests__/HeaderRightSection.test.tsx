@@ -1,9 +1,8 @@
 // Mock dependencies before imports
 import { useLocation } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { logEventMock } from '__tests__/logEventMock';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
+import { render, screen, userEvent } from 'tests/test-utils';
 
 import HeaderRightSection from '../HeaderRightSection';
 
@@ -58,6 +57,22 @@ const mockLocation = {
 	pathname: '/test-path',
 };
 
+const i18nProviderProps = {
+	i18nLanguage: 'en',
+	i18nResources: {
+		en: {
+			common: {
+				select_language: 'Select language',
+			},
+		},
+		'zh-CN': {
+			common: {
+				select_language: '选择语言',
+			},
+		},
+	},
+};
+
 describe('HeaderRightSection', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -72,10 +87,17 @@ describe('HeaderRightSection', () => {
 	});
 
 	it('should render all buttons when all features are enabled', () => {
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		const buttons = screen.getAllByRole('button');
-		expect(buttons).toHaveLength(3);
+		expect(buttons).toHaveLength(4);
+		expect(
+			screen.getByRole('button', { name: /select language/i }),
+		).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: /share/i })).toBeInTheDocument();
 
 		expect(screen.getByRole('button', { name: /feedback/i })).toBeInTheDocument();
@@ -91,10 +113,12 @@ describe('HeaderRightSection', () => {
 				enableShare={false}
 				enableFeedback
 			/>,
+			undefined,
+			i18nProviderProps,
 		);
 
 		const buttons = screen.getAllByRole('button');
-		expect(buttons).toHaveLength(1);
+		expect(buttons).toHaveLength(2);
 		expect(
 			screen.queryByRole('button', { name: /share/i }),
 		).not.toBeInTheDocument();
@@ -107,12 +131,16 @@ describe('HeaderRightSection', () => {
 
 	it('should open feedback modal and log event when feedback button is clicked', async () => {
 		const user = userEvent.setup();
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		const feedbackButton = screen.getByRole('button', { name: /feedback/i });
 		expect(feedbackButton).toBeInTheDocument();
 
-		await user.click(feedbackButton!);
+		await user.click(feedbackButton);
 
 		expect(logEventMock).toHaveBeenCalledWith('Feedback: Clicked', {
 			page: mockLocation.pathname,
@@ -122,7 +150,11 @@ describe('HeaderRightSection', () => {
 
 	it('should open share modal and log event when share button is clicked', async () => {
 		const user = userEvent.setup();
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		const shareButton = screen.getByRole('button', { name: /share/i });
 		await user.click(shareButton);
@@ -135,14 +167,18 @@ describe('HeaderRightSection', () => {
 
 	it('should log event when announcements button is clicked', async () => {
 		const user = userEvent.setup();
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		const announcementsButton = screen.getByRole('button', {
 			name: /announcements/i,
 		});
 		expect(announcementsButton).toBeInTheDocument();
 
-		await user.click(announcementsButton!);
+		await user.click(announcementsButton);
 
 		expect(logEventMock).toHaveBeenCalledWith('Announcements: Clicked', {
 			page: mockLocation.pathname,
@@ -151,13 +187,17 @@ describe('HeaderRightSection', () => {
 
 	it('should close feedback modal when onClose is called', async () => {
 		const user = userEvent.setup();
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		// Open feedback modal
 		const feedbackButton = screen.getByRole('button', { name: /feedback/i });
 		expect(feedbackButton).toBeInTheDocument();
 
-		await user.click(feedbackButton!);
+		await user.click(feedbackButton);
 		expect(screen.getByTestId('feedback-modal')).toBeInTheDocument();
 
 		// Close feedback modal
@@ -168,7 +208,11 @@ describe('HeaderRightSection', () => {
 
 	it('should close other modals when opening feedback modal', async () => {
 		const user = userEvent.setup();
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		// Open share modal first
 		const shareButton = screen.getByRole('button', { name: /share/i });
@@ -179,7 +223,7 @@ describe('HeaderRightSection', () => {
 		const feedbackButton = screen.getByRole('button', { name: /feedback/i });
 		expect(feedbackButton).toBeInTheDocument();
 
-		await user.click(feedbackButton!);
+		await user.click(feedbackButton);
 		expect(screen.getByTestId('feedback-modal')).toBeInTheDocument();
 		expect(screen.queryByTestId('share-modal')).not.toBeInTheDocument();
 	});
@@ -192,7 +236,11 @@ describe('HeaderRightSection', () => {
 			isCommunityEnterpriseUser: false,
 		});
 
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		const feedbackButton = screen.queryByRole('button', { name: /feedback/i });
 		expect(feedbackButton).toBeInTheDocument();
@@ -206,7 +254,11 @@ describe('HeaderRightSection', () => {
 			isCommunityEnterpriseUser: false,
 		});
 
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		const feedbackButton = screen.queryByRole('button', { name: /feedback/i });
 		expect(feedbackButton).toBeInTheDocument();
@@ -220,7 +272,11 @@ describe('HeaderRightSection', () => {
 			isCommunityEnterpriseUser: false,
 		});
 
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		const feedbackButton = screen.queryByRole('button', { name: /feedback/i });
 		expect(feedbackButton).not.toBeInTheDocument();
@@ -234,7 +290,11 @@ describe('HeaderRightSection', () => {
 			isCommunityEnterpriseUser: true,
 		});
 
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
 		const feedbackButton = screen.queryByRole('button', { name: /feedback/i });
 		expect(feedbackButton).not.toBeInTheDocument();
@@ -248,11 +308,15 @@ describe('HeaderRightSection', () => {
 			isCommunityEnterpriseUser: false,
 		});
 
-		render(<HeaderRightSection {...defaultProps} />);
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
 
-		// Should have 2 buttons (announcements + share) instead of 3
+		// Should have 3 buttons (language + announcements + share) instead of 4
 		const buttons = screen.getAllByRole('button');
-		expect(buttons).toHaveLength(2);
+		expect(buttons).toHaveLength(3);
 
 		// Verify which buttons are present
 		expect(screen.getByRole('button', { name: /share/i })).toBeInTheDocument();
@@ -264,5 +328,25 @@ describe('HeaderRightSection', () => {
 		expect(
 			screen.queryByRole('button', { name: /feedback/i }),
 		).not.toBeInTheDocument();
+	});
+
+	it('should let users switch languages from the header', async () => {
+		const user = userEvent.setup();
+		render(
+			<HeaderRightSection {...defaultProps} />,
+			undefined,
+			i18nProviderProps,
+		);
+
+		await user.click(screen.getByRole('button', { name: /select language/i }));
+
+		expect(screen.getByText('English')).toBeInTheDocument();
+
+		await user.click(screen.getByText('简体中文'));
+
+		expect(logEventMock).toHaveBeenCalledWith('Language: Changed', {
+			language: 'zh-CN',
+		});
+		expect(screen.getByRole('button', { name: '选择语言' })).toBeInTheDocument();
 	});
 });

@@ -1,0 +1,19 @@
+{
+	"monitor_signup": "监控你的应用，找到问题根因。",
+	"version": "版本",
+	"latest_version": "最新版本",
+	"current_version": "当前版本",
+	"release_notes": "发布说明",
+	"read_how_to_upgrade": "阅读升级说明",
+	"latest_version_signoz": "你正在运行 SigNoz 的最新版本。",
+	"stale_version": "你正在使用较旧版本，可能错过了我们已经发布的新功能。建议升级到最新版本。",
+	"oops_something_went_wrong_version": "糟糕，获取版本更新信息时出现问题",
+	"n_a": "不适用",
+	"routes": {
+		"general": "通用",
+		"alert_channels": "告警渠道",
+		"all_errors": "所有异常",
+		"index_fields": "索引字段",
+		"pipelines": "流水线"
+	}
+}

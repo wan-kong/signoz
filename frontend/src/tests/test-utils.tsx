@@ -1,4 +1,6 @@
 import React, { ReactElement } from 'react';
+import { I18nextProvider } from 'react-i18next';
+import { Resource } from 'i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { Provider } from 'react-redux';
@@ -29,6 +31,7 @@ import {
 } from 'types/api/licensesV3/getActive';
 import { QueryBuilderContextType } from 'types/common/queryBuilder';
 import { ROLES, USER_ROLES } from 'types/roles';
+import { createTestI18nInstance } from '../ReactI18/testUtils';
 // import { MemoryRouter as V5MemoryRouter } from 'react-router-dom-v5-compat';
 
 // Mock ResizeObserver
@@ -65,7 +68,7 @@ afterEach(() => {
 });
 
 const mockStore = configureStore([thunk]);
-const mockStored = (role?: string): any =>
+const mockStored = (role?: string): ReturnType<typeof mockStore> =>
 	mockStore({
 		...store.getState(),
 		app: {
@@ -91,20 +94,6 @@ const mockStored = (role?: string): any =>
 			],
 		},
 	});
-
-jest.mock('react-i18next', () => ({
-	useTranslation: (): {
-		t: (str: string) => string;
-		i18n: {
-			changeLanguage: () => Promise<void>;
-		};
-	} => ({
-		t: (str: string): string => str,
-		i18n: {
-			changeLanguage: (): Promise<void> => new Promise(() => {}),
-		},
-	}),
-}));
 
 export const defaultFeatureFlags = [
 	{ name: FeatureKeys.SSO, active: true, usage: 0, usage_limit: -1, route: '' },
@@ -269,17 +258,25 @@ export function AllTheProviders({
 	appContextOverrides,
 	queryBuilderOverrides,
 	initialRoute,
+	i18nLanguage,
+	i18nResources,
 }: {
 	children: React.ReactNode;
 	role?: string;
 	appContextOverrides?: Partial<IAppContext>;
 	queryBuilderOverrides?: Partial<QueryBuilderContextType>;
 	initialRoute?: string;
+	i18nLanguage?: string;
+	i18nResources?: Resource;
 }): ReactElement {
 	// Set default values
 	const roleValue = role || 'ADMIN';
 	const appContextOverridesValue = appContextOverrides || {};
 	const initialRouteValue = initialRoute || '/';
+	const i18n = createTestI18nInstance({
+		language: i18nLanguage,
+		resources: i18nResources,
+	});
 
 	const queryBuilderContent = queryBuilderOverrides ? (
 		<QueryBuilderContext.Provider
@@ -294,27 +291,29 @@ export function AllTheProviders({
 	const appContextValue = getAppContextMock(roleValue, appContextOverridesValue);
 
 	return (
-		<MemoryRouter initialEntries={[initialRouteValue]}>
-			<NuqsAdapter>
-				<QueryClientProvider client={queryClient}>
-					<Provider store={mockStored(roleValue)}>
-						<AppContext.Provider value={appContextValue}>
-							<ResourceProvider>
-								<ErrorModalProvider>
-									<TimezoneProvider>
-										<TooltipProvider>
-											<PreferenceContextProvider>
-												{queryBuilderContent}
-											</PreferenceContextProvider>
-										</TooltipProvider>
-									</TimezoneProvider>
-								</ErrorModalProvider>
-							</ResourceProvider>
-						</AppContext.Provider>
-					</Provider>
-				</QueryClientProvider>
-			</NuqsAdapter>
-		</MemoryRouter>
+		<I18nextProvider i18n={i18n}>
+			<MemoryRouter initialEntries={[initialRouteValue]}>
+				<NuqsAdapter>
+					<QueryClientProvider client={queryClient}>
+						<Provider store={mockStored(roleValue)}>
+							<AppContext.Provider value={appContextValue}>
+								<ResourceProvider>
+									<ErrorModalProvider>
+										<TimezoneProvider>
+											<TooltipProvider>
+												<PreferenceContextProvider>
+													{queryBuilderContent}
+												</PreferenceContextProvider>
+											</TooltipProvider>
+										</TimezoneProvider>
+									</ErrorModalProvider>
+								</ResourceProvider>
+							</AppContext.Provider>
+						</Provider>
+					</QueryClientProvider>
+				</NuqsAdapter>
+			</MemoryRouter>
+		</I18nextProvider>
 	);
 }
 
@@ -323,6 +322,8 @@ AllTheProviders.defaultProps = {
 	appContextOverrides: {},
 	queryBuilderOverrides: undefined,
 	initialRoute: '/',
+	i18nLanguage: 'cimode',
+	i18nResources: {},
 };
 
 interface ProviderProps {
@@ -330,6 +331,8 @@ interface ProviderProps {
 	appContextOverrides?: Partial<IAppContext>;
 	queryBuilderOverrides?: Partial<QueryBuilderContextType>;
 	initialRoute?: string;
+	i18nLanguage?: string;
+	i18nResources?: Resource;
 }
 
 const customRender = (
@@ -342,6 +345,8 @@ const customRender = (
 		appContextOverrides = {},
 		queryBuilderOverrides,
 		initialRoute = '/',
+		i18nLanguage = 'cimode',
+		i18nResources = {},
 	} = providerProps;
 
 	return render(ui, {
@@ -351,6 +356,8 @@ const customRender = (
 				appContextOverrides={appContextOverrides}
 				queryBuilderOverrides={queryBuilderOverrides}
 				initialRoute={initialRoute}
+				i18nLanguage={i18nLanguage}
+				i18nResources={i18nResources}
 			>
 				{ui}
 			</AllTheProviders>

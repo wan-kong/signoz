@@ -1,11 +1,10 @@
 // Mock dependencies before imports
 import { useLocation } from 'react-router-dom';
 import { toast } from '@signozhq/ui/sonner';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { logEventMock } from '__tests__/logEventMock';
 import { handleContactSupport } from 'container/Integrations/utils';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
+import { render, screen, userEvent } from 'tests/test-utils';
 
 import FeedbackModal from '../FeedbackModal';
 
@@ -41,6 +40,29 @@ const mockLocation = {
 	pathname: '/test-path',
 };
 
+const i18nProviderProps = {
+	i18nLanguage: 'en',
+	i18nResources: {
+		en: {
+			common: {
+				feedback: 'Feedback',
+				report_a_bug: 'Report a bug',
+				bug_report: 'Bug report',
+				feature_request: 'Feature request',
+				write_feedback_placeholder: 'Write your feedback here...',
+				submit: 'Submit',
+				feedback_submit_success: '{{entity}} submitted successfully',
+				feedback_submit_error: 'Failed to submit {{entity}}',
+				feedback_footer_help:
+					'Have a specific issue? <supportLink>Contact Support</supportLink> or <docsLink>Read our docs</docsLink>',
+			},
+		},
+	},
+};
+
+const renderFeedbackModal = (): ReturnType<typeof render> =>
+	render(<FeedbackModal onClose={mockOnClose} />, undefined, i18nProviderProps);
+
 describe('FeedbackModal', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -54,7 +76,7 @@ describe('FeedbackModal', () => {
 	});
 
 	it('should render feedback modal with all tabs', () => {
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		expect(screen.getByText('Feedback')).toBeInTheDocument();
 		expect(screen.getByText('Report a bug')).toBeInTheDocument();
@@ -67,7 +89,7 @@ describe('FeedbackModal', () => {
 
 	it('should switch between tabs when clicked', async () => {
 		const user = userEvent.setup();
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		// Initially, feedback radio should be active
 		const feedbackRadio = screen.getByRole('radio', { name: 'Feedback' });
@@ -90,7 +112,7 @@ describe('FeedbackModal', () => {
 
 	it('should update feedback text when typing in textarea', async () => {
 		const user = userEvent.setup();
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		const textarea = screen.getByPlaceholderText('Write your feedback here...');
 		const testFeedback = 'This is my feedback';
@@ -102,7 +124,7 @@ describe('FeedbackModal', () => {
 
 	it('should submit feedback and log event when submit button is clicked', async () => {
 		const user = userEvent.setup();
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		const textarea = screen.getByPlaceholderText('Write your feedback here...');
 		const submitButton = screen.getByRole('button', { name: /submit/i });
@@ -127,7 +149,7 @@ describe('FeedbackModal', () => {
 
 	it('should submit bug report with correct type', async () => {
 		const user = userEvent.setup();
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		// Switch to bug report tab
 		const bugTab = screen.getByText('Report a bug');
@@ -160,7 +182,7 @@ describe('FeedbackModal', () => {
 
 	it('should submit feature request with correct type', async () => {
 		const user = userEvent.setup();
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		// Switch to feature request tab
 		const featureTab = screen.getByText('Feature request');
@@ -198,7 +220,7 @@ describe('FeedbackModal', () => {
 			isCloudUser,
 		});
 
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		const contactSupportLink = screen.getByText('Contact Support');
 		await user.click(contactSupportLink);
@@ -213,7 +235,7 @@ describe('FeedbackModal', () => {
 			isCloudUser,
 		});
 
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		const contactSupportLink = screen.getByText('Contact Support');
 		await user.click(contactSupportLink);
@@ -222,7 +244,7 @@ describe('FeedbackModal', () => {
 	});
 
 	it('should render docs link with correct attributes', () => {
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		const docsLink = screen.getByText('Read our docs');
 		expect(docsLink).toHaveAttribute(
@@ -237,7 +259,7 @@ describe('FeedbackModal', () => {
 		const user = userEvent.setup();
 
 		// Render component
-		const { unmount } = render(<FeedbackModal onClose={mockOnClose} />);
+		const { unmount } = renderFeedbackModal();
 
 		// Change the form state first
 		const textArea = screen.getByPlaceholderText('Write your feedback here...');
@@ -254,7 +276,7 @@ describe('FeedbackModal', () => {
 		unmount();
 
 		// Re-render the component to verify state was reset
-		render(<FeedbackModal onClose={mockOnClose} />);
+		renderFeedbackModal();
 
 		// Verify form state is reset
 		const newTextArea = screen.getByPlaceholderText(

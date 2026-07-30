@@ -65,3 +65,11 @@ Embrace the spirit of collaboration and contribute to the success of our open-so
 - Eliminate the use of hard-coded strings or enums, favoring a more flexible and maintainable approach.
 - Strive to internationalize all strings within the codebase to support localization and improve accessibility for users across different languages.
 - Minimize the usage of multiple if statements or switch cases within a function. Consider creating a mapper and separating logic into multiple functions for better code organization.
+
+### Internationalization
+
+- Use `useTranslation` in React components and pass translation keys instead of hard-coded user-facing text.
+- Keep translation keys in the namespace closest to the feature area. Shared actions and states belong in `common`.
+- Do not translate service names, telemetry attribute names, user input, routes, API enum values, PromQL, SQL, or analytics event values.
+- When adding or editing locale JSON files, run `pnpm i18n:check` from `frontend/` before opening a PR.
+- New locale directories must match the fallback `en` namespace and key structure. Extra or missing keys should be fixed in the same change.

@@ -1,7 +1,11 @@
 import ROUTES from 'constants/routes';
-import history from 'lib/history';
 import { rest, server } from 'mocks-server/server';
-import { render, screen, userEvent, waitFor } from 'tests/test-utils';
+import {
+	render as baseRender,
+	screen,
+	userEvent,
+	waitFor,
+} from 'tests/test-utils';
 import { ErrorV2 } from 'types/api';
 import { Info } from 'types/api/v1/version/get';
 import { SessionsContext } from 'types/api/v2/sessions/context/get';
@@ -15,20 +19,43 @@ const CALLBACK_AUTHN_ORG = 'callback_authn_org';
 const CALLBACK_AUTHN_URL = 'https://sso.example.com/auth';
 const PASSWORD_AUTHN_ORG = 'password_authn_org';
 const PASSWORD_AUTHN_EMAIL = 'jest.test@signoz.io';
+const mockHistoryPush = jest.fn();
+const LOGIN_I18N_RESOURCES = {
+	en: {
+		login: {
+			workspace_login_title: 'Sign in to your workspace',
+			workspace_login_description:
+				'Sign in to monitor, trace, and troubleshoot your applications effortlessly.',
+			label_email_address: 'Email address',
+			label_organization_name: 'Organization Name',
+			placeholder_workspace_email: 'e.g. john@signoz.io',
+			placeholder_select_organization: 'Select your organization',
+			placeholder_password: 'Enter password',
+			label_password: 'Password',
+			forgot_password: 'Forgot password?',
+			button_initiate_login: 'Next',
+			button_sign_in_sso: 'Sign in with SSO',
+			button_sign_in_password: 'Sign in with Password',
+		},
+	},
+};
+
+const render: typeof baseRender = (ui, options, providerProps = {}) =>
+	baseRender(ui, options, {
+		i18nLanguage: 'en',
+		i18nResources: LOGIN_I18N_RESOURCES,
+		...providerProps,
+	});
 
 jest.mock('lib/history', () => ({
 	__esModule: true,
 	default: {
-		push: jest.fn(),
+		push: (...args: unknown[]) => mockHistoryPush(...args),
 		location: {
 			search: '',
 		},
 	},
 }));
-
-const mockHistoryPush = history.push as jest.MockedFunction<
-	typeof history.push
->;
 
 // Mock data
 const mockVersionSetupCompleted: Info = {

@@ -3,12 +3,11 @@
 import { useSelector } from 'react-redux';
 import { matchPath, useLocation } from 'react-router-dom';
 import { useCopyToClipboard } from 'react-use';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { logEventMock } from '__tests__/logEventMock';
 import ROUTES from 'constants/routes';
 import useUrlQuery from 'hooks/useUrlQuery';
 import GetMinMax from 'lib/getMinMax';
+import { render, screen, userEvent } from 'tests/test-utils';
 
 import ShareURLModal from '../ShareURLModal';
 
@@ -67,6 +66,26 @@ const mockHandleCopyToClipboard = jest.fn();
 const TEST_PATH = '/test-path';
 const ENABLE_ABSOLUTE_TIME_TEXT = 'Enable absolute time';
 
+const i18nProviderProps = {
+	i18nLanguage: 'en',
+	i18nResources: {
+		en: {
+			common: {
+				enable_absolute_time: ENABLE_ABSOLUTE_TIME_TEXT,
+				relative_time_toggle_error:
+					'Please select / enter valid relative time to toggle.',
+				share_page_link: 'Share page link',
+				share_page_link_description:
+					'Share the current page link with your team member',
+				copy_page_link: 'Copy page link',
+			},
+		},
+	},
+};
+
+const renderShareURLModal = (): ReturnType<typeof render> =>
+	render(<ShareURLModal />, undefined, i18nProviderProps);
+
 describe('ShareURLModal', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -100,7 +119,7 @@ describe('ShareURLModal', () => {
 	});
 
 	it('should render share modal with copy button', () => {
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		expect(screen.getByText('Share page link')).toBeInTheDocument();
 		expect(
@@ -113,7 +132,7 @@ describe('ShareURLModal', () => {
 
 	it('should copy URL and log event when copy button is clicked', async () => {
 		const user = userEvent.setup();
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		const copyButton = screen.getByRole('button', { name: /copy page link/i });
 		await user.click(copyButton);
@@ -128,7 +147,7 @@ describe('ShareURLModal', () => {
 	it('should show absolute time toggle when on time-enabled route', () => {
 		mockMatchPath.mockReturnValue(true); // Simulate being on a route that supports time
 
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		expect(screen.getByText(ENABLE_ABSOLUTE_TIME_TEXT)).toBeInTheDocument();
 		expect(screen.getByRole('switch')).toBeInTheDocument();
@@ -139,7 +158,7 @@ describe('ShareURLModal', () => {
 			key === 'relativeTime' ? '5min' : null,
 		);
 
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		expect(screen.getByText(ENABLE_ABSOLUTE_TIME_TEXT)).toBeInTheDocument();
 	});
@@ -151,7 +170,7 @@ describe('ShareURLModal', () => {
 			selectedTime: '5min', // Non-custom time should enable absolute time by default
 		});
 
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		const toggleSwitch = screen.getByRole('switch');
 		// Should be checked by default for non-custom time
@@ -171,7 +190,7 @@ describe('ShareURLModal', () => {
 
 		mockMatchPath.mockReturnValue(true);
 
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		expect(
 			screen.getByText('Please select / enter valid relative time to toggle.'),
@@ -186,7 +205,7 @@ describe('ShareURLModal', () => {
 			selectedTime: '5min',
 		});
 
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		// Absolute time should be enabled by default for non-custom time
 		// Click copy button directly
@@ -216,7 +235,7 @@ describe('ShareURLModal', () => {
 			}
 		});
 
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		// Should be enabled by default for custom time
 		const copyButton = screen.getByRole('button', { name: /copy page link/i });
@@ -233,7 +252,7 @@ describe('ShareURLModal', () => {
 			selectedTime: '5min',
 		});
 
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		// Disable absolute time first (it's enabled by default for non-custom time)
 		const toggleSwitch = screen.getByRole('switch');
@@ -257,7 +276,7 @@ describe('ShareURLModal', () => {
 			(pathname: string, options: any) => options.path === ROUTES.LOGS_EXPLORER,
 		);
 
-		render(<ShareURLModal />);
+		renderShareURLModal();
 
 		expect(screen.getByText(ENABLE_ABSOLUTE_TIME_TEXT)).toBeInTheDocument();
 		expect(screen.getByRole('switch')).toBeChecked();
