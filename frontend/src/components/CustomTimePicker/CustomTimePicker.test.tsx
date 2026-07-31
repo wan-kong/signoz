@@ -283,6 +283,6 @@ describe('CustomTimePicker', () => {
 
 		fireEvent.focus(input);
 
-		expect((input as HTMLInputElement).value).toBe('Live');
+		expect((input as HTMLInputElement).value).toBe('time.live');
 	});
 });

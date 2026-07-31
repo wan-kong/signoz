@@ -23,6 +23,7 @@ import { ICurrentQueryData } from 'hooks/useHandleExplorerTabChange';
 import { useNotifications } from 'hooks/useNotifications';
 import { ExplorerViews } from 'pages/LogsExplorer/utils';
 import { useAppContext } from 'providers/App/App';
+import { useTranslation } from 'react-i18next';
 import {
 	BaseAutocompleteData,
 	DataTypes,
@@ -44,6 +45,7 @@ function BodyTitleRenderer({
 	value,
 	handleChangeSelectedView,
 }: BodyTitleRendererProps): JSX.Element {
+	const { t } = useTranslation('logs');
 	const { onAddToQuery } = useActiveLog();
 	const { stagedQuery, updateQueriesData } = useQueryBuilder();
 
@@ -158,17 +160,17 @@ function BodyTitleRenderer({
 	const menuItems: BaseMenuItem[] = [
 		{
 			key: DROPDOWN_KEY.FILTER_IN,
-			label: `Filter for ${value}`,
+			label: t('details.actions.filter_for', { value }),
 		},
 		{
 			key: DROPDOWN_KEY.FILTER_OUT,
-			label: `Filter out ${value}`,
+			label: t('details.actions.filter_out', { value }),
 		},
 		...(isGroupBySupported
 			? [
 					{
 						key: DROPDOWN_KEY.GROUP_BY,
-						label: `Group by ${nodeKey}`,
+						label: t('details.actions.group_by', { field: nodeKey }),
 					},
 				]
 			: []),
@@ -199,8 +201,8 @@ function BodyTitleRenderer({
 
 			if (copyText) {
 				const notificationMessage = isObject
-					? `${cleanedNodeKey} object copied to clipboard`
-					: `${cleanedNodeKey} copied to clipboard`;
+					? t('details.clipboard.object_copied', { field: cleanedNodeKey })
+					: t('details.clipboard.copied', { field: cleanedNodeKey });
 
 				notifications.success({
 					message: notificationMessage,
@@ -208,7 +210,7 @@ function BodyTitleRenderer({
 				});
 			}
 		},
-		[cleanedNodeKey, parentIsArray, setCopy, value, notifications],
+		[cleanedNodeKey, parentIsArray, setCopy, value, notifications, t],
 	);
 
 	return (

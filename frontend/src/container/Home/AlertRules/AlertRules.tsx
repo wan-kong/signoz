@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { Button, Skeleton } from 'antd';
 import { Badge } from '@signozhq/ui/badge';
@@ -26,6 +27,7 @@ export default function AlertRules({
 	onUpdateChecklistDoneItem: (itemKey: string) => void;
 	loadingUserPreferences: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('home');
 	const { user } = useAppContext();
 	const [rulesExist, setRulesExist] = useState(false);
 
@@ -77,11 +79,11 @@ export default function AlertRules({
 				<div className="empty-state-content">
 					<img src={beaconUrl} alt="empty-alert-icon" className="empty-state-icon" />
 
-					<div className="empty-title">No Alert rules yet.</div>
+					<div className="empty-title">{t('alert_rules.empty_title')}</div>
 
 					{user?.role !== USER_ROLES.VIEWER && (
 						<div className="empty-description">
-							Create an Alert Rule to get started
+							{t('alert_rules.empty_description')}
 						</div>
 					)}
 				</div>
@@ -97,7 +99,7 @@ export default function AlertRules({
 									logEvent('Homepage: Create alert rule clicked', {});
 								}}
 							>
-								Create Alert Rule
+								{t('alert_rules.create')}
 							</Button>
 						</Link>
 
@@ -116,7 +118,7 @@ export default function AlertRules({
 								);
 							}}
 						>
-							Learn more <ArrowUpRight size={12} />
+							{t('learn_more')} <ArrowUpRight size={12} />
 						</Button>
 					</div>
 				)}
@@ -218,7 +220,9 @@ export default function AlertRules({
 		<Card className="alert-rules-card home-data-card">
 			{rulesExist && (
 				<Card.Header>
-					<div className="alert-rules-header home-data-card-header">Alerts</div>
+					<div className="alert-rules-header home-data-card-header">
+						{t('alert_rules.title')}
+					</div>
 				</Card.Header>
 			)}
 			<Card.Content>
@@ -236,7 +240,7 @@ export default function AlertRules({
 									logEvent('Homepage: All alert rules clicked', {});
 								}}
 							>
-								All Alert Rules <ArrowRight size={12} />
+								{t('alert_rules.all')} <ArrowRight size={12} />
 							</Button>
 						</Link>
 					</div>

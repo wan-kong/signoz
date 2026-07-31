@@ -1,4 +1,5 @@
 import { render, screen, userEvent, waitFor } from 'tests/test-utils';
+import { logsI18nProviderProps } from 'tests/logsI18n';
 
 import BodyTitleRenderer from '../BodyTitleRenderer';
 
@@ -46,6 +47,8 @@ describe('BodyTitleRenderer', () => {
 				value="John"
 				parentIsArray={false}
 			/>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		await user.click(screen.getByText('name'));
@@ -70,6 +73,8 @@ describe('BodyTitleRenderer', () => {
 				value="arrayElement"
 				parentIsArray
 			/>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		await user.click(screen.getByText('0'));
@@ -90,6 +95,8 @@ describe('BodyTitleRenderer', () => {
 				value={testObject}
 				parentIsArray={false}
 			/>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		await user.click(screen.getByText('metadata'));

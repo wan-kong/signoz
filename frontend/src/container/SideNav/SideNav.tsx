@@ -8,6 +8,7 @@ import {
 	useState,
 } from 'react';
 import { useMutation } from 'react-query';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -131,6 +132,8 @@ function SortableFilter({ item }: { item: SidebarItem }): JSX.Element {
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const { openCmdK } = useCmdK();
 	const { pathname, search } = useLocation();
 	const { currentVersion, latestVersion, isCurrentVersionError } = useSelector<
@@ -1215,7 +1218,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 									<ChevronsDown size={16} />
 								</div>
 
-								<div className="scroll-for-more-label">Scroll for more</div>
+								<div className="scroll-for-more-label">{t('scroll_for_more')}</div>
 							</div>
 						</div>
 					</div>
@@ -1231,7 +1234,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 											<div className="nav-item-data" data-testid="help-support-nav-item">
 												<div className="nav-item-icon">{helpSupportMenuItem.icon}</div>
 
-												<div className="nav-item-label">{helpSupportMenuItem.label}</div>
+												<div className="nav-item-label">{t(helpSupportMenuItem.label)}</div>
 											</div>
 										</div>
 									</DropdownMenuTrigger>
@@ -1257,7 +1260,16 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 														} as unknown as SidebarItem)
 													}
 												>
-													{item.label}
+													{item.labelKey ? (
+														<div className="nav-item-label-container">
+															<span>{t(item.labelKey)}</span>
+															<ArrowUpRight size={14} />
+														</div>
+													) : typeof item.label === 'string' ? (
+														t(item.label)
+													) : (
+														item.label
+													)}
 												</DropdownMenuItem>
 											);
 										})}
@@ -1273,7 +1285,9 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 											<div className="nav-item-data" data-testid="settings-nav-item">
 												<div className="nav-item-icon">{userSettingsMenuItem.icon}</div>
 
-												<div className="nav-item-label">{userSettingsMenuItem.label}</div>
+												<div className="nav-item-label">
+													{t(userSettingsMenuItem.label)}
+												</div>
 											</div>
 										</div>
 									</DropdownMenuTrigger>
@@ -1308,7 +1322,9 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 														} as unknown as SidebarItem)
 													}
 												>
-													{settingsItem.label}
+													{typeof settingsItem.label === 'string'
+														? t(settingsItem.label)
+														: settingsItem.label}
 												</DropdownMenuItem>
 											);
 										})}
@@ -1322,7 +1338,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 
 			<Modal
 				className="reorder-shortcut-nav-items-modal"
-				title={<span className="title">Manage Shortcuts</span>}
+				title={<span className="title">{t('nav.manage_shortcuts')}</span>}
 				open={isReorderShortcutNavItemsModalOpen}
 				closable
 				onCancel={(): void => {

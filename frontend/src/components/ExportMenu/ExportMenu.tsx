@@ -1,4 +1,5 @@
 import { Download } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@signozhq/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@signozhq/ui/radio-group';
@@ -34,6 +35,8 @@ export default function ExportMenu({
 	yAxisUnit,
 	fileName,
 }: ExportMenuProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const [exportFormat, setExportFormat] = useState<string>(ExportFormat.Csv);
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
@@ -51,13 +54,13 @@ export default function ExportMenu({
 
 	return (
 		<Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-			<TooltipSimple title="Download">
+			<TooltipSimple title={t('download')}>
 				<PopoverTrigger asChild>
 					<Button
 						variant="ghost"
 						color="secondary"
 						size="icon"
-						aria-label="Download"
+						aria-label={t('download')}
 						data-testid={`export-menu-${dataSource}`}
 						disabled={isExporting}
 						loading={isExporting}
@@ -68,7 +71,7 @@ export default function ExportMenu({
 			</TooltipSimple>
 			<PopoverContent align="end" className="export-menu-popover">
 				<div className="export-format">
-					<Typography.Text className="title">FORMAT</Typography.Text>
+					<Typography.Text className="title">{t('format')}</Typography.Text>
 					<RadioGroup value={exportFormat} onChange={setExportFormat}>
 						<RadioGroupItem value={ExportFormat.Csv}>csv</RadioGroupItem>
 						<RadioGroupItem value={ExportFormat.Jsonl}>jsonl</RadioGroupItem>
@@ -84,7 +87,7 @@ export default function ExportMenu({
 					loading={isExporting}
 					prefix={<Download size={16} />}
 				>
-					Export
+					{t('export')}
 				</Button>
 			</PopoverContent>
 		</Popover>

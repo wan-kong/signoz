@@ -28,6 +28,7 @@ import { useApiMonitoringParams } from 'container/ApiMonitoring/queryParams';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { isFunction, isNull } from 'lodash-es';
 import { useAppContext } from 'providers/App/App';
+import { useTranslation } from 'react-i18next';
 import { Query } from 'types/api/queryBuilder/queryBuilderData';
 import { USER_ROLES } from 'types/roles';
 
@@ -56,6 +57,7 @@ export default function QuickFilters(props: IQuickFiltersProps): JSX.Element {
 		useFieldApis,
 	} = props;
 	const { user } = useAppContext();
+	const { t } = useTranslation('common');
 	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 	const isAdmin = user.role === USER_ROLES.ADMIN;
 	const [params, setParams] = useApiMonitoringParams();
@@ -184,12 +186,12 @@ export default function QuickFilters(props: IQuickFiltersProps): JSX.Element {
 		<section className="left-actions">
 			<Filter size="md" />
 			<Typography.Text className="text">
-				{displayedQueryName ? 'Filters for' : 'Filters'}
+				{displayedQueryName ? t('filters_for') : t('filters')}
 			</Typography.Text>
 			{queryOptions.length > 1 && (!isListView || shouldShowDropdownInListView) ? (
 				<Combobox open={open} onOpenChange={setOpen}>
 					<ComboboxTrigger
-						placeholder="Select a query"
+						placeholder={t('select_query')}
 						value={queryOptions.find((f) => f.value === validQueryIndex)?.label || ''}
 						className="select-box"
 					/>
@@ -217,9 +219,7 @@ export default function QuickFilters(props: IQuickFiltersProps): JSX.Element {
 				</Combobox>
 			) : (
 				displayedQueryName && (
-					<Tooltip
-						title={`Filter currently in sync with query ${displayedQueryName}`}
-					>
+					<Tooltip title={t('filter_in_sync', { queryName: displayedQueryName })}>
 						<Typography.Text className="sync-tag">
 							{displayedQueryName}
 						</Typography.Text>
@@ -231,13 +231,13 @@ export default function QuickFilters(props: IQuickFiltersProps): JSX.Element {
 
 	const renderRightActions = (): JSX.Element => (
 		<section className="right-actions">
-			<Tooltip title="Reset All">
+			<Tooltip title={t('reset_all')}>
 				<div className="right-action-icon-container">
 					<RefreshCw className="sync-icon" size="md" onClick={handleReset} />
 				</div>
 			</Tooltip>
 			{showFilterCollapse && (
-				<Tooltip title="Collapse Filters">
+				<Tooltip title={t('collapse_filters')}>
 					<div className="right-action-icon-container">
 						<ArrowUpToLine
 							style={{ rotate: '270deg', cursor: 'pointer' }}
@@ -248,7 +248,7 @@ export default function QuickFilters(props: IQuickFiltersProps): JSX.Element {
 				</Tooltip>
 			)}
 			{isDynamicFilters && isAdmin && (
-				<Tooltip title="Settings">
+				<Tooltip title={t('settings')}>
 					<div
 						className={classNames('right-action-icon-container', {
 							active: isSettingsOpen,
@@ -264,8 +264,8 @@ export default function QuickFilters(props: IQuickFiltersProps): JSX.Element {
 						<AnnouncementTooltip
 							show={showAnnouncementTooltip}
 							position={{ top: -5, left: 15 }}
-							title="Edit your quick filters"
-							message="You can now customize and re-arrange your quick filters panel. Select the quick filters you’d need and hide away the rest for faster exploration."
+							title={t('edit_quick_filters')}
+							message={t('edit_quick_filters_message')}
 							onClose={(): void => {
 								setLocalStorageKey(
 									LOCALSTORAGE.QUICK_FILTERS_SETTINGS_ANNOUNCEMENT,
@@ -283,7 +283,7 @@ export default function QuickFilters(props: IQuickFiltersProps): JSX.Element {
 		<>
 			{source === QuickFiltersSource.API_MONITORING && (
 				<div className="api-quick-filters-header">
-					<Typography.Text>Show IP addresses</Typography.Text>
+					<Typography.Text>{t('show_ip_addresses')}</Typography.Text>
 					<Switch
 						style={{ marginLeft: 'auto' }}
 						value={showIP ?? true}
@@ -354,7 +354,7 @@ export default function QuickFilters(props: IQuickFiltersProps): JSX.Element {
 				{filterConfig.length === 0 && (
 					<div className="no-filters-container">
 						<Frown size={16} />
-						<Typography.Text>No filters found</Typography.Text>
+						<Typography.Text>{t('no_filters_found')}</Typography.Text>
 					</div>
 				)}
 			</section>

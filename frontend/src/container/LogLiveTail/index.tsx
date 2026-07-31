@@ -10,6 +10,7 @@ import { useIsDarkMode } from 'hooks/useDarkMode';
 import { useNotifications } from 'hooks/useNotifications';
 import getStep from 'lib/getStep';
 import { throttle } from 'lodash-es';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { bindActionCreators, Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -34,6 +35,7 @@ import { TIME_PICKER_OPTIONS } from './config';
 import { StopContainer, TimePickerCard, TimePickerSelect } from './styles';
 
 function LogLiveTail({ getLogsAggregate }: Props): JSX.Element {
+	const { t } = useTranslation('logs');
 	const {
 		liveTail,
 		searchFilter: { queryString },
@@ -124,7 +126,7 @@ function LogLiveTail({ getLogsAggregate }: Props): JSX.Element {
 					payload: false,
 				});
 				notifications.error({
-					message: 'Live tail stopped due to some error.',
+					message: t('live.error_stopped'),
 				});
 			};
 		}
@@ -179,12 +181,12 @@ function LogLiveTail({ getLogsAggregate }: Props): JSX.Element {
 			>
 				{TIME_PICKER_OPTIONS.map((optionData) => (
 					<Select.Option key={optionData.label} value={optionData.value}>
-						Last {optionData.label}
+						{t('live.last_range', { range: optionData.label })}
 					</Select.Option>
 				))}
 			</TimePickerSelect>
 		),
-		[dispatch, liveTail, liveTailStartRange],
+		[dispatch, liveTail, liveTailStartRange, t],
 	);
 
 	const isDisabled = useMemo(
@@ -214,11 +216,11 @@ function LogLiveTail({ getLogsAggregate }: Props): JSX.Element {
 					<Button
 						type="primary"
 						onClick={onLiveTailStop}
-						title="Pause live tail"
+						title={t('live.pause_tooltip')}
 						style={{ background: green[6] }}
 					>
 						<Flex align="center" gap={4}>
-							<span>Pause</span>
+							<span>{t('live.pause')}</span>
 							<Pause size="md" />
 						</Flex>
 					</Button>
@@ -226,17 +228,17 @@ function LogLiveTail({ getLogsAggregate }: Props): JSX.Element {
 					<Button
 						type="primary"
 						onClick={handleLiveTailStart}
-						title="Start live tail"
+						title={t('live.start_tooltip')}
 						disabled={isDisabled}
 					>
 						<Flex align="center" gap={4}>
-							Go Live <Play size="md" />
+							{t('live.go_live')} <Play size="md" />
 						</Flex>
 					</Button>
 				)}
 
 				{liveTail !== 'STOPPED' && (
-					<Button type="dashed" onClick={onLiveTailStop} title="Exit live tail">
+					<Button type="dashed" onClick={onLiveTailStop} title={t('live.exit')}>
 						<StopContainer isDarkMode={isDarkMode} />
 					</Button>
 				)}
@@ -244,7 +246,7 @@ function LogLiveTail({ getLogsAggregate }: Props): JSX.Element {
 				<Popover
 					getPopupContainer={popupContainer}
 					placement="bottomRight"
-					title="Select Live Tail Timing"
+					title={t('live.select_timing')}
 					trigger="click"
 					content={OptionsPopOverContent}
 				>

@@ -13,6 +13,7 @@ import { ChangeViewFunctionType } from 'container/ExplorerOptions/types';
 import { OptionsQuery } from 'container/OptionsMenu/types';
 import { useIsDarkMode } from 'hooks/useDarkMode';
 import { ChevronDown, ChevronRight, Search } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { IField } from 'types/api/logs/fields';
 import { ILog } from 'types/api/logs/log';
 
@@ -43,6 +44,7 @@ function Overview({
 	listViewPanelSelectedFields,
 	handleChangeSelectedView,
 }: Props): JSX.Element {
+	const { t } = useTranslation('logs');
 	const [isWrapWord, setIsWrapWord] = useState<boolean>(true);
 	const [isSearchVisible, setIsSearchVisible] = useState<boolean>(true);
 	const [isAttributesExpanded, setIsAttributesExpanded] =
@@ -139,7 +141,7 @@ function Overview({
 								/>
 								<div className="log-switch">
 									<div className="wrap-word-switch">
-										<Typography.Text>Wrap text</Typography.Text>
+										<Typography.Text>{t('details.wrap_text')}</Typography.Text>
 										<Switch value={isWrapWord} onChange={handleWrapWord} />
 									</div>
 								</div>
@@ -168,7 +170,7 @@ function Overview({
 							>
 								<Badge color="vanilla">
 									<Typography.Text style={{ color: Color.BG_ROBIN_400 }}>
-										Attributes
+										{t('details.attributes')}
 									</Typography.Text>
 								</Badge>
 
@@ -183,7 +185,7 @@ function Overview({
 											handleSearchVisible();
 										}}
 									>
-										Search
+										{t('details.search')}
 									</Button>
 								)}
 							</div>
@@ -193,7 +195,7 @@ function Overview({
 								{isSearchVisible && (
 									<Input
 										autoFocus
-										placeholder="Search for a field..."
+										placeholder={t('details.search_placeholder')}
 										className="search-input"
 										value={fieldSearchInput}
 										onChange={(e): void => setFieldSearchInput(e.target.value)}

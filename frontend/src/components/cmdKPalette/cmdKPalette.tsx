@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { useLocation } from 'react-router-dom';
 import {
@@ -74,6 +75,8 @@ export function CmdKPalette({
 }: {
 	userRole: UserRole;
 }): JSX.Element | null {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const { open, setOpen } = useCmdK();
 
 	const { setAutoSwitch, setTheme, theme } = useThemeMode();
@@ -182,9 +185,9 @@ export function CmdKPalette({
 				position="top"
 				offset={110}
 			>
-				<CommandInput placeholder="Search…" className="cmdk-input-wrapper" />
+				<CommandInput placeholder={t('search')} className="cmdk-input-wrapper" />
 				<CommandList className="cmdk-list-scroll">
-					<CommandEmpty>No results</CommandEmpty>
+					<CommandEmpty>{t('no_results')}</CommandEmpty>
 					{grouped.map(([section, items]) => (
 						<CommandGroup
 							key={section}

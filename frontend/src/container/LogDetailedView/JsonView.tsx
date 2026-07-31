@@ -4,6 +4,7 @@ import { Color } from '@signozhq/design-tokens';
 import { Switch } from '@signozhq/ui/switch';
 import { Typography } from '@signozhq/ui/typography';
 import { useIsDarkMode } from 'hooks/useDarkMode';
+import { useTranslation } from 'react-i18next';
 
 import { JSONViewProps } from './LogDetailedView.types';
 import { aggregateAttributesResourcesToString } from './utils';
@@ -11,6 +12,7 @@ import { aggregateAttributesResourcesToString } from './utils';
 import './JsonView.styles.scss';
 
 function JSONView({ logData }: JSONViewProps): JSX.Element {
+	const { t } = useTranslation('logs');
 	const [isWrapWord, setIsWrapWord] = useState<boolean>(true);
 
 	const LogJsonData = useMemo(
@@ -80,7 +82,7 @@ function JSONView({ logData }: JSONViewProps): JSX.Element {
 			<div className="json-view-footer">
 				<div className="log-switch">
 					<div className="wrap-word-switch">
-						<Typography.Text>Wrap text</Typography.Text>
+						<Typography.Text>{t('details.wrap_text')}</Typography.Text>
 						<Switch value={isWrapWord} onChange={handleWrapWord} />
 					</div>
 				</div>

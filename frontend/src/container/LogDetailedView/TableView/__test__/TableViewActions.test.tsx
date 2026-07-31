@@ -1,11 +1,27 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+	fireEvent,
+	render as rtlRender,
+	RenderResult,
+	screen,
+} from '@testing-library/react';
 import { RESTRICTED_SELECTED_FIELDS } from 'container/LogsFilters/config';
 import { useGetSearchQueryParam } from 'hooks/queryBuilder/useGetSearchQueryParam';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { ExplorerViews } from 'pages/LogsExplorer/utils';
+import { I18nextProvider } from 'react-i18next';
+import logs from '../../../../../public/locales/en/logs.json';
+import { createTestI18nInstance } from '../../../../ReactI18/testUtils';
 
 import TableViewActions from '../TableViewActions';
 import useAsyncJSONProcessing from '../useAsyncJSONProcessing';
+
+const i18n = createTestI18nInstance({
+	language: 'en',
+	resources: { en: { logs } },
+});
+
+const render = (ui: React.ReactElement): RenderResult =>
+	rtlRender(<I18nextProvider i18n={i18n}>{ui}</I18nextProvider>);
 
 // Mock data for tests
 let mockCopyToClipboard: jest.Mock;

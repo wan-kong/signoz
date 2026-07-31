@@ -7,6 +7,7 @@ import {
 	useState,
 } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Button } from 'antd';
 import logEvent from 'api/common/logEvent';
@@ -114,6 +115,8 @@ function CustomTimePickerPopoverContent({
 	customDateTimeInputStatus = CustomTimePickerInputStatus.UNSET,
 	inputErrorDetails,
 }: CustomTimePickerPopoverContentProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const { pathname } = useLocation();
 
 	const isLogsExplorerPage = useMemo(
@@ -185,7 +188,7 @@ function CustomTimePickerPopoverContent({
 							onSelectHandler(option.label, option.value);
 						}}
 					>
-						{option.label}
+						{t(option.label)}
 					</Button>
 				))}
 			</div>
@@ -252,7 +255,7 @@ function CustomTimePickerPopoverContent({
 							type="text"
 							onClick={handleGoLive}
 						>
-							Live
+							{t('time.live')}
 						</Button>
 					)}
 					{options.map((option) => (
@@ -272,7 +275,7 @@ function CustomTimePickerPopoverContent({
 									: selectedTime === option.value && !isLiveLogsEnabled && 'active',
 							)}
 						>
-							<span className="time-label">{option.label}</span>
+							<span className="time-label">{t(option.label)}</span>
 
 							{option.value !== 'custom' && option.value !== '1month' && (
 								<span className="time-value">{option.value}</span>
@@ -315,13 +318,13 @@ function CustomTimePickerPopoverContent({
 								)}
 
 							<div className="relative-times-container">
-								<div className="time-heading">RELATIVE TIMES</div>
+								<div className="time-heading">{t('time.relative_times')}</div>
 								<div>{getTimeChips(RelativeDurationSuggestionOptions)}</div>
 							</div>
 
 							{showRecentlyUsed && recentlyUsedTimeRanges.length > 0 && (
 								<div className="recently-used-container">
-									<div className="time-heading">RECENTLY USED</div>
+									<div className="time-heading">{t('time.recently_used')}</div>
 									<div className="recently-used-range">
 										{recentlyUsedTimeRanges.map((range: RecentlyUsedDateTimeRange) => (
 											<div
@@ -375,7 +378,7 @@ function CustomTimePickerPopoverContent({
 							onClick={handleTimezoneHintClick}
 							icon={<PenLine size={10} />}
 						>
-							Change Timezone
+							{t('time.change_timezone')}
 						</Button>
 					</div>
 				</div>

@@ -116,6 +116,7 @@
 .date-time-popover__footer {
 	border-top: 1px solid var(--l1-border);
 	padding: 8px 14px;
+
 	.timezone-container {
 		display: flex;
 		align-items: center;
@@ -196,7 +197,7 @@
 	line-height: 12px;
 	letter-spacing: -0.045px;
 	margin-right: 4px;
-	width: 72px;
+	width: fit-content;
 	cursor: pointer;
 }
 
@@ -236,9 +237,11 @@
 		box-shadow: 0 0 0 0
 			color-mix(in srgb, var(--warning-background) 40%, transparent);
 	}
+
 	60% {
 		box-shadow: 0 0 0 6px transparent;
 	}
+
 	100% {
 		box-shadow: 0 0 0 0 transparent;
 	}

@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { ENVIRONMENT } from 'constants/env';
 import {
 	ApiMonitoringParams,
@@ -11,13 +12,25 @@ import {
 } from 'mocks-server/__mockdata__/customQuickFilters';
 import { server } from 'mocks-server/server';
 import { rest } from 'msw';
-import { render, screen, userEvent, waitFor } from 'tests/test-utils';
+import {
+	render as testRender,
+	screen,
+	userEvent,
+	waitFor,
+} from 'tests/test-utils';
+import common from '../../../../public/locales/en/common.json';
 
 import '@testing-library/jest-dom';
 
 import QuickFilters from '../QuickFilters';
 import { IQuickFiltersConfig, QuickFiltersSource, SignalType } from '../types';
 import { QuickFiltersConfig } from './constants';
+
+const render = (ui: ReactElement) =>
+	testRender(ui, undefined, {
+		i18nLanguage: 'en',
+		i18nResources: { en: { common } },
+	});
 
 jest.mock('hooks/queryBuilder/useQueryBuilder', () => ({
 	useQueryBuilder: jest.fn(),

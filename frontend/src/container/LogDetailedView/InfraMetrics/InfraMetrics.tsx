@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Empty } from 'antd';
 import SignozRadioGroup from 'components/SignozRadioGroup/SignozRadioGroup';
 import { History, Table } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { DataSource } from 'types/common/queryBuilder';
 
 import { VIEW_TYPES } from './constants';
@@ -27,6 +28,7 @@ function InfraMetrics({
 	timestamp,
 	dataSource = DataSource.LOGS,
 }: MetricsDataProps): JSX.Element {
+	const { t } = useTranslation('logs');
 	const [selectedView, setSelectedView] = useState<string>(() =>
 		podName ? VIEW_TYPES.POD : VIEW_TYPES.NODE,
 	);
@@ -37,7 +39,7 @@ function InfraMetrics({
 				label: (
 					<div className="view-title">
 						<Table size={14} />
-						Node
+						{t('details.infra_metrics.node')}
 					</div>
 				),
 				value: VIEW_TYPES.NODE,
@@ -49,7 +51,7 @@ function InfraMetrics({
 				label: (
 					<div className="view-title">
 						<History size={14} />
-						Pod
+						{t('details.infra_metrics.pod')}
 					</div>
 				),
 				value: VIEW_TYPES.POD,
@@ -57,7 +59,7 @@ function InfraMetrics({
 		}
 
 		return options;
-	}, [podName]);
+	}, [podName, t]);
 
 	const handleModeChange = (value: string): void => {
 		setSelectedView(value);
@@ -66,8 +68,8 @@ function InfraMetrics({
 	if (!podName && !nodeName && !hostName) {
 		const emptyStateDescription =
 			dataSource === DataSource.TRACES
-				? 'No data available. Please select a span containing a pod, node, or host attributes to view metrics.'
-				: 'No data available. Please select a valid log line containing a pod, node, or host attributes to view metrics.';
+				? t('details.infra_metrics.empty_trace')
+				: t('details.infra_metrics.empty_log');
 
 		return (
 			<div className="empty-container">

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from '@signozhq/ui/sonner';
 import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
@@ -50,6 +51,8 @@ function FieldsSelectorContent({
 	height,
 	defaultPosition,
 }: FieldsSelectorContentProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const resolvedHeight =
 		height ?? window.innerHeight - DEFAULT_PANEL_HEIGHT_OFFSET;
 	const resolvedPosition = defaultPosition ?? {
@@ -134,7 +137,7 @@ function FieldsSelectorContent({
 						className={styles.searchInput}
 						type="text"
 						value={inputValue}
-						placeholder="Search for a field..."
+						placeholder={t('search_for_field')}
 						onChange={handleInputChange}
 					/>
 				</section>
@@ -163,7 +166,7 @@ function FieldsSelectorContent({
 							onClick={handleDiscard}
 							prefix={<X width={14} height={14} />}
 						>
-							Discard
+							{t('discard')}
 						</Button>
 						<Button
 							variant="solid"
@@ -171,7 +174,7 @@ function FieldsSelectorContent({
 							onClick={handleSave}
 							prefix={<Check width={14} height={14} />}
 						>
-							Save changes
+							{t('save_changes')}
 						</Button>
 					</div>
 				)}

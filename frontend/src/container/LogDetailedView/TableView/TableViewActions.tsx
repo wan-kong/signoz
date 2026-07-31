@@ -24,6 +24,7 @@ import {
 } from '@signozhq/icons';
 import { ExplorerViews } from 'pages/LogsExplorer/utils';
 import { useTimezone } from 'providers/Timezone';
+import { useTranslation } from 'react-i18next';
 import {
 	BaseAutocompleteData,
 	DataTypes,
@@ -78,6 +79,7 @@ const BodyContent: React.FC<{
 	handleChangeSelectedView?: ChangeViewFunctionType;
 }> = React.memo(
 	({ fieldData, record, bodyHtml, textToCopy, handleChangeSelectedView }) => {
+		const { t } = useTranslation('logs');
 		const { isLoading, treeData, error } = useAsyncJSONProcessing(
 			fieldData.value,
 			record.field === 'body',
@@ -93,7 +95,9 @@ const BodyContent: React.FC<{
 			return (
 				<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
 					<Spin size="small" />
-					<span style={{ color: Color.BG_SIENNA_400 }}>Processing JSON...</span>
+					<span style={{ color: Color.BG_SIENNA_400 }}>
+						{t('details.json.processing')}
+					</span>
 				</div>
 			);
 		}
@@ -103,7 +107,7 @@ const BodyContent: React.FC<{
 				<span
 					style={{ color: Color.BG_SIENNA_400, whiteSpace: 'pre-wrap', tabSize: 4 }}
 				>
-					Error parsing Body JSON
+					{t('details.json.error')}
 				</span>
 			);
 		}
@@ -129,6 +133,7 @@ BodyContent.displayName = 'BodyContent';
 export default function TableViewActions(
 	props: ITableViewActionsProps,
 ): React.ReactElement {
+	const { t } = useTranslation('logs');
 	const {
 		fieldData,
 		record,
@@ -371,7 +376,10 @@ export default function TableViewActions(
 				{!isListViewPanel &&
 					!RESTRICTED_SELECTED_FIELDS.includes(fieldFilterKey) && (
 						<span className="action-btn">
-							<Tooltip title="Filter for value" mouseLeaveDelay={0}>
+							<Tooltip
+								title={t('details.actions.filter_for_value')}
+								mouseLeaveDelay={0}
+							>
 								<Button
 									className="filter-btn periscope-btn"
 									icon={
@@ -390,7 +398,10 @@ export default function TableViewActions(
 									)}
 								/>
 							</Tooltip>
-							<Tooltip title="Filter out value" mouseLeaveDelay={0}>
+							<Tooltip
+								title={t('details.actions.filter_out_value')}
+								mouseLeaveDelay={0}
+							>
 								<Button
 									className="filter-btn periscope-btn"
 									icon={
@@ -422,7 +433,7 @@ export default function TableViewActions(
 												icon={<GroupByIcon />}
 												onClick={handleGroupByAttribute}
 											>
-												Group By Attribute
+												{t('details.actions.group_by_attribute')}
 											</Button>
 											<Button
 												className="more-filter-actions"
@@ -430,7 +441,7 @@ export default function TableViewActions(
 												icon={<RefreshCw size={14} />}
 												onClick={handleReplaceFilter}
 											>
-												Replace filters with this value
+												{t('details.actions.replace_filters_with_value')}
 											</Button>
 										</div>
 									}
@@ -458,7 +469,10 @@ export default function TableViewActions(
 			{!isListViewPanel &&
 				!RESTRICTED_SELECTED_FIELDS.includes(fieldFilterKey) && (
 					<span className="action-btn">
-						<Tooltip title="Filter for value" mouseLeaveDelay={0}>
+						<Tooltip
+							title={t('details.actions.filter_for_value')}
+							mouseLeaveDelay={0}
+						>
 							<Button
 								className="filter-btn periscope-btn"
 								icon={
@@ -477,7 +491,10 @@ export default function TableViewActions(
 								)}
 							/>
 						</Tooltip>
-						<Tooltip title="Filter out value" mouseLeaveDelay={0}>
+						<Tooltip
+							title={t('details.actions.filter_out_value')}
+							mouseLeaveDelay={0}
+						>
 							<Button
 								className="filter-btn periscope-btn"
 								icon={
@@ -509,7 +526,7 @@ export default function TableViewActions(
 											icon={<GroupByIcon />}
 											onClick={handleGroupByAttribute}
 										>
-											Group By Attribute
+											{t('details.actions.group_by_attribute')}
 										</Button>
 										<Button
 											className="more-filter-actions"
@@ -517,7 +534,7 @@ export default function TableViewActions(
 											icon={<RefreshCw size={14} />}
 											onClick={handleReplaceFilter}
 										>
-											Replace filters with this value
+											{t('details.actions.replace_filters_with_value')}
 										</Button>
 									</div>
 								}

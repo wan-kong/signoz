@@ -1,10 +1,22 @@
-import { render, screen } from '@testing-library/react';
+import { ReactElement } from 'react';
+import { render as rtlRender, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ExplorerViews } from 'pages/LogsExplorer/utils';
 import MockQueryClientProvider from 'providers/test/MockQueryClientProvider';
+import { I18nextProvider } from 'react-i18next';
+import { createTestI18nInstance } from '../../../../../ReactI18/testUtils';
+import common from '../../../../../../public/locales/en/common.json';
 
 import LeftToolbarActions from '../LeftToolbarActions';
 import RightToolbarActions from '../RightToolbarActions';
+
+const i18n = createTestI18nInstance({
+	language: 'en',
+	resources: { en: { common } },
+});
+
+const render = (ui: ReactElement) =>
+	rtlRender(<I18nextProvider i18n={i18n}>{ui}</I18nextProvider>);
 
 describe('ToolbarActions', () => {
 	const mockHandleFilterVisibilityChange = (): void => {};

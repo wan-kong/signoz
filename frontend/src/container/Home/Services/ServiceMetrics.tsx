@@ -1,9 +1,10 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { QueryKey } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, Select, Skeleton, Table } from 'antd';
+import { Button, Select, Skeleton, Table, TableProps } from 'antd';
 import logEvent from 'api/common/logEvent';
 import { ENTITY_VERSION_V4 } from 'constants/app';
 import ROUTES from 'constants/routes';
@@ -37,7 +38,7 @@ import triangleRulerUrl from '@/assets/Icons/triangle-ruler.svg';
 
 import { FeatureKeys } from '../../../constants/features';
 import { DOCS_LINKS } from '../constants';
-import { columns, TIME_PICKER_OPTIONS } from './constants';
+import { SERVICE_COLUMNS, TIME_PICKER_OPTIONS } from './constants';
 
 const homeInterval = 30 * 60 * 1000;
 
@@ -49,64 +50,66 @@ const EmptyState = memo(
 	}: {
 		user: IUser;
 		activeLicenseV3: LicenseResModel | null;
-	}): JSX.Element => (
-		<div className="empty-state-container">
-			<div className="empty-state-content-container">
-				<div className="empty-state-content">
-					<img
-						src={triangleRulerUrl}
-						alt="empty-alert-icon"
-						className="empty-state-icon"
-					/>
-					<div className="empty-title">You are not sending traces yet.</div>
-					<div className="empty-description">
-						Start sending traces to see your services.
+	}): JSX.Element => {
+		const { t } = useTranslation('home');
+
+		return (
+			<div className="empty-state-container">
+				<div className="empty-state-content-container">
+					<div className="empty-state-content">
+						<img
+							src={triangleRulerUrl}
+							alt="empty-alert-icon"
+							className="empty-state-icon"
+						/>
+						<div className="empty-title">{t('services.empty_title')}</div>
+						<div className="empty-description">{t('services.empty_description')}</div>
 					</div>
+
+					{user?.role !== USER_ROLES.VIEWER && (
+						<div className="empty-actions-container">
+							<Button
+								type="default"
+								className="periscope-btn secondary"
+								onClick={(): void => {
+									logEvent('Homepage: Get Started clicked', {
+										source: 'Service Metrics',
+									});
+
+									if (
+										activeLicenseV3 &&
+										activeLicenseV3.platform === LicensePlatform.CLOUD
+									) {
+										history.push(ROUTES.GET_STARTED_WITH_CLOUD);
+									} else {
+										openInNewTab(DOCS_LINKS.ADD_DATA_SOURCE);
+									}
+								}}
+							>
+								{t('checklist.get_started')} &nbsp; <ArrowRight size={16} />
+							</Button>
+
+							<Button
+								type="link"
+								className="learn-more-link"
+								onClick={(): void => {
+									logEvent('Homepage: Learn more clicked', {
+										source: 'Service Metrics',
+									});
+									window.open(
+										'https://signoz.io/docs/instrumentation/overview/',
+										'_blank',
+									);
+								}}
+							>
+								{t('learn_more')} <ArrowUpRight size={12} />
+							</Button>
+						</div>
+					)}
 				</div>
-
-				{user?.role !== USER_ROLES.VIEWER && (
-					<div className="empty-actions-container">
-						<Button
-							type="default"
-							className="periscope-btn secondary"
-							onClick={(): void => {
-								logEvent('Homepage: Get Started clicked', {
-									source: 'Service Metrics',
-								});
-
-								if (
-									activeLicenseV3 &&
-									activeLicenseV3.platform === LicensePlatform.CLOUD
-								) {
-									history.push(ROUTES.GET_STARTED_WITH_CLOUD);
-								} else {
-									openInNewTab(DOCS_LINKS.ADD_DATA_SOURCE);
-								}
-							}}
-						>
-							Get Started &nbsp; <ArrowRight size={16} />
-						</Button>
-
-						<Button
-							type="link"
-							className="learn-more-link"
-							onClick={(): void => {
-								logEvent('Homepage: Learn more clicked', {
-									source: 'Service Metrics',
-								});
-								window.open(
-									'https://signoz.io/docs/instrumentation/overview/',
-									'_blank',
-								);
-							}}
-						>
-							Learn more <ArrowUpRight size={12} />
-						</Button>
-					</div>
-				)}
 			</div>
-		</div>
-	),
+		);
+	},
 );
 EmptyState.displayName = 'EmptyState';
 
@@ -114,9 +117,11 @@ EmptyState.displayName = 'EmptyState';
 const ServicesListTable = memo(
 	({
 		services,
+		columns,
 		onRowClick,
 	}: {
 		services: ServicesList[];
+		columns: TableProps<ServicesList>['columns'];
 		onRowClick: (record: ServicesList, event: React.MouseEvent) => void;
 	}): JSX.Element => (
 		<div className="services-list-container home-data-item-container metrics-services-list">
@@ -143,6 +148,7 @@ function ServiceMetrics({
 	onUpdateChecklistDoneItem: (itemKey: string) => void;
 	loadingUserPreferences: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('home');
 	const { selectedTime: globalSelectedInterval } = useSelector<
 		AppState,
 		GlobalReducer
@@ -279,6 +285,22 @@ function ServiceMetrics({
 		() => sortedServices.slice(0, 5),
 		[sortedServices],
 	);
+	const columns = useMemo(
+		() =>
+			SERVICE_COLUMNS.map(({ titleKey, ...column }) => ({
+				...column,
+				title: t(titleKey),
+			})),
+		[t],
+	);
+	const timePickerOptions = useMemo(
+		() =>
+			TIME_PICKER_OPTIONS.map((option) => ({
+				...option,
+				label: t(option.labelKey),
+			})),
+		[t],
+	);
 
 	useEffect(() => {
 		if (!loadingUserPreferences && servicesExist) {
@@ -323,13 +345,12 @@ function ServiceMetrics({
 			{servicesExist && (
 				<Card.Header>
 					<div className="services-header home-data-card-header">
-						{' '}
-						Services
+						{t('services.title')}
 						<div className="services-header-actions">
 							<Select
 								value={timeRange.selectedInterval}
 								onChange={handleTimeIntervalChange}
-								options={TIME_PICKER_OPTIONS}
+								options={timePickerOptions}
 								className="services-header-select"
 							/>
 						</div>
@@ -338,7 +359,11 @@ function ServiceMetrics({
 			)}
 			<Card.Content>
 				{servicesExist ? (
-					<ServicesListTable services={top5Services} onRowClick={handleRowClick} />
+					<ServicesListTable
+						services={top5Services}
+						columns={columns}
+						onRowClick={handleRowClick}
+					/>
 				) : (
 					<EmptyState user={user} activeLicenseV3={activeLicense} />
 				)}
@@ -355,7 +380,7 @@ function ServiceMetrics({
 									logEvent('Homepage: All Services clicked', {});
 								}}
 							>
-								All Services <ArrowRight size={12} />
+								{t('services.all')} <ArrowRight size={12} />
 							</Button>
 						</Link>
 					</div>

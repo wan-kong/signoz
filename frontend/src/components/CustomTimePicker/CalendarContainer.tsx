@@ -1,5 +1,6 @@
 import { Calendar } from '@signozhq/ui/calendar';
 import { Button } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
 import dayjs from 'dayjs';
 import { Calendar as CalendarIcon, Check, X } from '@signozhq/icons';
@@ -18,6 +19,8 @@ function CalendarContainer({
 	onCancel: () => void;
 	onApply: () => void;
 }): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const { timezone } = useTimezone();
 
 	// this is to override the default behavior of the shadcn calendar component
@@ -83,7 +86,7 @@ function CalendarContainer({
 						onClick={onCancel}
 						icon={<X size={12} />}
 					>
-						Cancel
+						{t('time.cancel')}
 					</Button>
 					<Button
 						type="primary"
@@ -91,7 +94,7 @@ function CalendarContainer({
 						onClick={onApply}
 						icon={<Check size={12} />}
 					>
-						Apply
+						{t('time.apply')}
 					</Button>
 				</div>
 			</div>

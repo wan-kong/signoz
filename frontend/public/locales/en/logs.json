@@ -4,9 +4,87 @@
 		"edit_columns": "Edit columns",
 		"format": "Format",
 		"frequency_chart": "Frequency chart",
+		"go_to_latest": "Go to latest",
 		"max_lines_per_row": "Max lines per Row",
 		"max_lines_per_row_lower": "max lines per row",
 		"order_by": "Order by"
+	},
+	"details": {
+		"actions": {
+			"filter_for": "Filter for {{value}}",
+			"filter_for_value": "Filter for value",
+			"filter_out": "Filter out {{value}}",
+			"filter_out_value": "Filter out value",
+			"group_by": "Group by {{field}}",
+			"group_by_attribute": "Group By Attribute",
+			"replace_filters_with_value": "Replace filters with this value"
+		},
+		"attributes": "Attributes",
+		"clipboard": {
+			"copied": "{{field}} copied to clipboard",
+			"copy": "Copy to clipboard",
+			"object_copied": "{{field}} object copied to clipboard"
+		},
+		"copy_json": "Copy JSON",
+		"copy_log_link": "Copy Log Link",
+		"infra_metrics": {
+			"charts": {
+				"disk_usage_by_mountpoint": "Disk Usage (%) by mountpoint",
+				"host_cpu_usage": "CPU Usage",
+				"host_memory_usage": "Memory Usage",
+				"network_connections": "Network connections",
+				"network_drops": "Network drops",
+				"network_errors": "Network errors",
+				"network_usage_bytes": "Network usage (bytes)",
+				"network_usage_packets": "Network usage (packet/s)",
+				"node_cpu_usage": "Node CPU usage",
+				"node_filesystem_usage": "Node filesystem usage",
+				"node_memory_usage": "Node memory usage (WSS)",
+				"node_network_io": "Node network IO",
+				"pod_cpu_limit": "Pod CPU usage [% of Limit]",
+				"pod_cpu_request": "Pod CPU usage [% of Request]",
+				"pod_cpu_usage": "CPU usage",
+				"pod_filesystem_usage": "Pod filesystem usage [%]",
+				"pod_memory_limit": "Pod memory usage [% of Limit]",
+				"pod_memory_request": "Pod memory usage [% of Request]",
+				"pod_memory_usage": "Memory Usage",
+				"pod_network_io": "Pod network IO",
+				"queue_size": "Queue size",
+				"system_disk_io": "System disk io (bytes transferred)",
+				"system_disk_operation_time": "System disk operation time/s",
+				"system_disk_operations": "System disk operations/s",
+				"system_load_average": "System Load Average"
+			},
+			"empty_log": "No data available. Please select a valid log line containing pod, node, or host attributes to view metrics.",
+			"empty_trace": "No data available. Please select a span containing pod, node, or host attributes to view metrics.",
+			"node": "Node",
+			"pod": "Pod"
+		},
+		"json": {
+			"error": "Error parsing Body JSON",
+			"processing": "Processing JSON..."
+		},
+		"load_more": "Load more",
+		"move_to_next_log": "Move to next log",
+		"move_to_previous_log": "Move to previous log",
+		"open_in_explorer": "Open in Explorer",
+		"search": "Search",
+		"search_placeholder": "Search for a field...",
+		"show_filters": "Show Filters",
+		"something_went_wrong": "Something went wrong",
+		"table": {
+			"field": "Field",
+			"inspect_trace": "Inspect in Trace",
+			"value": "Value"
+		},
+		"title": "Log details",
+		"views": {
+			"context": "Context",
+			"json": "JSON",
+			"metrics": "Metrics",
+			"overview": "Overview"
+		},
+		"wrap_text": "Wrap text"
 	},
 	"empty": {
 		"no_data": {
@@ -48,10 +126,17 @@
 		"selected_fields": "SELECTED FIELDS"
 	},
 	"live": {
+		"error_stopped": "Live tail stopped due to some error.",
+		"exit": "Exit live tail",
 		"fetching": "Fetching live logs...",
 		"getting": "Getting live logs...",
+		"go_live": "Go Live",
+		"last_range": "Last {{range}}",
 		"pause": "Pause",
-		"resume": "Resume"
+		"pause_tooltip": "Pause live tail",
+		"resume": "Resume",
+		"select_timing": "Select Live Tail Timing",
+		"start_tooltip": "Start live tail"
 	},
 	"log_fields": {
 		"body": "Body",

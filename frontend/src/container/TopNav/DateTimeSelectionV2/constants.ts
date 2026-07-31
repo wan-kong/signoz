@@ -5,16 +5,16 @@ import { CustomTimeType, Option, Time, TimeFrame } from './types';
 export const DEFAULT_TIME_RANGE = '30m';
 
 export const Options: Option[] = [
-	{ value: '5m', label: 'Last 5 minutes' },
-	{ value: '15m', label: 'Last 15 minutes' },
-	{ value: '30m', label: 'Last 30 minutes' },
-	{ value: '1h', label: 'Last 1 hour' },
-	{ value: '6h', label: 'Last 6 hours' },
-	{ value: '1d', label: 'Last 1 day' },
-	{ value: '3d', label: 'Last 3 days' },
-	{ value: '1w', label: 'Last 1 week' },
-	{ value: '1month', label: 'Last 1 month' },
-	{ value: 'custom', label: 'Custom Date Range' },
+	{ value: '5m', label: 'time.last_5_minutes' },
+	{ value: '15m', label: 'time.last_15_minutes' },
+	{ value: '30m', label: 'time.last_30_minutes' },
+	{ value: '1h', label: 'time.last_1_hour' },
+	{ value: '6h', label: 'time.last_6_hours' },
+	{ value: '1d', label: 'time.last_1_day' },
+	{ value: '3d', label: 'time.last_3_days' },
+	{ value: '1w', label: 'time.last_1_week' },
+	{ value: '1month', label: 'time.last_1_month' },
+	{ value: 'custom', label: 'time.custom_date_range' },
 ];
 
 export const RelativeTimeMap: TimeFrame = {
@@ -50,34 +50,34 @@ export const OLD_RELATIVE_TIME_VALUES = [
 ];
 
 export const RelativeDurationOptions: Option[] = [
-	{ value: '5m', label: 'Last 5 minutes' },
-	{ value: '15m', label: 'Last 15 minutes' },
-	{ value: '30m', label: 'Last 30 minutes' },
-	{ value: '1h', label: 'Last 1 hour' },
-	{ value: '6h', label: 'Last 6 hour' },
-	{ value: '1d', label: 'Last 1 day' },
-	{ value: '3d', label: 'Last 3 days' },
-	{ value: '1w', label: 'Last 1 week' },
-	{ value: '1month', label: 'Last 1 month' },
+	{ value: '5m', label: 'time.last_5_minutes' },
+	{ value: '15m', label: 'time.last_15_minutes' },
+	{ value: '30m', label: 'time.last_30_minutes' },
+	{ value: '1h', label: 'time.last_1_hour' },
+	{ value: '6h', label: 'time.last_6_hours' },
+	{ value: '1d', label: 'time.last_1_day' },
+	{ value: '3d', label: 'time.last_3_days' },
+	{ value: '1w', label: 'time.last_1_week' },
+	{ value: '1month', label: 'time.last_1_month' },
 ];
 
 export const RelativeDurationSuggestionOptions: Option[] = [
-	{ value: '3h', label: 'Last 3 hours' },
-	{ value: '4d', label: 'Last 4 days' },
-	{ value: '6w', label: 'Last 6 weeks' },
-	{ value: '12h', label: 'Last 12 hours' },
-	{ value: '10d', label: 'Last 10 days' },
-	{ value: '2w', label: 'Last 2 weeks' },
-	{ value: '2months', label: 'Last 2 months' },
-	{ value: '1d', label: 'today' },
+	{ value: '3h', label: 'time.last_3_hours' },
+	{ value: '4d', label: 'time.last_4_days' },
+	{ value: '6w', label: 'time.last_6_weeks' },
+	{ value: '12h', label: 'time.last_12_hours' },
+	{ value: '10d', label: 'time.last_10_days' },
+	{ value: '2w', label: 'time.last_2_weeks' },
+	{ value: '2months', label: 'time.last_2_months' },
+	{ value: '1d', label: 'time.today' },
 ];
 export const FixedDurationSuggestionOptions: Option[] = [
-	{ value: '45m', label: 'Last 45 mins' },
-	{ value: '12h', label: 'Last 12 hours' },
-	{ value: '10d', label: 'Last 10 days' },
-	{ value: '2w', label: 'Last 2 weeks' },
-	{ value: '2months', label: 'Last 2 months' },
-	{ value: '1d', label: 'today' },
+	{ value: '45m', label: 'time.last_45_minutes' },
+	{ value: '12h', label: 'time.last_12_hours' },
+	{ value: '10d', label: 'time.last_10_days' },
+	{ value: '2w', label: 'time.last_2_weeks' },
+	{ value: '2months', label: 'time.last_2_months' },
+	{ value: '1d', label: 'time.today' },
 ];
 
 export const convertOldTimeToNewValidCustomTimeFormat = (

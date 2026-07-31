@@ -9,6 +9,7 @@ import {
 import { Button, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ExplorerViews } from 'pages/LogsExplorer/utils';
+import { useTranslation } from 'react-i18next';
 
 import './ToolbarActions.styles.scss';
 
@@ -29,12 +30,13 @@ export default function LeftToolbarActions({
 	showFilter,
 	handleFilterVisibilityChange,
 }: LeftToolbarActionsProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { clickhouse, list, timeseries, table, trace } = items;
 
 	return (
 		<div className="left-toolbar">
 			{!showFilter && (
-				<Tooltip title="Show Filters">
+				<Tooltip title={t('show_filters')}>
 					<Button onClick={handleFilterVisibilityChange} className="filter-btn">
 						<Filter size={12} />
 						<ArrowUpToLine size={12} style={{ transform: 'rotate(90deg)' }} />
@@ -43,7 +45,7 @@ export default function LeftToolbarActions({
 			)}
 			<div className="left-toolbar-query-actions">
 				{list?.show && (
-					<Tooltip title="List View">
+					<Tooltip title={t('list_view')}>
 						<Button
 							disabled={list.disabled}
 							className={cx(
@@ -54,13 +56,13 @@ export default function LeftToolbarActions({
 							onClick={(): void => onChangeSelectedView(list.key)}
 						>
 							<SquareMousePointer size={14} data-testid="search-view" />
-							List View
+							{t('list_view')}
 						</Button>
 					</Tooltip>
 				)}
 
 				{trace?.show && (
-					<Tooltip title="Trace View">
+					<Tooltip title={t('trace_view')}>
 						<Button
 							disabled={trace.disabled}
 							className={cx(
@@ -71,13 +73,13 @@ export default function LeftToolbarActions({
 							onClick={(): void => onChangeSelectedView(trace.key)}
 						>
 							<SquareMousePointer size={14} data-testid="trace-view" />
-							Trace View
+							{t('trace_view')}
 						</Button>
 					</Tooltip>
 				)}
 
 				{timeseries?.show && (
-					<Tooltip title="Time Series">
+					<Tooltip title={t('time_series_view')}>
 						<Button
 							disabled={timeseries.disabled}
 							className={cx(
@@ -88,13 +90,13 @@ export default function LeftToolbarActions({
 							onClick={(): void => onChangeSelectedView(timeseries.key)}
 						>
 							<Atom size={14} data-testid="query-builder-view" />
-							Time Series
+							{t('time_series_view')}
 						</Button>
 					</Tooltip>
 				)}
 
 				{clickhouse?.show && (
-					<Tooltip title="Clickhouse">
+					<Tooltip title={t('clickhouse')}>
 						<Button
 							disabled={clickhouse.disabled}
 							className={cx(
@@ -105,13 +107,13 @@ export default function LeftToolbarActions({
 							onClick={(): void => onChangeSelectedView(clickhouse.key)}
 						>
 							<Terminal size={14} data-testid="clickhouse-view" />
-							Clickhouse
+							{t('clickhouse')}
 						</Button>
 					</Tooltip>
 				)}
 
 				{table?.show && (
-					<Tooltip title="Table">
+					<Tooltip title={t('table_view')}>
 						<Button
 							disabled={table.disabled}
 							className={cx(
@@ -122,7 +124,7 @@ export default function LeftToolbarActions({
 							onClick={(): void => onChangeSelectedView(table.key)}
 						>
 							<Binoculars size={14} data-testid="query-builder-view-v2" />
-							Table
+							{t('table_view')}
 						</Button>
 					</Tooltip>
 				)}

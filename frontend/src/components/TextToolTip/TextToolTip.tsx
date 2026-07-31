@@ -1,4 +1,5 @@
 import { ReactNode, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { blue, grey } from '@ant-design/colors';
 import { CircleHelp } from '@signozhq/icons';
 import { Tooltip } from 'antd';
@@ -17,6 +18,8 @@ function TextToolTip({
 	filledIcon,
 	outlinedIcon,
 }: TextToolTipProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const isDarkMode = useIsDarkMode();
 
 	const onClickHandler = (
@@ -37,7 +40,7 @@ function TextToolTip({
 						rel="noopener noreferrer"
 						target="_blank"
 					>
-						{urlText || 'here'}
+						{urlText || t('here')}
 					</a>
 				)}
 			</div>
@@ -62,12 +65,12 @@ function TextToolTip({
 	);
 	// Use provided icons or fallback to default icons
 	const defaultFilledIcon = (
-		<CircleHelp role="img" aria-label="Help" size="lg" style={iconStyle} />
+		<CircleHelp role="img" aria-label={t('help')} size="lg" style={iconStyle} />
 	);
 	const defaultOutlinedIcon = (
 		<CircleHelp
 			role="img"
-			aria-label="Help"
+			aria-label={t('help')}
 			size="lg"
 			style={iconOutlinedStyle}
 		/>

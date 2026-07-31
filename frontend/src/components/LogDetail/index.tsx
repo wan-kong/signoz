@@ -44,6 +44,7 @@ import {
 } from '@signozhq/icons';
 import { JsonView } from 'periscope/components/JsonView';
 import { useAppContext } from 'providers/App/App';
+import { useTranslation } from 'react-i18next';
 import { ILogBody } from 'types/api/logs/log';
 import { Query, TagFilter } from 'types/api/queryBuilder/queryBuilderData';
 import { DataSource, StringOperators } from 'types/common/queryBuilder';
@@ -69,6 +70,7 @@ function LogDetailInner({
 	handleOpenInExplorer,
 	getContainer,
 }: LogDetailInnerProps): JSX.Element {
+	const { t } = useTranslation('logs');
 	const initialContextQuery = useInitialQuery(log);
 	const [contextQuery, setContextQuery] = useState<Query | undefined>(
 		initialContextQuery,
@@ -230,7 +232,7 @@ function LogDetailInner({
 	const handleJSONCopy = (): void => {
 		copyToClipboard(LogJsonData);
 		notifications.success({
-			message: 'Copied to clipboard',
+			message: t('messages.copied_to_clipboard'),
 		});
 	};
 
@@ -341,12 +343,12 @@ function LogDetailInner({
 				<div className="log-detail-drawer__title" data-log-detail-ignore="true">
 					<div className="log-detail-drawer__title-left">
 						<Divider type="vertical" className={cx('log-type-indicator', LogType)} />
-						<Typography.Text className="title">Log details</Typography.Text>
+						<Typography.Text className="title">{t('details.title')}</Typography.Text>
 					</div>
 					<div className="log-detail-drawer__title-right">
 						<div className="log-arrows">
 							<Tooltip
-								title={isPrevDisabled ? '' : 'Move to previous log'}
+								title={isPrevDisabled ? '' : t('details.move_to_previous_log')}
 								placement="top"
 								mouseLeaveDelay={0}
 							>
@@ -360,7 +362,7 @@ function LogDetailInner({
 								/>
 							</Tooltip>
 							<Tooltip
-								title={isNextDisabled ? '' : 'Move to next log'}
+								title={isNextDisabled ? '' : t('details.move_to_next_log')}
 								placement="top"
 								mouseLeaveDelay={0}
 							>
@@ -383,7 +385,7 @@ function LogDetailInner({
 									className="open-in-explorer-btn"
 									onClick={handleOpenInExplorer}
 								>
-									Open in Explorer
+									{t('details.open_in_explorer')}
 								</Button>
 							</div>
 						)}
@@ -431,7 +433,7 @@ function LogDetailInner({
 								label: (
 									<div className="view-title">
 										<Table size={14} />
-										Overview
+										{t('details.views.overview')}
 									</div>
 								),
 							},
@@ -440,7 +442,7 @@ function LogDetailInner({
 								label: (
 									<div className="view-title">
 										<Braces size={14} />
-										JSON
+										{t('details.views.json')}
 									</div>
 								),
 							},
@@ -449,7 +451,7 @@ function LogDetailInner({
 								label: (
 									<div className="view-title">
 										<TextSelect size={14} />
-										Context
+										{t('details.views.context')}
 									</div>
 								),
 							},
@@ -458,7 +460,7 @@ function LogDetailInner({
 								label: (
 									<div className="view-title">
 										<Histogram size="md" />
-										Metrics
+										{t('details.views.metrics')}
 									</div>
 								),
 							},
@@ -468,9 +470,9 @@ function LogDetailInner({
 					<div className="log-detail-drawer__actions">
 						{selectedView === VIEW_TYPES.CONTEXT && (
 							<Tooltip
-								title="Show Filters"
+								title={t('details.show_filters')}
 								placement="topLeft"
-								aria-label="Show Filters"
+								aria-label={t('details.show_filters')}
 								mouseLeaveDelay={0}
 							>
 								<Button
@@ -484,10 +486,16 @@ function LogDetailInner({
 						)}
 
 						<Tooltip
-							title={selectedView === VIEW_TYPES.JSON ? 'Copy JSON' : 'Copy Log Link'}
+							title={
+								selectedView === VIEW_TYPES.JSON
+									? t('details.copy_json')
+									: t('details.copy_log_link')
+							}
 							placement="topLeft"
 							aria-label={
-								selectedView === VIEW_TYPES.JSON ? 'Copy JSON' : 'Copy Log Link'
+								selectedView === VIEW_TYPES.JSON
+									? t('details.copy_json')
+									: t('details.copy_log_link')
 							}
 							mouseLeaveDelay={0}
 						>

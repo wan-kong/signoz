@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { DatePicker, Modal } from 'antd';
+import { useTranslation } from 'react-i18next';
 import dayjs, { Dayjs } from 'dayjs';
 
 export type DateTimeRangeType = [Dayjs | null, Dayjs | null] | null;
@@ -12,6 +13,8 @@ function CustomDateTimeModal({
 	onCancel,
 	setCustomDTPickerVisible,
 }: CustomDateTimeModalProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const [selectedDate, setDateTime] = useState<DateTimeRangeType>();
 
 	const onModalOkHandler = (date_time: any): void => {
@@ -35,9 +38,9 @@ function CustomDateTimeModal({
 	return (
 		<Modal
 			open={visible}
-			title="Chose date and time range"
-			okText="Apply"
-			cancelText="Cancel"
+			title={t('time.choose_date_time_range')}
+			okText={t('time.apply')}
+			cancelText={t('time.cancel')}
 			onCancel={onCancel}
 			onOk={onOk}
 		>

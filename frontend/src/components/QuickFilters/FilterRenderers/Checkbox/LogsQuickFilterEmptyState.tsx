@@ -2,6 +2,7 @@ import { Color } from '@signozhq/design-tokens';
 import { Button } from 'antd';
 import EmptyQuickFilterIcon from 'assets/CustomIcons/EmptyQuickFilterIcon';
 import { ArrowUpRight } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 const QUICK_FILTER_DOC_PATHS: Record<string, string> = {
 	severity_text: 'severity-text',
@@ -19,6 +20,7 @@ function LogsQuickFilterEmptyState({
 }: {
 	attributeKey: string;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const handleLearnMoreClick = (): void => {
 		const section = QUICK_FILTER_DOC_PATHS[attributeKey];
 
@@ -34,8 +36,7 @@ function LogsQuickFilterEmptyState({
 					<EmptyQuickFilterIcon />
 				</div>
 				<div className="go-to-docs__container-message">
-					{`You'd need to parse out this attribute to start getting them as a fast
-            filter.`}
+					{t('parse_attribute_fast_filter')}
 				</div>
 			</div>
 			<Button
@@ -43,7 +44,7 @@ function LogsQuickFilterEmptyState({
 				className="go-to-docs__button"
 				onClick={handleLearnMoreClick}
 			>
-				<div className="go-to-docs__button-text">Learn more</div>
+				<div className="go-to-docs__button-text">{t('learn_more')}</div>
 				<ArrowUpRight size={14} color={Color.BG_ROBIN_400} />
 			</Button>
 		</section>

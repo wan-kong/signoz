@@ -1,7 +1,19 @@
-import { render, screen } from '@testing-library/react';
+import { ReactElement } from 'react';
+import { render as rtlRender, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { I18nextProvider } from 'react-i18next';
+import { createTestI18nInstance } from '../../../../../ReactI18/testUtils';
+import common from '../../../../../../public/locales/en/common.json';
 
 import RunQueryBtn from '../RunQueryBtn';
+
+const i18n = createTestI18nInstance({
+	language: 'en',
+	resources: { en: { common } },
+});
+
+const render = (ui: ReactElement) =>
+	rtlRender(<I18nextProvider i18n={i18n}>{ui}</I18nextProvider>);
 
 // Mock OS util
 jest.mock('utils/getUserOS', () => ({

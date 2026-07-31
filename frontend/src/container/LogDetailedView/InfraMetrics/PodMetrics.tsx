@@ -14,6 +14,7 @@ import { getUPlotChartOptions } from 'lib/uPlotLib/getUplotChartOptions';
 import { getUPlotChartData } from 'lib/uPlotLib/utils/getUplotChartData';
 import { useAppContext } from 'providers/App/App';
 import { useTimezone } from 'providers/Timezone';
+import { useTranslation } from 'react-i18next';
 import { SuccessResponse } from 'types/api';
 import { MetricRangePayloadProps } from 'types/api/metrics/getQueryRange';
 import uPlot from 'uplot';
@@ -30,6 +31,7 @@ function PodMetrics({
 	clusterName: string;
 	timestamp: string;
 }): JSX.Element {
+	const { t } = useTranslation('logs');
 	const { start, end, verticalLineTimestamp } = useMemo(() => {
 		const logTimestamp = dayjs(timestamp);
 		const now = dayjs();
@@ -131,7 +133,7 @@ function PodMetrics({
 
 		if (query.error) {
 			const errorMessage =
-				(query.error as Error)?.message || 'Something went wrong';
+				(query.error as Error)?.message || t('details.something_went_wrong');
 			return <div>{errorMessage}</div>;
 		}
 		return (
@@ -150,7 +152,7 @@ function PodMetrics({
 		<div className="infra-metrics-grid">
 			{queries.map((query, idx) => (
 				<div key={podWidgetInfo[idx].title}>
-					<Typography.Text>{podWidgetInfo[idx].title}</Typography.Text>
+					<Typography.Text>{t(podWidgetInfo[idx].title)}</Typography.Text>
 					<Card bordered className="infra-metrics-card" ref={graphRef}>
 						{renderCardContent(query, idx)}
 					</Card>

@@ -29,6 +29,7 @@ import { IField } from 'types/api/logs/fields';
 import { ILog } from 'types/api/logs/log';
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { openInNewTab } from 'utils/navigation';
+import { useTranslation } from 'react-i18next';
 
 import { ActionItemProps } from './ActionItem';
 import FieldRenderer from './FieldRenderer';
@@ -65,6 +66,7 @@ function TableView({
 	listViewPanelSelectedFields,
 	handleChangeSelectedView,
 }: Props): JSX.Element | null {
+	const { t } = useTranslation('logs');
 	const dispatch = useDispatch<Dispatch<AppActions>>();
 	const [isfilterInLoading, setIsFilterInLoading] = useState<boolean>(false);
 	const [isfilterOutLoading, setIsFilterOutLoading] = useState<boolean>(false);
@@ -239,7 +241,7 @@ function TableView({
 			},
 		},
 		{
-			title: 'Field',
+			title: t('details.table.field'),
 			dataIndex: 'field',
 			key: 'field',
 			width: 50,
@@ -257,7 +259,7 @@ function TableView({
 							<Typography.Text>{renderedField}</Typography.Text>
 
 							{traceId && (
-								<Tooltip title="Inspect in Trace" mouseLeaveDelay={0}>
+								<Tooltip title={t('details.table.inspect_trace')} mouseLeaveDelay={0}>
 									<Button
 										className="periscope-btn"
 										onClick={(
@@ -293,7 +295,7 @@ function TableView({
 			},
 		},
 		{
-			title: 'Value',
+			title: t('details.table.value'),
 			key: 'value',
 			width: 70,
 			ellipsis: false,

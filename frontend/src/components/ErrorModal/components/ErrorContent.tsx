@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Button } from 'antd';
 import ErrorIcon from 'assets/Error';
@@ -20,6 +21,8 @@ interface ErrorContentProps {
 }
 
 function ErrorContent({ error, icon }: ErrorContentProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const {
 		url: errorUrl,
 		errors: errorMessages,
@@ -57,7 +60,7 @@ function ErrorContent({ error, icon }: ErrorContentProps): JSX.Element {
 								data-testid="error-docs-button"
 							>
 								<BookOpenText size={14} />
-								Open Docs
+								{t('open_docs')}
 							</Button>
 						</div>
 					)}
@@ -69,7 +72,9 @@ function ErrorContent({ error, icon }: ErrorContentProps): JSX.Element {
 							badgeKey={
 								<div className="error-content__message-badge-label">
 									<div className="error-content__message-badge-label-dot" />
-									<div className="error-content__message-badge-label-text">MESSAGES</div>
+									<div className="error-content__message-badge-label-text">
+										{t('messages')}
+									</div>
 								</div>
 							}
 							badgeValue={errorMessages.length.toString()}
@@ -98,7 +103,9 @@ function ErrorContent({ error, icon }: ErrorContentProps): JSX.Element {
 								color={Color.BG_VANILLA_100}
 								className="error-content__scroll-hint-icon"
 							/>
-							<span className="error-content__scroll-hint-text">Scroll for more</span>
+							<span className="error-content__scroll-hint-text">
+								{t('scroll_for_more')}
+							</span>
 						</div>
 					)}
 				</div>

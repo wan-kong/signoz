@@ -12,6 +12,7 @@ import { Pagination } from 'hooks/queryPagination';
 import { getMinMaxForSelectedTime } from 'lib/getMinMax';
 import { FlatLogData } from 'lib/logs/flatLogData';
 import { OrderPreferenceItems } from 'pages/Logs/config';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { Dispatch } from 'redux';
 import { AppState } from 'store/reducers';
@@ -29,6 +30,7 @@ import { Container } from './styles';
 import { SkipBack } from '@signozhq/icons';
 
 function LogControls(): JSX.Element | null {
+	const { t } = useTranslation('logs');
 	const {
 		logLinesPerPage,
 		liveTail,
@@ -117,7 +119,7 @@ function LogControls(): JSX.Element | null {
 				onClick={handleGoToLatest}
 			>
 				<Flex align="center" gap="4px">
-					<SkipBack size="md" /> Go to latest
+					<SkipBack size="md" /> {t('controls.go_to_latest')}
 				</Flex>
 			</Button>
 			<Divider type="vertical" />

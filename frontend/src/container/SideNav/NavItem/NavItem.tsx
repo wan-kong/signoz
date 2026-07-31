@@ -1,4 +1,5 @@
 import { Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Badge } from '@signozhq/ui/badge';
 import cx from 'classnames';
 import { Pin, PinOff } from '@signozhq/icons';
@@ -26,6 +27,8 @@ export default function NavItem({
 	showIcon?: boolean;
 	dataTestId?: string;
 }): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const { label, icon, isBeta, isNew, isEarlyAccess, tooltip } = item;
 
 	const handleTogglePinClick = (
@@ -58,12 +61,14 @@ export default function NavItem({
 					</div>
 				)}
 
-				<div className="nav-item-label">{label}</div>
+				<div className="nav-item-label">
+					{typeof label === 'string' && label.startsWith('nav.') ? t(label) : label}
+				</div>
 
 				{isBeta && (
 					<div className="nav-item-beta">
 						<Badge color="robin" className="sidenav-beta-tag">
-							Beta
+							{t('beta')}
 						</Badge>
 					</div>
 				)}
@@ -71,19 +76,19 @@ export default function NavItem({
 				{isNew && (
 					<div className="nav-item-new">
 						<Badge color="robin" className="sidenav-new-tag">
-							New
+							{t('new')}
 						</Badge>
 					</div>
 				)}
 
 				{isEarlyAccess && (
 					<div className="nav-item-early-access">
-						<Badge color="robin">Early Access</Badge>
+						<Badge color="robin">{t('early_access')}</Badge>
 					</div>
 				)}
 
 				{onTogglePin && !isPinned && (
-					<Tooltip title="Add to shortcuts" placement="right">
+					<Tooltip title={t('add_to_shortcuts')} placement="right">
 						<Pin
 							size={12}
 							className="nav-item-pin-icon"
@@ -94,7 +99,7 @@ export default function NavItem({
 				)}
 
 				{onTogglePin && isPinned && (
-					<Tooltip title="Remove from shortcuts" placement="right">
+					<Tooltip title={t('remove_from_shortcuts')} placement="right">
 						<PinOff
 							size={12}
 							className="nav-item-pin-icon"
@@ -109,7 +114,14 @@ export default function NavItem({
 
 	// Only non-pinnable items set `tooltip`; it would nest with the pin tooltip.
 	return tooltip ? (
-		<Tooltip title={tooltip} placement="right">
+		<Tooltip
+			title={
+				typeof tooltip === 'string' && tooltip.startsWith('nav.')
+					? t(tooltip)
+					: tooltip
+			}
+			placement="right"
+		>
 			{navItem}
 		</Tooltip>
 	) : (

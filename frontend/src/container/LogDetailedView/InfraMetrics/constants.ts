@@ -2814,35 +2814,35 @@ export const getHostQueryPayload = (
 
 export const podWidgetInfo = [
 	{
-		title: 'CPU usage',
+		title: 'details.infra_metrics.charts.pod_cpu_usage',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Memory Usage',
+		title: 'details.infra_metrics.charts.pod_memory_usage',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Pod CPU usage [% of Request]',
+		title: 'details.infra_metrics.charts.pod_cpu_request',
 		yAxisUnit: 'percent',
 	},
 	{
-		title: 'Pod CPU usage [% of Limit]',
+		title: 'details.infra_metrics.charts.pod_cpu_limit',
 		yAxisUnit: 'percent',
 	},
 	{
-		title: 'Pod memory usage [% of Request]',
+		title: 'details.infra_metrics.charts.pod_memory_request',
 		yAxisUnit: 'percent',
 	},
 	{
-		title: 'Pod memory usage [% of Limit]',
+		title: 'details.infra_metrics.charts.pod_memory_limit',
 		yAxisUnit: 'percent',
 	},
 	{
-		title: 'Pod filesystem usage [%]',
+		title: 'details.infra_metrics.charts.pod_filesystem_usage',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Pod network IO',
+		title: 'details.infra_metrics.charts.pod_network_io',
 		yAxisUnit: 'binBps',
 	},
 ];
@@ -2854,31 +2854,31 @@ export const VIEW_TYPES = {
 
 export const nodeWidgetInfo = [
 	{
-		title: 'Node CPU usage',
+		title: 'details.infra_metrics.charts.node_cpu_usage',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Node memory usage (WSS)',
+		title: 'details.infra_metrics.charts.node_memory_usage',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Node network IO',
+		title: 'details.infra_metrics.charts.node_network_io',
 		yAxisUnit: 'binBps',
 	},
 	{
-		title: 'Node filesystem usage',
+		title: 'details.infra_metrics.charts.node_filesystem_usage',
 		yAxisUnit: 'percentunit',
 	},
 ];
 
 export const hostWidgetInfo = [
 	{
-		title: 'CPU Usage',
+		title: 'details.infra_metrics.charts.host_cpu_usage',
 		yAxisUnit: 'percentunit',
 		docPath: '/infrastructure-monitoring/host-monitoring/#cpu-usage-1',
 	},
 	{
-		title: 'Memory Usage',
+		title: 'details.infra_metrics.charts.host_memory_usage',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/host-monitoring/#memory-usage-1',
 	},
@@ -2889,55 +2889,61 @@ export const hostWidgetInfo = [
 			'/infrastructure-monitoring/host-monitoring/#disk-usage--by-mountpoint',
 	},
 	{
-		title: 'System Load Average',
+		title: 'details.infra_metrics.charts.system_load_average',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/host-monitoring/#system-load-average',
 	},
 	{
-		title: 'Network usage (bytes)',
+		title: 'details.infra_metrics.charts.network_usage_bytes',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/host-monitoring/#network-usage-bytes',
 	},
 	{
-		title: 'Network usage (packet/s)',
+		title: 'details.infra_metrics.charts.network_usage_packets',
 		yAxisUnit: 'pps',
 		docPath: '/infrastructure-monitoring/host-monitoring/#network-usage-packetss',
 	},
 	{
-		title: 'Network errors',
+		title: 'details.infra_metrics.charts.network_errors',
 		yAxisUnit: 'short',
 		docPath: '/infrastructure-monitoring/host-monitoring/#network-errors',
 	},
 	{
-		title: 'Network drops',
+		title: 'details.infra_metrics.charts.network_drops',
 		yAxisUnit: 'short',
 		docPath: '/infrastructure-monitoring/host-monitoring/#network-drops',
 	},
 	{
-		title: 'Network connections',
+		title: 'details.infra_metrics.charts.network_connections',
 		yAxisUnit: 'short',
 		docPath: '/infrastructure-monitoring/host-monitoring/#network-connections',
 	},
 	{
-		title: 'System disk io (bytes transferred)',
+		title: 'details.infra_metrics.charts.system_disk_io',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/host-monitoring/#system-disk-io-bytes',
 	},
 	{
-		title: 'System disk operations/s',
+		title: 'details.infra_metrics.charts.system_disk_operations',
 		yAxisUnit: 'short',
 		docPath:
 			'/infrastructure-monitoring/host-monitoring/#system-disk-operationss',
 	},
 	{
-		title: 'Queue size',
+		title: 'details.infra_metrics.charts.queue_size',
 		yAxisUnit: 'short',
 		docPath: '/infrastructure-monitoring/host-monitoring/#queue-size',
 	},
 	{
-		title: 'System disk operation time/s',
+		title: 'details.infra_metrics.charts.system_disk_operation_time',
 		yAxisUnit: 's',
 		docPath:
 			'/infrastructure-monitoring/host-monitoring/#system-disk-operation-times',
+	},
+	{
+		title: 'details.infra_metrics.charts.disk_usage_by_mountpoint',
+		yAxisUnit: 'percentunit',
+		docPath:
+			'/infrastructure-monitoring/host-monitoring/#disk-usage--by-mountpoint',
 	},
 ];

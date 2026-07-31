@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCopyToClipboard } from 'react-use';
 import { Check, Copy } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
@@ -27,6 +28,8 @@ function CodeBlock({
 	showCopyButton = true,
 	onCopy,
 }: CodeBlockProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const [isCopied, setIsCopied] = useState(false);
 	const [, copyToClipboard] = useCopyToClipboard();
 	const normalizedCode = useMemo(() => code?.replace(/\n$/, '') ?? '', [code]);
@@ -58,8 +61,8 @@ function CodeBlock({
 					size="sm"
 					onClick={handleCopy}
 					prefix={isCopied ? <Check size={14} /> : <Copy size={14} />}
-					aria-label="Copy code"
-					title={isCopied ? 'Copied' : 'Copy'}
+					aria-label={t('copy_code')}
+					title={isCopied ? t('copied') : t('copy')}
 					style={{ position: 'absolute', right: 8, top: 8, zIndex: 1 }}
 				/>
 			) : null}

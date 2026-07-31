@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux'; // old code, TODO: fix this correctly
 import { Link } from 'react-router-dom';
@@ -22,7 +23,7 @@ import { openInNewTab } from 'utils/navigation';
 import triangleRulerUrl from '@/assets/Icons/triangle-ruler.svg';
 
 import { DOCS_LINKS } from '../constants';
-import { columns, TIME_PICKER_OPTIONS } from './constants';
+import { SERVICE_COLUMNS, TIME_PICKER_OPTIONS } from './constants';
 
 const homeInterval = 30 * 60 * 1000;
 
@@ -33,6 +34,7 @@ export default function ServiceTraces({
 	onUpdateChecklistDoneItem: (itemKey: string) => void;
 	loadingUserPreferences: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('home');
 	const { selectedTime } = useSelector<AppState, GlobalReducer>(
 		(state) => state.globalTime,
 	);
@@ -77,6 +79,22 @@ export default function ServiceTraces({
 		() => sortedServices.slice(0, 5),
 		[sortedServices],
 	);
+	const columns = useMemo(
+		() =>
+			SERVICE_COLUMNS.map(({ titleKey, ...column }) => ({
+				...column,
+				title: t(titleKey),
+			})),
+		[t],
+	);
+	const timePickerOptions = useMemo(
+		() =>
+			TIME_PICKER_OPTIONS.map((option) => ({
+				...option,
+				label: t(option.labelKey),
+			})),
+		[t],
+	);
 
 	useEffect(() => {
 		if (servicesExist && !loadingUserPreferences) {
@@ -113,11 +131,9 @@ export default function ServiceTraces({
 							className="empty-state-icon"
 						/>
 
-						<div className="empty-title">You are not sending traces yet.</div>
+						<div className="empty-title">{t('services.empty_title')}</div>
 
-						<div className="empty-description">
-							Start sending traces to see your services.
-						</div>
+						<div className="empty-description">{t('services.empty_description')}</div>
 					</div>
 
 					{user?.role !== USER_ROLES.VIEWER && (
@@ -140,7 +156,7 @@ export default function ServiceTraces({
 									}
 								}}
 							>
-								Get Started &nbsp; <ArrowRight size={16} />
+								{t('checklist.get_started')} &nbsp; <ArrowRight size={16} />
 							</Button>
 
 							<Button
@@ -156,14 +172,14 @@ export default function ServiceTraces({
 									);
 								}}
 							>
-								Learn more <ArrowUpRight size={12} />
+								{t('learn_more')} <ArrowUpRight size={12} />
 							</Button>
 						</div>
 					)}
 				</div>
 			</div>
 		),
-		[user?.role, activeLicense],
+		[user?.role, activeLicense, t],
 	);
 
 	const renderDashboardsList = useCallback(
@@ -190,7 +206,7 @@ export default function ServiceTraces({
 				</div>
 			</div>
 		),
-		[top5Services, safeNavigate],
+		[columns, top5Services, safeNavigate],
 	);
 
 	if (isServicesLoading || isServicesFetching) {
@@ -218,12 +234,12 @@ export default function ServiceTraces({
 			{servicesExist && (
 				<Card.Header>
 					<div className="services-header home-data-card-header">
-						Services
+						{t('services.title')}
 						<div className="services-header-actions">
 							<Select
 								value={timeRange.selectedInterval}
 								onChange={handleTimeIntervalChange}
-								options={TIME_PICKER_OPTIONS}
+								options={timePickerOptions}
 								className="services-header-select"
 							/>
 						</div>
@@ -245,7 +261,7 @@ export default function ServiceTraces({
 									logEvent('Homepage: All Services clicked', {});
 								}}
 							>
-								All Services <ArrowRight size={12} />
+								{t('services.all')} <ArrowRight size={12} />
 							</Button>
 						</Link>
 					</div>

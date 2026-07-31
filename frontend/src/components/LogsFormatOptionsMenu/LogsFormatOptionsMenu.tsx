@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, InputNumber, Popover, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
@@ -33,6 +34,8 @@ function OptionsMenu({
 	onOpenColumns,
 	closePopover,
 }: OptionsMenuContentProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const { maxLines, format, fontSize } = config;
 	const [selectedItem, setSelectedItem] = useState(selectedOptionFormat);
 	const maxLinesNumber = (maxLines?.value as number) || 1;
@@ -113,7 +116,9 @@ function OptionsMenu({
 						type="text"
 					>
 						<ChevronLeft size={14} className="icon" />
-						<Typography.Text className="text">Select font size</Typography.Text>
+						<Typography.Text className="text">
+							{t('select_font_size')}
+						</Typography.Text>
 					</Button>
 					<div className="horizontal-line" />
 					<div className="content">
@@ -158,7 +163,7 @@ function OptionsMenu({
 			) : (
 				<div>
 					<div className="font-size-container">
-						<div className="title">Font Size</div>
+						<div className="title">{t('font_size')}</div>
 						<Button
 							className="value"
 							type="text"
@@ -172,7 +177,7 @@ function OptionsMenu({
 					</div>
 					<div className="horizontal-line" />
 					<div className="menu-container">
-						<div className="title">FORMAT</div>
+						<div className="title">{t('format')}</div>
 
 						<div className="menu-items">
 							{items.map(
@@ -197,7 +202,7 @@ function OptionsMenu({
 						<>
 							<div className="horizontal-line" />
 							<div className="max-lines-per-row">
-								<div className="title"> max lines per row </div>
+								<div className="title">{t('max_lines_per_row')}</div>
 								<div className="raw-format max-lines-per-row-input">
 									<button
 										type="button"
@@ -237,7 +242,7 @@ function OptionsMenu({
 									data-testid="periscope-btn-edit-columns"
 								>
 									<Typography.Text className="edit-columns-text">
-										Edit columns
+										{t('edit_columns')}
 									</Typography.Text>
 									<ChevronRight size={14} className="icon" />
 								</Button>
@@ -256,6 +261,8 @@ function LogsFormatOptionsMenu({
 	config,
 	onOpenColumns,
 }: LogsFormatOptionsMenuProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string): string => String(translate(key));
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 	return (
 		<Popover
@@ -276,7 +283,7 @@ function LogsFormatOptionsMenu({
 			rootClassName="format-options-popover"
 			destroyTooltipOnHide
 		>
-			<Tooltip title="Options">
+			<Tooltip title={t('options')}>
 				<Button
 					className="periscope-btn ghost"
 					icon={<SlidersVertical size="md" />}

@@ -1,0 +1,126 @@
+{
+	"alert_rules": {
+		"all": "所有告警规则",
+		"create": "创建告警规则",
+		"empty_description": "创建一条告警规则即可开始",
+		"empty_title": "还没有告警规则。",
+		"title": "告警"
+	},
+	"checklist": {
+		"completed": "已完成",
+		"get_started": "开始使用",
+		"items": {
+			"ADD_DATA_SOURCE": {
+				"description": "",
+				"title": "添加你的第一个数据源"
+			},
+			"SEND_LOGS": {
+				"description": "将日志发送到 SigNoz，了解资源之间如何交互，获得更完整的可观测性。",
+				"title": "发送日志"
+			},
+			"SEND_METRICS": {
+				"description": "将指标发送到 SigNoz，了解资源之间如何交互，获得更完整的可观测性。",
+				"title": "发送指标"
+			},
+			"SEND_TRACES": {
+				"description": "将链路发送到 SigNoz，了解资源之间如何交互，获得更完整的可观测性。",
+				"title": "发送链路"
+			},
+			"SETUP_ALERTS": {
+				"description": "设置告警，在资源表现不符合预期时及时收到通知。",
+				"title": "设置告警"
+			},
+			"SETUP_DASHBOARDS": {
+				"description": "创建仪表盘来可视化数据，并与团队共享。",
+				"title": "设置仪表盘"
+			},
+			"SETUP_SAVED_VIEWS": {
+				"description": "保存视图，快速概览数据并与团队共享。",
+				"title": "设置保存视图"
+			},
+			"SETUP_WORKSPACE": {
+				"description": "",
+				"title": "设置你的工作区"
+			}
+		},
+		"skip_for_now": "暂时跳过",
+		"will_do_later": "稍后再做",
+		"whats_next": "接下来"
+	},
+	"dashboards": {
+		"all": "所有仪表盘",
+		"empty_description": "创建一个仪表盘即可开始",
+		"empty_title": "你还没有任何仪表盘。",
+		"new": "新建仪表盘",
+		"title": "仪表盘"
+	},
+	"explorer": {
+		"alert_description": "创建适合你需求的自定义告警规则。",
+		"alert_title": "添加告警",
+		"create_alert": "创建告警",
+		"create_dashboard": "创建仪表盘",
+		"dashboard_description": "创建仪表盘来可视化你的数据。",
+		"dashboard_title": "创建仪表盘",
+		"description": "探索你的数据，并为团队中的每个人保存有用视图。",
+		"open_logs": "打开日志 Explorer",
+		"open_metrics": "打开指标 Explorer",
+		"open_traces": "打开链路 Explorer",
+		"title": "使用 Explorer 筛选并保存视图"
+	},
+	"ingestion": {
+		"explore_logs": "探索日志",
+		"explore_metrics": "探索指标",
+		"explore_traces": "探索链路",
+		"logs_active": "日志接入已激活",
+		"metrics_active": "指标接入已激活",
+		"traces_active": "链路接入已激活"
+	},
+	"learn_more": "了解更多",
+	"nav_title": "首页",
+	"saved_views": {
+		"all": "所有视图",
+		"empty_description": "探索你的数据，并将它们保存为视图。",
+		"empty_title": "你还没有保存任何视图。",
+		"error": "糟糕，加载保存视图时出了点问题。",
+		"logs": "日志",
+		"metrics": "指标",
+		"none_found": "未找到保存视图。",
+		"title": "保存视图",
+		"traces": "链路"
+	},
+	"services": {
+		"all": "所有服务",
+		"columns": {
+			"application": "应用",
+			"call_rate": "OPS / 秒",
+			"error_rate": "错误率（占总量百分比）",
+			"p99_latency": "P99 延迟（毫秒）"
+		},
+		"empty_description": "开始发送链路后即可查看你的服务。",
+		"empty_title": "你还没有发送链路。",
+		"title": "服务"
+	},
+	"steps_progress": {
+		"step_count": "第 {{completed}} / {{total}} 步",
+		"title": "构建你的可观测性基础"
+	},
+	"time": {
+		"last_15_minutes": "最近 15 分钟",
+		"last_1_day": "最近 1 天",
+		"last_1_hour": "最近 1 小时",
+		"last_1_month": "最近 1 个月",
+		"last_1_week": "最近 1 周",
+		"last_30_minutes": "最近 30 分钟",
+		"last_3_days": "最近 3 天",
+		"last_5_minutes": "最近 5 分钟",
+		"last_6_hours": "最近 6 小时"
+	},
+	"welcome": {
+		"checklist_button": "欢迎清单",
+		"connect_data_source": "连接数据源",
+		"description_line_1": "你还没有发送任何数据。",
+		"description_line_2": "有了你的数据，SigNoz 才能发挥更大价值 ⎯ 先把遥测数据发送到 SigNoz 吧。",
+		"title": "你好，欢迎来到你的 SigNoz 工作区",
+		"workspace_ready": "你的工作区已准备就绪"
+	}
+}

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { X } from '@signozhq/icons';
 
@@ -24,13 +25,14 @@ function DetailsHeader({
 	closePosition = 'right',
 	className,
 }: DetailsHeaderProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
 	const closeButton = (
 		<Button
 			variant="ghost"
 			size="icon"
 			color="secondary"
 			onClick={onClose}
-			aria-label="Close"
+			aria-label={String(translate('close'))}
 			prefix={<X size={14} />}
 		></Button>
 	);

@@ -12,6 +12,7 @@ export interface SidebarItem {
 	icon?: ReactNode;
 	text?: ReactNode;
 	label?: ReactNode;
+	labelKey?: string;
 	isBeta?: boolean;
 	isNew?: boolean;
 	isEarlyAccess?: boolean;

@@ -7,6 +7,7 @@ import {
 	useState,
 } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Input, InputRef, Popover, Tooltip } from 'antd';
 import cx from 'classnames';
@@ -96,8 +97,11 @@ function CustomTimePicker({
 	maxTime,
 	isModalTimeSelection = false,
 }: CustomTimePickerProps): JSX.Element {
+	const { t: translate } = useTranslation('common');
+	const t = (key: string, options?: Record<string, unknown>): string =>
+		String(translate(key, options));
 	const [selectedTimePlaceholderValue, setSelectedTimePlaceholderValue] =
-		useState('Select / Enter Time Range');
+		useState(t('time.select_enter_range'));
 
 	const [inputValue, setInputValue] = useState('');
 	const [inputStatus, setInputStatus] = useState<CustomTimePickerInputStatus>(
@@ -142,23 +146,15 @@ function CustomTimePicker({
 		const match = selectedTime.match(/^(\d+)([mhdw])$/);
 		if (!match) {
 			// If it doesn't match the format, return as is
-			return `Last ${selectedTime}`;
+			return t('time.last_relative', { value: selectedTime });
 		}
 
 		const value = parseInt(match[1], 10);
 		const unit = match[2];
 
 		// Map unit abbreviations to full words
-		const unitMap: Record<string, { singular: string; plural: string }> = {
-			m: { singular: 'minute', plural: 'minutes' },
-			h: { singular: 'hour', plural: 'hours' },
-			d: { singular: 'day', plural: 'days' },
-			w: { singular: 'week', plural: 'weeks' },
-		};
-
-		const unitLabel = value === 1 ? unitMap[unit].singular : unitMap[unit].plural;
-
-		return `Last ${value} ${unitLabel}`;
+		const unitKey = { m: 'minutes', h: 'hours', d: 'days', w: 'weeks' }[unit];
+		return t(`time.last_${unitKey}`, { count: value });
 	};
 
 	const getSelectedTimeRangeLabel = (
@@ -186,7 +182,7 @@ function CustomTimePicker({
 
 		for (let index = 0; index < Options.length; index++) {
 			if (Options[index].value === selectedTime) {
-				return Options[index].label;
+				return t(Options[index].label);
 			}
 		}
 
@@ -196,13 +192,13 @@ function CustomTimePicker({
 			index++
 		) {
 			if (RelativeDurationSuggestionOptions[index].value === selectedTime) {
-				return RelativeDurationSuggestionOptions[index].label;
+				return t(RelativeDurationSuggestionOptions[index].label);
 			}
 		}
 
 		for (let index = 0; index < FixedDurationSuggestionOptions.length; index++) {
 			if (FixedDurationSuggestionOptions[index].value === selectedTime) {
-				return FixedDurationSuggestionOptions[index].label;
+				return t(FixedDurationSuggestionOptions[index].label);
 			}
 		}
 
@@ -221,8 +217,8 @@ function CustomTimePicker({
 
 	useEffect(() => {
 		if (showLiveLogs) {
-			setSelectedTimePlaceholderValue('Live');
-			setInputValue('Live');
+			setSelectedTimePlaceholderValue(t('time.live'));
+			setInputValue(t('time.live'));
 			resetErrorStatus();
 		} else {
 			const value = getSelectedTimeRangeLabel(selectedTime, selectedValue);
@@ -277,8 +273,8 @@ function CustomTimePicker({
 			setActiveView('datetime');
 
 			if (showLiveLogs) {
-				setSelectedTimePlaceholderValue('Live');
-				setInputValue('Live');
+				setSelectedTimePlaceholderValue(t('time.live'));
+				setInputValue(t('time.live'));
 				return;
 			}
 
@@ -342,9 +338,13 @@ function CustomTimePicker({
 				setInputStatus(CustomTimePickerInputStatus.ERROR);
 				onError(true);
 				setInputErrorDetails({
-					message: `Please enter time less than ${maxAllowedMinTimeInMonths} months`,
+					message: t('time.invalid_less_than_months', {
+						count: maxAllowedMinTimeInMonths,
+					}),
 					code: 'TIME_LESS_THAN_MAX_ALLOWED_TIME_IN_MONTHS',
-					description: `Please enter time less than ${maxAllowedMinTimeInMonths} months`,
+					description: t('time.invalid_less_than_months', {
+						count: maxAllowedMinTimeInMonths,
+					}),
 				});
 				if (isFunction(onCustomTimeStatusUpdate)) {
 					onCustomTimeStatusUpdate(true);
@@ -409,7 +409,7 @@ function CustomTimePicker({
 		}
 
 		onSelect(value);
-		setSelectedTimePlaceholderValue(label);
+		setSelectedTimePlaceholderValue(t(label));
 		resetErrorStatus();
 		setInputValue('');
 
@@ -432,7 +432,7 @@ function CustomTimePicker({
 							selectedValue === value ? 'active' : '',
 						)}
 					>
-						{label}
+						{t(label)}
 					</div>
 				))}
 			</div>
@@ -450,9 +450,9 @@ function CustomTimePicker({
 
 		if (showLiveLogs) {
 			setOpen(true);
-			setSelectedTimePlaceholderValue('Live');
-			setInputValue('Live');
-			initialInputValueOnOpenRef.current = 'Live';
+			setSelectedTimePlaceholderValue(t('time.live'));
+			setInputValue(t('time.live'));
+			initialInputValueOnOpenRef.current = t('time.live');
 			hasChangedSinceOpenRef.current = false;
 			return;
 		}
@@ -487,7 +487,7 @@ function CustomTimePicker({
 		setCustomDTPickerVisible?.(false);
 
 		if (showLiveLogs) {
-			setInputValue('Live');
+			setInputValue(t('time.live'));
 			return;
 		}
 
@@ -651,9 +651,7 @@ function CustomTimePicker({
 			</Tooltip>
 			{!showLiveLogs && !isModalTimeSelection && (
 				<Tooltip
-					title={
-						zoomOutDisabled ? 'Zoom out time range is limited to 1 month' : 'Zoom out'
-					}
+					title={zoomOutDisabled ? t('time.zoom_out_limited') : t('time.zoom_out')}
 				>
 					<Button
 						className="zoom-out-btn"

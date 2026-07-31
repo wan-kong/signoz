@@ -39,7 +39,9 @@ describe('DataSourceInfo', () => {
 
 		render(<DataSourceInfo dataSentToSigNoz={false} isLoading={false} />);
 
-		await screen.findByText(/custom-host\.test\.cloud/i);
+		await expect(
+			screen.findByText(/custom-host\.test\.cloud/i),
+		).resolves.toBeInTheDocument();
 	});
 
 	it('does not render workspace URL when GET /zeus/hosts fails', async () => {
@@ -51,7 +53,9 @@ describe('DataSourceInfo', () => {
 
 		render(<DataSourceInfo dataSentToSigNoz={false} isLoading={false} />);
 
-		await screen.findByText(/Your workspace is ready/i);
+		await expect(
+			screen.findByText('home:welcome.workspace_ready'),
+		).resolves.toBeInTheDocument();
 		expect(screen.queryByText(/signoz\.cloud/i)).not.toBeInTheDocument();
 	});
 
@@ -64,6 +68,8 @@ describe('DataSourceInfo', () => {
 
 		render(<DataSourceInfo dataSentToSigNoz={true} isLoading={false} />);
 
-		await screen.findByText(/custom-host\.test\.cloud/i);
+		await expect(
+			screen.findByText(/custom-host\.test\.cloud/i),
+		).resolves.toBeInTheDocument();
 	});
 });

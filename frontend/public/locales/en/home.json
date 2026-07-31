@@ -1,0 +1,126 @@
+{
+	"alert_rules": {
+		"all": "All Alert Rules",
+		"create": "Create Alert Rule",
+		"empty_description": "Create an Alert Rule to get started",
+		"empty_title": "No Alert rules yet.",
+		"title": "Alerts"
+	},
+	"checklist": {
+		"completed": "Completed",
+		"get_started": "Get Started",
+		"items": {
+			"ADD_DATA_SOURCE": {
+				"description": "",
+				"title": "Add your first data source"
+			},
+			"SEND_LOGS": {
+				"description": "Send your logs to SigNoz to get more visibility into how your resources interact.",
+				"title": "Send your logs"
+			},
+			"SEND_METRICS": {
+				"description": "Send your metrics to SigNoz to get more visibility into how your resources interact.",
+				"title": "Send your metrics"
+			},
+			"SEND_TRACES": {
+				"description": "Send your traces to SigNoz to get more visibility into how your resources interact.",
+				"title": "Send your traces"
+			},
+			"SETUP_ALERTS": {
+				"description": "Setup alerts to get notified when your resources are not performing as expected.",
+				"title": "Setup Alerts"
+			},
+			"SETUP_DASHBOARDS": {
+				"description": "Create dashboards to visualize your data and share it with your team.",
+				"title": "Setup Dashboards"
+			},
+			"SETUP_SAVED_VIEWS": {
+				"description": "Save your views to get a quick overview of your data and share it with your team.",
+				"title": "Setup Saved Views"
+			},
+			"SETUP_WORKSPACE": {
+				"description": "",
+				"title": "Set up your workspace"
+			}
+		},
+		"skip_for_now": "Skip for now",
+		"will_do_later": "I'll do this later",
+		"whats_next": "What's Next"
+	},
+	"dashboards": {
+		"all": "All Dashboards",
+		"empty_description": "Create a dashboard to get started",
+		"empty_title": "You don’t have any dashboards yet.",
+		"new": "New Dashboard",
+		"title": "Dashboards"
+	},
+	"explorer": {
+		"alert_description": "Create bespoke alerting rules to suit your needs.",
+		"alert_title": "Add an alert",
+		"create_alert": "Create an alert",
+		"create_dashboard": "Create dashboard",
+		"dashboard_description": "Create a dashboard to visualize your data.",
+		"dashboard_title": "Create a dashboard",
+		"description": "Explore your data, and save useful views for everyone in the team.",
+		"open_logs": "Open Logs Explorer",
+		"open_metrics": "Open Metrics Explorer",
+		"open_traces": "Open Traces Explorer",
+		"title": "Filter and save views with the Explorer"
+	},
+	"ingestion": {
+		"explore_logs": "Explore Logs",
+		"explore_metrics": "Explore Metrics",
+		"explore_traces": "Explore Traces",
+		"logs_active": "Logs ingestion is active",
+		"metrics_active": "Metrics ingestion is active",
+		"traces_active": "Traces ingestion is active"
+	},
+	"learn_more": "Learn more",
+	"nav_title": "Home",
+	"saved_views": {
+		"all": "All Views",
+		"empty_description": "Explore your data and save them as views.",
+		"empty_title": "You have not saved any views yet.",
+		"error": "Oops, something went wrong while loading your saved views.",
+		"logs": "Logs",
+		"metrics": "Metrics",
+		"none_found": "No saved views found.",
+		"title": "Saved Views",
+		"traces": "Traces"
+	},
+	"services": {
+		"all": "All Services",
+		"columns": {
+			"application": "APPLICATION",
+			"call_rate": "OPS / SEC",
+			"error_rate": "ERROR RATE (% of total)",
+			"p99_latency": "P99 LATENCY (in ms)"
+		},
+		"empty_description": "Start sending traces to see your services.",
+		"empty_title": "You are not sending traces yet.",
+		"title": "Services"
+	},
+	"steps_progress": {
+		"step_count": "Step {{completed}} / {{total}}",
+		"title": "Build your observability base"
+	},
+	"time": {
+		"last_15_minutes": "Last 15 minutes",
+		"last_1_day": "Last 1 day",
+		"last_1_hour": "Last 1 hour",
+		"last_1_month": "Last 1 month",
+		"last_1_week": "Last 1 week",
+		"last_30_minutes": "Last 30 minutes",
+		"last_3_days": "Last 3 days",
+		"last_5_minutes": "Last 5 minutes",
+		"last_6_hours": "Last 6 hours"
+	},
+	"welcome": {
+		"checklist_button": "Welcome checklist",
+		"connect_data_source": "Connect Data Source",
+		"description_line_1": "You’re not sending any data yet.",
+		"description_line_2": "SigNoz is so much better with your data ⎯ start by sending your telemetry data to SigNoz.",
+		"title": "Hello there, Welcome to your SigNoz workspace",
+		"workspace_ready": "Your workspace is ready"
+	}
+}

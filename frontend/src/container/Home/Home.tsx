@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery } from 'react-query';
 import { Color } from '@signozhq/design-tokens';
 import {
@@ -38,8 +39,7 @@ import { useAppContext } from 'providers/App/App';
 import { UserPreference } from 'types/api/preferences/preference';
 import { DataSource } from 'types/common/queryBuilder';
 import { USER_ROLES } from 'types/roles';
-import { isIngestionActive } from 'utils/app';
-import { isModifierKeyPressed } from 'utils/app';
+import { isIngestionActive, isModifierKeyPressed } from 'utils/app';
 import { popupContainer } from 'utils/selectPopupContainer';
 
 import crackerUrl from '@/assets/Icons/cracker.svg';
@@ -64,6 +64,7 @@ const homeInterval = 30 * 60 * 1000;
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Home(): JSX.Element {
+	const { t } = useTranslation('home');
 	const { user } = useAppContext();
 	const { safeNavigate } = useSafeNavigate();
 	const isDarkMode = useIsDarkMode();
@@ -283,7 +284,7 @@ export default function Home(): JSX.Element {
 				<Header
 					leftComponent={
 						<div className="home-header-left">
-							<House size={14} /> Home
+							<House size={14} /> {t('nav_title')}
 						</div>
 					}
 					rightComponent={
@@ -315,7 +316,7 @@ export default function Home(): JSX.Element {
 										color="secondary"
 										prefix={<ClipboardList size={14} />}
 									>
-										Welcome checklist
+										{t('welcome.checklist_button')}
 									</Button>
 								</Popover>
 							)}
@@ -346,7 +347,7 @@ export default function Home(): JSX.Element {
 											</div>
 
 											<div className="active-ingestion-card-content-description">
-												Logs ingestion is active
+												{t('ingestion.logs_active')}
 											</div>
 										</div>
 
@@ -373,7 +374,7 @@ export default function Home(): JSX.Element {
 											}}
 										>
 											<Compass size={12} />
-											Explore Logs
+											{t('ingestion.explore_logs')}
 										</div>
 									</div>
 								</Card.Content>
@@ -390,7 +391,7 @@ export default function Home(): JSX.Element {
 											</div>
 
 											<div className="active-ingestion-card-content-description">
-												Traces ingestion is active
+												{t('ingestion.traces_active')}
 											</div>
 										</div>
 
@@ -416,7 +417,7 @@ export default function Home(): JSX.Element {
 											}}
 										>
 											<Compass size={12} />
-											Explore Traces
+											{t('ingestion.explore_traces')}
 										</div>
 									</div>
 								</Card.Content>
@@ -433,7 +434,7 @@ export default function Home(): JSX.Element {
 											</div>
 
 											<div className="active-ingestion-card-content-description">
-												Metrics ingestion is active
+												{t('ingestion.metrics_active')}
 											</div>
 										</div>
 
@@ -459,7 +460,7 @@ export default function Home(): JSX.Element {
 											}}
 										>
 											<Compass size={12} />
-											Explore Metrics
+											{t('ingestion.explore_metrics')}
 										</div>
 									</div>
 								</Card.Content>
@@ -484,11 +485,9 @@ export default function Home(): JSX.Element {
 											</div>
 
 											<div className="section-title">
-												<div className="title">Filter and save views with the Explorer</div>
+												<div className="title">{t('explorer.title')}</div>
 
-												<div className="description">
-													Explore your data, and save useful views for everyone in the team.
-												</div>
+												<div className="description">{t('explorer.description')}</div>
 											</div>
 										</div>
 
@@ -507,7 +506,7 @@ export default function Home(): JSX.Element {
 													});
 												}}
 											>
-												Open Logs Explorer
+												{t('explorer.open_logs')}
 											</Button>
 
 											<Button
@@ -524,7 +523,7 @@ export default function Home(): JSX.Element {
 													});
 												}}
 											>
-												Open Traces Explorer
+												{t('explorer.open_traces')}
 											</Button>
 
 											<Button
@@ -541,7 +540,7 @@ export default function Home(): JSX.Element {
 													});
 												}}
 											>
-												Open Metrics Explorer
+												{t('explorer.open_metrics')}
 											</Button>
 										</div>
 									</div>
@@ -557,10 +556,10 @@ export default function Home(): JSX.Element {
 											</div>
 
 											<div className="section-title">
-												<div className="title">Create a dashboard</div>
+												<div className="title">{t('explorer.dashboard_title')}</div>
 
 												<div className="description">
-													Create a dashboard to visualize your data.
+													{t('explorer.dashboard_description')}
 												</div>
 											</div>
 										</div>
@@ -580,7 +579,7 @@ export default function Home(): JSX.Element {
 													});
 												}}
 											>
-												Create dashboard
+												{t('explorer.create_dashboard')}
 											</Button>
 										</div>
 									</div>
@@ -602,11 +601,9 @@ export default function Home(): JSX.Element {
 											</div>
 
 											<div className="section-title">
-												<div className="title">Add an alert</div>
+												<div className="title">{t('explorer.alert_title')}</div>
 
-												<div className="description">
-													Create bespoke alerting rules to suit your needs.
-												</div>
+												<div className="description">{t('explorer.alert_description')}</div>
 											</div>
 										</div>
 
@@ -625,7 +622,7 @@ export default function Home(): JSX.Element {
 													});
 												}}
 											>
-												Create an alert
+												{t('explorer.create_alert')}
 											</Button>
 										</div>
 									</div>
@@ -699,7 +696,7 @@ export default function Home(): JSX.Element {
 											onClick={handleWillDoThisLater}
 											loading={updatingUserPreferences}
 										>
-											I&apos;ll do this later
+											{t('checklist.will_do_later')}
 										</Button>
 									</div>
 								</Card.Footer>

@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import cx from 'classnames';
 import { ORDERBY_FILTERS } from 'container/QueryBuilder/filters/OrderByFilter/config';
 import { ArrowDown, ArrowUp, Ban } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import './ShowButton.styles.scss';
 
@@ -19,6 +20,8 @@ function ShowButton({
 	order,
 	onClick,
 }: ShowButtonProps): JSX.Element {
+	const { t } = useTranslation('logs');
+
 	const getIcons = (): JSX.Element => {
 		if (order === ORDERBY_FILTERS.ASC) {
 			return isDisabled ? (
@@ -46,7 +49,7 @@ function ShowButton({
 				isDisabled && 'disabled',
 			)}
 		>
-			Load more
+			{t('details.load_more')}
 		</Button>
 	);
 }
