@@ -23,6 +23,7 @@ import {
 import { GlobalReducer } from 'types/reducer/globalTime';
 import { ILogsReducer } from 'types/reducer/logs';
 import { popupContainer } from 'utils/selectPopupContainer';
+import { useTranslation } from 'react-i18next';
 
 import SearchFields from './SearchFields';
 import { Container, DropDownContainer } from './styles';
@@ -34,6 +35,7 @@ function SearchFilter({
 	getLogsFields,
 }: SearchFilterProps): JSX.Element {
 	const { updateQueryString, queryString } = useSearchParser();
+	const { t } = useTranslation('logs');
 	const [searchText, setSearchText] = useState(queryString);
 	const [showDropDown, setShowDropDown] = useState(false);
 	const searchRef = useRef<InputRef>(null);
@@ -197,7 +199,7 @@ function SearchFilter({
 			>
 				<Input.Search
 					ref={searchRef}
-					placeholder="Search Filter"
+					placeholder={t('search.placeholder')}
 					value={searchText}
 					onChange={(e): void => {
 						const { value } = e.target;

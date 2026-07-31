@@ -1,6 +1,7 @@
 import { memo, MouseEventHandler } from 'react';
 import { Link, TextSelect } from '@signozhq/icons';
 import { Button, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import './LogLinesActionButtons.styles.scss';
 
@@ -15,9 +16,11 @@ function LogLinesActionButtons({
 	onLogCopy,
 	customClassName = '',
 }: LogLinesActionButtonsProps): JSX.Element {
+	const { t } = useTranslation('logs');
+
 	return (
 		<div className={`log-line-action-buttons ${customClassName}`}>
-			<Tooltip title="Show in Context">
+			<Tooltip title={t('log_line_actions.show_in_context')}>
 				<Button
 					size="small"
 					icon={<TextSelect size={14} />}
@@ -25,7 +28,7 @@ function LogLinesActionButtons({
 					onClick={handleShowContext}
 				/>
 			</Tooltip>
-			<Tooltip title="Copy Link">
+			<Tooltip title={t('log_line_actions.copy_link')}>
 				<Button
 					size="small"
 					icon={<Link size={14} />}

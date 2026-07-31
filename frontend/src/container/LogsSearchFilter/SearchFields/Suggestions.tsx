@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Button } from 'antd';
 import CategoryHeading from 'components/Logs/CategoryHeading';
 import map from 'lodash-es/map';
+import { useTranslation } from 'react-i18next';
 import { AppState } from 'store/reducers';
 // import { ADD_SEARCH_FIELD_QUERY_STRING } from 'types/actions/logs';
 import { ILogsReducer } from 'types/reducer/logs';
@@ -38,13 +39,14 @@ interface SuggestionsProps {
 }
 
 function Suggestions({ applySuggestion }: SuggestionsProps): JSX.Element {
+	const { t } = useTranslation('logs');
 	const {
 		fields: { selected },
 	} = useSelector<AppState, ILogsReducer>((store) => store.logs);
 
 	return (
 		<div>
-			<CategoryHeading>SUGGESTIONS</CategoryHeading>
+			<CategoryHeading>{t('search.suggestions')}</CategoryHeading>
 			<div>
 				{map(selected, (field) => (
 					<SuggestedItem

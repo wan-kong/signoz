@@ -28,6 +28,7 @@ import useLogDetailHandlers from 'hooks/logs/useLogDetailHandlers';
 import useScrollToLog from 'hooks/logs/useScrollToLog';
 import { useIsDarkMode } from 'hooks/useDarkMode';
 import { useEventSource } from 'providers/EventSource';
+import { useTranslation } from 'react-i18next';
 // interfaces
 import { ILog } from 'types/api/logs/log';
 import { DataSource, StringOperators } from 'types/common/queryBuilder';
@@ -47,6 +48,7 @@ function LiveLogsList({
 	const ref = useRef<TanStackTableHandle | VirtuosoHandle | null>(null);
 	const [, setCopy] = useCopyToClipboard();
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('logs');
 
 	const { isConnectionLoading } = useEventSource();
 
@@ -97,9 +99,11 @@ function LiveLogsList({
 					`${window.location.pathname}?${urlQuery.toString()}`,
 				);
 				setCopy(link);
-				toast.success('Copied to clipboard', { position: 'top-right' });
+				toast.success(t('messages.copied_to_clipboard'), {
+					position: 'top-right',
+				});
 			},
-		[setCopy],
+		[setCopy, t],
 	);
 
 	const handleScrollToLog = useScrollToLog({
@@ -178,11 +182,11 @@ function LiveLogsList({
 				<div className="loading-live-logs-content">
 					<img className="loading-gif" src={loadingPlaneUrl} alt="wait-icon" />
 
-					<Typography>Fetching live logs...</Typography>
+					<Typography>{t('live.fetching')}</Typography>
 				</div>
 			</div>
 		),
-		[],
+		[t],
 	);
 
 	return (

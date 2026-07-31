@@ -2,13 +2,14 @@ import type { ColumnsType, ColumnType } from 'antd/es/table';
 import { generatorResizeTableColumns } from 'components/TableRenderer/utils';
 import { ServicesList } from 'types/api/metrics/getService';
 
-import { baseColumnOptions } from './BaseColumnOptions';
-import { ColumnKey, ColumnTitle } from './ColumnContants';
+import { getBaseColumnOptions } from './BaseColumnOptions';
+import { ColumnKey } from './ColumnContants';
 import { getColumnSearchProps } from './GetColumnSearchProps';
 
 export const getColumns = (
 	search: string,
 	isMetricData: boolean,
+	columnTitle: Record<ColumnKey, string>,
 ): ColumnsType<ServicesList> => {
 	const dynamicColumnOption: {
 		key: string;
@@ -23,9 +24,7 @@ export const getColumns = (
 		{
 			key: ColumnKey.P99,
 			columnOption: {
-				title: `${ColumnTitle[ColumnKey.P99]}${
-					isMetricData ? ' (in ns)' : ' (in ms)'
-				}`,
+				title: columnTitle[ColumnKey.P99],
 				sorter: (a: ServicesList, b: ServicesList): number => a.p99 - b.p99,
 				render: (value: number): string => {
 					if (Number.isNaN(value)) {
@@ -54,7 +53,7 @@ export const getColumns = (
 	];
 
 	return generatorResizeTableColumns<ServicesList>({
-		baseColumnOptions,
+		baseColumnOptions: getBaseColumnOptions(columnTitle),
 		dynamicColumnOption,
 	});
 };

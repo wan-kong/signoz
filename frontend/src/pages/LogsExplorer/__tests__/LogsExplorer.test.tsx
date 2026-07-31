@@ -14,6 +14,7 @@ import { rest } from 'msw';
 import { PreferenceContextProvider } from 'providers/preferences/context/PreferenceContextProvider';
 import { QueryBuilderContext } from 'providers/QueryBuilder';
 import { fireEvent, render, waitFor } from 'tests/test-utils';
+import { logsI18nProviderProps } from 'tests/logsI18n';
 import { Query } from 'types/api/queryBuilder/queryBuilderData';
 
 import LogsExplorer from '../index';
@@ -100,6 +101,8 @@ describe('Logs Explorer Tests', () => {
 						<LogsExplorer />
 					</PreferenceContextProvider>
 				</MemoryRouter>,
+				undefined,
+				logsI18nProviderProps,
 			);
 
 		// by default is hidden, toggle the chart and check it's visibility
@@ -148,6 +151,8 @@ describe('Logs Explorer Tests', () => {
 					</VirtuosoMockContext.Provider>
 				</PreferenceContextProvider>
 			</MemoryRouter>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		// check for loading state to be not present
@@ -230,6 +235,8 @@ describe('Logs Explorer Tests', () => {
 					</PreferenceContextProvider>
 				</QueryBuilderContext.Provider>
 			</MemoryRouter>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		const queries = queryAllByText(
@@ -249,6 +256,8 @@ describe('Logs Explorer Tests', () => {
 					<LogsExplorer />
 				</PreferenceContextProvider>
 			</MemoryRouter>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		// check the presence of Frequency Chart

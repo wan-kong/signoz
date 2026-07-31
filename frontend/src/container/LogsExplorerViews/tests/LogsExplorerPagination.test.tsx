@@ -19,6 +19,7 @@ import {
 	userEvent,
 	waitFor,
 } from 'tests/test-utils';
+import { logsI18nProviderProps } from 'tests/logsI18n';
 import { IBuilderQuery, Query } from 'types/api/queryBuilder/queryBuilderData';
 import { QueryRangePayloadV5 } from 'types/api/v5/queryRange';
 import { v4 as uuid } from 'uuid';
@@ -255,6 +256,8 @@ describe.skip('LogsExplorerViews Pagination', () => {
 				<VirtuosoMockContext.Provider value={{ viewportHeight, itemHeight }}>
 					<LogsExplorer />
 				</VirtuosoMockContext.Provider>,
+				undefined,
+				logsI18nProviderProps,
 			);
 		});
 
@@ -430,6 +433,7 @@ function LogsExplorerWithMockContext({
 		<AllTheProviders
 			queryBuilderOverrides={contextValue as any}
 			initialRoute="/logs"
+			{...logsI18nProviderProps}
 		>
 			<VirtuosoMockContext.Provider value={virtuosoContextValue}>
 				<LogsExplorer />

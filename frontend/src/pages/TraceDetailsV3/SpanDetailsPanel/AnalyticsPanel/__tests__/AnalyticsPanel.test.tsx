@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react';
 import useGetTraceAggregations from 'hooks/trace/useGetTraceAggregations';
+import { traceI18nProviderProps } from 'tests/traceI18n';
 import { render } from 'tests/test-utils';
 
 import { DEFAULT_COLOR_BY_FIELD } from '../../../constants';
@@ -37,7 +38,11 @@ const mockHook = useGetTraceAggregations as jest.Mock;
 const noop = (): void => undefined;
 
 const renderPanel = (isOpen = true): ReturnType<typeof render> =>
-	render(<AnalyticsPanel isOpen={isOpen} onClose={noop} onTabChange={noop} />);
+	render(
+		<AnalyticsPanel isOpen={isOpen} onClose={noop} onTabChange={noop} />,
+		undefined,
+		traceI18nProviderProps,
+	);
 
 const aggregationsResponse = {
 	status: 'success',

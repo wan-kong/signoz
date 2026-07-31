@@ -1,34 +1,42 @@
-export const TOOLBAR_VIEWS = {
+export interface ToolbarViewConfig {
+	name: string;
+	label: string;
+	show: boolean;
+	key: string;
+	disabled?: boolean;
+}
+
+export const TOOLBAR_VIEWS: Record<string, ToolbarViewConfig> = {
 	list: {
 		name: 'list',
-		label: 'List',
+		label: 'view_modes.list',
 		show: true,
 		key: 'list',
 	},
 	timeseries: {
 		name: 'timeseries',
-		label: 'Timeseries',
+		label: 'view_modes.timeseries',
 		disabled: false,
 		show: true,
 		key: 'timeseries',
 	},
 	trace: {
 		name: 'trace',
-		label: 'Trace',
+		label: 'view_modes.trace',
 		disabled: false,
 		show: true,
 		key: 'trace',
 	},
 	table: {
 		name: 'table',
-		label: 'Table',
+		label: 'view_modes.table',
 		disabled: false,
 		show: true,
 		key: 'table',
 	},
 	clickhouse: {
 		name: 'clickhouse',
-		label: 'Clickhouse',
+		label: 'view_modes.clickhouse',
 		disabled: false,
 		show: false,
 		key: 'clickhouse',

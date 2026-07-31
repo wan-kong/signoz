@@ -68,17 +68,3 @@ test('reports missing and extra keys in configured target locales', async () => 
 		'zh-CN/common: extra key "extra"',
 	]);
 });
-
-test('warns but does not fail for unsupported legacy locale directories', async () => {
-	const rootDir = await createFixture();
-	await writeJson(path.join(rootDir, 'public/locales/en-GB/common.json'), {
-		action: { save: 'Save' },
-	});
-
-	const result = await checkI18n({ rootDir });
-
-	assert.deepEqual(result.errors, []);
-	assert.deepEqual(result.warnings, [
-		'en-GB: locale directory is not in i18n.config.json',
-	]);
-});

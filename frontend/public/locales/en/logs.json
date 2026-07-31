@@ -1,1 +1,107 @@
-{ "fetching_log_lines": "Fetching log lines" }
+{
+	"controls": {
+		"columns": "columns",
+		"edit_columns": "Edit columns",
+		"format": "Format",
+		"frequency_chart": "Frequency chart",
+		"max_lines_per_row": "Max lines per Row",
+		"max_lines_per_row_lower": "max lines per row",
+		"order_by": "Order by"
+	},
+	"empty": {
+		"no_data": {
+			"cta": "Sending {{dataSource}} to SigNoz",
+			"message": "No {{dataSource}} yet.<subText> When we receive {{dataSource}}, they would show up here</subText>"
+		},
+		"no_log_lines": "No logs lines found",
+		"search": {
+			"clear_filters": "Clear filters",
+			"edit_query": "Edit your query and try again!",
+			"no_results": "This query had no results.",
+			"resources": "RESOURCES"
+		},
+		"trace_to_logs": {
+			"clear_filters_cta": "Clear filters from Trace to view other logs",
+			"docs": {
+				"correlate": "Correlate traces and logs",
+				"send_logs": "Sending logs to SigNoz"
+			},
+			"reasons": {
+				"no_associated_logs": "No logs are associated with this particular trace/span.",
+				"not_linked": "Logs are not linked to Traces.",
+				"not_sent": "Logs are not being sent to SigNoz."
+			},
+			"subtitle": "This could be because :",
+			"title": "No logs found for this trace."
+		}
+	},
+	"error": {
+		"contact_support": "Contact Support",
+		"message": "<prefix>Aw snap :/ </prefix> Something went wrong. Please try again or contact support."
+	},
+	"fetching_log_lines": "Fetching log lines",
+	"filters": {
+		"add_to_selected_fields": "Add to Selected Fields",
+		"filter_values": "Filter Values",
+		"interesting_fields": "INTERESTING FIELDS",
+		"remove_from_selected_fields": "Remove from Selected Fields",
+		"selected_fields": "SELECTED FIELDS"
+	},
+	"live": {
+		"fetching": "Fetching live logs...",
+		"getting": "Getting live logs...",
+		"pause": "Pause",
+		"resume": "Resume"
+	},
+	"log_fields": {
+		"body": "Body",
+		"log": "Log",
+		"stream": "Stream",
+		"timestamp": "Timestamp"
+	},
+	"log_line_actions": {
+		"add_to_query": "Add to query: {{fieldKey}}",
+		"copy_link": "Copy Link",
+		"show_in_context": "Show in Context"
+	},
+	"loading": {
+		"getting_logs": "Getting Logs"
+	},
+	"messages": {
+		"copied_to_clipboard": "Copied to clipboard"
+	},
+	"order": {
+		"ascending": "Ascending",
+		"descending": "Descending"
+	},
+	"query_cancelled": {
+		"load_logs": "Click \"Run Query\" to load logs."
+	},
+	"search": {
+		"apply": "Apply",
+		"clear_filter": "Clear Filter",
+		"invalid_criteria": "Please enter a valid criteria for each of the selected fields",
+		"log_query_builder": "LOG QUERY BUILDER",
+		"placeholder": "Search Filter",
+		"select_operator": "Select Operator",
+		"suggestions": "SUGGESTIONS"
+	},
+	"table": {
+		"event": "Event"
+	},
+	"tabs": {
+		"explorer": "Explorer",
+		"pipelines": "Pipelines",
+		"views": "Views"
+	},
+	"view_modes": {
+		"clickhouse": "Clickhouse",
+		"column": "Column",
+		"default": "Default",
+		"list": "List",
+		"raw": "Raw",
+		"table": "Table",
+		"timeseries": "Timeseries",
+		"trace": "Trace"
+	}
+}

@@ -33,6 +33,7 @@ import { getDefaultPaginationConfig } from 'hooks/queryPagination/utils';
 import useUrlQueryData from 'hooks/useUrlQueryData';
 import { ArrowUp10, Minus } from '@signozhq/icons';
 import { useTimezone } from 'providers/Timezone';
+import { useTranslation } from 'react-i18next';
 import { AppState } from 'store/reducers';
 import { Warning } from 'types/api';
 import APIError from 'types/api/error';
@@ -59,6 +60,7 @@ function ListView({
 	setIsLoadingQueries,
 	queryKeyRef,
 }: ListViewProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const { stagedQuery, panelType: panelTypeFromQueryBuilder } =
 		useQueryBuilder();
 
@@ -233,7 +235,7 @@ function ListView({
 			!isError &&
 			transformedQueryTableData.length !== 0
 		) {
-			logEvent('Traces Explorer: Data present', {
+			void logEvent('Traces Explorer: Data present', {
 				panelType,
 			});
 		}
@@ -243,7 +245,7 @@ function ListView({
 			<div className="trace-explorer-controls">
 				<div className="order-by-container">
 					<div className="order-by-label">
-						Order by <Minus size={14} /> <ArrowUp10 size={14} />
+						{t('controls.order_by')} <Minus size={14} /> <ArrowUp10 size={14} />
 					</div>
 
 					<ListViewOrderBy

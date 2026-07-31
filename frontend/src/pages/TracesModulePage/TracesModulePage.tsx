@@ -4,23 +4,25 @@ import RouteTab from 'components/RouteTab';
 import { TabRoutes } from 'components/RouteTab/types';
 import ROUTES from 'constants/routes';
 import history from 'lib/history';
-
-import { tracesExplorer, tracesFunnel, tracesSaveView } from './constants';
+import {
+	getTracesExplorerRoute,
+	getTracesFunnelRoute,
+	getTracesSaveViewRoute,
+} from './constants';
 
 import './TracesModulePage.styles.scss';
 
 function TracesModulePage(): JSX.Element {
 	const { pathname } = useLocation();
-
 	const routes: TabRoutes[] = [
-		tracesExplorer,
-		tracesFunnel(pathname),
-		tracesSaveView,
+		getTracesExplorerRoute(),
+		getTracesFunnelRoute(),
+		getTracesSaveViewRoute(),
 	].filter(Boolean) as TabRoutes[];
 
 	const handleTabChange = (activeRoute: string): void => {
 		if (activeRoute === ROUTES.TRACES_FUNNELS) {
-			logEvent('Trace Funnels: visited from trace explorer page', {});
+			void logEvent('Trace Funnels: visited from trace explorer page', {});
 		}
 	};
 

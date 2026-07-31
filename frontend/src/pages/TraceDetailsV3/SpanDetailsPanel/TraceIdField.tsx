@@ -3,6 +3,7 @@ import { useCopyToClipboard } from 'react-use';
 import { Button } from '@signozhq/ui/button';
 import { toast } from '@signozhq/ui/sonner';
 import ROUTES from 'constants/routes';
+import { useTranslation } from 'react-i18next';
 import { SpanV3 } from 'types/api/trace/getTraceV3';
 
 import styles from './TraceIdField.module.scss';
@@ -18,6 +19,7 @@ interface TraceIdFieldProps {
  * existing link to the trace detail page.
  */
 export function TraceIdField({ span }: TraceIdFieldProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const match = useRouteMatch<{ id: string }>({
 		path: ROUTES.TRACE_DETAIL,
 		exact: true,
@@ -29,7 +31,7 @@ export function TraceIdField({ span }: TraceIdFieldProps): JSX.Element {
 	if (isCurrentTrace) {
 		const handleCopy = (): void => {
 			setCopy(span.trace_id);
-			toast.success('Trace ID copied to clipboard', {
+			toast.success(t('trace_details.trace_id_copied'), {
 				position: 'top-right',
 			});
 		};
@@ -40,7 +42,7 @@ export function TraceIdField({ span }: TraceIdFieldProps): JSX.Element {
 				color="secondary"
 				className={styles.traceIdCopy}
 				onClick={handleCopy}
-				title="Click to copy trace ID"
+				title={t('trace_details.copy_trace_id')}
 			>
 				{span.trace_id}
 			</Button>

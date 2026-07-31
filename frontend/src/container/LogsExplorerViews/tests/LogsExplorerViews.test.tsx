@@ -9,6 +9,7 @@ import { rest } from 'msw';
 import { PreferenceContextProvider } from 'providers/preferences/context/PreferenceContextProvider';
 import { QueryBuilderContext } from 'providers/QueryBuilder';
 import { fireEvent, render, RenderResult, waitFor } from 'tests/test-utils';
+import { logsI18nProviderProps } from 'tests/logsI18n';
 import { TagFilterItem } from 'types/api/queryBuilder/queryBuilderData';
 import { LogsAggregatorOperator } from 'types/common/queryBuilder';
 
@@ -119,6 +120,8 @@ const renderer = (): RenderResult =>
 				/>
 			</PreferenceContextProvider>
 		</VirtuosoMockContext.Provider>,
+		undefined,
+		logsI18nProviderProps,
 	);
 
 describe('LogsExplorerViews -', () => {
@@ -185,6 +188,8 @@ describe('LogsExplorerViews -', () => {
 					/>
 				</PreferenceContextProvider>
 			</QueryBuilderContext.Provider>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		await waitFor(() => {
@@ -262,6 +267,8 @@ describe('LogsExplorerViews -', () => {
 					/>
 				</PreferenceContextProvider>
 			</QueryBuilderContext.Provider>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		await waitFor(() => {
@@ -315,6 +322,8 @@ describe('LogsExplorerViews -', () => {
 						</QueryBuilderContext.Provider>
 					</PreferenceContextProvider>
 				</VirtuosoMockContext.Provider>,
+				undefined,
+				logsI18nProviderProps,
 			);
 
 			await waitFor(() => {
@@ -374,6 +383,8 @@ describe('LogsExplorerViews -', () => {
 						</QueryBuilderContext.Provider>
 					</PreferenceContextProvider>
 				</VirtuosoMockContext.Provider>,
+				undefined,
+				logsI18nProviderProps,
 			);
 
 			await waitFor(() => {

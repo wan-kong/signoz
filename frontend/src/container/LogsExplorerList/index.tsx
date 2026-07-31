@@ -32,6 +32,7 @@ import useScrollToLog from 'hooks/logs/useScrollToLog';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useIsDarkMode } from 'hooks/useDarkMode';
 import APIError from 'types/api/error';
+import { useTranslation } from 'react-i18next';
 // interfaces
 import { ILog } from 'types/api/logs/log';
 import { DataSource, StringOperators } from 'types/common/queryBuilder';
@@ -50,7 +51,9 @@ import {
 import './LogsExplorerList.style.scss';
 
 function Footer(): JSX.Element {
-	return <Spinner height={20} tip="Getting Logs" />;
+	const { t } = useTranslation('logs');
+
+	return <Spinner height={20} tip={t('loading.getting_logs')} />;
 }
 function LogsExplorerList({
 	isLoading,
@@ -66,6 +69,7 @@ function LogsExplorerList({
 	const ref = useRef<TanStackTableHandle | VirtuosoHandle | null>(null);
 	const [, setCopy] = useCopyToClipboard();
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('logs');
 	const { activeLogId } = useCopyLogLink();
 	const {
 		activeLog,
@@ -120,9 +124,11 @@ function LogsExplorerList({
 					`${window.location.pathname}?${urlQuery.toString()}`,
 				);
 				setCopy(link);
-				toast.success('Copied to clipboard', { position: 'top-right' });
+				toast.success(t('messages.copied_to_clipboard'), {
+					position: 'top-right',
+				});
 			},
-		[setCopy],
+		[setCopy, t],
 	);
 
 	const handleScrollToLog = useScrollToLog({
@@ -135,7 +141,7 @@ function LogsExplorerList({
 
 	useEffect(() => {
 		if (!isLoading && !isFetching && !isError && logs.length !== 0) {
-			logEvent('Logs Explorer: Data present', {
+			void logEvent('Logs Explorer: Data present', {
 				panelType: 'LIST',
 			});
 		}

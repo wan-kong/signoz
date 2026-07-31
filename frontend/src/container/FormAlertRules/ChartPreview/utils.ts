@@ -14,7 +14,6 @@ import {
 	ThroughputFormats,
 	TimeFormats,
 } from 'container/NewWidget/RightContainer/types';
-import { TFunction } from 'i18next';
 import { getLegend } from 'lib/dashboard/getQueryResults';
 import getLabelName from 'lib/getLabelName';
 import { OnClickPluginOpts } from 'lib/uPlotLib/plugins/onClickPlugin';
@@ -111,9 +110,9 @@ interface IUnit {
 
 export const getThresholds = (
 	thresholds: Threshold[],
-	t: TFunction,
 	optionName: string,
 	yAxisUnit: string,
+	defaultThresholdLabel: string,
 ): ThresholdProps[] => {
 	const thresholdsToReturn = new Array<ThresholdProps>();
 
@@ -127,7 +126,7 @@ export const getThresholds = (
 			thresholdValue: threshold.thresholdValue,
 			thresholdLabel:
 				threshold.label ||
-				`${t('preview_chart_threshold_label')} (y=${getThresholdLabel(
+				`${defaultThresholdLabel} (y=${getThresholdLabel(
 					optionName,
 					threshold.thresholdValue,
 					threshold.unit,
@@ -148,7 +147,7 @@ export const getThresholds = (
 				thresholdValue: threshold.recoveryThresholdValue,
 				thresholdLabel: threshold.label
 					? `${threshold.label} (Recovery)`
-					: `${t('preview_chart_threshold_label')} (y=${getThresholdLabel(
+					: `${defaultThresholdLabel} (y=${getThresholdLabel(
 							optionName,
 							threshold.thresholdValue,
 							threshold.unit,

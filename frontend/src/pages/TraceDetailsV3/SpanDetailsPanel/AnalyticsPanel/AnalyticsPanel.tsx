@@ -11,6 +11,7 @@ import { useIsDarkMode } from 'hooks/useDarkMode';
 import useGetTraceAggregations from 'hooks/trace/useGetTraceAggregations';
 import { generateColorPair } from 'pages/TraceDetailsV3/utils/generateColorPair';
 import { FloatingPanel } from 'periscope/components/FloatingPanel';
+import { useTranslation } from 'react-i18next';
 import {
 	SpantypesSpanAggregationDTO,
 	TelemetrytypesTelemetryFieldKeyDTO,
@@ -42,6 +43,7 @@ function AnalyticsPanel({
 	onClose,
 	onTabChange,
 }: AnalyticsPanelProps): JSX.Element | null {
+	const { t } = useTranslation('trace');
 	const { id: traceId } = useParams<TraceDetailV3URLProps>();
 	const colorByField = useTraceStore((s) => s.colorByField);
 	const colorByFieldName = colorByField.name;
@@ -143,7 +145,7 @@ function AnalyticsPanel({
 			}}
 		>
 			<DetailsHeader
-				title="Analytics"
+				title={t('trace_details.analytics.title')}
 				onClose={onClose}
 				className="floating-panel__drag-handle"
 			/>
@@ -152,10 +154,10 @@ function AnalyticsPanel({
 				<TabsRoot defaultValue="exec-time" onValueChange={onTabChange}>
 					<TabsList variant="secondary">
 						<TabsTrigger value="exec-time" variant="secondary">
-							% exec time
+							{t('trace_details.analytics.exec_time')}
 						</TabsTrigger>
 						<TabsTrigger value="spans" variant="secondary">
-							Spans
+							{t('trace_details.analytics.spans')}
 						</TabsTrigger>
 					</TabsList>
 

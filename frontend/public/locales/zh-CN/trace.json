@@ -1,11 +1,86 @@
 {
+	"controls": {
+		"edit_columns": "编辑列",
+		"order_by": "排序"
+	},
 	"options_menu": {
-		"options": "Options",
-		"format": "Format",
-		"raw": "Raw",
-		"default": "Default",
-		"column": "Column",
-		"maxLines": "Max lines per Row",
-		"addColumn": "Add a column"
+		"options": "选项",
+		"format": "格式",
+		"raw": "原始",
+		"default": "默认",
+		"column": "列",
+		"maxLines": "每行最大行数",
+		"addColumn": "添加列"
+	},
+	"query_cancelled": {
+		"load_traces": "点击“运行查询”加载 traces。"
+	},
+	"tabs": {
+		"explorer": "浏览器",
+		"funnels": "漏斗",
+		"views": "视图"
+	},
+	"trace_details": {
+		"analytics": {
+			"exec_time": "% 执行时间",
+			"load_error": "无法加载分析数据",
+			"no_data_for": "{{fieldName}} 暂无数据",
+			"spans": "Spans",
+			"title": "分析"
+		},
+		"colour_by": "按字段着色",
+		"colour_by_label": "按字段着色",
+		"copy_span_link": "复制 Span 链接",
+		"copy_trace_id": "点击复制 trace ID",
+		"download_trace": "下载 trace",
+		"events": {
+			"no_data_for_span": "选中的 span 没有找到 {{name}}",
+			"search_placeholder": "搜索事件...",
+			"since_span_start": "自 span 开始",
+			"since_trace_start": "自 trace 开始",
+			"start_time": "开始时间"
+		},
+		"export": {
+			"cancelled": "导出已取消",
+			"completed": "导出成功完成",
+			"failed": "下载 trace 失败"
+		},
+		"filters": {
+			"clear_filter": "清除过滤条件",
+			"collapse_filters": "收起过滤器",
+			"highlight_errors": "高亮错误",
+			"query_placeholder": "输入过滤查询（例如：http.status_code >= 500 AND service.name = 'frontend'）",
+			"search_placeholder_short": "搜索...",
+			"search_query": "搜索查询"
+		},
+		"hide_details": "隐藏 trace 详情",
+		"options": "Trace 选项",
+		"preview_fields": "预览字段",
+		"show_details": "显示 trace 详情",
+		"span_details": "Span 详情",
+		"span_logs": {
+			"current_span_log": "此日志属于当前 span",
+			"end": "*** 结束 ***",
+			"loading_more": "正在加载更多日志...",
+			"no_logs_for_span": "未找到所选 span 的日志。可查看当前 trace 的日志。",
+			"view_logs": "查看日志"
+		},
+		"summary": {
+			"service": "服务",
+			"span_kind": "SPAN 类型",
+			"span_name": "Span 名称",
+			"status_code": "状态码",
+			"status_message": "状态消息",
+			"status_message_title": "状态消息",
+			"trace_id": "TRACE ID"
+		},
+		"trace_id_copied": "Trace ID 已复制到剪贴板"
+	},
+	"view_modes": {
+		"clickhouse": "Clickhouse",
+		"list": "列表",
+		"table": "表格",
+		"timeseries": "时间序列",
+		"trace": "Trace"
 	}
 }

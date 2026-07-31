@@ -6,6 +6,7 @@ import { Input } from '@signozhq/ui/input';
 import { Col } from 'antd';
 import CategoryHeading from 'components/Logs/CategoryHeading';
 import { fieldSearchFilter } from 'lib/logs/fieldSearch';
+import { useTranslation } from 'react-i18next';
 import { AppState } from 'store/reducers';
 import { ILogsReducer } from 'types/reducer/logs';
 
@@ -16,6 +17,7 @@ import { IHandleInterestProps, IHandleRemoveInterestProps } from './types';
 import { onHandleAddInterest, onHandleRemoveInterest } from './utils';
 
 function LogsFilters(): JSX.Element {
+	const { t } = useTranslation('logs');
 	const {
 		fields: { interesting, selected },
 	} = useSelector<AppState, ILogsReducer>((state) => state.logs);
@@ -61,14 +63,14 @@ function LogsFilters(): JSX.Element {
 	return (
 		<Col flex="250px">
 			<Input
-				placeholder="Filter Values"
+				placeholder={t('filters.filter_values')}
 				onInput={handleSearch}
 				value={filterValuesInput}
 				onChange={handleSearch}
 			/>
 
 			<CategoryContainer>
-				<CategoryHeading>SELECTED FIELDS</CategoryHeading>
+				<CategoryHeading>{t('filters.selected_fields')}</CategoryHeading>
 				<FieldContainer>
 					{selected
 						.filter((field) => fieldSearchFilter(field.name, filterValuesInput))
@@ -85,13 +87,13 @@ function LogsFilters(): JSX.Element {
 									fieldIndex: idx,
 								})}
 								isLoading={selectedFieldLoading.includes(idx)}
-								iconHoverText="Remove from Selected Fields"
+								iconHoverText={t('filters.remove_from_selected_fields')}
 							/>
 						))}
 				</FieldContainer>
 			</CategoryContainer>
 			<CategoryContainer>
-				<CategoryHeading>INTERESTING FIELDS</CategoryHeading>
+				<CategoryHeading>{t('filters.interesting_fields')}</CategoryHeading>
 				<FieldContainer>
 					{interesting
 						.filter((field) => fieldSearchFilter(field.name, filterValuesInput))
@@ -107,7 +109,7 @@ function LogsFilters(): JSX.Element {
 									fieldIndex: idx,
 								})}
 								isLoading={interestingFieldLoading.includes(idx)}
-								iconHoverText="Add to Selected Fields"
+								iconHoverText={t('filters.add_to_selected_fields')}
 							/>
 						))}
 				</FieldContainer>

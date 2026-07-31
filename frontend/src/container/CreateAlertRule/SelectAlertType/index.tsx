@@ -17,13 +17,17 @@ import { OptionType } from './types';
 
 function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 	const { t } = useTranslation(['alerts']);
+	const { t: tTranslation } = useTranslation('translation');
 	const { featureFlags } = useAppContext();
 
 	const isAnomalyDetectionEnabled =
 		featureFlags?.find((flag) => flag.name === FeatureKeys.ANOMALY_DETECTION)
 			?.active || false;
 
-	const optionList = getOptionList(t, isAnomalyDetectionEnabled);
+	const optionList = useMemo(
+		() => getOptionList(isAnomalyDetectionEnabled),
+		[isAnomalyDetectionEnabled],
+	);
 
 	function handleRedirection(option: AlertTypes): void {
 		let url = '';
@@ -65,14 +69,14 @@ function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 				{optionList.map((option: OptionType) => (
 					<AlertTypeCard
 						key={option.selection}
-						title={option.title}
+						title={tTranslation(option.title)}
 						extra={option.isBeta ? <Badge color="robin">Beta</Badge> : undefined}
 						onClick={(e): void => {
 							onSelect(option.selection, isModifierKeyPressed(e));
 						}}
 						data-testid={`alert-type-card-${option.selection}`}
 					>
-						{option.description}{' '}
+						{tTranslation(option.description)}{' '}
 						<Typography.Link
 							onClick={(e): void => {
 								e.preventDefault();
@@ -86,7 +90,7 @@ function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 				))}
 			</>
 		),
-		[onSelect, optionList],
+		[onSelect, optionList, tTranslation],
 	);
 
 	return (

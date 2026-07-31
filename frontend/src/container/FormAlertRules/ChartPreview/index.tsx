@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -34,6 +33,7 @@ import { LegendPosition } from 'lib/uPlotV2/components/types';
 import { isEmpty } from 'lodash-es';
 import { useAppContext } from 'providers/App/App';
 import { useTimezone } from 'providers/Timezone';
+import { useTranslation } from 'react-i18next';
 import { UpdateTimeInterval } from 'store/actions';
 import { AppState } from 'store/reducers';
 import { Warning } from 'types/api';
@@ -92,8 +92,8 @@ function ChartPreview({
 	isCancelled = false,
 	onFetchingStateChange,
 }: ChartPreviewProps): JSX.Element | null {
-	const { t } = useTranslation('alerts');
 	const dispatch = useDispatch();
+	const { t } = useTranslation('alerts');
 	const thresholds: Threshold[] = useMemo(
 		() =>
 			additionalThresholds || [
@@ -268,8 +268,14 @@ function ChartPreview({
 	}, [queryResponse?.data?.payload?.data?.result?.length, showSideLegend]);
 
 	const resolvedThresholds = useMemo(
-		() => getThresholds(thresholds, t, optionName, yAxisUnit),
-		[thresholds, t, optionName, yAxisUnit],
+		() =>
+			getThresholds(
+				thresholds,
+				optionName,
+				yAxisUnit,
+				t('preview_chart_threshold_label'),
+			),
+		[thresholds, optionName, yAxisUnit, t],
 	);
 
 	const chartData = useMemo(() => {

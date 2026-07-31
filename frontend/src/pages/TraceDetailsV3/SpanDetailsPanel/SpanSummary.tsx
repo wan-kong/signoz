@@ -1,6 +1,7 @@
 import { Link2 } from '@signozhq/icons';
 import dayjs from 'dayjs';
 import KeyValueLabel from 'periscope/components/KeyValueLabel';
+import { useTranslation } from 'react-i18next';
 import { SpanV3 } from 'types/api/trace/getTraceV3';
 
 import EntityMetadataRow from '../EntityMetadata/EntityMetadataRow';
@@ -29,6 +30,8 @@ function SpanSummary({
 	traceStartTime,
 	traceEndTime,
 }: SpanSummaryProps): JSX.Element {
+	const { t } = useTranslation('trace');
+	const { t: tTraceDetails } = useTranslation('trace_details');
 	const percentile = useSpanPercentile(selectedSpan);
 	const linkedSpans = useLinkedSpans((selectedSpan as any).references);
 
@@ -36,7 +39,7 @@ function SpanSummary({
 		<>
 			<div className={styles.spanRow}>
 				<KeyValueLabel
-					badgeKey="Span name"
+					badgeKey={t('trace_details.summary.span_name')}
 					badgeValue={selectedSpan.name}
 					maxCharacters={50}
 				/>
@@ -89,7 +92,7 @@ function SpanSummary({
 					return (
 						<KeyValueLabel
 							key={option.key}
-							badgeKey={option.label}
+							badgeKey={tTraceDetails(option.label)}
 							badgeValue={rendered}
 							direction="column"
 						/>

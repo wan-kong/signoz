@@ -4,6 +4,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { fetchExportData } from 'api/v1/download/downloadExportData';
 import { downloadFile } from 'lib/exportData/downloadFile';
+import { traceI18nProviderProps } from 'tests/traceI18n';
 import { render } from 'tests/test-utils';
 
 import TraceDownloadPanel from '../TraceDownloadPanel';
@@ -45,6 +46,8 @@ function renderFeature(
 			<TraceOptionsMenu {...baseProps} {...props} />
 			<TraceDownloadPanel />
 		</>,
+		undefined,
+		traceI18nProviderProps,
 	);
 }
 

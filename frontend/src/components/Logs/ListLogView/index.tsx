@@ -15,6 +15,7 @@ import { useIsDarkMode } from 'hooks/useDarkMode';
 // utils
 import { FlatLogData } from 'lib/logs/flatLogData';
 import { useTimezone } from 'providers/Timezone';
+import { useTranslation } from 'react-i18next';
 // interfaces
 import { IField } from 'types/api/logs/fields';
 import { ILog } from 'types/api/logs/log';
@@ -129,6 +130,7 @@ function ListLogView({
 	isActiveLog,
 	onClearActiveLog,
 }: ListLogViewProps): JSX.Element {
+	const { t } = useTranslation('logs');
 	const flattenLogData = useMemo(() => FlatLogData(logData), [logData]);
 
 	const { isHighlighted, isLogsExplorerPage, onLogCopy } = useCopyLogLink(
@@ -198,7 +200,7 @@ function ListLogView({
 						<LogContainer fontSize={fontSize}>
 							{updatedSelecedFields.some((field) => field.name === 'body') && (
 								<LogGeneralField
-									fieldKey="Log"
+									fieldKey={t('log_fields.log')}
 									fieldValue={getBodyDisplayString(logData.body)}
 									linesPerRow={linesPerRow}
 									fontSize={fontSize}
@@ -206,14 +208,14 @@ function ListLogView({
 							)}
 							{flattenLogData.stream && (
 								<LogGeneralField
-									fieldKey="Stream"
+									fieldKey={t('log_fields.stream')}
 									fieldValue={flattenLogData.stream}
 									fontSize={fontSize}
 								/>
 							)}
 							{updatedSelecedFields.some((field) => field.name === 'timestamp') && (
 								<LogGeneralField
-									fieldKey="Timestamp"
+									fieldKey={t('log_fields.timestamp')}
 									fieldValue={timestampValue}
 									fontSize={fontSize}
 								/>

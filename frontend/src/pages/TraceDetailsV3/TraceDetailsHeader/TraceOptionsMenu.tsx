@@ -13,6 +13,7 @@ import {
 } from '@signozhq/ui/dropdown-menu';
 import { Settings2 } from '@signozhq/icons';
 import { ExportFormat } from 'lib/exportData/types';
+import { useTranslation } from 'react-i18next';
 
 import { useTraceStore } from '../stores/traceStore';
 import { useDownloadTrace } from './useDownloadTrace';
@@ -41,6 +42,7 @@ function TraceOptionsMenu({
 	endTime,
 	totalSpansCount,
 }: TraceOptionsMenuProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const colorByField = useTraceStore((s) => s.colorByField);
 	const setColorByField = useTraceStore((s) => s.setColorByField);
 	const availableColorByOptions = useTraceStore(
@@ -68,23 +70,29 @@ function TraceOptionsMenu({
 					variant="ghost"
 					size="icon"
 					color="secondary"
-					aria-label="Trace options"
+					aria-label={t('trace_details.options')}
 					prefix={<Settings2 size={14} />}
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="start" className={styles.traceOptionsDropdown}>
 				<DropdownMenuItem clickable onSelect={onToggleTraceDetails}>
-					{showTraceDetails ? 'Hide trace details' : 'Show trace details'}
+					{showTraceDetails
+						? t('trace_details.hide_details')
+						: t('trace_details.show_details')}
 				</DropdownMenuItem>
 				<DropdownMenuItem clickable onSelect={onOpenPreviewFields}>
-					Preview fields
+					{t('trace_details.preview_fields')}
 				</DropdownMenuItem>
 				{/* Only show the "Colour by" submenu if there's an actual choice to make. */}
 				{availableColorByOptions.length > 1 && (
 					<DropdownMenuSub>
-						<DropdownMenuSubTrigger>Colour by</DropdownMenuSubTrigger>
+						<DropdownMenuSubTrigger>
+							{t('trace_details.colour_by')}
+						</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent className={styles.traceOptionsDropdown}>
-							<DropdownMenuLabel>COLOUR BY</DropdownMenuLabel>
+							<DropdownMenuLabel>
+								{t('trace_details.colour_by_label')}
+							</DropdownMenuLabel>
 							<DropdownMenuRadioGroup
 								value={colorByField.name}
 								onValueChange={handleColorByChange}
@@ -104,7 +112,7 @@ function TraceOptionsMenu({
 							disabled={isDownloading}
 							data-testid="download-trace-submenu"
 						>
-							Download trace
+							{t('trace_details.download_trace')}
 						</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent className={styles.traceOptionsDropdown}>
 							<DropdownMenuItem

@@ -1,6 +1,7 @@
 import ROUTES from 'constants/routes';
 import { getEmptyLogsListConfig } from 'container/LogsExplorerList/utils';
 import { server } from 'mocks-server/server';
+import { traceI18nProviderProps } from 'tests/traceI18n';
 import { render, screen, userEvent } from 'tests/test-utils';
 import { ILog } from 'types/api/logs/log';
 
@@ -147,7 +148,7 @@ describe('SpanLogs', () => {
 	});
 
 	it('should show simple empty state when emptyStateConfig is not provided', () => {
-		render(<SpanLogs {...defaultProps} />);
+		render(<SpanLogs {...defaultProps} />, undefined, traceI18nProviderProps);
 
 		// Should show simple empty state (no emptyStateConfig provided)
 		expect(
@@ -172,6 +173,8 @@ describe('SpanLogs', () => {
 				{...defaultProps}
 				emptyStateConfig={getEmptyLogsListConfig(jest.fn())}
 			/>,
+			undefined,
+			traceI18nProviderProps,
 		);
 
 		// Should show enhanced empty state with custom message
@@ -209,6 +212,8 @@ describe('SpanLogs', () => {
 				{...defaultProps}
 				handleExplorerPageRedirect={mockHandleExplorerPageRedirect}
 			/>,
+			undefined,
+			traceI18nProviderProps,
 		);
 
 		const logExplorerButton = screen.getByRole('button', {
@@ -222,7 +227,11 @@ describe('SpanLogs', () => {
 	it('opens a new tab to Logs Explorer with the trace_id + span_id query when a log row is clicked', async () => {
 		const user = userEvent.setup({ pointerEventsCheck: 0 });
 
-		render(<SpanLogs {...defaultProps} logs={[sampleLog]} />);
+		render(
+			<SpanLogs {...defaultProps} logs={[sampleLog]} />,
+			undefined,
+			traceI18nProviderProps,
+		);
 
 		await user.click(screen.getByTestId(`raw-log-${sampleLog.id}`));
 

@@ -1,21 +1,21 @@
 import { CSSProperties } from 'react';
 
-import { ViewModeOption } from './types';
+import type { ViewModeOption } from './types';
 
 export const viewModeOptionList: ViewModeOption[] = [
 	{
 		key: 'raw',
-		label: 'Raw',
+		label: 'view_modes.raw',
 		value: 'raw',
 	},
 	{
 		key: 'table',
-		label: 'Table',
+		label: 'view_modes.table',
 		value: 'table',
 	},
 	{
 		key: 'list',
-		label: 'List',
+		label: 'view_modes.list',
 		value: 'list',
 	},
 ];
@@ -33,11 +33,11 @@ export enum OrderPreferenceItems {
 
 export const orderItems: OrderPreference[] = [
 	{
-		name: 'Descending',
+		name: 'order.descending',
 		enum: OrderPreferenceItems.DESC,
 	},
 	{
-		name: 'Ascending',
+		name: 'order.ascending',
 		enum: OrderPreferenceItems.ASC,
 	},
 ];

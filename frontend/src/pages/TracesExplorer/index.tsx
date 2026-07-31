@@ -43,6 +43,7 @@ import { isEmpty } from 'lodash-es';
 import ErrorBoundaryFallback from 'pages/ErrorBoundaryFallback/ErrorBoundaryFallback';
 import { ExplorerViews } from 'pages/LogsExplorer/utils';
 import { TOOLBAR_VIEWS } from 'pages/TracesExplorer/constants';
+import { useTranslation } from 'react-i18next';
 import { Warning } from 'types/api';
 import { Query } from 'types/api/queryBuilder/queryBuilderData';
 import { DataSource } from 'types/common/queryBuilder';
@@ -63,6 +64,7 @@ import TimeSeriesView from './TimeSeriesView';
 import './TracesExplorer.styles.scss';
 
 function TracesExplorer(): JSX.Element {
+	const { t } = useTranslation('trace');
 	const {
 		panelType,
 		updateAllQueriesOperators,
@@ -102,7 +104,7 @@ function TracesExplorer(): JSX.Element {
 
 	const handleCancelQuery = useCallback(() => {
 		if (listQueryKeyRef.current) {
-			queryClient.cancelQueries(listQueryKeyRef.current);
+			void queryClient.cancelQueries(listQueryKeyRef.current);
 		}
 		setIsCancelled(true);
 		// Reset loading state — the active view unmounts when cancelled, so no
@@ -116,6 +118,16 @@ function TracesExplorer(): JSX.Element {
 
 	const [warning, setWarning] = useState<Warning | undefined>();
 	const [isOpen, setOpen] = useState<boolean>(true);
+	const toolbarViews = useMemo(
+		() =>
+			Object.fromEntries(
+				Object.entries(TOOLBAR_VIEWS).map(([key, view]) => [
+					key,
+					{ ...view, label: t(view.label) },
+				]),
+			),
+		[t],
+	);
 
 	const defaultQuery = useMemo(
 		(): Query =>
@@ -211,7 +223,7 @@ function TracesExplorer(): JSX.Element {
 				options,
 			);
 
-			logEvent('Traces Explorer: Add to dashboard successful', {
+			void logEvent('Traces Explorer: Add to dashboard successful', {
 				panelType,
 				isNewDashboard,
 				dashboardName: dashboard?.title,
@@ -243,7 +255,7 @@ function TracesExplorer(): JSX.Element {
 
 	useEffect(() => {
 		if (!logEventCalledRef.current) {
-			logEvent('Traces Explorer: Page visited', {});
+			void logEvent('Traces Explorer: Page visited', {});
 			logEventCalledRef.current = true;
 		}
 	}, []);
@@ -281,7 +293,7 @@ function TracesExplorer(): JSX.Element {
 								<LeftToolbarActions
 									showFilter={isOpen}
 									handleFilterVisibilityChange={(): void => setOpen(!isOpen)}
-									items={TOOLBAR_VIEWS}
+									items={toolbarViews}
 									selectedView={selectedView}
 									onChangeSelectedView={handleChangeSelectedView}
 								/>
@@ -309,7 +321,7 @@ function TracesExplorer(): JSX.Element {
 
 					<div className="traces-explorer-views">
 						{isCancelled && (
-							<QueryCancelledPlaceholder subText='Click "Run Query" to load traces.' />
+							<QueryCancelledPlaceholder subText={t('query_cancelled.load_traces')} />
 						)}
 
 						{!isCancelled && selectedView === ExplorerViews.LIST && (

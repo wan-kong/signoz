@@ -1,5 +1,4 @@
 import { RouteTabProps } from 'components/RouteTab/types';
-import { TFunction } from 'i18next';
 import { ROLES, USER_ROLES } from 'types/roles';
 
 import {
@@ -26,7 +25,6 @@ export const getRoutes = (
 	isWorkspaceBlocked: boolean,
 	isCloudUser: boolean,
 	isEnterpriseSelfHostedUser: boolean,
-	t: TFunction,
 ): RouteTabProps['routes'] => {
 	const settings = [];
 
@@ -35,53 +33,49 @@ export const getRoutes = (
 
 	if (isWorkspaceBlocked && isAdmin) {
 		settings.push(
-			...organizationSettings(t),
-			...membersSettings(t),
-			...mySettings(t),
-			...billingSettings(t),
-			...keyboardShortcuts(t),
+			...organizationSettings(),
+			...membersSettings(),
+			...mySettings(),
+			...billingSettings(),
+			...keyboardShortcuts(),
 		);
 
 		return settings;
 	}
 
-	settings.push(...generalSettings(t));
+	settings.push(...generalSettings());
 
 	if (isCurrentOrgSettings) {
-		settings.push(...organizationSettings(t));
+		settings.push(...organizationSettings());
 	}
 
 	if (isGatewayEnabled && (isAdmin || isEditor)) {
-		settings.push(...multiIngestionSettings(t));
+		settings.push(...multiIngestionSettings());
 	}
 
 	if (isCloudUser && !isGatewayEnabled) {
-		settings.push(...ingestionSettings(t));
+		settings.push(...ingestionSettings());
 	}
 
 	// Visible to all authenticated users
 	settings.push(
-		...serviceAccountsSettings(t),
-		...rolesSettings(t),
-		...roleCreate(t),
-		...roleDetails(t),
-		...roleEdit(t),
+		...serviceAccountsSettings(),
+		...rolesSettings(),
+		...roleCreate(),
+		...roleDetails(),
+		...roleEdit(),
 	);
 
 	// Admin-only: members management
 	if (isAdmin) {
-		settings.push(...membersSettings(t));
+		settings.push(...membersSettings());
 	}
 
 	if ((isCloudUser || isEnterpriseSelfHostedUser) && isAdmin) {
-		settings.push(...billingSettings(t));
+		settings.push(...billingSettings());
 	}
 
-	settings.push(
-		...mySettings(t),
-		...keyboardShortcuts(t),
-		...mcpServerSettings(t),
-	);
+	settings.push(...mySettings(), ...keyboardShortcuts(), ...mcpServerSettings());
 
 	return settings;
 };

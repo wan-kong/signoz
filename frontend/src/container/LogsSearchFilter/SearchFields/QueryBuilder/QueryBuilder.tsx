@@ -10,6 +10,7 @@ import {
 	QueryOperatorsMultiVal,
 	QueryOperatorsSingleVal,
 } from 'lib/logql/tokens';
+import { useTranslation } from 'react-i18next';
 import { AppState } from 'store/reducers';
 import { ILogsReducer } from 'types/reducer/logs';
 
@@ -26,15 +27,11 @@ function QueryConditionField({
 	onUpdate,
 }: QueryConditionFieldProps): JSX.Element {
 	const allOptions = Object.values(ConditionalOperators);
+	const queryValue = query.value as unknown as string | undefined;
+
 	return (
 		<Select
-			defaultValue={
-				(query as QueryFields).value &&
-				(
-					(query as QueryFields)
-						?.value as unknown as QueryFields as unknown as string
-				).toUpperCase()
-			}
+			defaultValue={queryValue ? queryValue.toUpperCase() : undefined}
 			onChange={(e): void => {
 				onUpdate({ ...query, value: e }, queryIndex);
 			}}
@@ -61,6 +58,7 @@ function QueryField({
 	onDelete,
 }: QueryFieldProps): JSX.Element | null {
 	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+	const { t } = useTranslation('logs');
 
 	const {
 		fields: { selected },
@@ -116,7 +114,7 @@ function QueryField({
 			</div>
 			<Select
 				defaultActiveFirstOption={false}
-				placeholder="Select Operator"
+				placeholder={t('search.select_operator')}
 				defaultValue={
 					query[1] && query[1].value
 						? (query[1].value as string).toUpperCase()
@@ -194,6 +192,8 @@ function QueryBuilder({
 	onDropDownToggleHandler,
 	syncKeyPrefix,
 }: QueryBuilderProps): JSX.Element {
+	const { t } = useTranslation('logs');
+
 	const handleUpdate = (query: Query, queryIndex: number): void => {
 		const updated = [...fieldsQuery];
 		updated[queryIndex] = query as never; // parseQuery(query) as never;
@@ -247,7 +247,7 @@ function QueryBuilder({
 	return (
 		<>
 			<Container isMargin={fieldsQuery.length === 0}>
-				<CategoryHeading>LOG QUERY BUILDER</CategoryHeading>
+				<CategoryHeading>{t('search.log_query_builder')}</CategoryHeading>
 				<SquareX onClick={onDropDownToggleHandler(false)} size="md" />
 			</Container>
 

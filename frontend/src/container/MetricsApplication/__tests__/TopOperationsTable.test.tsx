@@ -1,4 +1,5 @@
 import { QueryClientProvider } from 'react-query';
+import { I18nextProvider } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { Provider } from 'react-redux';
 import {
@@ -20,6 +21,8 @@ import {
 	queryClient,
 } from '../__mocks__/getTopOperation';
 import TopOperation from '../Tabs/Overview/TopOperation';
+import { createTestI18nInstance } from '../../../ReactI18/testUtils';
+import services from '../../../../public/locales/en/services.json';
 
 // Mock dependencies
 jest.mock('hooks/useResourceAttribute');
@@ -70,14 +73,24 @@ const KEY_ENTRY_POINT_OPERATIONS_TEXT = 'Key Entrypoint Operations';
 const ENTRY_POINT_SPANS_TEXT = 'Entrypoint Spans';
 const TOP_OPERATIONS_ENDPOINT = 'top_operations';
 const ENTRY_POINT_OPERATIONS_ENDPOINT = 'entry_point_operations';
+const i18n = createTestI18nInstance({
+	language: 'en',
+	resources: {
+		en: {
+			services,
+		},
+	},
+});
 
 const renderComponent = (store = createMockStore()): any =>
 	render(
-		<Provider store={store}>
-			<QueryClientProvider client={queryClient}>
-				<TopOperation />
-			</QueryClientProvider>
-		</Provider>,
+		<I18nextProvider i18n={i18n}>
+			<Provider store={store}>
+				<QueryClientProvider client={queryClient}>
+					<TopOperation />
+				</QueryClientProvider>
+			</Provider>
+		</I18nextProvider>,
 	);
 
 // Helper function to wait for initial render and verify basic functionality

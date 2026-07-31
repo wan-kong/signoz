@@ -5,15 +5,14 @@ import ROUTES from 'constants/routes';
 import { routeConfig } from 'container/SideNav/config';
 import { getQueryString } from 'container/SideNav/helper';
 import { ServicesList } from 'types/api/metrics/getService';
-
-import { filterDropdown } from '../Filter/FilterDropdown';
+import { FilterDropdown } from '../Filter/FilterDropdown';
 import { Name } from '../styles';
 
 export const getColumnSearchProps = (
 	dataIndex: keyof ServicesList,
 	search: string,
 ): ColumnType<ServicesList> => ({
-	filterDropdown,
+	filterDropdown: (props): JSX.Element => <FilterDropdown {...props} />,
 	filterIcon: <Search size="md" />,
 	onFilter: (
 		value: string | number | boolean,

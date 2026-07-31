@@ -11,6 +11,11 @@ import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 import { useAppContext } from 'providers/App/App';
 import { getTotalRPS } from 'utils/services';
 
+import {
+	COLUMN_TITLE_KEYS,
+	ColumnKey,
+	P99_LATENCY_TITLE_KEYS,
+} from '../Columns/ColumnContants';
 import { getColumns } from '../Columns/ServiceColumn';
 import ServiceTableProps from '../types';
 
@@ -20,11 +25,20 @@ function ServiceTraceTable({
 }: ServiceTableProps): JSX.Element {
 	const { search } = useLocation();
 	const [RPS, setRPS] = useState(0);
-	const { t: getText } = useTranslation(['services']);
+	const { t } = useTranslation(['services']);
 
 	const { isFetchingActiveLicense, trialInfo } = useAppContext();
 	const { isCloudUser: isCloudUserVal } = useGetTenantLicense();
-	const tableColumns = useMemo(() => getColumns(search, false), [search]);
+	const tableColumns = useMemo(
+		() =>
+			getColumns(search, false, {
+				[ColumnKey.Application]: t(COLUMN_TITLE_KEYS[ColumnKey.Application]),
+				[ColumnKey.P99]: t(P99_LATENCY_TITLE_KEYS.traces),
+				[ColumnKey.ErrorRate]: t(COLUMN_TITLE_KEYS[ColumnKey.ErrorRate]),
+				[ColumnKey.Operations]: t(COLUMN_TITLE_KEYS[ColumnKey.Operations]),
+			}),
+		[search, t],
+	);
 
 	useEffect(() => {
 		if (
@@ -51,14 +65,14 @@ function ServiceTraceTable({
 	const paginationConfig = {
 		defaultPageSize: 10,
 		showTotal: (total: number, range: number[]): string =>
-			`${range[0]}-${range[1]} of ${total} items`,
+			t('table.pagination', { start: range[0], end: range[1], total }),
 	};
 	return (
 		<div className="service-traces-table-container">
 			{RPS > MAX_RPS_LIMIT && (
 				<Flex justify="left">
 					<Typography.Title level={5} color="warning" style={{ marginTop: 0 }}>
-						<SolidAlertTriangle size="md" /> {getText('rps_over_100')}
+						<SolidAlertTriangle size="md" /> {t('rps_over_100')}
 						<a href="mailto:cloud-support@signoz.io">email</a>
 					</Typography.Title>
 				</Flex>

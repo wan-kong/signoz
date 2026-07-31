@@ -17,6 +17,7 @@ import { LOCALSTORAGE } from 'constants/localStorage';
 import { useOptionsMenu } from 'container/OptionsMenu';
 import { useActiveLog } from 'hooks/logs/useActiveLog';
 import { AppState } from 'store/reducers';
+import { useTranslation } from 'react-i18next';
 import { DataSource, StringOperators } from 'types/common/queryBuilder';
 // interfaces
 import { ILogsReducer } from 'types/reducer/logs';
@@ -35,6 +36,7 @@ type LogsTableProps = {
 
 function LogsTable(props: LogsTableProps): JSX.Element {
 	const { viewMode, linesPerRow } = props;
+	const { t } = useTranslation('logs');
 
 	const { activeLog, onClearActiveLog, onAddToQuery, onSetActiveLog } =
 		useActiveLog();
@@ -134,20 +136,20 @@ function LogsTable(props: LogsTableProps): JSX.Element {
 	]);
 
 	if (isLoading) {
-		return <Spinner height={20} tip="Getting Logs" />;
+		return <Spinner height={20} tip={t('loading.getting_logs')} />;
 	}
 
 	return (
 		<Container>
 			{viewMode !== 'table' && (
 				<Heading>
-					<Typography.Text>Event</Typography.Text>
+					<Typography.Text>{t('table.event')}</Typography.Text>
 				</Heading>
 			)}
 
-			{isLiveTail && <Typography>Getting live logs...</Typography>}
+			{isLiveTail && <Typography>{t('live.getting')}</Typography>}
 
-			{isNoLogs && <Typography>No logs lines found</Typography>}
+			{isNoLogs && <Typography>{t('empty.no_log_lines')}</Typography>}
 
 			{renderContent}
 			<LogDetail

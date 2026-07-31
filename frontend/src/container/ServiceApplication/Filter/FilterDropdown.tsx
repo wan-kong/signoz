@@ -1,14 +1,15 @@
 import { Button, Card, Input, Space } from 'antd';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
-
-import { SEARCH_PLACEHOLDER } from '../Columns/ColumnContants';
 import { Search } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
-export const filterDropdown = ({
+export function FilterDropdown({
 	setSelectedKeys,
 	selectedKeys,
 	confirm,
-}: FilterDropdownProps): JSX.Element => {
+}: FilterDropdownProps): JSX.Element {
+	const { t } = useTranslation();
+
 	const handleSearch = (): void => {
 		confirm();
 	};
@@ -21,7 +22,7 @@ export const filterDropdown = ({
 		<Card size="small">
 			<Space align="start" direction="vertical">
 				<Input
-					placeholder={SEARCH_PLACEHOLDER}
+					placeholder={t('table.search_placeholder')}
 					value={selectedKeys[0]}
 					onChange={selectedKeysHandler}
 					allowClear
@@ -33,9 +34,9 @@ export const filterDropdown = ({
 					icon={<Search size="md" />}
 					size="small"
 				>
-					Search
+					{t('table.search')}
 				</Button>
 			</Space>
 		</Card>
 	);
-};
+}

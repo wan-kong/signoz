@@ -4,36 +4,57 @@ import { Compass, TowerControl, Workflow } from '@signozhq/icons';
 import LogsExplorer from 'pages/LogsExplorer';
 import Pipelines from 'pages/Pipelines';
 import SaveView from 'pages/SaveView';
+import { useTranslation } from 'react-i18next';
 
-export const logsExplorer: TabRoutes = {
-	Component: (): JSX.Element => <LogsExplorer />,
-	name: (
-		<div className="tab-item">
-			<Compass size={16} /> Explorer
-		</div>
-	),
-	route: ROUTES.LOGS,
-	key: ROUTES.LOGS,
-};
+interface LogsModuleTabLabelProps {
+	icon: JSX.Element;
+	labelKey: string;
+}
 
-export const logsPipelines: TabRoutes = {
-	Component: (): JSX.Element => <Pipelines />,
-	name: (
-		<div className="tab-item">
-			<Workflow size={16} /> Pipelines
-		</div>
-	),
-	route: ROUTES.LOGS_PIPELINES,
-	key: ROUTES.LOGS_PIPELINES,
-};
+function LogsModuleTabLabel({
+	icon,
+	labelKey,
+}: LogsModuleTabLabelProps): JSX.Element {
+	const { t } = useTranslation('logs');
 
-export const logSaveView: TabRoutes = {
-	Component: SaveView,
-	name: (
+	return (
 		<div className="tab-item">
-			<TowerControl size={16} /> Views
+			{icon} {t(labelKey)}
 		</div>
-	),
-	route: ROUTES.LOGS_SAVE_VIEWS,
-	key: ROUTES.LOGS_SAVE_VIEWS,
-};
+	);
+}
+
+const logsModuleRoutes: TabRoutes[] = [
+	{
+		Component: LogsExplorer,
+		name: (
+			<LogsModuleTabLabel icon={<Compass size={16} />} labelKey="tabs.explorer" />
+		),
+		route: ROUTES.LOGS,
+		key: ROUTES.LOGS,
+	},
+	{
+		Component: Pipelines,
+		name: (
+			<LogsModuleTabLabel
+				icon={<Workflow size={16} />}
+				labelKey="tabs.pipelines"
+			/>
+		),
+		route: ROUTES.LOGS_PIPELINES,
+		key: ROUTES.LOGS_PIPELINES,
+	},
+	{
+		Component: SaveView,
+		name: (
+			<LogsModuleTabLabel
+				icon={<TowerControl size={16} />}
+				labelKey="tabs.views"
+			/>
+		),
+		route: ROUTES.LOGS_SAVE_VIEWS,
+		key: ROUTES.LOGS_SAVE_VIEWS,
+	},
+];
+
+export const getLogsModuleRoutes = (): TabRoutes[] => logsModuleRoutes;

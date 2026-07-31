@@ -8,6 +8,7 @@ import {
 } from '@signozhq/ui/tabs';
 import { Bookmark, ChartColumnBig, List, ScrollText } from '@signozhq/icons';
 import { Skeleton } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { DetailsHeader, DetailsPanelDrawer } from 'components/DetailsPanel';
 import { HeaderAction } from 'components/DetailsPanel/DetailsHeader/DetailsHeader';
 import { DetailsPanelState } from 'components/DetailsPanel/types';
@@ -392,6 +393,7 @@ function SpanDetailsPanel({
 	traceStartTime,
 	traceEndTime,
 }: SpanDetailsPanelProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const headerActions = useMemo((): HeaderAction[] => {
 		const actions: HeaderAction[] = [
 			// TODO: Add back when driven through separate config for different pages
@@ -439,7 +441,7 @@ function SpanDetailsPanel({
 	const content = (
 		<>
 			<DetailsHeader
-				title="Span details"
+				title={t('trace_details.span_details')}
 				onClose={panelState.close}
 				actions={headerActions}
 				className={

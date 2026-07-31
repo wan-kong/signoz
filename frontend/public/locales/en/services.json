@@ -1,3 +1,47 @@
 {
-	"rps_over_100": "You are sending data at more than 100 RPS, your ingestion  may be rate limited. Please reach out to us via chat support or "
+	"rps_over_100": "You are sending data at more than 100 RPS, your ingestion  may be rate limited. Please reach out to us via chat support or ",
+	"table": {
+		"columns": {
+			"application": "Application",
+			"p99_latency": "P99 latency",
+			"p99_latency_in_ms": "P99 latency (in ms)",
+			"p99_latency_in_ns": "P99 latency (in ns)",
+			"error_rate": "Error Rate (% of total)",
+			"operations_per_second": "Operations Per Second"
+		},
+		"pagination": "{{start}}-{{end}} of {{total}} items",
+		"search_placeholder": "Search by service",
+		"search": "Search"
+	},
+	"top_level_operations": {
+		"too_many_title": "Too Many Top Level Operations",
+		"too_many_description": "The service `{{serviceName}}` has too many top level operations. It makes the dashboard slow to load.",
+		"show": "Show Top Level Operations",
+		"page_title": "Top Level Operations",
+		"column": "Top Level Operation",
+		"loading": "Loading ...",
+		"breadcrumb_services": "services",
+		"alert_part_1": "SigNoz calculates the RED metrics for a service using the entry-point spans. For more details, you can check out our",
+		"docs_link": "docs",
+		"alert_part_2": "We expect the number of unique entry-point operations to be no more than 2500. The high number of top level operations might be due to an instrumentation issue in your service. Below table shows the sample top level operations. Please refer to official docs for span name guidelines",
+		"here_link": "here",
+		"alert_part_3": "and update the instrumentation to to follow the guidelines. If there are any dynamic IDs in the span name, make sure to use the span attributes instead. If you have more questions, please reach out to us via support.",
+		"pagination": "{{start}}-{{end}} of {{total}}"
+	},
+	"key_operations": {
+		"columns": {
+			"name": "Name",
+			"p50_in_ms": "P50  (in ms)",
+			"p95_in_ms": "P95  (in ms)",
+			"p99_in_ms": "P99  (in ms)",
+			"number_of_calls": "Number of Calls",
+			"error_rate": "Error Rate"
+		},
+		"entrypoint_spans": "Entrypoint Spans",
+		"entrypoint_tooltip": "Shows the spans where requests enter new services for the first time",
+		"entrypoint_learn_more": "Learn more about Entrypoint Spans.",
+		"title": "Key Operations",
+		"entrypoint_title": "Key Entrypoint Operations"
+	},
+	"loading": "Loading..."
 }

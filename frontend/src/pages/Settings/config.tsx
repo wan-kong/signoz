@@ -11,7 +11,7 @@ import OrganizationSettings from 'container/OrganizationSettings';
 import RolesSettings from 'container/RolesSettings';
 import CreateEditRolePage from 'container/RolesSettings/CreateEditRolePage';
 import ViewRolePage from 'container/RolesSettings/ViewRolePage';
-import { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import {
 	Backpack,
 	Bot,
@@ -28,201 +28,242 @@ import MembersSettings from 'pages/MembersSettings';
 import ServiceAccountsSettings from 'pages/ServiceAccountsSettings';
 import Shortcuts from 'pages/Shortcuts';
 
-export const organizationSettings = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: OrganizationSettings,
-		name: (
-			<div className="periscope-tab">
-				<Building size={16} /> {t('routes:organization_settings').toString()}
-			</div>
-		),
-		route: ROUTES.ORG_SETTINGS,
-		key: ROUTES.ORG_SETTINGS,
-	},
-];
+interface SettingsTabLabelProps {
+	icon: JSX.Element;
+	labelKey: string;
+}
 
-export const ingestionSettings = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: IngestionSettings,
-		name: (
-			<div className="periscope-tab">
-				<Cpu size={16} /> {t('routes:ingestion_settings').toString()}
-			</div>
-		),
-		route: ROUTES.INGESTION_SETTINGS,
-		key: ROUTES.INGESTION_SETTINGS,
-	},
-];
+function SettingsTabLabel({
+	icon,
+	labelKey,
+}: SettingsTabLabelProps): JSX.Element {
+	const { t } = useTranslation('routes');
 
-export const multiIngestionSettings = (
-	t: TFunction,
-): RouteTabProps['routes'] => [
-	{
-		Component: MultiIngestionSettings,
-		name: (
-			<div className="periscope-tab">
-				<Cpu size={16} /> {t('routes:ingestion_settings').toString()}
-			</div>
-		),
-		route: ROUTES.INGESTION_SETTINGS,
-		key: ROUTES.INGESTION_SETTINGS,
-	},
-];
+	return (
+		<div className="periscope-tab">
+			{icon} {t(labelKey).toString()}
+		</div>
+	);
+}
 
-export const generalSettings = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: GeneralSettings,
-		name: (
-			<div className="periscope-tab">
-				<Backpack size={16} /> {t('routes:general').toString()}
-			</div>
-		),
-		route: ROUTES.SETTINGS,
-		key: ROUTES.SETTINGS,
-	},
-];
+export const organizationSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: OrganizationSettings,
+			name: (
+				<SettingsTabLabel
+					icon={<Building size={16} />}
+					labelKey="routes:organization_settings"
+				/>
+			),
+			route: ROUTES.ORG_SETTINGS,
+			key: ROUTES.ORG_SETTINGS,
+		},
+	];
+};
 
-export const generalSettingsCloud = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: GeneralSettingsCloud,
-		name: (
-			<div className="periscope-tab">
-				<Backpack size={16} /> {t('routes:general').toString()}
-			</div>
-		),
-		route: ROUTES.SETTINGS,
-		key: ROUTES.SETTINGS,
-	},
-];
+export const ingestionSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: IngestionSettings,
+			name: (
+				<SettingsTabLabel
+					icon={<Cpu size={16} />}
+					labelKey="routes:ingestion_settings"
+				/>
+			),
+			route: ROUTES.INGESTION_SETTINGS,
+			key: ROUTES.INGESTION_SETTINGS,
+		},
+	];
+};
 
-export const billingSettings = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: BillingContainer,
-		name: (
-			<div className="periscope-tab">
-				<CreditCard size={16} /> {t('routes:billing').toString()}
-			</div>
-		),
-		route: ROUTES.BILLING,
-		key: ROUTES.BILLING,
-	},
-];
+export const multiIngestionSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: MultiIngestionSettings,
+			name: (
+				<SettingsTabLabel
+					icon={<Cpu size={16} />}
+					labelKey="routes:ingestion_settings"
+				/>
+			),
+			route: ROUTES.INGESTION_SETTINGS,
+			key: ROUTES.INGESTION_SETTINGS,
+		},
+	];
+};
 
-export const membersSettings = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: MembersSettings,
-		name: (
-			<div className="periscope-tab">
-				<Users size={16} /> {t('routes:members').toString()}
-			</div>
-		),
-		route: ROUTES.MEMBERS_SETTINGS,
-		key: ROUTES.MEMBERS_SETTINGS,
-	},
-];
+export const generalSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: GeneralSettings,
+			name: (
+				<SettingsTabLabel icon={<Backpack size={16} />} labelKey="routes:general" />
+			),
+			route: ROUTES.SETTINGS,
+			key: ROUTES.SETTINGS,
+		},
+	];
+};
 
-export const rolesSettings = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: RolesSettings,
-		name: (
-			<div className="periscope-tab">
-				<Shield size={16} /> {t('routes:roles').toString()}
-			</div>
-		),
-		route: ROUTES.ROLES_SETTINGS,
-		key: ROUTES.ROLES_SETTINGS,
-	},
-];
+export const generalSettingsCloud = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: GeneralSettingsCloud,
+			name: (
+				<SettingsTabLabel icon={<Backpack size={16} />} labelKey="routes:general" />
+			),
+			route: ROUTES.SETTINGS,
+			key: ROUTES.SETTINGS,
+		},
+	];
+};
 
-export const roleDetails = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: ViewRolePage,
-		name: (
-			<div className="periscope-tab">
-				<Shield size={16} /> {t('routes:role_details').toString()}
-			</div>
-		),
-		route: ROUTES.ROLE_DETAILS,
-		key: ROUTES.ROLE_DETAILS,
-	},
-];
+export const billingSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: BillingContainer,
+			name: (
+				<SettingsTabLabel
+					icon={<CreditCard size={16} />}
+					labelKey="routes:billing"
+				/>
+			),
+			route: ROUTES.BILLING,
+			key: ROUTES.BILLING,
+		},
+	];
+};
 
-export const roleEdit = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: CreateEditRolePage,
-		name: (
-			<div className="periscope-tab">
-				<Shield size={16} /> {t('routes:role_edit').toString()}
-			</div>
-		),
-		route: ROUTES.ROLE_EDIT,
-		key: ROUTES.ROLE_EDIT,
-	},
-];
+export const membersSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: MembersSettings,
+			name: (
+				<SettingsTabLabel icon={<Users size={16} />} labelKey="routes:members" />
+			),
+			route: ROUTES.MEMBERS_SETTINGS,
+			key: ROUTES.MEMBERS_SETTINGS,
+		},
+	];
+};
 
-export const roleCreate = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: CreateEditRolePage,
-		name: (
-			<div className="periscope-tab">
-				<Shield size={16} /> {t('routes:role_create').toString()}
-			</div>
-		),
-		route: ROUTES.ROLE_CREATE,
-		key: ROUTES.ROLE_CREATE,
-	},
-];
+export const rolesSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: RolesSettings,
+			name: (
+				<SettingsTabLabel icon={<Shield size={16} />} labelKey="routes:roles" />
+			),
+			route: ROUTES.ROLES_SETTINGS,
+			key: ROUTES.ROLES_SETTINGS,
+		},
+	];
+};
 
-export const keyboardShortcuts = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: Shortcuts,
-		name: (
-			<div className="periscope-tab">
-				<Keyboard size={16} /> {t('routes:shortcuts').toString()}
-			</div>
-		),
-		route: ROUTES.SHORTCUTS,
-		key: ROUTES.SHORTCUTS,
-	},
-];
+export const roleDetails = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: ViewRolePage,
+			name: (
+				<SettingsTabLabel
+					icon={<Shield size={16} />}
+					labelKey="routes:role_details"
+				/>
+			),
+			route: ROUTES.ROLE_DETAILS,
+			key: ROUTES.ROLE_DETAILS,
+		},
+	];
+};
 
-export const mySettings = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: MySettings,
-		name: (
-			<div className="periscope-tab">
-				<User size={16} /> {t('routes:my_settings').toString()}
-			</div>
-		),
-		route: ROUTES.MY_SETTINGS,
-		key: ROUTES.MY_SETTINGS,
-	},
-];
+export const roleEdit = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: CreateEditRolePage,
+			name: (
+				<SettingsTabLabel icon={<Shield size={16} />} labelKey="routes:role_edit" />
+			),
+			route: ROUTES.ROLE_EDIT,
+			key: ROUTES.ROLE_EDIT,
+		},
+	];
+};
 
-export const serviceAccountsSettings = (
-	t: TFunction,
-): RouteTabProps['routes'] => [
-	{
-		Component: ServiceAccountsSettings,
-		name: (
-			<div className="periscope-tab">
-				<Bot size={16} /> {t('routes:service_accounts').toString()}
-			</div>
-		),
-		route: ROUTES.SERVICE_ACCOUNTS_SETTINGS,
-		key: ROUTES.SERVICE_ACCOUNTS_SETTINGS,
-	},
-];
+export const roleCreate = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: CreateEditRolePage,
+			name: (
+				<SettingsTabLabel
+					icon={<Shield size={16} />}
+					labelKey="routes:role_create"
+				/>
+			),
+			route: ROUTES.ROLE_CREATE,
+			key: ROUTES.ROLE_CREATE,
+		},
+	];
+};
 
-export const mcpServerSettings = (t: TFunction): RouteTabProps['routes'] => [
-	{
-		Component: MCPServerSettings,
-		name: (
-			<div className="periscope-tab">
-				<Sparkles size={16} /> {t('routes:mcp_server').toString()}
-			</div>
-		),
-		route: ROUTES.MCP_SERVER,
-		key: ROUTES.MCP_SERVER,
-	},
-];
+export const keyboardShortcuts = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: Shortcuts,
+			name: (
+				<SettingsTabLabel
+					icon={<Keyboard size={16} />}
+					labelKey="routes:shortcuts"
+				/>
+			),
+			route: ROUTES.SHORTCUTS,
+			key: ROUTES.SHORTCUTS,
+		},
+	];
+};
+
+export const mySettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: MySettings,
+			name: (
+				<SettingsTabLabel icon={<User size={16} />} labelKey="routes:my_settings" />
+			),
+			route: ROUTES.MY_SETTINGS,
+			key: ROUTES.MY_SETTINGS,
+		},
+	];
+};
+
+export const serviceAccountsSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: ServiceAccountsSettings,
+			name: (
+				<SettingsTabLabel
+					icon={<Bot size={16} />}
+					labelKey="routes:service_accounts"
+				/>
+			),
+			route: ROUTES.SERVICE_ACCOUNTS_SETTINGS,
+			key: ROUTES.SERVICE_ACCOUNTS_SETTINGS,
+		},
+	];
+};
+
+export const mcpServerSettings = (): RouteTabProps['routes'] => {
+	return [
+		{
+			Component: MCPServerSettings,
+			name: (
+				<SettingsTabLabel
+					icon={<Sparkles size={16} />}
+					labelKey="routes:mcp_server"
+				/>
+			),
+			route: ROUTES.MCP_SERVER,
+			key: ROUTES.MCP_SERVER,
+		},
+	];
+};

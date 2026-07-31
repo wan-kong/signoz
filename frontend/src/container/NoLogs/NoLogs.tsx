@@ -7,6 +7,7 @@ import { ArrowUpRight } from '@signozhq/icons';
 import { DataSource } from 'types/common/queryBuilder';
 import DOCLINKS from 'utils/docLinks';
 import { openInNewTab } from 'utils/navigation';
+import { Trans, useTranslation } from 'react-i18next';
 
 import eyesEmojiUrl from '@/assets/Images/eyesEmoji.svg';
 
@@ -18,6 +19,7 @@ export default function NoLogs({
 	dataSource: DataSource;
 }): JSX.Element {
 	const { isCloudUser: isCloudUserVal } = useGetTenantLicense();
+	const { t } = useTranslation('logs');
 
 	const handleLinkClick = (
 		e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -27,11 +29,11 @@ export default function NoLogs({
 
 		if (isCloudUserVal) {
 			if (dataSource === DataSource.TRACES) {
-				logEvent('Traces Explorer: Navigate to onboarding', {});
+				void logEvent('Traces Explorer: Navigate to onboarding', {});
 			} else if (dataSource === DataSource.LOGS) {
-				logEvent('Logs Explorer: Navigate to onboarding', {});
+				void logEvent('Logs Explorer: Navigate to onboarding', {});
 			} else if (dataSource === DataSource.METRICS) {
-				logEvent('Metrics Explorer: Navigate to onboarding', {});
+				void logEvent('Metrics Explorer: Navigate to onboarding', {});
 			}
 			history.push(ROUTES.GET_STARTED_WITH_CLOUD);
 		} else if (dataSource === 'traces') {
@@ -47,15 +49,18 @@ export default function NoLogs({
 			<div className="no-logs-container-content">
 				<img className="eyes-emoji" src={eyesEmojiUrl} alt="eyes emoji" />
 				<Typography className="no-logs-text">
-					No {dataSource} yet.
-					<span className="sub-text">
-						{' '}
-						When we receive {dataSource}, they would show up here
-					</span>
+					<Trans
+						t={t}
+						i18nKey="empty.no_data.message"
+						values={{ dataSource }}
+						components={{
+							subText: <span className="sub-text" />,
+						}}
+					/>
 				</Typography>
 
 				<Typography.Link className="send-logs-link" onClick={handleLinkClick}>
-					Sending {dataSource} to SigNoz <ArrowUpRight size={16} />
+					{t('empty.no_data.cta', { dataSource })} <ArrowUpRight size={16} />
 				</Typography.Link>
 			</div>
 		</div>

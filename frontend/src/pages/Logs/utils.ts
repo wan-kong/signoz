@@ -1,10 +1,11 @@
 import { LogViewMode } from 'container/LogsTable';
 
-import { OrderPreferenceItems, viewModeOptionList } from './config';
+import { OrderPreferenceItems } from './config';
+
+const logViewModes: LogViewMode[] = ['raw', 'table', 'list'];
 
 export const isLogViewMode = (value: unknown): value is LogViewMode =>
-	typeof value === 'string' &&
-	viewModeOptionList.some((option) => option.key === value);
+	typeof value === 'string' && logViewModes.includes(value as LogViewMode);
 
 export const getIdConditions = (
 	idStart: string,

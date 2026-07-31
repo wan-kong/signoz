@@ -1,3 +1,47 @@
 {
-	"rps_over_100": "You are sending data at more than 100 RPS, your ingestion  may be rate limited. Please reach out to us via chat support or "
+	"rps_over_100": "你发送数据的速率已超过 100 RPS，摄取可能会被限速。请通过聊天支持或 ",
+	"table": {
+		"columns": {
+			"application": "应用",
+			"p99_latency": "P99 延迟",
+			"p99_latency_in_ms": "P99 延迟（毫秒）",
+			"p99_latency_in_ns": "P99 延迟（纳秒）",
+			"error_rate": "错误率（占总量百分比）",
+			"operations_per_second": "每秒操作数"
+		},
+		"pagination": "{{start}}-{{end}} / 共 {{total}} 项",
+		"search_placeholder": "按服务搜索",
+		"search": "搜索"
+	},
+	"top_level_operations": {
+		"too_many_title": "顶级操作过多",
+		"too_many_description": "服务 `{{serviceName}}` 的顶级操作过多，会导致仪表盘加载变慢。",
+		"show": "查看顶级操作",
+		"page_title": "顶级操作",
+		"column": "顶级操作",
+		"loading": "加载中 ...",
+		"breadcrumb_services": "services",
+		"alert_part_1": "SigNoz 使用入口 span 计算服务的 RED 指标。更多详情可以查看我们的",
+		"docs_link": "文档",
+		"alert_part_2": "我们期望唯一入口操作数不超过 2500。顶级操作数量过多可能是服务埋点存在问题。下表展示了一些顶级操作样例。请参考官方文档中的 span 命名指南",
+		"here_link": "这里",
+		"alert_part_3": "并调整埋点以遵循这些指南。如果 span 名称中包含动态 ID，请改用 span attributes。如果还有问题，请通过支持渠道联系我们。",
+		"pagination": "{{start}}-{{end}} / 共 {{total}}"
+	},
+	"key_operations": {
+		"columns": {
+			"name": "名称",
+			"p50_in_ms": "P50（毫秒）",
+			"p95_in_ms": "P95（毫秒）",
+			"p99_in_ms": "P99（毫秒）",
+			"number_of_calls": "调用次数",
+			"error_rate": "错误率"
+		},
+		"entrypoint_spans": "入口 Span",
+		"entrypoint_tooltip": "展示请求首次进入新服务时对应的 span",
+		"entrypoint_learn_more": "了解更多入口 Span。",
+		"title": "关键操作",
+		"entrypoint_title": "关键入口操作"
+	},
+	"loading": "加载中..."
 }

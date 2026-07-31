@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -18,6 +19,7 @@ import { Tags } from 'types/reducer/trace';
 import './ServiceTopLevelOperations.styles.scss';
 
 export default function ServiceTopLevelOperations(): JSX.Element {
+	const { t } = useTranslation('services');
 	const { servicename: encodedServiceName } = useParams<IServiceName>();
 	const { maxTime, minTime, selectedTime } = useSelector<
 		AppState,
@@ -51,37 +53,31 @@ export default function ServiceTopLevelOperations(): JSX.Element {
 
 	const alertDesc = (): ReactNode => (
 		<div className="">
-			SigNoz calculates the RED metrics for a service using the entry-point spans.
-			For more details, you can check out our
+			{t('top_level_operations.alert_part_1')}
 			<a
 				href="https://signoz.io/docs/userguide/metrics/"
 				target="_blank"
 				rel="noreferrer"
 			>
 				{' '}
-				docs
+				{t('top_level_operations.docs_link')}
 			</a>
-			. We expect the number of unique entry-point operations to be no more than
-			2500. The high number of top level operations might be due to an
-			instrumentation issue in your service. Below table shows the sample top level
-			operations. Please refer to official docs for span name guidelines{' '}
+			. {t('top_level_operations.alert_part_2')}{' '}
 			<a
 				href="https://opentelemetry.io/docs/specs/otel/trace/api/#span"
 				target="_blank"
 				rel="noreferrer"
 			>
 				{' '}
-				here
+				{t('top_level_operations.here_link')}
 			</a>{' '}
-			and update the instrumentation to to follow the guidelines. If there are any
-			dynamic IDs in the span name, make sure to use the span attributes instead.
-			If you have more questions, please reach out to us via support.
+			{t('top_level_operations.alert_part_3')}
 		</div>
 	);
 
 	const columns = [
 		{
-			title: 'Top Level Operation',
+			title: t('top_level_operations.column'),
 			key: 'top-level-operation',
 			render: (operation: string): JSX.Element => (
 				<div className="top-level-operations-list-item" key={operation}>
@@ -97,7 +93,8 @@ export default function ServiceTopLevelOperations(): JSX.Element {
 				<Link to={ROUTES.APPLICATION}>
 					<span className="breadcrumb">
 						{' '}
-						<Histogram size={12} /> services{' '}
+						<Histogram size={12} />{' '}
+						{t('top_level_operations.breadcrumb_services')}{' '}
 					</span>
 				</Link>
 				<div className="divider">/</div>
@@ -113,7 +110,8 @@ export default function ServiceTopLevelOperations(): JSX.Element {
 			{isLoading && (
 				<div className="loading-top-level-operations">
 					<Typography.Title level={5}>
-						<RefreshCw className="animate-spin" size="sm" /> Loading ...
+						<RefreshCw className="animate-spin" size="sm" />{' '}
+						{t('top_level_operations.loading')}
 					</Typography.Title>
 				</div>
 			)}
@@ -123,7 +121,7 @@ export default function ServiceTopLevelOperations(): JSX.Element {
 					<Table
 						columns={columns}
 						bordered
-						title={(): string => 'Top Level Operations'}
+						title={(): string => t('top_level_operations.page_title')}
 						// @ts-expect-error
 						dataSource={topLevelOperations}
 						loading={isLoading}
@@ -132,7 +130,11 @@ export default function ServiceTopLevelOperations(): JSX.Element {
 							pageSize: 100,
 							hideOnSinglePage: true,
 							showTotal: (total: number, range: number[]): string =>
-								`${range[0]}-${range[1]} of ${total}`,
+								t('top_level_operations.pagination', {
+									start: range[0],
+									end: range[1],
+									total,
+								}),
 						}}
 					/>
 				</div>

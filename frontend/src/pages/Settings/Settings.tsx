@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import logEvent from 'api/common/logEvent';
 import RouteTab from 'components/RouteTab';
@@ -44,7 +43,6 @@ function SettingsPage(): JSX.Element {
 		['current_org_settings'],
 		user.role,
 	);
-	const { t } = useTranslation(['routes']);
 
 	const isGatewayEnabled =
 		featureFlags?.find((feature) => feature.name === FeatureKeys.GATEWAY)
@@ -227,7 +225,6 @@ function SettingsPage(): JSX.Element {
 				isWorkspaceBlocked,
 				isCloudUser,
 				isEnterpriseSelfHostedUser,
-				t,
 			),
 		[
 			user.role,
@@ -236,7 +233,6 @@ function SettingsPage(): JSX.Element {
 			isWorkspaceBlocked,
 			isCloudUser,
 			isEnterpriseSelfHostedUser,
-			t,
 		],
 	);
 

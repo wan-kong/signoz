@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
 import Spinner from 'components/Spinner';
+import { useTranslation } from 'react-i18next';
 
 import styles from './AnalyticsPanel.module.scss';
 
@@ -28,6 +29,8 @@ function AnalyticsTabContent({
 	rows,
 	valueVariant,
 }: AnalyticsTabContentProps): JSX.Element {
+	const { t } = useTranslation('trace');
+
 	if (isLoading) {
 		return (
 			<div className={styles.state}>
@@ -38,14 +41,16 @@ function AnalyticsTabContent({
 	if (isError) {
 		return (
 			<div className={styles.state}>
-				<Typography.Text>Couldn&apos;t load analytics</Typography.Text>
+				<Typography.Text>{t('trace_details.analytics.load_error')}</Typography.Text>
 			</div>
 		);
 	}
 	if (rows.length === 0) {
 		return (
 			<div className={styles.state}>
-				<Typography.Text>No data for {fieldName}</Typography.Text>
+				<Typography.Text>
+					{t('trace_details.analytics.no_data_for', { fieldName })}
+				</Typography.Text>
 			</div>
 		);
 	}

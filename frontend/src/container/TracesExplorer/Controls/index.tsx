@@ -39,7 +39,7 @@ function TraceExplorerControls({
 					</div>
 					<FieldsSelector
 						isOpen={isFieldsSelectorOpen}
-						title="Edit columns"
+						title={t('controls.edit_columns')}
 						fields={config.fieldsSelector.value}
 						onFieldsChange={config.fieldsSelector.onFieldsChange}
 						onClose={(): void => setIsFieldsSelectorOpen(false)}

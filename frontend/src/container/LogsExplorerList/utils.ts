@@ -1,5 +1,5 @@
-import { TelemetryFieldKey } from 'api/v5/v5';
 import { isEmpty } from 'lodash-es';
+import { TelemetryFieldKey } from 'api/v5/v5';
 import { IField } from 'types/api/logs/fields';
 import {
 	IBuilderQuery,
@@ -49,24 +49,24 @@ export type EmptyLogsListConfig = {
 export const getEmptyLogsListConfig = (
 	handleClearFilters: () => void,
 ): EmptyLogsListConfig => ({
-	title: 'No logs found for this trace.',
-	subTitle: 'This could be because :',
+	title: 'empty.trace_to_logs.title',
+	subTitle: 'empty.trace_to_logs.subtitle',
 	description: [
-		'Logs are not linked to Traces.',
-		'Logs are not being sent to SigNoz.',
-		'No logs are associated with this particular trace/span.',
+		'empty.trace_to_logs.reasons.not_linked',
+		'empty.trace_to_logs.reasons.not_sent',
+		'empty.trace_to_logs.reasons.no_associated_logs',
 	],
 	documentationLinks: [
 		{
-			text: 'Sending logs to SigNoz',
+			text: 'empty.trace_to_logs.docs.send_logs',
 			url: 'https://signoz.io/docs/logs-management/send-logs-to-signoz/',
 		},
 		{
-			text: 'Correlate traces and logs',
+			text: 'empty.trace_to_logs.docs.correlate',
 			url: 'https://signoz.io/docs/traces-management/guides/correlate-traces-and-logs/',
 		},
 	],
-	clearFiltersButtonText: 'Clear filters from Trace to view other logs',
+	clearFiltersButtonText: 'empty.trace_to_logs.clear_filters_cta',
 	showClearFiltersButton: true,
 	onClearFilters: handleClearFilters,
 });

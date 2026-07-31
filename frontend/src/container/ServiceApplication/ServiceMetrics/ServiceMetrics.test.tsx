@@ -1,6 +1,7 @@
 import useGetTopLevelOperations from 'hooks/useGetTopLevelOperations';
 import { server } from 'mocks-server/server';
 import { rest } from 'msw';
+import { servicesI18nProviderProps } from 'tests/servicesI18n';
 import { act, render, screen } from 'tests/test-utils';
 
 import ServicesUsingMetrics from './index';
@@ -81,7 +82,7 @@ describe('ServicesUsingMetrics', () => {
 		);
 
 		await act(async () => {
-			render(<ServicesUsingMetrics />);
+			render(<ServicesUsingMetrics />, undefined, servicesI18nProviderProps);
 		});
 
 		// Wait for the component to load and render
@@ -117,7 +118,7 @@ describe('ServicesUsingMetrics', () => {
 		} as any);
 
 		await act(async () => {
-			render(<ServicesUsingMetrics />);
+			render(<ServicesUsingMetrics />, undefined, servicesI18nProviderProps);
 		});
 
 		// Should show loading spinner
@@ -183,7 +184,7 @@ describe('ServicesUsingMetrics', () => {
 		);
 
 		await act(async () => {
-			render(<ServicesUsingMetrics />);
+			render(<ServicesUsingMetrics />, undefined, servicesI18nProviderProps);
 		});
 
 		// Wait for the services to be rendered

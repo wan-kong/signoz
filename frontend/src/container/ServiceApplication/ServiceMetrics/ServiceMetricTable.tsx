@@ -19,6 +19,11 @@ import { ServicesList } from 'types/api/metrics/getService';
 import { GlobalReducer } from 'types/reducer/globalTime';
 import { getTotalRPS } from 'utils/services';
 
+import {
+	COLUMN_TITLE_KEYS,
+	ColumnKey,
+	P99_LATENCY_TITLE_KEYS,
+} from '../Columns/ColumnContants';
 import { getColumns } from '../Columns/ServiceColumn';
 import { ServiceMetricsTableProps } from '../types';
 import { getServiceListFromQuery } from '../utils';
@@ -34,7 +39,7 @@ function ServiceMetricTable({
 	} = useSelector<AppState, GlobalReducer>((state) => state.globalTime);
 
 	const { notifications } = useNotifications();
-	const { t: getText } = useTranslation(['services']);
+	const { t } = useTranslation(['services']);
 
 	const { isFetchingActiveLicense, trialInfo } = useAppContext();
 	const { isCloudUser: isCloudUserVal } = useGetTenantLicense();
@@ -68,7 +73,16 @@ function ServiceMetricTable({
 	);
 
 	const { search } = useLocation();
-	const tableColumns = useMemo(() => getColumns(search, true), [search]);
+	const tableColumns = useMemo(
+		() =>
+			getColumns(search, true, {
+				[ColumnKey.Application]: t(COLUMN_TITLE_KEYS[ColumnKey.Application]),
+				[ColumnKey.P99]: t(P99_LATENCY_TITLE_KEYS.metrics),
+				[ColumnKey.ErrorRate]: t(COLUMN_TITLE_KEYS[ColumnKey.ErrorRate]),
+				[ColumnKey.Operations]: t(COLUMN_TITLE_KEYS[ColumnKey.Operations]),
+			}),
+		[search, t],
+	);
 	const [RPS, setRPS] = useState(0);
 
 	useEffect(() => {
@@ -96,14 +110,14 @@ function ServiceMetricTable({
 	const paginationConfig = {
 		defaultPageSize: 10,
 		showTotal: (total: number, range: number[]): string =>
-			`${range[0]}-${range[1]} of ${total} items`,
+			t('table.pagination', { start: range[0], end: range[1], total }),
 	};
 	return (
 		<div className="service-metric-table-container">
 			{RPS > MAX_RPS_LIMIT && (
 				<Flex justify="left">
 					<Typography.Title level={5} color="warning" style={{ marginTop: 0 }}>
-						<SolidAlertTriangle size="md" /> {getText('rps_over_100')}
+						<SolidAlertTriangle size="md" /> {t('rps_over_100')}
 						<a href="mailto:cloud-support@signoz.io">email</a>
 					</Typography.Title>
 				</Flex>

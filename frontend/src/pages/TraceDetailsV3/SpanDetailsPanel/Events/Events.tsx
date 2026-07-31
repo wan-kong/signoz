@@ -4,6 +4,7 @@ import { Collapse, Modal } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { getYAxisFormattedValue } from 'components/Graph/yAxisConfig';
 import { Diamond } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { SpanV3 } from 'types/api/trace/getTraceV3';
 
 import EventAttribute from './components/EventAttribute';
@@ -19,6 +20,7 @@ interface IEventsTableProps {
 
 function EventsTable(props: IEventsTableProps): JSX.Element {
 	const { span, startTime, isSearchVisible } = props;
+	const { t } = useTranslation('trace');
 	const [fieldSearchInput, setFieldSearchInput] = useState<string>('');
 	const [modalContent, setModalContent] = useState<{
 		title: string;
@@ -46,7 +48,7 @@ function EventsTable(props: IEventsTableProps): JSX.Element {
 				{isSearchVisible && events.length > 0 && (
 					<Input
 						autoFocus
-						placeholder="Search for events..."
+						placeholder={t('trace_details.events.search_placeholder')}
 						value={fieldSearchInput}
 						onChange={(e): void => setFieldSearchInput(e.target.value)}
 					/>
@@ -78,7 +80,7 @@ function EventsTable(props: IEventsTableProps): JSX.Element {
 												<div className={styles.eventDetails}>
 													<div className={styles.attributeContainer} key="timeUnixNano">
 														<Typography.Text className={styles.attributeKey}>
-															Start Time
+															{t('trace_details.events.start_time')}
 														</Typography.Text>
 														<div className={styles.timestampContainer}>
 															<Typography.Text className={styles.attributeValue}>
@@ -88,7 +90,7 @@ function EventsTable(props: IEventsTableProps): JSX.Element {
 																)}
 															</Typography.Text>
 															<Typography.Text className={styles.timestampText}>
-																since trace start
+																{t('trace_details.events.since_trace_start')}
 															</Typography.Text>
 														</div>
 														<div className={styles.timestampContainer}>
@@ -99,7 +101,7 @@ function EventsTable(props: IEventsTableProps): JSX.Element {
 																)}
 															</Typography.Text>
 															<Typography.Text className={styles.timestampText}>
-																since span start
+																{t('trace_details.events.since_span_start')}
 															</Typography.Text>
 														</div>
 													</div>

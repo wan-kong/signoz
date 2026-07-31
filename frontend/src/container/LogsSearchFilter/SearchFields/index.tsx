@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNotifications } from 'hooks/useNotifications';
 import { reverseParser } from 'lib/logql';
 import { flatten } from 'lodash-es';
+import { useTranslation } from 'react-i18next';
 import { AppState } from 'store/reducers';
 import { ILogsReducer } from 'types/reducer/logs';
 
@@ -39,6 +40,7 @@ function SearchFields({
 	const keyPrefixRef = useRef(hashCode(JSON.stringify(fieldsQuery)));
 
 	const { notifications } = useNotifications();
+	const { t } = useTranslation('logs');
 
 	useEffect(() => {
 		const updatedFieldsQuery = createParsedQueryStructure([
@@ -86,7 +88,7 @@ function SearchFields({
 
 		if (!fieldsQueryIsvalid(flatParsedQuery)) {
 			notifications.error({
-				message: 'Please enter a valid criteria for each of the selected fields',
+				message: t('search.invalid_criteria'),
 			});
 			return;
 		}
@@ -94,7 +96,13 @@ function SearchFields({
 		keyPrefixRef.current = hashCode(JSON.stringify(flatParsedQuery));
 		updateQueryString(reverseParser(flatParsedQuery));
 		onDropDownToggleHandler(false)();
-	}, [fieldsQuery, notifications, onDropDownToggleHandler, updateQueryString]);
+	}, [
+		fieldsQuery,
+		notifications,
+		onDropDownToggleHandler,
+		t,
+		updateQueryString,
+	]);
 
 	const clearFilters = useCallback((): void => {
 		keyPrefixRef.current = hashCode(JSON.stringify([]));

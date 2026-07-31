@@ -1,4 +1,5 @@
 import { rest, server } from 'mocks-server/server';
+import { traceI18nProviderProps } from 'tests/traceI18n';
 import { render, screen, waitFor } from 'tests/test-utils';
 
 import ListView from './index';
@@ -50,7 +51,7 @@ const renderListView = (
 			{...props}
 		/>,
 		undefined,
-		{ initialRoute: '/traces-explorer' },
+		{ ...traceI18nProviderProps, initialRoute: '/traces-explorer' },
 	);
 };
 

@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -14,7 +15,7 @@ import { Typography } from '@signozhq/ui/typography';
 import { ResizeTable } from 'components/ResizeTable';
 import TextToolTip from 'components/TextToolTip';
 import Download from 'container/Download/Download';
-import { filterDropdown } from 'container/ServiceApplication/Filter/FilterDropdown';
+import { FilterDropdown } from 'container/ServiceApplication/Filter/FilterDropdown';
 import useResourceAttribute from 'hooks/useResourceAttribute';
 import { convertRawQueriesToTraceSelectedTags } from 'hooks/useResourceAttribute/utils';
 import { useSafeNavigate } from 'hooks/useSafeNavigate';
@@ -40,6 +41,7 @@ function TopOperationsTable({
 	isEntryPoint,
 	onEntryPointToggle,
 }: TopOperationsTableProps): JSX.Element {
+	const { t } = useTranslation('services');
 	const searchInput = useRef<InputRef>(null);
 	const { servicename: encodedServiceName } = useParams<IServiceName>();
 	const { safeNavigate } = useSafeNavigate();
@@ -103,7 +105,7 @@ function TopOperationsTable({
 	};
 
 	const getSearchOption = (): ColumnType<TopOperationList> => ({
-		filterDropdown,
+		filterDropdown: (props): JSX.Element => <FilterDropdown {...props} />,
 		filterIcon: <Search size="md" />,
 		onFilter: (value, record): boolean =>
 			record.name
@@ -137,14 +139,14 @@ function TopOperationsTable({
 
 	const columns: ColumnsType<TopOperationList> = [
 		{
-			title: 'Name',
+			title: t('key_operations.columns.name'),
 			dataIndex: 'name',
 			key: 'name',
 			width: 100,
 			...getSearchOption(),
 		},
 		{
-			title: 'P50  (in ms)',
+			title: t('key_operations.columns.p50_in_ms'),
 			dataIndex: 'p50',
 			key: 'p50',
 			width: 50,
@@ -152,7 +154,7 @@ function TopOperationsTable({
 			render: (value: number): string => (value / 1_000_000).toFixed(2),
 		},
 		{
-			title: 'P95  (in ms)',
+			title: t('key_operations.columns.p95_in_ms'),
 			dataIndex: 'p95',
 			key: 'p95',
 			width: 50,
@@ -160,7 +162,7 @@ function TopOperationsTable({
 			render: (value: number): string => (value / 1_000_000).toFixed(2),
 		},
 		{
-			title: 'P99  (in ms)',
+			title: t('key_operations.columns.p99_in_ms'),
 			dataIndex: 'p99',
 			key: 'p99',
 			width: 50,
@@ -168,7 +170,7 @@ function TopOperationsTable({
 			render: (value: number): string => (value / 1_000_000).toFixed(2),
 		},
 		{
-			title: 'Number of Calls',
+			title: t('key_operations.columns.number_of_calls'),
 			dataIndex: 'numCalls',
 			key: 'numCalls',
 			width: 50,
@@ -176,7 +178,7 @@ function TopOperationsTable({
 				a.numCalls - b.numCalls,
 		},
 		{
-			title: 'Error Rate',
+			title: t('key_operations.columns.error_rate'),
 			dataIndex: 'errorCount',
 			key: 'errorCount',
 			width: 50,
@@ -196,9 +198,9 @@ function TopOperationsTable({
 	};
 
 	const entryPointSpanInfo = {
-		text: 'Shows the spans where requests enter new services for the first time',
+		text: t('key_operations.entrypoint_tooltip'),
 		url: 'https://signoz.io/docs/apm-and-distributed-tracing/application-details/',
-		urlText: 'Learn more about Entrypoint Spans.',
+		urlText: t('key_operations.entrypoint_learn_more'),
 	};
 
 	return (
@@ -213,7 +215,9 @@ function TopOperationsTable({
 				</div>
 				<div className="top-operation__entry-point">
 					<Switch value={isEntryPoint} onChange={onEntryPointToggle} />
-					<span className="top-operation__entry-point-label">Entrypoint Spans</span>
+					<span className="top-operation__entry-point-label">
+						{t('key_operations.entrypoint_spans')}
+					</span>
 					<TextToolTip
 						text={entryPointSpanInfo.text}
 						url={entryPointSpanInfo.url}
@@ -227,7 +231,9 @@ function TopOperationsTable({
 				loading={isLoading}
 				showHeader
 				title={(): string =>
-					isEntryPoint ? 'Key Entrypoint Operations' : 'Key Operations'
+					isEntryPoint
+						? t('key_operations.entrypoint_title')
+						: t('key_operations.title')
 				}
 				tableLayout="fixed"
 				dataSource={data}

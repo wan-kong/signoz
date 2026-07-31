@@ -9,6 +9,7 @@ import { rest } from 'msw';
 import { PreferenceContextProvider } from 'providers/preferences/context/PreferenceContextProvider';
 import { QueryBuilderContext } from 'providers/QueryBuilder';
 import { render, screen } from 'tests/test-utils';
+import { logsI18nProviderProps } from 'tests/logsI18n';
 
 const queryRangeURL = 'http://localhost/api/v3/query_range';
 
@@ -130,6 +131,8 @@ describe('LogsExplorerList - empty states', () => {
 					/>
 				</PreferenceContextProvider>
 			</QueryBuilderContext.Provider>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		// Check for custom empty state message
@@ -195,6 +198,8 @@ describe('LogsExplorerList - empty states', () => {
 					/>
 				</PreferenceContextProvider>
 			</QueryBuilderContext.Provider>,
+			undefined,
+			logsI18nProviderProps,
 		);
 
 		// Check for custom empty state message

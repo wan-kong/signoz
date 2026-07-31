@@ -2,10 +2,12 @@ import { useCallback, useEffect } from 'react';
 import { Button } from 'antd';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useEventSource } from 'providers/EventSource';
+import { useTranslation } from 'react-i18next';
 import { validateQuery } from 'utils/queryValidationUtils';
 import { CirclePause, CirclePlay } from '@signozhq/icons';
 
 function LiveLogsPauseResume(): JSX.Element {
+	const { t } = useTranslation('logs');
 	const {
 		isConnectionOpen,
 		isConnectionLoading,
@@ -81,7 +83,7 @@ function LiveLogsPauseResume(): JSX.Element {
 				type="primary"
 				className={`periscope-btn ${isPlaying ? 'warning' : 'success'}`}
 			>
-				{isPlaying ? 'Pause' : 'Resume'}
+				{isPlaying ? t('live.pause') : t('live.resume')}
 			</Button>
 		</div>
 	);

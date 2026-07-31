@@ -20,6 +20,7 @@ import { getOperatorValue } from 'container/QueryBuilder/filters/QueryBuilderSea
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import createQueryParams from 'lib/createQueryParams';
 import { Compass } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { ILog } from 'types/api/logs/log';
 import {
 	BaseAutocompleteData,
@@ -62,6 +63,7 @@ function SpanLogs({
 	handleExplorerPageRedirect,
 	emptyStateConfig,
 }: SpanLogsProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const { updateAllQueriesOperators } = useQueryBuilder();
 
 	// Create trace_id and span_id filters for logs explorer navigation
@@ -178,7 +180,7 @@ function SpanLogs({
 					onLogClick={handleLogClick}
 					isHighlighted={isSpanRelated}
 					helpTooltip={
-						isSpanRelated ? 'This log belongs to the current span' : undefined
+						isSpanRelated ? t('trace_details.span_logs.current_span_log') : undefined
 					}
 					selectedFields={[
 						{
@@ -195,22 +197,28 @@ function SpanLogs({
 				/>
 			);
 		},
-		[handleLogClick, spanId],
+		[handleLogClick, spanId, t],
 	);
 
 	const renderFooter = useCallback((): JSX.Element | null => {
 		if (isFetching) {
 			return (
-				<div className={styles.logsLoadingSkeleton}> Loading more logs ... </div>
+				<div className={styles.logsLoadingSkeleton}>
+					{t('trace_details.span_logs.loading_more')}
+				</div>
 			);
 		}
 
 		if (hasReachedEndOfLogs) {
-			return <div className={styles.logsLoadingSkeleton}> *** End *** </div>;
+			return (
+				<div className={styles.logsLoadingSkeleton}>
+					{t('trace_details.span_logs.end')}
+				</div>
+			);
 		}
 
 		return null;
-	}, [isFetching, hasReachedEndOfLogs]);
+	}, [isFetching, hasReachedEndOfLogs, t]);
 
 	const renderContent = useMemo(
 		() => (
@@ -239,7 +247,7 @@ function SpanLogs({
 			<section className={styles.description}>
 				<img src={noDataUrl} alt="no-data" className={styles.noDataImg} />
 				<Typography.Text className={styles.noDataDescription}>
-					No logs found for selected span. View logs for the current trace.
+					{t('trace_details.span_logs.no_logs_for_span')}
 				</Typography.Text>
 			</section>
 			<section className={styles.actionSection}>
@@ -250,7 +258,7 @@ function SpanLogs({
 					onClick={handleExplorerPageRedirect}
 					size="md"
 				>
-					View Logs
+					{t('trace_details.span_logs.view_logs')}
 				</Button>
 			</section>
 		</div>

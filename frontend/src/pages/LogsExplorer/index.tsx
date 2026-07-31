@@ -27,6 +27,7 @@ import { useIsAIAssistantEnabled } from 'hooks/useIsAIAssistantEnabled';
 import { defaultTo, isEmpty, isNull } from 'lodash-es';
 import ErrorBoundaryFallback from 'pages/ErrorBoundaryFallback/ErrorBoundaryFallback';
 import { EventSourceProvider } from 'providers/EventSource';
+import { useTranslation } from 'react-i18next';
 import { Warning } from 'types/api';
 import { DataSource } from 'types/common/queryBuilder';
 import {
@@ -45,6 +46,7 @@ import { ExplorerViews } from './utils';
 import './LogsExplorer.styles.scss';
 
 function LogsExplorer(): JSX.Element {
+	const { t } = useTranslation('logs');
 	const [showLiveLogs, setShowLiveLogs] = useState<boolean>(false);
 
 	// Get panel type from URL
@@ -92,10 +94,10 @@ function LogsExplorer(): JSX.Element {
 	const queryClient = useQueryClient();
 	const handleCancelQuery = useCallback(() => {
 		if (listQueryKeyRef.current) {
-			queryClient.cancelQueries(listQueryKeyRef.current);
+			void queryClient.cancelQueries(listQueryKeyRef.current);
 		}
 		if (chartQueryKeyRef.current) {
-			queryClient.cancelQueries(chartQueryKeyRef.current);
+			void queryClient.cancelQueries(chartQueryKeyRef.current);
 		}
 		setIsCancelled(true);
 		// Reset loading state — the views container unmounts when cancelled, so
@@ -175,40 +177,40 @@ function LogsExplorer(): JSX.Element {
 		() => ({
 			list: {
 				name: 'list',
-				label: 'List',
+				label: t('view_modes.list'),
 				show: true,
 				key: 'list',
 			},
 			timeseries: {
 				name: 'timeseries',
-				label: 'Timeseries',
+				label: t('view_modes.timeseries'),
 				disabled: false,
 				show: true,
 				key: 'timeseries',
 			},
 			trace: {
 				name: 'trace',
-				label: 'Trace',
+				label: t('view_modes.trace'),
 				disabled: false,
 				show: false,
 				key: 'trace',
 			},
 			table: {
 				name: 'table',
-				label: 'Table',
+				label: t('view_modes.table'),
 				disabled: false,
 				show: true,
 				key: 'table',
 			},
 			clickhouse: {
 				name: 'clickhouse',
-				label: 'Clickhouse',
+				label: t('view_modes.clickhouse'),
 				disabled: false,
 				show: false,
 				key: 'clickhouse',
 			},
 		}),
-		[],
+		[t],
 	);
 
 	const handleShowLiveLogs = useCallback(() => {
@@ -274,7 +276,7 @@ function LogsExplorer(): JSX.Element {
 							</div>
 							<div className="logs-explorer-views">
 								{isCancelled ? (
-									<QueryCancelledPlaceholder subText='Click "Run Query" to load logs.' />
+									<QueryCancelledPlaceholder subText={t('query_cancelled.load_logs')} />
 								) : (
 									<LogsExplorerViewsContainer
 										listQueryKeyRef={listQueryKeyRef}

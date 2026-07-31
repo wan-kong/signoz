@@ -1,1 +1,107 @@
-{ "fetching_log_lines": "Fetching log lines" }
+{
+	"controls": {
+		"columns": "列",
+		"edit_columns": "编辑列",
+		"format": "格式",
+		"frequency_chart": "频率图",
+		"max_lines_per_row": "每行最大行数",
+		"max_lines_per_row_lower": "每行最大行数",
+		"order_by": "排序"
+	},
+	"empty": {
+		"no_data": {
+			"cta": "将 {{dataSource}} 发送到 SigNoz",
+			"message": "还没有 {{dataSource}}。<subText>当我们收到 {{dataSource}} 后，它们会显示在这里</subText>"
+		},
+		"no_log_lines": "未找到日志行",
+		"search": {
+			"clear_filters": "清除过滤条件",
+			"edit_query": "请修改查询后重试！",
+			"no_results": "此查询没有结果。",
+			"resources": "资源"
+		},
+		"trace_to_logs": {
+			"clear_filters_cta": "清除来自 Trace 的过滤条件以查看其他日志",
+			"docs": {
+				"correlate": "关联 traces 和 logs",
+				"send_logs": "将 logs 发送到 SigNoz"
+			},
+			"reasons": {
+				"no_associated_logs": "此 trace/span 没有关联任何日志。",
+				"not_linked": "日志未关联到 Traces。",
+				"not_sent": "日志未发送到 SigNoz。"
+			},
+			"subtitle": "可能原因：",
+			"title": "未找到此 trace 的日志。"
+		}
+	},
+	"error": {
+		"contact_support": "联系支持",
+		"message": "<prefix>糟糕 :/ </prefix> 出了点问题。请重试或联系支持。"
+	},
+	"fetching_log_lines": "正在获取日志行",
+	"filters": {
+		"add_to_selected_fields": "添加到选中字段",
+		"filter_values": "过滤字段值",
+		"interesting_fields": "关注字段",
+		"remove_from_selected_fields": "从选中字段移除",
+		"selected_fields": "选中字段"
+	},
+	"live": {
+		"fetching": "正在获取实时日志...",
+		"getting": "正在获取实时日志...",
+		"pause": "暂停",
+		"resume": "继续"
+	},
+	"log_fields": {
+		"body": "正文",
+		"log": "日志",
+		"stream": "流",
+		"timestamp": "时间戳"
+	},
+	"log_line_actions": {
+		"add_to_query": "添加到查询：{{fieldKey}}",
+		"copy_link": "复制链接",
+		"show_in_context": "在上下文中查看"
+	},
+	"loading": {
+		"getting_logs": "正在获取日志"
+	},
+	"messages": {
+		"copied_to_clipboard": "已复制到剪贴板"
+	},
+	"order": {
+		"ascending": "升序",
+		"descending": "降序"
+	},
+	"query_cancelled": {
+		"load_logs": "点击“运行查询”加载日志。"
+	},
+	"search": {
+		"apply": "应用",
+		"clear_filter": "清除过滤条件",
+		"invalid_criteria": "请为每个选中字段输入有效条件",
+		"log_query_builder": "日志查询构建器",
+		"placeholder": "搜索过滤条件",
+		"select_operator": "选择操作符",
+		"suggestions": "建议"
+	},
+	"table": {
+		"event": "事件"
+	},
+	"tabs": {
+		"explorer": "浏览器",
+		"pipelines": "管道",
+		"views": "视图"
+	},
+	"view_modes": {
+		"clickhouse": "Clickhouse",
+		"column": "列",
+		"default": "默认",
+		"list": "列表",
+		"raw": "原始",
+		"table": "表格",
+		"timeseries": "时间序列",
+		"trace": "Trace"
+	}
+}

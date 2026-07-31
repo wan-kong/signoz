@@ -2,6 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getYAxisFormattedValue } from 'components/Graph/yAxisConfig';
 import ROUTES from 'constants/routes';
+import { traceI18nProviderProps } from 'tests/traceI18n';
 import { render } from 'tests/test-utils';
 
 import TraceDetailsHeader from '../TraceDetailsHeader';
@@ -69,7 +70,11 @@ describe('TraceDetailsHeader – back button', () => {
 
 	it('calls history.goBack() when there is in-app SPA history', () => {
 		mockHasInAppHistory.mockReturnValue(true);
-		render(<TraceDetailsHeader {...baseProps} />);
+		render(
+			<TraceDetailsHeader {...baseProps} />,
+			undefined,
+			traceI18nProviderProps,
+		);
 
 		fireEvent.click(screen.getByRole('button', { name: /back/i }));
 
@@ -79,7 +84,11 @@ describe('TraceDetailsHeader – back button', () => {
 
 	it('pushes to the traces explorer route when there is no in-app SPA history', () => {
 		mockHasInAppHistory.mockReturnValue(false);
-		render(<TraceDetailsHeader {...baseProps} />);
+		render(
+			<TraceDetailsHeader {...baseProps} />,
+			undefined,
+			traceI18nProviderProps,
+		);
 
 		fireEvent.click(screen.getByRole('button', { name: /back/i }));
 
@@ -95,7 +104,11 @@ describe('TraceDetailsHeader – action cluster', () => {
 	});
 
 	it('does not render the action buttons while data is still loading', () => {
-		render(<TraceDetailsHeader {...baseProps} isDataLoaded={false} />);
+		render(
+			<TraceDetailsHeader {...baseProps} isDataLoaded={false} />,
+			undefined,
+			traceI18nProviderProps,
+		);
 
 		expect(
 			screen.queryByRole('button', { name: /^analytics$/i }),
@@ -106,7 +119,11 @@ describe('TraceDetailsHeader – action cluster', () => {
 	});
 
 	it('renders Analytics and Settings action buttons once data is loaded', () => {
-		render(<TraceDetailsHeader {...baseProps} isDataLoaded />);
+		render(
+			<TraceDetailsHeader {...baseProps} isDataLoaded />,
+			undefined,
+			traceI18nProviderProps,
+		);
 
 		expect(
 			screen.getByRole('button', { name: /^analytics$/i }),
@@ -117,7 +134,11 @@ describe('TraceDetailsHeader – action cluster', () => {
 	});
 
 	it('toggles the AnalyticsPanel open state when the Analytics button is clicked', () => {
-		render(<TraceDetailsHeader {...baseProps} isDataLoaded />);
+		render(
+			<TraceDetailsHeader {...baseProps} isDataLoaded />,
+			undefined,
+			traceI18nProviderProps,
+		);
 
 		const panel = screen.getByTestId('analytics-panel');
 		expect(panel).toHaveAttribute('data-open', 'false');
@@ -151,6 +172,8 @@ describe('TraceDetailsHeader – trace metadata row', () => {
 				isDataLoaded
 				traceMetadata={traceMetadata}
 			/>,
+			undefined,
+			traceI18nProviderProps,
 		);
 
 		expect(screen.getByText(/inventory-frontend/)).toBeInTheDocument();
@@ -172,6 +195,8 @@ describe('TraceDetailsHeader – trace metadata row', () => {
 				isDataLoaded
 				traceMetadata={traceMetadata}
 			/>,
+			undefined,
+			traceI18nProviderProps,
 		);
 
 		// Visible by default (showTraceDetails defaults to true).
@@ -193,7 +218,11 @@ describe('TraceDetailsHeader – trace metadata row', () => {
 	});
 
 	it('does not render the metadata row when traceMetadata is absent', () => {
-		render(<TraceDetailsHeader {...baseProps} isDataLoaded />);
+		render(
+			<TraceDetailsHeader {...baseProps} isDataLoaded />,
+			undefined,
+			traceI18nProviderProps,
+		);
 
 		expect(screen.queryByText(/inventory-frontend/)).not.toBeInTheDocument();
 	});

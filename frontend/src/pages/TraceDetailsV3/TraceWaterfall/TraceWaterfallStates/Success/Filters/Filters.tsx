@@ -20,6 +20,7 @@ import { useGetQueryRange } from 'hooks/queryBuilder/useGetQueryRange';
 import { uniqBy } from 'lodash-es';
 import NozButton from 'pages/TraceDetailsV3/TraceDetailsHeader/NozButton';
 import CopyButton from 'periscope/components/CopyButton/CopyButton';
+import { useTranslation } from 'react-i18next';
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { Query, TagFilter } from 'types/api/queryBuilder/queryBuilderData';
 import {
@@ -88,6 +89,7 @@ function Filters({
 	onExpand: () => void;
 	onCollapse: () => void;
 }): JSX.Element {
+	const { t } = useTranslation('trace');
 	const [filters, setFilters] = useState<TagFilter>(
 		BASE_FILTER_QUERY.filters || { items: [], op: 'AND' },
 	);
@@ -261,7 +263,9 @@ function Filters({
 			className={styles.highlightErrorsToggle}
 			data-testid="highlight-errors-toggle"
 		>
-			<Typography.Text>Highlight errors</Typography.Text>
+			<Typography.Text>
+				{t('trace_details.filters.highlight_errors')}
+			</Typography.Text>
 			<Switch
 				color="cherry"
 				value={isHighlightErrors}
@@ -287,7 +291,9 @@ function Filters({
 		/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 		<div className={styles.pill} onClick={onExpand}>
 			<Search size={12} />
-			<span className={styles.pillText}>{expression || 'Search...'}</span>
+			<span className={styles.pillText}>
+				{expression || t('trace_details.filters.search_placeholder_short')}
+			</span>
 			{expression && <span className={styles.pillIndicator} />}
 		</div>
 	);
@@ -298,7 +304,9 @@ function Filters({
 			<TooltipContent side="bottom" align="start">
 				<div className={styles.pillPopover}>
 					<div className={styles.pillPopoverHeader}>
-						<Typography.Text>Search query</Typography.Text>
+						<Typography.Text>
+							{t('trace_details.filters.search_query')}
+						</Typography.Text>
 						<CopyButton value={expression} size={12} />
 					</div>
 					<div className={styles.pillPopoverExpression}>{expression}</div>
@@ -359,7 +367,7 @@ function Filters({
 									onChange={handleExpressionChange}
 									onRun={handleRunQuery}
 									dataSource={DataSource.TRACES}
-									placeholder="Enter your filter query (e.g., http.status_code >= 500 AND service.name = 'frontend')"
+									placeholder={t('trace_details.filters.query_placeholder')}
 								/>
 							</div>
 						</div>
@@ -395,7 +403,9 @@ function Filters({
 											<X size={14} />
 										</Button>
 									</TooltipTrigger>
-									<TooltipContent>Clear filter</TooltipContent>
+									<TooltipContent>
+										{t('trace_details.filters.clear_filter')}
+									</TooltipContent>
 								</TooltipRoot>
 							)}
 							<TooltipRoot>
@@ -409,7 +419,9 @@ function Filters({
 										<ArrowRightFromLine size={14} />
 									</Button>
 								</TooltipTrigger>
-								<TooltipContent>Collapse filters</TooltipContent>
+								<TooltipContent>
+									{t('trace_details.filters.collapse_filters')}
+								</TooltipContent>
 							</TooltipRoot>
 						</div>
 					)}

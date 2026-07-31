@@ -5,6 +5,7 @@ import cx from 'classnames';
 import LearnMore from 'components/LearnMore/LearnMore';
 import { EmptyLogsListConfig } from 'container/LogsExplorerList/utils';
 import { Delete } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { DataSource, PanelTypeKeys } from 'types/common/queryBuilder';
 
 import emptyStateUrl from '@/assets/Icons/emptyState.svg';
@@ -22,15 +23,16 @@ export default function EmptyLogsSearch({
 	panelType,
 	customMessage,
 }: EmptyLogsSearchProps): JSX.Element {
+	const { t } = useTranslation('logs');
 	const logEventCalledRef = useRef(false);
 	useEffect(() => {
 		if (!logEventCalledRef.current) {
 			if (dataSource === DataSource.TRACES) {
-				logEvent('Traces Explorer: No results', {
+				void logEvent('Traces Explorer: No results', {
 					panelType,
 				});
 			} else if (dataSource === DataSource.LOGS) {
-				logEvent('Logs Explorer: No results', {
+				void logEvent('Logs Explorer: No results', {
 					panelType,
 				});
 			}
@@ -56,23 +58,23 @@ export default function EmptyLogsSearch({
 						<>
 							<div className="empty-logs-search__header">
 								<Typography.Text className="empty-logs-search__title">
-									{customMessage.title}
+									{t(customMessage.title)}
 								</Typography.Text>
 								{customMessage.subTitle && (
 									<Typography.Text className="empty-logs-search__subtitle">
-										{customMessage.subTitle}
+										{t(customMessage.subTitle)}
 									</Typography.Text>
 								)}
 							</div>
 							{Array.isArray(customMessage.description) ? (
 								<ul className="empty-logs-search__description-list">
 									{customMessage.description.map((desc) => (
-										<li key={desc}>{desc}</li>
+										<li key={desc}>{t(desc)}</li>
 									))}
 								</ul>
 							) : (
 								<Typography.Text className="empty-logs-search__description">
-									{customMessage.description}
+									{t(customMessage.description)}
 								</Typography.Text>
 							)}
 							{/* Clear filters button */}
@@ -82,10 +84,11 @@ export default function EmptyLogsSearch({
 									className="empty-logs-search__clear-filters-btn"
 									onClick={customMessage.onClearFilters}
 								>
-									{customMessage.clearFiltersButtonText}
+									{customMessage.clearFiltersButtonText &&
+										t(customMessage.clearFiltersButtonText)}
 									<span className="empty-logs-search__clear-filters-btn-icon">
 										<Delete size={14} />
-										Clear filters
+										{t('empty.search.clear_filters')}
 									</span>
 								</button>
 							)}
@@ -93,18 +96,20 @@ export default function EmptyLogsSearch({
 					) : (
 						<Typography.Text>
 							<span className="empty-logs-search__sub-text">
-								This query had no results.{' '}
+								{t('empty.search.no_results')}{' '}
 							</span>
-							Edit your query and try again!
+							{t('empty.search.edit_query')}
 						</Typography.Text>
 					)}
 				</div>
 				{customMessage?.documentationLinks && (
 					<div className="empty-logs-search__resources-card">
-						<div className="empty-logs-search__resources-title">RESOURCES</div>
+						<div className="empty-logs-search__resources-title">
+							{t('empty.search.resources')}
+						</div>
 						<div className="empty-logs-search__resources-links">
 							{customMessage.documentationLinks.map((link) => (
-								<LearnMore key={link.text} text={link.text} url={link.url} />
+								<LearnMore key={link.text} text={t(link.text)} url={link.url} />
 							))}
 						</div>
 					</div>

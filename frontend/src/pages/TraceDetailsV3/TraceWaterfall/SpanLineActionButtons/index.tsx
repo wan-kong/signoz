@@ -7,6 +7,7 @@ import {
 } from '@signozhq/ui/tooltip';
 import { useCopySpanLink } from 'hooks/trace/useCopySpanLink';
 import { Link } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { SpanV3 } from 'types/api/trace/getTraceV3';
 
 import styles from './SpanLineActionButtons.module.scss';
@@ -18,6 +19,7 @@ export default function SpanLineActionButtons({
 	span,
 }: SpanLineActionButtonsProps): JSX.Element {
 	const { onSpanCopy } = useCopySpanLink(span);
+	const { t } = useTranslation('trace');
 
 	return (
 		<div className={styles.root}>
@@ -34,7 +36,9 @@ export default function SpanLineActionButtons({
 							<Link size={14} />
 						</Button>
 					</TooltipTrigger>
-					<TooltipContent className={styles.tooltip}>Copy Span Link</TooltipContent>
+					<TooltipContent className={styles.tooltip}>
+						{t('trace_details.copy_span_link')}
+					</TooltipContent>
 				</TooltipRoot>
 			</TooltipProvider>
 		</div>

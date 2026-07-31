@@ -15,6 +15,7 @@ import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import useDebouncedFn from 'hooks/useDebouncedFunction';
 import { useEventSourceEvent } from 'hooks/useEventSourceEvent';
 import { useEventSource } from 'providers/EventSource';
+import { useTranslation } from 'react-i18next';
 import { DataSource, StringOperators } from 'types/common/queryBuilder';
 import { validateQuery } from 'utils/queryValidationUtils';
 
@@ -32,6 +33,7 @@ interface LiveLogsContainerProps {
 function LiveLogsContainer({
 	handleChangeSelectedView,
 }: LiveLogsContainerProps): JSX.Element {
+	const { t } = useTranslation('logs');
 	const location = useLocation();
 	const [logs, setLogs] = useState<ILiveLogsLog[]>([]);
 	const { currentQuery, stagedQuery } = useQueryBuilder();
@@ -63,20 +65,20 @@ function LiveLogsContainer({
 	const formatItems = [
 		{
 			key: 'raw',
-			label: 'Raw',
+			label: t('view_modes.raw'),
 			data: {
-				title: 'max lines per row',
+				title: t('controls.max_lines_per_row_lower'),
 			},
 		},
 		{
 			key: 'list',
-			label: 'Default',
+			label: t('view_modes.default'),
 		},
 		{
 			key: 'table',
-			label: 'Column',
+			label: t('view_modes.column'),
 			data: {
-				title: 'columns',
+				title: t('controls.columns'),
 			},
 		},
 	];
@@ -230,7 +232,7 @@ function LiveLogsContainer({
 			<div className="live-logs-content">
 				<div className="live-logs-settings-panel">
 					<div className="live-logs-frequency-chart-view-controller">
-						<Typography>Frequency chart</Typography>
+						<Typography>{t('controls.frequency_chart')}</Typography>
 						<Switch
 							value={showLiveLogsFrequencyChart}
 							defaultValue
@@ -269,7 +271,7 @@ function LiveLogsContainer({
 			{config.fieldsSelector && (
 				<FieldsSelector
 					isOpen={isFieldsSelectorOpen}
-					title="Edit columns"
+					title={t('controls.edit_columns')}
 					fields={config.fieldsSelector.value}
 					onFieldsChange={config.fieldsSelector.onFieldsChange}
 					onClose={(): void => setIsFieldsSelectorOpen(false)}

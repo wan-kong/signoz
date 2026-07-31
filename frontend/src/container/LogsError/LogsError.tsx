@@ -2,6 +2,7 @@ import { Typography } from '@signozhq/ui/typography';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 import history from 'lib/history';
 import { ArrowRight } from '@signozhq/icons';
+import { Trans, useTranslation } from 'react-i18next';
 
 import awwSnapUrl from '@/assets/Icons/awwSnap.svg';
 
@@ -9,6 +10,7 @@ import './LogsError.styles.scss';
 
 export default function LogsError(): JSX.Element {
 	const { isCloudUser: isCloudUserVal } = useGetTenantLicense();
+	const { t } = useTranslation('logs');
 
 	const handleContactSupport = (): void => {
 		if (isCloudUserVal) {
@@ -23,12 +25,17 @@ export default function LogsError(): JSX.Element {
 			<div className="logs-error-content">
 				<img src={awwSnapUrl} alt="error-emoji" className="error-state-svg" />
 				<Typography.Text>
-					<span className="aww-snap">Aw snap :/ </span> Something went wrong. Please
-					try again or contact support.
+					<Trans
+						t={t}
+						i18nKey="error.message"
+						components={{ prefix: <span className="aww-snap" /> }}
+					/>
 				</Typography.Text>
 
 				<div className="contact-support" onClick={handleContactSupport}>
-					<Typography.Link className="text">Contact Support </Typography.Link>
+					<Typography.Link className="text">
+						{t('error.contact_support')}{' '}
+					</Typography.Link>
 
 					<ArrowRight size={14} />
 				</div>

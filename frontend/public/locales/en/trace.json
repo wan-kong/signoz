@@ -1,4 +1,8 @@
 {
+	"controls": {
+		"edit_columns": "Edit columns",
+		"order_by": "Order by"
+	},
 	"options_menu": {
 		"options": "Options",
 		"format": "Format",
@@ -7,5 +11,76 @@
 		"column": "Column",
 		"maxLines": "Max lines per Row",
 		"addColumn": "Add a column"
+	},
+	"query_cancelled": {
+		"load_traces": "Click \"Run Query\" to load traces."
+	},
+	"tabs": {
+		"explorer": "Explorer",
+		"funnels": "Funnels",
+		"views": "Views"
+	},
+	"trace_details": {
+		"analytics": {
+			"exec_time": "% exec time",
+			"load_error": "Couldn't load analytics",
+			"no_data_for": "No data for {{fieldName}}",
+			"spans": "Spans",
+			"title": "Analytics"
+		},
+		"colour_by": "Colour by",
+		"colour_by_label": "COLOUR BY",
+		"copy_span_link": "Copy Span Link",
+		"copy_trace_id": "Click to copy trace ID",
+		"download_trace": "Download trace",
+		"events": {
+			"no_data_for_span": "No {{name}} found for selected span",
+			"search_placeholder": "Search for events...",
+			"since_span_start": "since span start",
+			"since_trace_start": "since trace start",
+			"start_time": "Start Time"
+		},
+		"export": {
+			"cancelled": "Export cancelled",
+			"completed": "Export completed successfully",
+			"failed": "Failed to download trace"
+		},
+		"filters": {
+			"clear_filter": "Clear filter",
+			"collapse_filters": "Collapse filters",
+			"highlight_errors": "Highlight errors",
+			"query_placeholder": "Enter your filter query (e.g., http.status_code >= 500 AND service.name = 'frontend')",
+			"search_placeholder_short": "Search...",
+			"search_query": "Search query"
+		},
+		"hide_details": "Hide trace details",
+		"options": "Trace options",
+		"preview_fields": "Preview fields",
+		"show_details": "Show trace details",
+		"span_details": "Span details",
+		"span_logs": {
+			"current_span_log": "This log belongs to the current span",
+			"end": "*** End ***",
+			"loading_more": "Loading more logs ...",
+			"no_logs_for_span": "No logs found for selected span. View logs for the current trace.",
+			"view_logs": "View Logs"
+		},
+		"summary": {
+			"service": "SERVICE",
+			"span_kind": "SPAN KIND",
+			"span_name": "Span name",
+			"status_code": "STATUS CODE",
+			"status_message": "STATUS MESSAGE",
+			"status_message_title": "Status message",
+			"trace_id": "TRACE ID"
+		},
+		"trace_id_copied": "Trace ID copied to clipboard"
+	},
+	"view_modes": {
+		"clickhouse": "Clickhouse",
+		"list": "List",
+		"table": "Table",
+		"timeseries": "Timeseries",
+		"trace": "Trace"
 	}
 }

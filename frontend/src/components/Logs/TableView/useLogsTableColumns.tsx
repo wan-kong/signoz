@@ -10,6 +10,7 @@ import { FontSize } from 'container/OptionsMenu/types';
 import { buildCompositeKey } from 'container/OptionsMenu/utils';
 import { FlatLogData } from 'lib/logs/flatLogData';
 import { useTimezone } from 'providers/Timezone';
+import { useTranslation } from 'react-i18next';
 import { IField } from 'types/api/logs/fields';
 import { ILog } from 'types/api/logs/log';
 
@@ -26,6 +27,7 @@ export function useLogsTableColumns({
 	fontSize,
 }: UseLogsTableColumnsProps): TableColumnDef<ILog>[] {
 	const { formatTimezoneAdjustedTimestamp } = useTimezone();
+	const { t } = useTranslation('logs');
 
 	return useMemo<TableColumnDef<ILog>[]>(() => {
 		const stateIndicatorCol: TableColumnDef<ILog> = {
@@ -48,7 +50,7 @@ export function useLogsTableColumns({
 
 		const timestampCol: TableColumnDef<ILog> = {
 			id: buildCompositeKey('timestamp', 'log'),
-			header: 'Timestamp',
+			header: t('log_fields.timestamp'),
 			accessorFn: (log): unknown => log.timestamp,
 			canBeHidden: false,
 			enableRemove: false,
@@ -68,7 +70,7 @@ export function useLogsTableColumns({
 
 		const bodyCol: TableColumnDef<ILog> = {
 			id: buildCompositeKey('body', 'log'),
-			header: 'Body',
+			header: t('log_fields.body'),
 			accessorFn: (log): string => getBodyDisplayString(log.body),
 			canBeHidden: false,
 			enableRemove: false,
@@ -115,5 +117,5 @@ export function useLogsTableColumns({
 			.filter((c): c is TableColumnDef<ILog> => c !== null);
 
 		return [stateIndicatorCol, ...fieldCols];
-	}, [fields, fontSize, formatTimezoneAdjustedTimestamp]);
+	}, [fields, fontSize, formatTimezoneAdjustedTimestamp, t]);
 }

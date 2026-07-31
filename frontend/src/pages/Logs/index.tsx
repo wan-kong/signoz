@@ -20,6 +20,7 @@ import AppActions from 'types/actions';
 import { SET_LOGS_ORDER } from 'types/actions/logs';
 import { ILogsReducer } from 'types/reducer/logs';
 import { popupContainer } from 'utils/selectPopupContainer';
+import { useTranslation } from 'react-i18next';
 
 import {
 	defaultSelectStyle,
@@ -37,6 +38,7 @@ function OldLogsExplorer(): JSX.Element {
 	const dispatch = useDispatch<Dispatch<AppActions>>();
 	const { order } = useSelector<AppState, ILogsReducer>((store) => store.logs);
 	const location = useLocation();
+	const { t } = useTranslation('logs');
 
 	const {
 		viewModeOptionList,
@@ -112,7 +114,7 @@ function OldLogsExplorer(): JSX.Element {
 									onChange={onChangeVeiwMode}
 								>
 									{viewModeOptionList.map((option) => (
-										<Select.Option key={option.value}>{option.label}</Select.Option>
+										<Select.Option key={option.value}>{t(option.label)}</Select.Option>
 									))}
 								</Select>
 
@@ -122,7 +124,7 @@ function OldLogsExplorer(): JSX.Element {
 										placement="right"
 										content={renderPopoverContent}
 									>
-										<Button>Format</Button>
+										<Button>{t('controls.format')}</Button>
 									</Popover>
 								)}
 
@@ -133,7 +135,7 @@ function OldLogsExplorer(): JSX.Element {
 									onChange={handleChangeOrder}
 								>
 									{orderItems.map((item) => (
-										<Select.Option key={item.enum}>{item.name}</Select.Option>
+										<Select.Option key={item.enum}>{t(item.name)}</Select.Option>
 									))}
 								</Select>
 							</Space>
