@@ -342,7 +342,7 @@ export const menuItems = [
 // Component
 function SideNav() {
   const { t } = useTranslation('common');
-  
+
   return (
     <nav>
       {menuItems.map((item) => (
@@ -367,7 +367,7 @@ export interface DataField {
 // Component
 function FieldLabel({ field }: { field: DataField }) {
   const { t } = useTranslation('common');
-  
+
   return <span>{t(`fields.${field.type}.label`)}</span>;
 }
 ```
@@ -391,7 +391,7 @@ interface TabLabelProps {
 
 function TabLabel({ labelKey, icon }: TabLabelProps) {
   const { t } = useTranslation('logs');
-  
+
   return (
     <div className="tab-item">
       {icon} {t(labelKey)}
@@ -409,7 +409,7 @@ Best for: Ensuring compile-time safety for translation keys
 
 ```typescript
 // constants.ts
-export type ChecklistKey = 
+export type ChecklistKey =
   | 'checklist.items.SETUP_WORKSPACE.title'
   | 'checklist.items.ADD_DATA_SOURCE.title';
 
@@ -421,7 +421,7 @@ export interface ChecklistItem {
 // Component
 function Checklist({ item }: { item: ChecklistItem }) {
   const { t } = useTranslation('home');
-  
+
   // TypeScript ensures titleKey is a valid key
   return <h3>{t(item.titleKey)}</h3>;
 }
@@ -479,7 +479,7 @@ export const defaultChecklistItemsState = [
 ```tsx
 function HomeChecklist({ checklistItems }) {
   const { t } = useTranslation('home');
-  
+
   return (
     <div>
       {checklistItems.map((item) => (
@@ -712,7 +712,7 @@ To add a new language (e.g., `ja-JP` for Japanese):
    - ❌ Never pass `t: TFunction` in props or function parameters
    - ❌ Never convert constants to functions to receive `t`
    - ❌ Never hardcode translated strings in constants
-   
+
    **Example:**
    ```typescript
    // ✅ GOOD - constants.ts
@@ -720,7 +720,7 @@ To add a new language (e.g., `ja-JP` for Japanese):
      { id: 'logs', labelKey: 'nav.logs' },
      { id: 'traces', labelKey: 'nav.traces' },
    ];
-   
+
    // ✅ GOOD - Component.tsx
    function Menu() {
      const { t } = useTranslation('common');
@@ -781,7 +781,7 @@ To add a new language (e.g., `ja-JP` for Japanese):
      items: Item[];
      t: TFunction;
    }
-   
+
    // ❌ Bad - converting constants to functions
    export function getItems(t: TFunction): Item[] {
      return [{ title: t('title') }];

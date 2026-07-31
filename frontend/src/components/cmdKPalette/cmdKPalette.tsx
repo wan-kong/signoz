@@ -154,7 +154,7 @@ export function CmdKPalette({
 		const map = new Map<string, CmdAction[]>();
 
 		permitted.forEach((a) => {
-			const section = a.section ?? 'Other';
+			const section = a.section ?? t('other');
 			const existing = map.get(section);
 
 			if (existing) {

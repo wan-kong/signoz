@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Color } from '@signozhq/design-tokens';
 import { ChevronDown, ChevronUp, CircleAlert, RotateCw } from '@signozhq/icons';
@@ -16,6 +17,7 @@ function SaveErrorItem({
 	apiError,
 	onRetry,
 }: SaveErrorItemProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [expanded, setExpanded] = useState(false);
 	const [isRetrying, setIsRetrying] = useState(false);
 
@@ -36,13 +38,15 @@ function SaveErrorItem({
 			>
 				<CircleAlert size={12} className="sa-error-item__icon" />
 				<span className="sa-error-item__title">
-					{isRetrying ? 'Retrying...' : `${context}: ${apiError.getErrorMessage()}`}
+					{isRetrying
+						? t('save_error.retrying')
+						: `${context}: ${apiError.getErrorMessage()}`}
 				</span>
 				{onRetry && !isRetrying && (
 					<Button
 						variant="link"
 						color="none"
-						aria-label="Retry"
+						aria-label={t('save_error.retry')}
 						onClick={async (e): Promise<void> => {
 							e.stopPropagation();
 							setIsRetrying(true);

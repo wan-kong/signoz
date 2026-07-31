@@ -1,4 +1,5 @@
 /* eslint-disable sonarjs/cognitive-complexity */
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CircleCheck, Info, TriangleAlert, Filter } from '@signozhq/icons';
 import {
@@ -126,6 +127,7 @@ function QuerySearch({
 	metricNamespace,
 	valueSuggestionsOverride,
 }: QuerySearchProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const isDarkMode = useIsDarkMode();
 	const [valueSuggestions, setValueSuggestions] = useState<any[]>([]);
 	const [activeKey, setActiveKey] = useState<string>('');
@@ -731,7 +733,7 @@ function QuerySearch({
 			case 'parenthesis':
 				return <Badge color="sakura">Parenthesis</Badge>;
 			case 'bracketList':
-				return <Badge color="cherry">Bracket List</Badge>;
+				return <Badge color="cherry">{t('query_builder.bracket_list')}</Badge>;
 			default:
 				return <Badge color="vanilla">Unknown</Badge>;
 		}
@@ -1695,7 +1697,7 @@ function QuerySearch({
 			)}
 
 			{/* {queryContext && (
-				<Card size="small" title="Current Context" className="query-context">
+				<Card size="small" title={t("query_builder.current_context")} className="query-context">
 					<div className="context-details">
 						<Space direction="vertical" size={4}>
 							<Space>

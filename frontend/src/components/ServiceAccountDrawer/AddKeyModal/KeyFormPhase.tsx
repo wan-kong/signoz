@@ -4,6 +4,7 @@ import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
 import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
 import { DatePicker } from 'antd';
+import { useTranslation } from 'react-i18next';
 import AuthZButton from 'lib/authz/components/AuthZButton/AuthZButton';
 import {
 	APIKeyCreatePermission,
@@ -36,16 +37,18 @@ function KeyFormPhase({
 	onClose,
 	accountId,
 }: KeyFormPhaseProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<>
 			<form id={FORM_ID} className="add-key-modal__form" onSubmit={onSubmit}>
 				<div className="add-key-modal__field">
 					<label className="add-key-modal__label" htmlFor="key-name">
-						Name <span style={{ color: 'var(--destructive)' }}>*</span>
+						{t('sa_add_key.name_label')}{' '}
+						<span style={{ color: 'var(--destructive)' }}>*</span>
 					</label>
 					<Input
 						id="key-name"
-						placeholder="Enter key name e.g.: Service Owner"
+						placeholder={t('sa_add_key.name_placeholder')}
 						className="add-key-modal__input"
 						{...register('keyName', {
 							required: true,
@@ -55,7 +58,7 @@ function KeyFormPhase({
 				</div>
 
 				<div className="add-key-modal__field">
-					<span className="add-key-modal__label">Expiration</span>
+					<span className="add-key-modal__label">{t('sa_add_key.expiration')}</span>
 					<Controller
 						name="expiryMode"
 						control={control}
@@ -71,8 +74,8 @@ function KeyFormPhase({
 								size="sm"
 								className="add-key-modal__expiry-toggle"
 								items={[
-									{ value: ExpiryMode.NONE, label: 'No Expiration' },
-									{ value: ExpiryMode.DATE, label: 'Set Expiration Date' },
+									{ value: ExpiryMode.NONE, label: t('sa_add_key.no_expiration') },
+									{ value: ExpiryMode.DATE, label: t('sa_add_key.set_expiration') },
 								]}
 							/>
 						)}
@@ -82,7 +85,7 @@ function KeyFormPhase({
 				{expiryMode === ExpiryMode.DATE && (
 					<div className="add-key-modal__field">
 						<label className="add-key-modal__label" htmlFor="expiry-date">
-							Expiration Date
+							{t('sa_add_key.expiration_date')}
 						</label>
 						<div className="add-key-modal__datepicker">
 							<Controller
@@ -107,7 +110,7 @@ function KeyFormPhase({
 			<div className="add-key-modal__footer">
 				<div className="add-key-modal__footer-right">
 					<Button variant="solid" color="secondary" onClick={onClose}>
-						Cancel
+						{t('sa_add_key.cancel')}
 					</Button>
 					<AuthZButton
 						checks={[
@@ -122,7 +125,7 @@ function KeyFormPhase({
 						loading={isSubmitting}
 						disabled={!isValid}
 					>
-						Create Key
+						{t('sa_add_key.create_key')}
 					</AuthZButton>
 				</div>
 			</div>

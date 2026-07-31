@@ -1,4 +1,5 @@
 /* eslint-disable sonarjs/cognitive-complexity */
+import { useTranslation } from 'react-i18next';
 import React, {
 	useCallback,
 	useEffect,
@@ -48,7 +49,7 @@ enum ToggleTagValue {
 }
 
 const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
-	placeholder = 'Search...',
+	placeholder,
 	className,
 	loading = false,
 	onSearch,
@@ -80,6 +81,9 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 	...rest
 }) => {
 	// ===== State & Refs =====
+	const { t } = useTranslation('common');
+	const resolvedPlaceholder =
+		placeholder || t('custom_select.search_placeholder');
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchText, setSearchText] = useState('');
 	const selectRef = useRef<BaseSelectRef>(null);
@@ -874,7 +878,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 				// Add all options to flat list
 				if (hasAll) {
 					flatList.push({
-						label: 'ALL',
+						label: t('custom_select.all'),
 						value: ALL_SELECTED_VALUE, // Special value for the ALL option
 						type: 'defined',
 					});
@@ -1597,7 +1601,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 							<div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
 								<Checkbox value={allOptionsSelected} className="option-checkbox">
 									<div className="option-content">
-										<div className="all-option-text">ALL</div>
+										<div className="all-option-text">{t('custom_select.all')}</div>
 									</div>
 								</Checkbox>
 								<div
@@ -1709,7 +1713,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 								<ArrowUp size={8} className="icons" />
 								<ArrowLeft size={8} className="icons" />
 								<ArrowRight size={8} className="icons" />
-								<span className="keyboard-text">to navigate</span>
+								<span className="keyboard-text">{t('custom_select.to_navigate')}</span>
 							</section>
 						)}
 					{loading && (
@@ -1717,7 +1721,9 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 							<div className="navigation-icons">
 								<Loader size="md" className="animate-spin" />
 							</div>
-							<div className="navigation-text">Refreshing values...</div>
+							<div className="navigation-text">
+								{t('custom_select.refreshing_values')}
+							</div>
 						</div>
 					)}
 					{!loading && waitingMessage && (
@@ -1756,7 +1762,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 						!waitingMessage &&
 						!errorMessage && (
 							<div className="navigation-text-incomplete">
-								Don&apos;t see the value? Use search
+								{t('custom_select.no_values_message')}
 							</div>
 						)}
 
@@ -2022,7 +2028,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 				})}
 			>
 				{(allOptionShown || isAllSelected) && !searchText && (
-					<div className="all-text">ALL</div>
+					<div className="all-text">{t('custom_select.all')}</div>
 				)}
 				<Select
 					ref={selectRef}
@@ -2030,7 +2036,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
 						'has-selection': selectedChips.length > 0 && !isAllSelected,
 						'is-all-selected': isAllSelected,
 					})}
-					placeholder={placeholder}
+					placeholder={resolvedPlaceholder}
 					mode="multiple"
 					showSearch
 					filterOption={false}

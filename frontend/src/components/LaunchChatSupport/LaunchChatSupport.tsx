@@ -3,6 +3,7 @@ import { useMutation } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { Button, Modal, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import updateCreditCardApi from 'api/v1/checkout/create';
 import cx from 'classnames';
@@ -39,6 +40,7 @@ function LaunchChatSupport({
 	onHoverText = '',
 	chatMessageDisabled = false,
 }: LaunchChatSupportProps): JSX.Element | null {
+	const { t } = useTranslation('common');
 	const { isCloudUser: isCloudUserVal } = useGetTenantLicense();
 	const { notifications } = useNotifications();
 	const {
@@ -172,14 +174,14 @@ function LaunchChatSupport({
 					onClick={handleFacingIssuesClick}
 					icon={<CircleHelp size={14} />}
 				>
-					{buttonText || 'Facing issues?'}
+					{buttonText || t('buttons.facing_issues')}
 				</Button>
 			</Tooltip>
 
 			{/* Add Credit Card Modal */}
 			<Modal
 				className="add-credit-card-modal"
-				title={<span className="title">Add Credit Card for Chat Support</span>}
+				title={<span className="title">{t('buttons.add_credit_card_title')}</span>}
 				open={isAddCreditCardModalOpen}
 				closable
 				onCancel={(): void => setIsAddCreditCardModalOpen(false)}
@@ -191,7 +193,7 @@ function LaunchChatSupport({
 						className="cancel-btn"
 						icon={<X size={16} />}
 					>
-						Cancel
+						{t('buttons.cancel')}
 					</Button>,
 					<Button
 						key="submit"
@@ -203,13 +205,12 @@ function LaunchChatSupport({
 						onClick={handleAddCreditCard}
 						className="add-credit-card-btn"
 					>
-						Add Credit Card
+						{t('buttons.add_credit_card')}
 					</Button>,
 				]}
 			>
 				<Typography.Text className="add-credit-card-text">
-					You&apos;re currently on <span className="highlight-text">Trial plan</span>
-					. Add a credit card to access SigNoz chat support to your workspace.
+					{t('buttons.trial_plan_message')}
 				</Typography.Text>
 			</Modal>
 		</div>

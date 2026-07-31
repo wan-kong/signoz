@@ -103,8 +103,6 @@ export type AlertRuleTimelineTableResponsePayload = {
 	};
 };
 
-type AlertState = 'firing' | 'normal' | 'nodata' | 'muted';
-
 export interface AlertRuleTimelineGraphResponse {
 	start: number;
 	end: number;

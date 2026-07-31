@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { Check, ChevronsDown, ScrollText, X } from '@signozhq/icons';
 import { Button, Flex, Modal } from 'antd';
+import { useTranslation } from 'react-i18next';
 import updateUserPreference from 'api/v1/user/preferences/name/update';
 import cx from 'classnames';
 import { USER_PREFERENCES } from 'constants/userPreferences';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 function ChangelogModal({ changelog, onClose }: Props): JSX.Element {
+	const { t } = useTranslation('common');
 	const [hasScroll, setHasScroll] = useState(false);
 	const changelogContentSectionRef = useRef<HTMLDivElement>(null);
 	const { userPreferences, updateUserPreferenceInContext } = useAppContext();
@@ -103,7 +105,7 @@ function ChangelogModal({ changelog, onClose }: Props): JSX.Element {
 			title={
 				<div className="changelog-modal-title">
 					<ScrollText size={16} />
-					What’s New ⎯ Changelog : {formattedReleaseDate}
+					{t('changelog.title', { date: formattedReleaseDate })}
 				</div>
 			}
 			width={820}
@@ -118,13 +120,13 @@ function ChangelogModal({ changelog, onClose }: Props): JSX.Element {
 							<Button type="default" onClick={onClose}>
 								<Flex align="center" gap="4px">
 									<X size="md" />
-									Skip for now
+									{t('changelog.skip_for_now')}
 								</Flex>
 							</Button>
 							<Button type="primary" onClick={onClickUpdateWorkspace}>
 								<Flex align="center" gap="4px">
 									<Check size="md" />
-									Update my workspace
+									{t('changelog.update_workspace')}
 								</Flex>
 							</Button>
 						</div>
@@ -138,7 +140,7 @@ function ChangelogModal({ changelog, onClose }: Props): JSX.Element {
 								onClick={onClickScrollForMore}
 							>
 								<ChevronsDown size={14} />
-								<span>Scroll for more</span>
+								<span>{t('changelog.scroll_for_more')}</span>
 							</button>
 						</div>
 					)}

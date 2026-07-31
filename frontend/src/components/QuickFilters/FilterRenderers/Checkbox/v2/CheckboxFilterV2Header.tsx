@@ -1,5 +1,6 @@
 import { Typography } from '@signozhq/ui/typography';
 import { ChevronDown, ChevronRight } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CheckboxFilterV2Header.module.scss';
 
@@ -20,6 +21,8 @@ export function CheckboxFilterV2Header({
 	onClear,
 	isSomeFilterPresentForCurrentAttribute,
 }: CheckboxFilterHeaderProps): JSX.Element {
+	const { t } = useTranslation('common');
+
 	return (
 		<section
 			role="button"
@@ -53,7 +56,7 @@ export function CheckboxFilterV2Header({
 						}}
 						data-testid="checkbox-filter-clear-all"
 					>
-						Clear
+						{t('quick_filters.clear_all')}
 					</Typography.Text>
 				)}
 			</section>

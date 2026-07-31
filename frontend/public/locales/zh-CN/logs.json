@@ -68,6 +68,8 @@
 		"move_to_next_log": "跳转到下一条日志",
 		"move_to_previous_log": "跳转到上一条日志",
 		"open_in_explorer": "在日志浏览器中打开",
+		"use_keyboard": "使用",
+		"view_previous_next_log": "查看上一条/下一条日志",
 		"search": "搜索",
 		"search_placeholder": "搜索字段...",
 		"show_filters": "显示过滤条件",

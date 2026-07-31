@@ -561,7 +561,7 @@ function LogDetailInner({
 								color="muted"
 								className="log-detail-drawer__footer-hint-text"
 							>
-								Use
+								{t('details.use_keyboard')}
 							</Typography.Text>
 							<ArrowUp size={14} className="log-detail-drawer__footer-hint-icon" />
 							<span>/</span>
@@ -570,7 +570,7 @@ function LogDetailInner({
 								color="muted"
 								className="log-detail-drawer__footer-hint-text"
 							>
-								to view previous/next log
+								{t('details.view_previous_next_log')}
 							</Typography.Text>
 						</div>
 					</div>

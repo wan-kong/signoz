@@ -94,7 +94,7 @@ function FieldsSelectorContent({
 
 	const handleSave = useCallback((): void => {
 		onFieldsChange(draftFields);
-		toast.success('Saved successfully', {
+		toast.success(t('toast.saved_successfully'), {
 			position: 'top-right',
 		});
 		onClose();

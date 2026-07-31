@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Card } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
@@ -35,6 +36,7 @@ export default function CeleryTaskGraphGrid({
 	queryEnabled: boolean;
 	configureOptionComponent?: React.ReactNode;
 }): JSX.Element {
+	const { t } = useTranslation('messagingQueues');
 	const { minTime, maxTime } = useSelector<AppState, GlobalReducer>(
 		(state) => state.globalTime,
 	);
@@ -66,9 +68,9 @@ export default function CeleryTaskGraphGrid({
 	];
 
 	const rightPanelTitle = [
-		'Tasks/s by worker',
-		'Error% by worker',
-		'Latency by worker',
+		t('celery.tasks_by_worker'),
+		t('celery.error_by_worker'),
+		t('celery.latency_by_worker'),
 	];
 
 	const { options } = useCeleryFilterOptions(
@@ -111,7 +113,7 @@ export default function CeleryTaskGraphGrid({
 					<div className="row-panel">
 						<div className="row-panel-section">
 							<Typography.Text className="section-title">
-								Flower Metrics
+								{t('celery.flower_metrics')}
 							</Typography.Text>
 							{collapsedSections.metricBasedGraphs ? (
 								<ChevronDown
@@ -135,7 +137,7 @@ export default function CeleryTaskGraphGrid({
 							key={celeryActiveTasksData.id}
 							widgetData={celeryActiveTasksData}
 							queryEnabled={queryEnabled}
-							customErrorMessage="Enable Flower metrics to view this graph"
+							customErrorMessage={t('celery.enable_flower_metrics')}
 							checkIfDataExists={(isDataAvailable): void =>
 								checkIfDataExists(isDataAvailable, 'Active Tasks by worker')
 							}
@@ -144,7 +146,7 @@ export default function CeleryTaskGraphGrid({
 						<Card className="celery-task-graph-worker-count">
 							<div className="worker-count-header">
 								<Typography.Text className="worker-count-header-text">
-									Worker Online
+									{t('celery.worker_online')}
 								</Typography.Text>
 							</div>
 							<div className="worker-count-text-container">
@@ -162,7 +164,7 @@ export default function CeleryTaskGraphGrid({
 						<div className="row-panel">
 							<div className="row-panel-section">
 								<Typography.Text className="section-title">
-									Span Based Stats
+									{t('celery.span_based_stats')}
 								</Typography.Text>
 								{collapsedSections.traceBasedGraphs ? (
 									<ChevronDown
@@ -183,7 +185,7 @@ export default function CeleryTaskGraphGrid({
 					<div className="configure-option-Info">
 						{configureOptionComponent}
 						<Typography.Text className="configure-option-Info-text">
-							Click on a graph co-ordinate to see more details
+							{t('celery.click_graph_coordinate')}
 						</Typography.Text>
 					</div>
 				</div>

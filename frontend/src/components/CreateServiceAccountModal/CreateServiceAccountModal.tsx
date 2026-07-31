@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { X } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
+import { useTranslation } from 'react-i18next';
 import AuthZButton from 'lib/authz/components/AuthZButton/AuthZButton';
 import { SACreatePermission } from 'lib/authz/hooks/useAuthZ/permissions/service-account.permissions';
 import { DialogFooter, DialogWrapper } from '@signozhq/ui/dialog';
@@ -26,6 +27,7 @@ interface FormValues {
 }
 
 function CreateServiceAccountModal(): JSX.Element {
+	const { t } = useTranslation('common');
 	const queryClient = useQueryClient();
 	const [isOpen, setIsOpen] = useQueryState(
 		SA_QUERY_PARAMS.CREATE_SA,
@@ -51,7 +53,7 @@ function CreateServiceAccountModal(): JSX.Element {
 		useCreateServiceAccount({
 			mutation: {
 				onSuccess: async (response) => {
-					toast.success('Service account created successfully');
+					toast.success(t('service_account.created_success'));
 					reset();
 					await setIsOpen(null);
 					await invalidateListServiceAccounts(queryClient);
@@ -81,7 +83,7 @@ function CreateServiceAccountModal(): JSX.Element {
 
 	return (
 		<DialogWrapper
-			title="New Service Account"
+			title={t('service_account.new_title')}
 			open={isOpen}
 			onOpenChange={(open): void => {
 				if (!open) {
@@ -101,15 +103,15 @@ function CreateServiceAccountModal(): JSX.Element {
 					onSubmit={handleSubmit(handleCreate)}
 				>
 					<div className="create-sa-form__item">
-						<label htmlFor="sa-name">Name</label>
+						<label htmlFor="sa-name">{t('service_account.name_label')}</label>
 						<Controller
 							name="name"
 							control={control}
-							rules={{ required: 'Name is required' }}
+							rules={{ required: t('service_account.name_required') }}
 							render={({ field }): JSX.Element => (
 								<Input
 									id="sa-name"
-									placeholder="Enter a name"
+									placeholder={t('service_account.name_placeholder')}
 									className="create-sa-form__input"
 									value={field.value}
 									onChange={field.onChange}
@@ -132,7 +134,7 @@ function CreateServiceAccountModal(): JSX.Element {
 					onClick={handleClose}
 				>
 					<X size={12} />
-					Cancel
+					{t('buttons.cancel')}
 				</Button>
 
 				<AuthZButton
@@ -144,7 +146,7 @@ function CreateServiceAccountModal(): JSX.Element {
 					loading={isSubmitting}
 					disabled={!isValid}
 				>
-					Create Service Account
+					{t('service_account.create')}
 				</AuthZButton>
 			</DialogFooter>
 		</DialogWrapper>

@@ -3,6 +3,7 @@ import { Button } from '@signozhq/ui/button';
 import { Callout } from '@signozhq/ui/callout';
 import { Input } from '@signozhq/ui/input';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import RolesSelect from 'components/RolesSelect/RolesSelect';
 
@@ -22,6 +23,7 @@ function InviteMembers({
 	onAllFailed,
 	renderFooter,
 }: InviteMembersProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const {
 		rows,
 		emailValidity,
@@ -50,12 +52,12 @@ function InviteMembers({
 
 	const getValidationErrorMessage = (): string => {
 		if (hasInvalidEmails && hasInvalidRoles) {
-			return 'Please enter valid emails and select roles for team members';
+			return t('invite.validation.email_and_role');
 		}
 		if (hasInvalidEmails) {
-			return 'Please enter valid emails for team members';
+			return t('invite.validation.email_only');
 		}
-		return 'Please select roles for team members';
+		return t('invite.validation.role_only');
 	};
 
 	const hasValidationErrors = hasInvalidEmails || hasInvalidRoles;
@@ -73,14 +75,14 @@ function InviteMembers({
 							weight="semibold"
 							className={styles.headerCellEmail}
 						>
-							Email address
+							{t('invite.email_address')}
 						</Typography.Text>
 						<Typography.Text
 							size="base"
 							weight="semibold"
 							className={styles.headerCellRole}
 						>
-							Role
+							{t('invite.role')}
 						</Typography.Text>
 						<div className={styles.headerCellAction} />
 					</div>
@@ -101,7 +103,7 @@ function InviteMembers({
 								/>
 								{emailValidity[row.id] === false && row.email.trim() !== '' && (
 									<Typography.Text size="small" className={styles.errorText}>
-										Invalid email address
+										{t('invite.invalid_email')}
 									</Typography.Text>
 								)}
 							</div>
@@ -111,7 +113,7 @@ function InviteMembers({
 									mode="single"
 									value={row.roleId || undefined}
 									onChange={(roleId): void => updateRole(row.id, roleId)}
-									placeholder="Select role"
+									placeholder={t('invite.select_role')}
 									allowClear={false}
 									id={`invite-role-${row.id}`}
 								/>
@@ -123,7 +125,7 @@ function InviteMembers({
 										variant="ghost"
 										color="destructive"
 										onClick={(): void => removeRow(row.id)}
-										aria-label="Remove row"
+										aria-label={t('remove')}
 										data-testid={`invite-remove-${row.id}`}
 									>
 										<Trash2 size={12} />
@@ -143,7 +145,7 @@ function InviteMembers({
 							onClick={addRow}
 							data-testid="invite-add-row"
 						>
-							Add another
+							{t('invite.add_another')}
 						</Button>
 					</div>
 				)}
@@ -174,11 +176,14 @@ function InviteMembers({
 					<div className={styles.results}>
 						{hasSuccesses && (
 							<Typography.Text size="small">
-								{successResults.length} invite(s) sent successfully.
+								{t('invite.results.partial_success', {
+									success: successResults.length,
+									failed: failedResults.length,
+								})}
 							</Typography.Text>
 						)}
 						<Typography.Text size="small">
-							{failedResults.length} invite(s) failed:
+							{t('invite.results.invites_failed', { count: failedResults.length })}
 						</Typography.Text>
 						<ul className={styles.resultsList}>
 							{failedResults.map((result) => (
@@ -202,7 +207,7 @@ function InviteMembers({
 					data-testid="invite-success"
 				>
 					<Typography.Text size="small">
-						{successResults.length} invite(s) sent successfully!
+						{t('invite.results.invites_sent', { count: successResults.length })}
 					</Typography.Text>
 				</Callout>
 			)}

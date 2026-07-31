@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type {
 	CSSProperties,
 	MouseEvent as ReactMouseEvent,
@@ -51,6 +52,7 @@ function TanStackHeaderRow<TData>({
 	onSort,
 	isLastColumn = false,
 }: TanStackHeaderRowProps<TData>): JSX.Element {
+	const { t } = useTranslation('common');
 	const columnId = column.id;
 	const isDragColumn = column.enableMove !== false && column.pin == null;
 	const isResizableColumn =
@@ -213,7 +215,9 @@ function TanStackHeaderRow<TData>({
 						<PopoverTrigger asChild>
 							<span
 								role="button"
-								aria-label={`Column actions for ${headerTitleAttr}`}
+								aria-label={t('tanstack_table.column_actions', {
+									name: headerTitleAttr,
+								})}
 								className={headerStyles.tanstackHeaderActionTrigger}
 								onMouseDown={(event): void => {
 									event.stopPropagation();
@@ -247,7 +251,7 @@ function TanStackHeaderRow<TData>({
 				<span
 					role="presentation"
 					className={headerStyles.cursorColResize}
-					title="Drag to resize column"
+					title={t('tanstack_table.drag_to_resize')}
 					onClick={(event): void => {
 						event.preventDefault();
 						event.stopPropagation();

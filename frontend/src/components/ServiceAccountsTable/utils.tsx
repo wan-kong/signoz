@@ -1,7 +1,8 @@
 import { ScanSearch } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
 import { Tooltip } from 'antd';
-import type { ColumnsType } from 'antd/es/table/interface';
+import { useTranslation } from 'react-i18next';
+import type { ColumnType } from 'antd/es/table/interface';
 import { ServiceAccountRow } from 'container/ServiceAccountsSettings/utils';
 
 export function NameEmailCell({
@@ -26,23 +27,24 @@ export function NameEmailCell({
 }
 
 export function StatusBadge({ status }: { status: string }): JSX.Element {
+	const { t } = useTranslation('common');
 	if (status?.toUpperCase() === 'ACTIVE') {
 		return (
 			<Badge color="forest" variant="outline">
-				ACTIVE
+				{t('service_accounts.active')}
 			</Badge>
 		);
 	}
 	if (status?.toUpperCase() === 'DELETED') {
 		return (
 			<Badge color="cherry" variant="outline">
-				DELETED
+				{t('service_accounts.deleted')}
 			</Badge>
 		);
 	}
 	return (
 		<Badge color="vanilla" variant="outline" className="sa-status-badge">
-			{status ? status.toUpperCase() : 'UNKNOWN'}
+			{status ? status.toUpperCase() : t('service_accounts.unknown')}
 		</Badge>
 	);
 }
@@ -52,25 +54,31 @@ export function ServiceAccountsEmptyState({
 }: {
 	searchQuery: string;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className="sa-empty-state">
 			<ScanSearch size={24} className="sa-empty-state__icon" />
 			{searchQuery ? (
 				<p className="sa-empty-state__text">
-					No results for <strong>{searchQuery}</strong>
+					{t('service_accounts.no_results_for')} <strong>{searchQuery}</strong>
 				</p>
 			) : (
 				<p className="sa-empty-state__text">
-					No service accounts. Start by creating one to manage keys.
+					{t('service_accounts.no_accounts_message')}
 				</p>
 			)}
 		</div>
 	);
 }
 
-export const columns: ColumnsType<ServiceAccountRow> = [
+// Column definitions with translation keys — resolved in the component via useTranslation
+export interface ServiceAccountColumn extends ColumnType<ServiceAccountRow> {
+	titleKey: string;
+}
+
+export const SA_COLUMNS: ServiceAccountColumn[] = [
 	{
-		title: 'Name / Email',
+		titleKey: 'service_accounts.name_email',
 		dataIndex: 'name',
 		key: 'name',
 		className: 'sa-name-column',
@@ -80,7 +88,7 @@ export const columns: ColumnsType<ServiceAccountRow> = [
 		),
 	},
 	{
-		title: 'Status',
+		titleKey: 'service_accounts.status',
 		dataIndex: 'status',
 		key: 'status',
 		width: 120,

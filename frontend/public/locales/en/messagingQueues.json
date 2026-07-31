@@ -20,5 +20,20 @@
 			"title": "Partition Metrics",
 			"description": "Kafka partitions are the unit of parallelism in Kafka. These metrics inform you of the number of partitions per topic, the current offset of each partition, the oldest offset, and the number of in-sync replicas."
 		}
+	},
+	"celery": {
+		"all_tasks": "All Tasks",
+		"click_graph_coordinate": "Click on a graph co-ordinate to see more details",
+		"enable_flower_metrics": "Enable Flower metrics to view this graph",
+		"error_by_worker": "Error% by worker",
+		"failed": "Failed",
+		"flower_metrics": "Flower Metrics",
+		"latency_by_worker": "Latency by worker",
+		"retry": "Retry",
+		"span_based_stats": "Span Based Stats",
+		"successful": "Successful",
+		"tasks_by_worker": "Tasks/s by worker",
+		"view_traces": "View Traces",
+		"worker_online": "Worker Online"
 	}
 }

@@ -1,4 +1,5 @@
 import { Table } from 'antd';
+import { useTranslation } from 'react-i18next';
 import {
 	CloudintegrationtypesCollectedLogAttributeDTO,
 	CloudintegrationtypesCollectedMetricDTO,
@@ -14,21 +15,22 @@ function CloudServiceDataCollected({
 	logsData: CloudintegrationtypesCollectedLogAttributeDTO[] | null | undefined;
 	metricsData: CloudintegrationtypesCollectedMetricDTO[] | null | undefined;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const logsColumns = [
 		{
-			title: 'NAME',
+			title: t('cloud_integrations.table_columns.name'),
 			dataIndex: 'name',
 			key: 'name',
 			width: '30%',
 		},
 		{
-			title: 'PATH',
+			title: t('cloud_integrations.table_columns.path'),
 			dataIndex: 'path',
 			key: 'path',
 			width: '40%',
 		},
 		{
-			title: 'FACET TYPE',
+			title: t('cloud_integrations.table_columns.facet_type'),
 			dataIndex: 'type',
 			key: 'type',
 			width: '30%',
@@ -37,19 +39,19 @@ function CloudServiceDataCollected({
 
 	const metricsColumns = [
 		{
-			title: 'NAME',
+			title: t('cloud_integrations.table_columns.name'),
 			dataIndex: 'name',
 			key: 'name',
 			width: '40%',
 		},
 		{
-			title: 'UNIT',
+			title: t('cloud_integrations.table_columns.unit'),
 			dataIndex: 'unit',
 			key: 'unit',
 			width: '30%',
 		},
 		{
-			title: 'TYPE',
+			title: t('cloud_integrations.table_columns.type'),
 			dataIndex: 'type',
 			key: 'type',
 			width: '30%',
@@ -69,7 +71,7 @@ function CloudServiceDataCollected({
 				<div className="cloud-service-data-collected-table">
 					<div className="cloud-service-data-collected-table-heading">
 						<ScrollText size={14} />
-						Logs
+						{t('cloud_integrations.logs_heading')}
 					</div>
 					<Table
 						columns={logsColumns}
@@ -83,7 +85,7 @@ function CloudServiceDataCollected({
 				<div className="cloud-service-data-collected-table">
 					<div className="cloud-service-data-collected-table-heading">
 						<BarChart size={14} />
-						Metrics
+						{t('cloud_integrations.metrics_heading')}
 					</div>
 					<Table
 						columns={metricsColumns}

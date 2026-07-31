@@ -1,4 +1,5 @@
 import { Color } from '@signozhq/design-tokens';
+import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
 import type { DefaultOptionType } from 'antd/es/select';
 import { Info } from '@signozhq/icons';
@@ -6,18 +7,19 @@ import { Info } from '@signozhq/icons';
 import './MQCommon.styles.scss';
 
 export function ComingSoon(): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<Tooltip
 			title={
 				<div>
-					Join our Slack community for more details:{' '}
+					{t('mq_common.slack_message')}{' '}
 					<a
 						href="https://signoz.io/slack"
 						rel="noopener noreferrer"
 						target="_blank"
 						onClick={(e): void => e.stopPropagation()}
 					>
-						SigNoz Community
+						{t('mq_common.slack_community')}
 					</a>
 				</div>
 			}
@@ -25,7 +27,7 @@ export function ComingSoon(): JSX.Element {
 			overlayClassName="tooltip-overlay"
 		>
 			<div className="coming-soon">
-				<div className="coming-soon__text">Coming Soon</div>
+				<div className="coming-soon__text">{t('mq_common.coming_soon')}</div>
 				<div className="coming-soon__icon">
 					<Info size={10} color={Color.BG_SIENNA_400} />
 				</div>

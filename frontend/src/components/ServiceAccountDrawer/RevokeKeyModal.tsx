@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Trash2, X } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
@@ -39,11 +40,12 @@ export function RevokeKeyFooter({
 	accountId,
 	keyId,
 }: RevokeKeyFooterProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<>
 			<Button variant="solid" color="secondary" onClick={onCancel}>
 				<X size={12} />
-				Cancel
+				{t('cancel')}
 			</Button>
 			<AuthZButton
 				checks={[
@@ -57,13 +59,14 @@ export function RevokeKeyFooter({
 				onClick={onConfirm}
 			>
 				<Trash2 size={12} />
-				Revoke Key
+				{t('sa_revoke_key.revoke_key')}
 			</AuthZButton>
 		</>
 	);
 }
 
 function RevokeKeyModal(): JSX.Element {
+	const { t } = useTranslation('common');
 	const queryClient = useQueryClient();
 	const { showErrorModal, isErrorModalVisible } = useErrorModal();
 	const [accountId] = useQueryState(SA_QUERY_PARAMS.ACCOUNT);
@@ -84,7 +87,7 @@ function RevokeKeyModal(): JSX.Element {
 		useRevokeServiceAccountKey({
 			mutation: {
 				onSuccess: async () => {
-					toast.success('Key revoked successfully');
+					toast.success(t('sa_revoke_key.toast_revoked'));
 					await setRevokeKeyId(null);
 					if (accountId) {
 						await invalidateListServiceAccountKeys(queryClient, { id: accountId });
@@ -119,7 +122,7 @@ function RevokeKeyModal(): JSX.Element {
 					handleCancel();
 				}
 			}}
-			title={`Revoke ${keyName ?? 'key'}?`}
+			title={t('sa_revoke_key.title', { name: keyName ?? 'key' })}
 			width="narrow"
 			className="alert-dialog sa-delete-dialog"
 			showCloseButton={false}
@@ -134,8 +137,7 @@ function RevokeKeyModal(): JSX.Element {
 				/>
 			}
 		>
-			Revoking this key will permanently invalidate it. Any systems using this key
-			will lose access immediately.
+			{t('sa_revoke_key.confirm')}
 		</DialogWrapper>
 	);
 }

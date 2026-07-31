@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import './AuthFooter.styles.scss';
 
@@ -12,21 +13,22 @@ interface FooterItem {
 
 const footerItems: FooterItem[] = [
 	{
-		text: 'All systems operational',
+		text: 'all_systems_operational',
 		url: 'https://status.signoz.io/',
 		statusIndicator: true,
 	},
 	{
-		text: 'Privacy',
+		text: 'privacy',
 		url: 'https://www.signoz.io/privacy',
 	},
 	{
-		text: 'Security',
+		text: 'security',
 		url: 'https://www.signoz.io/security',
 	},
 ];
 
 function AuthFooter(): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<footer className="auth-footer">
 			<div className="auth-footer-content">
@@ -53,13 +55,13 @@ function AuthFooter(): JSX.Element {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<span className="auth-footer-text">{item.text}</span>
+									<span className="auth-footer-text">{t(`footer.${item.text}`)}</span>
 									{!item.statusIndicator && (
 										<ArrowUpRight size={12} className="auth-footer-link-icon" />
 									)}
 								</a>
 							) : (
-								<span className="auth-footer-text">{item.text}</span>
+								<span className="auth-footer-text">{t(`footer.${item.text}`)}</span>
 							)}
 						</div>
 						{index < footerItems.length - 1 && (

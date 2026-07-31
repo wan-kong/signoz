@@ -3,6 +3,7 @@ import { Checkbox } from '@signozhq/ui/checkbox';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
+import { useTranslation } from 'react-i18next';
 
 interface CheckboxValueRowProps {
 	value: string;
@@ -25,6 +26,8 @@ function CheckboxValueRow({
 	onCheckboxChange,
 	onOnlyOrAllClick,
 }: CheckboxValueRowProps): JSX.Element {
+	const { t } = useTranslation('common');
+
 	return (
 		<div className="value">
 			<Checkbox
@@ -58,7 +61,7 @@ function CheckboxValueRow({
 						{onlyButtonLabel}
 					</Button>
 					<Button type="text" className="toggle-btn">
-						Toggle
+						{t('quick_filters.toggle')}
 					</Button>
 				</div>
 			</div>

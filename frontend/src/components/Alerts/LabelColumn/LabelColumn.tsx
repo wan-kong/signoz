@@ -8,6 +8,7 @@ import {
 } from '@signozhq/ui/tooltip';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
+import { useTranslation } from 'react-i18next';
 
 import LabelTag from './LabelTag';
 
@@ -38,6 +39,7 @@ function LabelColumn({
 	value,
 	color = 'primary',
 }: LabelColumnProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [maxVisibleCount, setMaxVisibleCount] = useState(labels.length);
 	const [, copyToClipboard] = useCopyToClipboard();
@@ -133,9 +135,9 @@ function LabelColumn({
 										.map((label) => (value?.[label] ? `${label} ${value[label]}` : label))
 										.join(' ');
 									copyToClipboard(searchFormat);
-									toast.success('Copied! Use in search to filter alerts.');
+									toast.success(t('label.copied_message'));
 								}}
-								aria-label="Copy to clipboard"
+								aria-label={t('alert_labels.copy_tooltip')}
 							>
 								<Copy size={12} />
 							</button>

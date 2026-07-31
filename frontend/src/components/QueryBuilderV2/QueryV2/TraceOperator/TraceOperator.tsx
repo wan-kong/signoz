@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
@@ -24,6 +25,7 @@ export default function TraceOperator({
 	traceOperator: IBuilderTraceOperator;
 	isListViewPanel?: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const { panelType, removeTraceOperator } = useQueryBuilder();
 	const { handleChangeQueryData } = useQueryOperations({
 		index: 0,
@@ -66,7 +68,9 @@ export default function TraceOperator({
 						!isListViewPanel && 'qb-trace-operator-arrow',
 					)}
 				>
-					<Typography.Text className="label">Trace Operator</Typography.Text>
+					<Typography.Text className="label">
+						{t('query_builder.trace_operator')}
+					</Typography.Text>
 					<div className="qb-trace-operator-editor-container">
 						<TraceOperatorEditor
 							value={traceOperator?.expression || ''}
@@ -107,7 +111,10 @@ export default function TraceOperator({
 					</div>
 				)}
 			</div>
-			<Tooltip title="Remove Trace Operator" placement="topLeft">
+			<Tooltip
+				title={t('query_builder.remove_trace_operator')}
+				placement="topLeft"
+			>
 				<Button className="periscope-btn ghost" onClick={removeTraceOperator}>
 					<Trash2 size={14} />
 				</Button>

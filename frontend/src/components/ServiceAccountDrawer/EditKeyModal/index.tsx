@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { DialogWrapper } from '@signozhq/ui/dialog';
@@ -35,6 +36,7 @@ export interface EditKeyModalProps {
 }
 
 function EditKeyModal({ keyItem }: EditKeyModalProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const queryClient = useQueryClient();
 	const [selectedAccountId] = useQueryState(SA_QUERY_PARAMS.ACCOUNT);
 	const [editKeyId, setEditKeyId] = useQueryState(
@@ -84,7 +86,7 @@ function EditKeyModal({ keyItem }: EditKeyModalProps): JSX.Element {
 	const { mutate: updateKey, isLoading: isSaving } = useUpdateServiceAccountKey({
 		mutation: {
 			onSuccess: async () => {
-				toast.success('Key updated successfully');
+				toast.success(t('sa_edit_key_modal.key_updated'));
 				await setEditKeyId(null);
 				if (selectedAccountId) {
 					await invalidateListServiceAccountKeys(queryClient, {
@@ -106,7 +108,7 @@ function EditKeyModal({ keyItem }: EditKeyModalProps): JSX.Element {
 		useRevokeServiceAccountKey({
 			mutation: {
 				onSuccess: async () => {
-					toast.success('Key revoked successfully');
+					toast.success(t('sa_edit_key_modal.key_revoked'));
 					setIsRevokeConfirmOpen(false);
 					await setEditKeyId(null);
 					if (selectedAccountId) {

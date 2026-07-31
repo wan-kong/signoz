@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import React, {
 	useCallback,
 	useEffect,
@@ -75,6 +76,7 @@ function toSaveApiError(err: unknown): APIError {
 function ServiceAccountDrawer({
 	onSuccess,
 }: ServiceAccountDrawerProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [selectedAccountId, setSelectedAccountId] = useQueryState(
 		SA_QUERY_PARAMS.ACCOUNT,
 	);
@@ -325,7 +327,7 @@ function ServiceAccountDrawer({
 			if (errors.length > 0) {
 				setSaveErrors(errors);
 			} else {
-				toast.success('Service account updated successfully', {
+				toast.success(t('sa_drawer.toast.updated'), {
 					position: 'top-right',
 				});
 				onSuccess({ closeDrawer: false });
@@ -399,7 +401,7 @@ function ServiceAccountDrawer({
 							disabled={!isDirty}
 							onClick={handleSave}
 						>
-							Save Changes
+							{t('sa_drawer.save_changes')}
 						</AuthZButton>
 					</div>
 				</div>
@@ -440,7 +442,7 @@ function ServiceAccountDrawer({
 							label: (
 								<>
 									<LayoutGrid size={14} />
-									Overview
+									{t('sa_drawer.overview_tab')}
 								</>
 							),
 						},
@@ -474,7 +476,7 @@ function ServiceAccountDrawer({
 						}}
 					>
 						<Plus size={12} />
-						Add Key
+						{t('sa_drawer.add_key')}
 					</AuthZButton>
 				)}
 			</div>
@@ -487,10 +489,7 @@ function ServiceAccountDrawer({
 				{isAccountLoading && <Skeleton active paragraph={{ rows: 6 }} />}
 				{isAccountError && (
 					<ErrorInPlace
-						error={toAPIError(
-							accountError,
-							'An unexpected error occurred while fetching service account details.',
-						)}
+						error={toAPIError(accountError, t('sa_drawer.error_fetching'))}
 					/>
 				)}
 				{!isAccountLoading && !isAccountError && (
@@ -547,7 +546,7 @@ function ServiceAccountDrawer({
 			direction="right"
 			showCloseButton
 			showOverlay={false}
-			title="Service Account Details"
+			title={t('sa_drawer.title')}
 			className="sa-drawer"
 			width="wide"
 			footer={footer}

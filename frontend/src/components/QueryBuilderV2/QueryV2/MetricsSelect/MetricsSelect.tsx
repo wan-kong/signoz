@@ -1,4 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select } from 'antd';
 import {
 	initialQueriesMap,
@@ -43,6 +44,7 @@ export const MetricsSelect = memo(function MetricsSelect({
 	signalSourceChangeEnabled: boolean;
 	savePreviousQuery: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const { handleChangeAggregatorAttribute } = useQueryOperations({
 		index,
 		query,
@@ -143,7 +145,7 @@ export const MetricsSelect = memo(function MetricsSelect({
 				<Select
 					className="source-selector"
 					popupClassName="qb-select-popover"
-					placeholder="Source"
+					placeholder={t('query_builder.source_placeholder')}
 					options={SOURCE_OPTIONS}
 					value={source}
 					defaultValue="metrics"

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { Col, Row } from 'antd';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { QueryParams } from 'constants/query';
 import useUrlQuery from 'hooks/useUrlQuery';
@@ -37,11 +38,12 @@ function CeleryTaskStateGraphConfig({
 	setBarState: Dispatch<SetStateAction<CeleryTaskState>>;
 	barState: CeleryTaskState;
 }): JSX.Element {
+	const { t } = useTranslation('messagingQueues');
 	const tabs: TabData[] = [
-		{ label: 'All Tasks', key: CeleryTaskState.All },
-		{ label: 'Failed', key: CeleryTaskState.Failed },
-		{ label: 'Retry', key: CeleryTaskState.Retry },
-		{ label: 'Successful', key: CeleryTaskState.Successful },
+		{ label: t('celery.all_tasks'), key: CeleryTaskState.All },
+		{ label: t('celery.failed'), key: CeleryTaskState.Failed },
+		{ label: t('celery.retry'), key: CeleryTaskState.Retry },
+		{ label: t('celery.successful'), key: CeleryTaskState.Successful },
 	];
 
 	const urlQuery = useUrlQuery();

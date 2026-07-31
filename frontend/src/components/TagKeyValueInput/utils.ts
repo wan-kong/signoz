@@ -20,7 +20,16 @@ const TAG_KEY_REGEX = new RegExp('^[a-zA-Z$_@{#][a-zA-Z0-9$_@#{}:/-]*$');
 const TAG_VALUE_REGEX = new RegExp('^[a-zA-Z0-9$_@#{}:.+=/-]*$');
 const MAX_TAG_LEN = 32;
 
-export type TagValidation = { tag: string } | { error: string };
+export type TagValidationErrorKey =
+	| 'tag_key_value.validation.format'
+	| 'tag_key_value.validation.key_chars'
+	| 'tag_key_value.validation.value_chars'
+	| 'tag_key_value.validation.max_length'
+	| 'tag_key_value.validation.duplicate';
+
+export type TagValidation =
+	| { tag: string }
+	| { errorKey: TagValidationErrorKey };
 
 export function validateTag(
 	raw: string,
@@ -29,20 +38,20 @@ export function validateTag(
 ): TagValidation {
 	const normalized = parseKeyValueTag(raw);
 	if (!normalized) {
-		return { error: 'Tags must be in key:value format (both sides required).' };
+		return { errorKey: 'tag_key_value.validation.format' };
 	}
 	const separator = normalized.indexOf(':');
 	const key = normalized.slice(0, separator);
 	const value = normalized.slice(separator + 1);
 	if (!TAG_KEY_REGEX.test(key)) {
-		return { error: 'Tag keys cannot contain spaces or special characters.' };
+		return { errorKey: 'tag_key_value.validation.key_chars' };
 	}
 	if (!TAG_VALUE_REGEX.test(value)) {
-		return { error: 'Tag values cannot contain spaces or special characters.' };
+		return { errorKey: 'tag_key_value.validation.value_chars' };
 	}
 	if (key.length > MAX_TAG_LEN || value.length > MAX_TAG_LEN) {
 		return {
-			error: `Tag key and value must each be ${MAX_TAG_LEN} characters or fewer.`,
+			errorKey: 'tag_key_value.validation.max_length',
 		};
 	}
 	if (
@@ -50,7 +59,7 @@ export function validateTag(
 			(tag, index) => tag === normalized && index !== excludeIndex,
 		)
 	) {
-		return { error: 'This tag already exists.' };
+		return { errorKey: 'tag_key_value.validation.duplicate' };
 	}
 	return { tag: normalized };
 }

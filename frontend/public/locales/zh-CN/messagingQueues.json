@@ -20,5 +20,20 @@
 			"title": "Partition 指标",
 			"description": "Kafka partition 是 Kafka 中的并行单位。这些指标可反映每个 topic 的 partition 数量、每个 partition 的当前 offset、最早 offset，以及 in-sync replica 的数量。"
 		}
+	},
+	"celery": {
+		"all_tasks": "全部任务",
+		"click_graph_coordinate": "点击图表坐标查看详情",
+		"enable_flower_metrics": "启用 Flower 指标以查看此图表",
+		"error_by_worker": "按 Worker 的错误率",
+		"failed": "失败",
+		"flower_metrics": "Flower 指标",
+		"latency_by_worker": "按 Worker 的延迟",
+		"retry": "重试",
+		"span_based_stats": "基于 Span 的统计",
+		"successful": "成功",
+		"tasks_by_worker": "按 Worker 的任务数/秒",
+		"view_traces": "查看 Trace",
+		"worker_online": "在线 Worker"
 	}
 }

@@ -3,6 +3,7 @@ import { Button } from '@signozhq/ui/button';
 import { Checkbox } from '@signozhq/ui/checkbox';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { BadgeConfig } from './itemRules';
 import { CheckedState } from '../../../types';
@@ -43,6 +44,7 @@ export function CheckboxFilterV2ValueRow({
 	onOnlyOrAllClick,
 	badge,
 }: ValueRowProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const indicatorClass = INDICATOR_CLASS_MAP[value];
 
 	return (
@@ -109,7 +111,7 @@ export function CheckboxFilterV2ValueRow({
 						{onlyButtonLabel}
 					</Button>
 					<Button variant="ghost" color="secondary" className={styles.toggleButton}>
-						Toggle
+						{t('quick_filters.toggle')}
 					</Button>
 				</div>
 			</div>

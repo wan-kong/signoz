@@ -1,6 +1,7 @@
 import { CircleAlert, RefreshCw } from '@signozhq/icons';
 import { Select } from 'antd';
 import { Checkbox } from '@signozhq/ui/checkbox';
+import { useTranslation } from 'react-i18next';
 import { convertToApiError } from 'api/ErrorResponseHandlerForGeneratedAPIs';
 import { useListRoles } from 'api/generated/services/role';
 import type { AuthtypesGettableRoleDTO } from 'api/generated/services/sigNoz.schemas';
@@ -49,7 +50,8 @@ function ErrorContent({
 	error?: APIError;
 	onRefetch?: () => void;
 }): JSX.Element {
-	const errorMessage = error?.message || 'Failed to load roles';
+	const { t } = useTranslation('common');
+	const errorMessage = error?.message || t('roles_select.failed_to_load');
 
 	return (
 		<div className="roles-select-error">
@@ -65,7 +67,7 @@ function ErrorContent({
 						onRefetch();
 					}}
 					className="roles-select-error__retry-btn"
-					title="Retry"
+					title={t('roles_select.retry')}
 				>
 					<RefreshCw size={12} />
 				</button>
@@ -104,6 +106,7 @@ interface MultipleProps extends BaseProps {
 export type RolesSelectProps = SingleProps | MultipleProps;
 
 function RolesSelect(props: RolesSelectProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const externalRoles = props.roles;
 
 	const {
@@ -122,7 +125,7 @@ function RolesSelect(props: RolesSelectProps): JSX.Element {
 	const {
 		mode,
 		id,
-		placeholder = 'Select role',
+		placeholder = t('roles_select.select_role'),
 		className,
 		getPopupContainer = popupContainer,
 		loading = internalLoading,

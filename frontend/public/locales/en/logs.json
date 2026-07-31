@@ -68,6 +68,8 @@
 		"move_to_next_log": "Move to next log",
 		"move_to_previous_log": "Move to previous log",
 		"open_in_explorer": "Open in Explorer",
+		"use_keyboard": "Use",
+		"view_previous_next_log": "to view previous/next log",
 		"search": "Search",
 		"search_placeholder": "Search for a field...",
 		"show_filters": "Show Filters",

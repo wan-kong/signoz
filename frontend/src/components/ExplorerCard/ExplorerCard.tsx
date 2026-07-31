@@ -3,6 +3,7 @@ import { useCopyToClipboard } from 'react-use';
 import { Button, Col, Popover, Row, Select, Space } from 'antd';
 import { DropdownMenuSimple, type MenuProps } from '@signozhq/ui/dropdown-menu';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import TextToolTip from 'components/TextToolTip';
 import { SOMETHING_WENT_WRONG } from 'constants/api';
@@ -39,11 +40,12 @@ function ExplorerCard({
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [, setCopyUrl] = useCopyToClipboard();
 	const { notifications } = useNotifications();
+	const { t } = useTranslation('common');
 
 	const onCopyUrlHandler = (): void => {
 		setCopyUrl(window.location.href);
 		notifications.success({
-			message: 'Copied to clipboard',
+			message: t('explorer.copied_to_clipboard'),
 		});
 	};
 
@@ -179,7 +181,7 @@ function ExplorerCard({
 											getPopupContainer={popupContainer}
 											loading={isLoading || isRefetching}
 											showSearch
-											placeholder="Select a view"
+											placeholder={t('explorer.select_view')}
 											dropdownStyle={DropDownOverlay}
 											dropdownMatchSelectWidth={false}
 											optionLabelProp="value"

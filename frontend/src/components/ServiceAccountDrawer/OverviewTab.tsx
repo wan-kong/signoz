@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
 import { Check, Copy, LockKeyhole } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
@@ -50,6 +51,7 @@ function OverviewTab({
 	onRefetchRoles,
 	saveErrors = [],
 }: OverviewTabProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { formatTimezoneAdjustedTimestamp } = useTimezone();
 	const [, copyToClipboard] = useCopyToClipboard();
 	const [hasCopiedId, setHasCopiedId] = useState(false);
@@ -87,7 +89,7 @@ function OverviewTab({
 		<>
 			<div className="sa-drawer__field">
 				<label className="sa-drawer__label" htmlFor="sa-name">
-					Name
+					{t('sa_overview.name_label')}
 				</label>
 				{isDisabled ? (
 					<AuthZTooltip checks={[buildSAUpdatePermission(account.id)]}>
@@ -102,7 +104,7 @@ function OverviewTab({
 							id="sa-name"
 							value={localName}
 							onChange={(e): void => onNameChange(e.target.value)}
-							placeholder="Enter name"
+							placeholder={t('sa_overview.name_placeholder')}
 						/>
 					</AuthZTooltip>
 				)}
@@ -110,7 +112,7 @@ function OverviewTab({
 
 			<div className="sa-drawer__field">
 				<label className="sa-drawer__label" htmlFor="sa-id">
-					ID
+					{t('sa_overview.id_label')}
 				</label>
 				<div className="sa-drawer__input-wrapper sa-drawer__input-wrapper--disabled">
 					<span className="sa-drawer__input-text">{account.id || '—'}</span>
@@ -131,7 +133,7 @@ function OverviewTab({
 
 			<div className="sa-drawer__field">
 				<label className="sa-drawer__label" htmlFor="sa-email">
-					Email Address
+					{t('sa_overview.email_label')}
 				</label>
 				<div className="sa-drawer__input-wrapper sa-drawer__input-wrapper--disabled">
 					<span className="sa-drawer__input-text">{account.email || '—'}</span>
@@ -141,7 +143,7 @@ function OverviewTab({
 
 			<div className="sa-drawer__field">
 				<label className="sa-drawer__label" htmlFor="sa-roles">
-					Roles
+					{t('sa_overview.roles_label')}
 				</label>
 				{isDisabled ? (
 					<div className="sa-drawer__input-wrapper sa-drawer__input-wrapper--disabled">
@@ -172,36 +174,44 @@ function OverviewTab({
 						onRefetch={onRefetchRoles}
 						value={localRoles}
 						onChange={onRolesChange}
-						placeholder="Select roles"
+						placeholder={t('sa_overview.roles_placeholder')}
 					/>
 				)}
 			</div>
 
 			<div className="sa-drawer__meta">
 				<div className="sa-drawer__meta-item">
-					<span className="sa-drawer__meta-label">Status</span>
+					<span className="sa-drawer__meta-label">
+						{t('sa_overview.status_label')}
+					</span>
 					{account.status?.toUpperCase() === 'ACTIVE' ? (
 						<Badge color="forest" variant="outline">
-							ACTIVE
+							{t('sa_overview.active')}
 						</Badge>
 					) : account.status?.toUpperCase() === 'DELETED' ? (
 						<Badge color="cherry" variant="outline">
-							DELETED
+							{t('sa_overview.deleted')}
 						</Badge>
 					) : (
 						<Badge color="vanilla" variant="outline" className="sa-status-badge">
-							{account.status ? account.status.toUpperCase() : 'UNKNOWN'}
+							{account.status
+								? account.status.toUpperCase()
+								: t('sa_overview.unknown')}
 						</Badge>
 					)}
 				</div>
 
 				<div className="sa-drawer__meta-item">
-					<span className="sa-drawer__meta-label">Created At</span>
+					<span className="sa-drawer__meta-label">
+						{t('sa_overview.created_at')}
+					</span>
 					<Badge color="vanilla">{formatTimestamp(account.createdAt)}</Badge>
 				</div>
 
 				<div className="sa-drawer__meta-item">
-					<span className="sa-drawer__meta-label">Updated At</span>
+					<span className="sa-drawer__meta-label">
+						{t('sa_overview.updated_at')}
+					</span>
 					<Badge color="vanilla">{formatTimestamp(account.updatedAt)}</Badge>
 				</div>
 			</div>

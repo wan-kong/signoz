@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import dayjs from 'dayjs';
 import {
@@ -13,41 +14,47 @@ interface Props {
 	changelog: ChangelogSchema;
 }
 
-function renderMedia(media: Media): JSX.Element | null {
-	if (SupportedImageTypes.includes(media.ext)) {
-		return (
-			<img
-				src={media.url}
-				alt={media.alternativeText || 'Media'}
-				width={800}
-				height={450}
-				className="changelog-media-image"
-			/>
-		);
-	}
-	if (SupportedVideoTypes.includes(media.ext)) {
-		return (
-			<video
-				autoPlay
-				controls
-				controlsList="nodownload noplaybackrate"
-				loop
-				className="changelog-media-video"
-			>
-				<source src={media.url} type={media.mime} />
-				<track kind="captions" src="" label="No captions available" default />
-				Your browser does not support the video tag.
-			</video>
-		);
-	}
-
-	return null;
-}
-
 function ChangelogRenderer({ changelog }: Props): JSX.Element {
+	const { t } = useTranslation('common');
 	const formattedReleaseDate = dayjs(changelog.release_date).format(
 		'MMMM D, YYYY',
 	);
+
+	function renderMedia(media: Media): JSX.Element | null {
+		if (SupportedImageTypes.includes(media.ext)) {
+			return (
+				<img
+					src={media.url}
+					alt={media.alternativeText || t('changelog_renderer.media_alt')}
+					width={800}
+					height={450}
+					className="changelog-media-image"
+				/>
+			);
+		}
+		if (SupportedVideoTypes.includes(media.ext)) {
+			return (
+				<video
+					autoPlay
+					controls
+					controlsList="nodownload noplaybackrate"
+					loop
+					className="changelog-media-video"
+				>
+					<source src={media.url} type={media.mime} />
+					<track
+						kind="captions"
+						src=""
+						label={t('changelog_renderer.no_captions')}
+						default
+					/>
+					{t('changelog_renderer.video_not_supported')}
+				</video>
+			);
+		}
+
+		return null;
+	}
 
 	return (
 		<div className="changelog-renderer">
@@ -69,7 +76,9 @@ function ChangelogRenderer({ changelog }: Props): JSX.Element {
 				)}
 				{changelog.bug_fixes && changelog.bug_fixes.length > 0 && (
 					<div className="changelog-renderer-bug-fixes">
-						<div className="changelog-renderer-section-title">Bug Fixes</div>
+						<div className="changelog-renderer-section-title">
+							{t('changelog_renderer.bug_fixes')}
+						</div>
 						{changelog.bug_fixes && (
 							<ReactMarkdown>{changelog.bug_fixes}</ReactMarkdown>
 						)}
@@ -77,7 +86,9 @@ function ChangelogRenderer({ changelog }: Props): JSX.Element {
 				)}
 				{changelog.maintenance && changelog.maintenance.length > 0 && (
 					<div className="changelog-renderer-maintenance">
-						<div className="changelog-renderer-section-title">Maintenance</div>
+						<div className="changelog-renderer-section-title">
+							{t('changelog_renderer.maintenance')}
+						</div>
 						{changelog.maintenance && (
 							<ReactMarkdown>{changelog.maintenance}</ReactMarkdown>
 						)}

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import { Loader, Search } from '@signozhq/icons';
@@ -12,7 +13,6 @@ import {
 	Space,
 	Spin,
 	TableColumnsType,
-	TableColumnType,
 	Tooltip,
 } from 'antd';
 import { Progress } from '@signozhq/ui/progress';
@@ -37,15 +37,6 @@ import { formatNumericValue } from 'utils/numericUtils';
 import './CeleryOverviewTable.styles.scss';
 
 const INITIAL_PAGE_SIZE = 20;
-
-const showPaginationItem = (total: number, range: number[]): JSX.Element => (
-	<>
-		<Typography.Text className="numbers">
-			{range[0]} &#8212; {range[1]}
-		</Typography.Text>
-		<Typography.Text className="total"> of {total}</Typography.Text>
-	</>
-);
 
 export type RowData = {
 	key: string | number;
@@ -74,197 +65,6 @@ function ProgressRender(item: string | number): JSX.Element {
 			/>
 		</div>
 	);
-}
-
-const getColumnSearchProps = (
-	searchInput: React.RefObject<InputRef>,
-	handleReset: (
-		clearFilters: () => void,
-		confirm: FilterDropdownProps['confirm'],
-	) => void,
-	handleSearch: (selectedKeys: string[], confirm: () => void) => void,
-	dataIndex?: string,
-): TableColumnType<RowData> => ({
-	filterDropdown: ({
-		setSelectedKeys,
-		selectedKeys,
-		confirm,
-		clearFilters,
-		close,
-	}): JSX.Element => (
-		<div style={{ padding: 8 }} onKeyDown={(e): void => e.stopPropagation()}>
-			<Input
-				ref={searchInput}
-				placeholder={`Search ${dataIndex}`}
-				value={selectedKeys[0]}
-				onChange={(e): void =>
-					setSelectedKeys(e.target.value ? [e.target.value] : [])
-				}
-				onPressEnter={(): void => handleSearch(selectedKeys as string[], confirm)}
-				style={{ marginBottom: 8, display: 'block' }}
-			/>
-			<Space>
-				<Button
-					type="primary"
-					size="small"
-					onClick={(): void => handleSearch(selectedKeys as string[], confirm)}
-				>
-					<Flex align="center" gap={4}>
-						<Search size="md" />
-						Search
-					</Flex>
-				</Button>
-				<Button
-					onClick={(): void => clearFilters && handleReset(clearFilters, confirm)}
-					size="small"
-					style={{ width: 90 }}
-				>
-					Reset
-				</Button>
-				<Button
-					type="link"
-					size="small"
-					onClick={(): void => {
-						close();
-					}}
-				>
-					close
-				</Button>
-			</Space>
-		</div>
-	),
-	filterIcon: (filtered: boolean): JSX.Element => (
-		<Search
-			style={{ color: filtered ? Color.BG_ROBIN_500 : undefined }}
-			size="md"
-		/>
-	),
-	onFilter: (value, record): boolean =>
-		record[dataIndex || '']
-			.toString()
-			.toLowerCase()
-			.includes((value as string).toLowerCase()),
-});
-
-function getColumns(data: RowData[]): TableColumnsType<RowData> {
-	if (data?.length === 0) {
-		return [];
-	}
-
-	const tooltipRender = (item: string): JSX.Element => (
-		<Tooltip placement="topLeft" title={item}>
-			{item}
-		</Tooltip>
-	);
-
-	return [
-		{
-			title: 'SERVICE NAME',
-			dataIndex: 'service_name',
-			key: 'service_name',
-			ellipsis: {
-				showTitle: false,
-			},
-			width: 200,
-			sorter: (a: RowData, b: RowData): number =>
-				String(a.service_name).localeCompare(String(b.service_name)),
-			render: tooltipRender,
-			fixed: 'left',
-		},
-		{
-			title: 'SPAN NAME',
-			dataIndex: 'span_name',
-			key: 'span_name',
-			ellipsis: {
-				showTitle: false,
-			},
-			width: 200,
-			sorter: (a: RowData, b: RowData): number =>
-				String(a.span_name).localeCompare(String(b.span_name)),
-			render: tooltipRender,
-		},
-		{
-			title: 'MESSAGING SYSTEM',
-			dataIndex: 'messaging_system',
-			key: 'messaging_system',
-			ellipsis: {
-				showTitle: false,
-			},
-			width: 200,
-			sorter: (a: RowData, b: RowData): number =>
-				String(a.messaging_system).localeCompare(String(b.messaging_system)),
-			render: tooltipRender,
-		},
-		{
-			title: 'DESTINATION',
-			dataIndex: 'destination',
-			key: 'destination',
-			ellipsis: {
-				showTitle: false,
-			},
-			render: tooltipRender,
-			width: 200,
-			sorter: (a: RowData, b: RowData): number =>
-				String(a.destination).localeCompare(String(b.destination)),
-		},
-		{
-			title: 'KIND',
-			dataIndex: 'kind_string',
-			key: 'kind_string',
-			ellipsis: {
-				showTitle: false,
-			},
-			width: 100,
-			sorter: (a: RowData, b: RowData): number =>
-				String(a.kind_string).localeCompare(String(b.kind_string)),
-			render: tooltipRender,
-		},
-		{
-			title: 'ERROR %',
-			dataIndex: 'error_percentage',
-			key: 'error_percentage',
-			ellipsis: {
-				showTitle: false,
-			},
-			width: 200,
-			sorter: (a: RowData, b: RowData): number => {
-				const aValue = Number(a.error_percentage);
-				const bValue = Number(b.error_percentage);
-				return aValue - bValue;
-			},
-			render: ProgressRender,
-		},
-		{
-			title: 'LATENCY (P95) in ms',
-			dataIndex: 'p95_latency',
-			key: 'p95_latency',
-			ellipsis: {
-				showTitle: false,
-			},
-			width: 100,
-			sorter: (a: RowData, b: RowData): number => {
-				const aValue = Number(a.p95_latency);
-				const bValue = Number(b.p95_latency);
-				return aValue - bValue;
-			},
-			render: formatNumericValue,
-		},
-		{
-			title: 'THROUGHPUT (ops/s)',
-			dataIndex: 'throughput',
-			key: 'throughput',
-			ellipsis: {
-				showTitle: false,
-			},
-			width: 100,
-			sorter: (a: RowData, b: RowData): number => {
-				const aValue = Number(a.throughput);
-				const bValue = Number(b.throughput);
-				return aValue - bValue;
-			},
-			render: formatNumericValue,
-		},
-	];
 }
 
 function getTableData(data: QueueOverviewResponse['data']): RowData[] {
@@ -353,11 +153,30 @@ function makeFilters(urlQuery: URLSearchParams): Filter[] {
 		.filter((filter): filter is Filter => filter !== null);
 }
 
+// Column title keys — referenced inline within the component useMemo
+const COLUMN_TITLE_KEYS: Record<string, string> = {
+	service_name: 'celery_overview_table.columns.service_name',
+	span_name: 'celery_overview_table.columns.span_name',
+	messaging_system: 'celery_overview_table.columns.messaging_system',
+	destination: 'celery_overview_table.columns.destination',
+	kind_string: 'celery_overview_table.columns.kind',
+	error_percentage: 'celery_overview_table.columns.error_percentage',
+	p95_latency: 'celery_overview_table.columns.latency_p95',
+	throughput: 'celery_overview_table.columns.throughput',
+};
+
+const tooltipRender = (item: string): JSX.Element => (
+	<Tooltip placement="topLeft" title={item}>
+		{item}
+	</Tooltip>
+);
+
 export default function CeleryOverviewTable({
 	onRowClick,
 }: {
 	onRowClick: (record: RowData) => void;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const [tableData, setTableData] = useState<RowData[]>([]);
 
 	const { minTime, maxTime } = useSelector<AppState, GlobalReducer>(
@@ -412,7 +231,6 @@ export default function CeleryOverviewTable({
 		confirm();
 	};
 
-	// Add defaultSorting state
 	const [sortedInfo, setSortedInfo] = useState<{
 		columnKey: string;
 		order: 'ascend' | 'descend';
@@ -421,27 +239,176 @@ export default function CeleryOverviewTable({
 		order: 'descend',
 	});
 
-	const columns = useMemo(
-		() =>
-			getDraggedColumns<RowData>(
-				getColumns(tableData).map((item) => ({
-					...item,
-					...getColumnSearchProps(
-						searchInput,
-						handleReset,
-						handleSearch,
-						item.key?.toString(),
-					),
-					// Only set defaultSortOrder for error_percentage, but allow sorting for all columns
-					...(item.key === 'error_percentage' && {
-						defaultSortOrder: 'descend',
-					}),
-					sortOrder: sortedInfo.columnKey === item.key ? sortedInfo.order : null,
-				})),
-				draggedColumns,
+	// Build columns inline — t() from useTranslation is available via closure
+	const columns = useMemo(() => {
+		if (tableData?.length === 0) {
+			return [];
+		}
+
+		const baseColumns: TableColumnsType<RowData> = [
+			{
+				title: t(COLUMN_TITLE_KEYS.service_name),
+				dataIndex: 'service_name',
+				key: 'service_name',
+				ellipsis: { showTitle: false },
+				width: 200,
+				sorter: (a: RowData, b: RowData): number =>
+					String(a.service_name).localeCompare(String(b.service_name)),
+				render: tooltipRender,
+				fixed: 'left' as const,
+			},
+			{
+				title: t(COLUMN_TITLE_KEYS.span_name),
+				dataIndex: 'span_name',
+				key: 'span_name',
+				ellipsis: { showTitle: false },
+				width: 200,
+				sorter: (a: RowData, b: RowData): number =>
+					String(a.span_name).localeCompare(String(b.span_name)),
+				render: tooltipRender,
+			},
+			{
+				title: t(COLUMN_TITLE_KEYS.messaging_system),
+				dataIndex: 'messaging_system',
+				key: 'messaging_system',
+				ellipsis: { showTitle: false },
+				width: 200,
+				sorter: (a: RowData, b: RowData): number =>
+					String(a.messaging_system).localeCompare(String(b.messaging_system)),
+				render: tooltipRender,
+			},
+			{
+				title: t(COLUMN_TITLE_KEYS.destination),
+				dataIndex: 'destination',
+				key: 'destination',
+				ellipsis: { showTitle: false },
+				render: tooltipRender,
+				width: 200,
+				sorter: (a: RowData, b: RowData): number =>
+					String(a.destination).localeCompare(String(b.destination)),
+			},
+			{
+				title: t(COLUMN_TITLE_KEYS.kind_string),
+				dataIndex: 'kind_string',
+				key: 'kind_string',
+				ellipsis: { showTitle: false },
+				width: 100,
+				sorter: (a: RowData, b: RowData): number =>
+					String(a.kind_string).localeCompare(String(b.kind_string)),
+				render: tooltipRender,
+			},
+			{
+				title: t(COLUMN_TITLE_KEYS.error_percentage),
+				dataIndex: 'error_percentage',
+				key: 'error_percentage',
+				ellipsis: { showTitle: false },
+				width: 200,
+				sorter: (a: RowData, b: RowData): number => {
+					const aValue = Number(a.error_percentage);
+					const bValue = Number(b.error_percentage);
+					return aValue - bValue;
+				},
+				render: ProgressRender,
+			},
+			{
+				title: t(COLUMN_TITLE_KEYS.p95_latency),
+				dataIndex: 'p95_latency',
+				key: 'p95_latency',
+				ellipsis: { showTitle: false },
+				width: 100,
+				sorter: (a: RowData, b: RowData): number => {
+					const aValue = Number(a.p95_latency);
+					const bValue = Number(b.p95_latency);
+					return aValue - bValue;
+				},
+				render: formatNumericValue,
+			},
+			{
+				title: t(COLUMN_TITLE_KEYS.throughput),
+				dataIndex: 'throughput',
+				key: 'throughput',
+				ellipsis: { showTitle: false },
+				width: 100,
+				sorter: (a: RowData, b: RowData): number => {
+					const aValue = Number(a.throughput);
+					const bValue = Number(b.throughput);
+					return aValue - bValue;
+				},
+				render: formatNumericValue,
+			},
+		];
+
+		// Add search props to each column
+		const columnsWithSearch = baseColumns.map((item) => ({
+			...item,
+			filterDropdown: ({
+				setSelectedKeys,
+				selectedKeys,
+				confirm,
+				clearFilters,
+				close,
+			}: FilterDropdownProps): JSX.Element => (
+				<div style={{ padding: 8 }} onKeyDown={(e): void => e.stopPropagation()}>
+					<Input
+						ref={searchInput}
+						placeholder={t('search.placeholder', { field: item.key?.toString() })}
+						value={selectedKeys[0]}
+						onChange={(e): void =>
+							setSelectedKeys(e.target.value ? [e.target.value] : [])
+						}
+						onPressEnter={(): void => handleSearch(selectedKeys as string[], confirm)}
+						style={{ marginBottom: 8, display: 'block' }}
+					/>
+					<Space>
+						<Button
+							type="primary"
+							size="small"
+							onClick={(): void => handleSearch(selectedKeys as string[], confirm)}
+						>
+							<Flex align="center" gap={4}>
+								<Search size="md" />
+								{t('search.button')}
+							</Flex>
+						</Button>
+						<Button
+							onClick={(): void => clearFilters && handleReset(clearFilters, confirm)}
+							size="small"
+							style={{ width: 90 }}
+						>
+							{t('search.reset')}
+						</Button>
+						<Button
+							type="link"
+							size="small"
+							onClick={(): void => {
+								close();
+							}}
+						>
+							{t('search.close')}
+						</Button>
+					</Space>
+				</div>
 			),
-		[tableData, draggedColumns, sortedInfo],
-	);
+			filterIcon: (filtered: boolean): JSX.Element => (
+				<Search
+					style={{ color: filtered ? Color.BG_ROBIN_500 : undefined }}
+					size="md"
+				/>
+			),
+			onFilter: (value: unknown, record: RowData): boolean =>
+				record[item.key?.toString() || '']
+					.toString()
+					.toLowerCase()
+					.includes((value as string).toLowerCase()),
+			...(item.key === 'error_percentage' && {
+				defaultSortOrder: 'descend' as const,
+			}),
+			sortOrder: sortedInfo.columnKey === item.key ? sortedInfo.order : undefined,
+		}));
+
+		return getDraggedColumns<RowData>(columnsWithSearch, draggedColumns);
+	}, [tableData, draggedColumns, sortedInfo, t, handleSearch, handleReset]);
+
 	const handleDragColumn = useCallback(
 		(fromIndex: number, toIndex: number) =>
 			onDragColumns(columns, fromIndex, toIndex),
@@ -452,7 +419,17 @@ export default function CeleryOverviewTable({
 		() =>
 			tableData?.length > INITIAL_PAGE_SIZE && {
 				pageSize: INITIAL_PAGE_SIZE,
-				showTotal: showPaginationItem,
+				showTotal: (total: number, range: number[]): JSX.Element => (
+					<>
+						<Typography.Text className="numbers">
+							{range[0]} &#8212; {range[1]}
+						</Typography.Text>
+						<Typography.Text className="total">
+							{' '}
+							{t('of')} {total}
+						</Typography.Text>
+					</>
+				),
 				showSizeChanger: false,
 				hideOnSinglePage: true,
 			},
@@ -506,7 +483,7 @@ export default function CeleryOverviewTable({
 	return (
 		<div className="celery-overview-table-container">
 			<Input.Search
-				placeholder="Search across all columns"
+				placeholder={t('celery_overview_table.search_placeholder')}
 				onChange={(e): void => setSearchText(e.target.value)}
 				value={searchText}
 				allowClear
@@ -525,7 +502,9 @@ export default function CeleryOverviewTable({
 					),
 				}}
 				locale={{
-					emptyText: isLoading ? null : <Typography.Text>No data</Typography.Text>,
+					emptyText: isLoading ? null : (
+						<Typography.Text>{t('celery_overview_table.no_data')}</Typography.Text>
+					),
 				}}
 				scroll={{ x: 'max-content' }}
 				showSorterTooltip

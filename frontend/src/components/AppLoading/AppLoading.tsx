@@ -2,6 +2,7 @@ import { Typography } from '@signozhq/ui/typography';
 import get from 'api/browser/localstorage/get';
 import { LOCALSTORAGE } from 'constants/localStorage';
 import { THEME_MODE } from 'hooks/useDarkMode/constant';
+import { useTranslation } from 'react-i18next';
 
 import signozBrandLogoUrl from '@/assets/Logos/signoz-brand-logo.svg';
 
@@ -20,6 +21,7 @@ function AppLoading(): JSX.Element {
 	};
 
 	const isDarkMode = getThemeFromStorage();
+	const { t } = useTranslation('common');
 
 	return (
 		<div className={`app-loading-container ${isDarkMode ? 'dark' : 'lightMode'}`}>
@@ -34,9 +36,7 @@ function AppLoading(): JSX.Element {
 				</div>
 
 				<div className="brand-tagline">
-					<Typography.Text>
-						OpenTelemetry-Native Logs, Metrics and Traces in a single pane
-					</Typography.Text>
+					<Typography.Text>{t('app_loading.tagline')}</Typography.Text>
 				</div>
 
 				<div className="loader" />

@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { LifeBuoy, RefreshCw, TriangleAlert } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
+import { useTranslation } from 'react-i18next';
 import { handleContactSupport } from 'container/Integrations/utils';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 
@@ -13,10 +14,11 @@ interface ErrorEmptyStateProps {
 }
 
 function ErrorEmptyState({
-	title = 'Something went wrong',
-	subtitle = 'Our team is getting on top to resolve this. Please reach out to support if the issue persists.',
+	title,
+	subtitle,
 	onRefresh,
 }: ErrorEmptyStateProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { isCloudUser } = useGetTenantLicense();
 
 	const onContactSupport = useCallback((): void => {
@@ -27,10 +29,10 @@ function ErrorEmptyState({
 		<div className={styles.emptyState} data-testid="error-empty-state">
 			<TriangleAlert className={styles.icon} size={32} />
 			<div className={styles.title} data-testid="error-title">
-				{title}
+				{title || t('empty_states.error_title')}
 			</div>
 			<div className={styles.subtitle} data-testid="error-subtitle">
-				{subtitle}
+				{subtitle || t('empty_states.error_subtitle')}
 			</div>
 			<div className={styles.actions}>
 				<Button
@@ -40,7 +42,7 @@ function ErrorEmptyState({
 					onClick={onContactSupport}
 					data-testid="error-contact-support-button"
 				>
-					Contact Support
+					{t('empty_states.contact_support')}
 				</Button>
 				{onRefresh && (
 					<Button
@@ -50,7 +52,7 @@ function ErrorEmptyState({
 						onClick={onRefresh}
 						data-testid="error-refresh-button"
 					>
-						Refresh
+						{t('empty_states.refresh')}
 					</Button>
 				)}
 			</div>

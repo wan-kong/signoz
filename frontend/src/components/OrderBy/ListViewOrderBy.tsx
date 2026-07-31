@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Select, Spin } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { getKeySuggestions } from 'api/querySuggestions/getKeySuggestions';
 import { QueryKeyDataSuggestionsProps } from 'types/api/querySuggestions/types';
 import { DataSource } from 'types/common/queryBuilder';
@@ -15,9 +16,10 @@ interface ListViewOrderByProps {
 
 // Loader component for the dropdown when loading or no results
 function Loader({ isLoading }: { isLoading: boolean }): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className="order-by-loading-container">
-			{isLoading ? <Spin size="default" /> : 'No results found'}
+			{isLoading ? <Spin size="default" /> : t('order_by.no_results')}
 		</div>
 	);
 }
@@ -27,6 +29,7 @@ function ListViewOrderBy({
 	onChange,
 	dataSource,
 }: ListViewOrderByProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [searchInput, setSearchInput] = useState('');
 	const [debouncedInput, setDebouncedInput] = useState('');
 	const [selectOptions, setSelectOptions] = useState<
@@ -34,7 +37,6 @@ function ListViewOrderBy({
 	>([]);
 	const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-	// Fetch key suggestions based on debounced input
 	const { data, isLoading } = useQuery({
 		queryKey: ['orderByKeySuggestions', dataSource, debouncedInput],
 		queryFn: async () => {
@@ -55,7 +57,6 @@ function ListViewOrderBy({
 		[],
 	);
 
-	// Update options when API data changes
 	useEffect(() => {
 		const rawKeys: QueryKeyDataSuggestionsProps[] = data?.data?.keys
 			? Object.values(data.data?.keys).flat()
@@ -74,16 +75,13 @@ function ListViewOrderBy({
 		setSelectOptions(updatedOptions);
 	}, [data, searchInput]);
 
-	// Handle search input with debounce
 	const handleSearch = (input: string): void => {
 		setSearchInput(input);
 
-		// Filter current options for instant client-side match
 		const filteredOptions = selectOptions.filter((option) =>
 			option.value.toLowerCase().includes(input.trim().toLowerCase()),
 		);
 
-		// If no match found or input is empty, trigger debounced fetch
 		if (filteredOptions.length === 0 || input === '') {
 			if (debounceTimer.current) {
 				clearTimeout(debounceTimer.current);
@@ -102,7 +100,7 @@ function ListViewOrderBy({
 			onChange={onChange}
 			onSearch={handleSearch}
 			notFoundContent={<Loader isLoading={isLoading} />}
-			placeholder="Select a field"
+			placeholder={t('order_by.select_field')}
 			style={{ width: 200 }}
 			options={selectOptions}
 			filterOption={(input, option): boolean =>

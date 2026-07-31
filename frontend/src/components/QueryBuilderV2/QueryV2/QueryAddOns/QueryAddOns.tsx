@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Tooltip } from 'antd';
 import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
@@ -168,6 +169,7 @@ function QueryAddOns({
 	index: number;
 	isForTraceOperator?: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const [addOns, setAddOns] = useState<AddOn[]>(ADD_ONS);
 
 	const [selectedViews, setSelectedViews] = useState<AddOn[]>([]);
@@ -412,11 +414,11 @@ function QueryAddOns({
 					{selectedViews.find((view) => view.key === 'limit') && (
 						<div className="add-on-content" data-testid="limit-content">
 							<InputWithLabel
-								label="Limit"
+								label={t('query_add_ons.limit')}
 								type="number"
 								onChange={handleChangeLimit}
 								initialValue={query?.limit ?? undefined}
-								placeholder="Enter limit"
+								placeholder={t('query_add_ons.limit_placeholder')}
 								onClose={(): void => {
 									setSelectedViews((prev) =>
 										prev.filter((view) => view.key !== 'limit'),
@@ -499,8 +501,8 @@ function QueryAddOns({
 					{selectedViews.find((view) => view.key === 'legend_format') && (
 						<div className="add-on-content" data-testid="legend-format-content">
 							<InputWithLabel
-								label="Legend format"
-								placeholder="Write legend format"
+								label={t('query_add_ons.legend_format')}
+								placeholder={t('query_add_ons.legend_placeholder')}
 								onChange={handleChangeQueryLegend}
 								initialValue={isEmpty(query?.legend) ? undefined : query?.legend}
 								onClose={(): void => {

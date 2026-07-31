@@ -1,4 +1,5 @@
 import { MouseEvent, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Trash2 } from '@signozhq/icons';
 import { Col, Row, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -24,6 +25,7 @@ function MenuItemGenerator({
 	refetchAllView,
 	sourcePage,
 }: MenuItemLabelGeneratorProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { panelType, redirectWithQueryBuilderData, updateAllQueriesOperators } =
 		useQueryBuilder();
 	const { handleExplorerTabChange } = useHandleExplorerTabChange();
@@ -82,14 +84,16 @@ function MenuItemGenerator({
 						</Tooltip>
 					</Row>
 					<Row>
-						<Typography.Text color="muted">Created by {createdBy}</Typography.Text>
+						<Typography.Text color="muted">
+							{t('explorer_card.created_by')} {createdBy}
+						</Typography.Text>
 					</Row>
 				</Col>
 				<Col span={2}>
 					<Typography.Link>
 						<Trash2
 							role="img"
-							aria-label="Delete view"
+							aria-label={t('explorer_card.delete_view')}
 							onClick={onDeleteHandler}
 							size="md"
 						/>

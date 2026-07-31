@@ -1,5 +1,6 @@
 import { Typography } from '@signozhq/ui/typography';
 import { ChevronDown, ChevronRight } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 interface CheckboxFilterHeaderProps {
 	title: string;
@@ -16,6 +17,8 @@ function CheckboxFilterHeader({
 	onToggleOpen,
 	onClear,
 }: CheckboxFilterHeaderProps): JSX.Element {
+	const { t } = useTranslation('common');
+
 	return (
 		<section className="filter-header-checkbox" onClick={onToggleOpen}>
 			<section className="left-action">
@@ -36,7 +39,7 @@ function CheckboxFilterHeader({
 							onClear();
 						}}
 					>
-						Clear All
+						{t('quick_filters.clear_all')}
 					</Typography.Text>
 				)}
 			</section>

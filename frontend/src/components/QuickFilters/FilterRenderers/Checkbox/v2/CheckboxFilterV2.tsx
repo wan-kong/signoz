@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Input } from '@signozhq/ui/input';
 import { Skeleton } from 'antd';
@@ -43,6 +44,7 @@ export default function CheckboxFilterV2(
 ): JSX.Element {
 	const { source, filter, onFilterChange, onQuickFilterChange, useFieldApis } =
 		props;
+	const { t } = useTranslation('common');
 	const [searchText, setSearchText] = useState<string>('');
 	const [userToggleState, setUserToggleState] = useState<boolean | null>(null);
 
@@ -178,7 +180,7 @@ export default function CheckboxFilterV2(
 				<>
 					<section className={styles.search}>
 						<Input
-							placeholder="Filter values"
+							placeholder={t('quick_filters.filter_values')}
 							onChange={(e): void => setSearchTextDebounced(e.target.value)}
 							disabled={isFilterDisabled}
 							data-testid="checkbox-filter-search"
@@ -222,7 +224,7 @@ export default function CheckboxFilterV2(
 									: 'checkbox-filter-empty'
 							}
 						>
-							<Typography.Text>No values found</Typography.Text>
+							<Typography.Text>{t('quick_filters.no_values_found')}</Typography.Text>
 						</section>
 					)}
 
@@ -234,7 +236,7 @@ export default function CheckboxFilterV2(
 									onClick={onShowMore}
 									data-testid="checkbox-filter-show-more"
 								>
-									Show More...
+									{t('quick_filters.show_more')}
 								</Typography.Text>
 							</section>
 						)}

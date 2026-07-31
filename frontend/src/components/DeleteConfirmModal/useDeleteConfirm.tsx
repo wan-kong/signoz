@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Modal } from 'antd';
 import { CircleAlert } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import styles from './DeleteConfirmModal.module.scss';
 
@@ -23,12 +24,13 @@ interface UseDeleteConfirm {
  * Cancel (antd closes on Cancel as long as we don't override its `onClick`).
  */
 export function useDeleteConfirm(): UseDeleteConfirm {
+	const { t } = useTranslation('common');
 	const [modal, contextHolder] = Modal.useModal();
 
 	const confirmDelete = ({
 		title,
 		content,
-		confirmText = 'Delete',
+		confirmText,
 		onConfirm,
 	}: ConfirmDeleteOptions): void => {
 		modal.confirm({
@@ -36,7 +38,7 @@ export function useDeleteConfirm(): UseDeleteConfirm {
 			title,
 			content,
 			icon: <CircleAlert className={styles.icon} size="3xl" />,
-			okText: confirmText,
+			okText: confirmText || t('buttons.delete'),
 			okButtonProps: { danger: true },
 			// Returning a promise keeps Delete in a loading state until the action
 			// settles, then antd closes the modal.

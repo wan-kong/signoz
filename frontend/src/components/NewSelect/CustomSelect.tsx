@@ -1,4 +1,5 @@
 /* eslint-disable sonarjs/cognitive-complexity */
+import { useTranslation } from 'react-i18next';
 import React, {
 	useCallback,
 	useEffect,
@@ -40,7 +41,7 @@ import './styles.scss';
  *
  */
 const CustomSelect: React.FC<CustomSelectProps> = ({
-	placeholder = 'Search...',
+	placeholder,
 	className,
 	loading = false,
 	onSearch,
@@ -68,6 +69,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 	// ===== State & Refs =====
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchText, setSearchText] = useState('');
+	const { t } = useTranslation('common');
+	const resolvedPlaceholder =
+		placeholder || t('custom_select.search_placeholder');
 	const [activeOptionIndex, setActiveOptionIndex] = useState<number>(-1);
 	const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
 
@@ -578,7 +582,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 							<section className="navigate">
 								<ArrowDown size={8} className="icons" />
 								<ArrowUp size={8} className="icons" />
-								<span className="keyboard-text">to navigate</span>
+								<span className="keyboard-text">{t('custom_select.to_navigate')}</span>
 							</section>
 						)}
 					{loading && (
@@ -586,7 +590,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 							<div className="navigation-icons">
 								<Loader size="md" className="animate-spin" />
 							</div>
-							<div className="navigation-text">Refreshing values...</div>
+							<div className="navigation-text">
+								{t('custom_select.refreshing_values')}
+							</div>
 						</div>
 					)}
 					{!loading && waitingMessage && (
@@ -626,7 +632,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 						!waitingMessage &&
 						!errorMessage && (
 							<div className="navigation-text-incomplete">
-								Don&apos;t see the value? Use search
+								{t('custom_select.no_values_message')}
 							</div>
 						)}
 
@@ -722,7 +728,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 		<Select
 			ref={selectRef}
 			className={cx('custom-select', className)}
-			placeholder={placeholder}
+			placeholder={resolvedPlaceholder}
 			showSearch
 			filterOption={false}
 			onSearch={handleSearch}

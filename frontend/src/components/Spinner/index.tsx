@@ -1,10 +1,13 @@
 import { CSSProperties } from 'react';
 import { Loader } from '@signozhq/icons';
 import { Spin, SpinProps } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { SpinerStyle } from './styles';
 
 function Spinner({ size, tip, height, style }: SpinnerProps): JSX.Element {
+	const { t } = useTranslation('common');
+
 	return (
 		<SpinerStyle height={height} style={style}>
 			<Spin
@@ -15,7 +18,7 @@ function Spinner({ size, tip, height, style }: SpinnerProps): JSX.Element {
 					<Loader
 						className="animate-spin"
 						role="img"
-						aria-label="loading"
+						aria-label={t('loading')}
 						size="md"
 					/>
 				}

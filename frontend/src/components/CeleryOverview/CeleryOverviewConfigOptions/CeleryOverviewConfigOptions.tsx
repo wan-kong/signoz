@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Row, Select, Spin } from 'antd';
+import { useTranslation } from 'react-i18next';
 import {
 	getValuesFromQueryParams,
 	setQueryParamsFromOptions,
@@ -31,6 +32,7 @@ export function FilterSelect({
 	onChange,
 	isMultiple,
 }: SelectOptionConfig): JSX.Element {
+	const { t } = useTranslation('common');
 	const { handleSearch, isFetching, options } =
 		useCeleryFilterOptions(filterType);
 
@@ -107,10 +109,10 @@ export function FilterSelect({
 			notFoundContent={
 				isFetching ? (
 					<span>
-						<Spin size="small" /> Loading...
+						<Spin size="small" /> {t('celery_overview.loading')}
 					</span>
 				) : (
-					<span>No {placeholder} found</span>
+					<span>{t('celery_overview.no_results', { placeholder })}</span>
 				)
 			}
 			onChange={handleSelectChange}
@@ -126,29 +128,30 @@ FilterSelect.defaultProps = {
 };
 
 function CeleryOverviewConfigOptions(): JSX.Element {
+	const { t } = useTranslation('common');
 	const selectConfigs: SelectOptionConfig[] = [
 		{
-			placeholder: 'Service Name',
+			placeholder: t('celery_overview.filters.service_name'),
 			queryParam: QueryParams.service,
 			filterType: 'serviceName',
 		},
 		{
-			placeholder: 'Span Name',
+			placeholder: t('celery_overview.filters.span_name'),
 			queryParam: QueryParams.spanName,
 			filterType: 'name',
 		},
 		{
-			placeholder: 'Msg System',
+			placeholder: t('celery_overview.filters.msg_system'),
 			queryParam: QueryParams.msgSystem,
 			filterType: 'messaging.system',
 		},
 		{
-			placeholder: 'Destination',
+			placeholder: t('celery_overview.filters.destination'),
 			queryParam: QueryParams.destination,
 			filterType: ['messaging.destination.name', 'messaging.destination'],
 		},
 		{
-			placeholder: 'Kind',
+			placeholder: t('celery_overview.filters.kind'),
 			queryParam: QueryParams.kindString,
 			filterType: 'kind_string',
 		},

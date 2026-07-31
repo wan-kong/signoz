@@ -2,6 +2,7 @@ import { Check, Copy } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
 import { Button } from '@signozhq/ui/button';
 import { Callout } from '@signozhq/ui/callout';
+import { useTranslation } from 'react-i18next';
 import type { ServiceaccounttypesGettableFactorAPIKeyWithKeyDTO } from 'api/generated/services/sigNoz.schemas';
 
 export interface KeyCreatedPhaseProps {
@@ -17,6 +18,7 @@ function KeyCreatedPhase({
 	expiryLabel,
 	onCopy,
 }: KeyCreatedPhaseProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className="add-key-modal__form">
 			<div className="add-key-modal__field">
@@ -35,7 +37,9 @@ function KeyCreatedPhase({
 			</div>
 
 			<div className="add-key-modal__expiry-meta">
-				<span className="add-key-modal__expiry-label">Expiration</span>
+				<span className="add-key-modal__expiry-label">
+					{t('sa_add_key.expiration')}
+				</span>
 				<Badge color="vanilla">{expiryLabel}</Badge>
 			</div>
 
@@ -43,7 +47,7 @@ function KeyCreatedPhase({
 				<Callout
 					type="info"
 					showIcon
-					title="Store the key securely. This is the only time it will be displayed."
+					title={t('sa_add_key.secure_storage_warning')}
 				/>
 			</div>
 		</div>

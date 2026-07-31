@@ -4,6 +4,7 @@
 	"working_message": "我们正在扩展基础设施监控，以覆盖更多不同场景。感谢你的耐心等待。",
 	"waitlist_message": "加入候补名单，抢先体验。",
 	"waitlist_success_message": "我们已收到你的抢先体验申请。功能上线后会尽快与你联系。",
+	"get_early_access": "抢先体验",
 	"contact_support": "联系支持",
 	"k8s": {
 		"view_entity_of_selected_item": "查看 '{{selectedItem}}' 的 {{entity}}"

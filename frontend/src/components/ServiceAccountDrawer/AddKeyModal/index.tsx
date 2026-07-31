@@ -4,6 +4,7 @@ import { useQueryClient } from 'react-query';
 import { useCopyToClipboard } from 'react-use';
 import { DialogWrapper } from '@signozhq/ui/dialog';
 import { toast } from '@signozhq/ui/sonner';
+import { useTranslation } from 'react-i18next';
 import { convertToApiError } from 'api/ErrorResponseHandlerForGeneratedAPIs';
 import {
 	invalidateListServiceAccountKeys,
@@ -28,6 +29,7 @@ import { DEFAULT_FORM_VALUES, ExpiryMode, Phase, PHASE_TITLES } from './types';
 import './AddKeyModal.styles.scss';
 
 function AddKeyModal(): JSX.Element {
+	const { t } = useTranslation('common');
 	const queryClient = useQueryClient();
 	const { showErrorModal, isErrorModalVisible } = useErrorModal();
 	const [accountId] = useQueryState(SA_QUERY_PARAMS.ACCOUNT);
@@ -114,14 +116,14 @@ function AddKeyModal(): JSX.Element {
 		copyToClipboard(createdKey.key);
 		setHasCopied(true);
 		setTimeout(() => setHasCopied(false), 2000);
-		toast.success('Key copied to clipboard');
-	}, [copyToClipboard, createdKey?.key]);
+		toast.success(t('sa_add_key.key_copied'));
+	}, [copyToClipboard, createdKey?.key, t]);
 
 	useEffect(() => {
 		if (copyState.error) {
-			toast.error('Failed to copy key');
+			toast.error(t('sa_add_key.key_copy_failed'));
 		}
-	}, [copyState.error]);
+	}, [copyState.error, t]);
 
 	const handleClose = useCallback((): void => {
 		setIsAddKeyOpen(null);
@@ -129,12 +131,12 @@ function AddKeyModal(): JSX.Element {
 
 	function getExpiryLabel(): string {
 		if (expiryMode === ExpiryMode.NONE || !expiryDate) {
-			return 'Never';
+			return t('sa_add_key.never');
 		}
 		try {
 			return expiryDate.format(DATE_TIME_FORMATS.MONTH_DATE);
 		} catch {
-			return 'Never';
+			return t('sa_add_key.never');
 		}
 	}
 

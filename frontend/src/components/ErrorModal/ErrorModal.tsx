@@ -2,6 +2,7 @@ import React from 'react';
 import { Color } from '@signozhq/design-tokens';
 import { Button, Modal } from 'antd';
 import { CircleAlert, X } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import KeyValueLabel from 'periscope/components/KeyValueLabel';
 import { useAppContext } from 'providers/App/App';
 import APIError from 'types/api/error';
@@ -32,6 +33,7 @@ function ErrorModal({
 	triggerComponent,
 	onClose,
 }: Props): JSX.Element {
+	const { t } = useTranslation('common');
 	const [visible, setVisible] = React.useState(open);
 
 	const handleClose = (): void => {
@@ -54,7 +56,7 @@ function ErrorModal({
 					onKeyDown={undefined}
 				>
 					<Badge color="error">
-						<CircleAlert size={14} color={Color.BG_CHERRY_500} /> error
+						<CircleAlert size={14} color={Color.BG_CHERRY_500} /> {t('error.default')}
 					</Badge>
 				</span>
 			) : (

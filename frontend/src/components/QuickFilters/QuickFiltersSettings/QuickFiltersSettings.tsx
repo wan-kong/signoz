@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Input } from '@signozhq/ui/input';
 import { Button } from 'antd';
@@ -22,6 +23,7 @@ function QuickFiltersSettings({
 	customFilters: FilterType[];
 	refetchCustomFilters: () => void;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const {
 		handleSettingsClose,
 		handleDiscardChanges,
@@ -69,7 +71,7 @@ function QuickFiltersSettings({
 				<Input
 					type="text"
 					value={inputValue}
-					placeholder="Search for a filter..."
+					placeholder={t('quick_filters.search_for_filter')}
 					onChange={handleInputChange}
 				/>
 			</section>

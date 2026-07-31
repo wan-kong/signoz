@@ -17,8 +17,8 @@ function SaveViewWithName({
 	handlePopOverClose,
 	refetchAllView,
 }: SaveViewWithNameProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [form] = Form.useForm<SaveViewFormProps>();
-	const { t } = useTranslation(['explorer']);
 	const { currentQuery, panelType, redirectWithQueryBuilderData } =
 		useQueryBuilder();
 	const { notifications } = useNotifications();
@@ -49,7 +49,7 @@ function SaveViewWithName({
 
 	return (
 		<Card>
-			<Typography>{t('name_of_the_view')}</Typography>
+			<Typography>{t('save_view.name_of_view')}</Typography>
 			<Form form={form} onFinish={onSaveHandler} requiredMark>
 				<Form.Item
 					name={['viewName']}
@@ -57,11 +57,11 @@ function SaveViewWithName({
 					rules={[
 						{
 							required: true,
-							message: 'Please enter view name',
+							message: t('save_view.enter_name_required'),
 						},
 					]}
 				>
-					<Input placeholder="Enter Name" />
+					<Input placeholder={t('save_view.enter_name_placeholder')} />
 				</Form.Item>
 				<SaveButton
 					htmlType="submit"
@@ -69,7 +69,7 @@ function SaveViewWithName({
 					loading={isLoading}
 					data-testid="save-view-name-action-button"
 				>
-					Save
+					{t('save_view.save_button')}
 				</SaveButton>
 			</Form>
 		</Card>

@@ -2,11 +2,13 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Check, Plus, X } from '@signozhq/icons';
 import { Button, Flex } from 'antd';
 import { Badge } from '@signozhq/ui/badge';
+import { useTranslation } from 'react-i18next';
 import Input from 'components/Input';
 
 import './Badges.styles.scss';
 
 function Badges({ tags, setTags }: AddTagsProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [inputValue, setInputValue] = useState<string>('');
 	const [inputVisible, setInputVisible] = useState<boolean>(false);
 
@@ -105,7 +107,7 @@ function Badges({ tags, setTags }: AddTagsProps): JSX.Element {
 				>
 					<Flex justify="center" align="center" gap={4}>
 						<Plus size="md" />
-						New Tag
+						{t('buttons.new_tag')}
 					</Flex>
 				</Button>
 			)}

@@ -1,12 +1,14 @@
 import { useCallback } from 'react';
 import { Button } from '@signozhq/ui/button';
 import { LifeBuoy } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import signozBrandLogoUrl from '@/assets/Logos/signoz-brand-logo.svg';
 
 import './AuthHeader.styles.scss';
 
 function AuthHeader(): JSX.Element {
+	const { t } = useTranslation('common');
 	const handleGetHelp = useCallback((): void => {
 		window.open('https://signoz.io/support/', '_blank');
 	}, []);
@@ -28,7 +30,7 @@ function AuthHeader(): JSX.Element {
 				variant="solid"
 				color="none"
 			>
-				Get Help
+				{t('buttons.get_help')}
 			</Button>
 		</header>
 	);

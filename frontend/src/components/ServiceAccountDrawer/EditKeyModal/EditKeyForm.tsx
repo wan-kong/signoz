@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { Control, UseFormRegister } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { LockKeyhole, Trash2, X } from '@signozhq/icons';
@@ -49,12 +50,13 @@ function EditKeyForm({
 	canUpdate = true,
 	accountId = '',
 }: EditKeyFormProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<>
 			<form id={FORM_ID} className="edit-key-modal__form" onSubmit={onSubmit}>
 				<div className="edit-key-modal__field">
 					<label className="edit-key-modal__label" htmlFor="edit-key-name">
-						Name
+						{t('sa_edit_key.name_label')}
 					</label>
 					{!canUpdate ? (
 						<AuthZTooltip
@@ -70,7 +72,7 @@ function EditKeyForm({
 						<Input
 							id="edit-key-name"
 							className="edit-key-modal__input"
-							placeholder="Enter key name"
+							placeholder={t('sa_edit_key.name_placeholder')}
 							{...register('name')}
 						/>
 					)}
@@ -78,7 +80,7 @@ function EditKeyForm({
 
 				<div className="edit-key-modal__field">
 					<label className="edit-key-modal__label" htmlFor="edit-key-id">
-						ID
+						{t('sa_edit_key.id_label')}
 					</label>
 					<div id="edit-key-id" className="edit-key-modal__key-display">
 						<span className="edit-key-modal__id-text">{keyItem?.id || '—'}</span>
@@ -88,7 +90,7 @@ function EditKeyForm({
 
 				<div className="edit-key-modal__field">
 					<label className="edit-key-modal__label" htmlFor="edit-key-display">
-						Key
+						{t('sa_edit_key.key_label')}
 					</label>
 					<div id="edit-key-display" className="edit-key-modal__key-display">
 						<span className="edit-key-modal__key-text">********************</span>
@@ -97,7 +99,9 @@ function EditKeyForm({
 				</div>
 
 				<div className="edit-key-modal__field">
-					<span className="edit-key-modal__label">Expiration</span>
+					<span className="edit-key-modal__label">
+						{t('sa_edit_key.expiration')}
+					</span>
 					<Controller
 						name="expiryMode"
 						control={control}
@@ -114,8 +118,11 @@ function EditKeyForm({
 								disabled={!canUpdate}
 								className="edit-key-modal__expiry-toggle"
 								items={[
-									{ value: ExpiryMode.NONE, label: 'No Expiration' },
-									{ value: ExpiryMode.DATE, label: 'Set Expiration Date' },
+									{ value: ExpiryMode.NONE, label: t('sa_edit_key.no_expiration') },
+									{
+										value: ExpiryMode.DATE,
+										label: t('sa_edit_key.set_expiration_date'),
+									},
 								]}
 							/>
 						)}
@@ -125,7 +132,7 @@ function EditKeyForm({
 				{expiryMode === ExpiryMode.DATE && (
 					<div className="edit-key-modal__field">
 						<label className="edit-key-modal__label" htmlFor="edit-key-datepicker">
-							Expiration Date
+							{t('sa_edit_key.expiration_date')}
 						</label>
 						<div className="edit-key-modal__datepicker">
 							<Controller
@@ -148,7 +155,9 @@ function EditKeyForm({
 				)}
 
 				<div className="edit-key-modal__meta">
-					<span className="edit-key-modal__meta-label">Last Observed At</span>
+					<span className="edit-key-modal__meta-label">
+						{t('sa_edit_key.last_observed_at')}
+					</span>
 					<Badge color="vanilla">
 						{formatLastObservedAt(
 							keyItem?.lastObservedAt ?? null,
@@ -187,7 +196,7 @@ function EditKeyForm({
 						loading={isSaving}
 						disabled={!isDirty}
 					>
-						Save Changes
+						{t('sa_edit_key.save_changes')}
 					</AuthZButton>
 				</div>
 			</div>

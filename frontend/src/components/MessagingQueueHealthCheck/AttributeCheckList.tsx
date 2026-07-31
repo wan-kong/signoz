@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { ReactNode, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -178,6 +179,7 @@ function AttributeCheckList({
 	onboardingStatusResponses,
 	loading,
 }: AttributeCheckListProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [filter, setFilter] = useState<AttributesFilters>(AttributesFilters.ALL);
 	const [treeData, setTreeData] = useState<TreeDataNode[]>([]);
 
@@ -224,7 +226,7 @@ function AttributeCheckList({
 
 	return (
 		<Modal
-			title="Kafka Service Attributes"
+			title={t('attribute_check.title')}
 			open={visible}
 			onCancel={onClose}
 			footer={false}
@@ -244,15 +246,19 @@ function AttributeCheckList({
 						options={[
 							{
 								value: AttributesFilters.ALL,
-								label: AttributeLabels({ title: 'Attributes: All' }),
+								label: AttributeLabels({ title: t('attribute_check.attributes_all') }),
 							},
 							{
 								value: AttributesFilters.SUCCESS,
-								label: AttributeLabels({ title: 'Attributes: Success' }),
+								label: AttributeLabels({
+									title: t('attribute_check.attributes_success'),
+								}),
 							},
 							{
 								value: AttributesFilters.ERROR,
-								label: AttributeLabels({ title: 'Attributes: Error' }),
+								label: AttributeLabels({
+									title: t('attribute_check.attributes_error'),
+								}),
 							},
 						]}
 					/>

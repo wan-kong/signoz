@@ -7,6 +7,7 @@ import {
 	TooltipTrigger,
 } from '@signozhq/ui/tooltip';
 import { useCopyToClipboard } from 'react-use';
+import { useTranslation } from 'react-i18next';
 
 import styles from './LabelTag.module.scss';
 
@@ -30,6 +31,7 @@ export interface LabelTagProps {
 }
 
 function LabelTag({ label, value, color }: LabelTagProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [, copyToClipboard] = useCopyToClipboard();
 	const displayText = value ? `${label}: ${value}` : label;
 	const searchFormat = value ? `${label} ${value}` : label;
@@ -37,7 +39,7 @@ function LabelTag({ label, value, color }: LabelTagProps): JSX.Element {
 	const handleCopy = (e: React.MouseEvent): void => {
 		e.stopPropagation();
 		copyToClipboard(searchFormat);
-		toast.success('Copied! Use in search to filter alerts.');
+		toast.success(t('label.copied_message'));
 	};
 
 	return (
@@ -61,7 +63,7 @@ function LabelTag({ label, value, color }: LabelTagProps): JSX.Element {
 						type="button"
 						className={styles.copyButton}
 						onClick={handleCopy}
-						aria-label="Copy to clipboard"
+						aria-label={t('alert_labels.copy_tooltip')}
 					>
 						<Copy size={12} />
 					</button>

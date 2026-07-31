@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SolidAlertTriangle } from '@signozhq/icons';
 import { Select, Tooltip } from 'antd';
 import type { DefaultOptionType } from 'antd/es/select';
@@ -17,7 +18,7 @@ import './styles.scss';
 function YAxisUnitSelector({
 	value,
 	onChange,
-	placeholder = 'Please select a unit',
+	placeholder,
 	loading = false,
 	'data-testid': dataTestId,
 	source,
@@ -25,6 +26,7 @@ function YAxisUnitSelector({
 	categoriesOverride,
 	containerClassName,
 }: YAxisUnitSelectorProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const universalUnit = mapMetricUnitToUniversalUnit(value);
 
 	const incompatibleUnitMessage = useMemo(() => {
@@ -37,10 +39,13 @@ function YAxisUnitSelector({
 			const initialUniversalUnitName =
 				getUniversalNameFromMetricUnit(initialValue);
 			const currentUniversalUnitName = getUniversalNameFromMetricUnit(value);
-			return `Unit mismatch. The metric was sent with unit ${initialUniversalUnitName}, but ${currentUniversalUnitName} is selected.`;
+			return t('y_axis_unit.unit_mismatch_detail', {
+				initialUnit: initialUniversalUnitName,
+				currentUnit: currentUniversalUnitName,
+			});
 		}
 		return '';
-	}, [initialValue, value, loading]);
+	}, [initialValue, value, loading, t]);
 
 	const handleSearch = (
 		searchTerm: string,
@@ -54,12 +59,10 @@ function YAxisUnitSelector({
 		const unitId = currentOption.value.toString().toLowerCase();
 		const unitLabel = currentOption.children?.toString().toLowerCase() || '';
 
-		// Check label and id
 		if (unitId.includes(search) || unitLabel.includes(search)) {
 			return true;
 		}
 
-		// Check aliases (from the mapping) using array iteration
 		const aliases = Array.from(
 			UniversalYAxisUnitMappings[currentOption.value as UniversalYAxisUnit] ?? [],
 		);
@@ -77,7 +80,7 @@ function YAxisUnitSelector({
 				showSearch
 				value={universalUnit}
 				onChange={onChange}
-				placeholder={placeholder}
+				placeholder={placeholder || t('y_axis_unit.select_unit')}
 				filterOption={(input, option): boolean => handleSearch(input, option)}
 				loading={loading}
 				suffixIcon={

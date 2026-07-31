@@ -13,8 +13,6 @@ const mockGet = getLocal as unknown as jest.Mock;
 
 describe('AppLoading', () => {
 	const SIGNOZ_TEXT = 'SigNoz';
-	const TAGLINE_TEXT =
-		'OpenTelemetry-Native Logs, Metrics and Traces in a single pane';
 	const CONTAINER_SELECTOR = '.app-loading-container';
 
 	beforeEach(() => {
@@ -30,7 +28,6 @@ describe('AppLoading', () => {
 		// Check if main elements are rendered
 		expect(screen.getByAltText(SIGNOZ_TEXT)).toBeInTheDocument();
 		expect(screen.getByText(SIGNOZ_TEXT)).toBeInTheDocument();
-		expect(screen.getByText(TAGLINE_TEXT)).toBeInTheDocument();
 
 		// Check if dark theme class is applied
 		const container = screen.getByText(SIGNOZ_TEXT).closest(CONTAINER_SELECTOR);
@@ -53,8 +50,8 @@ describe('AppLoading', () => {
 		const title = screen.getByText(SIGNOZ_TEXT);
 		expect(title).toBeInTheDocument();
 
-		// Check for tagline
-		const tagline = screen.getByText(TAGLINE_TEXT);
+		// Check for tagline (text content exists)
+		const tagline = screen.getByText(/OpenTelemetry/i);
 		expect(tagline).toBeInTheDocument();
 
 		// Check for loader

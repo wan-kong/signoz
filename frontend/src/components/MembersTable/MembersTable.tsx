@@ -1,6 +1,7 @@
 import type React from 'react';
 import { Badge } from '@signozhq/ui/badge';
 import { Table, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import type { ColumnsType, SorterResult } from 'antd/es/table/interface';
 import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
 import { MemberStatus } from 'container/MembersSettings/utils';
@@ -53,17 +54,18 @@ function NameEmailCell({
 }
 
 function StatusBadge({ status }: { status: MemberRow['status'] }): JSX.Element {
+	const { t } = useTranslation('common');
 	if (status === MemberStatus.Active) {
 		return (
 			<Badge color="forest" variant="outline">
-				ACTIVE
+				{t('members.active')}
 			</Badge>
 		);
 	}
 	if (status === MemberStatus.Deleted) {
 		return (
 			<Badge color="cherry" variant="outline">
-				DELETED
+				{t('members.deleted')}
 			</Badge>
 		);
 	}
@@ -71,7 +73,7 @@ function StatusBadge({ status }: { status: MemberRow['status'] }): JSX.Element {
 	if (status === MemberStatus.Invited) {
 		return (
 			<Badge color="amber" variant="outline">
-				INVITED
+				{t('members.invited')}
 			</Badge>
 		);
 	}
@@ -84,6 +86,7 @@ function MembersEmptyState({
 }: {
 	searchQuery: string;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className="members-empty-state">
 			<span
@@ -95,10 +98,10 @@ function MembersEmptyState({
 			</span>
 			{searchQuery ? (
 				<p className="members-empty-state__text">
-					No results for <strong>{searchQuery}</strong>
+					{t('members.no_results_for')} <strong>{searchQuery}</strong>
 				</p>
 			) : (
-				<p className="members-empty-state__text">No members found</p>
+				<p className="members-empty-state__text">{t('members.no_members_found')}</p>
 			)}
 		</div>
 	);
@@ -115,6 +118,7 @@ function MembersTable({
 	onRowClick,
 	onSortChange,
 }: MembersTableProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { formatTimezoneAdjustedTimestamp } = useTimezone();
 
 	const formatJoinedOn = (date: string | null): string => {
@@ -130,7 +134,7 @@ function MembersTable({
 
 	const columns: ColumnsType<MemberRow> = [
 		{
-			title: 'Name / Email',
+			title: t('members.name_email'),
 			dataIndex: 'name',
 			key: 'name',
 			sorter: (a, b): number => a.email.localeCompare(b.email),
@@ -139,7 +143,7 @@ function MembersTable({
 			),
 		},
 		{
-			title: 'Status',
+			title: t('members.status'),
 			dataIndex: 'status',
 			key: 'status',
 			width: 100,
@@ -151,7 +155,7 @@ function MembersTable({
 			),
 		},
 		{
-			title: 'Joined On',
+			title: t('members.joined_on'),
 			dataIndex: 'joinedOn',
 			key: 'joinedOn',
 			width: 250,

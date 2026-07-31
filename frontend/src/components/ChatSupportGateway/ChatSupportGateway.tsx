@@ -3,6 +3,7 @@ import { useMutation } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { Button, Modal } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import updateCreditCardApi from 'api/v1/checkout/create';
 import { useNotifications } from 'hooks/useNotifications';
@@ -13,6 +14,7 @@ import APIError from 'types/api/error';
 import { getBaseUrl } from 'utils/basePath';
 
 export default function ChatSupportGateway(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { notifications } = useNotifications();
 
 	const [isAddCreditCardModalOpen, setIsAddCreditCardModalOpen] =
@@ -80,7 +82,7 @@ export default function ChatSupportGateway(): JSX.Element {
 			{/* Add Credit Card Modal */}
 			<Modal
 				className="add-credit-card-modal"
-				title={<span className="title">Add Credit Card for Chat Support</span>}
+				title={<span className="title">{t('buttons.add_credit_card_title')}</span>}
 				open={isAddCreditCardModalOpen}
 				closable
 				onCancel={(): void => setIsAddCreditCardModalOpen(false)}
@@ -92,7 +94,7 @@ export default function ChatSupportGateway(): JSX.Element {
 						className="cancel-btn"
 						icon={<X size={16} />}
 					>
-						Cancel
+						{t('buttons.cancel')}
 					</Button>,
 					<Button
 						key="submit"
@@ -104,13 +106,12 @@ export default function ChatSupportGateway(): JSX.Element {
 						onClick={handleAddCreditCard}
 						className="add-credit-card-btn"
 					>
-						Add Credit Card
+						{t('buttons.add_credit_card')}
 					</Button>,
 				]}
 			>
 				<Typography.Text className="add-credit-card-text">
-					You&apos;re currently on <span className="highlight-text">Trial plan</span>
-					. Add a credit card to access SigNoz chat support to your workspace.
+					{t('buttons.trial_plan_message')}
 				</Typography.Text>
 			</Modal>
 		</>

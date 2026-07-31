@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/no-identical-functions */
 import { Fragment, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@signozhq/ui/input';
 import { Skeleton } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -35,6 +36,7 @@ interface ICheckboxProps {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function CheckboxFilter(props: ICheckboxProps): JSX.Element {
 	const { source, filter, onFilterChange, onQuickFilterChange } = props;
+	const { t } = useTranslation('common');
 	const [searchText, setSearchText] = useState<string>('');
 
 	const activeQueryIndex = useActiveQueryIndex(source);
@@ -111,7 +113,7 @@ export default function CheckboxFilter(props: ICheckboxProps): JSX.Element {
 					{!isEmptyStateWithDocsEnabled && (
 						<section className="search">
 							<Input
-								placeholder="Filter values"
+								placeholder={t('quick_filters.filter_values')}
 								onChange={(e): void => setSearchTextDebounced(e.target.value)}
 								disabled={isFilterDisabled}
 							/>
@@ -136,9 +138,9 @@ export default function CheckboxFilter(props: ICheckboxProps): JSX.Element {
 										onlyButtonLabel={
 											isSomeFilterPresentForCurrentAttribute
 												? currentFilterState[value] && !isMultipleValuesTrueForTheKey
-													? 'All'
-													: 'Only'
-												: 'Only'
+													? t('quick_filters.all')
+													: t('quick_filters.only')
+												: t('quick_filters.only')
 										}
 										customRendererForValue={filter.customRendererForValue}
 										onCheckboxChange={(checked): void => onChange(value, checked, false)}
@@ -153,13 +155,15 @@ export default function CheckboxFilter(props: ICheckboxProps): JSX.Element {
 						<LogsQuickFilterEmptyState attributeKey={filter.attributeKey.key} />
 					) : (
 						<section className="no-data">
-							<Typography.Text>No values found</Typography.Text>{' '}
+							<Typography.Text>
+								{t('quick_filters.no_values_found')}
+							</Typography.Text>{' '}
 						</section>
 					)}
 					{visibleItemsCount < attributeValues?.length && (
 						<section className="show-more">
 							<Typography.Text className="show-more-text" onClick={onShowMore}>
-								Show More...
+								{t('quick_filters.show_more')}
 							</Typography.Text>
 						</section>
 					)}

@@ -3,6 +3,7 @@ import { Color, Spacing } from '@signozhq/design-tokens';
 import { Drawer } from 'antd';
 import { Divider } from '@signozhq/ui/divider';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import dayjs from 'dayjs';
@@ -41,6 +42,7 @@ export default function CeleryTaskDetail({
 	onClose,
 	drawerOpen,
 }: CeleryTaskDetailProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const isDarkMode = useIsDarkMode();
 
 	const shouldShowDrawer =
@@ -65,7 +67,9 @@ export default function CeleryTaskDetail({
 			width="45%"
 			title={
 				<div>
-					<Typography.Text className="title">{`Details - ${taskData.entity}`}</Typography.Text>
+					<Typography.Text className="title">
+						{t('drawer.details', { entity: taskData.entity })}
+					</Typography.Text>
 					<div>
 						<Typography.Text className="subtitle">
 							{`${formatTimestamp(startTime)} ${
@@ -88,7 +92,9 @@ export default function CeleryTaskDetail({
 			destroyOnClose
 			closeIcon={<X size={16} style={{ marginTop: Spacing.MARGIN_1 }} />}
 			footer={
-				<Typography.Text className="footer-text">{`Total Task: ${totalTask}`}</Typography.Text>
+				<Typography.Text className="footer-text">
+					{t('drawer.total_tasks', { count: totalTask })}
+				</Typography.Text>
 			}
 		>
 			<CeleryTaskGraph
