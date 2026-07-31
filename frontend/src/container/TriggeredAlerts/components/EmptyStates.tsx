@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CircleCheck, Plus, RefreshCw } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import ROUTES from 'constants/routes';
@@ -12,6 +13,7 @@ interface EmptyStateProps {
 }
 
 export function EmptyState({ onRefresh }: EmptyStateProps): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const { safeNavigate } = useSafeNavigate();
 
 	const handleCreateAlert = useCallback(
@@ -24,9 +26,11 @@ export function EmptyState({ onRefresh }: EmptyStateProps): JSX.Element {
 	return (
 		<div className={styles.emptyState}>
 			<CircleCheck className={styles.emptyStateIcon} size={16} />
-			<div className={styles.emptyStateTitle}>No alerts firing</div>
+			<div className={styles.emptyStateTitle}>
+				{t('triggered_alerts.empty.title')}
+			</div>
 			<div className={styles.emptyStateSubtitle}>
-				All systems are healthy. No alerts are currently triggered.
+				{t('triggered_alerts.empty.subtitle')}
 			</div>
 			<div className={styles.emptyStateActions}>
 				<Button
@@ -36,7 +40,7 @@ export function EmptyState({ onRefresh }: EmptyStateProps): JSX.Element {
 					onClick={handleCreateAlert}
 					testId="triggered-alerts-empty-create-button"
 				>
-					Create Alert Rule
+					{t('triggered_alerts.empty.create_alert_rule')}
 				</Button>
 				{onRefresh && (
 					<Button
@@ -46,7 +50,7 @@ export function EmptyState({ onRefresh }: EmptyStateProps): JSX.Element {
 						onClick={onRefresh}
 						testId="triggered-alerts-empty-refresh-button"
 					>
-						Refresh
+						{t('refresh')}
 					</Button>
 				)}
 			</div>

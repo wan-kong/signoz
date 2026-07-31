@@ -67,13 +67,21 @@ export const getAlertOptionsFromIds = (
 
 export const recurrenceInfo = (
 	schedule?: AlertmanagertypesScheduleDTO | null,
+	labels?: {
+		no: string;
+		to: string;
+		on: string;
+		duration: string;
+		repeats: string;
+		from: string;
+	},
 ): string => {
 	if (!schedule) {
-		return 'No';
+		return labels?.no ?? 'No';
 	}
 	const { startTime, endTime, timezone, recurrence } = schedule;
 	if (!recurrence) {
-		return 'No';
+		return labels?.no ?? 'No';
 	}
 
 	const { duration, repeatOn, repeatType } = recurrence;
@@ -82,12 +90,16 @@ export const recurrenceInfo = (
 		? formatDateTime(startTime, timezone)
 		: '';
 	const formattedEndTime = endTime
-		? `to ${formatDateTime(endTime, timezone)}`
+		? `${labels?.to ?? 'to'} ${formatDateTime(endTime, timezone)}`
 		: '';
-	const weeklyRepeatString = repeatOn ? `on ${repeatOn.join(', ')}` : '';
-	const durationString = duration ? `- Duration: ${duration}` : '';
+	const weeklyRepeatString = repeatOn
+		? `${labels?.on ?? 'on'} ${repeatOn.join(', ')}`
+		: '';
+	const durationString = duration
+		? `- ${labels?.duration ?? 'Duration'}: ${duration}`
+		: '';
 
-	return `Repeats - ${repeatType} ${weeklyRepeatString} from ${formattedStartTime} ${formattedEndTime} ${durationString}`;
+	return `${labels?.repeats ?? 'Repeats'} - ${repeatType} ${weeklyRepeatString} ${labels?.from ?? 'from'} ${formattedStartTime} ${formattedEndTime} ${durationString}`;
 };
 
 export const defaultInitialValues: Partial<AlertmanagertypesPlannedMaintenanceDTO> =
@@ -117,6 +129,10 @@ type DeleteDowntimeScheduleProps = {
 	deleteId?: string;
 	hideDeleteDowntimeScheduleModal: () => void;
 	clearSearch: () => void;
+	messages?: {
+		somethingWentWrong: string;
+		deleteSuccess: string;
+	};
 };
 
 export const deleteDowntimeHandler = ({
@@ -127,19 +143,23 @@ export const deleteDowntimeHandler = ({
 	clearSearch,
 	notifications,
 	showErrorModal,
+	messages,
 }: DeleteDowntimeScheduleProps): void => {
 	if (!deleteId) {
 		console.error('Unable to delete, please provide correct deleteId');
-		notifications.error({ message: 'Something went wrong' });
+		notifications.error({
+			message: messages?.somethingWentWrong ?? 'Something went wrong',
+		});
 	} else {
-		deleteDowntimeScheduleAsync(
+		void deleteDowntimeScheduleAsync(
 			{ pathParams: { id: String(deleteId) } },
 			{
 				onSuccess: () => {
 					hideDeleteDowntimeScheduleModal();
 					clearSearch();
 					notifications.success({
-						message: 'Downtime schedule Deleted Successfully',
+						message:
+							messages?.deleteSuccess ?? 'Downtime schedule Deleted Successfully',
 					});
 					refetchAllSchedules();
 				},

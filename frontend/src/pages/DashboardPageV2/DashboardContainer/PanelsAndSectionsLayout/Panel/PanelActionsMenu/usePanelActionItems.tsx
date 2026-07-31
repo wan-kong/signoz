@@ -1,4 +1,5 @@
 import { type ReactNode, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Bell,
 	Copy,
@@ -65,6 +66,7 @@ export function usePanelActionItems({
 	data,
 	panelActions,
 }: UsePanelActionItemsArgs): PanelActionItems {
+	const { t } = useTranslation('dashboard');
 	const panelKind = panel.spec.plugin.kind;
 	const { user } = useAppContext();
 	const [canEditWidget, canMove, canDelete] = useComponentPermission(
@@ -128,7 +130,7 @@ export function usePanelActionItems({
 		if (panelCapabilities.view) {
 			panelGroup.push({
 				key: 'view-panel',
-				label: 'View',
+				label: t('dashboard_page_v2.panel_actions.view'),
 				icon: <Fullscreen size={14} />,
 				onClick: (): void => openView(panelId, panel),
 			});
@@ -136,7 +138,7 @@ export function usePanelActionItems({
 		if (canEdit && canEditWidget && panelCapabilities.edit) {
 			panelGroup.push({
 				key: 'edit-panel',
-				label: label('Edit panel'),
+				label: label(t('dashboard_page_v2.panel_actions.edit_panel')),
 				icon: <PenLine size={14} />,
 				disabled: isLocked,
 				onClick: (): void => openPanelEditor(panelId, { panel }),
@@ -146,7 +148,7 @@ export function usePanelActionItems({
 			// Needs section context to place the copy; disabled without it.
 			panelGroup.push({
 				key: 'clone-panel',
-				label: label('Clone'),
+				label: label(t('dashboard_page_v2.panel_actions.clone')),
 				icon: <Copy size={14} />,
 				disabled: isLocked || !panelActions,
 				onClick: (): void => {
@@ -170,7 +172,7 @@ export function usePanelActionItems({
 		if (panelCapabilities.createAlert) {
 			dataGroup.push({
 				key: 'create-alert',
-				label: 'Create Alerts',
+				label: t('dashboard_page_v2.panel_actions.create_alerts'),
 				icon: <Bell size={14} />,
 				onClick: (): void => createAlert(panel, panelId),
 			});
@@ -185,11 +187,12 @@ export function usePanelActionItems({
 							currentLayoutIndex: panelActions.currentLayoutIndex,
 							panelId,
 							movePanel,
+							t,
 						})
 					: [
 							{
 								key: 'move',
-								label: label('Move to section'),
+								label: label(t('dashboard_page_v2.panel_actions.move_to_section')),
 								icon: <FolderInput size={14} />,
 								disabled: true,
 							},
@@ -203,7 +206,7 @@ export function usePanelActionItems({
 							key: 'delete-panel',
 							danger: true,
 							icon: <Trash2 size={14} />,
-							label: label('Delete panel'),
+							label: label(t('dashboard_page_v2.panel_actions.delete_panel')),
 							disabled: isLocked || !panelActions,
 							onClick: (): void => requestDelete(),
 						},
@@ -233,6 +236,7 @@ export function usePanelActionItems({
 		movePanel,
 		clonePanel,
 		requestDelete,
+		t,
 	]);
 
 	return { items, deleteConfirm };

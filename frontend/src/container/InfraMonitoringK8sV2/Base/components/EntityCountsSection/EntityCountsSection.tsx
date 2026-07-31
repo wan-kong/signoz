@@ -10,16 +10,19 @@ import ROUTES from 'constants/routes';
 import { Link } from 'react-router-dom';
 import { DataSource } from 'types/common/queryBuilder';
 import { v4 as uuid } from 'uuid';
+import { useTranslation } from 'react-i18next';
 
 import {
 	INFRA_MONITORING_K8S_PARAMS_KEYS,
 	InfraMonitoringEntity,
 } from '../../../constants';
+import { translateInfraText } from 'container/InfraMonitoringK8s/i18n';
 import { getDrawerDurationMs } from '../../useDrawerLifecycleStore';
 import styles from './EntityCountsSection.module.scss';
 
 export interface EntityCountConfig<T> {
 	label: string;
+	labelKey?: string;
 	getValue: (entity: T) => number;
 	targetCategory: InfraMonitoringEntity;
 }
@@ -43,6 +46,8 @@ export function EntityCountsSection<T>({
 	entityType,
 	activeTab,
 }: EntityCountsSectionProps<T>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
+
 	const handleCardNavigate = (cardLabel: string): void => {
 		logInfraExplorerNavigatedEvent({
 			entityType,
@@ -121,19 +126,24 @@ export function EntityCountsSection<T>({
 
 	return (
 		<div className={styles.countsContainer}>
-			{countsConfig.map((config) => (
-				<div
-					key={config.label}
-					className={styles.countCard}
-					data-testid={`count-card-${config.label.toLowerCase().replace(/\s+/g, '-')}`}
-				>
+			{countsConfig.map((config) => {
+				const translatedLabel = config.labelKey
+					? t(config.labelKey, config.label)
+					: translateInfraText(t, config.label);
+
+				return (
+					<div
+						key={config.label}
+						className={styles.countCard}
+						data-testid={`count-card-${config.label.toLowerCase().replace(/\s+/g, '-')}`}
+					>
 					<Typography.Text
 						color="muted"
 						size="small"
 						weight="medium"
 						className={styles.countLabel}
 					>
-						{config.label}
+						{translatedLabel}
 					</Typography.Text>
 					{config.getValue(entity) ? (
 						<Typography.Text
@@ -152,7 +162,10 @@ export function EntityCountsSection<T>({
 						data-testid={`navigate-${config.label.toLowerCase().replace(/\s+/g, '-')}`}
 					>
 						<TooltipSimple
-							title={`View ${config.label.toLowerCase()} of '${selectedItem}'`}
+							title={t('k8s.view_entity_of_selected_item', {
+								entity: translatedLabel.toLowerCase(),
+								selectedItem,
+							})}
 							side="top"
 							arrow
 						>
@@ -166,7 +179,8 @@ export function EntityCountsSection<T>({
 						</TooltipSimple>
 					</Link>
 				</div>
-			))}
+				);
+			})}
 		</div>
 	);
 }

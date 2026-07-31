@@ -19,11 +19,11 @@ function Delete({ notifications, id }: DeleteProps): JSX.Element {
 			});
 
 			notifications.success({
-				message: 'Success',
+				message: t('success'),
 				description: t('channel_delete_success'),
 			});
 			// Invalidate and refetch
-			queryClient.invalidateQueries(['getChannels']);
+			void queryClient.invalidateQueries(['getChannels']);
 			setLoading(false);
 		} catch (error) {
 			notifications.error({
@@ -41,7 +41,7 @@ function Delete({ notifications, id }: DeleteProps): JSX.Element {
 			type="link"
 			onClick={onClickHandler}
 		>
-			Delete
+			{t('delete')}
 		</Button>
 	);
 }

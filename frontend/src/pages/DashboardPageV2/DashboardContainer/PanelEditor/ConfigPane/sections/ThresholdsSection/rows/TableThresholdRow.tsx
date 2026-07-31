@@ -3,6 +3,7 @@ import {
 	type DashboardtypesTableThresholdDTO,
 	type DashboardtypesThresholdFormatDTO,
 } from 'api/generated/services/sigNoz.schemas';
+import { useTranslation } from 'react-i18next';
 import { formatPanelValue } from 'pages/DashboardPageV2/DashboardContainer/Panels/utils/formatPanelValue';
 
 import type { TableColumnOption } from '../../../../hooks/useTableColumns';
@@ -50,6 +51,7 @@ function TableThresholdRow({
 	onDiscard,
 	onRemove,
 }: TableThresholdRowProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { draft, setDraft, setValue } = useThresholdDraft(
 		threshold,
 		isEditing,
@@ -64,6 +66,14 @@ function TableThresholdRow({
 	const columnItems = tableColumns.map((column) => ({
 		value: column.key,
 		label: column.label,
+	}));
+	const operatorOptions = OPERATOR_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
+	const formatOptions = FORMAT_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
 	}));
 
 	const symbol = threshold.operator ? OPERATOR_SYMBOL[threshold.operator] : '';
@@ -89,19 +99,21 @@ function TableThresholdRow({
 			onRemove={onRemove}
 		>
 			<ThresholdSelectField
-				label="Column"
+				label={t('dashboard_page_v2.panel_config.thresholds.column')}
 				testId={`table-threshold-column-${index}`}
-				placeholder="Select column"
+				placeholder={t('dashboard_page_v2.panel_config.thresholds.select_column')}
 				value={draft.columnName || undefined}
 				items={columnItems}
 				onChange={(columnName): void => setDraft((d) => ({ ...d, columnName }))}
 			/>
 			<ThresholdSelectField
-				label="If value is"
+				label={t('dashboard_page_v2.panel_config.thresholds.if_value_is')}
 				testId={`table-threshold-operator-${index}`}
-				placeholder="Select condition"
+				placeholder={t(
+					'dashboard_page_v2.panel_config.thresholds.select_condition',
+				)}
 				value={draft.operator}
-				items={OPERATOR_OPTIONS}
+				items={operatorOptions}
 				onChange={(operator): void =>
 					setDraft((d) => ({
 						...d,
@@ -119,7 +131,7 @@ function TableThresholdRow({
 				invalidTestId={`table-threshold-unit-invalid-${index}`}
 				value={draft.unit}
 				scopeUnit={columnUnit}
-				scopeLabel="column unit"
+				scopeLabel={t('dashboard_page_v2.panel_config.thresholds.column_unit')}
 				onChange={(unit): void => setDraft((d) => ({ ...d, unit }))}
 			/>
 			<ThresholdColorField
@@ -128,11 +140,11 @@ function TableThresholdRow({
 				onChange={(color): void => setDraft((d) => ({ ...d, color }))}
 			/>
 			<ThresholdSelectField
-				label="Display"
+				label={t('dashboard_page_v2.panel_config.thresholds.display')}
 				testId={`table-threshold-format-${index}`}
-				placeholder="Select display"
+				placeholder={t('dashboard_page_v2.panel_config.thresholds.select_display')}
 				value={draft.format}
-				items={FORMAT_OPTIONS}
+				items={formatOptions}
 				onChange={(format): void =>
 					setDraft((d) => ({
 						...d,

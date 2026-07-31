@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 
 import ThresholdColorSelect from '../../ThresholdColorSelect';
 
@@ -16,9 +17,13 @@ function ThresholdColorField({
 	value,
 	onChange,
 }: ThresholdColorFieldProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={styles.field}>
-			<Typography.Text className={styles.fieldLabel}>Color</Typography.Text>
+			<Typography.Text className={styles.fieldLabel}>
+				{t('dashboard_page_v2.panel_config.thresholds.color')}
+			</Typography.Text>
 			<ThresholdColorSelect value={value} testId={testId} onChange={onChange} />
 		</div>
 	);

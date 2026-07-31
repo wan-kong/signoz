@@ -34,14 +34,17 @@ export const k8sDaemonSetDetailsMetadataConfig: K8sDetailsMetadataConfig<K8sDaem
 	[
 		{
 			label: 'Daemonset Name',
+			labelKey: 'display.daemonset_name',
 			getValue: (p): string => p.meta.k8s_daemonset_name,
 		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string => p.meta.k8s_cluster_name,
 		},
 		{
 			label: 'Namespace Name',
+			labelKey: 'display.namespace_name',
 			getValue: (p): string => p.meta.k8s_namespace_name,
 		},
 	];
@@ -66,18 +69,22 @@ export const k8sDaemonSetGetEntityName = (item: K8sDaemonSetsData): string =>
 export const daemonSetWidgetInfo = [
 	{
 		title: 'CPU usage, request, limits',
+		titleKey: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 	},
 	{
 		title: 'Memory usage, request, limits',
+		titleKey: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 	},
 	{
 		title: 'Network IO',
+		titleKey: 'display.network_io',
 		yAxisUnit: 'binBps',
 	},
 	{
 		title: 'Network errors count',
+		titleKey: 'display.network_errors_count',
 		yAxisUnit: '',
 	},
 ];

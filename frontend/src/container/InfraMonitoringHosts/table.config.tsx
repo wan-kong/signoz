@@ -12,6 +12,7 @@ import {
 import { InfraMonitoringEntity } from 'container/InfraMonitoringK8s/constants';
 import { useInfraMonitoringGroupBy } from 'container/InfraMonitoringK8s/hooks';
 import EntityGroupHeader from 'container/InfraMonitoringK8s/Base/EntityGroupHeader';
+import { InfraTrans } from 'container/InfraMonitoringK8s/i18n';
 
 import { HostnameCell } from './utils';
 
@@ -47,7 +48,12 @@ function HostGroupCell({ row }: { row: HostData }): JSX.Element {
 export const hostColumnsConfig: TableColumnDef<HostData>[] = [
 	{
 		id: 'hostGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="HOST GROUP" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="HOST GROUP"
+				titleKey="display.host_group_uppercase"
+			/>
+		),
 		accessorFn: (row): string => row.hostName ?? '',
 		width: { min: 300 },
 		enableSort: false,
@@ -64,7 +70,11 @@ export const hostColumnsConfig: TableColumnDef<HostData>[] = [
 	{
 		id: 'hostName',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader title="Hostname" icon={<Container size={14} />} />
+			<EntityGroupHeader
+				title="Hostname"
+				titleKey="display.hostname"
+				icon={<Container size={14} />}
+			/>
 		),
 		accessorFn: (row): string => row.hostName ?? '',
 		width: { min: 290 },
@@ -81,8 +91,15 @@ export const hostColumnsConfig: TableColumnDef<HostData>[] = [
 		id: 'active',
 		header: (): React.ReactNode => (
 			<div className={styles.statusHeader}>
-				Status
-				<Tooltip title="Sent system metrics in last 10 mins">
+				<InfraTrans i18nKey="display.status" fallback="Status" />
+				<Tooltip
+					title={
+						<InfraTrans
+							i18nKey="display.sent_system_metrics_in_last_10_mins"
+							fallback="Sent system metrics in last 10 mins"
+						/>
+					}
+				>
 					<Info size="md" />
 				</Tooltip>
 			</div>
@@ -98,7 +115,12 @@ export const hostColumnsConfig: TableColumnDef<HostData>[] = [
 						active ? styles.statusTagActive : styles.statusTagInactive
 					}`}
 				>
-					{active ? 'ACTIVE' : 'INACTIVE'}
+					<InfraTrans
+						i18nKey={
+							active ? 'display.active_uppercase' : 'display.inactive_uppercase'
+						}
+						fallback={active ? 'ACTIVE' : 'INACTIVE'}
+					/>
 				</Badge>
 			);
 		},
@@ -106,7 +128,9 @@ export const hostColumnsConfig: TableColumnDef<HostData>[] = [
 	{
 		id: 'cpu',
 		header: (): React.ReactNode => (
-			<div className={styles.columnHeaderRight}>CPU Usage</div>
+			<div className={styles.columnHeaderRight}>
+				<InfraTrans i18nKey="display.cpu_usage" fallback="CPU Usage" />
+			</div>
 		),
 		accessorFn: (row): number => row.cpu,
 		width: { min: 220 },
@@ -130,8 +154,15 @@ export const hostColumnsConfig: TableColumnDef<HostData>[] = [
 		id: 'memory',
 		header: (): React.ReactNode => (
 			<div className={`${styles.columnHeaderRight} ${styles.memoryUsageHeader}`}>
-				Memory Usage
-				<Tooltip title="Excluding cache memory">
+				<InfraTrans i18nKey="display.memory_usage" fallback="Memory Usage" />
+				<Tooltip
+					title={
+						<InfraTrans
+							i18nKey="display.excluding_cache_memory"
+							fallback="Excluding cache memory"
+						/>
+					}
+				>
 					<Info size="md" />
 				</Tooltip>
 			</div>
@@ -157,7 +188,9 @@ export const hostColumnsConfig: TableColumnDef<HostData>[] = [
 	{
 		id: 'wait',
 		header: (): React.ReactNode => (
-			<div className={styles.columnHeaderRight}>IOWait</div>
+			<div className={styles.columnHeaderRight}>
+				<InfraTrans i18nKey="display.io_wait" fallback="IOWait" />
+			</div>
 		),
 		accessorFn: (row): number => row.wait,
 		width: { min: 100, default: 100 },
@@ -179,7 +212,9 @@ export const hostColumnsConfig: TableColumnDef<HostData>[] = [
 	{
 		id: 'load15',
 		header: (): React.ReactNode => (
-			<div className={styles.columnHeaderRight}>Load Avg</div>
+			<div className={styles.columnHeaderRight}>
+				<InfraTrans i18nKey="display.load_avg" fallback="Load Avg" />
+			</div>
 		),
 		accessorFn: (row): number => row.load15,
 		width: { min: 100, default: 100 },

@@ -1,4 +1,5 @@
 import { Pencil, Trash2 } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import type { DashboardtypesLinkDTO } from 'api/generated/services/sigNoz.schemas';
@@ -19,7 +20,11 @@ function ContextLinkListItem({
 	onEdit,
 	onRemove,
 }: ContextLinkListItemProps): JSX.Element {
-	const label = link.name?.trim() || link.url || 'Untitled link';
+	const { t } = useTranslation('dashboard');
+	const label =
+		link.name?.trim() ||
+		link.url ||
+		t('dashboard_page_v2.panel_config.context_links.untitled_link');
 
 	return (
 		<div className={styles.listItem} data-testid={`context-link-item-${index}`}>
@@ -37,7 +42,9 @@ function ContextLinkListItem({
 					variant="ghost"
 					color="secondary"
 					size="icon"
-					aria-label={`Edit link ${index + 1}`}
+					aria-label={t('dashboard_page_v2.panel_config.context_links.edit_link', {
+						index: index + 1,
+					})}
 					data-testid={`context-link-edit-${index}`}
 					onClick={onEdit}
 				>
@@ -48,7 +55,9 @@ function ContextLinkListItem({
 					variant="ghost"
 					color="destructive"
 					size="icon"
-					aria-label={`Remove link ${index + 1}`}
+					aria-label={t('dashboard_page_v2.panel_config.context_links.remove_link', {
+						index: index + 1,
+					})}
 					data-testid={`context-link-remove-${index}`}
 					onClick={onRemove}
 				>

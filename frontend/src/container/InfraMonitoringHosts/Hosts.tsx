@@ -14,9 +14,11 @@ import {
 	useInfraMonitoringFiltersK8s,
 	useInfraMonitoringPageListing,
 } from 'container/InfraMonitoringK8s/hooks';
+import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useQueryOperations } from 'hooks/queryBuilder/useQueryBuilderOperations';
 import { useAppContext } from 'providers/App/App';
+import { useTranslation } from 'react-i18next';
 import { Query } from 'types/api/queryBuilder/queryBuilderData';
 
 import {
@@ -41,6 +43,7 @@ import styles from './InfraMonitoringHosts.module.scss';
 import { ArrowUpToLine, Filter } from '@signozhq/icons';
 
 function Hosts(): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const [showFilters, setShowFilters] = useState(true);
 	const [, setCurrentPage] = useInfraMonitoringPageListing();
 	const [urlFilters, setUrlFilters] = useInfraMonitoringFiltersK8s();
@@ -141,8 +144,16 @@ function Hosts(): JSX.Element {
 					{showFilters && (
 						<div className={styles.quickFiltersContainer}>
 							<div className={styles.quickFiltersContainerHeader}>
-								<Typography.Text>Filters</Typography.Text>
-								<Tooltip title="Collapse Filters">
+								<Typography.Text>
+									{translateInfraKey(t, 'display.filters', 'Filters')}
+								</Typography.Text>
+								<Tooltip
+									title={translateInfraKey(
+										t,
+										'display.collapse_filters',
+										'Collapse Filters',
+									)}
+								>
 									<ArrowUpToLine
 										style={{ rotate: '270deg', cursor: 'pointer' }}
 										onClick={handleFilterVisibilityChange}

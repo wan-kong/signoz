@@ -1,6 +1,7 @@
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import { ArrowUpRight, RotateCw } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { handleContactSupport } from 'container/Integrations/utils';
 import { DashboardListEvents } from 'pages/DashboardsListPageV2/constants/events';
@@ -17,16 +18,13 @@ interface Props {
 	errorMessage?: string;
 }
 
-const GENERIC_MESSAGE =
-	'Something went wrong :/ Please retry or contact support.';
-const INVALID_QUERY_FALLBACK = 'Please review the syntax and try again.';
-
 function ErrorState({
 	isCloudUser,
 	onRetry,
 	httpStatus,
 	errorMessage,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	// 4xx responses are client errors — the same request will keep failing.
 	// Surface the BE-provided detail (e.g. DSL parse errors) and skip Retry.
 	const isClientError =
@@ -55,15 +53,16 @@ function ErrorState({
 			{isClientError ? (
 				<>
 					<Typography.Text className={styles.errorText}>
-						Invalid query
+						{t('dashboards_list_page_v2.errors.invalid_query')}
 					</Typography.Text>
 					<Typography.Text className={styles.errorDetail}>
-						{cleanedDetail || INVALID_QUERY_FALLBACK}
+						{cleanedDetail ||
+							t('dashboards_list_page_v2.errors.invalid_query_fallback')}
 					</Typography.Text>
 				</>
 			) : (
 				<Typography.Text className={styles.errorText}>
-					{GENERIC_MESSAGE}
+					{t('dashboards_list_page_v2.errors.generic_message')}
 				</Typography.Text>
 			)}
 
@@ -76,7 +75,7 @@ function ErrorState({
 						onClick={handleRetry}
 						testId="dashboards-list-retry"
 					>
-						Retry
+						{t('dashboards_list_page_v2.actions.retry')}
 					</Button>
 				)}
 				<Button
@@ -86,7 +85,7 @@ function ErrorState({
 					onClick={handleContactSupportClick}
 					testId="dashboards-list-contact-support"
 				>
-					Contact Support
+					{t('dashboards_list_page_v2.actions.contact_support')}
 				</Button>
 				<ArrowUpRight size={16} className={styles.learnMoreArrow} />
 			</section>

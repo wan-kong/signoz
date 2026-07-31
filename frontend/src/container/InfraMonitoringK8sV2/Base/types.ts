@@ -51,6 +51,7 @@ export type K8sTableRowData<T> = T & {
 
 export interface K8sDetailsMetadataConfig<T> {
 	label: string;
+	labelKey?: string;
 	getValue: (entity: T) => string | number;
 	render?: (value: string | number, entity: T) => ReactNode;
 }
@@ -63,6 +64,7 @@ export interface K8sDetailsFilters {
 
 export interface K8sDetailsWidgetInfo {
 	title: string;
+	titleKey?: string;
 	yAxisUnit: string;
 }
 
@@ -93,6 +95,7 @@ export interface K8sDetailsCustomTabRenderProps<T> {
 export interface K8sDetailsCustomTab<T> {
 	key: string;
 	label: string;
+	labelKey?: string;
 	icon: ReactNode;
 	render: (props: K8sDetailsCustomTabRenderProps<T>) => ReactNode;
 }

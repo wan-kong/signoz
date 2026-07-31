@@ -1,4 +1,6 @@
+/* oxlint-disable jsx-a11y/prefer-tag-over-role */
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Badge } from '@signozhq/ui/badge';
 import { Button } from '@signozhq/ui/button';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
@@ -18,7 +20,7 @@ import { isModifierKeyPressed } from 'utils/app';
 import { usePinDashboard } from '../../hooks/usePinDashboard';
 import { useDashboardViewsStore } from '../../store/useDashboardViewsStore';
 import type { DashboardListItem } from '../../utils/helpers';
-import { lastUpdatedLabel, tagsToStrings } from '../../utils/helpers';
+import { lastUpdatedCopy, tagsToStrings } from '../../utils/helpers';
 import ActionsPopover from '../ActionsPopover/ActionsPopover';
 import DashboardRowTags from './DashboardRowTags/DashboardRowTags';
 import LegacyDashboardDialog from '../LegacyDashboardDialog/LegacyDashboardDialog';
@@ -40,6 +42,7 @@ function DashboardRow({
 	showUpdatedAt,
 	showUpdatedBy,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { safeNavigate } = useSafeNavigate();
 	const { formatTimezoneAdjustedTimestamp } = useTimezone();
 
@@ -67,6 +70,7 @@ function DashboardRow({
 		createdAt,
 		DATE_TIME_FORMATS.DASH_DATETIME_UTC,
 	);
+	const updatedCopy = lastUpdatedCopy(updatedAt);
 
 	const onClickHandler = (event: React.MouseEvent<HTMLElement>): void => {
 		// Clicks inside portaled overlays (the actions menu, edit modals) bubble here
@@ -104,16 +108,18 @@ function DashboardRow({
 		});
 	};
 
-	const pinLabel = isPinned ? 'Unpin dashboard' : 'Pin dashboard';
+	const pinLabel = isPinned
+		? t('dashboards_list_page_v2.actions.unpin_dashboard')
+		: t('dashboards_list_page_v2.actions.pin_dashboard');
 	const pinTooltip = isLegacy
-		? "This dashboard isn't available in the new experience, so it can't be pinned"
+		? t('dashboards_list_page_v2.legacy.cannot_pin')
 		: pinLabel;
 
 	// Only long titles are truncated, so only they need the full-name tooltip;
 	// wrapping conditionally avoids an empty hanging tooltip for short names.
 	const titleLink = (
-		<div className={styles.titleLink} onClick={onClickHandler}>
-			<img src={image} alt="dashboard-image" className={styles.icon} />
+		<div className={styles.titleLink}>
+			<img src={image} alt="" className={styles.icon} />
 			<Typography.Text
 				data-testid={`dashboard-title-${index}`}
 				className={styles.title}
@@ -125,7 +131,17 @@ function DashboardRow({
 
 	return (
 		<>
-			<div className={styles.row} onClick={onClickHandler}>
+			<div
+				className={styles.row}
+				role="button"
+				tabIndex={0}
+				onClick={onClickHandler}
+				onKeyDown={(event): void => {
+					if (event.key === 'Enter' || event.key === ' ') {
+						onClickHandler(event as unknown as React.MouseEvent<HTMLElement>);
+					}
+				}}
+			>
 				<div className={styles.titleWithAction}>
 					<div className={styles.titleBlock}>
 						{name.length > 50 ? (
@@ -147,7 +163,7 @@ function DashboardRow({
 								className={styles.legacyBadge}
 								testId={`dashboard-legacy-${index}`}
 							>
-								Legacy
+								{t('dashboards_list_page_v2.legacy.badge')}
 							</Badge>
 						)}
 					</div>
@@ -156,7 +172,7 @@ function DashboardRow({
 
 					{isLocked && (
 						<TooltipSimple
-							title="This dashboard is locked"
+							title={t('dashboards_list_page_v2.actions.dashboard_is_locked')}
 							side="top"
 							disableHoverableContent
 						>
@@ -228,14 +244,16 @@ function DashboardRow({
 					{showUpdatedAt && (
 						<div className={styles.createdAt}>
 							<CalendarClock size={14} />
-							<Typography.Text>{lastUpdatedLabel(updatedAt)}</Typography.Text>
+							<Typography.Text>
+								{t(updatedCopy.key, { count: updatedCopy.count })}
+							</Typography.Text>
 						</div>
 					)}
 
 					{updatedBy && showUpdatedBy && (
 						<div className={styles.updatedBy}>
 							<Typography.Text className={styles.byLabel}>
-								Last Updated By -
+								{t('dashboards_list_page_v2.columns.last_updated_by_dash')}
 							</Typography.Text>
 							<div className={styles.avatar}>
 								<Typography.Text className={styles.avatarText}>

@@ -29,6 +29,7 @@ import { useQueryState } from 'nuqs';
 import { DataSource } from 'types/common/queryBuilder';
 import { parseAsJsonNoValidate } from 'utils/nuqsParsers';
 import { validateQuery } from 'utils/queryValidationUtils';
+import { useTranslation } from 'react-i18next';
 
 import EntityDateTimeSelector from '../EntityDateTimeSelector/EntityDateTimeSelector';
 import { useEntityDetailsTime } from '../EntityDateTimeSelector/useEntityDetailsTime';
@@ -54,6 +55,7 @@ function EntityTracesContent({
 	queryKey,
 	category,
 }: Omit<Props, 'initialExpression'>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const { timeRange } = useEntityDetailsTime();
 	const expression = useExpression();
 	const inputExpression = useInputExpression();
@@ -143,6 +145,7 @@ function EntityTracesContent({
 	const traceListColumns = getTraceListColumns(
 		selectedEntityTracesColumns,
 		formatTimezoneAdjustedTimestamp,
+		t,
 	);
 
 	const isKeyNotFound = isKeyNotFoundError(error);

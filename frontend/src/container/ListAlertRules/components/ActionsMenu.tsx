@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Ellipsis } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
@@ -32,6 +33,7 @@ function ActionsMenu({
 	onEdit,
 	isLoading: externalLoading = false,
 }: ActionsMenuProps): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const queryClient = useQueryClient();
 
 	const handleToggle = useCallback((): void => {
@@ -42,18 +44,24 @@ function ActionsMenu({
 				disabled: newDisabled,
 			} as RuletypesPostableRuleDTO).then(() => invalidateListRules(queryClient)),
 			{
-				loading: newDisabled ? 'Disabling alert...' : 'Enabling alert...',
-				success: newDisabled ? 'Alert disabled' : 'Alert enabled',
+				loading: newDisabled
+					? t('alert_rules.actions.disabling')
+					: t('alert_rules.actions.enabling'),
+				success: newDisabled
+					? t('alert_rules.actions.disabled')
+					: t('alert_rules.actions.enabled'),
 				error: (error): string => {
 					const apiError = convertToApiError(
 						error as AxiosError<RenderErrorResponseDTO>,
 					);
-					return apiError?.getErrorMessage() || 'Failed to toggle alert state';
+					return (
+						apiError?.getErrorMessage() || t('alert_rules.actions.toggle_failed')
+					);
 				},
 				position: 'top-right',
 			},
 		);
-	}, [rule, queryClient]);
+	}, [rule, queryClient, t]);
 
 	const handleEdit = useCallback((): void => {
 		alertActionLogEvent(ALERT_ACTIONS.EDIT, rule);
@@ -77,20 +85,23 @@ function ActionsMenu({
 				if (newRule) {
 					onEdit(newRule as AlertRule);
 				}
+				return response;
 			}),
 			{
-				loading: 'Cloning alert...',
-				success: 'Alert cloned successfully',
+				loading: t('alert_rules.actions.cloning'),
+				success: t('alert_rules.actions.cloned'),
 				error: (error): string => {
 					const apiError = convertToApiError(
 						error as AxiosError<RenderErrorResponseDTO>,
 					);
-					return apiError?.getErrorMessage() || 'Failed to clone alert';
+					return (
+						apiError?.getErrorMessage() || t('alert_rules.actions.clone_failed')
+					);
 				},
 				position: 'top-right',
 			},
 		);
-	}, [rule, queryClient, onEdit]);
+	}, [rule, queryClient, onEdit, t]);
 
 	const handleDelete = useCallback((): void => {
 		alertActionLogEvent(ALERT_ACTIONS.DELETE, rule);
@@ -99,49 +110,53 @@ function ActionsMenu({
 				invalidateListRules(queryClient),
 			),
 			{
-				loading: 'Deleting alert...',
-				success: 'Alert deleted successfully',
+				loading: t('alert_rules.actions.deleting'),
+				success: t('alert_rules.actions.deleted'),
 				error: (error): string => {
 					const apiError = convertToApiError(
 						error as AxiosError<RenderErrorResponseDTO>,
 					);
-					return apiError?.getErrorMessage() || 'Failed to delete alert';
+					return (
+						apiError?.getErrorMessage() || t('alert_rules.actions.delete_failed')
+					);
 				},
 				position: 'top-right',
 			},
 		);
-	}, [rule, queryClient]);
+	}, [rule, queryClient, t]);
 
 	const menuItems = useMemo(
 		() => [
 			{
 				key: 'toggle',
-				label: rule.disabled ? 'Enable' : 'Disable',
+				label: rule.disabled
+					? t('alert_rules.actions.enable')
+					: t('alert_rules.actions.disable'),
 				disabled: externalLoading,
 				onClick: handleToggle,
 			},
 			{
 				key: 'edit',
-				label: 'Edit',
+				label: t('alert_rules.actions.edit'),
 				disabled: externalLoading,
 				onClick: handleEdit,
 			},
 			{
 				key: 'edit-new-tab',
-				label: 'Edit in New Tab',
+				label: t('alert_rules.actions.edit_in_new_tab'),
 				disabled: externalLoading,
 				onClick: handleEditNewTab,
 			},
 			{
 				key: 'clone',
-				label: 'Clone',
+				label: t('alert_rules.actions.clone'),
 				disabled: externalLoading,
 				onClick: handleClone,
 			},
 			{ key: 'divider', type: 'divider' as const },
 			{
 				key: 'delete',
-				label: 'Delete',
+				label: t('alert_rules.actions.delete'),
 				disabled: externalLoading,
 				danger: true,
 				onClick: handleDelete,
@@ -155,6 +170,7 @@ function ActionsMenu({
 			handleEditNewTab,
 			handleClone,
 			handleDelete,
+			t,
 		],
 	);
 

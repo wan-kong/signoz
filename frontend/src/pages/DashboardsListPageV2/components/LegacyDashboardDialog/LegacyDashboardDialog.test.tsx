@@ -1,4 +1,5 @@
 import { render, screen, userEvent } from 'tests/test-utils';
+import { dashboardI18nProviderProps } from 'tests/dashboardI18n';
 
 import LegacyDashboardDialog from './LegacyDashboardDialog';
 
@@ -33,6 +34,8 @@ describe('LegacyDashboardDialog', () => {
 				dashboardName="My Legacy Dashboard"
 				onClose={jest.fn()}
 			/>,
+			undefined,
+			dashboardI18nProviderProps,
 		);
 	};
 

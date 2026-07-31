@@ -13,6 +13,7 @@ import {
 	CustomTimeType,
 	Time,
 } from 'container/TopNav/DateTimeSelectionV2/types';
+import { useTranslation } from 'react-i18next';
 
 import { useEntityDetailsTime } from './useEntityDetailsTime';
 
@@ -29,6 +30,7 @@ function EntityDateTimeSelector({
 	category,
 	view,
 }: EntityDateTimeSelectorProps): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const {
 		timeRange,
 		selectedInterval,
@@ -55,7 +57,10 @@ function EntityDateTimeSelector({
 	return (
 		<div className={styles.container}>
 			{hasTimeChanged && (
-				<TooltipSimple title="Reset to list time" side="bottom">
+				<TooltipSimple
+					title={t('display.reset_to_list_time', 'Reset to list time')}
+					side="bottom"
+				>
 					<Button
 						variant="outlined"
 						color="secondary"
@@ -63,7 +68,7 @@ function EntityDateTimeSelector({
 						data-testid="reset-to-list-time-button"
 						prefix={<Undo size={14} />}
 					>
-						Reset
+						{t('display.reset', 'Reset')}
 					</Button>
 				</TooltipSimple>
 			)}

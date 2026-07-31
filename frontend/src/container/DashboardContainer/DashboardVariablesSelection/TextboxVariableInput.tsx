@@ -1,4 +1,5 @@
 import { memo, useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input, InputRef } from 'antd';
 
 import { VariableItemProps } from './VariableItem';
@@ -12,6 +13,7 @@ function TextboxVariableInput({
 	variableData,
 	onValueUpdate,
 }: TextboxVariableInputProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const handleChange = useCallback(
 		(inputValue: string | string[]): void => {
 			if (inputValue === variableData.selectedValue) {
@@ -70,7 +72,7 @@ function TextboxVariableInput({
 		<Input
 			key={variableData.id}
 			ref={textboxInputRef}
-			placeholder="Enter value"
+			placeholder={t('dashboard_container.variables.enter_value')}
 			data-testid={`variable-textbox-${variableData.id}`}
 			bordered={false}
 			value={textboxInputValue}

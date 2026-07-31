@@ -3,10 +3,13 @@ import { Typography } from '@signozhq/ui/typography';
 import HeaderRightSection from 'components/HeaderRightSection/HeaderRightSection';
 import ListOfAllDashboard from 'container/ListOfDashboard';
 import { LayoutGrid } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import './DashboardsListPage.styles.scss';
 
 function DashboardsListPage(): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<Space
 			direction="vertical"
@@ -17,7 +20,9 @@ function DashboardsListPage(): JSX.Element {
 			<div className="dashboard-header">
 				<div className="dashboard-header-left">
 					<LayoutGrid size={14} className="icon" />
-					<Typography.Text className="text">Dashboards</Typography.Text>
+					<Typography.Text className="text">
+						{t('dashboards_list_page.title')}
+					</Typography.Text>
 				</div>
 
 				<HeaderRightSection

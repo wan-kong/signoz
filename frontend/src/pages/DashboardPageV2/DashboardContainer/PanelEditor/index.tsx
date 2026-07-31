@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	ResizableHandle,
 	ResizablePanel,
@@ -90,6 +91,7 @@ function PanelEditorContainer({
 	onClose,
 	onSaved,
 }: PanelEditorContainerProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	// Shared editing pipeline (draft + query + staged-query sync + kind switch). A new
 	// panel always serializes its seed query and seeds the builder's default signal.
 	const {
@@ -239,7 +241,7 @@ function PanelEditorContainer({
 			const savedPanelId = await save(buildSaveSpec(draft.spec));
 			// Reveal the saved panel once the dashboard re-renders.
 			setScrollTargetId(savedPanelId);
-			toast.success('Panel saved', {
+			toast.success(t('dashboard_page_v2.panel_editor.panel_saved'), {
 				position: 'top-center',
 			});
 			onSaved();

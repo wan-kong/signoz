@@ -1,6 +1,7 @@
 import type { DraggableAttributes } from '@dnd-kit/core';
 import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { ChevronDown, ChevronRight, GripVertical } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
@@ -46,6 +47,8 @@ function SectionHeader({
 	actions,
 	disabledReason = '',
 }: SectionHeaderProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={cx(styles.header, { [styles.headerOpen]: open })}>
 			{dragHandle ? (
@@ -56,7 +59,7 @@ function SectionHeader({
 					size="icon"
 					className={styles.dragHandle}
 					ref={dragHandle.setActivatorNodeRef}
-					aria-label="Drag to reorder section"
+					aria-label={t('dashboard_page_v2.section_actions.drag_to_reorder')}
 					data-testid={`dashboard-section-drag-${sectionId}`}
 					{...dragHandle.attributes}
 					{...dragHandle.listeners}

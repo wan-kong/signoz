@@ -46,7 +46,12 @@ export type NamespaceTableColumnConfig =
 export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 	{
 		id: 'namespaceGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="Namespace Group" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="Namespace Group"
+				titleKey="display.namespace_group"
+			/>
+		),
 		accessorFn: (row): string => row.namespaceName || '',
 		width: { min: 290 },
 		enableSort: false,
@@ -70,6 +75,7 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Namespace Name"
+				titleKey="display.namespace_name"
 				icon={<FilePenLine data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/namespaces#namespace-name"
 			/>

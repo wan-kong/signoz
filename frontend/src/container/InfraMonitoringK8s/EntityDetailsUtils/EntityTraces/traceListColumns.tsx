@@ -10,6 +10,8 @@ import {
 import { RowData } from 'lib/query/createTableColumnsFromQuery';
 import { BaseAutocompleteData } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { FormatTimezoneAdjustedTimestamp } from 'hooks/useTimezoneFormatter/useTimezoneFormatter';
+import { TFunction } from 'i18next';
+import { translateInfraKey, translateInfraText } from '../../i18n';
 import styles from './traceListColumns.module.scss';
 
 const keyToLabelMap: Record<string, string> = {
@@ -62,10 +64,11 @@ const getValueForKey = (data: Record<string, any>, key: string): any => {
 export const getTraceListColumns = (
 	selectedColumns: BaseAutocompleteData[],
 	formatTimezoneAdjustedTimestamp: FormatTimezoneAdjustedTimestamp,
+	t: TFunction,
 ): ColumnsType<RowData> => {
 	const columns: ColumnsType<RowData> =
 		selectedColumns.map(({ dataType, key, type }) => ({
-			title: keyToLabelMap[getPrimaryKey(key)],
+			title: translateInfraText(t, keyToLabelMap[getPrimaryKey(key)]),
 			dataIndex: key,
 			key: `${key}-${dataType}-${type}`,
 			width: 145,
@@ -90,7 +93,7 @@ export const getTraceListColumns = (
 					return (
 						<BlockLink to={getTraceLink(itemData)} openInNewTab>
 							<Typography data-testid={key} className={styles.cellText}>
-								N/A
+								{translateInfraKey(t, 'display.not_available_abbrev', 'N/A')}
 							</Typography>
 						</BlockLink>
 					);
@@ -102,7 +105,9 @@ export const getTraceListColumns = (
 					if (!httpMethod) {
 						return (
 							<BlockLink to={getTraceLink(itemData)} openInNewTab>
-								<Typography className={styles.cellText}>N/A</Typography>
+								<Typography className={styles.cellText}>
+									{translateInfraKey(t, 'display.not_available_abbrev', 'N/A')}
+								</Typography>
 							</BlockLink>
 						);
 					}
@@ -130,7 +135,9 @@ export const getTraceListColumns = (
 						return (
 							<BlockLink to={getTraceLink(itemData)} openInNewTab>
 								<Typography className={styles.cellText}>
-									{numericCode === 0 || !statusCode ? 'N/A' : statusCode}
+									{numericCode === 0 || !statusCode
+										? translateInfraKey(t, 'display.not_available_abbrev', 'N/A')
+										: statusCode}
 								</Typography>
 							</BlockLink>
 						);

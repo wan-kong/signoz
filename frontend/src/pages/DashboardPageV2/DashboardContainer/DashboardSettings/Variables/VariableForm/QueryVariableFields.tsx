@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
@@ -26,6 +27,7 @@ function QueryVariableFields({
 	onPreview,
 	onError,
 }: QueryVariableFieldsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [isRunning, setIsRunning] = useState(false);
 	const hasAutoRun = useRef(false);
 
@@ -39,7 +41,7 @@ function QueryVariableFields({
 				onPreview(res.payload.variableValues ?? []);
 				success = true;
 			} else {
-				onError(res.error || 'Failed to run query');
+				onError(res.error || t('dashboard_page_v2.variables.query_failed'));
 				onPreview([]);
 			}
 		} catch (err) {
@@ -47,8 +49,10 @@ function QueryVariableFields({
 			const detail = (err as { details?: { error?: string } }).details?.error;
 			const message =
 				detail && detail.includes('Syntax error:')
-					? 'Please make sure query is valid and dependent variables are selected'
-					: detail || (err as Error).message || 'Failed to run query';
+					? t('dashboard_page_v2.variables.invalid_dependent_query')
+					: detail ||
+						(err as Error).message ||
+						t('dashboard_page_v2.variables.query_failed');
 			onError(message);
 			onPreview([]);
 		} finally {
@@ -73,7 +77,9 @@ function QueryVariableFields({
 	return (
 		<div className={styles.queryContainer}>
 			<div className={styles.labelContainer}>
-				<Typography.Text className={styles.label}>Query</Typography.Text>
+				<Typography.Text className={styles.label}>
+					{t('dashboard_page_v2.variables.query')}
+				</Typography.Text>
 			</div>
 			<div className={styles.editorWrap}>
 				<Editor
@@ -103,7 +109,7 @@ function QueryVariableFields({
 					onClick={runTest}
 					testId="variable-test-run"
 				>
-					Test Run Query
+					{t('dashboard_page_v2.variables.test_run_query')}
 				</Button>
 			</div>
 		</div>

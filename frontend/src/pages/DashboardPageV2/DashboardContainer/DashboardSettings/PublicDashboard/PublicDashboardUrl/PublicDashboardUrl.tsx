@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Copy, ExternalLink, Link2 } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
@@ -17,9 +18,12 @@ function PublicDashboardUrl({
 	onCopy,
 	onOpen,
 }: PublicDashboardUrlProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	return (
 		<div className={styles.fieldGroup}>
-			<Typography.Text className={styles.fieldLabel}>Public link</Typography.Text>
+			<Typography.Text className={styles.fieldLabel}>
+				{t('dashboard_page_v2.public_dashboard.public_link')}
+			</Typography.Text>
 
 			{isPublic ? (
 				<div className={styles.linkField}>
@@ -28,7 +32,7 @@ function PublicDashboardUrl({
 					<Button
 						variant="ghost"
 						size="icon"
-						aria-label="Copy link"
+						aria-label={t('dashboard_page_v2.public_dashboard.copy_link')}
 						testId="public-dashboard-copy-url"
 						onClick={onCopy}
 					>
@@ -37,7 +41,7 @@ function PublicDashboardUrl({
 					<Button
 						variant="ghost"
 						size="icon"
-						aria-label="Open link"
+						aria-label={t('dashboard_page_v2.public_dashboard.open_link')}
 						testId="public-dashboard-open-url"
 						onClick={onOpen}
 					>
@@ -48,7 +52,7 @@ function PublicDashboardUrl({
 				<div className={styles.linkPlaceholder}>
 					<Link2 size={15} className={styles.linkPlaceholderIcon} />
 					<Typography.Text className={styles.linkPlaceholderText}>
-						Your shareable link will appear here once published
+						{t('dashboard_page_v2.public_dashboard.link_placeholder')}
 					</Typography.Text>
 				</div>
 			)}

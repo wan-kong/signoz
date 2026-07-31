@@ -26,7 +26,10 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		{
 			id: 'deploymentGroup',
 			header: (): React.ReactNode => (
-				<EntityGroupHeader title="DEPLOYMENT GROUP" />
+				<EntityGroupHeader
+					title="DEPLOYMENT GROUP"
+					titleKey="display.deployment_group_uppercase"
+				/>
 			),
 			accessorFn: (row): string => row.meta.k8s_deployment_name || '',
 			width: { min: 220 },
@@ -51,6 +54,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
 					title="Deployment Name"
+					titleKey="display.deployment_name"
 					icon={<Computer data-hide-expanded="true" size={14} />}
 				/>
 			),

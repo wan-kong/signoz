@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from '@signozhq/ui/sonner';
 import { useErrorModal } from 'providers/ErrorModalProvider';
 import APIError from 'types/api/error';
@@ -15,6 +16,7 @@ interface UseSaveVariables {
 }
 
 export function useSaveVariables(): UseSaveVariables {
+	const { t } = useTranslation('dashboard');
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
 	const { patchAsync } = useOptimisticPatch();
 	const { showErrorModal } = useErrorModal();
@@ -29,7 +31,7 @@ export function useSaveVariables(): UseSaveVariables {
 			try {
 				setIsSaving(true);
 				await patchAsync(buildVariablesPatch(dtos));
-				toast.success('Variables updated');
+				toast.success(t('dashboard_page_v2.variables.variables_updated'));
 				return true;
 			} catch (error) {
 				showErrorModal(error as APIError);
@@ -38,7 +40,7 @@ export function useSaveVariables(): UseSaveVariables {
 				setIsSaving(false);
 			}
 		},
-		[dashboardId, patchAsync, showErrorModal],
+		[dashboardId, patchAsync, showErrorModal, t],
 	);
 
 	return { save, isSaving };

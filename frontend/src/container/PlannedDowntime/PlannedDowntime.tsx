@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Plus, Search } from '@signozhq/icons';
 import { Color } from '@signozhq/design-tokens';
@@ -34,6 +35,7 @@ import './PlannedDowntime.styles.scss';
 dayjs.locale('en');
 
 export function PlannedDowntime(): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const {
 		data: alertsData,
 		isError,
@@ -105,7 +107,7 @@ export function PlannedDowntime(): JSX.Element {
 	};
 
 	const refetchAllSchedules = (): void => {
-		downtimeSchedules.refetch();
+		void downtimeSchedules.refetch();
 	};
 
 	const {
@@ -122,19 +124,25 @@ export function PlannedDowntime(): JSX.Element {
 			deleteId: deleteData?.id,
 			hideDeleteDowntimeScheduleModal,
 			clearSearch,
+			messages: {
+				somethingWentWrong: t('something_went_wrong'),
+				deleteSuccess: t('planned_downtime.delete_success'),
+			},
 		});
 	};
 
 	return (
 		<div className="planned-downtime-container">
 			<div className="planned-downtime-content">
-				<Typography.Title className="title">Planned Downtime</Typography.Title>
+				<Typography.Title className="title">
+					{t('planned_downtime.title')}
+				</Typography.Title>
 				<Typography.Text className="subtitle">
-					Create and manage planned downtimes.
+					{t('planned_downtime.subtitle')}
 				</Typography.Text>
 				<Flex className="toolbar">
 					<Input
-						placeholder="Search for a planned downtime..."
+						placeholder={t('planned_downtime.search_placeholder')}
 						prefix={<Search size={12} color={Color.BG_VANILLA_400} />}
 						value={searchValue}
 						onChange={handleSearch}
@@ -142,7 +150,7 @@ export function PlannedDowntime(): JSX.Element {
 					<Tooltip
 						title={
 							user?.role === USER_ROLES.VIEWER
-								? 'You need edit permissions to create a planned downtime'
+								? t('planned_downtime.create_permission_tooltip')
 								: ''
 						}
 					>
@@ -158,7 +166,7 @@ export function PlannedDowntime(): JSX.Element {
 						>
 							<Flex align="center" gap={4}>
 								<Plus size={16} />
-								New downtime
+								{t('planned_downtime.new_downtime')}
 							</Flex>
 						</Button>
 					</Tooltip>

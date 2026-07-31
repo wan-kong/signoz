@@ -34,14 +34,17 @@ export const k8sJobDetailsMetadataConfig: K8sDetailsMetadataConfig<K8sJobsData>[
 	[
 		{
 			label: 'Job Name',
+			labelKey: 'display.job_name',
 			getValue: (p): string => p.meta.k8s_job_name,
 		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string => p.meta.k8s_cluster_name,
 		},
 		{
 			label: 'Namespace Name',
+			labelKey: 'display.namespace_name',
 			getValue: (p): string => p.meta.k8s_namespace_name,
 		},
 	];
@@ -66,18 +69,22 @@ export const k8sJobGetEntityName = (item: K8sJobsData): string =>
 export const jobWidgetInfo = [
 	{
 		title: 'CPU usage',
+		titleKey: 'display.cpu_usage_lower',
 		yAxisUnit: '',
 	},
 	{
 		title: 'Memory Usage',
+		titleKey: 'display.memory_usage',
 		yAxisUnit: 'bytes',
 	},
 	{
 		title: 'Network IO',
+		titleKey: 'display.network_io',
 		yAxisUnit: 'binBps',
 	},
 	{
 		title: 'Network errors count',
+		titleKey: 'display.network_errors_count',
 		yAxisUnit: '',
 	},
 ];

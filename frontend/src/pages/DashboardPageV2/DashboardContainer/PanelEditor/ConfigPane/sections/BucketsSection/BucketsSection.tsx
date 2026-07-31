@@ -1,4 +1,5 @@
 import type { ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { Input } from 'antd';
 import type { DashboardtypesHistogramBucketsDTO } from 'api/generated/services/sigNoz.schemas';
@@ -27,6 +28,8 @@ function BucketsSection({
 	controls,
 	onChange,
 }: SectionEditorProps<SectionKind.Buckets>): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	// Empty clears the bound to null (chart auto-sizes); otherwise parse to a number,
 	// ignoring transient non-numeric input by leaving it unset.
 	const handleNumber =
@@ -41,11 +44,13 @@ function BucketsSection({
 		<>
 			{controls.count && (
 				<div className={styles.field}>
-					<Typography.Text>Bucket count</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.buckets.bucket_count')}
+					</Typography.Text>
 					<Input
 						data-testid="panel-editor-v2-bucket-count"
 						type="number"
-						placeholder="Auto"
+						placeholder={t('dashboard_page_v2.panel_config.axes.auto')}
 						value={value?.bucketCount ?? ''}
 						onChange={handleNumber('bucketCount')}
 					/>
@@ -54,11 +59,13 @@ function BucketsSection({
 
 			{controls.width && (
 				<div className={styles.field}>
-					<Typography.Text>Bucket width</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.buckets.bucket_width')}
+					</Typography.Text>
 					<Input
 						data-testid="panel-editor-v2-bucket-width"
 						type="number"
-						placeholder="Auto"
+						placeholder={t('dashboard_page_v2.panel_config.axes.auto')}
 						value={value?.bucketWidth ?? ''}
 						onChange={handleNumber('bucketWidth')}
 					/>
@@ -68,8 +75,10 @@ function BucketsSection({
 			{controls.mergeQueries && (
 				<ConfigSwitch
 					testId="panel-editor-v2-merge-queries"
-					title="Merge active queries"
-					description="Bucket all active queries together into one distribution"
+					title={t('dashboard_page_v2.panel_config.buckets.merge_active_queries')}
+					description={t(
+						'dashboard_page_v2.panel_config.buckets.merge_active_queries_description',
+					)}
 					value={value?.mergeAllActiveQueries ?? false}
 					onChange={(checked): void =>
 						onChange({ ...value, mergeAllActiveQueries: checked })

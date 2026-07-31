@@ -31,7 +31,7 @@ import {
 export type SectionIcon = typeof Hash;
 
 export interface SectionMetadata {
-	title: string;
+	titleKey: string;
 	icon: SectionIcon;
 	description?: string;
 }
@@ -158,15 +158,42 @@ export type SectionConfig =
 // Per-section title + sidebar icon. Pure data; the editor component + spec lens
 // live in the ConfigPane section registry.
 export const SECTION_METADATA = {
-	[SectionKind.Formatting]: { title: 'Formatting & Units', icon: PencilRuler },
-	[SectionKind.Axes]: { title: 'Axes', icon: Scale3D },
-	[SectionKind.Legend]: { title: 'Legend', icon: Signpost },
-	[SectionKind.ChartAppearance]: { title: 'Chart appearance', icon: Palette },
-	[SectionKind.Visualization]: { title: 'Visualization', icon: Wallpaper },
-	[SectionKind.Buckets]: { title: 'Histogram / Buckets', icon: BarChart },
-	[SectionKind.Thresholds]: { title: 'Thresholds', icon: Antenna },
-	[SectionKind.ContextLinks]: { title: 'Context Links', icon: Link2 },
-	[SectionKind.Columns]: { title: 'Columns', icon: Columns3 },
+	[SectionKind.Formatting]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.formatting',
+		icon: PencilRuler,
+	},
+	[SectionKind.Axes]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.axes',
+		icon: Scale3D,
+	},
+	[SectionKind.Legend]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.legend',
+		icon: Signpost,
+	},
+	[SectionKind.ChartAppearance]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.chart_appearance',
+		icon: Palette,
+	},
+	[SectionKind.Visualization]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.visualization',
+		icon: Wallpaper,
+	},
+	[SectionKind.Buckets]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.buckets',
+		icon: BarChart,
+	},
+	[SectionKind.Thresholds]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.thresholds',
+		icon: Antenna,
+	},
+	[SectionKind.ContextLinks]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.context_links',
+		icon: Link2,
+	},
+	[SectionKind.Columns]: {
+		titleKey: 'dashboard_page_v2.panel_config.sections.columns',
+		icon: Columns3,
+	},
 } as const satisfies Record<SectionKind, SectionMetadata>;
 
 /**

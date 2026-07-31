@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { toast } from '@signozhq/ui/sonner';
 import {
@@ -52,6 +53,7 @@ export interface UseSavedViewsResult {
 // Org-shared saved views, backed by the Views API. Exposes the list plus
 // create/update/delete that invalidate the list on success.
 export function useSavedViews(): UseSavedViewsResult {
+	const { t } = useTranslation('dashboard');
 	const queryClient = useQueryClient();
 	const { data, isLoading } = useListDashboardViews();
 
@@ -68,7 +70,7 @@ export function useSavedViews(): UseSavedViewsResult {
 		mutation: {
 			onSuccess: invalidate,
 			onError: (): void => {
-				toast.error('Failed to save view.');
+				toast.error(t('dashboards_list_page_v2.views.failed_to_save'));
 			},
 		},
 	});
@@ -94,7 +96,7 @@ export function useSavedViews(): UseSavedViewsResult {
 				});
 			},
 			onError: (): void => {
-				toast.error('Failed to update view.');
+				toast.error(t('dashboards_list_page_v2.views.failed_to_update'));
 			},
 		},
 	});
@@ -102,7 +104,7 @@ export function useSavedViews(): UseSavedViewsResult {
 		mutation: {
 			onSuccess: invalidate,
 			onError: (): void => {
-				toast.error('Failed to delete view.');
+				toast.error(t('dashboards_list_page_v2.views.failed_to_delete'));
 			},
 		},
 	});

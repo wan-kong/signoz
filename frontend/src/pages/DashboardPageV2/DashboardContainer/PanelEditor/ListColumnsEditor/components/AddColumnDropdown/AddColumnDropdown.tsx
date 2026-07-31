@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import {
 	Combobox,
@@ -38,6 +39,7 @@ function AddColumnDropdown({
 	selectedNames,
 	onToggle,
 }: AddColumnDropdownProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [open, setOpen] = useState(false);
 	const { searchText, setSearchText, suggestions, isFetching } =
 		useListColumnSuggestions(signal);
@@ -55,7 +57,7 @@ function AddColumnDropdown({
 					color="secondary"
 					size="icon"
 					className={styles.addBtn}
-					aria-label="Add column"
+					aria-label={t('dashboard_page_v2.panel_config.add_column')}
 					// `data-testid` (not the `testId` prop) survives the trigger's
 					// `asChild` Slot merge, which otherwise resets it to undefined.
 					data-testid="list-columns-add"
@@ -68,7 +70,7 @@ function AddColumnDropdown({
 					<ComboboxInput
 						value={searchText}
 						onValueChange={setSearchText}
-						placeholder="Search fields"
+						placeholder={t('dashboard_page_v2.panel_config.search_fields')}
 						testId="list-columns-search"
 					/>
 					<ComboboxList>
@@ -78,7 +80,7 @@ function AddColumnDropdown({
 								onSelect={(): void => onToggle({ name: trimmed })}
 								data-testid="list-columns-add-custom"
 							>
-								Add &quot;{trimmed}&quot;
+								{t('dashboard_page_v2.panel_config.add_field', { field: trimmed })}
 							</ComboboxItem>
 						)}
 						{suggestions.map((field) => (
@@ -92,9 +94,15 @@ function AddColumnDropdown({
 								{field.name}
 							</ComboboxItem>
 						))}
-						{isFetching && <ComboboxLoading>Loading…</ComboboxLoading>}
+						{isFetching && (
+							<ComboboxLoading>
+								{t('dashboard_page_v2.panel_config.loading')}
+							</ComboboxLoading>
+						)}
 						{!isFetching && !showCustomAdd && suggestions.length === 0 && (
-							<ComboboxEmpty>No fields found</ComboboxEmpty>
+							<ComboboxEmpty>
+								{t('dashboard_page_v2.panel_config.no_fields_found')}
+							</ComboboxEmpty>
 						)}
 					</ComboboxList>
 				</ComboboxCommand>

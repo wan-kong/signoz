@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
 	Select,
 	SelectContent,
@@ -30,6 +31,7 @@ function DashboardImagePicker({
 	onChange,
 	triggerClassName,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const isCustom = !!image && !SYSTEM_ICON_PATHS.includes(image);
 	const options = isCustom ? [image, ...SYSTEM_ICON_PATHS] : SYSTEM_ICON_PATHS;
 
@@ -41,7 +43,7 @@ function DashboardImagePicker({
 					<SelectItem key={icon} value={icon} className={styles.item}>
 						<img
 							src={resolveDashboardImage(icon)}
-							alt="dashboard-icon"
+							alt={t('dashboard_page_v2.settings.overview.dashboard_icon')}
 							className={styles.image}
 						/>
 					</SelectItem>

@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from '@signozhq/ui/sonner';
 import logEvent from 'api/common/logEvent';
 import { DashboardDetailEvents } from 'pages/DashboardPageV2/constants/events';
@@ -23,6 +24,7 @@ interface UseDownloadPanelImage {
  * delegates to the pure capture util. Failures surface as an error toast.
  */
 export function useDownloadPanelImage(): UseDownloadPanelImage {
+	const { t } = useTranslation('dashboard');
 	const downloadPanelImage = useCallback(
 		async (
 			panelId: string,
@@ -44,18 +46,18 @@ export function useDownloadPanelImage(): UseDownloadPanelImage {
 					panelId,
 				});
 			} catch {
-				toast.error('Could not download panel.', {
+				toast.error(t('dashboard_page_v2.panel_actions.download_failed'), {
 					action: {
-						label: 'Dismiss',
+						label: t('dashboard_page_v2.panel_actions.dismiss'),
 						onClick: (): void => {
 							toast.dismiss();
 						},
 					},
-					description: 'Something went wrong while capturing the panel image.',
+					description: t('dashboard_page_v2.panel_actions.capture_failed'),
 				});
 			}
 		},
-		[],
+		[t],
 	);
 
 	return { downloadPanelImage };

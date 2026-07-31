@@ -18,15 +18,14 @@ function UnsavedChangesFooter({
 	onDiscard,
 	onSave,
 }: UnsavedChangesFooterProps): JSX.Element {
-	const { t } = useTranslation('common');
+	const { t } = useTranslation(['dashboard', 'common']);
 
 	return (
 		<div className={styles.overviewSettingsFooter}>
 			<div className={styles.unsaved}>
 				<div className={styles.unsavedDot} />
 				<Typography.Text className={styles.unsavedChanges}>
-					{count} unsaved change
-					{count > 1 && 's'}
+					{t('dashboard:dashboard_page_v2.settings.unsaved_changes', { count })}
 				</Typography.Text>
 			</div>
 			<div className={styles.footerActionButtons}>
@@ -37,7 +36,7 @@ function UnsavedChangesFooter({
 					prefix={<X size={14} />}
 					onClick={onDiscard}
 				>
-					Discard
+					{t('dashboard:dashboard_page_v2.settings.discard')}
 				</Button>
 				<Button
 					variant="solid"
@@ -48,7 +47,7 @@ function UnsavedChangesFooter({
 					testId="save-dashboard-config"
 					onClick={onSave}
 				>
-					{t('save')}
+					{t('common:save')}
 				</Button>
 			</div>
 		</div>

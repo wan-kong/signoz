@@ -23,9 +23,14 @@ export const k8sNodeGetSelectedItemExpression = (
 
 export const k8sNodeDetailsMetadataConfig: K8sDetailsMetadataConfig<InframonitoringtypesNodeRecordDTO>[] =
 	[
-		{ label: 'Node Name', getValue: (p): string => p.nodeName || '' },
+		{
+			label: 'Node Name',
+			labelKey: 'display.node_name',
+			getValue: (p): string => p.nodeName || '',
+		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] || '',
 		},
@@ -56,52 +61,62 @@ export const k8sNodeGetEntityName = (
 export const nodeWidgetInfo = [
 	{
 		title: 'CPU Usage (cores)',
+		titleKey: 'display.cpu_usage_cores',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#cpu-usage-cores',
 	},
 	{
 		title: 'Memory Usage (bytes)',
+		titleKey: 'display.memory_usage_bytes',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#memory-usage-bytes',
 	},
 	{
 		title: 'CPU Usage (%)',
+		titleKey: 'display.cpu_usage_percent',
 		yAxisUnit: 'percentunit',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#cpu-usage-',
 	},
 	{
 		title: 'Memory Usage (%)',
+		titleKey: 'display.memory_usage_percent',
 		yAxisUnit: 'percentunit',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#memory-usage-',
 	},
 	{
 		title: 'Pods by CPU (top 10)',
+		titleKey: 'display.pods_by_cpu_top_10',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#pods-by-cpu-top-10',
 	},
 	{
 		title: 'Pods by Memory (top 10)',
+		titleKey: 'display.pods_by_memory_top_10',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#pods-by-memory-top-10',
 	},
 	{
 		title: 'Network error count',
+		titleKey: 'display.network_error_count',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#network-error-count',
 	},
 	{
 		title: 'Network IO rate',
+		titleKey: 'display.network_io_rate',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#network-io-rate',
 	},
 	{
 		title: 'Filesystem usage (bytes)',
+		titleKey: 'display.filesystem_usage_bytes',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/nodes/#filesystem-usage-bytes',
 	},
 	{
 		title: 'Filesystem usage (%)',
+		titleKey: 'display.filesystem_usage_percent',
 		yAxisUnit: 'percentunit',
 		docPath: '/infrastructure-monitoring/kubernetes/nodes/#filesystem-usage-',
 	},

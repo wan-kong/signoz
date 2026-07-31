@@ -1,6 +1,7 @@
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import { PanelLeftClose, PanelLeftOpen } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import styles from './StatusBar.module.scss';
 
@@ -17,6 +18,8 @@ function StatusBar({
 	count,
 	total,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={styles.statusBar}>
 			<Button
@@ -29,10 +32,12 @@ function StatusBar({
 				onClick={onToggleCollapse}
 				testId="dashboards-rail-toggle"
 			>
-				{collapsed ? 'Expand' : 'Collapse'}
+				{collapsed
+					? t('dashboards_list_page_v2.actions.expand')
+					: t('dashboards_list_page_v2.actions.collapse')}
 			</Button>
 			<Typography.Text className={styles.count}>
-				{count} of {total} dashboards
+				{t('dashboards_list_page_v2.status.count', { count, total })}
 			</Typography.Text>
 		</div>
 	);

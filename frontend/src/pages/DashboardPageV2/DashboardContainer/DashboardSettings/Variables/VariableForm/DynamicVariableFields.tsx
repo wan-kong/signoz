@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Info } from '@signozhq/icons';
 import { Typography } from '@signozhq/ui/typography';
 import { DashboardtypesDynamicVariableSignalDTO } from 'api/generated/services/sigNoz.schemas';
@@ -13,7 +14,7 @@ import useDebounce from 'hooks/useDebounce';
 import { isRetryableError } from 'utils/errorUtils';
 
 import {
-	DYNAMIC_SIGNAL_LABEL,
+	DYNAMIC_SIGNAL_LABEL_KEY,
 	DYNAMIC_SIGNALS,
 	signalForApi,
 } from '../variableFormModel';
@@ -39,6 +40,7 @@ function DynamicVariableFields({
 	onPreview,
 	attributeError,
 }: DynamicVariableFieldsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [search, setSearch] = useState('');
 	const debouncedSearch = useDebounce(search, 500);
 	const apiSignal = signalForApi(signal);
@@ -89,12 +91,12 @@ function DynamicVariableFields({
 					className={styles.dynamicFieldSelect}
 					showSearch
 					value={attribute || undefined}
-					placeholder="Select a field"
+					placeholder={t('dashboard_page_v2.variables.select_field')}
 					loading={isLoading}
 					options={options}
 					onSearch={setSearch}
 					onChange={(value): void => onChange({ dynamicAttribute: value as string })}
-					noDataMessage="No fields found"
+					noDataMessage={t('dashboard_page_v2.variables.no_fields_found')}
 					errorMessage={errorMessage}
 					onRetry={(): void => {
 						void refetch();
@@ -102,9 +104,11 @@ function DynamicVariableFields({
 					showRetryButton={error ? isRetryableError(error) : true}
 					data-testid="variable-field-select"
 				/>
-				<Typography.Text className={styles.fromText}>from</Typography.Text>
+				<Typography.Text className={styles.fromText}>
+					{t('dashboard_page_v2.variables.from')}
+				</Typography.Text>
 				<TextToolTip
-					text="By default, this searches across logs, traces, and metrics, which can be slow. Selecting a single source improves performance. Many fields share the same values across different signals (for example, `k8s.pod.name` is identical in logs, traces and metrics) making one source enough. Only use `All telemetry` when you need fields that have different values in different signal types."
+					text={t('dashboard_page_v2.variables.dynamic_source_tooltip')}
 					useFilledIcon={false}
 					outlinedIcon={<Info size={14} />}
 				/>
@@ -113,7 +117,7 @@ function DynamicVariableFields({
 					popupMatchSelectWidth={false}
 					value={signal}
 					options={DYNAMIC_SIGNALS.map((s) => ({
-						label: DYNAMIC_SIGNAL_LABEL[s],
+						label: t(DYNAMIC_SIGNAL_LABEL_KEY[s]),
 						value: s,
 					}))}
 					onChange={(value): void =>

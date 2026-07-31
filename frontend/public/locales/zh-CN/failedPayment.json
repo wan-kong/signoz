@@ -1,13 +1,13 @@
 {
-	"workspaceSuspended": "Your workspace is locked",
-	"gotQuestions": "Got Questions?",
-	"contactUs": "Contact Us",
-	"actionHeader": "Pay to continue",
-	"actionDescription": "Pay now to keep enjoying all the great features you’ve been using.",
-	"yourDataIsSafe": "Your data is safe with us until",
-	"actNow": "Act now to avoid any disruptions and continue where you left off.",
-	"contactAdmin": "Contact your admin to proceed with the upgrade.",
-	"continueMyJourney": "Settle your bill to continue",
-	"somethingWentWrong": "Something went wrong",
-	"refreshPaymentStatus": "Refresh Status"
+	"workspaceSuspended": "你的工作空间已锁定",
+	"gotQuestions": "有疑问？",
+	"contactUs": "联系我们",
+	"actionHeader": "付款后继续使用",
+	"actionDescription": "立即付款，继续使用你一直在用的所有强大功能。",
+	"yourDataIsSafe": "在此之前，你的数据会被安全保留：",
+	"actNow": "请立即处理，避免服务中断，并从离开的地方继续。",
+	"contactAdmin": "请联系管理员完成升级。",
+	"continueMyJourney": "结清账单以继续使用",
+	"somethingWentWrong": "出了点问题",
+	"refreshPaymentStatus": "刷新状态"
 }

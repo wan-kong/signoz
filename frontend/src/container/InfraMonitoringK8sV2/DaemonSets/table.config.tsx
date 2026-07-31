@@ -48,7 +48,12 @@ export type DaemonSetTableColumnConfig =
 export const k8sDaemonSetsColumnsConfig: DaemonSetTableColumnConfig[] = [
 	{
 		id: 'daemonSetGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="DaemonSet Group" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="DaemonSet Group"
+				titleKey="display.daemonset_group"
+			/>
+		),
 		accessorFn: (row): string =>
 			row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_DAEMONSET_NAME] || '',
 		width: { min: 290 },
@@ -73,6 +78,7 @@ export const k8sDaemonSetsColumnsConfig: DaemonSetTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="DaemonSet Name"
+				titleKey="display.daemonset_name"
 				icon={<Group data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/daemonsets#daemonset-name"
 			/>

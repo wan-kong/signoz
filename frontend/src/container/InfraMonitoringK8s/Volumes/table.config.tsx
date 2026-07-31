@@ -26,7 +26,12 @@ export function getK8sVolumeItemKey(volume: K8sVolumesData): string {
 export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	{
 		id: 'volumeGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="VOLUME GROUP" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="VOLUME GROUP"
+				titleKey="display.volume_group_uppercase"
+			/>
+		),
 		accessorFn: (row): string => row.persistentVolumeClaimName || '',
 		width: { min: 300 },
 		enableSort: false,
@@ -50,6 +55,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="PVC Name"
+				titleKey="display.pvc_name"
 				icon={<HardDrive data-hide-expanded="true" size={14} />}
 			/>
 		),

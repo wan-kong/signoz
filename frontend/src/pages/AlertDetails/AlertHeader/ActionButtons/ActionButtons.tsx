@@ -1,4 +1,6 @@
+/* oxlint-disable import/no-cycle */
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Button, Tooltip } from 'antd';
 import { DropdownMenuSimple, type MenuItem } from '@signozhq/ui/dropdown-menu';
@@ -29,6 +31,7 @@ function AlertActionButtons({
 	ruleId: string;
 	alertDetails: AlertHeaderProps['alertDetails'];
 }): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const { alertRuleState, setAlertRuleState, alertRuleName, setAlertRuleName } =
 		useAlertRule();
 	const [intermediateName, setIntermediateName] = useState<string>(
@@ -64,7 +67,7 @@ function AlertActionButtons({
 			? [
 					{
 						key: 'rename-rule',
-						label: 'Rename',
+						label: t('alert_details.actions.rename'),
 						icon: <PenLine size={16} color={Color.BG_VANILLA_400} />,
 						onClick: handleRename,
 					},
@@ -72,13 +75,13 @@ function AlertActionButtons({
 			: []),
 		{
 			key: 'duplicate-rule',
-			label: 'Duplicate',
+			label: t('alert_details.actions.duplicate'),
 			icon: <Copy size={16} color={Color.BG_VANILLA_400} />,
 			onClick: handleAlertDuplicate,
 		},
 		{
 			key: 'delete-rule',
-			label: 'Delete',
+			label: t('alert_details.actions.delete'),
 			icon: <Trash2 size={16} color={Color.BG_CHERRY_400} />,
 			onClick: handleAlertDelete,
 			danger: true,
@@ -115,7 +118,13 @@ function AlertActionButtons({
 	return (
 		<>
 			<div className="alert-action-buttons">
-				<Tooltip title={isAlertRuleDisabled ? 'Enable alert' : 'Disable alert'}>
+				<Tooltip
+					title={
+						isAlertRuleDisabled
+							? t('alert_details.actions.enable_alert')
+							: t('alert_details.actions.disable_alert')
+					}
+				>
 					{isAlertRuleDisabled !== undefined && (
 						<Switch onChange={toggleAlertRule} value={!isAlertRuleDisabled} />
 					)}
@@ -126,7 +135,7 @@ function AlertActionButtons({
 
 				<DropdownMenuSimple menu={{ items: menuItems }}>
 					<span className="dropdown-trigger-wrapper">
-						<Tooltip title="More options">
+						<Tooltip title={t('alert_details.actions.more_options')}>
 							<Button
 								type="text"
 								icon={

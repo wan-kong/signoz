@@ -1,4 +1,5 @@
 import { Flame } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import type { DashboardtypesPanelDTO } from 'api/generated/services/sigNoz.schemas';
 import { getPanelDefinition } from 'pages/DashboardPageV2/DashboardContainer/Panels/registry';
 import { useCreateAlertFromPanel } from 'pages/DashboardPageV2/DashboardContainer/PanelsAndSectionsLayout/Panel/hooks/useCreateAlertFromPanel';
@@ -21,6 +22,7 @@ function ConfigActions({
 	panel,
 	panelId,
 }: ConfigActionsProps): JSX.Element | null {
+	const { t } = useTranslation('dashboard');
 	const createAlert = useCreateAlertFromPanel();
 	const { actions } = getPanelDefinition(panel.spec.plugin.kind);
 
@@ -34,12 +36,14 @@ function ConfigActions({
 		<>
 			<div className={styles.divider} />
 			<div className={styles.container}>
-				<span className={styles.eyebrow}>Actions</span>
+				<span className={styles.eyebrow}>
+					{t('dashboard_page_v2.panel_config.actions')}
+				</span>
 				<div className={styles.list}>
 					<ConfigActionRow
 						testId="panel-editor-v2-create-alert"
 						icon={<Flame size={14} />}
-						label="Create alert"
+						label={t('dashboard_page_v2.panel_config.create_alert')}
 						onClick={(): void => createAlert(panel, panelId)}
 					/>
 				</div>

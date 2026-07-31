@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Divider } from '@signozhq/ui/divider';
 import { Plus, RefreshCw } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
@@ -39,6 +40,7 @@ interface AlertsEmptyStateProps {
 export function AlertsEmptyState({
 	onRefresh,
 }: AlertsEmptyStateProps): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const { user } = useAppContext();
 	const { safeNavigate } = useSafeNavigate();
 	const [addNewAlert] = useComponentPermission(
@@ -60,9 +62,11 @@ export function AlertsEmptyState({
 		<div className={styles.alertListContainer}>
 			<div className={styles.alertListViewContent}>
 				<div>
-					<Typography.Title className={styles.title}>Alert Rules</Typography.Title>
+					<Typography.Title className={styles.title}>
+						{t('alert_rules.title')}
+					</Typography.Title>
 					<Typography.Text className={styles.subtitle}>
-						Create and manage alert rules for your resources.
+						{t('alert_rules.subtitle')}
 					</Typography.Text>
 				</div>
 				<section className={styles.emptyAlertInfoContainer}>
@@ -75,11 +79,11 @@ export function AlertsEmptyState({
 							/>
 							<div>
 								<Typography.Text className={styles.emptyInfo}>
-									No Alert rules yet.{' '}
+									{t('alert_rules.empty.title')}{' '}
 								</Typography.Text>
 								<br />
 								<Typography.Text className={styles.emptyAlertAction}>
-									Create an Alert Rule to get started
+									{t('alert_rules.empty.description')}
 								</Typography.Text>
 							</div>
 						</section>
@@ -93,7 +97,7 @@ export function AlertsEmptyState({
 								>
 									<span className={styles.buttonContent}>
 										<Plus size="md" />
-										New Alert Rule
+										{t('alert_rules.empty.new_alert_rule')}
 									</span>
 								</Button>
 								{onRefresh && (
@@ -103,12 +107,12 @@ export function AlertsEmptyState({
 										color="secondary"
 										testId="list-alerts-empty-refresh-button"
 									>
-										Refresh
+										{t('refresh')}
 									</Button>
 								)}
 							</div>
 							<InfoLinkText
-								infoText="Watch a tutorial on creating a sample alert"
+								infoText={t('alert_rules.empty.video_tutorial')}
 								link="https://youtu.be/xjxNIqiv4_M"
 								leftIconVisible
 								rightIconVisible
@@ -131,7 +135,7 @@ export function AlertsEmptyState({
 							return (
 								<InfoLinkText
 									key={info.link}
-									infoText={info.infoText}
+									infoText={t(info.infoTextKey)}
 									link={info.link}
 									leftIconVisible={info.leftIconVisible}
 									rightIconVisible={info.rightIconVisible}
@@ -143,7 +147,9 @@ export function AlertsEmptyState({
 				</section>
 				<div className={styles.getStartedText}>
 					<Divider className="get-started-text__divider">
-						<Typography.Text>Or get started with these sample alerts</Typography.Text>
+						<Typography.Text>
+							{t('alert_rules.empty.sample_alerts_title')}
+						</Typography.Text>
 					</Divider>
 				</div>
 
@@ -157,8 +163,8 @@ export function AlertsEmptyState({
 					return (
 						<AlertInfoCard
 							key={card.link}
-							header={card.header}
-							subheader={card.subheader}
+							header={t(card.headerKey)}
+							subheader={t(card.subheaderKey)}
 							link={card.link}
 							onClick={logEventTriggered}
 						/>

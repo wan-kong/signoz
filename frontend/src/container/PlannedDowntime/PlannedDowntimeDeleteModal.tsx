@@ -1,4 +1,5 @@
 import { SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Modal } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { Trash2, X } from '@signozhq/icons';
@@ -16,6 +17,7 @@ interface PlannedDowntimeDeleteModalProps {
 export function PlannedDowntimeDeleteModal(
 	props: PlannedDowntimeDeleteModalProps,
 ): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const {
 		isDeleteModalOpen,
 		setIsDeleteModalOpen,
@@ -29,7 +31,9 @@ export function PlannedDowntimeDeleteModal(
 	return (
 		<Modal
 			className="delete-schedule-modal"
-			title={<span className="title">Delete Schedule</span>}
+			title={
+				<span className="title">{t('planned_downtime.delete_modal.title')}</span>
+			}
 			open={isDeleteModalOpen}
 			closable={false}
 			onCancel={hideDeleteScheduleModal}
@@ -40,7 +44,7 @@ export function PlannedDowntimeDeleteModal(
 					className="cancel-btn"
 					icon={<X size={16} />}
 				>
-					Cancel
+					{t('cancel')}
 				</Button>,
 				<Button
 					key="submit"
@@ -49,12 +53,14 @@ export function PlannedDowntimeDeleteModal(
 					className="delete-btn"
 					disabled={isDeleteLoading}
 				>
-					Delete Schedule
+					{t('planned_downtime.delete_modal.delete_schedule')}
 				</Button>,
 			]}
 		>
 			<Typography.Text className="delete-text">
-				{`Are you sure you want to delete - ${downtimeSchedule} schedule? Deleting a schedule is irreversible and cannot be undone.`}
+				{t('planned_downtime.delete_modal.description', {
+					name: downtimeSchedule,
+				})}
 			</Typography.Text>
 		</Modal>
 	);

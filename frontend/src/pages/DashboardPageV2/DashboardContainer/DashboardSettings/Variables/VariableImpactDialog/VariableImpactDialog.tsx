@@ -1,4 +1,5 @@
 import { Check, X } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
 import { Typography } from '@signozhq/ui/typography';
@@ -14,11 +15,11 @@ import type {
 import { useVariableImpactState } from './useVariableImpactState';
 import styles from './VariableImpactDialog.module.scss';
 
-const KIND_LABEL: Record<VariableUsage['kind'], string> = {
-	builder: 'Query builder',
+const KIND_LABEL_KEY: Record<VariableUsage['kind'], string> = {
+	builder: 'dashboard_page_v2.variables.impact.query_builder',
 	promql: 'PromQL',
 	clickhouse: 'ClickHouse',
-	variable: 'Variable',
+	variable: 'dashboard_page_v2.variables.impact.variable',
 };
 
 interface VariableImpactDialogProps {
@@ -50,22 +51,36 @@ function VariableImpactDialog({
 	onConfirm,
 	onClose,
 }: VariableImpactDialogProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { rows, setResultingText, toggleIncluded, resolvedUsages } =
 		useVariableImpactState(usages, open);
 
 	const isRename = mode === 'rename';
 	const isDelete = mode === 'delete';
 	const count = usages.length;
-	const plural = count === 1 ? '' : 's';
 	let intro: string;
 	if (isRename) {
-		intro = `$${variableName} is used in ${count} place${plural}. Review the updated queries before renaming to $${newName}.`;
+		intro = t('dashboard_page_v2.variables.impact.rename_intro', {
+			name: variableName,
+			newName,
+			count,
+		});
 	} else if (isDelete) {
-		intro = `$${variableName} is used in ${count} place${plural}. Edit or remove each usage before deleting.`;
+		intro = t('dashboard_page_v2.variables.impact.delete_intro', {
+			name: variableName,
+			count,
+		});
 	} else {
-		intro = `Applying $${variableName} can update upto ${count} panel quer${count === 1 ? 'y' : 'ies'}. Review the changes before applying.`;
+		intro = t('dashboard_page_v2.variables.impact.apply_intro', {
+			name: variableName,
+			count,
+		});
 	}
-	const confirmLabel = isRename ? 'Rename' : isDelete ? 'Delete' : 'Apply';
+	const confirmLabel = isRename
+		? t('dashboard_page_v2.variables.impact.rename')
+		: isDelete
+			? t('dashboard_page_v2.variables.impact.delete')
+			: t('dashboard_page_v2.variables.impact.apply');
 
 	const footer = (
 		<div className={styles.footer}>
@@ -76,7 +91,7 @@ function VariableImpactDialog({
 				testId="variable-impact-cancel"
 			>
 				<X size={12} />
-				Cancel
+				{t('dashboard_page_v2.variables.impact.cancel')}
 			</Button>
 			<Button
 				variant="solid"
@@ -102,10 +117,16 @@ function VariableImpactDialog({
 			title={
 				// eslint-disable-next-line no-nested-ternary
 				isRename
-					? `Rename $${variableName}`
+					? t('dashboard_page_v2.variables.impact.rename_title', {
+							name: variableName,
+						})
 					: isDelete
-						? `Delete $${variableName}`
-						: `Apply $${variableName} to panels`
+						? t('dashboard_page_v2.variables.impact.delete_title', {
+								name: variableName,
+							})
+						: t('dashboard_page_v2.variables.impact.apply_title', {
+								name: variableName,
+							})
 			}
 			width="wide"
 			showCloseButton={false}
@@ -137,11 +158,11 @@ function VariableImpactDialog({
 									>
 										<span className={styles.sourceLabel}>{row.sourceLabel}</span>
 									</Checkbox>
-									<span className={styles.kindTag}>{KIND_LABEL[row.kind]}</span>
+									<span className={styles.kindTag}>{t(KIND_LABEL_KEY[row.kind])}</span>
 								</div>
 								<div className={styles.field}>
 									<Typography.Text className={styles.fieldLabel}>
-										Current
+										{t('dashboard_page_v2.variables.impact.current')}
 									</Typography.Text>
 									<AntdInput.TextArea
 										className={styles.textArea}
@@ -152,7 +173,9 @@ function VariableImpactDialog({
 									/>
 								</div>
 								<div className={styles.field}>
-									<Typography.Text className={styles.fieldLabel}>Result</Typography.Text>
+									<Typography.Text className={styles.fieldLabel}>
+										{t('dashboard_page_v2.variables.impact.result')}
+									</Typography.Text>
 									<AntdInput.TextArea
 										className={cx(styles.textArea, !row.included && styles.disabled)}
 										value={row.resultingText}
@@ -163,7 +186,9 @@ function VariableImpactDialog({
 									/>
 									{stillReferences ? (
 										<Typography.Text size={'small'} color="warning">
-											Still references ${variableName}
+											{t('dashboard_page_v2.variables.impact.still_references', {
+												name: variableName,
+											})}
 										</Typography.Text>
 									) : null}
 								</div>

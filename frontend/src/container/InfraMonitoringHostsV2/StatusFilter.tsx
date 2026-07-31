@@ -7,19 +7,22 @@ import {
 	useInfraMonitoringStatusFilter,
 } from 'container/InfraMonitoringK8sV2/hooks';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
+import { useTranslation } from 'react-i18next';
 
 import styles from './StatusFilter.module.scss';
 
 const statusOptions: Array<{
 	label: string;
+	labelKey: string;
 	value: StatusFilterValue | 'all';
 }> = [
-	{ label: 'All', value: 'all' },
-	{ label: 'Active', value: 'active' },
-	{ label: 'Inactive', value: 'inactive' },
+	{ label: 'All', labelKey: 'display.all', value: 'all' },
+	{ label: 'Active', labelKey: 'display.active', value: 'active' },
+	{ label: 'Inactive', labelKey: 'display.inactive', value: 'inactive' },
 ];
 
 function StatusFilter(): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const [statusFilter, setStatusFilter] = useInfraMonitoringStatusFilter();
 	const [, setCurrentPage] = useInfraMonitoringPageListing();
 	const { currentQuery } = useQueryBuilder();
@@ -42,7 +45,7 @@ function StatusFilter(): JSX.Element {
 
 	return (
 		<div className={styles.statusFilterContainer}>
-			<div className={styles.statusLabel}>Status</div>
+			<div className={styles.statusLabel}>{t('display.status', 'Status')}</div>
 			<ToggleGroup
 				type="single"
 				value={statusFilter === '' ? 'all' : statusFilter}
@@ -53,7 +56,7 @@ function StatusFilter(): JSX.Element {
 					<ToggleGroupItem
 						key={option.value}
 						value={option.value}
-						aria-label={option.label}
+						aria-label={t(option.labelKey, option.label)}
 						className={styles.statusToggleItem}
 					>
 						<span
@@ -65,7 +68,7 @@ function StatusFilter(): JSX.Element {
 										: styles.allDot
 							}`}
 						/>
-						{option.label}
+						{t(option.labelKey, option.label)}
 					</ToggleGroupItem>
 				))}
 			</ToggleGroup>

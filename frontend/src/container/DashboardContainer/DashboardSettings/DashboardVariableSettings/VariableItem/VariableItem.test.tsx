@@ -5,6 +5,7 @@ import {
 	userEvent,
 	waitFor,
 } from 'tests/test-utils';
+import { dashboardI18nProviderProps } from 'tests/dashboardI18n';
 import {
 	IDashboardVariable,
 	TSortVariableValuesType,
@@ -112,6 +113,8 @@ const renderVariableItem = (
 			validateAttributeKey={validateAttributeKeyFn}
 			mode={VARIABLE_MODE}
 		/>,
+		undefined,
+		dashboardI18nProviderProps,
 	);
 };
 
@@ -132,7 +135,7 @@ describe('VariableItem Component', () => {
 		'SELECT * FROM test WHERE service = {{.variable1}}';
 
 	// Error message text constant
-	const CIRCULAR_DEPENDENCY_ERROR = /Cannot save: Circular dependency detected/;
+	const CIRCULAR_DEPENDENCY_ERROR = /Cannot save: circular dependency detected/i;
 
 	// Test functions and utilities
 	const createVariable = (
@@ -551,6 +554,8 @@ describe('VariableItem Component', () => {
 
 		// Test for cyclic dependency detection
 		it('detects circular dependency and shows error message', async () => {
+			expect.hasAssertions();
+
 			// Create variables with circular dependency
 			const variable1 = createVariable(
 				TEST_VAR_IDS.VAR1,
@@ -609,6 +614,8 @@ describe('VariableItem Component', () => {
 
 		// Test with multiple variable formats in query
 		it('detects circular dependency with different variable formats', async () => {
+			expect.hasAssertions();
+
 			// Create variables with circular dependency using different formats
 			const variable1 = createVariable(
 				TEST_VAR_IDS.VAR1,

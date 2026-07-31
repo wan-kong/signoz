@@ -44,7 +44,7 @@ function AlertChannels(): JSX.Element {
 
 	useEffect(() => {
 		if (!isUndefined(data?.data)) {
-			logEvent('Alert Channel: Channel list page visited', {
+			void logEvent('Alert Channel: Channel list page visited', {
 				number: data?.data?.length,
 			});
 		}
@@ -73,9 +73,7 @@ function AlertChannels(): JSX.Element {
 
 					<Tooltip
 						title={
-							!addNewChannelPermission
-								? 'Ask an admin to create alert channel'
-								: undefined
+							!addNewChannelPermission ? t('ask_admin_create_channel') : undefined
 						}
 					>
 						<Button onClick={onToggleHandler} disabled={!addNewChannelPermission}>

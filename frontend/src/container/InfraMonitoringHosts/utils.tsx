@@ -10,6 +10,8 @@ import {
 import { TriangleAlert } from '@signozhq/icons';
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { DataSource } from 'types/common/queryBuilder';
+import { useTranslation } from 'react-i18next';
+import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 
 const HOSTNAME_DOCS_URL =
 	'https://signoz.io/docs/infrastructure-monitoring/hostmetrics/#host-name-is-blankempty';
@@ -19,6 +21,7 @@ export function HostnameCell({
 }: {
 	hostName?: string | null;
 }): React.ReactElement {
+	const { t } = useTranslation('infraMonitoring');
 	const isEmpty = !hostName || !hostName.trim();
 	if (!isEmpty) {
 		return <div className="hostname-column-value">{hostName}</div>;
@@ -31,7 +34,11 @@ export function HostnameCell({
 			<Tooltip
 				title={
 					<div>
-						Missing host.name metadata.
+						{translateInfraKey(
+							t,
+							'display.missing_host_name_metadata',
+							'Missing host.name metadata.',
+						)}
 						<br />
 						<a
 							href={HOSTNAME_DOCS_URL}
@@ -39,7 +46,11 @@ export function HostnameCell({
 							rel="noopener noreferrer"
 							onClick={(e): void => e.stopPropagation()}
 						>
-							Learn how to configure →
+							{translateInfraKey(
+								t,
+								'display.learn_how_to_configure_arrow',
+								'Learn how to configure →',
+							)}
 						</a>
 					</div>
 				}
@@ -49,7 +60,11 @@ export function HostnameCell({
 					className="hostname-cell-warning-icon"
 					tabIndex={0}
 					role="img"
-					aria-label="Missing host.name metadata"
+					aria-label={translateInfraKey(
+						t,
+						'display.missing_host_name_metadata',
+						'Missing host.name metadata.',
+					)}
 					onClick={(e): void => e.stopPropagation()}
 					onKeyDown={(e): void => {
 						if (e.key === 'Enter' || e.key === ' ') {

@@ -1,15 +1,22 @@
 import { Typography } from '@signozhq/ui/typography';
 import { ArrowRight } from '@signozhq/icons';
 import { openInNewTab } from 'utils/navigation';
+import { useTranslation } from 'react-i18next';
 
 import emptyStateUrl from '@/assets/Icons/emptyState.svg';
 
+import {
+	translateInfraKey,
+	translateInfraText,
+} from 'container/InfraMonitoringK8s/i18n';
 import styles from './EventsNotConfigured.module.scss';
 
 const K8S_EVENTS_DOCS_URL =
 	'https://signoz.io/docs/infrastructure-monitoring/k8s-metrics/';
 
 export default function EventsNotConfigured(): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
+
 	const handleLearnMore = (): void => {
 		openInNewTab(K8S_EVENTS_DOCS_URL);
 	};
@@ -19,9 +26,17 @@ export default function EventsNotConfigured(): JSX.Element {
 			<div className={styles.content}>
 				<img src={emptyStateUrl} alt="not-configured" className={styles.icon} />
 				<Typography.Text>
-					<span className={styles.title}>No Kubernetes events received yet. </span>
-					To view events, enable the k8s events receiver in your OpenTelemetry
-					Collector.
+					<span className={styles.title}>
+						{translateInfraKey(
+							t,
+							'display.no_kubernetes_events_received_yet',
+							'No Kubernetes events received yet.',
+						)}{' '}
+					</span>
+					{translateInfraText(
+						t,
+						'To view events, enable the k8s events receiver in your OpenTelemetry Collector.',
+					)}
 				</Typography.Text>
 
 				<div
@@ -36,7 +51,11 @@ export default function EventsNotConfigured(): JSX.Element {
 					}}
 				>
 					<Typography.Link className={styles.learnMoreText}>
-						Learn how to configure
+						{translateInfraKey(
+							t,
+							'display.learn_how_to_configure',
+							'Learn how to configure',
+						)}
 					</Typography.Link>
 					<ArrowRight size={14} />
 				</div>

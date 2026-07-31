@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { ChangeEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@signozhq/ui/input';
 import { Button } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -143,6 +144,7 @@ export default function DashboardTemplatesContent({
 	);
 
 	const [dashboardTemplates, setDashboardTemplates] = useState(templatesList);
+	const { t } = useTranslation('dashboard');
 
 	const handleDashboardTemplateSearch = (
 		event: ChangeEvent<HTMLInputElement>,
@@ -156,7 +158,9 @@ export default function DashboardTemplatesContent({
 		<div className="new-dashboard-templates-content-container">
 			{onCancel && (
 				<div className="new-dashboard-templates-content-header">
-					<Typography.Text>New Dashboard</Typography.Text>
+					<Typography.Text>
+						{t('list_of_dashboard.templates.new_dashboard')}
+					</Typography.Text>
 
 					<X size={14} className="periscope-btn ghost" onClick={onCancel} />
 				</div>
@@ -166,7 +170,7 @@ export default function DashboardTemplatesContent({
 				<div className="new-dashboard-templates-list">
 					<Input
 						className="new-dashboard-templates-search"
-						placeholder="🔍 Search..."
+						placeholder={t('list_of_dashboard.templates.search_placeholder')}
 						onChange={handleDashboardTemplateSearch}
 					/>
 
@@ -198,7 +202,9 @@ export default function DashboardTemplatesContent({
 								<div className="template-name">{selectedDashboardTemplate.name}</div>
 
 								<div className="template-description">
-									{selectedDashboardTemplate.description}
+									{selectedDashboardTemplate.id === 'blank'
+										? t('list_of_dashboard.templates.blank_description')
+										: t('list_of_dashboard.templates.default_description')}
 								</div>
 							</div>
 						</div>
@@ -210,7 +216,7 @@ export default function DashboardTemplatesContent({
 								icon={<Plus size={14} />}
 								onClick={onCreateNewDashboard}
 							>
-								New dashboard
+								{t('list_of_dashboard.templates.new_dashboard')}
 							</Button>
 						</div>
 					</div>

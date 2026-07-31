@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Globe, LockKeyhole } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
 import { Typography } from '@signozhq/ui/typography';
@@ -12,6 +13,7 @@ interface PublicDashboardStatusProps {
 function PublicDashboardStatus({
 	isPublic,
 }: PublicDashboardStatusProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	return (
 		<div
 			className={cx(styles.statusStrip, { [styles.statusStripLive]: isPublic })}
@@ -26,7 +28,9 @@ function PublicDashboardStatus({
 
 			<div className={styles.statusBody}>
 				<Typography.Text className={styles.statusTitle}>
-					{isPublic ? 'This dashboard is live' : 'This dashboard is private'}
+					{isPublic
+						? t('dashboard_page_v2.public_dashboard.live_title')
+						: t('dashboard_page_v2.public_dashboard.private_title')}
 				</Typography.Text>
 				<Typography.Text
 					className={cx(styles.statusSubtitle, {
@@ -34,14 +38,16 @@ function PublicDashboardStatus({
 					})}
 				>
 					{isPublic
-						? 'Anyone with the link can view it — no account needed.'
-						: 'Publish it to share a read-only view with anyone who has the link.'}
+						? t('dashboard_page_v2.public_dashboard.live_description')
+						: t('dashboard_page_v2.public_dashboard.private_description')}
 				</Typography.Text>
 			</div>
 
 			<Badge variant="outline" color={isPublic ? 'robin' : 'secondary'}>
 				<span className={styles.statusBadgeDot} />
-				{isPublic ? 'Public' : 'Private'}
+				{isPublic
+					? t('dashboard_page_v2.public_dashboard.public')
+					: t('dashboard_page_v2.public_dashboard.private')}
 			</Badge>
 		</div>
 	);

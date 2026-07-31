@@ -80,5 +80,11 @@
   "slack_channel_help": "Specify channel or user, use #channel-name, @username (has to be all lowercase, no whitespace)",
   "api_key_required": "API Key is mandatory",
 	"to_required": "To field is mandatory",
-	"channel_name_required": "Channel name is mandatory"
+	"channel_name_required": "Channel name is mandatory",
+	"success": "Success",
+	"delete": "Delete",
+	"ask_admin_create_channel": "Ask an admin to create alert channel",
+	"breadcrumb_channels": "Channels",
+	"breadcrumb_new_channel": "New Channel",
+	"breadcrumb_edit_channel": "Edit Channel"
 }

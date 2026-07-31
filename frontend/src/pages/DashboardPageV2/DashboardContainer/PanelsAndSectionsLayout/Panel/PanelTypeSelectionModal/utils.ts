@@ -1,15 +1,13 @@
 import { LayoutDashboard, Rows2 } from '@signozhq/icons';
+import type { TFunction } from 'i18next';
 
 import { findRootSection, type DashboardSection } from '../../../utils';
 import type { SectionOption } from './types';
 
-const ROOT_LABEL = 'Dashboard (root)';
-const ROOT_DESCRIPTION = 'Top level — no section';
-const SECTION_DESCRIPTION = 'Section';
-
 /** Maps dashboard sections to section-picker options (untitled → "root"). */
 export function buildSectionOptions(
 	sections: DashboardSection[],
+	t: TFunction,
 ): SectionOption[] {
 	const rootSection = findRootSection(sections);
 	return sections.map((section) => {
@@ -17,8 +15,12 @@ export function buildSectionOptions(
 		return {
 			value: String(section.layoutIndex),
 			layoutIndex: section.layoutIndex,
-			label: isRoot ? ROOT_LABEL : (section.title as string),
-			description: isRoot ? ROOT_DESCRIPTION : SECTION_DESCRIPTION,
+			label: isRoot
+				? t('dashboard_page_v2.panel_config.panel_type_modal.dashboard_root')
+				: (section.title as string),
+			description: isRoot
+				? t('dashboard_page_v2.panel_config.panel_type_modal.top_level_no_section')
+				: t('dashboard_page_v2.panel_config.panel_type_modal.section'),
 			isRoot,
 			Icon: isRoot ? LayoutDashboard : Rows2,
 		};

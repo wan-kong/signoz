@@ -34,12 +34,21 @@ export const k8sPodGetSelectedItemFilters = (
 
 export const k8sPodDetailsMetadataConfig: K8sDetailsMetadataConfig<K8sPodsData>[] =
 	[
-		{ label: 'NAMESPACE', getValue: (p): string => p.meta.k8s_namespace_name },
+		{
+			label: 'NAMESPACE',
+			labelKey: 'display.namespace_uppercase',
+			getValue: (p): string => p.meta.k8s_namespace_name,
+		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string => p.meta.k8s_cluster_name,
 		},
-		{ label: 'Node', getValue: (p): string => p.meta.k8s_node_name },
+		{
+			label: 'Node',
+			labelKey: 'display.node',
+			getValue: (p): string => p.meta.k8s_node_name,
+		},
 	];
 
 export const k8sPodInitialEventsFilter = (
@@ -61,54 +70,67 @@ export const k8sPodGetEntityName = (pod: K8sPodsData): string =>
 export const podWidgetInfo = [
 	{
 		title: 'CPU Usage (cores)',
+		titleKey: 'display.cpu_usage_cores',
 		yAxisUnit: '',
 	},
 	{
 		title: 'CPU Request, Limit Utilization',
+		titleKey: 'display.cpu_request_limit_utilization',
 		yAxisUnit: 'percentunit',
 	},
 	{
 		title: 'Memory Usage (bytes)',
+		titleKey: 'display.memory_usage_bytes',
 		yAxisUnit: 'bytes',
 	},
 	{
 		title: 'Memory Request, Limit Utilization',
+		titleKey: 'display.memory_request_limit_utilization',
 		yAxisUnit: 'percentunit',
 	},
 	{
 		title: 'Memory by State',
+		titleKey: 'display.memory_by_state',
 		yAxisUnit: 'bytes',
 	},
 	{
 		title: 'Memory Major Page Faults',
+		titleKey: 'display.memory_major_page_faults',
 		yAxisUnit: '',
 	},
 	{
 		title: 'CPU Usage by Container (cores)',
+		titleKey: 'display.cpu_usage_by_container_cores',
 		yAxisUnit: '',
 	},
 	{
 		title: 'CPU Request, Limit Utilization by Container',
+		titleKey: 'display.cpu_request_limit_utilization_by_container',
 		yAxisUnit: 'percentunit',
 	},
 	{
 		title: 'Memory Usage by Container (bytes)',
+		titleKey: 'display.memory_usage_by_container_bytes',
 		yAxisUnit: 'bytes',
 	},
 	{
 		title: 'Memory Request, Limit Utilization by Container',
+		titleKey: 'display.memory_request_limit_utilization_by_container',
 		yAxisUnit: 'percentunit',
 	},
 	{
 		title: 'Network rate',
+		titleKey: 'display.network_rate',
 		yAxisUnit: 'binBps',
 	},
 	{
 		title: 'Network errors',
+		titleKey: 'display.network_errors',
 		yAxisUnit: '',
 	},
 	{
 		title: 'File system (bytes)',
+		titleKey: 'display.file_system_bytes',
 		yAxisUnit: 'bytes',
 	},
 ];

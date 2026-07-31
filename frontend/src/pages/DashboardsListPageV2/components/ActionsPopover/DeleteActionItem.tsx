@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Tooltip } from 'antd';
 import { Button } from '@signozhq/ui/button';
@@ -55,7 +55,7 @@ function DeleteActionItem({
 				dashboardId,
 			});
 			await invalidateListDashboardsForUserV2(queryClient);
-			toast.success('Dashboard deleted successfully');
+			toast.success(t('dashboards_list_page_v2.actions.dashboard_deleted'));
 		},
 		onError: (error: APIError) => {
 			showErrorModal(error);
@@ -66,12 +66,14 @@ function DeleteActionItem({
 		confirmDelete({
 			title: (
 				<Typography.Title level={5}>
-					Are you sure you want to delete the
-					<Typography.Text className={styles.deleteName}>
-						{' '}
-						{dashboardName}{' '}
-					</Typography.Text>
-					dashboard?
+					<Trans
+						t={t}
+						i18nKey="dashboards_list_page_v2.actions.delete_confirm_title"
+						values={{ name: dashboardName }}
+						components={{
+							name: <Typography.Text className={styles.deleteName} />,
+						}}
+					/>
 				</Typography.Title>
 			),
 			// Keeps the Delete button loading until the mutation settles, then closes.
@@ -80,7 +82,7 @@ function DeleteActionItem({
 					runDelete(undefined, { onSettled: () => resolve() });
 				}),
 		});
-	}, [confirmDelete, dashboardName, runDelete]);
+	}, [confirmDelete, dashboardName, runDelete, t]);
 
 	const tooltip = ((): string => {
 		if (!isLocked) {
@@ -112,7 +114,7 @@ function DeleteActionItem({
 						}}
 						testId="dashboard-action-delete"
 					>
-						Delete Dashboard
+						{t('dashboards_list_page_v2.actions.delete_dashboard')}
 					</Button>
 				</span>
 			</Tooltip>

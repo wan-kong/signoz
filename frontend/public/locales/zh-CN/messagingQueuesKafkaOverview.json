@@ -1,54 +1,54 @@
 {
-	"breadcrumb": "Messaging Queues",
-	"header": "Kafka / Overview",
+	"breadcrumb": "消息队列",
+	"header": "Kafka / 概览",
 	"overview": {
-		"title": "Start sending data in as little as 20 minutes",
-		"subtitle": "Connect and Monitor Your Data Streams"
+		"title": "最快 20 分钟即可开始发送数据",
+		"subtitle": "连接并监控你的数据流"
 	},
 	"configureConsumer": {
-		"title": "Configure Consumer",
-		"description": "Add consumer data sources to gain insights and enhance monitoring.",
-		"button": "Get Started"
+		"title": "配置 Consumer",
+		"description": "添加 consumer 数据源，获取洞察并增强监控能力。",
+		"button": "开始使用"
 	},
 	"configureProducer": {
-		"title": "Configure Producer",
-		"description": "Add producer data sources to gain insights and enhance monitoring.",
-		"button": "Get Started"
+		"title": "配置 Producer",
+		"description": "添加 producer 数据源，获取洞察并增强监控能力。",
+		"button": "开始使用"
 	},
 	"monitorKafka": {
-		"title": "Monitor kafka",
-		"description": "Add your Kafka source to gain insights and enhance activity tracking.",
-		"button": "Get Started"
+		"title": "监控 Kafka",
+		"description": "添加你的 Kafka 数据源，获取洞察并增强活动追踪能力。",
+		"button": "开始使用"
 	},
 	"summarySection": {
-		"viewDetailsButton": "View Details",
+		"viewDetailsButton": "查看详情",
 		"consumer": {
-			"title": "Consumer lag view",
-			"description": "Connect and Monitor Your Data Streams"
+			"title": "Consumer lag 视图",
+			"description": "连接并监控你的数据流"
 		},
 		"producer": {
-			"title": "Producer latency view",
-			"description": "Connect and Monitor Your Data Streams"
+			"title": "Producer 延迟视图",
+			"description": "连接并监控你的数据流"
 		},
 		"partition": {
-			"title": "Partition Latency view",
-			"description": "Connect and Monitor Your Data Streams"
+			"title": "Partition 延迟视图",
+			"description": "连接并监控你的数据流"
 		},
 		"dropRate": {
-			"title": "Drop Rate view",
-			"description": "Connect and Monitor Your Data Streams"
+			"title": "丢弃率视图",
+			"description": "连接并监控你的数据流"
 		},
 		"metricPage": {
-			"title": "Metric View",
-			"description": "Connect and Monitor Your Data Streams"
+			"title": "指标视图",
+			"description": "连接并监控你的数据流"
 		}
 	},
 	"confirmModal": {
-		"content": "Before navigating to the details page, please make sure you have configured all the required setup to ensure correct data monitoring.",
-		"okText": "Proceed"
+		"content": "在前往详情页之前，请确认你已完成所有必需配置，以确保数据监控正确。",
+		"okText": "继续"
 	},
 	"overviewSummarySection": {
-		"title": "Monitor Your Data Streams",
-		"subtitle": "Monitor key Kafka metrics like consumer lag and latency to ensure efficient data flow and troubleshoot in real time."
+		"title": "监控你的数据流",
+		"subtitle": "监控 consumer lag 和延迟等关键 Kafka 指标，确保数据流高效传输并实时排查问题。"
 	}
 }

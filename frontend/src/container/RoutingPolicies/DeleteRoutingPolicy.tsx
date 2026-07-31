@@ -1,4 +1,5 @@
 import { Button, Modal } from 'antd';
+import { Trans, useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { Loader, Trash2, X } from '@signozhq/icons';
 
@@ -10,6 +11,7 @@ function DeleteRoutingPolicy({
 	routingPolicy,
 	isDeletingRoutingPolicy,
 }: DeleteRoutingPolicyProps): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const deleteButtonIcon = isDeletingRoutingPolicy ? (
 		<Loader size={16} />
 	) : (
@@ -19,7 +21,9 @@ function DeleteRoutingPolicy({
 	return (
 		<Modal
 			className="delete-policy-modal"
-			title={<span className="title">Delete Routing Policy</span>}
+			title={
+				<span className="title">{t('routing_policies.delete_modal.title')}</span>
+			}
 			open
 			closable={false}
 			onCancel={handleClose}
@@ -31,7 +35,7 @@ function DeleteRoutingPolicy({
 					icon={<X size={16} />}
 					disabled={isDeletingRoutingPolicy}
 				>
-					Cancel
+					{t('cancel')}
 				</Button>,
 				<Button
 					key="submit"
@@ -41,14 +45,17 @@ function DeleteRoutingPolicy({
 					className="delete-btn"
 					disabled={isDeletingRoutingPolicy}
 				>
-					Delete Routing Policy
+					{t('routing_policies.delete_modal.delete_policy')}
 				</Button>,
 			]}
 		>
 			<Typography.Text className="delete-text">
-				Are you sure you want to delete <strong>{routingPolicy?.name}</strong>{' '}
-				routing policy? Deleting a routing policy is irreversible and cannot be
-				undone.
+				<Trans
+					t={t}
+					i18nKey="routing_policies.delete_modal.description"
+					values={{ name: routingPolicy?.name }}
+					components={{ strong: <strong /> }}
+				/>
 			</Typography.Text>
 		</Modal>
 	);

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { FullScreenHandle } from 'react-full-screen';
 import { toast } from '@signozhq/ui/sonner';
@@ -39,6 +40,7 @@ interface DashboardPageToolbarProps {
 }
 
 function DashboardPageToolbar(props: DashboardPageToolbarProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { dashboard, handle } = props;
 
 	const id = dashboard.id;
@@ -101,10 +103,10 @@ function DashboardPageToolbar(props: DashboardPageToolbarProps): JSX.Element {
 			try {
 				if (next) {
 					await lockDashboardV2({ id });
-					toast.success('Dashboard locked');
+					toast.success(t('dashboard_page_v2.toolbar.dashboard_locked'));
 				} else {
 					await unlockDashboardV2({ id });
-					toast.success('Dashboard unlocked');
+					toast.success(t('dashboard_page_v2.toolbar.dashboard_unlocked'));
 				}
 				// Patch just the `locked` flag in the cache — a full refetch would reload
 				// every panel's chart data for a metadata-only change.
@@ -127,7 +129,7 @@ function DashboardPageToolbar(props: DashboardPageToolbarProps): JSX.Element {
 				showErrorModal(error as APIError);
 			}
 		},
-		[id, title, isDashboardLocked, queryClient, showErrorModal],
+		[id, title, isDashboardLocked, queryClient, showErrorModal, t],
 	);
 
 	const onNameSave = useCallback(
@@ -144,7 +146,7 @@ function DashboardPageToolbar(props: DashboardPageToolbarProps): JSX.Element {
 					},
 				];
 				await patchAsync(patch);
-				toast.success('Dashboard renamed successfully');
+				toast.success(t('dashboard_page_v2.toolbar.dashboard_renamed'));
 				void logEvent(DashboardDetailEvents.Renamed, {
 					dashboardId: id,
 					dashboardName: next,
@@ -154,7 +156,7 @@ function DashboardPageToolbar(props: DashboardPageToolbarProps): JSX.Element {
 				showErrorModal(error as APIError);
 			}
 		},
-		[id, patchAsync, showErrorModal],
+		[id, patchAsync, showErrorModal, t],
 	);
 
 	const { isEditing, draft, setDraft, startEdit, cancel, commit } =

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Braces,
 	ChartBar,
@@ -58,6 +59,7 @@ function DrilldownAggregateMenu({
 	onSetDashboardVariables,
 	onClose,
 }: DrilldownAggregateMenuProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const aggregations = useMemo(
 		() => getAggregateColumnHeader(query, context.queryName).aggregations,
 		[query, context.queryName],
@@ -106,7 +108,7 @@ function DrilldownAggregateMenu({
 					onClick={onSetDashboardVariables}
 				>
 					<span data-testid="drilldown-dashboard-variables">
-						Dashboard Variables
+						{t('dashboard_page_v2.drilldown.dashboard_variables')}
 					</span>
 				</ContextMenu.Item>
 			)}
@@ -123,7 +125,9 @@ function DrilldownAggregateMenu({
 				onClick={handleViewLogs}
 				disabled={isResolving}
 			>
-				<span data-testid="drilldown-view-logs">View in Logs</span>
+				<span data-testid="drilldown-view-logs">
+					{t('dashboard_page_v2.drilldown.view_in_logs')}
+				</span>
 			</ContextMenu.Item>
 			<ContextMenu.Item
 				icon={
@@ -138,7 +142,9 @@ function DrilldownAggregateMenu({
 				onClick={handleViewTraces}
 				disabled={isResolving}
 			>
-				<span data-testid="drilldown-view-traces">View in Traces</span>
+				<span data-testid="drilldown-view-traces">
+					{t('dashboard_page_v2.drilldown.view_in_traces')}
+				</span>
 			</ContextMenu.Item>
 			<ContextMenu.Item
 				icon={
@@ -148,7 +154,9 @@ function DrilldownAggregateMenu({
 				}
 				onClick={onBreakout}
 			>
-				<span data-testid="drilldown-breakout">Breakout by ..</span>
+				<span data-testid="drilldown-breakout">
+					{t('dashboard_page_v2.drilldown.breakout_by_dots')}
+				</span>
 			</ContextMenu.Item>
 			{dataLinks.map((link) => (
 				<ContextMenu.Item
@@ -162,7 +170,7 @@ function DrilldownAggregateMenu({
 						onClose();
 					}}
 				>
-					<span data-testid="drilldown-data-link">{link.label}</span>
+					<span data-testid="drilldown-data-link">{t(link.labelKey)}</span>
 				</ContextMenu.Item>
 			))}
 			{contextLinks.map((link) => (

@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 
@@ -30,6 +31,7 @@ interface SectionProps {
 }
 
 function Section({ section, sections, dragHandle }: SectionProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const canEditDashboard = useDashboardStore((s) => s.canEditDashboard);
 	const isLocked = useDashboardStore((s) => s.isLocked);
 	const {
@@ -137,7 +139,7 @@ function Section({ section, sections, dragHandle }: SectionProps): JSX.Element {
 									}
 									testId={`section-add-panel-${section.id}`}
 								>
-									New Panel
+									{t('dashboard_page_v2.section_actions.new_panel')}
 								</Button>
 							</DisabledControlTooltip>
 						)}
@@ -145,8 +147,8 @@ function Section({ section, sections, dragHandle }: SectionProps): JSX.Element {
 				))}
 			<SectionTitleModal
 				open={isRenaming}
-				heading="Rename section"
-				okText="Rename"
+				heading={t('dashboard_page_v2.section_actions.rename_section')}
+				okText={t('dashboard_page_v2.section_actions.rename')}
 				initialValue={section.title}
 				isSaving={isSaving}
 				onClose={(): void => setIsRenaming(false)}
@@ -160,8 +162,12 @@ function Section({ section, sections, dragHandle }: SectionProps): JSX.Element {
 			/>
 			<ConfirmDeleteDialog
 				open={isDeleteOpen}
-				title={`Delete section "${section.title ?? ''}"?`}
-				description="Panels in this section will be removed."
+				title={t('dashboard_page_v2.section_actions.delete_section_title', {
+					title: section.title ?? '',
+				})}
+				description={t(
+					'dashboard_page_v2.section_actions.delete_section_description',
+				)}
 				onConfirm={handleDeleteSection}
 				onClose={(): void => setIsDeleteOpen(false)}
 			/>

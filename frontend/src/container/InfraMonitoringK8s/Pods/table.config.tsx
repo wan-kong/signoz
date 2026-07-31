@@ -22,7 +22,12 @@ export function getK8sPodItemKey(pod: K8sPodsData): string {
 export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	{
 		id: 'podGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="POD GROUP" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="POD GROUP"
+				titleKey="display.pod_group_uppercase"
+			/>
+		),
 		accessorFn: (row): string => row.meta.k8s_pod_name || '',
 		width: { min: 300 },
 		enableSort: false,
@@ -46,6 +51,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Pod Name"
+				titleKey="display.pod_name"
 				icon={<Container data-hide-expanded="true" size={14} />}
 			/>
 		),

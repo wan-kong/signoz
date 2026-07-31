@@ -30,16 +30,19 @@ export const k8sStatefulSetDetailsMetadataConfig: K8sDetailsMetadataConfig<Infra
 	[
 		{
 			label: 'Statefulset Name',
+			labelKey: 'display.statefulset_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_STATEFULSET_NAME] ?? '',
 		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] ?? '',
 		},
 		{
 			label: 'Namespace Name',
+			labelKey: 'display.namespace_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] ?? '',
 		},
@@ -74,35 +77,41 @@ export const k8sStatefulSetGetEntityName = (
 export const statefulSetWidgetInfo = [
 	{
 		title: 'CPU usage, request, limits',
+		titleKey: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/statefulsets/#cpu-usage-request-limits',
 	},
 	{
 		title: 'CPU request, limit util (%)',
+		titleKey: 'display.cpu_request_limit_util_percent',
 		yAxisUnit: 'percentunit',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/statefulsets/#cpu-request-limit-utilization-',
 	},
 	{
 		title: 'Memory usage, request, limits',
+		titleKey: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/statefulsets/#memory-usage-request-limits',
 	},
 	{
 		title: 'Memory request, limit util (%)',
+		titleKey: 'display.memory_request_limit_util_percent',
 		yAxisUnit: 'percentunit',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/statefulsets/#memory-request-limit-utilization-',
 	},
 	{
 		title: 'Network IO',
+		titleKey: 'display.network_io',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/statefulsets/#network-io',
 	},
 	{
 		title: 'Network errors count',
+		titleKey: 'display.network_errors_count',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/statefulsets/#network-errors-count',

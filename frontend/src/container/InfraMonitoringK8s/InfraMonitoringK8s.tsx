@@ -6,6 +6,7 @@ import logEvent from 'api/common/logEvent';
 import QuickFilters from 'components/QuickFilters/QuickFilters';
 import { QuickFiltersSource } from 'components/QuickFilters/types';
 import { InfraMonitoringEvents } from 'constants/events';
+import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useQueryOperations } from 'hooks/queryBuilder/useQueryBuilderOperations';
 import {
@@ -22,6 +23,7 @@ import {
 	Workflow,
 } from '@signozhq/icons';
 import ErrorBoundaryFallback from 'pages/ErrorBoundaryFallback/ErrorBoundaryFallback';
+import { useTranslation } from 'react-i18next';
 import { Query } from 'types/api/queryBuilder/queryBuilderData';
 
 import { FeatureKeys } from '../../constants/features';
@@ -57,6 +59,7 @@ import K8sVolumesList from './Volumes/K8sVolumesList';
 import styles from './InfraMonitoringK8s.module.scss';
 
 export default function InfraMonitoringK8s(): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const [showFilters, setShowFilters] = useState(true);
 
 	const [selectedCategory, setSelectedCategory] = useInfraMonitoringCategory();
@@ -216,10 +219,20 @@ export default function InfraMonitoringK8s(): JSX.Element {
 							<div className={styles.categorySelectorSection}>
 								<div className={styles.sectionHeader} data-type="resource">
 									<Typography.Text className={styles.sectionLabel}>
-										Viewing · Resource
+										{translateInfraKey(
+											t,
+											'display.viewing_resource',
+											'Viewing · Resource',
+										)}
 									</Typography.Text>
 									<div className={styles.sectionLine} />
-									<Tooltip title="Collapse Filters">
+									<Tooltip
+										title={translateInfraKey(
+											t,
+											'display.collapse_filters',
+											'Collapse Filters',
+										)}
+									>
 										<ArrowUpToLine
 											style={{ transform: 'rotate(270deg)' }}
 											onClick={handleFilterVisibilityChange}

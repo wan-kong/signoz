@@ -1,4 +1,5 @@
 import { ArrowLeft } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import BreakoutOptions from 'container/QueryTable/Drilldown/BreakoutOptions';
 import type { BreakoutAttributeType } from 'container/QueryTable/Drilldown/types';
 import ContextMenu from 'periscope/components/ContextMenu';
@@ -24,6 +25,8 @@ function DrilldownBreakoutMenu({
 	onBreakout,
 	onBack,
 }: DrilldownBreakoutMenuProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<>
 			<ContextMenu.Header>
@@ -34,7 +37,7 @@ function DrilldownBreakoutMenu({
 						onClick={onBack}
 						data-testid="drilldown-breakout-back"
 					/>
-					<span>Breakout by</span>
+					<span>{t('dashboard_page_v2.drilldown.breakout_by')}</span>
 				</div>
 			</ContextMenu.Header>
 			<BreakoutOptions queryData={queryData} onColumnClick={onBreakout} />

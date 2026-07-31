@@ -1,4 +1,5 @@
 import { type ReactNode, useCallback } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { toast } from '@signozhq/ui/sonner';
 import { Typography } from '@signozhq/ui/typography';
@@ -39,6 +40,7 @@ export function useDeleteDashboardAction({
 	dashboardName,
 	panelCount,
 }: UseDeleteDashboardActionArgs): UseDeleteDashboardAction {
+	const { t } = useTranslation('dashboard');
 	const queryClient = useQueryClient();
 	const { showErrorModal } = useErrorModal();
 	const { contextHolder, confirmDelete } = useDeleteConfirm();
@@ -52,7 +54,7 @@ export function useDeleteDashboardAction({
 				void logEvent(DashboardDetailEvents.Deleted, { dashboardId, panelCount });
 				removePreferences(dashboardId);
 				await invalidateListDashboardsForUserV2(queryClient);
-				toast.success('Dashboard deleted successfully');
+				toast.success(t('dashboard_page_v2.actions.dashboard_deleted'));
 				history.replace(ROUTES.ALL_DASHBOARD);
 			},
 			onError: (error: unknown): void => {
@@ -65,15 +67,17 @@ export function useDeleteDashboardAction({
 		confirmDelete({
 			title: (
 				<Typography.Title level={5}>
-					Are you sure you want to delete the
-					<Typography.Text className={styles.deleteName}>
-						{' '}
-						{dashboardName}{' '}
-					</Typography.Text>
-					dashboard?
+					<Trans
+						t={t}
+						i18nKey="dashboard_page_v2.actions.delete_confirm_title"
+						values={{ dashboardName }}
+						components={{
+							name: <Typography.Text className={styles.deleteName} />,
+						}}
+					/>
 				</Typography.Title>
 			),
-			content: 'This action cannot be undone.',
+			content: t('dashboard_page_v2.actions.delete_confirm_content'),
 			// Keeps the Delete button loading until the mutation settles, then closes.
 			onConfirm: () =>
 				new Promise<void>((resolve) => {
@@ -83,7 +87,7 @@ export function useDeleteDashboardAction({
 					);
 				}),
 		});
-	}, [confirmDelete, dashboardName, deleteDashboard, dashboardId]);
+	}, [confirmDelete, dashboardName, deleteDashboard, dashboardId, t]);
 
 	return { contextHolder, confirmDeleteDashboard };
 }

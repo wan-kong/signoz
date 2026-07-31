@@ -1,4 +1,5 @@
 import { useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select, Skeleton, Table } from 'antd';
 import cx from 'classnames';
 import { Button } from '@signozhq/ui/button';
@@ -39,6 +40,7 @@ function ListPanelRenderer({
 	pagination,
 	isPreviousData = false,
 }: PanelRendererProps<'signoz/ListPanel'>): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	// Pin the header while the body scrolls (shared with the Table kind).
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { height } = useResizeObserver(containerRef);
@@ -171,7 +173,7 @@ function ListPanelRenderer({
 								variant="ghost"
 								color="secondary"
 								size="icon"
-								aria-label="Previous page"
+								aria-label={t('dashboard_page_v2.panel_body.previous_page')}
 								data-testid="list-panel-prev"
 								disabled={!pagination.canPrev}
 								onClick={pagination.goPrev}
@@ -179,14 +181,16 @@ function ListPanelRenderer({
 								<ChevronLeft size={14} />
 							</Button>
 							<span className={styles.pagerLabel} data-testid="list-panel-page">
-								Page {pagination.pageIndex + 1}
+								{t('dashboard_page_v2.panel_body.page', {
+									page: pagination.pageIndex + 1,
+								})}
 							</span>
 							<Button
 								type="button"
 								variant="ghost"
 								color="secondary"
 								size="icon"
-								aria-label="Next page"
+								aria-label={t('dashboard_page_v2.panel_body.next_page')}
 								data-testid="list-panel-next"
 								disabled={!pagination.canNext}
 								onClick={pagination.goNext}
@@ -201,7 +205,7 @@ function ListPanelRenderer({
 								data-testid="list-panel-page-size"
 								options={pagination.pageSizeOptions.map((count) => ({
 									value: count,
-									label: `${count} / page`,
+									label: t('dashboard_page_v2.panel_body.per_page', { count }),
 								}))}
 							/>
 						</div>

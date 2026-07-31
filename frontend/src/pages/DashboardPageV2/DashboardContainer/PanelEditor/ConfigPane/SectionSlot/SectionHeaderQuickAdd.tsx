@@ -1,9 +1,10 @@
 import { Plus } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 
 interface SectionHeaderQuickAddConfig {
-	label: string;
+	labelKey: string;
 	testId: string;
 }
 
@@ -18,14 +19,21 @@ function SectionHeaderQuickAdd({
 	action,
 	onClick,
 }: SectionHeaderQuickAddProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+	const label = t(action.labelKey);
+
 	return (
-		<TooltipSimple title="Quick Add" side="top" arrow>
+		<TooltipSimple
+			title={t('dashboard_page_v2.panel_config.quick_add')}
+			side="top"
+			arrow
+		>
 			<Button
 				type="button"
 				variant="ghost"
 				color="secondary"
 				size="icon"
-				aria-label={action.label}
+				aria-label={label}
 				// Not `testId`: TooltipTrigger's Slot merge overwrites it with undefined.
 				data-testid={action.testId}
 				onClick={onClick}

@@ -5,6 +5,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
@@ -48,6 +49,7 @@ function FilterZone({
 	onQueryChange,
 	rightSlot,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [draft, setDraft] = useState(query);
 
 	useEffect(() => {
@@ -117,7 +119,7 @@ function FilterZone({
 				<div className={styles.searchInput}>
 					<SearchBar
 						value={draft}
-						placeholder="DSL Filter — e.g. name CONTAINS 'api' AND env IN ['prod','staging']"
+						placeholder={t('dashboards_list_page_v2.filter.dsl_placeholder')}
 						source={source}
 						dirty={dirty}
 						onChange={setDraft}
@@ -127,7 +129,9 @@ function FilterZone({
 				{rightSlot}
 			</div>
 			<div className={styles.filtersRow}>
-				<Typography.Text className={styles.filtersLabel}>Filters</Typography.Text>
+				<Typography.Text className={styles.filtersLabel}>
+					{t('dashboards_list_page_v2.filter.filters')}
+				</Typography.Text>
 				<FilterChips
 					createdBy={reflected.createdBy}
 					updated={reflected.updated}
@@ -146,7 +150,7 @@ function FilterZone({
 						onClick={handleClear}
 						testId="dashboards-filter-clear"
 					>
-						Clear
+						{t('dashboards_list_page_v2.actions.clear')}
 					</Button>
 				)}
 			</div>

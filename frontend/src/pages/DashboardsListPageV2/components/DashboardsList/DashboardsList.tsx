@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { useListDashboardsForUserV2 } from 'api/generated/services/dashboard';
 import {
@@ -46,6 +47,7 @@ const CLIENT_VIEW_LIMIT = 200;
 
 function DashboardsList(): JSX.Element {
 	const { isCloudUser } = useGetTenantLicense();
+	const { t } = useTranslation('dashboard');
 
 	const { user } = useAppContext();
 	const [editDashboard, canCreateNewDashboard] = useComponentPermission(
@@ -229,7 +231,7 @@ function DashboardsList(): JSX.Element {
 	);
 
 	const openCreate = useCallback((): void => {
-		logEvent('Dashboard List: New dashboard clicked', {});
+		void logEvent('Dashboard List: New dashboard clicked', {});
 		setIsCreateOpen(true);
 	}, []);
 
@@ -257,15 +259,21 @@ function DashboardsList(): JSX.Element {
 	const visitLoggedRef = useRef(false);
 	useEffect(() => {
 		if (!visitLoggedRef.current && !isLoading && response !== undefined) {
-			logEvent('Dashboard List V2: Page visited', { number: dashboards.length });
+			void logEvent('Dashboard List V2: Page visited', {
+				number: dashboards.length,
+			});
 			visitLoggedRef.current = true;
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLoading]);
 
-	const activeLabel =
+	const activeBuiltinLabelKey =
+		builtinViews.find((v) => v.id === activeViewId)?.labelKey ??
+		'dashboards_list_page_v2.title';
+	const activeLabel: string =
 		customViews.find((v) => v.id === activeViewId)?.name ??
-		builtinViews.find((v) => v.id === activeViewId)?.label ??
+		t(activeBuiltinLabelKey) ??
+		t('dashboards_list_page_v2.title') ??
 		'Dashboards';
 
 	// The workspace-empty CTA ("create your first dashboard") belongs only to the
@@ -327,7 +335,7 @@ function DashboardsList(): JSX.Element {
 									hasError={!!error}
 									isCloudUser={!!isCloudUser}
 									onRetry={(): void => {
-										refetch();
+										void refetch();
 									}}
 									errorHttpStatus={errorHttpStatus}
 									errorMessage={errorMessage}

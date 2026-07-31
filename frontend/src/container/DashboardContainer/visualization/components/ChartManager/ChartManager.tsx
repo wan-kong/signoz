@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@signozhq/ui/input';
 import { Button } from 'antd';
 import { PrecisionOption, PrecisionOptionsEnum } from 'components/Graph/types';
@@ -44,6 +45,7 @@ export default function ChartManager({
 	decimalPrecision = PrecisionOptionsEnum.TWO,
 	onCancel,
 }: ChartManagerProps): JSX.Element {
+	const { t } = useTranslation(['dashboard', 'common']);
 	const { legendItemsMap } = useLegendsSync({
 		config,
 		subscribeToFocusChange: false,
@@ -135,25 +137,25 @@ export default function ChartManager({
 
 	const handleSave = useCallback((): void => {
 		syncSeriesVisibilityToLocalStorage();
-		toast.success('The updated graphs & legends are saved');
+		toast.success(t('dashboard_container.visualization.graphs_legends_saved'));
 		onCancel?.();
-	}, [syncSeriesVisibilityToLocalStorage, onCancel]);
+	}, [syncSeriesVisibilityToLocalStorage, onCancel, t]);
 
 	return (
 		<div className="chart-manager-container">
 			<div className="chart-manager-header">
 				<Input
-					placeholder="Filter Series"
+					placeholder={t('dashboard_container.visualization.filter_series')}
 					value={filterValue}
 					onChange={handleFilterChange}
 					data-testid="filter-input"
 				/>
 				<div className="chart-manager-actions-container">
 					<Button type="default" onClick={onCancel}>
-						Cancel
+						{t('cancel', { ns: 'common' })}
 					</Button>
 					<Button type="primary" onClick={handleSave}>
-						Save
+						{t('save', { ns: 'common' })}
 					</Button>
 				</div>
 			</div>

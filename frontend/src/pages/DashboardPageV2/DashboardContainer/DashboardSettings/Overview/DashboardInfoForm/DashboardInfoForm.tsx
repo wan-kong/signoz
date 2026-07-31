@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@signozhq/ui/input';
 import { Typography } from '@signozhq/ui/typography';
 // eslint-disable-next-line signoz/no-antd-components -- multiline TextArea has no @signozhq/ui equivalent yet
@@ -31,11 +32,14 @@ function DashboardInfoForm({
 	onImageChange,
 	onTagsChange,
 }: DashboardInfoFormProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	return (
 		<div className={settingsStyles.settingsCard}>
 			<div className={styles.formSpace}>
 				<div className={styles.infoItemContainer}>
-					<Typography className={styles.infoTitle}>Dashboard Name</Typography>
+					<Typography className={styles.infoTitle}>
+						{t('dashboard_page_v2.settings.overview.dashboard_name')}
+					</Typography>
 					<section className={styles.nameIconInput}>
 						<DashboardImagePicker
 							image={image}
@@ -54,7 +58,9 @@ function DashboardInfoForm({
 				</div>
 
 				<div className={styles.infoItemContainer}>
-					<Typography className={styles.infoTitle}>Description</Typography>
+					<Typography className={styles.infoTitle}>
+						{t('dashboard_page_v2.settings.overview.description')}
+					</Typography>
 					<AntdInput.TextArea
 						data-testid="dashboard-desc"
 						rows={6}
@@ -65,7 +71,9 @@ function DashboardInfoForm({
 				</div>
 
 				<div className={styles.infoItemContainer}>
-					<Typography className={styles.infoTitle}>Tags</Typography>
+					<Typography className={styles.infoTitle}>
+						{t('dashboard_page_v2.settings.overview.tags')}
+					</Typography>
 					<TagKeyValueInput tags={tags} onTagsChange={onTagsChange} />
 				</div>
 			</div>

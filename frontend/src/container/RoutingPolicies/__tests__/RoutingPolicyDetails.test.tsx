@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import * as appHooks from 'providers/App/App';
 
 import RoutingPolicyDetails from '../RoutingPolicyDetails';
@@ -7,6 +7,7 @@ import {
 	MOCK_CHANNEL_1,
 	MOCK_CHANNEL_2,
 	MOCK_ROUTING_POLICY_1,
+	renderWithAlertsI18n,
 } from './testUtils';
 
 jest.spyOn(appHooks, 'useAppContext').mockReturnValue(getAppContextMockState());
@@ -25,7 +26,7 @@ const NO_CHANNELS_FOUND_TEXT = 'No channels yet.';
 
 describe('RoutingPolicyDetails', () => {
 	it('renders base create layout with header, 3 inputs and footer', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -51,7 +52,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('renders base edit layout with header, 3 inputs and footer', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -78,7 +79,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('prefills inputs with existing policy values in edit mode', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -104,7 +105,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('creating and saving the routing policy works correctly', async () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -164,7 +165,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('editing and saving the routing policy works correctly', async () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -219,7 +220,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('should close modal when cancel button is clicked', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -239,7 +240,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('buttons should be disabled when loading', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -268,7 +269,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('submit should not be called when inputs are invalid', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -291,7 +292,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('notification channels select should be disabled when channels are loading', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -310,7 +311,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('should show error state when channels fail to load', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -330,7 +331,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('should show empty state when no channels are available', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -351,7 +352,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('should show create channel button for admin users in empty state', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -377,7 +378,7 @@ describe('RoutingPolicyDetails', () => {
 			.spyOn(appHooks, 'useAppContext')
 			.mockReturnValue(getAppContextMockState({ role: 'VIEWER' }));
 
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}
@@ -402,7 +403,7 @@ describe('RoutingPolicyDetails', () => {
 	});
 
 	it('should call refreshChannels when refresh button is clicked in empty state', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyDetails
 				routingPolicy={mockRoutingPolicy}
 				closeModal={mockCloseModal}

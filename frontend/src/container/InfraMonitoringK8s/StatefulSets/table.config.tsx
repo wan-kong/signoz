@@ -30,7 +30,10 @@ export const k8sStatefulSetsColumnsConfig: TableColumnDef<K8sStatefulSetsData>[]
 		{
 			id: 'statefulSetGroup',
 			header: (): React.ReactNode => (
-				<EntityGroupHeader title="STATEFULSET GROUP" />
+				<EntityGroupHeader
+					title="STATEFULSET GROUP"
+					titleKey="display.statefulset_group_uppercase"
+				/>
 			),
 			accessorFn: (row): string => row.meta.k8s_statefulset_name || '',
 			width: { min: 210 },
@@ -55,6 +58,7 @@ export const k8sStatefulSetsColumnsConfig: TableColumnDef<K8sStatefulSetsData>[]
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
 					title="StatefulSet Name"
+					titleKey="display.statefulset_name"
 					icon={<ArrowUpDown data-hide-expanded="true" size={14} />}
 				/>
 			),

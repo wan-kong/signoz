@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import { Check, Info } from '@signozhq/icons';
 import {
 	Button,
@@ -103,6 +104,7 @@ interface PlannedDowntimeFormProps {
 export function PlannedDowntimeForm(
 	props: PlannedDowntimeFormProps,
 ): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const {
 		initialValues,
 		alertOptions,
@@ -144,9 +146,11 @@ export function PlannedDowntimeForm(
 
 	const requiredFieldRule = [{ required: true }];
 
-	const datePickerFooter = (mode: any): any =>
+	const datePickerFooter = (mode: string): React.ReactNode =>
 		mode === 'time' ? (
-			<span style={{ color: 'gray' }}>Please select the time</span>
+			<span style={{ color: 'gray' }}>
+				{t('planned_downtime.form.select_time')}
+			</span>
 		) : null;
 
 	const saveHandler = useCallback(
@@ -182,10 +186,10 @@ export function PlannedDowntimeForm(
 				}
 				setIsOpen(false);
 				notifications.success({
-					message: 'Success',
+					message: t('success'),
 					description: isEditMode
-						? 'Schedule updated successfully'
-						: 'Schedule created successfully',
+						? t('planned_downtime.form.schedule_updated')
+						: t('planned_downtime.form.schedule_created'),
 				});
 				refetchAllSchedules();
 			} catch (e: unknown) {
@@ -202,6 +206,7 @@ export function PlannedDowntimeForm(
 			refetchAllSchedules,
 			setIsOpen,
 			showErrorModal,
+			t,
 		],
 	);
 	const onFinish = async (values: PlannedDowntimeFormData): Promise<void> => {
@@ -318,17 +323,29 @@ export function PlannedDowntimeForm(
 		const formattedDaysOfWeek = daysOfWeek?.join(', ');
 		switch (recurrenceType) {
 			case 'daily':
-				return `Scheduled from ${formattedStartDate}, daily starting at ${formattedStartTime}.`;
+				return t('planned_downtime.form.schedule_daily', {
+					startDate: formattedStartDate,
+					startTime: formattedStartTime,
+				});
 			case 'monthly':
-				return `Scheduled from ${formattedStartDate}, monthly on the ${ordinalFormat} starting at ${formattedStartTime}.`;
+				return t('planned_downtime.form.schedule_monthly', {
+					startDate: formattedStartDate,
+					ordinal: ordinalFormat,
+					startTime: formattedStartTime,
+				});
 			case 'weekly':
-				return `Scheduled from ${formattedStartDate}, weekly ${
-					formattedDaysOfWeek ? `on [${formattedDaysOfWeek}]` : ''
-				} starting at ${formattedStartTime}`;
+				return t('planned_downtime.form.schedule_weekly', {
+					startDate: formattedStartDate,
+					days: formattedDaysOfWeek ? `on [${formattedDaysOfWeek}]` : '',
+					startTime: formattedStartTime,
+				});
 			default:
-				return `Scheduled for ${formattedStartDate} starting at ${formattedStartTime}.`;
+				return t('planned_downtime.form.schedule_once', {
+					startDate: formattedStartDate,
+					startTime: formattedStartTime,
+				});
 		}
-	}, [formData, recurrenceType]);
+	}, [formData, recurrenceType, t]);
 
 	const endTimeText = useMemo((): string => {
 		const endTime = formData.endTime;
@@ -338,14 +355,37 @@ export function PlannedDowntimeForm(
 
 		const formattedEndTime = endTime.format(TIME_FORMAT);
 		const formattedEndDate = endTime.format(DATE_FORMAT);
-		return `Scheduled to end maintenance on ${formattedEndDate} at ${formattedEndTime}.`;
-	}, [formData]);
+		return t('planned_downtime.form.schedule_end', {
+			endDate: formattedEndDate,
+			endTime: formattedEndTime,
+		});
+	}, [formData, t]);
+
+	const translatedRecurrenceOptions = useMemo(
+		() =>
+			recurrenceOptionWithSubmenu.map((option) => ({
+				...option,
+				label: t(`planned_downtime.recurrence.${option.value}`),
+			})),
+		[t],
+	);
+
+	const translatedWeeklyOptions = useMemo(
+		() =>
+			Object.values(recurrenceWeeklyOptions).map((option) => ({
+				...option,
+				label: t(`planned_downtime.weekdays.${option.value}`),
+			})),
+		[t],
+	);
 
 	return (
 		<Modal
 			title={
 				<ModalTitle level={4}>
-					{isEditMode ? 'Edit planned downtime' : 'New planned downtime'}
+					{isEditMode
+						? t('planned_downtime.form.edit_title')
+						: t('planned_downtime.form.new_title')}
 				</ModalTitle>
 			}
 			centered
@@ -367,11 +407,15 @@ export function PlannedDowntimeForm(
 				}}
 				autoComplete="off"
 			>
-				<Form.Item label="Name" name="name" rules={requiredFieldRule}>
-					<Input placeholder="e.g. Upgrade downtime" />
+				<Form.Item
+					label={t('planned_downtime.form.name')}
+					name="name"
+					rules={requiredFieldRule}
+				>
+					<Input placeholder={t('planned_downtime.form.name_placeholder')} />
 				</Form.Item>
 				<Form.Item
-					label="Starts from"
+					label={t('planned_downtime.form.starts_from')}
 					name="startTime"
 					rules={requiredFieldRule}
 					className={!isEmpty(startTimeText) ? 'formItemWithBullet' : ''}
@@ -388,32 +432,32 @@ export function PlannedDowntimeForm(
 					<div className="scheduleTimeInfoText">{startTimeText}</div>
 				)}
 				<Form.Item
-					label="Repeats every"
+					label={t('planned_downtime.form.repeats_every')}
 					name={['recurrence', 'repeatType']}
 					rules={requiredFieldRule}
 				>
 					<Select
-						placeholder="Select option..."
-						options={recurrenceOptionWithSubmenu}
+						placeholder={t('select_option')}
+						options={translatedRecurrenceOptions}
 					/>
 				</Form.Item>
 				{recurrenceType === recurrenceOptions.weekly.value && (
 					<Form.Item
-						label="Weekly occurernce"
+						label={t('planned_downtime.form.weekly_occurrence')}
 						name={['recurrence', 'repeatOn']}
 						rules={requiredFieldRule}
 					>
 						<Select
-							placeholder="Select option..."
+							placeholder={t('select_option')}
 							mode="multiple"
-							options={Object.values(recurrenceWeeklyOptions)}
+							options={translatedWeeklyOptions}
 						/>
 					</Form.Item>
 				)}
 				{recurrenceType &&
 					recurrenceType !== recurrenceOptions.doesNotRepeat.value && (
 						<Form.Item
-							label="Duration"
+							label={t('planned_downtime.form.duration')}
 							name={['recurrence', 'duration']}
 							rules={requiredFieldRule}
 						>
@@ -424,23 +468,35 @@ export function PlannedDowntimeForm(
 										value={durationUnit}
 										onChange={(value): void => setDurationUnit(value)}
 									>
-										<Select.Option value="m">Mins</Select.Option>
-										<Select.Option value="h">Hours</Select.Option>
+										<Select.Option value="m">
+											{t('planned_downtime.form.mins')}
+										</Select.Option>
+										<Select.Option value="h">
+											{t('planned_downtime.form.hours')}
+										</Select.Option>
 									</Select>
 								}
 								className="duration-input"
 								type="number"
-								placeholder="Enter duration"
+								placeholder={t('planned_downtime.form.duration_placeholder')}
 								min={1}
 								onWheel={(e): void => e.currentTarget.blur()}
 							/>
 						</Form.Item>
 					)}
-				<Form.Item label="Timezone" name="timezone" rules={requiredFieldRule}>
-					<Select options={TZ_OPTIONS} placeholder="Select timezone" showSearch />
+				<Form.Item
+					label={t('planned_downtime.form.timezone')}
+					name="timezone"
+					rules={requiredFieldRule}
+				>
+					<Select
+						options={TZ_OPTIONS}
+						placeholder={t('planned_downtime.form.timezone_placeholder')}
+						showSearch
+					/>
 				</Form.Item>
 				<Form.Item
-					label="Ends on"
+					label={t('planned_downtime.form.ends_on')}
 					name="endTime"
 					required={recurrenceType === recurrenceOptions.doesNotRepeat.value}
 					rules={[
@@ -462,15 +518,21 @@ export function PlannedDowntimeForm(
 					<div className="scheduleTimeInfoText">{endTimeText}</div>
 				)}
 				<div>
-					<Typography style={{ marginBottom: 8 }}>Silence Alerts</Typography>
+					<Typography style={{ marginBottom: 8 }}>
+						{t('planned_downtime.form.silence_alerts')}
+					</Typography>
 					<Form.Item
 						name="alertRuleScope"
 						initialValue="specific"
 						className="alert-rule-scope"
 					>
 						<RadioGroup className="silence-alerts-radio-group">
-							<RadioGroupItem value="all">All alert rules</RadioGroupItem>
-							<RadioGroupItem value="specific">Specific alert rules</RadioGroupItem>
+							<RadioGroupItem value="all">
+								{t('planned_downtime.form.all_alert_rules')}
+							</RadioGroupItem>
+							<RadioGroupItem value="specific">
+								{t('planned_downtime.form.specific_alert_rules')}
+							</RadioGroupItem>
 						</RadioGroup>
 					</Form.Item>
 					{alertRuleScope === 'specific' && (
@@ -491,16 +553,14 @@ export function PlannedDowntimeForm(
 											value: DefaultOptionType[] | undefined,
 										): Promise<void> => {
 											if (!value || value.length === 0) {
-												throw new Error(
-													'Select at least one alert rule, or choose "All alert rules" to silence everything.',
-												);
+												throw new Error(t('planned_downtime.form.alert_rules_required'));
 											}
 										},
 									},
 								]}
 							>
 								<Select
-									placeholder="Search for alert rules or groups..."
+									placeholder={t('planned_downtime.form.alert_rules_placeholder')}
 									mode="multiple"
 									status={isError ? 'error' : undefined}
 									loading={isLoading}
@@ -516,10 +576,10 @@ export function PlannedDowntimeForm(
 									notFoundContent={
 										isLoading ? (
 											<span>
-												<Spin size="small" /> Loading...
+												<Spin size="small" /> {t('loading')}
 											</span>
 										) : (
-											<span>No alert available.</span>
+											<span>{t('planned_downtime.form.no_alert_available')}</span>
 										)
 									}
 								>
@@ -536,19 +596,24 @@ export function PlannedDowntimeForm(
 				<Form.Item
 					label={
 						<span>
-							Scope&nbsp;
+							{t('planned_downtime.form.scope')}&nbsp;
 							<Tooltip
 								mouseLeaveDelay={0.3}
 								title={
 									<span>
-										Scope the planned downtime by alert labels.{' '}
-										<a
-											href="https://signoz.io/docs/alerts-management/planned-maintenance/#scoping-with-label-expressions"
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											Learn more
-										</a>
+										<Trans
+											t={t}
+											i18nKey="planned_downtime.form.scope_tooltip"
+											components={[
+												<a
+													key="planned-downtime-scope-docs-link"
+													href="https://signoz.io/docs/alerts-management/planned-maintenance/#scoping-with-label-expressions"
+													target="_blank"
+													rel="noopener noreferrer"
+													aria-label={t('planned_downtime.form.scope_docs_link_label')}
+												/>,
+											]}
+										/>
 									</span>
 								}
 							>
@@ -575,7 +640,9 @@ export function PlannedDowntimeForm(
 						>
 							<Flex align="center" gap={4}>
 								<Check size={16} />
-								{isEditMode ? 'Update downtime schedule' : 'Add downtime schedule'}
+								{isEditMode
+									? t('planned_downtime.form.update_schedule')
+									: t('planned_downtime.form.add_schedule')}
 							</Flex>
 						</Button>
 					</ModalButtonWrapper>

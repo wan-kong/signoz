@@ -1,21 +1,21 @@
 {
-	"total_retention_period": "Total Retention Period",
-	"move_to_s3": "Move to S3\n(should be lower than total retention period)",
+	"total_retention_period": "总保留周期",
+	"move_to_s3": "移动到 S3\n（应小于总保留周期）",
 	"status_message": {
-		"success": "Your last call to change retention period to {{total_retention}} {{s3_part}} was successful.",
-		"failed": "Your last call to change retention period to {{total_retention}} {{s3_part}} failed. Please try again.",
-		"pending": "Your last call to change retention period to {{total_retention}} {{s3_part}} is pending. This may take some time.",
-		"s3_part": "and  S3 to {{s3_retention}}"
+		"success": "你上次将保留周期更改为 {{total_retention}} {{s3_part}} 的请求已成功。",
+		"failed": "你上次将保留周期更改为 {{total_retention}} {{s3_part}} 的请求失败。请重试。",
+		"pending": "你上次将保留周期更改为 {{total_retention}} {{s3_part}} 的请求正在处理中，可能需要一些时间。",
+		"s3_part": "并将 S3 设置为 {{s3_retention}}"
 	},
 	"retention_save_button": {
-		"pending": "Updating {{name}} retention period",
-		"success": "Save"
+		"pending": "正在更新 {{name}} 保留周期",
+		"success": "保存"
 	},
-	"retention_request_race_condition": "Your request to change retention period has failed, as another request is still in process.",
-	"retention_error_message": "There was an issue in changing the retention period for {{name}}. Please try again or reach out to support@signoz.io",
-	"retention_failed_message": "There was an issue in changing the retention period. Please try again or reach out to support@signoz.io",
-	"retention_comparison_error": "Total retention period for {{name}} can’t be lower or equal to the period after which data is moved to s3.",
-	"retention_null_value_error": "Retention Period for {{name}} is not set yet. Please set by choosing below",
-	"retention_confirmation": "Are you sure you want to change the retention period?",
-	"retention_confirmation_description": "This will change the amount of storage needed for saving {{name}}."
+	"retention_request_race_condition": "更改保留周期的请求失败，因为另一个请求仍在处理中。",
+	"retention_error_message": "更改 {{name}} 的保留周期时出现问题。请重试或联系 support@signoz.io",
+	"retention_failed_message": "更改保留周期时出现问题。请重试或联系 support@signoz.io",
+	"retention_comparison_error": "{{name}} 的总保留周期不能小于或等于数据移动到 S3 之后的保留周期。",
+	"retention_null_value_error": "{{name}} 的保留周期尚未设置。请在下方选择并设置",
+	"retention_confirmation": "确定要更改保留周期吗？",
+	"retention_confirmation_description": "这会改变保存 {{name}} 所需的存储量。"
 }

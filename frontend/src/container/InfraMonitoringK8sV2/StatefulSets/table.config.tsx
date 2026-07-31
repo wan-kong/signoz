@@ -48,7 +48,10 @@ export const k8sStatefulSetsColumnsConfig: TableColumnDef<InframonitoringtypesSt
 		{
 			id: 'statefulSetGroup',
 			header: (): React.ReactNode => (
-				<EntityGroupHeader title="StatefulSet Group" />
+				<EntityGroupHeader
+					title="StatefulSet Group"
+					titleKey="display.statefulset_group"
+				/>
 			),
 			accessorFn: (row): string =>
 				row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_STATEFULSET_NAME] || '',
@@ -74,6 +77,7 @@ export const k8sStatefulSetsColumnsConfig: TableColumnDef<InframonitoringtypesSt
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
 					title="StatefulSet Name"
+					titleKey="display.statefulset_name"
 					icon={<ArrowUpDown data-hide-expanded="true" size={14} />}
 					docPath="/infrastructure-monitoring/kubernetes/statefulsets#statefulset-name"
 				/>

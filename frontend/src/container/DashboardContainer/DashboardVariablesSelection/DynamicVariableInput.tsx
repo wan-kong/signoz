@@ -1,4 +1,5 @@
 import { memo, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
@@ -41,6 +42,7 @@ function DynamicVariableInput({
 	onValueUpdate,
 	existingVariables,
 }: DynamicVariableInputProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [optionsData, setOptionsData] = useState<(string | number | boolean)[]>(
 		[],
 	);
@@ -295,8 +297,15 @@ function DynamicVariableInput({
 
 	const selectOptions = useMemo(
 		() =>
-			getOptionsForDynamicVariable(filteredOptionsData || [], relatedValues || []),
-		[filteredOptionsData, relatedValues],
+			getOptionsForDynamicVariable(
+				filteredOptionsData || [],
+				relatedValues || [],
+				{
+					relatedValues: t('dashboard_container.variables.related_values'),
+					allValues: t('dashboard_container.variables.all_values'),
+				},
+			),
+		[filteredOptionsData, relatedValues, t],
 	);
 
 	return (

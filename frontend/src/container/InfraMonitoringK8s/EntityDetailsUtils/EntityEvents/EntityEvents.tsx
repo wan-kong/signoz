@@ -31,9 +31,11 @@ import { useQueryState } from 'nuqs';
 import { DataSource } from 'types/common/queryBuilder';
 import { parseAsJsonNoValidate } from 'utils/nuqsParsers';
 import { validateQuery } from 'utils/queryValidationUtils';
+import { useTranslation } from 'react-i18next';
 
 import EntityEmptyState from '../EntityEmptyState/EntityEmptyState';
 import EntityError from '../EntityError/EntityError';
+import { translateInfraKey } from '../../i18n';
 import { EventContents } from './EventsContent';
 import EventsNotConfigured from './EventsNotConfigured';
 import { K8S_ENTITY_EVENTS_EXPRESSION_KEY, useEntityEvents } from './hooks';
@@ -84,6 +86,7 @@ function EntityEventsContent({
 	queryKey,
 	category,
 }: Omit<Props, 'initialExpression'>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const expression = useExpression();
 	const inputExpression = useInputExpression();
 	const userExpression = useUserExpression();
@@ -171,9 +174,14 @@ function EntityEventsContent({
 	const { formatTimezoneAdjustedTimestamp } = useTimezone();
 	const columns: TableColumnsType<EventDataType> = useMemo(
 		() => [
-			{ title: 'Severity', dataIndex: 'severity', key: 'severity', width: 100 },
 			{
-				title: 'Timestamp',
+				title: translateInfraKey(t, 'display.severity', 'Severity'),
+				dataIndex: 'severity',
+				key: 'severity',
+				width: 100,
+			},
+			{
+				title: translateInfraKey(t, 'display.timestamp', 'Timestamp'),
 				dataIndex: 'timestamp',
 				width: 240,
 				ellipsis: true,
@@ -183,9 +191,13 @@ function EntityEventsContent({
 						typeof value === 'string' ? value : value / 1e6,
 					),
 			},
-			{ title: 'Body', dataIndex: 'body', key: 'body' },
+			{
+				title: translateInfraKey(t, 'display.body', 'Body'),
+				dataIndex: 'body',
+				key: 'body',
+			},
 		],
-		[formatTimezoneAdjustedTimestamp],
+		[formatTimezoneAdjustedTimestamp, t],
 	);
 
 	const handleExpandRowIcon = ({

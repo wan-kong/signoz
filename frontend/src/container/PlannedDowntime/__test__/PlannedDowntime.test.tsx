@@ -1,4 +1,5 @@
 import { UseQueryResult } from 'react-query';
+import type { Key, ReactNode } from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import type {
 	ListDowntimeSchedules200,
@@ -9,6 +10,7 @@ import {
 	mockLocation,
 	mockQueryParams,
 } from 'container/RoutingPolicies/__tests__/testUtils';
+import { alertsI18nProviderProps } from 'tests/alertsI18n';
 import { render } from 'tests/test-utils';
 import { USER_ROLES } from 'types/roles';
 
@@ -100,6 +102,72 @@ jest.mock('hooks/useSafeNavigate', () => ({
 	}),
 }));
 
+jest.mock('antd', () => {
+	const actual = jest.requireActual('antd');
+	const React = jest.requireActual('react');
+
+	type MockTableRow = {
+		id?: Key;
+		[key: string]: unknown;
+	};
+
+	type MockTableColumn = {
+		key?: Key;
+		dataIndex?: string;
+		render?: (row: MockTableRow) => ReactNode;
+	};
+
+	const MockTableCell = ({
+		column,
+		row,
+	}: {
+		column: MockTableColumn;
+		row: MockTableRow;
+	}): ReactNode =>
+		React.createElement(
+			'div',
+			null,
+			column.render || !column.dataIndex
+				? column.render?.(row)
+				: row[column.dataIndex],
+		);
+
+	return {
+		...actual,
+		Table: ({
+			columns = [],
+			dataSource = [],
+			loading = false,
+		}: {
+			columns?: MockTableColumn[];
+			dataSource?: MockTableRow[];
+			loading?: boolean;
+		}) => {
+			if (loading) {
+				return React.createElement('div', { role: 'status' }, 'Loading');
+			}
+
+			return React.createElement(
+				'div',
+				{ 'data-testid': 'mock-planned-downtime-table' },
+				dataSource.map((row, rowIndex) =>
+					React.createElement(
+						'div',
+						{ key: row.id || rowIndex },
+						columns.map((column, columnIndex) =>
+							React.createElement(MockTableCell, {
+								key: column.key || columnIndex,
+								column,
+								row,
+							}),
+						),
+					),
+				),
+			);
+		},
+	};
+});
+
 jest.mock('api/generated/services/downtimeschedules', () => ({
 	useListDowntimeSchedules: (): DowntimeQueryResult =>
 		mockDowntimeQueryResult as DowntimeQueryResult,
@@ -131,7 +199,11 @@ describe('PlannedDowntime Component', () => {
 	});
 
 	it('renders the PlannedDowntime component properly', () => {
-		render(<PlannedDowntime />, {}, { role: 'ADMIN' });
+		render(
+			<PlannedDowntime />,
+			{},
+			{ role: 'ADMIN', ...alertsI18nProviderProps },
+		);
 
 		// Check if title is rendered
 		expect(screen.getByText('Planned Downtime')).toBeInTheDocument();
@@ -153,7 +225,14 @@ describe('PlannedDowntime Component', () => {
 	});
 
 	it('disables the "New downtime" button for users with VIEWER role', () => {
-		render(<PlannedDowntime />, {}, { role: USER_ROLES.VIEWER });
+		render(
+			<PlannedDowntime />,
+			{},
+			{
+				role: USER_ROLES.VIEWER,
+				...alertsI18nProviderProps,
+			},
+		);
 
 		// Check if "New downtime" button is disabled for VIEWER
 		const newDowntimeButton = screen.getByRole('button', {
@@ -169,7 +248,14 @@ describe('PlannedDowntime Component', () => {
 		const searchTerm = 'existing search';
 		mockUrlQuery = mockQueryParams({ search: searchTerm });
 
-		render(<PlannedDowntime />, {}, { role: USER_ROLES.ADMIN });
+		render(
+			<PlannedDowntime />,
+			{},
+			{
+				role: USER_ROLES.ADMIN,
+				...alertsI18nProviderProps,
+			},
+		);
 
 		const searchInput = screen.getByPlaceholderText(
 			SEARCH_PLACEHOLDER,
@@ -180,7 +266,14 @@ describe('PlannedDowntime Component', () => {
 	it('should initialize with empty search when no search param is in URL', () => {
 		mockUrlQuery = mockQueryParams({});
 
-		render(<PlannedDowntime />, {}, { role: USER_ROLES.ADMIN });
+		render(
+			<PlannedDowntime />,
+			{},
+			{
+				role: USER_ROLES.ADMIN,
+				...alertsI18nProviderProps,
+			},
+		);
 
 		const searchInput = screen.getByPlaceholderText(
 			SEARCH_PLACEHOLDER,
@@ -189,7 +282,14 @@ describe('PlannedDowntime Component', () => {
 	});
 
 	it('should display all downtime schedules when no search term is entered', async () => {
-		render(<PlannedDowntime />, {}, { role: USER_ROLES.ADMIN });
+		render(
+			<PlannedDowntime />,
+			{},
+			{
+				role: USER_ROLES.ADMIN,
+				...alertsI18nProviderProps,
+			},
+		);
 
 		expect(screen.getByText(MOCK_DOWNTIME_1_NAME)).toBeInTheDocument();
 		expect(screen.getByText(MOCK_DOWNTIME_2_NAME)).toBeInTheDocument();
@@ -197,7 +297,14 @@ describe('PlannedDowntime Component', () => {
 	});
 
 	it('should filter downtime schedules by name when searching', async () => {
-		render(<PlannedDowntime />, {}, { role: USER_ROLES.ADMIN });
+		render(
+			<PlannedDowntime />,
+			{},
+			{
+				role: USER_ROLES.ADMIN,
+				...alertsI18nProviderProps,
+			},
+		);
 
 		expect(screen.getByText(MOCK_DOWNTIME_1_NAME)).toBeInTheDocument();
 
@@ -211,7 +318,14 @@ describe('PlannedDowntime Component', () => {
 	});
 
 	it('should filter downtime schedules with partial name match', async () => {
-		render(<PlannedDowntime />, {}, { role: USER_ROLES.ADMIN });
+		render(
+			<PlannedDowntime />,
+			{},
+			{
+				role: USER_ROLES.ADMIN,
+				...alertsI18nProviderProps,
+			},
+		);
 
 		expect(screen.getByText(MOCK_DOWNTIME_1_NAME)).toBeInTheDocument();
 
@@ -225,7 +339,14 @@ describe('PlannedDowntime Component', () => {
 	});
 
 	it('should show no results when search term matches nothing', async () => {
-		render(<PlannedDowntime />, {}, { role: USER_ROLES.ADMIN });
+		render(
+			<PlannedDowntime />,
+			{},
+			{
+				role: USER_ROLES.ADMIN,
+				...alertsI18nProviderProps,
+			},
+		);
 
 		const searchInput = screen.getByPlaceholderText(SEARCH_PLACEHOLDER);
 

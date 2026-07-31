@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
 import { Skeleton } from 'antd';
 import cx from 'classnames';
@@ -35,12 +36,14 @@ import { isKeyNotFoundError } from '../utils';
 
 import styles from './EntityMetrics.module.scss';
 import { MetricsTable } from './MetricsTable';
+import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 
 interface EntityMetricsProps<T> {
 	entity: T;
 	eventEntity: string;
 	entityWidgetInfo: {
 		title: string;
+		titleKey?: string;
 		yAxisUnit: string;
 		docPath?: string;
 	}[];
@@ -63,6 +66,7 @@ function EntityMetrics<T>({
 	category,
 	view = VIEW_TYPES.METRICS,
 }: EntityMetricsProps<T>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const { timeRange, selectedInterval, handleTimeChange } =
 		useEntityDetailsTime();
 
@@ -144,7 +148,12 @@ function EntityMetrics<T>({
 
 		if (query.error && !isKeyNotFoundError(query.error)) {
 			const errorMessage =
-				(query.error as Error)?.message || 'Something went wrong';
+				(query.error as Error)?.message ||
+				translateInfraKey(
+					t,
+					'display.something_went_wrong',
+					'Something went wrong',
+				);
 			return <div>{errorMessage}</div>;
 		}
 
@@ -197,7 +206,11 @@ function EntityMetrics<T>({
 						className={styles.entityMetricsCol}
 					>
 						<ChartHeader
-							title={entityWidgetInfo[idx].title}
+							title={translateInfraKey(
+								t,
+								entityWidgetInfo[idx].titleKey,
+								entityWidgetInfo[idx].title,
+							)}
 							docPath={entityWidgetInfo[idx].docPath}
 							metricsExplorerUrl={
 								queryPayloads[idx] && queryPayloads[idx].graphType !== PANEL_TYPES.TABLE

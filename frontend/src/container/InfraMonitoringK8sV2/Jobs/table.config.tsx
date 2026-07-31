@@ -42,7 +42,9 @@ export type JobTableColumnConfig =
 export const k8sJobsColumnsConfig: JobTableColumnConfig[] = [
 	{
 		id: 'jobGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="Job Group" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader title="Job Group" titleKey="display.job_group" />
+		),
 		accessorFn: (row): string =>
 			row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_JOB_NAME] || '',
 		width: { min: 290 },
@@ -67,6 +69,7 @@ export const k8sJobsColumnsConfig: JobTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Job Name"
+				titleKey="display.job_name"
 				icon={<Bolt data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/jobs#job-name"
 			/>

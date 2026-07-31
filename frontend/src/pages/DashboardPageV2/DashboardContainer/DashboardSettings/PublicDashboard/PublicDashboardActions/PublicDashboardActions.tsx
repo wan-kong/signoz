@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Globe, RefreshCw, Trash } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 
@@ -24,6 +25,7 @@ function PublicDashboardActions({
 	onUpdate,
 	onUnpublish,
 }: PublicDashboardActionsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	return (
 		<div className={styles.footer}>
 			{isPublic ? (
@@ -37,7 +39,7 @@ function PublicDashboardActions({
 						testId="public-dashboard-unpublish"
 						onClick={onUnpublish}
 					>
-						Unpublish Dashboard
+						{t('dashboard_page_v2.public_dashboard.unpublish')}
 					</Button>
 					<Button
 						variant="solid"
@@ -48,7 +50,7 @@ function PublicDashboardActions({
 						testId="public-dashboard-update"
 						onClick={onUpdate}
 					>
-						Update Dashboard
+						{t('dashboard_page_v2.public_dashboard.update')}
 					</Button>
 				</>
 			) : (
@@ -61,7 +63,7 @@ function PublicDashboardActions({
 					testId="public-dashboard-publish"
 					onClick={onPublish}
 				>
-					Publish Dashboard
+					{t('dashboard_page_v2.public_dashboard.publish')}
 				</Button>
 			)}
 		</div>

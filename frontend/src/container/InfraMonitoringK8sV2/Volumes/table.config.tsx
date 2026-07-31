@@ -44,7 +44,9 @@ export type VolumeTableColumnConfig =
 export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'volumeGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="Volume Group" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader title="Volume Group" titleKey="display.volume_group" />
+		),
 		accessorFn: (row): string => row.persistentVolumeClaimName || '',
 		width: { min: 290 },
 		enableSort: false,
@@ -68,6 +70,7 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="PVC Name"
+				titleKey="display.pvc_name"
 				icon={<HardDrive data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/volumes#pvc-name"
 			/>

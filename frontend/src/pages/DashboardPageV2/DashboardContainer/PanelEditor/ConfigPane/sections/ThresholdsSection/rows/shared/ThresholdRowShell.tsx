@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Check, Pencil, Trash2, X } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 
@@ -38,6 +39,8 @@ function ThresholdRowShell({
 	onDiscard,
 	onRemove,
 }: ThresholdRowShellProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	if (!isEditing) {
 		return (
 			<div className={styles.viewRow}>
@@ -49,7 +52,9 @@ function ThresholdRowShell({
 					variant="ghost"
 					color="secondary"
 					size="icon"
-					aria-label={`Edit threshold ${index + 1}`}
+					aria-label={t('dashboard_page_v2.panel_config.thresholds.edit_threshold', {
+						index: index + 1,
+					})}
 					data-testid={`${testIdPrefix}-edit-${index}`}
 					onClick={onEdit}
 				>
@@ -60,7 +65,10 @@ function ThresholdRowShell({
 					variant="ghost"
 					color="destructive"
 					size="icon"
-					aria-label={`Remove threshold ${index + 1}`}
+					aria-label={t(
+						'dashboard_page_v2.panel_config.thresholds.remove_threshold',
+						{ index: index + 1 },
+					)}
 					data-testid={`${testIdPrefix}-remove-${index}`}
 					onClick={onRemove}
 				>
@@ -83,7 +91,7 @@ function ThresholdRowShell({
 					data-testid={`${testIdPrefix}-discard-${index}`}
 					onClick={onDiscard}
 				>
-					Discard
+					{t('dashboard_page_v2.panel_config.thresholds.discard')}
 				</Button>
 				<Button
 					type="button"
@@ -93,7 +101,7 @@ function ThresholdRowShell({
 					data-testid={`${testIdPrefix}-save-${index}`}
 					onClick={onSave}
 				>
-					Save
+					{t('dashboard_page_v2.panel_config.thresholds.save')}
 				</Button>
 			</div>
 		</div>

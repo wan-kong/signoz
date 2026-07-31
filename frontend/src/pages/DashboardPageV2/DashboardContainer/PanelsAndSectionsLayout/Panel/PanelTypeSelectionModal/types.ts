@@ -10,7 +10,7 @@ type IconProps = Omit<SVGProps<SVGSVGElement>, 'ref'> & {
 
 export interface PanelType {
 	panelKind: PanelKind;
-	label: string;
+	labelKey: string;
 	/** Icon component — the consumer renders it and controls size/color/etc. */
 	Icon: ComponentType<IconProps>;
 }

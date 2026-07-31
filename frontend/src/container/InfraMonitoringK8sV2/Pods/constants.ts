@@ -24,16 +24,19 @@ export const k8sPodDetailsMetadataConfig: K8sDetailsMetadataConfig<Inframonitori
 	[
 		{
 			label: 'NAMESPACE',
+			labelKey: 'display.namespace_uppercase',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] || '',
 		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] || '',
 		},
 		{
 			label: 'Node',
+			labelKey: 'display.node',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NODE_NAME] || '',
 		},
@@ -66,73 +69,86 @@ export const k8sPodGetEntityName = (
 export const podWidgetInfo = [
 	{
 		title: 'CPU Usage (cores)',
+		titleKey: 'display.cpu_usage_cores',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/pods/#cpu-usage-cores',
 	},
 	{
 		title: 'CPU Request, Limit Utilization',
+		titleKey: 'display.cpu_request_limit_utilization',
 		yAxisUnit: 'percentunit',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/pods/#cpu-request-limit-utilization',
 	},
 	{
 		title: 'Memory Usage (bytes)',
+		titleKey: 'display.memory_usage_bytes',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/pods/#memory-usage-bytes',
 	},
 	{
 		title: 'Memory Request, Limit Utilization',
+		titleKey: 'display.memory_request_limit_utilization',
 		yAxisUnit: 'percentunit',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/pods/#memory-request-limit-utilization',
 	},
 	{
 		title: 'Memory by State',
+		titleKey: 'display.memory_by_state',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/pods/#memory-by-state',
 	},
 	{
 		title: 'Memory Major Page Faults',
+		titleKey: 'display.memory_major_page_faults',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/pods/#memory-major-page-faults',
 	},
 	{
 		title: 'CPU Usage by Container (cores)',
+		titleKey: 'display.cpu_usage_by_container_cores',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/pods/#cpu-usage-by-container-cores',
 	},
 	{
 		title: 'CPU Request, Limit Utilization by Container',
+		titleKey: 'display.cpu_request_limit_utilization_by_container',
 		yAxisUnit: 'percentunit',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/pods/#cpu-request-limit-utilization-by-container',
 	},
 	{
 		title: 'Memory Usage by Container (bytes)',
+		titleKey: 'display.memory_usage_by_container_bytes',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/pods/#memory-usage-by-container-bytes',
 	},
 	{
 		title: 'Memory Request, Limit Utilization by Container',
+		titleKey: 'display.memory_request_limit_utilization_by_container',
 		yAxisUnit: 'percentunit',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/pods/#memory-request-limit-utilization-by-container',
 	},
 	{
 		title: 'Network rate',
+		titleKey: 'display.network_rate',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/pods/#network-rate',
 	},
 	{
 		title: 'Network errors',
+		titleKey: 'display.network_errors',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/pods/#network-errors',
 	},
 	{
 		title: 'File system (bytes)',
+		titleKey: 'display.file_system_bytes',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/pods/#file-system-bytes',
 	},

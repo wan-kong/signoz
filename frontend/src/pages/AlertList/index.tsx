@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Tabs, TabsProps } from 'antd';
 import ConfigureIcon from 'assets/AlertHistory/ConfigureIcon';
@@ -21,6 +22,7 @@ import { AlertListSubTabs, AlertListTabs } from './types';
 import './AlertList.styles.scss';
 
 function AllAlertList(): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const urlQuery = useUrlQuery();
 	const location = useLocation();
 	const { safeNavigate } = useSafeNavigate();
@@ -47,12 +49,12 @@ function AllAlertList(): JSX.Element {
 	const configurationTab = useMemo(() => {
 		const tabs = [
 			{
-				label: 'Planned Downtime',
+				label: t('alert_list.tabs.planned_downtime'),
 				key: AlertListSubTabs.PLANNED_DOWNTIME,
 				children: <PlannedDowntime />,
 			},
 			{
-				label: 'Routing Policies',
+				label: t('alert_list.tabs.routing_policies'),
 				key: AlertListSubTabs.ROUTING_POLICIES,
 				children: <RoutingPolicies />,
 			},
@@ -65,14 +67,14 @@ function AllAlertList(): JSX.Element {
 				onChange={handleConfigurationTabChange}
 			/>
 		);
-	}, [subTab, handleConfigurationTabChange]);
+	}, [subTab, handleConfigurationTabChange, t]);
 
 	const items: TabsProps['items'] = [
 		{
 			label: (
 				<div className="periscope-tab top-level-tab">
 					<GalleryVerticalEnd size={14} />
-					Triggered Alerts
+					{t('alert_list.tabs.triggered_alerts')}
 				</div>
 			),
 			key: AlertListTabs.TRIGGERED_ALERTS,
@@ -82,7 +84,7 @@ function AllAlertList(): JSX.Element {
 			label: (
 				<div className="periscope-tab top-level-tab">
 					<Pyramid size={14} />
-					Alert Rules
+					{t('alert_list.tabs.alert_rules')}
 				</div>
 			),
 			key: AlertListTabs.ALERT_RULES,
@@ -96,7 +98,7 @@ function AllAlertList(): JSX.Element {
 			label: (
 				<div className="periscope-tab top-level-tab">
 					<Cable size={14} />
-					Notification Channels
+					{t('alert_list.tabs.notification_channels')}
 				</div>
 			),
 			key: AlertListTabs.CHANNELS,
@@ -112,7 +114,7 @@ function AllAlertList(): JSX.Element {
 			label: (
 				<div className="periscope-tab top-level-tab">
 					<ConfigureIcon width={14} height={14} />
-					Configuration
+					{t('alert_list.tabs.configuration')}
 				</div>
 			),
 			key: AlertListTabs.CONFIGURATION,

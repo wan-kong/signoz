@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import {
 	DashboardtypesFillModeDTO,
 	DashboardtypesLineInterpolationDTO,
@@ -21,12 +22,12 @@ import styles from './ChartAppearanceSection.module.scss';
 const LINE_STYLE_OPTIONS = [
 	{
 		value: DashboardtypesLineStyleDTO.solid,
-		label: 'Solid',
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.solid',
 		icon: 'solid-line' as const,
 	},
 	{
 		value: DashboardtypesLineStyleDTO.dashed,
-		label: 'Dashed',
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.dashed',
 		icon: 'dashed-line' as const,
 	},
 ];
@@ -34,22 +35,22 @@ const LINE_STYLE_OPTIONS = [
 const LINE_INTERPOLATION_OPTIONS = [
 	{
 		value: DashboardtypesLineInterpolationDTO.linear,
-		label: 'Linear',
+		labelKey: 'dashboard_page_v2.panel_config.axes.linear',
 		icon: <SegmentIcon name="interp-linear" />,
 	},
 	{
 		value: DashboardtypesLineInterpolationDTO.spline,
-		label: 'Spline',
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.spline',
 		icon: <SegmentIcon name="interp-spline" />,
 	},
 	{
 		value: DashboardtypesLineInterpolationDTO.step_before,
-		label: 'Step before',
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.step_before',
 		icon: <SegmentIcon name="interp-step-before" />,
 	},
 	{
 		value: DashboardtypesLineInterpolationDTO.step_after,
-		label: 'Step after',
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.step_after',
 		icon: <SegmentIcon name="interp-step-after" />,
 	},
 ];
@@ -57,17 +58,17 @@ const LINE_INTERPOLATION_OPTIONS = [
 const FILL_MODE_OPTIONS = [
 	{
 		value: DashboardtypesFillModeDTO.none,
-		label: 'None',
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.none',
 		icon: 'fill-none' as const,
 	},
 	{
 		value: DashboardtypesFillModeDTO.solid,
-		label: 'Solid',
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.solid',
 		icon: 'fill-solid' as const,
 	},
 	{
 		value: DashboardtypesFillModeDTO.gradient,
-		label: 'Gradient',
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.gradient',
 		icon: 'fill-gradient' as const,
 	},
 ];
@@ -84,15 +85,31 @@ function ChartAppearanceSection({
 	stepInterval,
 }: SectionEditorProps<SectionKind.ChartAppearance> &
 	Pick<SectionEditorContext, 'stepInterval'>): JSX.Element {
+	const { t } = useTranslation('dashboard');
+	const lineStyleOptions = LINE_STYLE_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
+	const lineInterpolationOptions = LINE_INTERPOLATION_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
+	const fillModeOptions = FILL_MODE_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
+
 	return (
 		<>
 			{controls.lineStyle && (
 				<div className={styles.field}>
-					<Typography.Text>Line style</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.chart_appearance.line_style')}
+					</Typography.Text>
 					<ConfigSegmented
 						testId="panel-editor-v2-line-style"
 						value={value?.lineStyle}
-						items={LINE_STYLE_OPTIONS}
+						items={lineStyleOptions}
 						onChange={(next): void =>
 							onChange({ ...value, lineStyle: next as DashboardtypesLineStyleDTO })
 						}
@@ -102,12 +119,16 @@ function ChartAppearanceSection({
 
 			{controls.lineInterpolation && (
 				<div className={styles.field}>
-					<Typography.Text>Line interpolation</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.chart_appearance.line_interpolation')}
+					</Typography.Text>
 					<ConfigSelect
 						testId="panel-editor-v2-line-interpolation"
-						placeholder="Select interpolation…"
+						placeholder={t(
+							'dashboard_page_v2.panel_config.chart_appearance.select_interpolation',
+						)}
 						value={value?.lineInterpolation}
-						items={LINE_INTERPOLATION_OPTIONS}
+						items={lineInterpolationOptions}
 						onChange={(next): void =>
 							onChange({
 								...value,
@@ -120,11 +141,13 @@ function ChartAppearanceSection({
 
 			{controls.fillMode && (
 				<div className={styles.field}>
-					<Typography.Text>Fill mode</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.chart_appearance.fill_mode')}
+					</Typography.Text>
 					<ConfigSegmented
 						testId="panel-editor-v2-fill-mode"
 						value={value?.fillMode}
-						items={FILL_MODE_OPTIONS}
+						items={fillModeOptions}
 						onChange={(next): void =>
 							onChange({ ...value, fillMode: next as DashboardtypesFillModeDTO })
 						}
@@ -135,8 +158,10 @@ function ChartAppearanceSection({
 			{controls.showPoints && (
 				<ConfigSwitch
 					testId="panel-editor-v2-show-points"
-					title="Show points"
-					description="Display individual data points on the chart"
+					title={t('dashboard_page_v2.panel_config.chart_appearance.show_points')}
+					description={t(
+						'dashboard_page_v2.panel_config.chart_appearance.show_points_description',
+					)}
 					value={value?.showPoints ?? false}
 					onChange={(checked): void => onChange({ ...value, showPoints: checked })}
 				/>

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	generatePath,
 	Redirect,
@@ -33,6 +34,7 @@ import styles from './PanelEditorPage.module.scss';
  * fetched dashboard spec and wires up navigate-back callbacks.
  */
 function PanelEditorPage(): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { dashboardId, panelId } = useParams<{
 		dashboardId: string;
 		panelId: string;
@@ -114,13 +116,15 @@ function PanelEditorPage(): JSX.Element {
 	}, [safeNavigate, dashboardId, timeSearch]);
 
 	if (isLoading) {
-		return <Spinner tip="Loading dashboard..." />;
+		return <Spinner tip={t('dashboard_page_v2.loading_dashboard')} />;
 	}
 
 	if (isError || !dashboard) {
 		return (
 			<div className={styles.errorState}>
-				<Typography.Title>Failed to load dashboard</Typography.Title>
+				<Typography.Title>
+					{t('dashboard_page_v2.errors.failed_to_load_dashboard')}
+				</Typography.Title>
 				<Typography.Text>{(error as Error)?.message}</Typography.Text>
 			</div>
 		);

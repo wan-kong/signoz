@@ -1,4 +1,5 @@
 import { ChevronDown } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { ColorPicker } from 'antd';
 import { ThresholdColor } from 'pages/DashboardPageV2/DashboardContainer/Panels/types/threshold';
 
@@ -13,10 +14,22 @@ interface ThresholdColorSelectProps {
 // Named presets from the SigNoz palette (cherry / amber / forest / robin). They surface
 // as quick swatches in the picker; the full picker below covers any custom color.
 const PRESETS: { label: string; value: ThresholdColor }[] = [
-	{ label: 'Red', value: ThresholdColor.RED },
-	{ label: 'Orange', value: ThresholdColor.ORANGE },
-	{ label: 'Green', value: ThresholdColor.GREEN },
-	{ label: 'Blue', value: ThresholdColor.BLUE },
+	{
+		label: 'dashboard_page_v2.panel_config.thresholds.colors.red',
+		value: ThresholdColor.RED,
+	},
+	{
+		label: 'dashboard_page_v2.panel_config.thresholds.colors.orange',
+		value: ThresholdColor.ORANGE,
+	},
+	{
+		label: 'dashboard_page_v2.panel_config.thresholds.colors.green',
+		value: ThresholdColor.GREEN,
+	},
+	{
+		label: 'dashboard_page_v2.panel_config.thresholds.colors.blue',
+		value: ThresholdColor.BLUE,
+	},
 ];
 
 /**
@@ -29,6 +42,7 @@ function ThresholdColorSelect({
 	testId,
 	onChange,
 }: ThresholdColorSelectProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const current = PRESETS.find(
 		(p) => p.value.toLowerCase() === value?.toLowerCase(),
 	);
@@ -37,11 +51,20 @@ function ThresholdColorSelect({
 		<ColorPicker
 			value={value}
 			onChangeComplete={(c): void => onChange(c.toHexString())}
-			presets={[{ label: 'Defaults', colors: PRESETS.map((p) => p.value) }]}
+			presets={[
+				{
+					label: t('dashboard_page_v2.panel_config.thresholds.colors.defaults'),
+					colors: PRESETS.map((p) => p.value),
+				},
+			]}
 		>
 			<button type="button" className={styles.colorTrigger} data-testid={testId}>
 				<span className={styles.dot} style={{ backgroundColor: value }} />
-				<span className={styles.colorLabel}>{current?.label ?? 'Custom'}</span>
+				<span className={styles.colorLabel}>
+					{current
+						? t(current.label)
+						: t('dashboard_page_v2.panel_config.thresholds.colors.custom')}
+				</span>
 				<ChevronDown size={13} />
 			</button>
 		</ColorPicker>

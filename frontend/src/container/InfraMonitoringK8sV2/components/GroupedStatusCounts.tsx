@@ -4,15 +4,19 @@ import TanStackTable from 'components/TanStackTableView';
 import { Typography } from '@signozhq/ui/typography';
 import { TextNoData } from './TextNoData';
 import { MouseEventHandler } from 'react';
+import { useTranslation } from 'react-i18next';
+import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 
 export interface StatusBreakdownItem {
 	label: string;
+	labelKey?: string;
 	value: number;
 }
 
 export interface StatusCountItem {
 	value: number;
 	label: string;
+	labelKey?: string;
 	color: string;
 	breakdown?: StatusBreakdownItem[];
 }
@@ -74,8 +78,19 @@ export function GroupedStatusCounts({
 	rowId,
 	showZeroValues = true,
 }: GroupedStatusCountsProps): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
+	const translatedItems = items.map((item) => ({
+		...item,
+		label: translateInfraKey(t, item.labelKey, item.label),
+		breakdown: item.breakdown?.map((breakdown) => ({
+			...breakdown,
+			label: translateInfraKey(t, breakdown.labelKey, breakdown.label),
+		})),
+	}));
 	const visibleItems =
-		showZeroValues === false ? items.filter((item) => item.value > 0) : items;
+		showZeroValues === false
+			? translatedItems.filter((item) => item.value > 0)
+			: translatedItems;
 
 	if (visibleItems.length === 0) {
 		return <TextNoData type="tanstack" />;

@@ -1,5 +1,6 @@
 import { Checkbox, Select } from 'antd';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import type { UpdatedWindow } from '../../types';
 
@@ -10,18 +11,14 @@ export interface CreatorOption {
 	label: string;
 }
 
-const UPDATED_LABELS: Record<UpdatedWindow, string> = {
-	any: 'Any time',
-	today: 'Today',
-	'7d': 'Last 7 days',
-	'30d': 'Last 30 days',
+const UPDATED_LABEL_KEYS: Record<UpdatedWindow, string> = {
+	any: 'dashboards_list_page_v2.filter.updated_options.any_time',
+	today: 'dashboards_list_page_v2.filter.updated_options.today',
+	'7d': 'dashboards_list_page_v2.filter.updated_options.last_7_days',
+	'30d': 'dashboards_list_page_v2.filter.updated_options.last_30_days',
 };
 
 const UPDATED_WINDOWS: UpdatedWindow[] = ['any', 'today', '7d', '30d'];
-const UPDATED_OPTIONS = UPDATED_WINDOWS.map((w) => ({
-	value: w,
-	label: UPDATED_LABELS[w],
-}));
 
 interface Props {
 	createdBy: string[];
@@ -44,9 +41,14 @@ function FilterChips({
 	onApply,
 	onClearCreatedBy,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const creatorOptionsData = creatorOptions.map((o) => ({
 		value: o.email,
 		label: o.label,
+	}));
+	const updatedOptions = UPDATED_WINDOWS.map((w) => ({
+		value: w,
+		label: t(UPDATED_LABEL_KEYS[w]),
 	}));
 
 	const runOnClose = (open: boolean): void => {
@@ -62,7 +64,7 @@ function FilterChips({
 				showSearch
 				allowClear
 				className={cx(styles.select, styles.selectWide)}
-				placeholder="Created by"
+				placeholder={t('dashboards_list_page_v2.filter.created_by')}
 				value={createdBy}
 				options={creatorOptionsData}
 				optionFilterProp="label"
@@ -85,9 +87,9 @@ function FilterChips({
 			<Select
 				showSearch
 				className={cx(styles.select, styles.selectNarrow)}
-				placeholder="Updated"
+				placeholder={t('dashboards_list_page_v2.filter.updated')}
 				value={updated}
-				options={UPDATED_OPTIONS}
+				options={updatedOptions}
 				optionFilterProp="label"
 				data-testid="dashboards-filter-updated"
 				onChange={(value): void => onUpdatedChange(value as UpdatedWindow)}

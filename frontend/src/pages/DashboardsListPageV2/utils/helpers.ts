@@ -33,30 +33,47 @@ export const keyValueStringsToTags = (
 		})
 		.filter((t): t is TagtypesPostableTagDTO => !!t?.key && !!t.value);
 
-export const lastUpdatedLabel = (time: string | undefined): string => {
+export interface LastUpdatedCopy {
+	key: string;
+	count?: number;
+}
+
+export const lastUpdatedCopy = (time: string | undefined): LastUpdatedCopy => {
 	if (!time || isEmpty(time)) {
-		return 'No updates yet!';
+		return { key: 'dashboards_list_page_v2.last_updated.no_updates_yet' };
 	}
 	const diff = dayjs();
 	const ref = dayjs(time);
 	const months = diff.diff(ref, 'months');
 	if (months > 0) {
-		return `Last Updated ${months} months ago`;
+		return {
+			key: 'dashboards_list_page_v2.last_updated.months_ago',
+			count: months,
+		};
 	}
 	const days = diff.diff(ref, 'days');
 	if (days > 0) {
-		return `Last Updated ${days} days ago`;
+		return { key: 'dashboards_list_page_v2.last_updated.days_ago', count: days };
 	}
 	const hours = diff.diff(ref, 'hours');
 	if (hours > 0) {
-		return `Last Updated ${hours} hrs ago`;
+		return {
+			key: 'dashboards_list_page_v2.last_updated.hours_ago',
+			count: hours,
+		};
 	}
 	const minutes = diff.diff(ref, 'minutes');
 	if (minutes > 0) {
-		return `Last Updated ${minutes} mins ago`;
+		return {
+			key: 'dashboards_list_page_v2.last_updated.minutes_ago',
+			count: minutes,
+		};
 	}
 	const seconds = diff.diff(ref, 'seconds');
-	return `Last Updated ${seconds} sec ago`;
+	return {
+		key: 'dashboards_list_page_v2.last_updated.seconds_ago',
+		count: seconds,
+	};
 };
 
 // Normalize BE query-parse error messages for display:

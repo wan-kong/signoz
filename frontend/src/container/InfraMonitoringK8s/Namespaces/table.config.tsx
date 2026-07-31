@@ -29,7 +29,12 @@ export const getK8sNamespacesListQuery = (): K8sNamespacesListPayload => ({
 export const k8sNamespacesColumnsConfig: TableColumnDef<K8sNamespacesData>[] = [
 	{
 		id: 'namespaceGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="NAMESPACE GROUP" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="NAMESPACE GROUP"
+				titleKey="display.namespace_group_uppercase"
+			/>
+		),
 		accessorFn: (row): string => row.meta.k8s_namespace_name || '',
 		width: { min: 300 },
 		enableSort: false,
@@ -53,6 +58,7 @@ export const k8sNamespacesColumnsConfig: TableColumnDef<K8sNamespacesData>[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Namespace Name"
+				titleKey="display.namespace_name"
 				icon={<FilePenLine data-hide-expanded="true" size={14} />}
 			/>
 		),

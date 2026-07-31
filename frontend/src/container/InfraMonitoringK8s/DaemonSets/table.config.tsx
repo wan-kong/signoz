@@ -26,7 +26,12 @@ export function getK8sDaemonSetItemKey(daemonSet: K8sDaemonSetsData): string {
 export const k8sDaemonSetsColumnsConfig: TableColumnDef<K8sDaemonSetsData>[] = [
 	{
 		id: 'daemonSetGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="DAEMONSET GROUP" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="DAEMONSET GROUP"
+				titleKey="display.daemonset_group_uppercase"
+			/>
+		),
 		accessorFn: (row): string => row.meta.k8s_daemonset_name || '',
 		width: { min: 300 },
 		enableSort: false,
@@ -50,6 +55,7 @@ export const k8sDaemonSetsColumnsConfig: TableColumnDef<K8sDaemonSetsData>[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="DaemonSet Name"
+				titleKey="display.daemonset_name"
 				icon={<Group data-hide-expanded="true" size={14} />}
 			/>
 		),

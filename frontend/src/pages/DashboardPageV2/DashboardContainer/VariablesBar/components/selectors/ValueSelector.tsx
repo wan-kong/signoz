@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { CustomMultiSelect, CustomSelect } from 'components/NewSelect';
 import type { OptionData } from 'components/NewSelect/types';
@@ -38,6 +39,7 @@ function ValueSelector({
 	errorMessage,
 	onRetry,
 }: ValueSelectorProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const optionData = useMemo<OptionData[]>(
 		() => options.map((option) => ({ label: option, value: option })),
 		[options],
@@ -113,7 +115,11 @@ function ValueSelector({
 				// appear on hover, in a row of variable pills, for an action whose result is
 				// not visible.
 				allowClear={isOpen && !draftIsAll}
-				placeholder={isAllPendingOptions ? 'ALL' : 'Select value'}
+				placeholder={
+					isAllPendingOptions
+						? t('dashboard_page_v2.variables_bar.all')
+						: t('dashboard_page_v2.variables_bar.select_value')
+				}
 				maxTagCount={1}
 				maxTagTextLength={10}
 				maxTagPlaceholder={(omitted): JSX.Element => (
@@ -170,7 +176,7 @@ function ValueSelector({
 			errorMessage={errorMessage}
 			onRetry={onRetry}
 			showSearch
-			placeholder="Select value"
+			placeholder={t('dashboard_page_v2.variables_bar.select_value')}
 			onChange={(next): void => {
 				void logEvent(
 					DashboardDetailEvents.VariableValueSelected,

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { Input } from 'antd';
 
@@ -17,6 +18,7 @@ function ThresholdValueField({
 	value,
 	onChange,
 }: ThresholdValueFieldProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [raw, setRaw] = useState(String(value));
 
 	useEffect(() => {
@@ -25,11 +27,13 @@ function ThresholdValueField({
 
 	return (
 		<div className={styles.field}>
-			<Typography.Text className={styles.fieldLabel}>Value</Typography.Text>
+			<Typography.Text className={styles.fieldLabel}>
+				{t('dashboard_page_v2.panel_config.thresholds.value')}
+			</Typography.Text>
 			<Input
 				data-testid={testId}
 				type="number"
-				placeholder="Value"
+				placeholder={t('dashboard_page_v2.panel_config.thresholds.value')}
 				value={raw}
 				onChange={(e): void => {
 					setRaw(e.target.value);

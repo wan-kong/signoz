@@ -48,7 +48,9 @@ export type NodeTableColumnConfig =
 export const k8sNodesColumnsConfig: NodeTableColumnConfig[] = [
 	{
 		id: 'nodeGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="Node Group" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader title="Node Group" titleKey="display.node_group" />
+		),
 		accessorFn: (row): string => row.nodeName || '',
 		width: { min: 290 },
 		enableSort: false,
@@ -72,6 +74,7 @@ export const k8sNodesColumnsConfig: NodeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Node Name"
+				titleKey="display.node_name"
 				icon={<Workflow data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/nodes#node-name"
 			/>

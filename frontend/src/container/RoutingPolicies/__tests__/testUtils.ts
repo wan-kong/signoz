@@ -1,7 +1,12 @@
+import { createElement, ReactElement } from 'react';
+import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { ApiRoutingPolicy } from 'api/routingPolicies/getRoutingPolicies';
 import { IAppContext, IUser } from 'providers/App/types';
+import { I18nextProvider } from 'react-i18next';
+import { alertsI18nProviderProps } from 'tests/alertsI18n';
 import { Channels } from 'types/api/channels/getAll';
 
+import { createTestI18nInstance } from '../../../ReactI18/testUtils';
 import { RoutingPolicy, UseRoutingPoliciesReturn } from '../types';
 
 export const MOCK_ROUTING_POLICY_1: RoutingPolicy = {
@@ -164,4 +169,16 @@ export function convertRoutingPolicyToApiResponse(
 		createdBy: routingPolicy.createdBy || '',
 		updatedBy: routingPolicy.updatedBy || '',
 	};
+}
+
+export function renderWithAlertsI18n(
+	ui: ReactElement,
+	options?: Omit<RenderOptions, 'wrapper'>,
+): RenderResult {
+	const i18n = createTestI18nInstance({
+		language: alertsI18nProviderProps.i18nLanguage,
+		resources: alertsI18nProviderProps.i18nResources,
+	});
+
+	return render(createElement(I18nextProvider, { i18n }, ui), options);
 }

@@ -2,7 +2,7 @@ import { DataSource } from 'types/common/queryBuilder';
 
 export const ALERT_INFO_LINKS = [
 	{
-		infoText: 'How to create Metrics-based alerts',
+		infoTextKey: 'alert_rules.empty.info_links.metrics',
 		link:
 			'https://signoz.io/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-empty-page',
 		leftIconVisible: false,
@@ -10,7 +10,7 @@ export const ALERT_INFO_LINKS = [
 		dataSource: DataSource.METRICS,
 	},
 	{
-		infoText: 'How to create Log-based alerts',
+		infoTextKey: 'alert_rules.empty.info_links.logs',
 		link:
 			'https://signoz.io/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-empty-page',
 		leftIconVisible: false,
@@ -18,7 +18,7 @@ export const ALERT_INFO_LINKS = [
 		dataSource: DataSource.LOGS,
 	},
 	{
-		infoText: 'How to create Trace-based alerts',
+		infoTextKey: 'alert_rules.empty.info_links.traces',
 		link:
 			'https://signoz.io/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-empty-page',
 		leftIconVisible: false,
@@ -29,29 +29,29 @@ export const ALERT_INFO_LINKS = [
 
 export const ALERT_CARDS = [
 	{
-		header: 'Alert on high memory usage',
-		subheader: "Monitor your host's memory usage",
+		headerKey: 'alert_rules.empty.sample_cards.high_memory.header',
+		subheaderKey: 'alert_rules.empty.sample_cards.high_memory.subheader',
 		dataSource: DataSource.METRICS,
 		link:
 			'https://signoz.io/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-empty-page#1-alert-when-memory-usage-for-host-goes-above-400-mb-or-any-fixed-memory',
 	},
 	{
-		header: 'Alert on slow external API calls',
-		subheader: 'Monitor your external API calls',
+		headerKey: 'alert_rules.empty.sample_cards.slow_external_api.header',
+		subheaderKey: 'alert_rules.empty.sample_cards.slow_external_api.subheader',
 		dataSource: DataSource.TRACES,
 		link:
 			'https://signoz.io/docs/alerts-management/trace-based-alerts/?utm_source=product&utm_medium=alert-empty-page#1-alert-when-external-api-latency-p90-is-over-1-second-for-last-5-mins',
 	},
 	{
-		header: 'Alert on high percentage of timeout errors in logs',
-		subheader: 'Monitor your logs for errors',
+		headerKey: 'alert_rules.empty.sample_cards.timeout_errors.header',
+		subheaderKey: 'alert_rules.empty.sample_cards.timeout_errors.subheader',
 		dataSource: DataSource.LOGS,
 		link:
 			'https://signoz.io/docs/alerts-management/log-based-alerts/?utm_source=product&utm_medium=alert-empty-page#1-alert-when-percentage-of-redis-timeout-error-logs-greater-than-7-in-last-5-mins',
 	},
 	{
-		header: 'Alert on high error percentage of an endpoint',
-		subheader: 'Monitor your API endpoint',
+		headerKey: 'alert_rules.empty.sample_cards.endpoint_errors.header',
+		subheaderKey: 'alert_rules.empty.sample_cards.endpoint_errors.subheader',
 		dataSource: DataSource.METRICS,
 		link:
 			'https://signoz.io/docs/alerts-management/metrics-based-alerts/?utm_source=product&utm_medium=alert-empty-page#3-alert-when-the-error-percentage-for-an-endpoint-exceeds-5',

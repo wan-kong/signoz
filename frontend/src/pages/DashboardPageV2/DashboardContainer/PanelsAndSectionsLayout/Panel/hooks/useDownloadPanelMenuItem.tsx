@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { MenuItem } from '@signozhq/ui/dropdown-menu';
 import type { DashboardtypesPanelDTO } from 'api/generated/services/sigNoz.schemas';
 import {
@@ -28,6 +29,7 @@ export function useDownloadPanelMenuItem({
 	data,
 	actions,
 }: UseDownloadPanelMenuItemArgs): MenuItem | null {
+	const { t } = useTranslation('dashboard');
 	const panelName = panel.spec.display.name;
 	const downloadPanelCsv = useDownloadPanelCsv({
 		panel,
@@ -48,7 +50,7 @@ export function useDownloadPanelMenuItem({
 	);
 
 	return useMemo(
-		() => buildDownloadMenuItem({ supported: actions.download, onDownload }),
-		[actions.download, onDownload],
+		() => buildDownloadMenuItem({ supported: actions.download, onDownload, t }),
+		[actions.download, onDownload, t],
 	);
 }

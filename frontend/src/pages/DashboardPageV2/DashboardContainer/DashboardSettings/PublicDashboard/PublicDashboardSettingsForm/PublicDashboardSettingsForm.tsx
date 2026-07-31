@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { SelectSimple } from '@signozhq/ui/select';
 import { Switch } from '@signozhq/ui/switch';
 import { Typography } from '@signozhq/ui/typography';
@@ -20,6 +21,7 @@ function PublicDashboardSettingsForm({
 	onTimeRangeEnabledChange,
 	onDefaultTimeRangeChange,
 }: PublicDashboardSettingsFormProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	return (
 		<>
 			<div className={styles.switchRow}>
@@ -29,18 +31,20 @@ function PublicDashboardSettingsForm({
 					disabled={disabled}
 					onChange={onTimeRangeEnabledChange}
 				>
-					Enable time range
+					{t('dashboard_page_v2.public_dashboard.enable_time_range')}
 				</Switch>
 			</div>
 
 			<div className={styles.fieldGroup}>
 				<Typography.Text className={styles.fieldLabel}>
-					Default time range
+					{t('dashboard_page_v2.public_dashboard.default_time_range')}
 				</Typography.Text>
 				<SelectSimple
 					className={styles.timeRangeSelect}
 					testId="public-dashboard-default-time-range"
-					placeholder="Select default time range"
+					placeholder={t(
+						'dashboard_page_v2.public_dashboard.select_default_time_range',
+					)}
 					items={RelativeDurationOptions}
 					value={defaultTimeRange}
 					disabled={disabled}

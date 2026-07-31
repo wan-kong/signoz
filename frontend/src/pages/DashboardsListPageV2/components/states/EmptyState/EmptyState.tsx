@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import { ArrowUpRight } from '@signozhq/icons';
@@ -17,15 +18,17 @@ const LEARN_MORE_HREF =
 	'https://signoz.io/docs/userguide/manage-dashboards?utm_source=product&utm_medium=dashboard-list-empty-state';
 
 function EmptyState({ createDropdown }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={styles.wrapper}>
 			<img src={dashboardsUrl} alt="dashboards" className={styles.image} />
 			<section className={styles.copy}>
 				<Typography.Text className={styles.noDashboard}>
-					No dashboards yet.{' '}
+					{t('dashboards_list_page_v2.empty.no_dashboards_yet')}{' '}
 				</Typography.Text>
 				<Typography.Text className={styles.info}>
-					Create a dashboard to start visualizing your data
+					{t('dashboards_list_page_v2.empty.description')}
 				</Typography.Text>
 			</section>
 
@@ -38,11 +41,11 @@ function EmptyState({ createDropdown }: Props): JSX.Element {
 						className={styles.learnMore}
 						testId="learn-more"
 						onClick={(): void => {
-							logEvent('Dashboard List: Learn more clicked', {});
+							void logEvent('Dashboard List: Learn more clicked', {});
 							openInNewTab(LEARN_MORE_HREF);
 						}}
 					>
-						Learn more
+						{t('dashboards_list_page_v2.actions.learn_more')}
 					</Button>
 					<ArrowUpRight size={16} className={styles.learnMoreArrow} />
 				</section>

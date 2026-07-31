@@ -1,4 +1,5 @@
 import { type FocusEvent, KeyboardEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Check,
 	Globe,
@@ -68,6 +69,7 @@ function DashboardInfo({
 	onCommit,
 	onCancel,
 }: DashboardInfoProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const canEdit = useDashboardStore((s) => s.isEditable);
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
 
@@ -80,12 +82,12 @@ function DashboardInfo({
 	let lockTooltip: string;
 	if (onToggleLock) {
 		lockTooltip = isDashboardLocked
-			? 'Locked — click to unlock'
-			: 'Unlocked — click to lock';
+			? t('dashboard_page_v2.toolbar.locked_click_to_unlock')
+			: t('dashboard_page_v2.toolbar.unlocked_click_to_lock');
 	} else {
 		lockTooltip = isDashboardLocked
-			? 'This dashboard is locked'
-			: 'This dashboard is unlocked';
+			? t('dashboard_page_v2.toolbar.dashboard_is_locked')
+			: t('dashboard_page_v2.toolbar.dashboard_is_unlocked');
 	}
 
 	const onKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
@@ -134,7 +136,7 @@ function DashboardInfo({
 						color="primary"
 						size="icon"
 						className={styles.dashboardTitleActionButton}
-						aria-label="Save title"
+						aria-label={t('dashboard_page_v2.toolbar.save_title')}
 						testId="dashboard-title-save"
 						onClick={onCommit}
 					>
@@ -146,7 +148,7 @@ function DashboardInfo({
 						color="secondary"
 						size="icon"
 						className={styles.dashboardTitleActionButton}
-						aria-label="Cancel title edit"
+						aria-label={t('dashboard_page_v2.toolbar.cancel_title_edit')}
 						testId="dashboard-title-cancel"
 						onClick={onCancel}
 					>
@@ -186,7 +188,7 @@ function DashboardInfo({
 
 			{isPublicDashboard && (
 				<TooltipSimple
-					title="This dashboard is publicly accessible. Click to open the public page."
+					title={t('dashboard_page_v2.toolbar.public_dashboard_tooltip')}
 					disableHoverableContent
 				>
 					<Button
@@ -195,7 +197,7 @@ function DashboardInfo({
 						color="secondary"
 						size="icon"
 						className={styles.publicLink}
-						aria-label="Open public dashboard"
+						aria-label={t('dashboard_page_v2.toolbar.open_public_dashboard')}
 						testId="dashboard-public-link"
 						onClick={handleOpenPublicUrl}
 					>
@@ -212,7 +214,11 @@ function DashboardInfo({
 						color="secondary"
 						size="icon"
 						className={styles.lockButton}
-						aria-label={isDashboardLocked ? 'Unlock dashboard' : 'Lock dashboard'}
+						aria-label={
+							isDashboardLocked
+								? t('dashboard_page_v2.actions.unlock_dashboard')
+								: t('dashboard_page_v2.actions.lock_dashboard')
+						}
 						testId="dashboard-lock"
 						disabled={!onToggleLock}
 						onClick={onToggleLock}

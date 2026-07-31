@@ -101,16 +101,16 @@
 		"trace_to_logs": {
 			"clear_filters_cta": "清除来自 Trace 的过滤条件以查看其他日志",
 			"docs": {
-				"correlate": "关联 traces 和 logs",
-				"send_logs": "将 logs 发送到 SigNoz"
+				"correlate": "关联链路和日志",
+				"send_logs": "将日志发送到 SigNoz"
 			},
 			"reasons": {
-				"no_associated_logs": "此 trace/span 没有关联任何日志。",
-				"not_linked": "日志未关联到 Traces。",
+				"no_associated_logs": "此 Trace/Span 没有关联任何日志。",
+				"not_linked": "日志未关联到 Trace。",
 				"not_sent": "日志未发送到 SigNoz。"
 			},
 			"subtitle": "可能原因：",
-			"title": "未找到此 trace 的日志。"
+			"title": "未找到此 Trace 的日志。"
 		}
 	},
 	"error": {
@@ -180,7 +180,7 @@
 		"views": "视图"
 	},
 	"view_modes": {
-		"clickhouse": "Clickhouse",
+			"clickhouse": "ClickHouse",
 		"column": "列",
 		"default": "默认",
 		"list": "列表",

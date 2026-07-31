@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
@@ -84,6 +85,7 @@ function VariableItem({
 	validateAttributeKey,
 	mode,
 }: VariableItemProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [variableName, setVariableName] = useState<string>(
 		variableData.name || '',
 	);
@@ -155,7 +157,7 @@ function VariableItem({
 			) {
 				setErrorAttributeKey(true);
 				setErrorAttributeKeyMessage(
-					'A variable with this attribute key already exists',
+					t('dashboard_page_v2.variables.attribute_exists'),
 				);
 			} else {
 				setErrorAttributeKey(false);
@@ -170,6 +172,7 @@ function VariableItem({
 		dynamicVariablesSelectedValue?.name,
 		validateAttributeKey,
 		variableData.id,
+		t,
 	]);
 
 	// Auto-set variable name to selected attribute name in creation mode when user hasn't manually changed it
@@ -186,10 +189,10 @@ function VariableItem({
 			// Trigger validation for the auto-set name
 			if (/\s/.test(newName)) {
 				setErrorName(true);
-				setErrorNameMessage('Variable name cannot contain whitespaces');
+				setErrorNameMessage(t('dashboard_page_v2.variables.name_no_whitespace'));
 			} else if (!validateName(newName)) {
 				setErrorName(true);
-				setErrorNameMessage('Variable name already exists');
+				setErrorNameMessage(t('dashboard_page_v2.variables.name_exists'));
 			} else {
 				setErrorName(false);
 				setErrorNameMessage('');
@@ -201,9 +204,10 @@ function VariableItem({
 		dynamicVariablesSelectedValue?.name,
 		hasUserManuallyChangedName,
 		validateName,
+		t,
 	]);
 
-	const REQUIRED_NAME_MESSAGE = 'Variable name is required';
+	const REQUIRED_NAME_MESSAGE = t('dashboard_page_v2.variables.name_required');
 
 	// Initialize error state for empty name
 	useEffect(() => {
@@ -376,9 +380,9 @@ function VariableItem({
 
 		if (hasCycle) {
 			setErrorPreview(
-				`Cannot save: Circular dependency detected between variables: ${cycleNodes?.join(
-					' → ',
-				)}`,
+				t('dashboard_page_v2.variables.cycle_error', {
+					cycle: cycleNodes?.join(' -> '),
+				}),
 			);
 			return;
 		}
@@ -424,8 +428,7 @@ function VariableItem({
 				if (details.error) {
 					let message = details.error;
 					if ((details.error ?? '').toString().includes('Syntax error:')) {
-						message =
-							'Please make sure query is valid and dependent variables are selected';
+						message = t('dashboard_page_v2.variables.invalid_dependent_query');
 					}
 					setErrorPreview(message);
 				}
@@ -448,17 +451,19 @@ function VariableItem({
 						icon={<ArrowLeft size={14} />}
 						onClick={onCancel}
 					>
-						All variables
+						{t('dashboard_container.variables.all_variables')}
 					</Button>
 				</div>
 				<div className="variable-item-content">
 					<VariableItemRow className="variable-name-section">
 						<LabelContainer>
-							<Typography className="typography-variables">Name</Typography>
+							<Typography className="typography-variables">
+								{t('dashboard_page_v2.variables.name')}
+							</Typography>
 						</LabelContainer>
 						<div>
 							<Input
-								placeholder="Unique name of the variable"
+								placeholder={t('dashboard_page_v2.variables.unique_name_placeholder')}
 								value={variableName}
 								className="name-input"
 								onChange={({ target: { value } }): void => {
@@ -473,12 +478,14 @@ function VariableItem({
 									// Check for whitespace in name
 									else if (/\s/.test(value)) {
 										setErrorName(true);
-										setErrorNameMessage('Variable name cannot contain whitespaces');
+										setErrorNameMessage(
+											t('dashboard_page_v2.variables.name_no_whitespace'),
+										);
 									}
 									// Check for duplicate name
 									else if (!validateName(value) && value !== variableData.name) {
 										setErrorName(true);
-										setErrorNameMessage('Variable name already exists');
+										setErrorNameMessage(t('dashboard_page_v2.variables.name_exists'));
 									}
 									// No errors
 									else {
@@ -494,12 +501,14 @@ function VariableItem({
 					</VariableItemRow>
 					<VariableItemRow className="variable-description-section">
 						<LabelContainer>
-							<Typography className="typography-variables">Description</Typography>
+							<Typography className="typography-variables">
+								{t('dashboard_page_v2.variables.description')}
+							</Typography>
 						</LabelContainer>
 
 						<Input.TextArea
 							value={variableDescription}
-							placeholder="Enter a description for the variable"
+							placeholder={t('dashboard_page_v2.variables.description_placeholder')}
 							className="description-input"
 							rows={3}
 							onChange={(e): void => setVariableDescription(e.target.value)}
@@ -507,11 +516,13 @@ function VariableItem({
 					</VariableItemRow>
 					<VariableItemRow className="variable-type-section">
 						<LabelContainer className="variable-type-label-container">
-							<Typography className="typography-variables">Variable Type</Typography>
+							<Typography className="typography-variables">
+								{t('dashboard_page_v2.variables.variable_type')}
+							</Typography>
 							<TextToolTip
-								text="Learn more about supported variable types"
+								text={t('dashboard_page_v2.variables.learn_supported_types')}
 								url="https://signoz.io/docs/userguide/manage-variables/#supported-variable-types"
-								urlText="here"
+								urlText={t('dashboard_page_v2.variables.here')}
 								useFilledIcon={false}
 								outlinedIcon={
 									<Info
@@ -541,9 +552,9 @@ function VariableItem({
 									}
 								}}
 							>
-								Dynamic
+								{t('dashboard_page_v2.variables.dynamic')}
 								<Badge color="robin" className="sidenav-beta-tag">
-									Beta
+									{t('dashboard_page_v2.variables.beta')}
 								</Badge>
 							</Button>
 							<Button
@@ -562,7 +573,7 @@ function VariableItem({
 									}
 								}}
 							>
-								Textbox
+								{t('dashboard_page_v2.variables.textbox')}
 							</Button>
 							<Button
 								type="text"
@@ -580,7 +591,7 @@ function VariableItem({
 									}
 								}}
 							>
-								Custom
+								{t('dashboard_page_v2.variables.custom')}
 							</Button>
 							<Button
 								type="text"
@@ -598,15 +609,15 @@ function VariableItem({
 									}
 								}}
 							>
-								Query
+								{t('dashboard_page_v2.variables.query')}
 								<Badge color="amber" className="sidenav-beta-tag">
-									Not Recommended
+									{t('dashboard_page_v2.variables.not_recommended')}
 								</Badge>
 								<div onClick={(e): void => e.stopPropagation()}>
 									<TextToolTip
-										text="Learn why we don't recommend"
+										text={t('dashboard_page_v2.variables.query_not_recommended_tooltip')}
 										url="https://signoz.io/docs/userguide/manage-variables/#why-avoid-clickhouse-query-variables"
-										urlText="here"
+										urlText={t('dashboard_page_v2.variables.here')}
 										useFilledIcon={false}
 										outlinedIcon={
 											<Info
@@ -633,7 +644,7 @@ function VariableItem({
 					{queryType === 'QUERY' && (
 						<div className="query-container">
 							<LabelContainer>
-								<Typography>Query</Typography>
+								<Typography>{t('dashboard_page_v2.variables.query')}</Typography>
 							</LabelContainer>
 
 							<div style={{ flex: 1, position: 'relative' }}>
@@ -665,7 +676,7 @@ function VariableItem({
 									}}
 									loading={previewLoading}
 								>
-									Test Run Query
+									{t('dashboard_page_v2.variables.test_run_query')}
 								</Button>
 							</div>
 						</div>
@@ -679,11 +690,13 @@ function VariableItem({
 								items={[
 									{
 										key: '1',
-										label: 'Options',
+										label: t('dashboard_page_v2.variables.options'),
 										children: (
 											<Input.TextArea
 												value={variableCustomValue}
-												placeholder="Enter options separated by commas."
+												placeholder={t(
+													'dashboard_page_v2.variables.custom_options_placeholder',
+												)}
 												rootClassName="comma-input"
 												onChange={(e): void => {
 													setVariableCustomValue(e.target.value);
@@ -704,7 +717,9 @@ function VariableItem({
 					{queryType === 'TEXTBOX' && (
 						<VariableItemRow className="variable-textbox-section">
 							<LabelContainer>
-								<Typography className="typography-variables">Default Value</Typography>
+								<Typography className="typography-variables">
+									{t('dashboard_page_v2.variables.default_value')}
+								</Typography>
 							</LabelContainer>
 							<Input
 								value={variableTextboxValue}
@@ -712,7 +727,7 @@ function VariableItem({
 								onChange={(e): void => {
 									setVariableTextboxValue(e.target.value);
 								}}
-								placeholder="Enter a default value (if any)..."
+								placeholder={t('dashboard_page_v2.variables.text_default_placeholder')}
 								style={{ width: 400 }}
 							/>
 						</VariableItemRow>
@@ -724,7 +739,7 @@ function VariableItem({
 							<VariableItemRow className="variables-preview-section">
 								<LabelContainer style={{ width: '100%' }}>
 									<Typography className="typography-variables">
-										Preview of Values
+										{t('dashboard_page_v2.variables.preview_of_values')}
 									</Typography>
 								</LabelContainer>
 								<div className="preview-values">
@@ -741,7 +756,9 @@ function VariableItem({
 							</VariableItemRow>
 							<VariableItemRow className="sort-values-section">
 								<LabelContainer>
-									<Typography className="typography-variables">Sort Values</Typography>
+									<Typography className="typography-variables">
+										{t('dashboard_page_v2.variables.sort_values')}
+									</Typography>
 								</LabelContainer>
 
 								<Select
@@ -753,15 +770,21 @@ function VariableItem({
 									}
 									className="sort-input"
 								>
-									<Option value={VariableSortTypeArr[0]}>Disabled</Option>
-									<Option value={VariableSortTypeArr[1]}>Ascending</Option>
-									<Option value={VariableSortTypeArr[2]}>Descending</Option>
+									<Option value={VariableSortTypeArr[0]}>
+										{t('dashboard_container.variables.sort_disabled')}
+									</Option>
+									<Option value={VariableSortTypeArr[1]}>
+										{t('dashboard_container.variables.sort_ascending')}
+									</Option>
+									<Option value={VariableSortTypeArr[2]}>
+										{t('dashboard_container.variables.sort_descending')}
+									</Option>
 								</Select>
 							</VariableItemRow>
 							<VariableItemRow className="multiple-values-section">
 								<LabelContainer>
 									<Typography className="typography-variables">
-										Enable multiple values to be checked
+										{t('dashboard_page_v2.variables.enable_multiple_values')}
 									</Typography>
 								</LabelContainer>
 								<Switch
@@ -778,7 +801,7 @@ function VariableItem({
 								<VariableItemRow className="all-option-section">
 									<LabelContainer>
 										<Typography className="typography-variables">
-											Include an option for ALL values
+											{t('dashboard_page_v2.variables.include_all_values')}
 										</Typography>
 									</LabelContainer>
 									<Switch
@@ -789,15 +812,19 @@ function VariableItem({
 							)}
 							<VariableItemRow className="default-value-section">
 								<LabelContainer>
-									<Typography className="typography-variables">Default Value</Typography>
+									<Typography className="typography-variables">
+										{t('dashboard_page_v2.variables.default_value')}
+									</Typography>
 									<Typography className="default-value-description">
 										{queryType === 'QUERY'
-											? 'Click Test Run Query to see the values or add custom value'
-											: 'Select a value from the preview values or add custom value'}
+											? t('dashboard_page_v2.variables.default_query_hint')
+											: t('dashboard_page_v2.variables.default_preview_hint')}
 									</Typography>
 								</LabelContainer>
 								<CustomSelect
-									placeholder="Select a default value"
+									placeholder={t(
+										'dashboard_page_v2.variables.default_value_placeholder',
+									)}
 									value={variableDefaultValue}
 									onChange={(value): void => setVariableDefaultValue(value)}
 									options={previewValues.map((value) => ({
@@ -812,7 +839,7 @@ function VariableItem({
 						<VariableItemRow className="dynamic-variable-section">
 							<LabelContainer>
 								<Typography className="typography-variables">
-									Select Panels to apply this variable
+									{t('dashboard_container.variables.select_panels_to_apply')}
 								</Typography>
 							</LabelContainer>
 							<WidgetSelector
@@ -831,7 +858,7 @@ function VariableItem({
 						icon={<X size={14} />}
 						className="footer-btn-discard"
 					>
-						Discard
+						{t('dashboard_page_v2.variables.discard')}
 					</Button>
 					<Button
 						type="primary"
@@ -840,7 +867,7 @@ function VariableItem({
 						icon={<Check size={14} />}
 						className="footer-btn-save"
 					>
-						Save Variable
+						{t('dashboard_page_v2.variables.save_variable')}
 					</Button>
 				</VariableItemRow>
 			</div>

@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import YAxisUnitSelector from 'components/YAxisUnitSelector';
 import { YAxisSource } from 'components/YAxisUnitSelector/types';
 
@@ -33,13 +34,17 @@ function ThresholdUnitField({
 	scopeLabel,
 	onChange,
 }: ThresholdUnitFieldProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={styles.field}>
-			<Typography.Text className={styles.fieldLabel}>Unit</Typography.Text>
+			<Typography.Text className={styles.fieldLabel}>
+				{t('dashboard_page_v2.panel_config.thresholds.unit')}
+			</Typography.Text>
 			<YAxisUnitSelector
 				containerClassName={styles.unitSelector}
 				data-testid={testId}
-				placeholder="Select unit"
+				placeholder={t('dashboard_page_v2.panel_config.formatting.select_unit')}
 				source={YAxisSource.DASHBOARDS}
 				categoriesOverride={thresholdUnitCategories(scopeUnit)}
 				value={value}
@@ -47,7 +52,11 @@ function ThresholdUnitField({
 			/>
 			{isThresholdUnitIncompatible(value, scopeUnit) && (
 				<Typography.Text className={styles.invalidUnit} data-testid={invalidTestId}>
-					Threshold unit ({value}) is not valid with the {scopeLabel} ({scopeUnit})
+					{t('dashboard_page_v2.panel_config.thresholds.unit_invalid', {
+						value,
+						scopeLabel,
+						scopeUnit,
+					})}
 				</Typography.Text>
 			)}
 		</div>

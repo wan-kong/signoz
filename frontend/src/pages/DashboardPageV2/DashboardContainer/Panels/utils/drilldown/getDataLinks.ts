@@ -3,7 +3,7 @@ import type { FilterData } from 'container/QueryTable/Drilldown/drilldownUtils';
 /** An auto-generated drilldown link (label + destination URL). */
 export interface DrilldownDataLink {
 	id: string;
-	label: string;
+	labelKey: string;
 	url: string;
 }
 
@@ -20,7 +20,7 @@ export function getDataLinks(filters: FilterData[]): DrilldownDataLink[] {
 	if (traceId) {
 		links.push({
 			id: 'view-trace-details',
-			label: 'View Trace Details',
+			labelKey: 'dashboard_page_v2.drilldown.view_trace_details',
 			url: `/trace/${traceId}`,
 		});
 	}

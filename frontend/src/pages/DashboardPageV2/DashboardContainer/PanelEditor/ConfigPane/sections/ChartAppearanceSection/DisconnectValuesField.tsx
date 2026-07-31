@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { rangeUtil } from '@grafana/data';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import type { DashboardtypesSpanGapsDTO } from 'api/generated/services/sigNoz.schemas';
 
 import ConfigSegmented from '../../controls/ConfigSegmented/ConfigSegmented';
@@ -14,8 +15,14 @@ enum DisconnectValuesMode {
 	THRESHOLD = 'threshold',
 }
 const MODE_OPTIONS = [
-	{ value: DisconnectValuesMode.NEVER, label: 'Never' },
-	{ value: DisconnectValuesMode.THRESHOLD, label: 'Threshold' },
+	{
+		value: DisconnectValuesMode.NEVER,
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.never',
+	},
+	{
+		value: DisconnectValuesMode.THRESHOLD,
+		labelKey: 'dashboard_page_v2.panel_config.chart_appearance.threshold',
+	},
 ];
 
 interface DisconnectValuesFieldProps {
@@ -45,7 +52,12 @@ function DisconnectValuesField({
 	stepInterval,
 	onChange,
 }: DisconnectValuesFieldProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const duration = value?.fillLessThan || undefined;
+	const modeOptions = MODE_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
 	// `fillOnlyBelow` is authoritative; fall back to a stored duration for legacy panels.
 	const isThreshold = value?.fillOnlyBelow ?? !!duration;
 	// Remember the last committed threshold so Never → Threshold restores it.
@@ -74,19 +86,23 @@ function DisconnectValuesField({
 	return (
 		<>
 			<div className={styles.field}>
-				<Typography.Text>Disconnect values</Typography.Text>
+				<Typography.Text>
+					{t('dashboard_page_v2.panel_config.chart_appearance.disconnect_values')}
+				</Typography.Text>
 				<ConfigSegmented
 					testId={testId}
 					value={
 						isThreshold ? DisconnectValuesMode.THRESHOLD : DisconnectValuesMode.NEVER
 					}
-					items={MODE_OPTIONS}
+					items={modeOptions}
 					onChange={handleMode}
 				/>
 			</div>
 			{isThreshold && duration && (
 				<div className={styles.field}>
-					<Typography.Text>Threshold value</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.chart_appearance.threshold_value')}
+					</Typography.Text>
 					<DisconnectValuesThresholdInput
 						testId={`${testId}-value`}
 						value={duration}

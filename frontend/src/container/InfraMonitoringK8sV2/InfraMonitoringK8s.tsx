@@ -59,8 +59,10 @@ import {
 import logEvent from 'api/common/logEvent';
 import { NANO_SECOND_MULTIPLIER, useGlobalTimeStore } from 'store/globalTime';
 import OverlayScrollbar from 'components/OverlayScrollbar/OverlayScrollbar';
+import { useTranslation } from 'react-i18next';
 
 export default function InfraMonitoringK8s(): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const [showFilters, setShowFilters] = useState(true);
 
 	const [selectedCategory, setSelectedCategory] = useInfraMonitoringCategory();
@@ -152,60 +154,60 @@ export default function InfraMonitoringK8s(): JSX.Element {
 		() => [
 			{
 				key: K8sCategories.PODS,
-				label: 'Pods',
+				label: t('display.pods', 'Pods'),
 				icon: <Container size={14} />,
 				config: GetPodsQuickFiltersConfig(),
 			},
 			{
 				key: K8sCategories.NODES,
-				label: 'Nodes',
+				label: t('display.nodes', 'Nodes'),
 				icon: <Workflow size={14} />,
 				config: GetNodesQuickFiltersConfig(),
 			},
 			{
 				key: K8sCategories.NAMESPACES,
-				label: 'Namespaces',
+				label: t('display.namespaces', 'Namespaces'),
 				icon: <FilePenLine size={14} />,
 				config: GetNamespaceQuickFiltersConfig(),
 			},
 			{
 				key: K8sCategories.CLUSTERS,
-				label: 'Clusters',
+				label: t('display.clusters', 'Clusters'),
 				icon: <Boxes size={14} />,
 				config: GetClustersQuickFiltersConfig(),
 			},
 			{
 				key: K8sCategories.DEPLOYMENTS,
-				label: 'Deployments',
+				label: t('display.deployments', 'Deployments'),
 				icon: <Computer size={14} />,
 				config: GetDeploymentsQuickFiltersConfig(),
 			},
 			{
 				key: K8sCategories.JOBS,
-				label: 'Jobs',
+				label: t('display.jobs', 'Jobs'),
 				icon: <Bolt size={14} />,
 				config: GetJobsQuickFiltersConfig(),
 			},
 			{
 				key: K8sCategories.DAEMONSETS,
-				label: 'DaemonSets',
+				label: t('display.daemonsets', 'DaemonSets'),
 				icon: <Group size={14} />,
 				config: GetDaemonsetsQuickFiltersConfig(),
 			},
 			{
 				key: K8sCategories.STATEFULSETS,
-				label: 'StatefulSets',
+				label: t('display.statefulsets', 'StatefulSets'),
 				icon: <ArrowUpDown size={14} />,
 				config: GetStatefulsetsQuickFiltersConfig(),
 			},
 			{
 				key: K8sCategories.VOLUMES,
-				label: 'Volumes',
+				label: t('display.volumes', 'Volumes'),
 				icon: <HardDrive size={14} />,
 				config: GetVolumesQuickFiltersConfig(),
 			},
 		],
-		[],
+		[t],
 	);
 
 	const selectedCategoryConfig = useMemo(
@@ -240,7 +242,11 @@ export default function InfraMonitoringK8s(): JSX.Element {
 			<>
 				{!showFilters && (
 					<div className={styles.k8SOpenQuickFilters}>
-						<TooltipSimple title="Open Filters" arrow side="left">
+						<TooltipSimple
+							title={t('display.open_filters', 'Open Filters')}
+							arrow
+							side="left"
+						>
 							<Button
 								variant="ghost"
 								size="icon"
@@ -253,7 +259,7 @@ export default function InfraMonitoringK8s(): JSX.Element {
 				)}
 			</>
 		);
-	}, [handleFilterVisibilityChange, showFilters]);
+	}, [handleFilterVisibilityChange, showFilters, t]);
 
 	return (
 		<Sentry.ErrorBoundary fallback={<ErrorBoundaryFallback />}>
@@ -266,10 +272,13 @@ export default function InfraMonitoringK8s(): JSX.Element {
 									<div className={styles.categorySelectorSection}>
 										<div className={styles.sectionHeader} data-type="resource">
 											<Typography.Text className={styles.sectionLabel}>
-												Viewing · Resource
+												{t('display.viewing_resource', 'Viewing · Resource')}
 											</Typography.Text>
 											<div className={styles.sectionLine} />
-											<TooltipSimple title="Collapse Filters" arrow>
+											<TooltipSimple
+												title={t('display.collapse_filters', 'Collapse Filters')}
+												arrow
+											>
 												<ArrowUpToLine
 													style={{ transform: 'rotate(270deg)' }}
 													onClick={handleFilterVisibilityChange}
@@ -302,7 +311,7 @@ export default function InfraMonitoringK8s(): JSX.Element {
 									<div className={styles.quickFiltersSection}>
 										<div className={styles.sectionHeader} data-type="filter">
 											<Typography.Text className={styles.sectionLabel}>
-												Filter by
+												{t('display.filter_by', 'Filter by')}
 											</Typography.Text>
 											<div className={styles.sectionLine} />
 										</div>

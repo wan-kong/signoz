@@ -88,7 +88,7 @@ function VariablesSettings({
 	const variableToApplyToAll = useRef<IDashboardVariable | null>(null);
 	const [applyToAllModal, setApplyToAllModal] = useState(false);
 
-	const { t } = useTranslation(['dashboard']);
+	const { t } = useTranslation(['dashboard', 'common']);
 
 	const { dashboardData, setDashboardData } = useDashboardStore();
 	const { dashboardVariables } = useDashboardVariables();
@@ -340,13 +340,13 @@ function VariablesSettings({
 
 	const columns = [
 		{
-			title: 'Variable',
+			title: t('dashboard_page_v2.variables.variable'),
 			dataIndex: 'name',
 			width: '50%',
 			key: 'name',
 		},
 		{
-			title: 'Description',
+			title: t('dashboard_page_v2.variables.description'),
 			width: '50%',
 			key: 'description',
 			render: (variable: IDashboardVariable): JSX.Element => (
@@ -362,7 +362,9 @@ function VariablesSettings({
 								className="apply-to-all-button"
 								loading={updateMutation.isLoading}
 							>
-								<Typography.Text>Apply to all</Typography.Text>
+								<Typography.Text>
+									{t('dashboard_page_v2.variables.apply_to_all')}
+								</Typography.Text>
 							</Button>
 						)}
 						<Button
@@ -466,7 +468,7 @@ function VariablesSettings({
 							}
 						>
 							<Flex align="center" justify="center" gap={4}>
-								<Plus size="md" /> Add Variable
+								<Plus size="md" /> {t('dashboard_page_v2.variables.add_variable')}
 							</Flex>
 						</Button>
 					</Row>
@@ -497,7 +499,7 @@ function VariablesSettings({
 				</>
 			)}
 			<Modal
-				title="Delete variable"
+				title={t('dashboard_page_v2.variables.delete_variable')}
 				centered
 				open={deleteVariableModal}
 				onOk={handleDeleteConfirm}
@@ -505,7 +507,7 @@ function VariablesSettings({
 				okButtonProps={{ loading: updateMutation.isLoading }}
 			>
 				<Typography.Text>
-					Are you sure you want to delete variable{' '}
+					{t('dashboard_container.variables.delete_confirm_prefix')}{' '}
 					<span className="delete-variable-name">
 						{variableToDelete?.current?.name}
 					</span>
@@ -513,21 +515,20 @@ function VariablesSettings({
 				</Typography.Text>
 			</Modal>
 			<Modal
-				title="Apply variable to all panels"
+				title={t('dashboard_container.variables.apply_to_all_title')}
 				centered
 				open={applyToAllModal}
 				onOk={handleApplyToAllConfirm}
 				onCancel={handleApplyToAllCancel}
-				okText="Apply to all"
-				cancelText="Cancel"
+				okText={t('dashboard_page_v2.variables.apply_to_all')}
+				cancelText={t('cancel', { ns: 'common' })}
 			>
 				<Typography.Text>
-					Are you sure you want to apply variable{' '}
+					{t('dashboard_container.variables.apply_to_all_prefix')}{' '}
 					<span className="apply-to-all-variable-name">
 						{variableToApplyToAll?.current?.name}
 					</span>{' '}
-					to all panels? This action may affect panels where this variable is not
-					applicable.
+					{t('dashboard_container.variables.apply_to_all_suffix')}
 				</Typography.Text>
 			</Modal>
 		</>

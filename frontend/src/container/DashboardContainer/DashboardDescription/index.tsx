@@ -177,7 +177,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 		updateDashboardMutation.mutate(updatedDashboard, {
 			onSuccess: (updatedDashboard) => {
 				notifications.success({
-					message: 'Dashboard renamed successfully',
+					message: t('dashboard_page_v2.toolbar.dashboard_renamed'),
 				});
 				setIsRenameDashboardOpen(false);
 				if (updatedDashboard.data) {
@@ -349,13 +349,13 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 					</Tooltip>
 
 					{isPublicDashboard && (
-						<Tooltip title="This dashboard is publicly accessible">
+						<Tooltip title={t('dashboard_page_v2.toolbar.public_dashboard_tooltip')}>
 							<Globe size={14} className="public-dashboard-icon" />
 						</Tooltip>
 					)}
 
 					{isDashboardLocked && (
-						<Tooltip title="This dashboard is locked">
+						<Tooltip title={t('dashboard_page_v2.toolbar.dashboard_is_locked')}>
 							<LockKeyhole size={14} className="lock-dashboard-icon" />
 						</Tooltip>
 					)}
@@ -374,7 +374,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 										<Tooltip
 											title={
 												dashboardData?.createdBy === 'integration' &&
-												'Dashboards created by integrations cannot be unlocked'
+												t('dashboard_container.description.integration_unlock_disabled')
 											}
 										>
 											<Button
@@ -384,7 +384,9 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 												onClick={handleLockDashboardToggle}
 												data-testid="lock-unlock-dashboard"
 											>
-												{isDashboardLocked ? 'Unlock Dashboard' : 'Lock Dashboard'}
+												{isDashboardLocked
+													? t('dashboard_page_v2.actions.unlock_dashboard')
+													: t('dashboard_page_v2.actions.lock_dashboard')}
 											</Button>
 										</Tooltip>
 									)}
@@ -398,7 +400,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 												setIsDashbordSettingsOpen(false);
 											}}
 										>
-											Rename
+											{t('dashboard_page_v2.actions.rename')}
 										</Button>
 									)}
 
@@ -407,7 +409,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 										icon={<Fullscreen size={14} />}
 										onClick={handle.enter}
 									>
-										Full screen
+										{t('dashboard_page_v2.actions.full_screen')}
 									</Button>
 								</section>
 								<section className="section-2">
@@ -420,7 +422,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 												setIsDashbordSettingsOpen(false);
 											}}
 										>
-											New section
+											{t('dashboard_page_v2.actions.new_section')}
 										</Button>
 									)}
 
@@ -435,7 +437,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 											setIsDashbordSettingsOpen(false);
 										}}
 									>
-										Export JSON
+										{t('list_of_dashboard.export_json')}
 									</Button>
 									<Button
 										type="text"
@@ -447,7 +449,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 											setIsDashbordSettingsOpen(false);
 										}}
 									>
-										Copy as JSON
+										{t('dashboard_container.description.copy_as_json')}
 									</Button>
 								</section>
 								<section className="delete-dashboard">
@@ -480,10 +482,10 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 								data-testid="show-drawer"
 								onClick={onConfigureClick}
 							>
-								Configure
+								{t('dashboard_page_v2.actions.configure')}
 							</Button>
 							<SettingsDrawer
-								drawerTitle="Dashboard Configuration"
+								drawerTitle={t('dashboard_page_v2.actions.dashboard_configuration')}
 								isOpen={isSettingsDrawerOpen}
 								onClose={onSettingsDrawerClose}
 							>
@@ -501,7 +503,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 							type="primary"
 							data-testid="add-panel-header"
 						>
-							New Panel
+							{t('dashboard_page_v2.actions.new_panel')}
 						</Button>
 					)}
 				</div>
@@ -530,7 +532,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 
 			<Modal
 				open={isRenameDashboardOpen}
-				title="Rename Dashboard"
+				title={t('dashboard_container.description.rename_dashboard')}
 				onOk={(): void => {
 					// handle update dashboard here
 				}}
@@ -547,7 +549,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 							onClick={onNameChangeHandler}
 							disabled={updateDashboardMutation.isLoading}
 						>
-							Rename Dashboard
+							{t('dashboard_container.description.rename_dashboard')}
 						</Button>
 						<Button
 							type="text"
@@ -555,13 +557,15 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 							className="cancel-btn"
 							onClick={(): void => setIsRenameDashboardOpen(false)}
 						>
-							Cancel
+							{t('cancel', { ns: 'common' })}
 						</Button>
 					</div>
 				}
 			>
 				<div className="dashboard-content">
-					<Typography.Text className="name-text">Enter a new name</Typography.Text>
+					<Typography.Text className="name-text">
+						{t('dashboard_container.description.enter_new_name')}
+					</Typography.Text>
 					<Input
 						data-testid="dashboard-name"
 						className="dashboard-name-input"
@@ -572,7 +576,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 			</Modal>
 			<Modal
 				open={isPanelNameModalOpen}
-				title="New Section"
+				title={t('dashboard_page_v2.actions.new_section')}
 				rootClassName="section-naming"
 				onOk={(): void => handleAddRow()}
 				onCancel={(): void => {
@@ -588,7 +592,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 							onClick={(): void => handleAddRow()}
 							disabled={updateDashboardMutation.isLoading}
 						>
-							Create Section
+							{t('dashboard_page_v2.actions.create_section')}
 						</Button>
 						<Button
 							type="text"
@@ -599,13 +603,15 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 								setSectionName(DEFAULT_ROW_NAME);
 							}}
 						>
-							Cancel
+							{t('cancel', { ns: 'common' })}
 						</Button>
 					</div>
 				}
 			>
 				<div className="section-naming-content">
-					<Typography.Text className="name-text">Enter Section name</Typography.Text>
+					<Typography.Text className="name-text">
+						{t('dashboard_container.description.enter_section_name')}
+					</Typography.Text>
 					<Input
 						data-testid="section-name"
 						className="section-name-input"

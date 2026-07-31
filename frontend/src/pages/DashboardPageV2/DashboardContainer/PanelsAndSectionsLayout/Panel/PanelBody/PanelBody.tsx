@@ -1,4 +1,5 @@
 import { RotateCw, SquarePlus, TriangleAlert } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import type { DashboardtypesPanelDTO } from 'api/generated/services/sigNoz.schemas';
 import { PanelMode } from 'container/DashboardContainer/visualization/panels/types';
 import PanelLoader from 'pages/DashboardPageV2/DashboardContainer/Panels/components/PanelLoader/PanelLoader';
@@ -69,6 +70,7 @@ function PanelBody({
 	onClick,
 	enableDrillDown = false,
 }: PanelBodyProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	// A retained response (keepPreviousData) counts as data only if its type matches the current
 	// request — else a prior panel kind's response (time_series → raw) flashes NoData on switch.
 	const hasData =
@@ -81,8 +83,8 @@ function PanelBody({
 		return (
 			<PanelMessage
 				icon={<SquarePlus size={18} />}
-				title="Nothing to visualize yet"
-				description="This panel has no query. Add one to start plotting data."
+				title={t('dashboard_page_v2.panel_body.nothing_to_visualize')}
+				description={t('dashboard_page_v2.panel_body.no_query_description')}
 				data-testid="panel-no-query"
 			/>
 		);
@@ -96,10 +98,12 @@ function PanelBody({
 			<PanelMessage
 				icon={<TriangleAlert size={18} />}
 				tone="danger"
-				title="Couldn’t load panel data"
-				description={errorDetail?.message || 'Something went wrong while fetching.'}
+				title={t('dashboard_page_v2.panel_body.load_failed')}
+				description={
+					errorDetail?.message || t('dashboard_page_v2.panel_body.fetch_failed')
+				}
 				action={{
-					label: 'Retry',
+					label: t('dashboard_page_v2.panel_body.retry'),
 					onClick: refetch,
 					icon: <RotateCw size={14} />,
 				}}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { AlignLeft, Copy, Download, RotateCcw } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 
@@ -21,6 +22,7 @@ function JsonEditorToolbar({
 	onDownload,
 	onReset,
 }: JsonEditorToolbarProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	return (
 		<div className={styles.toolbar}>
 			<Button
@@ -32,7 +34,7 @@ function JsonEditorToolbar({
 				disabled={readOnly}
 				onClick={onFormat}
 			>
-				Format
+				{t('dashboard_page_v2.json_editor.format')}
 			</Button>
 			<Button
 				variant="ghost"
@@ -42,7 +44,7 @@ function JsonEditorToolbar({
 				testId="json-editor-copy"
 				onClick={onCopy}
 			>
-				Copy
+				{t('dashboard_page_v2.json_editor.copy')}
 			</Button>
 			<Button
 				variant="ghost"
@@ -52,7 +54,7 @@ function JsonEditorToolbar({
 				testId="json-editor-download"
 				onClick={onDownload}
 			>
-				Download
+				{t('dashboard_page_v2.json_editor.download')}
 			</Button>
 			<div className={styles.spacer} />
 			<Button
@@ -64,7 +66,7 @@ function JsonEditorToolbar({
 				disabled={readOnly || !isDirty}
 				onClick={onReset}
 			>
-				Reset
+				{t('dashboard_page_v2.json_editor.reset')}
 			</Button>
 		</div>
 	);

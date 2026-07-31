@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import ROUTES from 'constants/routes';
@@ -19,6 +20,7 @@ interface AlertNotFoundProps {
 }
 
 function AlertNotFound({ isTestAlert }: AlertNotFoundProps): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const { isCloudUser: isCloudUserVal } = useGetTenantLicense();
 	const { safeNavigate } = useSafeNavigate();
 
@@ -35,12 +37,12 @@ function AlertNotFound({ isTestAlert }: AlertNotFoundProps): JSX.Element {
 			<section className="description">
 				<img src={noDataUrl} alt="no-data" className="not-found-img" />
 				<Typography.Text className="not-found-text">
-					Uh-oh! We couldn&apos;t find the given alert rule.
+					{t('alert_details.not_found.message')}
 				</Typography.Text>
 				<Typography.Text className="not-found-text">
 					{isTestAlert
-						? 'This can happen in the following scenario -'
-						: 'This can happen in either of the following scenarios -'}
+						? t('alert_details.not_found.single_scenario')
+						: t('alert_details.not_found.multiple_scenarios')}
 				</Typography.Text>
 			</section>
 			<section className="reasons">
@@ -49,13 +51,13 @@ function AlertNotFound({ isTestAlert }: AlertNotFoundProps): JSX.Element {
 						<div className="reason">
 							<img src={constructionUrl} alt="no-data" className="construction-img" />
 							<Typography.Text className="text">
-								The alert rule link is incorrect, please verify it once.
+								{t('alert_details.not_found.incorrect_link')}
 							</Typography.Text>
 						</div>
 						<div className="reason">
 							<img src={broomUrl} alt="no-data" className="broom-img" />
 							<Typography.Text className="text">
-								The alert rule you&apos;re trying to check has been deleted.
+								{t('alert_details.not_found.deleted_rule')}
 							</Typography.Text>
 						</div>
 					</>
@@ -64,16 +66,14 @@ function AlertNotFound({ isTestAlert }: AlertNotFoundProps): JSX.Element {
 					<div className="reason">
 						<img src={broomUrl} alt="no-data" className="broom-img" />
 						<Typography.Text className="text">
-							You clicked on the Alert notification link received when testing a new
-							Alert rule. Once the alert rule is saved, future notifications will link
-							to actual alerts.
+							{t('alert_details.not_found.test_alert_reason')}
 						</Typography.Text>
 					</div>
 				)}
 			</section>
 			<section className="none-of-above">
 				<Typography.Text className="text">
-					If you feel the issue is none of the above, please contact support.
+					{t('alert_details.not_found.contact_support_hint')}
 				</Typography.Text>
 				<div className="action-btns">
 					<Button
@@ -81,14 +81,14 @@ function AlertNotFound({ isTestAlert }: AlertNotFoundProps): JSX.Element {
 						icon={<List size={14} />}
 						onClick={checkAllRulesHandler}
 					>
-						Check all rules
+						{t('alert_details.not_found.check_all_rules')}
 					</Button>
 					<Button
 						className="action-btn"
 						icon={<LifeBuoy size={14} />}
 						onClick={contactSupportHandler}
 					>
-						Contact Support
+						{t('alert_details.not_found.contact_support')}
 					</Button>
 				</div>
 			</section>

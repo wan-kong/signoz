@@ -1,4 +1,5 @@
 import { type MouseEvent, useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	autocompletion,
 	closeCompletion,
@@ -75,10 +76,11 @@ function SearchBar({
 	value,
 	onChange,
 	onSubmit,
-	placeholder = "Filter with DSL (e.g. name CONTAINS 'foo')",
+	placeholder,
 	source = EMPTY_SOURCE,
 	dirty = false,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const isMac = getUserOperatingSystem() === UserOperatingSystem.MACOS;
 	const editorRef = useRef<ReactCodeMirrorRef>(null);
 
@@ -153,7 +155,9 @@ function SearchBar({
 					ref={editorRef}
 					className={styles.editor}
 					value={value}
-					placeholder={placeholder}
+					placeholder={
+						placeholder ?? t('dashboards_list_page_v2.search.placeholder')
+					}
 					extensions={extensions}
 					basicSetup={BASIC_SETUP}
 					indentWithTab={false}
@@ -165,7 +169,7 @@ function SearchBar({
 					color="secondary"
 					size="sm"
 					className={styles.submit}
-					aria-label="Run search"
+					aria-label={t('dashboards_list_page_v2.search.run_search')}
 					testId="dashboards-list-search-submit"
 					onMouseDown={(e: MouseEvent<HTMLButtonElement>): void => {
 						e.preventDefault();
@@ -178,7 +182,7 @@ function SearchBar({
 							data-testid="dashboards-list-search-dirty"
 						/>
 					)}
-					Run query
+					{t('dashboards_list_page_v2.search.run_query')}
 					<span className={styles.cmdHint}>
 						{isMac ? (
 							<Command size={12} color={Color.BG_VANILLA_400} />

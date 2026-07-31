@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Braces, Globe, Table } from '@signozhq/icons';
 import {
@@ -37,6 +38,7 @@ const prefixIcons: Record<TabKeys, JSX.Element> = {
 };
 
 function DashboardSettings({ dashboard }: DashboardSettingsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { user } = useAppContext();
 	const { isCloudUser, isEnterpriseSelfHostedUser } = useGetTenantLicense();
 	// Opened once per drawer mount (the drawer destroys on close); a deep-link
@@ -49,12 +51,12 @@ function DashboardSettings({ dashboard }: DashboardSettingsProps): JSX.Element {
 		() => [
 			{
 				key: TabKeys.OVERVIEW,
-				label: TabKeys.OVERVIEW,
+				label: t('dashboard_page_v2.settings.tabs.overview'),
 				children: <Overview dashboard={dashboard} />,
 			},
 			{
 				key: TabKeys.VARIABLES,
-				label: TabKeys.VARIABLES,
+				label: t('dashboard_page_v2.settings.tabs.variables'),
 				children: <VariablesSettings dashboard={dashboard} />,
 				prefixIcon: <Braces size={14} />,
 			},
@@ -62,14 +64,14 @@ function DashboardSettings({ dashboard }: DashboardSettingsProps): JSX.Element {
 				? [
 						{
 							key: TabKeys.PUBLISH,
-							label: TabKeys.PUBLISH,
+							label: t('dashboard_page_v2.settings.tabs.publish'),
 							children: <PublicDashboardSettings dashboard={dashboard} />,
 							disabled: user?.role !== USER_ROLES.ADMIN,
 						},
 					]
 				: []),
 		],
-		[enablePublicDashboard, dashboard, user?.role],
+		[enablePublicDashboard, dashboard, user?.role, t],
 	);
 
 	return (
@@ -78,7 +80,7 @@ function DashboardSettings({ dashboard }: DashboardSettingsProps): JSX.Element {
 				{Object.values(TabKeys).map((key) => (
 					<TabsTrigger value={key} key={key}>
 						{prefixIcons[key]}
-						{key}
+						{t(`dashboard_page_v2.settings.tabs.${key.toLowerCase()}`)}
 					</TabsTrigger>
 				))}
 			</TabsList>

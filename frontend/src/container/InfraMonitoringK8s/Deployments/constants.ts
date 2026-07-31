@@ -34,14 +34,17 @@ export const k8sDeploymentDetailsMetadataConfig: K8sDetailsMetadataConfig<K8sDep
 	[
 		{
 			label: 'Deployment Name',
+			labelKey: 'display.deployment_name',
 			getValue: (p): string => p.meta.k8s_deployment_name,
 		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string => p.meta.k8s_cluster_name,
 		},
 		{
 			label: 'Namespace Name',
+			labelKey: 'display.namespace_name',
 			getValue: (p): string => p.meta.k8s_namespace_name,
 		},
 	];
@@ -69,18 +72,22 @@ export const k8sDeploymentGetEntityName = (item: K8sDeploymentsData): string =>
 export const deploymentWidgetInfo = [
 	{
 		title: 'CPU usage, request, limits',
+		titleKey: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 	},
 	{
 		title: 'Memory usage, request, limits',
+		titleKey: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 	},
 	{
 		title: 'Network IO',
+		titleKey: 'display.network_io',
 		yAxisUnit: 'binBps',
 	},
 	{
 		title: 'Network error count',
+		titleKey: 'display.network_error_count',
 		yAxisUnit: '',
 	},
 ];

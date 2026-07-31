@@ -5,6 +5,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FullScreenHandle } from 'react-full-screen';
 import { generatePath } from 'react-router-dom';
 import {
@@ -67,6 +68,7 @@ function DashboardActions({
 	onLockToggle,
 	onOpenRename,
 }: DashboardActionsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const canEditDashboard = useDashboardStore((s) => s.canEditDashboard);
 	const isLocked = useDashboardStore((s) => s.isLocked);
 	const isEditable = useDashboardStore((s) => s.isEditable);
@@ -118,7 +120,7 @@ function DashboardActions({
 		try {
 			setIsCloning(true);
 			const response = await cloneDashboardV2({ id: dashboard.id });
-			toast.success('Dashboard cloned');
+			toast.success(t('dashboard_page_v2.actions.dashboard_cloned'));
 			void logEvent(DashboardDetailEvents.Cloned, {
 				dashboardId: dashboard.id,
 				dashboardName: title,
@@ -132,7 +134,7 @@ function DashboardActions({
 		} finally {
 			setIsCloning(false);
 		}
-	}, [dashboard.id, title, safeNavigate, showErrorModal]);
+	}, [dashboard.id, title, safeNavigate, showErrorModal, t]);
 
 	const handleOpenSettings = useCallback((): void => {
 		void logEvent(DashboardDetailEvents.SettingsOpened, {
@@ -175,7 +177,7 @@ function DashboardActions({
 		if (canEditDashboard) {
 			dashboardGroup.push({
 				key: 'rename',
-				label: editLabel('Rename'),
+				label: editLabel(t('dashboard_page_v2.actions.rename')),
 				icon: <PenLine size={14} />,
 				disabled: isLocked,
 				onClick: onOpenRename,
@@ -183,7 +185,7 @@ function DashboardActions({
 			// Clone creates a new dashboard, so it's not lock-gated.
 			dashboardGroup.push({
 				key: 'clone',
-				label: 'Clone dashboard',
+				label: t('dashboard_page_v2.actions.clone_dashboard'),
 				icon: <Copy size={14} />,
 				disabled: isCloning,
 				onClick: (): void => void handleClone(),
@@ -192,7 +194,9 @@ function DashboardActions({
 		if (isAuthor || user.role === USER_ROLES.ADMIN) {
 			dashboardGroup.push({
 				key: 'lock',
-				label: isDashboardLocked ? 'Unlock dashboard' : 'Lock dashboard',
+				label: isDashboardLocked
+					? t('dashboard_page_v2.actions.unlock_dashboard')
+					: t('dashboard_page_v2.actions.lock_dashboard'),
 				icon: <LockKeyhole size={14} />,
 				disabled: dashboard.createdBy === 'integration',
 				onClick: onLockToggle,
@@ -200,7 +204,7 @@ function DashboardActions({
 		}
 		dashboardGroup.push({
 			key: 'fullscreen',
-			label: 'Full screen',
+			label: t('dashboard_page_v2.actions.full_screen'),
 			icon: <Fullscreen size={14} />,
 			onClick: handleEnterFullScreen,
 		});
@@ -209,7 +213,7 @@ function DashboardActions({
 			{
 				type: 'group',
 				key: 'group-dashboard',
-				label: 'Dashboard',
+				label: t('dashboard_page_v2.actions.dashboard_group'),
 				children: dashboardGroup,
 			},
 		];
@@ -218,11 +222,11 @@ function DashboardActions({
 			items.push({
 				type: 'group',
 				key: 'group-layout',
-				label: 'Layout',
+				label: t('dashboard_page_v2.actions.layout_group'),
 				children: [
 					{
 						key: 'new-section',
-						label: editLabel('New section'),
+						label: editLabel(t('dashboard_page_v2.actions.new_section')),
 						icon: <SquareStack size={14} />,
 						disabled: isLocked,
 						onClick: (): void => setIsNewSectionOpen(true),
@@ -233,7 +237,7 @@ function DashboardActions({
 				{ type: 'divider', key: 'divider-danger' },
 				{
 					key: 'delete',
-					label: editLabel('Delete dashboard'),
+					label: editLabel(t('dashboard_page_v2.actions.delete_dashboard')),
 					icon: <Trash2 size={14} />,
 					danger: true,
 					disabled: isLocked,
@@ -256,6 +260,7 @@ function DashboardActions({
 		onLockToggle,
 		handleEnterFullScreen,
 		confirmDeleteDashboard,
+		t,
 	]);
 
 	return (
@@ -269,7 +274,7 @@ function DashboardActions({
 					prefix={<Grid3X3 size="md" />}
 					testId="options"
 				>
-					Actions
+					{t('dashboard_page_v2.actions.actions')}
 				</Button>
 			</DropdownMenuSimple>
 			{canEditDashboard && (
@@ -288,11 +293,11 @@ function DashboardActions({
 							onClick={handleOpenSettings}
 							size="md"
 						>
-							Configure
+							{t('dashboard_page_v2.actions.configure')}
 						</Button>
 					</DisabledControlTooltip>
 					<SettingsDrawer
-						drawerTitle="Dashboard Configuration"
+						drawerTitle={t('dashboard_page_v2.actions.dashboard_configuration')}
 						isOpen={isSettingsDrawerOpen}
 						destroyOnClose
 						onClose={(): void => {
@@ -329,7 +334,7 @@ function DashboardActions({
 						disabled={isLocked}
 						size="md"
 					>
-						New Panel
+						{t('dashboard_page_v2.actions.new_panel')}
 					</Button>
 				</DisabledControlTooltip>
 			)}
@@ -341,8 +346,8 @@ function DashboardActions({
 			{deleteConfirmHolder}
 			<SectionTitleModal
 				open={isNewSectionOpen}
-				heading="New section"
-				okText="Create section"
+				heading={t('dashboard_page_v2.actions.new_section')}
+				okText={t('dashboard_page_v2.actions.create_section')}
 				initialValue=""
 				isSaving={isAddingSection}
 				onClose={(): void => setIsNewSectionOpen(false)}

@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Check, GripVertical, PenLine, Trash2, X } from '@signozhq/icons';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -39,6 +40,7 @@ function VariableRow({
 	onApplyToAll,
 	isAppliedToAll,
 }: VariableRowProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const {
 		attributes,
 		listeners,
@@ -67,7 +69,7 @@ function VariableRow({
 					<span
 						ref={setActivatorNodeRef}
 						className={styles.dragHandle}
-						aria-label="Reorder variable"
+						aria-label={t('dashboard_page_v2.variables.reorder_variable')}
 						{...attributes}
 						{...listeners}
 					>
@@ -97,14 +99,14 @@ function VariableRow({
 						{isConfirmingDelete ? (
 							<>
 								<Typography.Text className={styles.confirmText}>
-									Delete?
+									{t('dashboard_page_v2.variables.delete_question')}
 								</Typography.Text>
 								<Button
 									variant="ghost"
 									color="destructive"
 									size="icon"
 									onClick={(): void => onConfirmDelete(index)}
-									aria-label="Confirm delete"
+									aria-label={t('dashboard_page_v2.variables.confirm_delete')}
 									testId={`variable-delete-confirm-${variable.name}`}
 								>
 									<Check size={14} />
@@ -114,7 +116,7 @@ function VariableRow({
 									color="secondary"
 									size="icon"
 									onClick={onCancelDelete}
-									aria-label="Cancel delete"
+									aria-label={t('dashboard_page_v2.variables.cancel_delete')}
 								>
 									<X size={14} />
 								</Button>
@@ -126,8 +128,8 @@ function VariableRow({
 										side="top"
 										title={
 											isAppliedToAll
-												? 'Already applied to all panels'
-												: 'Add this variable as a filter to every panel'
+												? t('dashboard_page_v2.variables.already_applied_to_all')
+												: t('dashboard_page_v2.variables.add_filter_to_every_panel')
 										}
 									>
 										<Button
@@ -139,7 +141,7 @@ function VariableRow({
 											onClick={(): void => onApplyToAll(index)}
 											testId={`variable-apply-all-${variable.name}`}
 										>
-											Apply to all
+											{t('dashboard_page_v2.variables.apply_to_all')}
 										</Button>
 									</TooltipSimple>
 								) : null}
@@ -148,7 +150,7 @@ function VariableRow({
 									color="secondary"
 									size="icon"
 									onClick={(): void => onEdit(index)}
-									aria-label="Edit variable"
+									aria-label={t('dashboard_page_v2.variables.edit_variable')}
 									testId={`variable-edit-${variable.name}`}
 								>
 									<PenLine size={14} />
@@ -158,7 +160,7 @@ function VariableRow({
 									color="secondary"
 									size="icon"
 									onClick={(): void => onRequestDelete(index)}
-									aria-label="Delete variable"
+									aria-label={t('dashboard_page_v2.variables.delete_variable')}
 									testId={`variable-delete-${variable.name}`}
 								>
 									<Trash2 size={14} />

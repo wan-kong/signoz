@@ -1,4 +1,5 @@
 import { type ChangeEvent, type KeyboardEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Check,
 	LayoutDashboard,
@@ -21,6 +22,7 @@ const TEMPLATES_DOCS_URL =
 // placeholder: link out to the published template library, and let cloud users
 // request one we haven't built.
 function TemplatesPanel(): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { isCloudUser } = useGetTenantLicense();
 	const [name, setName] = useState('');
 	const [submitting, setSubmitting] = useState(false);
@@ -38,13 +40,15 @@ function TemplatesPanel(): JSX.Element {
 				dashboard: requestName,
 			});
 			if (response.statusCode === 200) {
-				toast.success('Dashboard request submitted');
+				toast.success(t('dashboards_list_page_v2.new_dashboard.request_submitted'));
 				setName('');
 			} else {
-				toast.error(response.error || 'Something went wrong');
+				toast.error(
+					response.error || t('dashboards_list_page_v2.errors.something_went_wrong'),
+				);
 			}
 		} catch {
-			toast.error('Something went wrong');
+			toast.error(t('dashboards_list_page_v2.errors.something_went_wrong'));
 		} finally {
 			setSubmitting(false);
 		}
@@ -56,7 +60,7 @@ function TemplatesPanel(): JSX.Element {
 				<LayoutDashboard size={20} />
 			</span>
 			<Typography variant="title" size="lg" weight="semibold">
-				Dashboard templates
+				{t('dashboards_list_page_v2.new_dashboard.templates_title')}
 			</Typography>
 			<Typography
 				variant="text"
@@ -64,8 +68,7 @@ function TemplatesPanel(): JSX.Element {
 				color="muted"
 				className={styles.templatesDesc}
 			>
-				Browse our library of ready-made dashboards, or request a new one and
-				we&apos;ll build it for you.
+				{t('dashboards_list_page_v2.new_dashboard.templates_description')}
 			</Typography>
 
 			<a
@@ -74,7 +77,7 @@ function TemplatesPanel(): JSX.Element {
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				Browse dashboard templates
+				{t('dashboards_list_page_v2.new_dashboard.browse_templates')}
 				<SquareArrowOutUpRight size={14} />
 			</a>
 
@@ -86,12 +89,14 @@ function TemplatesPanel(): JSX.Element {
 						weight="semibold"
 						className={styles.requestHeader}
 					>
-						Request a new template
+						{t('dashboards_list_page_v2.new_dashboard.request_new_template')}
 					</Typography>
 					<div className={styles.requestRow}>
 						<Input
 							className={styles.requestInput}
-							placeholder="Enter dashboard name..."
+							placeholder={t(
+								'dashboards_list_page_v2.new_dashboard.enter_dashboard_name',
+							)}
 							value={name}
 							testId="request-dashboard-name"
 							onChange={(e: ChangeEvent<HTMLInputElement>): void =>
@@ -120,7 +125,7 @@ function TemplatesPanel(): JSX.Element {
 								void handleRequest();
 							}}
 						>
-							Submit
+							{t('dashboards_list_page_v2.actions.submit')}
 						</Button>
 					</div>
 				</div>

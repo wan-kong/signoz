@@ -1,6 +1,12 @@
 import { Info } from '@signozhq/icons';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
+import { useTranslation } from 'react-i18next';
 
+import {
+	translateInfraKey,
+	translateInfraNode,
+	translateInfraText,
+} from '../../InfraMonitoringK8s/i18n';
 import styles from './ColumnHeader.module.scss';
 import cx from 'classnames';
 
@@ -8,20 +14,41 @@ const DOCS_BASE_URL = `${process.env.DOCS_BASE_URL}/docs`;
 
 interface ColumnHeaderProps {
 	children?: React.ReactNode;
+	title?: string;
+	titleKey?: string;
 	docPath?: string;
 	tooltip?: string;
+	tooltipKey?: string;
 	className?: string;
 }
 
 function ColumnHeader({
 	children,
+	title,
+	titleKey,
 	docPath,
 	tooltip,
+	tooltipKey,
 	className,
 }: ColumnHeaderProps): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
+
 	const renderContent = (): React.ReactNode => {
 		if (children) {
-			return children;
+			return translateInfraNode(t, children);
+		}
+
+		if (title) {
+			const titleText = titleKey
+				? translateInfraKey(t, titleKey, title)
+				: translateInfraText(t, title);
+			const parts = titleText.split('\n');
+			return parts.map((part, index) => (
+				<div key={`${title}-${part}`}>
+					{part}
+					{index < parts.length - 1 && <br />}
+				</div>
+			));
 		}
 
 		return null;
@@ -29,7 +56,11 @@ function ColumnHeader({
 
 	const renderInfoIcon = (): React.ReactNode => {
 		if (docPath) {
-			const tooltipTitle = tooltip || 'Not sure what this means?';
+			const tooltipTitle = translateInfraKey(
+				t,
+				tooltipKey,
+				tooltip || 'Not sure what this means?',
+			);
 			return (
 				<TooltipSimple
 					arrow
@@ -42,7 +73,7 @@ function ColumnHeader({
 								rel="noopener"
 								onClick={(e): void => e.stopPropagation()}
 							>
-								Learn more.
+								{translateInfraKey(t, 'display.learn_more_period', 'Learn more.')}
 							</a>
 						</>
 					}
@@ -56,7 +87,7 @@ function ColumnHeader({
 
 		if (tooltip) {
 			return (
-				<TooltipSimple title={tooltip}>
+				<TooltipSimple title={translateInfraText(t, tooltip)}>
 					<div className={styles.infoIcon}>
 						<Info size="md" />
 					</div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Input } from '@signozhq/ui/input';
 import { Typography } from '@signozhq/ui/typography';
 // eslint-disable-next-line signoz/no-antd-components -- multiline TextArea has no @signozhq/ui equivalent yet
@@ -22,10 +23,14 @@ function VariableInfoForm({
 	onDescriptionChange,
 	visibleNameError,
 }: VariableInfoFormProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<>
 			<div className={styles.infoItemContainer}>
-				<Typography className={styles.infoTitle}>Name</Typography>
+				<Typography className={styles.infoTitle}>
+					{t('dashboard_page_v2.variables.name')}
+				</Typography>
 
 				<Input
 					testId="variable-name"
@@ -33,7 +38,7 @@ function VariableInfoForm({
 					value={title}
 					maxLength={DASHBOARD_NAME_MAX_LENGTH}
 					onChange={(e): void => onTitleChange(e.target.value)}
-					placeholder="Unique name of the variable"
+					placeholder={t('dashboard_page_v2.variables.unique_name_placeholder')}
 				/>
 
 				{visibleNameError ? (
@@ -45,11 +50,13 @@ function VariableInfoForm({
 			</div>
 
 			<div className={styles.infoItemContainer}>
-				<Typography className={styles.infoTitle}>Description</Typography>
+				<Typography className={styles.infoTitle}>
+					{t('dashboard_page_v2.variables.description')}
+				</Typography>
 				<AntdInput.TextArea
 					className={styles.descriptionTextArea}
 					value={description}
-					placeholder="Enter a description for the variable"
+					placeholder={t('dashboard_page_v2.variables.description_placeholder')}
 					data-testid="dashboard-desc"
 					rows={3}
 					onChange={(e): void => onDescriptionChange(e.target.value)}

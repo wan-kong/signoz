@@ -1,9 +1,13 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import * as appHooks from 'providers/App/App';
 import { ROLES, USER_ROLES } from 'types/roles';
 
 import RoutingPolicyListItem from '../RoutingPolicyListItem';
-import { getAppContextMockState, MOCK_ROUTING_POLICY_1 } from './testUtils';
+import {
+	getAppContextMockState,
+	MOCK_ROUTING_POLICY_1,
+	renderWithAlertsI18n,
+} from './testUtils';
 
 const mockFormatTimezoneAdjustedTimestamp = jest.fn();
 jest.mock('providers/Timezone', () => ({
@@ -23,7 +27,7 @@ const DELETE_ROUTING_POLICY_TEST_ID = 'delete-routing-policy';
 
 describe('RoutingPolicyListItem', () => {
 	it('should render properly in collapsed state', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyListItem
 				routingPolicy={mockRoutingPolicy}
 				handlePolicyDetailsModalOpen={mockHandlePolicyDetailsModalOpen}
@@ -36,7 +40,7 @@ describe('RoutingPolicyListItem', () => {
 	});
 
 	it('should render properly in expanded state', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyListItem
 				routingPolicy={mockRoutingPolicy}
 				handlePolicyDetailsModalOpen={mockHandlePolicyDetailsModalOpen}
@@ -58,7 +62,7 @@ describe('RoutingPolicyListItem', () => {
 	});
 
 	it('should call handlePolicyDetailsModalOpen when edit button is clicked', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyListItem
 				routingPolicy={mockRoutingPolicy}
 				handlePolicyDetailsModalOpen={mockHandlePolicyDetailsModalOpen}
@@ -73,7 +77,7 @@ describe('RoutingPolicyListItem', () => {
 	});
 
 	it('should call handleDeleteModalOpen when delete button is clicked', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyListItem
 				routingPolicy={mockRoutingPolicy}
 				handlePolicyDetailsModalOpen={mockHandlePolicyDetailsModalOpen}
@@ -90,7 +94,7 @@ describe('RoutingPolicyListItem', () => {
 			.mockReturnValue(
 				getAppContextMockState({ role: USER_ROLES.VIEWER as ROLES }),
 			);
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyListItem
 				routingPolicy={mockRoutingPolicy}
 				handlePolicyDetailsModalOpen={mockHandlePolicyDetailsModalOpen}
@@ -106,7 +110,7 @@ describe('RoutingPolicyListItem', () => {
 	});
 
 	it('in details panel, show "-" for undefined values', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPolicyListItem
 				routingPolicy={mockRoutingPolicy}
 				handlePolicyDetailsModalOpen={mockHandlePolicyDetailsModalOpen}

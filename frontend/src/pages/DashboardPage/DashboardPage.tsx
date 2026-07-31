@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { Modal } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -11,6 +12,7 @@ import { useDashboardStore } from 'providers/Dashboard/store/useDashboardStore';
 import { ErrorType } from 'types/common';
 
 function DashboardPage(): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { dashboardId } = useParams<{ dashboardId: string }>();
 
 	const [onModal, Content] = Modal.useModal();
@@ -28,7 +30,7 @@ function DashboardPage(): JSX.Element {
 
 	const errorMessage = isError
 		? (error as AxiosError<{ errorType: string }>)?.response?.data?.errorType
-		: 'Something went wrong';
+		: t('dashboard_page_v2.errors.something_went_wrong');
 
 	if (isError && !isFetching && errorMessage === ErrorType.NotFound) {
 		return <NotFound />;
@@ -39,7 +41,7 @@ function DashboardPage(): JSX.Element {
 	}
 
 	if (isLoading) {
-		return <Spinner tip="Loading.." />;
+		return <Spinner tip={t('dashboard_page_v2.loading')} />;
 	}
 
 	return (

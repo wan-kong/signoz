@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Flex, Form, Input, Modal, Select } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import ROUTES from 'constants/routes';
@@ -25,6 +26,7 @@ function RoutingPolicyDetails({
 	isPolicyDetailsModalActionLoading,
 	refreshChannels,
 }: RoutingPolicyDetailsProps): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const [form] = Form.useForm();
 	const { user } = useAppContext();
 
@@ -47,7 +49,9 @@ function RoutingPolicyDetails({
 	);
 
 	const modalTitle =
-		mode === 'edit' ? 'Edit routing policy' : 'Create routing policy';
+		mode === 'edit'
+			? t('routing_policies.details.edit_title')
+			: t('routing_policies.details.create_title');
 
 	const handleSave = (): void => {
 		handlePolicyDetailsModalAction(mode, {
@@ -61,10 +65,12 @@ function RoutingPolicyDetails({
 	const notificationChannelsNotFoundContent = (
 		<Flex justify="space-between">
 			<Flex gap={4} align="center">
-				<Typography.Text>No channels yet.</Typography.Text>
+				<Typography.Text>
+					{t('routing_policies.details.no_channels')}
+				</Typography.Text>
 				{user?.role === USER_ROLES.ADMIN ? (
 					<Typography.Text>
-						Create one
+						{t('routing_policies.details.create_one')}
 						<Button
 							style={{ padding: '0 4px' }}
 							type="link"
@@ -72,15 +78,17 @@ function RoutingPolicyDetails({
 								openInNewTab(ROUTES.CHANNELS_NEW);
 							}}
 						>
-							here.
+							{t('routing_policies.details.here')}
 						</Button>
 					</Typography.Text>
 				) : (
-					<Typography.Text>Please ask your admin to create one.</Typography.Text>
+					<Typography.Text>
+						{t('routing_policies.details.ask_admin_create')}
+					</Typography.Text>
 				)}
 			</Flex>
 			<Button type="text" onClick={refreshChannels}>
-				Refresh
+				{t('refresh')}
 			</Button>
 		</Flex>
 	);
@@ -103,21 +111,23 @@ function RoutingPolicyDetails({
 			>
 				<div className="create-policy-container">
 					<div className="input-group">
-						<Typography.Text>Routing Policy Name</Typography.Text>
+						<Typography.Text>{t('routing_policies.details.name')}</Typography.Text>
 						<Form.Item
 							name="name"
 							rules={[
 								{
 									required: true,
-									message: 'Please provide a name for the routing policy',
+									message: t('routing_policies.details.name_required'),
 								},
 							]}
 						>
-							<Input placeholder="e.g. Base routing policy..." />
+							<Input placeholder={t('routing_policies.details.name_placeholder')} />
 						</Form.Item>
 					</div>
 					<div className="input-group">
-						<Typography.Text>Description</Typography.Text>
+						<Typography.Text>
+							{t('routing_policies.details.description')}
+						</Typography.Text>
 						<Form.Item
 							name="description"
 							rules={[
@@ -127,20 +137,22 @@ function RoutingPolicyDetails({
 							]}
 						>
 							<Input.TextArea
-								placeholder="e.g. This is a routing policy that..."
+								placeholder={t('routing_policies.details.description_placeholder')}
 								autoSize={{ minRows: 1, maxRows: 6 }}
 								style={{ resize: 'none' }}
 							/>
 						</Form.Item>
 					</div>
 					<div className="input-group">
-						<Typography.Text>Expression</Typography.Text>
+						<Typography.Text>
+							{t('routing_policies.details.expression')}
+						</Typography.Text>
 						<Form.Item
 							name="expression"
 							rules={[
 								{
 									required: true,
-									message: 'Please provide an expression for the routing policy',
+									message: t('routing_policies.details.expression_required'),
 								},
 							]}
 						>
@@ -152,13 +164,15 @@ function RoutingPolicyDetails({
 						</Form.Item>
 					</div>
 					<div className="input-group">
-						<Typography.Text>Notification Channels</Typography.Text>
+						<Typography.Text>
+							{t('routing_policies.details.notification_channels')}
+						</Typography.Text>
 						<Form.Item
 							name="channels"
 							rules={[
 								{
 									required: true,
-									message: 'Please select at least one notification channel',
+									message: t('routing_policies.details.channels_required'),
 								},
 							]}
 						>
@@ -168,11 +182,13 @@ function RoutingPolicyDetails({
 									label: channel.name,
 								}))}
 								mode="multiple"
-								placeholder="Select notification channels"
+								placeholder={t('routing_policies.details.channels_placeholder')}
 								showSearch
 								maxTagCount={3}
 								maxTagPlaceholder={(omittedValues): string =>
-									`+${omittedValues.length} more`
+									t('routing_policies.details.more_channels', {
+										count: omittedValues.length,
+									})
 								}
 								maxTagTextLength={10}
 								filterOption={(input, option): boolean =>
@@ -191,7 +207,7 @@ function RoutingPolicyDetails({
 						onClick={closeModal}
 						disabled={isPolicyDetailsModalActionLoading}
 					>
-						Cancel
+						{t('cancel')}
 					</Button>
 					<Button
 						icon={saveButtonIcon}
@@ -200,7 +216,7 @@ function RoutingPolicyDetails({
 						loading={isPolicyDetailsModalActionLoading}
 						disabled={isPolicyDetailsModalActionLoading}
 					>
-						Save Routing Policy
+						{t('routing_policies.details.save_policy')}
 					</Button>
 				</Flex>
 			</Form>

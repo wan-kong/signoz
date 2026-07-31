@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from '@signozhq/ui/sonner';
 import logEvent from 'api/common/logEvent';
 import { DashboardtypesDynamicVariableSignalDTO } from 'api/generated/services/sigNoz.schemas';
@@ -59,6 +60,7 @@ export function useDrilldownDashboardVariables({
 	signal,
 	onClose,
 }: UseDrilldownDashboardVariablesArgs): UseDrilldownDashboardVariablesApi {
+	const { t } = useTranslation('dashboard');
 	const dashboardId = useDashboardStore((state) => state.dashboardId);
 	const { variables } = useDashboardFetchRequired();
 
@@ -96,7 +98,11 @@ export function useDrilldownDashboardVariables({
 	const handleCreate = useCallback(
 		async (fieldName: string, fieldValue: string | number): Promise<void> => {
 			if (existingNames.has(fieldName)) {
-				toast.error(`Variable "${fieldName}" already exists`);
+				toast.error(
+					t('dashboard_page_v2.panel_actions.variable_exists', {
+						name: fieldName,
+					}),
+				);
 				return;
 			}
 			void logEvent(DashboardDetailEvents.DrilldownAction, {
@@ -106,7 +112,9 @@ export function useDrilldownDashboardVariables({
 			const model: VariableFormModel = {
 				...emptyVariableFormModel(),
 				name: fieldName,
-				description: `Created from panel drilldown (field: ${fieldName})`,
+				description: t('dashboard_page_v2.panel_actions.created_from_drilldown', {
+					field: fieldName,
+				}),
 				type: 'DYNAMIC',
 				multiSelect: true,
 				dynamicAttribute: fieldName,
@@ -118,9 +126,13 @@ export function useDrilldownDashboardVariables({
 				);
 				// Multi-select var → seed the value as an array (the selector renders scalars as empty).
 				setSelection(fieldName, { value: [fieldValue], allSelected: false });
-				toast.success(`Created variable "${fieldName}"`);
+				toast.success(
+					t('dashboard_page_v2.panel_actions.created_variable', {
+						name: fieldName,
+					}),
+				);
 			} catch {
-				toast.error('Failed to create variable');
+				toast.error(t('dashboard_page_v2.panel_actions.create_variable_failed'));
 			}
 			onClose();
 		},
@@ -132,6 +144,7 @@ export function useDrilldownDashboardVariables({
 			setSelection,
 			onClose,
 			dashboardId,
+			t,
 		],
 	);
 

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useCopyToClipboard } from 'react-use';
 import { Checkbox } from '@signozhq/ui/checkbox';
@@ -31,27 +32,21 @@ import './PublicDashboard.styles.scss';
 
 export const TIME_RANGE_PRESETS_OPTIONS = [
 	{
-		label: 'Last 5 minutes',
 		value: '5m',
 	},
 	{
-		label: 'Last 15 minutes',
 		value: '15m',
 	},
 	{
-		label: 'Last 30 minutes',
 		value: '30m',
 	},
 	{
-		label: 'Last 1 hour',
 		value: '1h',
 	},
 	{
-		label: 'Last 6 hours',
 		value: '6h',
 	},
 	{
-		label: 'Last 1 day',
 		value: '24h',
 	},
 ];
@@ -77,6 +72,7 @@ function PublicDashboardSetting(): JSX.Element {
 	const isPublicDashboardEnabled = isCloudUser || isEnterpriseSelfHostedUser;
 
 	const { user } = useAppContext();
+	const { t } = useTranslation('dashboard');
 
 	const isAdmin = user?.role === USER_ROLES.ADMIN;
 
@@ -131,7 +127,7 @@ function PublicDashboardSetting(): JSX.Element {
 		data: createPublicDashboardResponse,
 	} = useMutation(createPublicDashboardAPI, {
 		onSuccess: () => {
-			toast.success('Public dashboard created successfully');
+			toast.success(t('dashboard_page_v2.public_dashboard.published_success'));
 		},
 		onError: (error: APIError) => {
 			showErrorNotification(error);
@@ -144,7 +140,7 @@ function PublicDashboardSetting(): JSX.Element {
 		data: updatePublicDashboardResponse,
 	} = useMutation(updatePublicDashboardAPI, {
 		onSuccess: () => {
-			toast.success('Public dashboard updated successfully');
+			toast.success(t('dashboard_page_v2.public_dashboard.updated_success'));
 		},
 		onError: (error: APIError) => {
 			showErrorNotification(error);
@@ -157,7 +153,7 @@ function PublicDashboardSetting(): JSX.Element {
 		data: revokePublicDashboardAccessResponse,
 	} = useMutation(revokePublicDashboardAccessAPI, {
 		onSuccess: () => {
-			toast.success('Dashboard unpublished successfully');
+			toast.success(t('dashboard_page_v2.public_dashboard.unpublished_success'));
 		},
 		onError: (error: APIError) => {
 			showErrorNotification(error);
@@ -225,7 +221,7 @@ function PublicDashboardSetting(): JSX.Element {
 			setCopyPublicDashboardURL(
 				getAbsoluteUrl(publicDashboardResponse?.data?.publicPath ?? ''),
 			);
-			toast.success('Copied Public Dashboard URL successfully');
+			toast.success(t('dashboard_page_v2.public_dashboard.copied_url'));
 		} catch (error) {
 			console.error('Error copying public dashboard URL', error);
 		}
@@ -242,6 +238,17 @@ function PublicDashboardSetting(): JSX.Element {
 		isLoadingRevokePublicDashboardAccess ||
 		isLoadingPublicDashboard;
 
+	const timeRangeOptions = useMemo(
+		() =>
+			TIME_RANGE_PRESETS_OPTIONS.map((option) => ({
+				...option,
+				label: t(
+					`dashboard_container.public_dashboard.time_ranges.${option.value}`,
+				),
+			})),
+		[t],
+	);
+
 	return (
 		<div className="public-dashboard-setting-container">
 			<div className="public-dashboard-setting-content">
@@ -250,8 +257,8 @@ function PublicDashboardSetting(): JSX.Element {
 					className="public-dashboard-setting-content-title"
 				>
 					{isPublicDashboard
-						? 'This dashboard is publicly accessible. Anyone with the link can view it.'
-						: 'This dashboard is private. Publish it to make it accessible to anyone with the link.'}
+						? t('dashboard_container.public_dashboard.public_description')
+						: t('dashboard_container.public_dashboard.private_description')}
 				</Typography.Title>
 
 				<div className="timerange-enabled-checkbox">
@@ -260,19 +267,21 @@ function PublicDashboardSetting(): JSX.Element {
 						value={timeRangeEnabled}
 						onChange={handleTimeRangeEnabled}
 					>
-						Enable time range
+						{t('dashboard_page_v2.public_dashboard.enable_time_range')}
 					</Checkbox>
 				</div>
 
 				<div className="default-time-range-select">
 					<div className="default-time-range-select-label">
 						<Typography.Text className="default-time-range-select-label-text">
-							Default time range
+							{t('dashboard_page_v2.public_dashboard.default_time_range')}
 						</Typography.Text>
 					</div>
 					<Select
-						placeholder="Select default time range"
-						options={TIME_RANGE_PRESETS_OPTIONS}
+						placeholder={t(
+							'dashboard_page_v2.public_dashboard.select_default_time_range',
+						)}
+						options={timeRangeOptions}
 						value={defaultTimeRange}
 						onChange={handleDefaultTimeRange}
 						data-testid="default-time-range-select-dropdown"
@@ -284,7 +293,7 @@ function PublicDashboardSetting(): JSX.Element {
 					<div className="public-dashboard-url">
 						<div className="url-label-container">
 							<Typography.Text className="url-label">
-								Public Dashboard URL
+								{t('dashboard_container.public_dashboard.public_dashboard_url')}
 							</Typography.Text>
 						</div>
 
@@ -316,7 +325,7 @@ function PublicDashboardSetting(): JSX.Element {
 				<div className="public-dashboard-setting-callout">
 					<Typography.Text className="public-dashboard-setting-callout-text">
 						<Info size={12} className="public-dashboard-setting-callout-icon" />{' '}
-						Dashboard variables won&apos;t work in public dashboards
+						{t('dashboard_container.public_dashboard.variables_not_supported')}
 					</Typography.Text>
 				</div>
 
@@ -342,7 +351,7 @@ function PublicDashboardSetting(): JSX.Element {
 								)
 							}
 						>
-							Publish dashboard
+							{t('dashboard_page_v2.public_dashboard.publish')}
 						</Button>
 					) : (
 						<>
@@ -354,7 +363,7 @@ function PublicDashboardSetting(): JSX.Element {
 								loading={isLoadingRevokePublicDashboardAccess}
 								icon={<Trash size={14} />}
 							>
-								Unpublish dashboard
+								{t('dashboard_page_v2.public_dashboard.unpublish')}
 							</Button>
 
 							<Button
@@ -365,7 +374,7 @@ function PublicDashboardSetting(): JSX.Element {
 								loading={isLoadingUpdatePublicDashboard}
 								icon={<Globe size={14} />}
 							>
-								Update published dashboard
+								{t('dashboard_container.public_dashboard.update_published_dashboard')}
 							</Button>
 						</>
 					)}

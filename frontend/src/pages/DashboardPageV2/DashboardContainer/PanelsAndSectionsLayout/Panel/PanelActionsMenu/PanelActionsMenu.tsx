@@ -1,4 +1,5 @@
 import { EllipsisVertical } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DropdownMenuSimple } from '@signozhq/ui/dropdown-menu';
 import type { DashboardtypesPanelDTO } from 'api/generated/services/sigNoz.schemas';
@@ -30,6 +31,7 @@ function PanelActionsMenu({
 	data,
 	panelActions,
 }: PanelActionsMenuProps): JSX.Element | null {
+	const { t } = useTranslation('dashboard');
 	const { items, deleteConfirm } = usePanelActionItems({
 		panelId,
 		panel,
@@ -50,7 +52,7 @@ function PanelActionsMenu({
 					color="secondary"
 					size="icon"
 					className={styles.trigger}
-					aria-label="Panel actions"
+					aria-label={t('dashboard_page_v2.panel_actions.panel_actions')}
 					data-testid={`panel-actions-${panelId}`}
 					// Stop pointer/mouse down from reaching the RGL drag handle this
 					// button lives inside, so opening the menu never starts a panel drag.
@@ -63,8 +65,8 @@ function PanelActionsMenu({
 			</DropdownMenuSimple>
 			<ConfirmDeleteDialog
 				open={deleteConfirm.open}
-				title="Delete panel?"
-				description="This panel will be removed from the dashboard. This action cannot be undone."
+				title={t('dashboard_page_v2.panel_actions.delete_panel_title')}
+				description={t('dashboard_page_v2.panel_actions.delete_panel_description')}
 				isLoading={deleteConfirm.isPending}
 				onConfirm={deleteConfirm.confirm}
 				onClose={deleteConfirm.cancel}

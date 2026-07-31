@@ -3,9 +3,12 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import { TooltipProvider } from '@signozhq/ui/tooltip';
 import { LegendPosition } from 'lib/uPlotV2/components/types';
 import { LegendItem } from 'lib/uPlotV2/config/types';
+import { I18nextProvider } from 'react-i18next';
+import { dashboardI18nProviderProps } from 'tests/dashboardI18n';
 
 import { PieSlice } from '../../types';
 import Pie from '../Pie';
+import { createTestI18nInstance } from '../../../../../../ReactI18/testUtils';
 
 jest.mock('hooks/useDimensions', () => ({
 	useResizeObserver: jest.fn().mockReturnValue({ width: 400, height: 300 }),
@@ -39,22 +42,31 @@ const DATA: PieSlice[] = [
 	{ label: 'checkout', value: 40, color: '#0000aa' },
 ];
 
+const i18n = createTestI18nInstance({
+	language: 'en',
+	resources: dashboardI18nProviderProps.i18nResources,
+});
+
 function renderPie(
 	props: Partial<React.ComponentProps<typeof Pie>> = {},
 ): void {
 	render(
-		<TooltipProvider>
-			<Pie data={DATA} isDarkMode={false} data-testid="pie" {...props} />
-		</TooltipProvider>,
+		<I18nextProvider i18n={i18n}>
+			<TooltipProvider>
+				<Pie data={DATA} isDarkMode={false} data-testid="pie" {...props} />
+			</TooltipProvider>
+		</I18nextProvider>,
 	);
 }
 
 describe('Pie', () => {
 	it('renders the "No data" state for empty data', () => {
 		render(
-			<TooltipProvider>
-				<Pie data={[]} isDarkMode={false} data-testid="pie" />
-			</TooltipProvider>,
+			<I18nextProvider i18n={i18n}>
+				<TooltipProvider>
+					<Pie data={[]} isDarkMode={false} data-testid="pie" />
+				</TooltipProvider>
+			</I18nextProvider>,
 		);
 		expect(screen.getByText('No data')).toBeInTheDocument();
 	});
@@ -76,26 +88,30 @@ describe('Pie', () => {
 
 	it('lays the legend out in a row for the right position and a column for bottom', () => {
 		const { rerender } = render(
-			<TooltipProvider>
-				<Pie
-					data={DATA}
-					isDarkMode={false}
-					position={LegendPosition.RIGHT}
-					data-testid="pie"
-				/>
-			</TooltipProvider>,
+			<I18nextProvider i18n={i18n}>
+				<TooltipProvider>
+					<Pie
+						data={DATA}
+						isDarkMode={false}
+						position={LegendPosition.RIGHT}
+						data-testid="pie"
+					/>
+				</TooltipProvider>
+			</I18nextProvider>,
 		);
 		expect(screen.getByTestId('pie')).toHaveStyle({ flexDirection: 'row' });
 
 		rerender(
-			<TooltipProvider>
-				<Pie
-					data={DATA}
-					isDarkMode={false}
-					position={LegendPosition.BOTTOM}
-					data-testid="pie"
-				/>
-			</TooltipProvider>,
+			<I18nextProvider i18n={i18n}>
+				<TooltipProvider>
+					<Pie
+						data={DATA}
+						isDarkMode={false}
+						position={LegendPosition.BOTTOM}
+						data-testid="pie"
+					/>
+				</TooltipProvider>
+			</I18nextProvider>,
 		);
 		expect(screen.getByTestId('pie')).toHaveStyle({ flexDirection: 'column' });
 	});

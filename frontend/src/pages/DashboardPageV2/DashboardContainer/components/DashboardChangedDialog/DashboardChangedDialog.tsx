@@ -1,4 +1,5 @@
 import { RotateCcw } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
 import logEvent from 'api/common/logEvent';
@@ -18,6 +19,7 @@ function DashboardChangedDialog({
 	onReload,
 	onDismiss,
 }: DashboardChangedDialogProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
 
 	const handleReload = (): void => {
@@ -44,7 +46,7 @@ function DashboardChangedDialog({
 				onClick={handleDismiss}
 				testId="dashboard-changed-dismiss"
 			>
-				Dismiss
+				{t('dashboard_page_v2.dashboard_changed.dismiss')}
 			</Button>
 			<Button
 				variant="solid"
@@ -53,7 +55,7 @@ function DashboardChangedDialog({
 				onClick={handleReload}
 				testId="dashboard-changed-reload"
 			>
-				Reload
+				{t('dashboard_page_v2.dashboard_changed.reload')}
 			</Button>
 		</div>
 	);
@@ -66,14 +68,13 @@ function DashboardChangedDialog({
 					onDismiss();
 				}
 			}}
-			title="Dashboard updated elsewhere"
+			title={t('dashboard_page_v2.dashboard_changed.title')}
 			width="narrow"
 			showCloseButton={false}
 			footer={footer}
 		>
 			<div className={styles.body}>
-				This dashboard was changed in another tab or by another user. Reload to see
-				the latest version.
+				{t('dashboard_page_v2.dashboard_changed.description')}
 			</div>
 		</DialogWrapper>
 	);

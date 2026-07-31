@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useMutation, useQueryClient, useQuery } from 'react-query';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { generatePath } from 'react-router-dom';
 import { TablePaginationConfig, TableProps } from 'antd';
 import type { FilterValue, SorterResult } from 'antd/es/table/interface';
@@ -98,6 +99,7 @@ export const useAlertHistoryQueryParams = (): {
 	};
 };
 export const useRouteTabUtils = (): { routes: TabRoutes[] } => {
+	const { t } = useTranslation('alerts');
 	const urlQuery = useUrlQuery();
 
 	const getRouteUrl = (tab: AlertDetailsTab): string => {
@@ -129,7 +131,7 @@ export const useRouteTabUtils = (): { routes: TabRoutes[] } => {
 			name: (
 				<div className="tab-item">
 					<Table size={14} />
-					Overview
+					{t('alert_details.tabs.overview')}
 				</div>
 			),
 			route: getRouteUrl(AlertDetailsTab.OVERVIEW),
@@ -140,7 +142,7 @@ export const useRouteTabUtils = (): { routes: TabRoutes[] } => {
 			name: (
 				<div className="tab-item">
 					<History size={14} />
-					History
+					{t('alert_details.tabs.history')}
 					<BetaTag />
 				</div>
 			),
@@ -437,6 +439,7 @@ export const useAlertRuleStatusToggle = ({
 	handleAlertStateToggle: () => void;
 } => {
 	const { alertRuleState, setAlertRuleState } = useAlertRule();
+	const { t } = useTranslation('alerts');
 	const { notifications } = useNotifications();
 
 	const queryClient = useQueryClient();
@@ -449,17 +452,24 @@ export const useAlertRuleStatusToggle = ({
 		{
 			onSuccess: (data) => {
 				setAlertRuleState(data.data.state);
-				invalidateGetRuleByID(queryClient, { id: ruleId });
-				queryClient.refetchQueries([REACT_QUERY_KEY.ALERT_RULE_DETAILS, ruleId]);
+				void invalidateGetRuleByID(queryClient, { id: ruleId });
+				void queryClient.refetchQueries([
+					REACT_QUERY_KEY.ALERT_RULE_DETAILS,
+					ruleId,
+				]);
 				notifications.success({
-					message: `Alert has been ${
-						data.data.state === 'disabled' ? 'disabled' : 'enabled'
-					}.`,
+					message:
+						data.data.state === 'disabled'
+							? t('alert_details.actions.alert_disabled')
+							: t('alert_details.actions.alert_enabled'),
 				});
 			},
 			onError: (error) => {
-				invalidateGetRuleByID(queryClient, { id: ruleId });
-				queryClient.refetchQueries([REACT_QUERY_KEY.ALERT_RULE_DETAILS, ruleId]);
+				void invalidateGetRuleByID(queryClient, { id: ruleId });
+				void queryClient.refetchQueries([
+					REACT_QUERY_KEY.ALERT_RULE_DETAILS,
+					ruleId,
+				]);
 				showErrorModal(
 					convertToApiError(error as AxiosError<RenderErrorResponseDTO>) as APIError,
 				);
@@ -485,6 +495,7 @@ export const useAlertRuleDuplicate = ({
 }): {
 	handleAlertDuplicate: () => void;
 } => {
+	const { t } = useTranslation('alerts');
 	const { notifications } = useNotifications();
 
 	const params = useUrlQuery();
@@ -500,7 +511,7 @@ export const useAlertRuleDuplicate = ({
 		{
 			onSuccess: async () => {
 				notifications.success({
-					message: `Success`,
+					message: t('success'),
 				});
 
 				const { data: allAlertsData } = await refetch();
@@ -540,6 +551,7 @@ export const useAlertRuleUpdate = ({
 	handleAlertUpdate: () => void;
 	isLoading: boolean;
 } => {
+	const { t } = useTranslation('alerts');
 	const { notifications } = useNotifications();
 	const { showErrorModal } = useErrorModal();
 	const queryClient = useQueryClient();
@@ -561,7 +573,7 @@ export const useAlertRuleUpdate = ({
 					});
 				}
 				void invalidateListRules(queryClient);
-				notifications.success({ message: 'Alert renamed successfully' });
+				notifications.success({ message: t('alert_details.actions.renamed') });
 			},
 			onError: (error) => {
 				setAlertRuleName(alertDetails.alert);

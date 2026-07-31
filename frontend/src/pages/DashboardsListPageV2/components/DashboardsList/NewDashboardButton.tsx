@@ -1,11 +1,14 @@
 import { Button } from '@signozhq/ui/button';
 import { Plus } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
 	onClick: () => void;
 }
 
 function NewDashboardButton({ onClick }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<Button
 			variant="solid"
@@ -14,7 +17,7 @@ function NewDashboardButton({ onClick }: Props): JSX.Element {
 			onClick={onClick}
 			testId="new-dashboard-cta"
 		>
-			New dashboard
+			{t('dashboards_list_page_v2.actions.new_dashboard')}
 		</Button>
 	);
 }

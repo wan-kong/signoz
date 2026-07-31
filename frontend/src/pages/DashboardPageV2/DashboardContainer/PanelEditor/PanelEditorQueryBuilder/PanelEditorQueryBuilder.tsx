@@ -4,6 +4,7 @@ import {
 	useCallback,
 	useMemo,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Atom, Terminal } from '@signozhq/icons';
 import { Tabs } from 'antd';
@@ -64,6 +65,7 @@ function PanelEditorQueryBuilder({
 	footer,
 	stickyHeader = true,
 }: PanelEditorQueryBuilderProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	// The shared QueryBuilderV2 / list-view checks still speak the legacy PANEL_TYPES.
 	const panelType = PANEL_KIND_TO_PANEL_TYPE[panelKind];
 	const { currentQuery, redirectWithQueryBuilderData } = useQueryBuilder();
@@ -106,7 +108,7 @@ function PanelEditorQueryBuilder({
 		const queryTypeComponents = {
 			[EQueryType.QUERY_BUILDER]: {
 				icon: <Atom size={14} />,
-				label: 'Query Builder',
+				label: t('dashboard_page_v2.panel_editor.query_builder'),
 				component: (
 					<div className="query-builder-v2-container">
 						<QueryBuilderV2
@@ -124,7 +126,7 @@ function PanelEditorQueryBuilder({
 			},
 			[EQueryType.CLICKHOUSE]: {
 				icon: <Terminal size={14} />,
-				label: 'ClickHouse Query',
+				label: t('dashboard_page_v2.panel_editor.clickhouse_query'),
 				component: <ClickHouseQueryContainer />,
 			},
 			[EQueryType.PROM]: {
@@ -148,7 +150,7 @@ function PanelEditorQueryBuilder({
 			),
 			children: queryTypeComponents[queryType].component,
 		}));
-	}, [panelKind, panelType, filterConfigs, isDarkMode]);
+	}, [panelKind, panelType, filterConfigs, isDarkMode, t]);
 
 	return (
 		<div
@@ -167,10 +169,12 @@ function PanelEditorQueryBuilder({
 					onChange={handleQueryCategoryChange}
 					tabBarExtraContent={
 						<span className={styles.runQueryBtnContainer}>
-							<TextToolTip text="This will temporarily save the current query and graph state. This will persist across tab change" />
+							<TextToolTip
+								text={t('dashboard_page_v2.panel_editor.run_query_tooltip')}
+							/>
 							<RunQueryBtn
 								className="run-query-dashboard-btn"
-								label="Run Query"
+								label={t('dashboard_page_v2.panel_editor.run_query')}
 								onStageRunQuery={onStageRunQuery}
 								isLoadingQueries={isLoadingQueries}
 								handleCancelQuery={onCancelQuery}

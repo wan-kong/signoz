@@ -30,7 +30,12 @@ export const getK8sNodesListQuery = (): K8sNodesListPayload => ({
 export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 	{
 		id: 'nodeGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="NODE GROUP" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="NODE GROUP"
+				titleKey="display.node_group_uppercase"
+			/>
+		),
 		accessorFn: (row): string => row.meta.k8s_node_name || '',
 		width: { min: 300 },
 		enableSort: false,
@@ -54,6 +59,7 @@ export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Node Name"
+				titleKey="display.node_name"
 				icon={<Workflow data-hide-expanded="true" size={14} />}
 			/>
 		),

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Search } from '@signozhq/icons';
 import { Typography } from '@signozhq/ui/typography';
 import { Input } from 'antd';
@@ -35,12 +36,13 @@ function LegendColors({
 	value,
 	onChange,
 }: LegendColorsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [query, setQuery] = useState('');
 
 	if (series.length === 0) {
 		return (
 			<Typography.Text className={styles.empty}>
-				Run the panel to customise series colors.
+				{t('dashboard_page_v2.panel_config.legend.run_panel_for_colors')}
 			</Typography.Text>
 		);
 	}
@@ -51,14 +53,14 @@ function LegendColors({
 		<div className={styles.container} data-testid="panel-editor-v2-legend-colors">
 			<Input
 				data-testid="panel-editor-v2-legend-search"
-				placeholder="Search series…"
+				placeholder={t('dashboard_page_v2.panel_config.legend.search_series')}
 				value={query}
 				prefix={<Search size={14} />}
 				onChange={(e): void => setQuery(e.target.value)}
 			/>
 			{filtered.length === 0 ? (
 				<Typography.Text className={styles.empty}>
-					No series match “{query}”.
+					{t('dashboard_page_v2.panel_config.legend.no_series_match', { query })}
 				</Typography.Text>
 			) : (
 				<Virtuoso

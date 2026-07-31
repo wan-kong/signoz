@@ -1,4 +1,5 @@
 import { type ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronDown } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
@@ -30,6 +31,7 @@ function SettingsSection({
 	headerSlot,
 	children,
 }: SettingsSectionProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [internalOpen, setInternalOpen] = useState(defaultOpen);
 	const isControlled = open !== undefined;
 	const isOpen = isControlled ? open : internalOpen;
@@ -73,7 +75,11 @@ function SettingsSection({
 							className={cx(styles.chevron, { [styles.open]: isOpen })}
 						/>
 					}
-					aria-label={isOpen ? `Collapse ${title}` : `Expand ${title}`}
+					aria-label={
+						isOpen
+							? t('dashboard_page_v2.panel_config.collapse_section', { title })
+							: t('dashboard_page_v2.panel_config.expand_section', { title })
+					}
 					tabIndex={-1}
 					onClick={toggle}
 				/>

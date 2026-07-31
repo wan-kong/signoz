@@ -48,7 +48,10 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 		{
 			id: 'deploymentGroup',
 			header: (): React.ReactNode => (
-				<EntityGroupHeader title="Deployment Group" />
+				<EntityGroupHeader
+					title="Deployment Group"
+					titleKey="display.deployment_group"
+				/>
 			),
 			accessorFn: (row): string =>
 				row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_DEPLOYMENT_NAME] || '',
@@ -74,6 +77,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
 					title="Deployment Name"
+					titleKey="display.deployment_name"
 					icon={<Computer data-hide-expanded="true" size={14} />}
 					docPath="/infrastructure-monitoring/kubernetes/deployments#deployment-name"
 				/>

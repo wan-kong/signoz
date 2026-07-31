@@ -1,4 +1,5 @@
 import { PenLine, RotateCw } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import type { TelemetrytypesSignalDTO } from 'api/generated/services/sigNoz.schemas';
 import cx from 'classnames';
@@ -62,6 +63,7 @@ function ViewPanelModalHeader({
 	onChangePanelKind,
 	onResetQuery,
 }: ViewPanelModalHeaderProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	// Same capabilities-guarded options as the editor's PanelTypeSwitcher, so the two
 	// selectors disable the same kinds (e.g. List under PromQL, metrics-only kinds).
 	const panelTypeItems = usePanelTypeSelectItems({ queryType, signal });
@@ -117,7 +119,7 @@ function ViewPanelModalHeader({
 					color="secondary"
 					onClick={onRefresh}
 					disabled={isFetching}
-					aria-label="Refresh"
+					aria-label={t('dashboard_page_v2.panel_body.refresh')}
 					data-testid="view-panel-refresh"
 				>
 					<RotateCw className={cx({ 'animate-spin': isFetching })} />

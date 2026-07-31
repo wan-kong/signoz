@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Compass, Info } from '@signozhq/icons';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
+import { useTranslation } from 'react-i18next';
 
+import {
+	translateInfraKey,
+	translateInfraText,
+} from 'container/InfraMonitoringK8s/i18n';
 import styles from './ChartHeader.module.scss';
 
 const DOCS_BASE_URL = `${process.env.DOCS_BASE_URL}/docs`;
@@ -23,9 +28,15 @@ function ChartHeader({
 	metricsExplorerTestId = 'open-metrics-explorer',
 	onExploreClick,
 }: ChartHeaderProps): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
+
 	const renderInfoIcon = (): React.ReactNode => {
 		if (docPath) {
-			const tooltipTitle = tooltip || 'Not sure what this represents?';
+			const tooltipTitle = translateInfraKey(
+				t,
+				undefined,
+				tooltip || 'Not sure what this represents?',
+			);
 			return (
 				<TooltipSimple
 					arrow
@@ -38,7 +49,7 @@ function ChartHeader({
 								rel="noopener"
 								onClick={(e): void => e.stopPropagation()}
 							>
-								Learn more.
+								{translateInfraKey(t, 'display.learn_more_period', 'Learn more.')}
 							</a>
 						</>
 					}
@@ -52,7 +63,7 @@ function ChartHeader({
 
 		if (tooltip) {
 			return (
-				<TooltipSimple title={tooltip} arrow>
+				<TooltipSimple title={translateInfraText(t, tooltip)} arrow>
 					<span className={styles.infoIcon} data-testid="chart-header-info-icon">
 						<Info size="md" />
 					</span>
@@ -65,10 +76,15 @@ function ChartHeader({
 
 	return (
 		<div className={styles.chartHeader} data-testid="chart-header">
-			<span className={styles.chartHeaderLabel}>{title}</span>
+			<span className={styles.chartHeaderLabel}>
+				{translateInfraText(t, title)}
+			</span>
 			{renderInfoIcon()}
 			{metricsExplorerUrl && (
-				<TooltipSimple title="Go to Metrics Explorer" arrow>
+				<TooltipSimple
+					title={t('display.open_in_metrics_explorer', 'Open in Metrics Explorer')}
+					arrow
+				>
 					<Link
 						to={metricsExplorerUrl}
 						className={styles.metricsExplorerLink}

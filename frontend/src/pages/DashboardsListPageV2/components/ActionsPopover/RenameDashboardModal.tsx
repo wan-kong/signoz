@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
@@ -32,6 +33,7 @@ function RenameDashboardModal({
 	currentName,
 	onClose,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [name, setName] = useState(currentName);
 	const queryClient = useQueryClient();
 	const { showErrorModal } = useErrorModal();
@@ -55,7 +57,7 @@ function RenameDashboardModal({
 			return patchDashboardV2({ id: dashboardId }, ops);
 		},
 		onSuccess: async () => {
-			toast.success('Dashboard renamed');
+			toast.success(t('dashboards_list_page_v2.actions.dashboard_renamed'));
 			void logEvent(DashboardListEvents.RowAction, {
 				action: 'rename',
 				dashboardId,
@@ -73,7 +75,7 @@ function RenameDashboardModal({
 
 	return (
 		<DialogWrapper
-			title="Rename dashboard"
+			title={t('dashboards_list_page_v2.actions.rename_dashboard')}
 			open={open}
 			width="narrow"
 			onOpenChange={(next): void => {
@@ -90,7 +92,7 @@ function RenameDashboardModal({
 						onClick={onClose}
 						testId="rename-dashboard-cancel"
 					>
-						Cancel
+						{t('dashboards_list_page_v2.actions.cancel')}
 					</Button>
 					<Button
 						variant="solid"
@@ -101,7 +103,7 @@ function RenameDashboardModal({
 						onClick={(): void => runRename()}
 						testId="rename-dashboard-submit"
 					>
-						Save
+						{t('dashboards_list_page_v2.actions.save')}
 					</Button>
 				</div>
 			}
@@ -110,7 +112,7 @@ function RenameDashboardModal({
 				value={name}
 				autoFocus
 				maxLength={DASHBOARD_NAME_MAX_LENGTH}
-				placeholder="Dashboard name"
+				placeholder={t('dashboards_list_page_v2.actions.dashboard_name')}
 				testId="rename-dashboard-input"
 				onChange={(e): void => setName(e.target.value)}
 				onKeyDown={(e): void => {

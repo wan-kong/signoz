@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { generatePath } from 'react-router-dom';
 import { Popover, Tooltip } from 'antd';
@@ -67,6 +68,7 @@ function ActionsPopover({
 	onView,
 	isLegacy = false,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [, setCopy] = useCopyToClipboard();
 	const { safeNavigate } = useSafeNavigate();
 	const { showErrorModal } = useErrorModal();
@@ -78,7 +80,11 @@ function ActionsPopover({
 	const { mutate: runClone, isLoading: isCloning } = useMutation({
 		mutationFn: () => cloneDashboardV2({ id: dashboardId }),
 		onSuccess: (response) => {
-			toast.success(`Duplicated "${dashboardName}"`);
+			toast.success(
+				t('dashboards_list_page_v2.actions.duplicated_dashboard', {
+					name: dashboardName,
+				}),
+			);
 			void logEvent(DashboardListEvents.RowAction, {
 				action: 'duplicate',
 				dashboardId,
@@ -106,7 +112,11 @@ function ActionsPopover({
 				? unlockDashboardV2({ id: dashboardId })
 				: lockDashboardV2({ id: dashboardId }),
 		onSuccess: async () => {
-			toast.success(isLocked ? 'Dashboard unlocked' : 'Dashboard locked');
+			toast.success(
+				isLocked
+					? t('dashboards_list_page_v2.actions.dashboard_unlocked')
+					: t('dashboards_list_page_v2.actions.dashboard_locked'),
+			);
 			void logEvent(DashboardListEvents.RowAction, {
 				action: isLocked ? 'unlock' : 'lock',
 				dashboardId,
@@ -166,7 +176,7 @@ function ActionsPopover({
 									onClick={onView}
 									testId="dashboard-action-view"
 								>
-									View
+									{t('dashboards_list_page_v2.actions.view')}
 								</Button>
 								<Button
 									color="secondary"
@@ -175,7 +185,7 @@ function ActionsPopover({
 									onClick={handleOpenInNewTab}
 									testId="dashboard-action-open-new-tab"
 								>
-									Open in New Tab
+									{t('dashboards_list_page_v2.actions.open_in_new_tab')}
 								</Button>
 								<Button
 									color="secondary"
@@ -184,13 +194,15 @@ function ActionsPopover({
 									onClick={handleCopyLink}
 									testId="dashboard-action-copy-link"
 								>
-									Copy Link
+									{t('dashboards_list_page_v2.actions.copy_link')}
 								</Button>
 								{canEdit && (
 									<Tooltip
 										placement="left"
 										title={
-											isLocked ? 'This dashboard is locked, so it cannot be renamed.' : ''
+											isLocked
+												? t('dashboards_list_page_v2.actions.locked_cannot_rename')
+												: ''
 										}
 									>
 										<span className={styles.menuItemWrap}>
@@ -208,7 +220,7 @@ function ActionsPopover({
 												}}
 												testId="dashboard-action-rename"
 											>
-												Rename
+												{t('dashboards_list_page_v2.actions.rename')}
 											</Button>
 										</span>
 									</Tooltip>
@@ -218,7 +230,7 @@ function ActionsPopover({
 										placement="left"
 										title={
 											isLocked
-												? 'This dashboard is locked, so its tags cannot be edited.'
+												? t('dashboards_list_page_v2.actions.locked_cannot_edit_tags')
 												: ''
 										}
 									>
@@ -237,7 +249,9 @@ function ActionsPopover({
 												}}
 												testId="dashboard-action-edit-tags"
 											>
-												{tags.length > 0 ? 'Edit Tags' : 'Add Tags'}
+												{tags.length > 0
+													? t('dashboards_list_page_v2.actions.edit_tags')
+													: t('dashboards_list_page_v2.actions.add_tags')}
 											</Button>
 										</span>
 									</Tooltip>
@@ -255,7 +269,7 @@ function ActionsPopover({
 										}}
 										testId="dashboard-action-duplicate"
 									>
-										Duplicate
+										{t('dashboards_list_page_v2.actions.duplicate')}
 									</Button>
 								)}
 								{canToggleLock && (
@@ -271,7 +285,9 @@ function ActionsPopover({
 										}}
 										testId="dashboard-action-lock"
 									>
-										{isLocked ? 'Unlock Dashboard' : 'Lock Dashboard'}
+										{isLocked
+											? t('dashboards_list_page_v2.actions.unlock_dashboard')
+											: t('dashboards_list_page_v2.actions.lock_dashboard')}
 									</Button>
 								)}
 							</>

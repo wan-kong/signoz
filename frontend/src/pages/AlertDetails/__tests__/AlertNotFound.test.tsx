@@ -2,8 +2,11 @@ import { render, screen } from '@testing-library/react';
 import ROUTES from 'constants/routes';
 import * as useGetTenantLicense from 'hooks/useGetTenantLicense';
 import * as useSafeNavigate from 'hooks/useSafeNavigate';
+import { I18nextProvider } from 'react-i18next';
+import { alertsI18nProviderProps } from 'tests/alertsI18n';
 import { userEvent } from 'tests/test-utils';
 
+import { createTestI18nInstance } from '../../../ReactI18/testUtils';
 import AlertNotFound from '../AlertNotFound';
 
 jest.mock('lib/history', () => ({
@@ -22,10 +25,23 @@ const useGetTenantLicenseSpy = jest.spyOn(
 );
 const useSafeNavigateSpy = jest.spyOn(useSafeNavigate, 'useSafeNavigate');
 
+const renderAlertNotFound = (isTestAlert: boolean): void => {
+	const i18n = createTestI18nInstance({
+		language: alertsI18nProviderProps.i18nLanguage,
+		resources: alertsI18nProviderProps.i18nResources,
+	});
+
+	render(
+		<I18nextProvider i18n={i18n}>
+			<AlertNotFound isTestAlert={isTestAlert} />
+		</I18nextProvider>,
+	);
+};
+
 describe('AlertNotFound', () => {
 	beforeEach(() => {
 		mockSafeNavigate.mockClear();
-		window.open = jest.fn();
+		jest.spyOn(window, 'open').mockImplementation(jest.fn());
 		useGetTenantLicenseSpy.mockReturnValue({
 			isCloudUser: false,
 		} as ReturnType<typeof useGetTenantLicense.useGetTenantLicense>);
@@ -35,7 +51,7 @@ describe('AlertNotFound', () => {
 	});
 
 	it('should render the correct error message for test alerts', () => {
-		render(<AlertNotFound isTestAlert />);
+		renderAlertNotFound(true);
 		expect(
 			screen.getByText("Uh-oh! We couldn't find the given alert rule."),
 		).toBeInTheDocument();
@@ -50,7 +66,7 @@ describe('AlertNotFound', () => {
 	});
 
 	it('should render the correct error message for non-existing alerts', () => {
-		render(<AlertNotFound isTestAlert={false} />);
+		renderAlertNotFound(false);
 		expect(
 			screen.getByText("Uh-oh! We couldn't find the given alert rule."),
 		).toBeInTheDocument();
@@ -67,7 +83,7 @@ describe('AlertNotFound', () => {
 
 	it('should navigate to the list all alerts page when the check all rules button is clicked', async () => {
 		const user = userEvent.setup();
-		render(<AlertNotFound isTestAlert={false} />);
+		renderAlertNotFound(false);
 		await user.click(screen.getByText('Check all rules'));
 		expect(mockSafeNavigate).toHaveBeenCalledWith(ROUTES.LIST_ALL_ALERT, {
 			newTab: false,
@@ -80,15 +96,19 @@ describe('AlertNotFound', () => {
 			isCloudUser: true,
 		} as ReturnType<typeof useGetTenantLicense.useGetTenantLicense>);
 
-		render(<AlertNotFound isTestAlert={false} />);
+		renderAlertNotFound(false);
 		await user.click(screen.getByText('Contact Support'));
-		expect(history.push).toHaveBeenCalledWith('/support');
+		const historyPushMock = (history as unknown as { push: jest.Mock }).push;
+		expect(historyPushMock).toHaveBeenCalledWith('/support');
 	});
 
 	it('should navigate to the support page for self-hosted users when the contact support button is clicked', async () => {
 		const user = userEvent.setup();
-		render(<AlertNotFound isTestAlert={false} />);
+		renderAlertNotFound(false);
 		await user.click(screen.getByText('Contact Support'));
-		expect(window.open).toHaveBeenCalledWith('https://signoz.io/slack', '_blank');
+		expect(jest.mocked(window.open)).toHaveBeenCalledWith(
+			'https://signoz.io/slack',
+			'_blank',
+		);
 	});
 });

@@ -22,7 +22,12 @@ export function getK8sJobItemKey(job: K8sJobsData): string {
 export const k8sJobsColumnsConfig: TableColumnDef<K8sJobsData>[] = [
 	{
 		id: 'jobGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="JOB GROUP" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title="JOB GROUP"
+				titleKey="display.job_group_uppercase"
+			/>
+		),
 		accessorFn: (row): string => row.meta.k8s_job_name || '',
 		width: { min: 270 },
 		enableSort: false,
@@ -46,6 +51,7 @@ export const k8sJobsColumnsConfig: TableColumnDef<K8sJobsData>[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Job Name"
+				titleKey="display.job_name"
 				icon={<Bolt data-hide-expanded="true" size={14} />}
 			/>
 		),

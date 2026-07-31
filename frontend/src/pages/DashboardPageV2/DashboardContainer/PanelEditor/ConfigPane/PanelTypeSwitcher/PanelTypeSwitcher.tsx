@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import type { TelemetrytypesSignalDTO } from 'api/generated/services/sigNoz.schemas';
 import type { EQueryType } from 'types/common/dashboard';
 
@@ -30,11 +31,14 @@ function PanelTypeSwitcher({
 	signal,
 	onChange,
 }: PanelTypeSwitcherProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const items = usePanelTypeSelectItems({ queryType, signal });
 
 	return (
 		<div className={styles.field}>
-			<Typography.Text>Panel Type</Typography.Text>
+			<Typography.Text>
+				{t('dashboard_page_v2.panel_config.panel_type')}
+			</Typography.Text>
 			<ConfigSelect
 				testId="panel-editor-v2-type-switcher"
 				value={panelKind}

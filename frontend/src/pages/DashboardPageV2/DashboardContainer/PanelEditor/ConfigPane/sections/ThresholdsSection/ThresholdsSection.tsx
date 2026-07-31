@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import {
@@ -82,6 +83,7 @@ function ThresholdsSection({
 	tableColumns = [],
 	registerHeaderAction,
 }: ThresholdsSectionProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const variant = controls?.variant ?? ThresholdVariant.LABEL;
 	const thresholds = value ?? [];
 	// Which row is being edited, and whether it was just added (so Discard removes it).
@@ -198,7 +200,7 @@ function ThresholdsSection({
 				data-testid={ADD_TESTID[variant]}
 				onClick={addThreshold}
 			>
-				Add threshold
+				{t('dashboard_page_v2.panel_config.thresholds.add')}
 			</Button>
 		</div>
 	);

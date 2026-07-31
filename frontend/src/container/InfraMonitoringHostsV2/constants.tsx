@@ -43,6 +43,7 @@ export type HostDetailMetadataConfigType =
 export const hostDetailsMetadataConfig: HostDetailMetadataConfigType[] = [
 	{
 		label: 'STATUS',
+		labelKey: 'display.status_uppercase',
 		getValue: (h): string =>
 			h.status === InframonitoringtypesHostStatusDTO.active
 				? 'ACTIVE'
@@ -63,6 +64,7 @@ export const hostDetailsMetadataConfig: HostDetailMetadataConfigType[] = [
 	},
 	{
 		label: 'OPERATING SYSTEM',
+		labelKey: 'display.operating_system_uppercase',
 		getValue: (h): string => h.meta?.[INFRA_MONITORING_ATTR_KEYS.OS_TYPE] || '-',
 		render: (value): React.ReactNode =>
 			value !== '-' ? (
@@ -75,6 +77,7 @@ export const hostDetailsMetadataConfig: HostDetailMetadataConfigType[] = [
 	},
 	{
 		label: 'CPU USAGE',
+		labelKey: 'display.cpu_usage_uppercase',
 		getValue: (h): number => h.cpu * 100,
 		render: (value): React.ReactNode => (
 			<Progress
@@ -86,6 +89,7 @@ export const hostDetailsMetadataConfig: HostDetailMetadataConfigType[] = [
 	},
 	{
 		label: 'MEMORY USAGE',
+		labelKey: 'display.memory_usage_uppercase',
 		getValue: (h): number => h.memory * 100,
 		render: (value): React.ReactNode => (
 			<Progress

@@ -1,4 +1,5 @@
 import { type ReactNode, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Copy, EllipsisVertical, PenLine, Plus, Trash2 } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { DropdownMenuSimple } from '@signozhq/ui/dropdown-menu';
@@ -25,6 +26,7 @@ function SectionActionsMenu({
 	onCloneSection,
 	onDeleteSection,
 }: SectionActionsMenuProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const items = useMemo<MenuItem[]>(() => {
 		const disabled = !!disabledReason;
 		const label = (text: string): ReactNode =>
@@ -40,7 +42,7 @@ function SectionActionsMenu({
 			result.push({
 				key: 'add-panel',
 				icon: <Plus size={14} />,
-				label: label('Add panel'),
+				label: label(t('dashboard_page_v2.section_actions.add_panel')),
 				disabled,
 				onClick: onAddPanel,
 			});
@@ -49,7 +51,7 @@ function SectionActionsMenu({
 			result.push({
 				key: 'rename',
 				icon: <PenLine size={14} />,
-				label: label('Rename section'),
+				label: label(t('dashboard_page_v2.section_actions.rename_section')),
 				disabled,
 				onClick: onRename,
 			});
@@ -58,7 +60,7 @@ function SectionActionsMenu({
 			result.push({
 				key: 'clone-section',
 				icon: <Copy size={14} />,
-				label: label('Clone section'),
+				label: label(t('dashboard_page_v2.section_actions.clone_section')),
 				disabled,
 				onClick: onCloneSection,
 			});
@@ -70,14 +72,14 @@ function SectionActionsMenu({
 					key: 'delete-section',
 					danger: true,
 					icon: <Trash2 size={14} />,
-					label: label('Delete section'),
+					label: label(t('dashboard_page_v2.section_actions.delete_section')),
 					disabled,
 					onClick: onDeleteSection,
 				},
 			);
 		}
 		return result;
-	}, [disabledReason, onAddPanel, onRename, onCloneSection, onDeleteSection]);
+	}, [disabledReason, onAddPanel, onRename, onCloneSection, onDeleteSection, t]);
 
 	return (
 		<DropdownMenuSimple menu={{ items }}>
@@ -87,7 +89,7 @@ function SectionActionsMenu({
 				color="secondary"
 				size="icon"
 				className={styles.trigger}
-				aria-label="Section actions"
+				aria-label={t('dashboard_page_v2.section_actions.section_actions')}
 				data-testid={`dashboard-section-actions-${sectionId}`}
 			>
 				<EllipsisVertical size={14} />

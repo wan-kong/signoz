@@ -1,4 +1,5 @@
 import { Modal } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 
 interface FirstSectionMigrationModalProps {
@@ -19,20 +20,20 @@ function FirstSectionMigrationModal({
 	onClose,
 	onConfirm,
 }: FirstSectionMigrationModalProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<Modal
 			open={open}
-			title="Group panels into sections?"
+			title={t('dashboard_page_v2.section_actions.group_panels_title')}
 			onCancel={onClose}
 			onOk={onConfirm}
-			okText="Continue"
+			okText={t('dashboard_page_v2.section_actions.continue')}
 			okButtonProps={{ disabled: isSaving, 'data-testid': 'confirm-migration' }}
 			destroyOnClose
 		>
 			<Typography.Text>
-				This dashboard&apos;s panels are currently free-flowing. Adding a section
-				will move the existing panels into their own section, and a new empty
-				section will be added below. You can rename sections afterwards.
+				{t('dashboard_page_v2.section_actions.group_panels_description')}
 			</Typography.Text>
 		</Modal>
 	);

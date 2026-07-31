@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import YAxisUnitSelector from 'components/YAxisUnitSelector';
 import { YAxisSource } from 'components/YAxisUnitSelector/types';
 
@@ -28,10 +29,12 @@ function ColumnUnits({
 	metricUnit,
 	onChange,
 }: ColumnUnitsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	if (columns.length === 0) {
 		return (
 			<Typography.Text className={styles.columnUnitsHint}>
-				Run the panel to set per-column units.
+				{t('dashboard_page_v2.panel_config.formatting.run_panel_for_units')}
 			</Typography.Text>
 		);
 	}
@@ -53,7 +56,7 @@ function ColumnUnits({
 					<Typography.Text>{column.label}</Typography.Text>
 					<YAxisUnitSelector
 						data-testid={`panel-editor-v2-column-unit-${column.key}`}
-						placeholder="Select unit"
+						placeholder={t('dashboard_page_v2.panel_config.formatting.select_unit')}
 						source={YAxisSource.DASHBOARDS}
 						value={value[column.key]}
 						initialValue={metricUnit}

@@ -23,7 +23,7 @@ import APIError from 'types/api/error';
 import './ChannelsEdit.styles.scss';
 
 function ChannelsEdit(): JSX.Element {
-	const { t } = useTranslation();
+	const { t } = useTranslation(['channels', 'common']);
 
 	const { pathname } = useLocation();
 	const channelId = matchPath<{ channelId: string }>(pathname, {
@@ -44,13 +44,13 @@ function ChannelsEdit(): JSX.Element {
 	if (isError) {
 		return (
 			<Typography>
-				{error?.getErrorMessage() || t('something_went_wrong')}
+				{error?.getErrorMessage() || t('common:something_went_wrong')}
 			</Typography>
 		);
 	}
 
 	if (isFetching || !data?.data) {
-		return <Spinner tip="Loading Channels..." />;
+		return <Spinner tip={t('channels:loading_channels_message')} />;
 	}
 
 	const { data: ChannelData } = data.data;
@@ -141,8 +141,11 @@ function ChannelsEdit(): JSX.Element {
 		<>
 			<AlertBreadcrumb
 				items={[
-					{ title: 'Channels', route: ROUTES.ALL_CHANNELS },
-					{ title: value.name || 'Edit Channel', isLast: true },
+					{ title: t('channels:breadcrumb_channels'), route: ROUTES.ALL_CHANNELS },
+					{
+						title: value.name || t('channels:breadcrumb_edit_channel'),
+						isLast: true,
+					},
 				]}
 			/>
 			<div className="edit-alert-channels-container">

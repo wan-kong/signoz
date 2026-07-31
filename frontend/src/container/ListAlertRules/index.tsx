@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus, Search } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
@@ -33,6 +34,7 @@ const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;
 
 function ListAlertRules(): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const { user } = useAppContext();
 	const [addNewAlert, action] = useComponentPermission(
 		['add_new_alert', 'action'],
@@ -78,8 +80,22 @@ function ListAlertRules(): JSX.Element {
 	}, [setFilterValues, clearSearch]);
 
 	const columns = useMemo(
-		() => getAlertRuleColumns(formatTimezoneAdjustedTimestamp),
-		[formatTimezoneAdjustedTimestamp],
+		() =>
+			getAlertRuleColumns(formatTimezoneAdjustedTimestamp, {
+				status: t('alert_rules.table.status'),
+				alertName: t('alert_rules.table.alert_name'),
+				severity: t('alert_rules.table.severity'),
+				labels: t('alert_rules.table.labels'),
+				createdAt: t('alert_rules.table.created_at'),
+				createdBy: t('alert_rules.table.created_by'),
+				updatedAt: t('alert_rules.table.updated_at'),
+				updatedBy: t('alert_rules.table.updated_by'),
+				unknown: t('alert_rules.state.unknown'),
+				stateFiring: t('alert_rules.state.firing'),
+				statePending: t('alert_rules.state.pending'),
+				stateDisabled: t('alert_rules.state.disabled'),
+			}),
+		[formatTimezoneAdjustedTimestamp, t],
 	);
 
 	const paginatedRules = useMemo(() => {
@@ -97,7 +113,9 @@ function ListAlertRules(): JSX.Element {
 			{
 				id: 'actions',
 				header: (): JSX.Element => (
-					<span style={{ textAlign: 'right', display: 'block' }}>Actions</span>
+					<span style={{ textAlign: 'right', display: 'block' }}>
+						{t('alert_rules.table.actions')}
+					</span>
 				),
 				accessorKey: 'id',
 				width: { fixed: '80px', ignoreLastColumnFill: true },
@@ -112,7 +130,7 @@ function ListAlertRules(): JSX.Element {
 				),
 			},
 		];
-	}, [action, columns, handleEdit]);
+	}, [action, columns, handleEdit, t]);
 
 	const hasActiveFilters =
 		searchText.length > 0 || (filterValues ?? []).length > 0;
@@ -138,13 +156,13 @@ function ListAlertRules(): JSX.Element {
 								color="primary"
 								testId="list-alerts-new-alert-button"
 							>
-								New Alert
+								{t('alert_rules.new_alert')}
 							</Button>
 						)}
 						<TextToolTip
-							text="More details on how to create alerts"
+							text={t('alert_rules.more_details_tooltip')}
 							url="https://signoz.io/docs/alerts/?utm_source=product&utm_medium=list-alerts"
-							urlText="Learn More"
+							urlText={t('learn_more')}
 						/>
 					</div>
 				</div>
@@ -154,7 +172,7 @@ function ListAlertRules(): JSX.Element {
 				<div className={styles.filtersRow}>
 					<Input
 						className={styles.searchInput}
-						placeholder="Search by Alert Name, Severity and Labels"
+						placeholder={t('alert_rules.search_placeholder')}
 						value={searchText}
 						onChange={handleSearchChange}
 						suffix={<Search size={14} className={styles.searchIcon} />}
@@ -165,13 +183,16 @@ function ListAlertRules(): JSX.Element {
 
 			<div ref={containerRef} className={styles.tableContainer}>
 				{isError ? (
-					<ErrorEmptyState title="Failed to load alert rules" onRefresh={refetch} />
+					<ErrorEmptyState
+						title={t('alert_rules.failed_to_load')}
+						onRefresh={refetch}
+					/>
 				) : isEmptyDueToFilters ? (
 					<NoResultsEmptyState
-						title="No matching alert rules"
-						subtitle="No alert rules match your search. Try adjusting your search criteria."
+						title={t('alert_rules.no_matching_title')}
+						subtitle={t('alert_rules.no_matching_subtitle')}
 						onClear={handleClearFilters}
-						clearButtonText="Clear Search"
+						clearButtonText={t('clear_search')}
 					/>
 				) : isEmptyNoRules ? (
 					<AlertsEmptyState onRefresh={refetch} />

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { ShareURLExtraOption } from 'components/HeaderRightSection/ShareURLModal';
 
 import type { SelectedVariableValue } from '../../VariablesBar/selectionTypes';
@@ -17,6 +18,7 @@ import { useDashboardStore } from '../../store/useDashboardStore';
  * when there is nothing selected to share.
  */
 export function useShareVariablesOption(): ShareURLExtraOption | undefined {
+	const { t } = useTranslation('dashboard');
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
 	const selections = useDashboardStore(selectVariableValues(dashboardId ?? ''));
 
@@ -32,10 +34,10 @@ export function useShareVariablesOption(): ShareURLExtraOption | undefined {
 		});
 		const serialized = variablesUrlParser.serialize(urlShape);
 		return {
-			label: 'Include variables',
+			label: t('dashboard_page_v2.variables_bar.include_variables'),
 			apply: (params): void => {
 				params.set('variables', serialized);
 			},
 		};
-	}, [selections]);
+	}, [selections, t]);
 }

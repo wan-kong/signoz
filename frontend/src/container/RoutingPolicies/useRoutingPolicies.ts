@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery, useQueryClient } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { toast } from '@signozhq/ui/sonner';
@@ -30,6 +31,7 @@ import {
 import './styles.scss';
 
 function useRoutingPolicies(): UseRoutingPoliciesReturn {
+	const { t } = useTranslation('alerts');
 	const queryClient = useQueryClient();
 	const urlQuery = useUrlQuery();
 	const history = useHistory();
@@ -93,7 +95,7 @@ function useRoutingPolicies(): UseRoutingPoliciesReturn {
 	const channels = data?.data || [];
 
 	const refreshChannels = (): void => {
-		refetchChannels();
+		void refetchChannels();
 	};
 
 	// Handlers
@@ -158,8 +160,8 @@ function useRoutingPolicies(): UseRoutingPoliciesReturn {
 				},
 				{
 					onSuccess: () => {
-						toast.success('Routing policy created successfully');
-						queryClient.invalidateQueries(REACT_QUERY_KEY.GET_ROUTING_POLICIES);
+						toast.success(t('routing_policies.toast.created'));
+						void queryClient.invalidateQueries(REACT_QUERY_KEY.GET_ROUTING_POLICIES);
 						handlePolicyDetailsModalClose();
 					},
 					onError: (error) => {
@@ -180,12 +182,12 @@ function useRoutingPolicies(): UseRoutingPoliciesReturn {
 				},
 				{
 					onSuccess: () => {
-						toast.success('Routing policy updated successfully');
-						queryClient.invalidateQueries(REACT_QUERY_KEY.GET_ROUTING_POLICIES);
+						toast.success(t('routing_policies.toast.updated'));
+						void queryClient.invalidateQueries(REACT_QUERY_KEY.GET_ROUTING_POLICIES);
 						handlePolicyDetailsModalClose();
 					},
 					onError: () => {
-						toast.error('Failed to update routing policy');
+						toast.error(t('routing_policies.toast.update_failed'));
 					},
 				},
 			);
@@ -213,12 +215,12 @@ function useRoutingPolicies(): UseRoutingPoliciesReturn {
 		}
 		deleteRoutingPolicy(selectedRoutingPolicy.id, {
 			onSuccess: () => {
-				toast.success('Routing policy deleted successfully');
-				queryClient.invalidateQueries(REACT_QUERY_KEY.GET_ROUTING_POLICIES);
+				toast.success(t('routing_policies.toast.deleted'));
+				void queryClient.invalidateQueries(REACT_QUERY_KEY.GET_ROUTING_POLICIES);
 				handleDeleteModalClose();
 			},
 			onError: () => {
-				toast.error('Failed to delete routing policy');
+				toast.error(t('routing_policies.toast.delete_failed'));
 			},
 		});
 	};

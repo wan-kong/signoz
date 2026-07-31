@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { TelemetrytypesSignalDTO } from 'api/generated/services/sigNoz.schemas';
 import type { EQueryType } from 'types/common/dashboard';
 
@@ -25,15 +26,19 @@ export function usePanelTypeSelectItems({
 	queryType,
 	signal,
 }: UsePanelTypeSelectItemsArgs): ConfigSelectItem<PanelKind>[] {
+	const { t } = useTranslation('dashboard');
+
 	return useMemo(
 		() =>
-			PANEL_TYPES.map(({ panelKind, label, Icon }) => {
+			PANEL_TYPES.map(({ panelKind, labelKey, Icon }) => {
+				const label = t(labelKey);
 				// One reason drives both the disabled flag and the tooltip, so they can't disagree.
 				const disabledReason = getPanelTypeDisabledReason({
 					kind: panelKind,
 					queryType,
 					signal,
 					label,
+					t,
 				});
 				return {
 					value: panelKind,
@@ -43,6 +48,6 @@ export function usePanelTypeSelectItems({
 					tooltip: disabledReason,
 				};
 			}),
-		[queryType, signal],
+		[queryType, signal, t],
 	);
 }

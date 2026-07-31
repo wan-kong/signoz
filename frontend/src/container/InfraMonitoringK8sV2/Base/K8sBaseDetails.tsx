@@ -12,6 +12,7 @@ import logEvent from 'api/common/logEvent';
 import ErrorContent from 'components/ErrorModal/components/ErrorContent';
 import APIError from 'types/api/error';
 import { InfraMonitoringEvents } from 'constants/events';
+import { useTranslation } from 'react-i18next';
 import {
 	GlobalTimeProvider,
 	NANO_SECOND_MULTIPLIER,
@@ -73,6 +74,7 @@ export default function K8sBaseDetails<T>({
 	tabsConfig,
 	customTabs,
 }: K8sBaseDetailsProps<T>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const selectedTime = useGlobalTimeStore((s) => s.selectedTime);
 	const getMinMaxTime = useGlobalTimeStore((s) => s.getMinMaxTime);
 	const getAutoRefreshQueryKey = useGlobalTimeStore(
@@ -171,9 +173,11 @@ export default function K8sBaseDetails<T>({
 	const handleCopyId = useCallback((): void => {
 		if (selectedItem) {
 			copyToClipboard(selectedItem);
-			toast.success('ID copied to clipboard', { position: 'bottom-left' });
+			toast.success(t('display.id_copied_to_clipboard'), {
+				position: 'bottom-left',
+			});
 		}
-	}, [copyToClipboard, selectedItem]);
+	}, [copyToClipboard, selectedItem, t]);
 
 	const entityName = entity ? getEntityName(entity) : '';
 
@@ -203,11 +207,12 @@ export default function K8sBaseDetails<T>({
 			<Divider type="vertical" />
 			<Typography.Text className={styles.title}>
 				{entityName ||
-					((isEntityError || hasResponseError) && 'Failed to load entity details') ||
-					(isEntityLoading && 'Loading...') ||
+					((isEntityError || hasResponseError) &&
+						t('display.failed_to_load_entity_details')) ||
+					(isEntityLoading && t('display.loading')) ||
 					'-'}
 			</Typography.Text>
-			<TooltipSimple title="Copy ID">
+			<TooltipSimple title={t('display.copy_id')}>
 				<Button
 					variant="ghost"
 					size="sm"
@@ -243,7 +248,7 @@ export default function K8sBaseDetails<T>({
 								message:
 									entityError instanceof Error
 										? entityError.message
-										: 'Failed to load entity details',
+										: t('display.failed_to_load_entity_details'),
 							}
 						}
 					/>

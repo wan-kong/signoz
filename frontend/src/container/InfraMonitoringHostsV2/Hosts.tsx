@@ -33,8 +33,10 @@ import {
 	InfraMonitoringEntity,
 	METRIC_NAMESPACE_BY_ENTITY,
 } from 'container/InfraMonitoringK8sV2/constants';
+import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 import { useGetCompositeQueryParam } from 'hooks/queryBuilder/useGetCompositeQueryParam';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
+import { useTranslation } from 'react-i18next';
 import { DataSource } from 'types/common/queryBuilder';
 
 import {
@@ -59,6 +61,7 @@ import { NANO_SECOND_MULTIPLIER, useGlobalTimeStore } from 'store/globalTime';
 import OverlayScrollbar from 'components/OverlayScrollbar/OverlayScrollbar';
 
 function Hosts(): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const [showFilters, setShowFilters] = useState(true);
 
 	const compositeQuery = useGetCompositeQueryParam();
@@ -232,8 +235,16 @@ function Hosts(): JSX.Element {
 							<OverlayScrollbar>
 								<>
 									<div className={styles.quickFiltersContainerHeader}>
-										<Typography.Text>Filters</Typography.Text>
-										<Tooltip title="Collapse Filters">
+										<Typography.Text>
+											{translateInfraKey(t, 'display.filters', 'Filters')}
+										</Typography.Text>
+										<Tooltip
+											title={translateInfraKey(
+												t,
+												'display.collapse_filters',
+												'Collapse Filters',
+											)}
+										>
 											<ArrowUpToLine
 												style={{ rotate: '270deg', cursor: 'pointer' }}
 												onClick={handleFilterVisibilityChange}

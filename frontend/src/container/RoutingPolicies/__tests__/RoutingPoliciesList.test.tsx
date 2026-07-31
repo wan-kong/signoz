@@ -1,8 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 import RoutingPoliciesList from '../RoutingPolicyList';
 import { RoutingPolicyListItemProps } from '../types';
-import { getUseRoutingPoliciesMockData } from './testUtils';
+import {
+	getUseRoutingPoliciesMockData,
+	renderWithAlertsI18n,
+} from './testUtils';
 
 const useRoutingPolicesMockData = getUseRoutingPoliciesMockData();
 const mockHandlePolicyDetailsModalOpen = jest.fn();
@@ -20,7 +23,7 @@ const ROUTING_POLICY_LIST_ITEM_TEST_ID = 'routing-policy-list-item';
 
 describe('RoutingPoliciesList', () => {
 	it('renders base layout with routing policies', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPoliciesList
 				routingPolicies={useRoutingPolicesMockData.routingPoliciesData}
 				isRoutingPoliciesLoading={
@@ -48,7 +51,7 @@ describe('RoutingPoliciesList', () => {
 	});
 
 	it('renders loading state', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPoliciesList
 				routingPolicies={useRoutingPolicesMockData.routingPoliciesData}
 				isRoutingPoliciesLoading
@@ -67,7 +70,7 @@ describe('RoutingPoliciesList', () => {
 	});
 
 	it('renders loading state when data is being fetched', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPoliciesList
 				routingPolicies={useRoutingPolicesMockData.routingPoliciesData}
 				isRoutingPoliciesLoading={false}
@@ -86,7 +89,7 @@ describe('RoutingPoliciesList', () => {
 	});
 
 	it('renders error state', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPoliciesList
 				routingPolicies={[]}
 				isRoutingPoliciesLoading={false}
@@ -109,7 +112,7 @@ describe('RoutingPoliciesList', () => {
 	});
 
 	it('renders empty state', () => {
-		render(
+		renderWithAlertsI18n(
 			<RoutingPoliciesList
 				routingPolicies={[]}
 				isRoutingPoliciesLoading={false}

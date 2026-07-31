@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { DialogWrapper } from '@signozhq/ui/dialog';
 import cx from 'classnames';
@@ -24,8 +25,9 @@ function PanelTypeSelectionModal({
 	onSelect,
 	defaultLayoutIndex,
 }: PanelTypeSelectionModalProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const sections = useDashboardSections();
-	const options = useMemo(() => buildSectionOptions(sections), [sections]);
+	const options = useMemo(() => buildSectionOptions(sections, t), [sections, t]);
 
 	// With more than one section the user must pick a target section, so we keep
 	// the select-then-confirm flow. Otherwise there's nothing to choose: hide the
@@ -73,7 +75,7 @@ function PanelTypeSelectionModal({
 					onClose();
 				}
 			}}
-			title="New Panel"
+			title={t('dashboard_page_v2.panel_config.panel_type_modal.new_panel')}
 			footer={
 				hasSectionPicker ? (
 					<PanelTypeSelectionModalFooter
@@ -88,10 +90,12 @@ function PanelTypeSelectionModal({
 		>
 			<div className={styles.panelTypeSection}>
 				{hasSectionPicker && (
-					<span className={styles.pickerLabel}>Select panel type</span>
+					<span className={styles.pickerLabel}>
+						{t('dashboard_page_v2.panel_config.panel_type_modal.select_panel_type')}
+					</span>
 				)}
 				<div className={styles.grid}>
-					{PANEL_TYPES.map(({ panelKind, label, Icon }) => (
+					{PANEL_TYPES.map(({ panelKind, labelKey, Icon }) => (
 						<button
 							key={panelKind}
 							type="button"
@@ -103,7 +107,7 @@ function PanelTypeSelectionModal({
 							onClick={(): void => handleTileClick(panelKind)}
 						>
 							<Icon size={24} color={Color.BG_ROBIN_400} />
-							{label}
+							{t(labelKey)}
 						</button>
 					))}
 				</div>

@@ -5,6 +5,7 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { Color, Spacing } from '@signozhq/design-tokens';
@@ -67,6 +68,7 @@ import {
 	useInfraMonitoringView,
 } from '../hooks';
 import LoadingContainer from '../LoadingContainer';
+import { translateInfraKey } from '../i18n';
 
 import '../EntityDetailsUtils/entityDetails.styles.scss';
 import { parseAsString, useQueryState } from 'nuqs';
@@ -75,6 +77,7 @@ const TimeRangeOffset = 1000000000;
 
 export interface K8sDetailsMetadataConfig<T> {
 	label: string;
+	labelKey?: string;
 	getValue: (entity: T) => string | number;
 	render?: (value: string | number, entity: T) => React.ReactNode;
 }
@@ -101,6 +104,7 @@ export interface K8sBaseDetailsProps<T> {
 	metadataConfig: K8sDetailsMetadataConfig<T>[];
 	entityWidgetInfo: {
 		title: string;
+		titleKey?: string;
 		yAxisUnit: string;
 	}[];
 	getEntityQueryPayload: (
@@ -121,6 +125,7 @@ export interface K8sBaseDetailsProps<T> {
 	customTabs?: Array<{
 		key: string;
 		label: string;
+		labelKey?: string;
 		icon: React.ReactNode;
 		render: (props: {
 			entity: T;
@@ -169,6 +174,7 @@ export default function K8sBaseDetails<T>({
 	tabsConfig,
 	customTabs,
 }: K8sBaseDetailsProps<T>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const selectedTime = useGlobalTimeStore((s) => s.selectedTime);
 	const getMinMaxTime = useGlobalTimeStore((s) => s.getMinMaxTime);
 	const lastComputedMinMax = useGlobalTimeStore((s) => s.lastComputedMinMax);
@@ -443,8 +449,13 @@ export default function K8sBaseDetails<T>({
 					<Typography.Text className="title">
 						{entityName ||
 							((isEntityError || hasResponseError) &&
-								'Failed to load entity details') ||
-							(isEntityLoading && 'Loading...') ||
+								translateInfraKey(
+									t,
+									'display.failed_to_load_entity_details',
+									'Failed to load entity details',
+								)) ||
+							(isEntityLoading &&
+								translateInfraKey(t, 'display.loading', 'Loading...')) ||
 							'-'}
 					</Typography.Text>
 				</>
@@ -467,7 +478,11 @@ export default function K8sBaseDetails<T>({
 						{entityResponse?.error ||
 							(entityError instanceof Error
 								? entityError.message
-								: 'Failed to load entity details')}
+								: translateInfraKey(
+										t,
+										'display.failed_to_load_entity_details',
+										'Failed to load entity details',
+									))}
 					</Typography.Text>
 				</div>
 			)}
@@ -482,7 +497,7 @@ export default function K8sBaseDetails<T>({
 										color="muted"
 										className="entity-details-metadata-label"
 									>
-										{config.label}
+										{translateInfraKey(t, config.labelKey, config.label)}
 									</Typography.Text>
 								))}
 							</div>
@@ -523,7 +538,7 @@ export default function K8sBaseDetails<T>({
 													label: (
 														<div className="view-title">
 															<BarChart size={14} />
-															Metrics
+															{translateInfraKey(t, 'display.metrics', 'Metrics')}
 														</div>
 													),
 												},
@@ -536,7 +551,7 @@ export default function K8sBaseDetails<T>({
 													label: (
 														<div className="view-title">
 															<ScrollText size={14} />
-															Logs
+															{translateInfraKey(t, 'display.logs', 'Logs')}
 														</div>
 													),
 												},
@@ -549,7 +564,7 @@ export default function K8sBaseDetails<T>({
 													label: (
 														<div className="view-title">
 															<DraftingCompass size={14} />
-															Traces
+															{translateInfraKey(t, 'display.traces', 'Traces')}
 														</div>
 													),
 												},
@@ -562,7 +577,7 @@ export default function K8sBaseDetails<T>({
 													label: (
 														<div className="view-title">
 															<ChevronsLeftRight size={14} />
-															Events
+															{translateInfraKey(t, 'display.events', 'Events')}
 														</div>
 													),
 												},
@@ -573,7 +588,7 @@ export default function K8sBaseDetails<T>({
 										label: (
 											<div className="view-title">
 												{tab.icon}
-												{tab.label}
+												{translateInfraKey(t, tab.labelKey, tab.label)}
 											</div>
 										),
 									})) ?? []),
@@ -581,7 +596,14 @@ export default function K8sBaseDetails<T>({
 							/>
 
 							{selectedView === VIEW_TYPES.LOGS && (
-								<Tooltip title="Go to Logs Explorer" placement="left">
+								<Tooltip
+									title={translateInfraKey(
+										t,
+										'display.go_to_logs_explorer',
+										'Go to Logs Explorer',
+									)}
+									placement="left"
+								>
 									<Button
 										icon={<Compass size={18} />}
 										className="compass-button"
@@ -590,7 +612,14 @@ export default function K8sBaseDetails<T>({
 								</Tooltip>
 							)}
 							{selectedView === VIEW_TYPES.TRACES && (
-								<Tooltip title="Go to Traces Explorer" placement="left">
+								<Tooltip
+									title={translateInfraKey(
+										t,
+										'display.go_to_traces_explorer',
+										'Go to Traces Explorer',
+									)}
+									placement="left"
+								>
 									<Button
 										icon={<Compass size={18} />}
 										className="compass-button"

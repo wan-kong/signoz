@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
 import { Color } from '@signozhq/design-tokens';
 import { Collapse, Flex, Space, Table, TableProps, Tooltip } from 'antd';
@@ -142,6 +143,7 @@ export function CollapseListContent({
 	updated_by_name?: string;
 	alertOptions?: DefaultOptionType[];
 }): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const renderItems = (title: string, value: ReactNode): JSX.Element => (
 		<div className="render-item-collapse-list">
 			<Typography>{title}</Typography>
@@ -154,7 +156,7 @@ export function CollapseListContent({
 	return (
 		<Flex vertical>
 			{renderItems(
-				'Created by',
+				t('planned_downtime.list.created_by'),
 				created_by_name ? (
 					<Flex gap={8}>
 						<Typography>{created_by_name}</Typography>
@@ -165,7 +167,7 @@ export function CollapseListContent({
 				),
 			)}
 			{renderItems(
-				'Created on',
+				t('planned_downtime.list.created_on'),
 				created_at ? (
 					<Typography>{`${formatDateTime(created_at)}`}</Typography>
 				) : (
@@ -174,14 +176,17 @@ export function CollapseListContent({
 			)}
 			{updated_at &&
 				renderItems(
-					'Updated on',
+					t('planned_downtime.list.updated_on'),
 					<Typography>{`${formatDateTime(updated_at)}`}</Typography>,
 				)}
 			{updated_by_name &&
-				renderItems('Updated by', <Typography>{updated_by_name}</Typography>)}
+				renderItems(
+					t('planned_downtime.list.updated_by'),
+					<Typography>{updated_by_name}</Typography>,
+				)}
 
 			{renderItems(
-				'Timeframe',
+				t('planned_downtime.list.timeframe'),
 				schedule?.startTime ? (
 					<Typography>{`${startTime} ⎯ ${endTime}`}</Typography>
 				) : (
@@ -189,12 +194,24 @@ export function CollapseListContent({
 				),
 			)}
 			{renderItems(
-				'Timezone',
+				t('planned_downtime.list.timezone'),
 				<Typography>{schedule?.timezone || '-'}</Typography>,
 			)}
-			{renderItems('Repeats', <Typography>{recurrenceInfo(schedule)}</Typography>)}
 			{renderItems(
-				'Alerts silenced',
+				t('planned_downtime.list.repeats'),
+				<Typography>
+					{recurrenceInfo(schedule, {
+						no: t('planned_downtime.recurrence_info.no'),
+						to: t('planned_downtime.recurrence_info.to'),
+						on: t('planned_downtime.recurrence_info.on'),
+						duration: t('planned_downtime.recurrence_info.duration'),
+						repeats: t('planned_downtime.recurrence_info.repeats'),
+						from: t('planned_downtime.recurrence_info.from'),
+					})}
+				</Typography>,
+			)}
+			{renderItems(
+				t('planned_downtime.list.alerts_silenced'),
 				alertOptions?.length ? (
 					<AlertRuleTags
 						closable={false}
@@ -203,7 +220,7 @@ export function CollapseListContent({
 					/>
 				) : (
 					<Badge className="all-alerts-tag" color="vanilla">
-						All alert rules
+						{t('planned_downtime.form.all_alert_rules')}
 					</Badge>
 				),
 			)}
@@ -221,6 +238,7 @@ export function CustomCollapseList(
 		setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 	},
 ): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const {
 		createdAt,
 		createdBy,
@@ -239,7 +257,10 @@ export function CustomCollapseList(
 	const scheduleTime = schedule?.startTime
 		? dayjs(schedule.startTime).tz(schedule.timezone)
 		: createdAt || '';
-	const formattedDateAndTime = `Start time ⎯ ${formatDateTime(scheduleTime)} ${schedule?.timezone}`;
+	const formattedDateAndTime = t('planned_downtime.list.start_time', {
+		time: formatDateTime(scheduleTime),
+		timezone: schedule?.timezone,
+	});
 
 	return (
 		<>
@@ -308,9 +329,10 @@ export function PlannedDowntimeList({
 	setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 	searchValue: string | number;
 }): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const columns: TableProps<DowntimeSchedulesTableData>['columns'] = [
 		{
-			title: 'Downtime',
+			title: t('planned_downtime.list.downtime'),
 			key: 'downtime',
 			render: (data: DowntimeSchedulesTableData): JSX.Element =>
 				CustomCollapseList({

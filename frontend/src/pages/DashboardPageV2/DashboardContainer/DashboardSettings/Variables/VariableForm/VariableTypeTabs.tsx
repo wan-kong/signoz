@@ -1,4 +1,5 @@
 import { Color } from '@signozhq/design-tokens';
+import { useTranslation } from 'react-i18next';
 import {
 	ClipboardType,
 	DatabaseZap,
@@ -19,14 +20,18 @@ import styles from './VariableForm.module.scss';
  * change handling; the matching `TabsContent` panels are siblings in the root.
  */
 function VariableTypeTabs(): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={styles.typePicker}>
 			<div className={styles.typeLabelContainer}>
-				<Typography.Text className={styles.label}>Variable Type</Typography.Text>
+				<Typography.Text className={styles.label}>
+					{t('dashboard_page_v2.variables.variable_type')}
+				</Typography.Text>
 				<TextToolTip
-					text="Learn more about supported variable types"
+					text={t('dashboard_page_v2.variables.learn_supported_types')}
 					url="https://signoz.io/docs/userguide/manage-variables/#supported-variable-types"
-					urlText="here"
+					urlText={t('dashboard_page_v2.variables.here')}
 					useFilledIcon={false}
 					outlinedIcon={<Info size={14} />}
 				/>
@@ -40,9 +45,9 @@ function VariableTypeTabs(): JSX.Element {
 						testId="variable-type-dynamic"
 					>
 						<Pyramid size={14} />
-						Dynamic
+						{t('dashboard_page_v2.variables.dynamic')}
 						<Badge color="robin" className={styles.betaTag}>
-							Beta
+							{t('dashboard_page_v2.variables.beta')}
 						</Badge>
 					</TabsTrigger>
 					<TabsTrigger
@@ -51,7 +56,7 @@ function VariableTypeTabs(): JSX.Element {
 						testId="variable-type-textbox"
 					>
 						<ClipboardType size={14} />
-						Textbox
+						{t('dashboard_page_v2.variables.textbox')}
 					</TabsTrigger>
 					<TabsTrigger
 						value="CUSTOM"
@@ -59,7 +64,7 @@ function VariableTypeTabs(): JSX.Element {
 						testId="variable-type-custom"
 					>
 						<LayoutList size={14} />
-						Custom
+						{t('dashboard_page_v2.variables.custom')}
 					</TabsTrigger>
 					<TabsTrigger
 						value="QUERY"
@@ -67,10 +72,10 @@ function VariableTypeTabs(): JSX.Element {
 						testId="variable-type-query"
 					>
 						<DatabaseZap size={14} />
-						Query
+						{t('dashboard_page_v2.variables.query')}
 						{/* Wide screens: the full "Not Recommended" pill. */}
 						<Badge color="amber" className={styles.notRecommendedBadge}>
-							Not Recommended
+							{t('dashboard_page_v2.variables.not_recommended')}
 						</Badge>
 						{/* Small screens: an amber info icon stands in for the pill (keeps the
 						    tab row from overflowing), its tooltip carries the same message + link. */}
@@ -80,9 +85,9 @@ function VariableTypeTabs(): JSX.Element {
 							role="presentation"
 						>
 							<TextToolTip
-								text="Query variables can be slow and brittle, so they aren't recommended. Learn why"
+								text={t('dashboard_page_v2.variables.query_not_recommended_tooltip')}
 								url="https://signoz.io/docs/userguide/manage-variables/#why-avoid-clickhouse-query-variables"
-								urlText="here"
+								urlText={t('dashboard_page_v2.variables.here')}
 								useFilledIcon={false}
 								outlinedIcon={<Info size={14} color={Color.BG_AMBER_600} />}
 							/>

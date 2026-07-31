@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type KeyboardEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@signozhq/ui/input';
 import { Search, X } from '@signozhq/icons';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
@@ -23,6 +24,7 @@ function PanelHeaderSearch({
 	value,
 	onChange,
 }: PanelHeaderSearchProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [expanded, setExpanded] = useState(false);
 
 	const collapseIfEmpty = (): void => {
@@ -43,7 +45,7 @@ function PanelHeaderSearch({
 
 	if (!expanded) {
 		return (
-			<TooltipSimple title="Search" arrow>
+			<TooltipSimple title={t('dashboard_page_v2.panel_body.search')} arrow>
 				<Button
 					type="button"
 					variant="ghost"
@@ -52,7 +54,7 @@ function PanelHeaderSearch({
 					onClick={(): void => setExpanded(true)}
 					className={styles.searchTrigger}
 					data-testid="panel-header-search-trigger"
-					aria-label="Search"
+					aria-label={t('dashboard_page_v2.panel_body.search')}
 				>
 					<Search size={14} />
 				</Button>
@@ -65,7 +67,7 @@ function PanelHeaderSearch({
 			autoFocus
 			size={14}
 			value={value}
-			placeholder="Search…"
+			placeholder={t('dashboard_page_v2.panel_body.search_placeholder')}
 			containerClassName={styles.input}
 			testId="panel-header-search-input"
 			prefix={<Search size={14} />}
@@ -78,7 +80,7 @@ function PanelHeaderSearch({
 					className={styles.clear}
 					onClick={clear}
 					data-testid="panel-header-search-clear"
-					aria-label="Clear search"
+					aria-label={t('dashboard_page_v2.panel_body.clear_search')}
 				>
 					<X size={14} />
 				</Button>

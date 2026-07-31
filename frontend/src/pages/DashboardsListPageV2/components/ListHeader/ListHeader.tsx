@@ -1,5 +1,6 @@
 // eslint-disable-next-line signoz/no-antd-components -- Popover/Tooltip not yet migrated for this menu
 import { Popover, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Switch } from '@signozhq/ui/switch';
 import { Typography } from '@signozhq/ui/typography';
@@ -26,19 +27,27 @@ interface Props {
 	onOrderChange: (order: DashboardtypesListOrderDTO) => void;
 }
 
-const SORT_LABELS: Record<DashboardtypesListSortDTO, string> = {
-	[DashboardtypesListSortDTO.updated_at]: 'Last updated',
-	[DashboardtypesListSortDTO.created_at]: 'Last created',
-	[DashboardtypesListSortDTO.name]: 'Name',
+const SORT_LABEL_KEYS: Record<DashboardtypesListSortDTO, string> = {
+	[DashboardtypesListSortDTO.updated_at]:
+		'dashboards_list_page_v2.sort.last_updated',
+	[DashboardtypesListSortDTO.created_at]:
+		'dashboards_list_page_v2.sort.last_created',
+	[DashboardtypesListSortDTO.name]: 'dashboards_list_page_v2.fields.name',
 };
 
 // Created-at / created-by are always shown; only the "updated" columns toggle.
 const METADATA_COLUMNS: {
 	key: keyof DashboardDynamicColumns;
-	label: string;
+	labelKey: string;
 }[] = [
-	{ key: 'updatedAt', label: 'Updated at' },
-	{ key: 'updatedBy', label: 'Updated by' },
+	{
+		key: 'updatedAt',
+		labelKey: 'dashboards_list_page_v2.columns.updated_at',
+	},
+	{
+		key: 'updatedBy',
+		labelKey: 'dashboards_list_page_v2.columns.updated_by',
+	},
 ];
 
 function ListHeader({
@@ -47,6 +56,7 @@ function ListHeader({
 	sortOrder,
 	onOrderChange,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const visibleColumns = useDashboardsListVisibleColumnsStore(
 		(s) => s.visibleColumns,
 	);
@@ -56,10 +66,14 @@ function ListHeader({
 
 	const metadataContent = (
 		<div className={styles.metaPanel}>
-			<Typography.Text className={styles.sortHeading}>Columns</Typography.Text>
+			<Typography.Text className={styles.sortHeading}>
+				{t('dashboards_list_page_v2.columns.title')}
+			</Typography.Text>
 			{METADATA_COLUMNS.map((col) => (
 				<div key={col.key} className={styles.metaRow}>
-					<Typography.Text className={styles.metaLabel}>{col.label}</Typography.Text>
+					<Typography.Text className={styles.metaLabel}>
+						{t(col.labelKey)}
+					</Typography.Text>
 					<Switch
 						value={visibleColumns[col.key]}
 						testId={`metadata-toggle-${col.key}`}
@@ -78,13 +92,17 @@ function ListHeader({
 
 	return (
 		<div className={styles.wrapper}>
-			<Typography.Text className={styles.label}>Results</Typography.Text>
+			<Typography.Text className={styles.label}>
+				{t('dashboards_list_page_v2.results')}
+			</Typography.Text>
 			<section className={styles.rightActions}>
 				<Popover
 					trigger="click"
 					content={
 						<div className={styles.sortContent}>
-							<Typography.Text className={styles.sortHeading}>Sort By</Typography.Text>
+							<Typography.Text className={styles.sortHeading}>
+								{t('dashboards_list_page_v2.sort.sort_by')}
+							</Typography.Text>
 							<Button
 								variant="ghost"
 								color="secondary"
@@ -97,7 +115,7 @@ function ListHeader({
 									) : undefined
 								}
 							>
-								Name
+								{t('dashboards_list_page_v2.fields.name')}
 							</Button>
 							<Button
 								variant="ghost"
@@ -111,7 +129,7 @@ function ListHeader({
 									) : undefined
 								}
 							>
-								Last created
+								{t('dashboards_list_page_v2.sort.last_created')}
 							</Button>
 							<Button
 								variant="ghost"
@@ -125,10 +143,12 @@ function ListHeader({
 									) : undefined
 								}
 							>
-								Last updated
+								{t('dashboards_list_page_v2.sort.last_updated')}
 							</Button>
 							<div className={styles.sortDivider} />
-							<Typography.Text className={styles.sortHeading}>Order</Typography.Text>
+							<Typography.Text className={styles.sortHeading}>
+								{t('dashboards_list_page_v2.sort.order')}
+							</Typography.Text>
 							<Button
 								variant="ghost"
 								color="secondary"
@@ -141,7 +161,7 @@ function ListHeader({
 									) : undefined
 								}
 							>
-								Ascending
+								{t('dashboards_list_page_v2.sort.ascending')}
 							</Button>
 							<Button
 								variant="ghost"
@@ -155,7 +175,7 @@ function ListHeader({
 									) : undefined
 								}
 							>
-								Descending
+								{t('dashboards_list_page_v2.sort.descending')}
 							</Button>
 						</div>
 					}
@@ -168,7 +188,7 @@ function ListHeader({
 						color="secondary"
 						size="sm"
 						testId="sort-by"
-						aria-label="Sort"
+						aria-label={t('dashboards_list_page_v2.sort.title')}
 						suffix={
 							sortOrder === DashboardtypesListOrderDTO.asc ? (
 								<ArrowUp size={12} />
@@ -177,8 +197,10 @@ function ListHeader({
 							)
 						}
 					>
-						<Typography.Text className={styles.sortPrefix}>Sort:</Typography.Text>{' '}
-						{SORT_LABELS[sortColumn]}{' '}
+						<Typography.Text className={styles.sortPrefix}>
+							{t('dashboards_list_page_v2.sort.prefix')}
+						</Typography.Text>{' '}
+						{t(SORT_LABEL_KEYS[sortColumn])}{' '}
 					</Button>
 				</Popover>
 
@@ -189,12 +211,12 @@ function ListHeader({
 					placement="bottomRight"
 					arrow={false}
 				>
-					<Tooltip title="Columns">
+					<Tooltip title={t('dashboards_list_page_v2.columns.title')}>
 						<Button
 							variant="ghost"
 							color="secondary"
 							size="icon"
-							aria-label="Columns"
+							aria-label={t('dashboards_list_page_v2.columns.title')}
 							testId="configure-columns-trigger"
 						>
 							<Columns3 size={14} />

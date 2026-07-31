@@ -30,16 +30,19 @@ export const k8sJobDetailsMetadataConfig: K8sDetailsMetadataConfig<Inframonitori
 	[
 		{
 			label: 'Job Name',
+			labelKey: 'display.job_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_JOB_NAME] ?? '',
 		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] ?? '',
 		},
 		{
 			label: 'Namespace Name',
+			labelKey: 'display.namespace_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] ?? '',
 		},
@@ -72,21 +75,25 @@ export const k8sJobGetEntityName = (
 export const jobWidgetInfo = [
 	{
 		title: 'CPU usage',
+		titleKey: 'display.cpu_usage_lower',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/jobs/#cpu-usage',
 	},
 	{
 		title: 'Memory Usage',
+		titleKey: 'display.memory_usage',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/jobs/#memory-usage',
 	},
 	{
 		title: 'Network IO',
+		titleKey: 'display.network_io',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/jobs/#network-io',
 	},
 	{
 		title: 'Network errors count',
+		titleKey: 'display.network_errors_count',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/jobs/#network-errors-count',
 	},

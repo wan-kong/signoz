@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import { Typography } from '@signozhq/ui/typography';
@@ -11,6 +12,7 @@ import { useDashboardFetch } from './DashboardContainer/hooks/useDashboardFetch'
 import styles from './DashboardPageV2.module.scss';
 
 function DashboardPageV2(): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { dashboardId } = useParams<{ dashboardId: string }>();
 
 	const { dashboard, isLoading, isError, error, refetch } =
@@ -34,13 +36,15 @@ function DashboardPageV2(): JSX.Element {
 	}, [dashboard]);
 
 	if (isLoading) {
-		return <Spinner tip="Loading dashboard..." />;
+		return <Spinner tip={t('dashboard_page_v2.loading_dashboard')} />;
 	}
 
 	if (isError || !dashboard) {
 		return (
 			<div className={styles.errorState}>
-				<Typography.Title>Failed to load dashboard</Typography.Title>
+				<Typography.Title>
+					{t('dashboard_page_v2.errors.failed_to_load_dashboard')}
+				</Typography.Title>
 				<Typography.Text>{(error as Error)?.message}</Typography.Text>
 			</div>
 		);

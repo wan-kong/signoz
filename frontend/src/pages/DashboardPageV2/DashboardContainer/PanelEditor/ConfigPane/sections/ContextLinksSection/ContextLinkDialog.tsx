@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus, Trash2 } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
@@ -27,8 +28,6 @@ interface ContextLinkDialogProps {
 	onSave: (link: DashboardtypesLinkDTO) => void;
 }
 
-const URL_ERROR = 'URL must start with http(s)://, /, or {{variable}}/';
-
 const cursorOf = (e: { target: EventTarget }): number =>
 	(e.target as HTMLInputElement).selectionStart ?? 0;
 
@@ -46,6 +45,7 @@ function ContextLinkDialog({
 	onOpenChange,
 	onSave,
 }: ContextLinkDialogProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [name, setName] = useState('');
 	const [url, setUrlState] = useState('');
 	const [targetBlank, setTargetBlank] = useState(true);
@@ -94,7 +94,11 @@ function ContextLinkDialog({
 		<DialogWrapper
 			open={open}
 			onOpenChange={onOpenChange}
-			title={initialLink ? 'Edit context link' : 'Add a context link'}
+			title={
+				initialLink
+					? t('dashboard_page_v2.panel_config.context_links.edit_title')
+					: t('dashboard_page_v2.panel_config.context_links.add_title')
+			}
 			width="wide"
 			testId="context-link-dialog"
 			footer={
@@ -106,7 +110,7 @@ function ContextLinkDialog({
 						data-testid="context-link-cancel"
 						onClick={(): void => onOpenChange(false)}
 					>
-						Cancel
+						{t('dashboard_page_v2.panel_config.context_links.cancel')}
 					</Button>
 					<Button
 						type="button"
@@ -116,17 +120,21 @@ function ContextLinkDialog({
 						data-testid="context-link-save"
 						onClick={handleSave}
 					>
-						Save
+						{t('dashboard_page_v2.panel_config.context_links.save')}
 					</Button>
 				</>
 			}
 		>
 			<div className={styles.form}>
 				<div className={styles.formField}>
-					<Typography.Text className={styles.formLabel}>Label</Typography.Text>
+					<Typography.Text className={styles.formLabel}>
+						{t('dashboard_page_v2.panel_config.context_links.label')}
+					</Typography.Text>
 					<Input
 						data-testid="context-link-label"
-						placeholder="View trace details: {{_traceId}}"
+						placeholder={t(
+							'dashboard_page_v2.panel_config.context_links.label_placeholder',
+						)}
 						value={name}
 						onChange={(e): void => setName(e.target.value)}
 					/>
@@ -145,7 +153,9 @@ function ContextLinkDialog({
 						{({ setIsOpen, setCursorPosition }): JSX.Element => (
 							<Input
 								data-testid="context-link-url"
-								placeholder="https://… or /path?var={{variable}}"
+								placeholder={t(
+									'dashboard_page_v2.panel_config.context_links.url_placeholder',
+								)}
 								value={url}
 								status={urlInvalid ? 'error' : undefined}
 								autoComplete="off"
@@ -164,7 +174,7 @@ function ContextLinkDialog({
 							className={styles.urlError}
 							data-testid="context-link-url-error"
 						>
-							{URL_ERROR}
+							{t('dashboard_page_v2.panel_config.context_links.url_error')}
 						</Typography.Text>
 					)}
 				</div>
@@ -172,7 +182,7 @@ function ContextLinkDialog({
 				{params.length > 0 && (
 					<div className={styles.formField}>
 						<Typography.Text className={styles.formLabel}>
-							URL parameters
+							{t('dashboard_page_v2.panel_config.context_links.url_parameters')}
 						</Typography.Text>
 						<div className={styles.params}>
 							{params.map((param, index) => (
@@ -184,7 +194,7 @@ function ContextLinkDialog({
 								>
 									<Input
 										data-testid={`context-link-param-key-${index}`}
-										placeholder="Key"
+										placeholder={t('dashboard_page_v2.panel_config.context_links.key')}
 										value={param.key}
 										onChange={(e): void => patchParam(index, { key: e.target.value })}
 									/>
@@ -199,7 +209,9 @@ function ContextLinkDialog({
 										{({ setIsOpen, setCursorPosition }): JSX.Element => (
 											<Input
 												data-testid={`context-link-param-value-${index}`}
-												placeholder="Value"
+												placeholder={t(
+													'dashboard_page_v2.panel_config.context_links.value',
+												)}
 												value={param.value}
 												onChange={(e): void => {
 													setCursorPosition(e.target.selectionStart ?? 0);
@@ -216,7 +228,10 @@ function ContextLinkDialog({
 										variant="ghost"
 										color="destructive"
 										size="icon"
-										aria-label={`Remove parameter ${index + 1}`}
+										aria-label={t(
+											'dashboard_page_v2.panel_config.context_links.remove_parameter',
+											{ index: index + 1 },
+										)}
 										data-testid={`context-link-param-remove-${index}`}
 										onClick={(): void =>
 											applyParams(params.filter((_, i) => i !== index))
@@ -238,7 +253,7 @@ function ContextLinkDialog({
 					data-testid="context-link-add-param"
 					onClick={addParam}
 				>
-					Add URL parameter
+					{t('dashboard_page_v2.panel_config.context_links.add_url_parameter')}
 				</Button>
 
 				<div className={styles.newTab}>
@@ -248,7 +263,7 @@ function ContextLinkDialog({
 						onChange={setTargetBlank}
 					/>
 					<Typography.Text className={styles.newTabLabel}>
-						Open in new tab
+						{t('dashboard_page_v2.panel_config.context_links.open_in_new_tab')}
 					</Typography.Text>
 				</div>
 			</div>

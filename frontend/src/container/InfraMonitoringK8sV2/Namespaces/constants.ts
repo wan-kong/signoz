@@ -33,9 +33,14 @@ export const k8sNamespaceGetSelectedItemExpression = (
 
 export const k8sNamespaceDetailsMetadataConfig: K8sDetailsMetadataConfig<InframonitoringtypesNamespaceRecordDTO>[] =
 	[
-		{ label: 'Namespace Name', getValue: (p): string => p.namespaceName || '' },
+		{
+			label: 'Namespace Name',
+			labelKey: 'display.namespace_name',
+			getValue: (p): string => p.namespaceName || '',
+		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] || '',
 		},
@@ -45,21 +50,25 @@ export const k8sNamespaceDetailsCountsConfig: K8sDetailsCountConfig<Inframonitor
 	[
 		{
 			label: 'Deployments',
+			labelKey: 'display.deployments',
 			getValue: (p): number => p.counts?.deployments ?? 0,
 			targetCategory: InfraMonitoringEntity.DEPLOYMENTS,
 		},
 		{
 			label: 'StatefulSets',
+			labelKey: 'display.statefulsets',
 			getValue: (p): number => p.counts?.statefulSets ?? 0,
 			targetCategory: InfraMonitoringEntity.STATEFULSETS,
 		},
 		{
 			label: 'DaemonSets',
+			labelKey: 'display.daemonsets',
 			getValue: (p): number => p.counts?.daemonSets ?? 0,
 			targetCategory: InfraMonitoringEntity.DAEMONSETS,
 		},
 		{
 			label: 'Jobs',
+			labelKey: 'display.jobs',
 			getValue: (p): number => p.counts?.jobs ?? 0,
 			targetCategory: InfraMonitoringEntity.JOBS,
 		},
@@ -110,53 +119,63 @@ export const k8sNamespaceGetCountsFilterExpression = (
 export const namespaceWidgetInfo = [
 	{
 		title: 'CPU Usage (cores)',
+		titleKey: 'display.cpu_usage_cores',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#cpu-usage-cores',
 	},
 	{
 		title: 'Memory Usage (bytes)',
+		titleKey: 'display.memory_usage_bytes',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/namespaces/#memory-usage-bytes',
 	},
 	{
 		title: 'Pods CPU (top 10)',
+		titleKey: 'display.pods_cpu_top_10',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#pods-cpu-top-10',
 	},
 	{
 		title: 'Pods Memory (top 10)',
+		titleKey: 'display.pods_memory_top_10',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/namespaces/#pods-memory-top-10',
 	},
 	{
 		title: 'Network rate',
+		titleKey: 'display.network_rate',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#network-rate',
 	},
 	{
 		title: 'Network errors',
+		titleKey: 'display.network_errors',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#network-errors',
 	},
 	{
 		title: 'StatefulSets (pods)',
+		titleKey: 'display.statefulsets_pods',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#statefulsets',
 	},
 	{
 		title: 'ReplicaSets (pods)',
+		titleKey: 'display.replicasets_pods',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#replicasets',
 	},
 	{
 		title: 'DaemonSets (nodes)',
+		titleKey: 'display.daemonsets_nodes',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#daemonsets',
 	},
 	{
 		title: 'Deployments (pods)',
+		titleKey: 'display.deployments_pods',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#deployments',
 	},

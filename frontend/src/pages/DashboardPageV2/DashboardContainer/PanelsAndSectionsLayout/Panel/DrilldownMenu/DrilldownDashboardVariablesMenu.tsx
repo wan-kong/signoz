@@ -1,4 +1,5 @@
 import { ArrowLeft, Plus, Settings, X } from '@signozhq/icons';
+import { Trans, useTranslation } from 'react-i18next';
 import OverlayScrollbar from 'components/OverlayScrollbar/OverlayScrollbar';
 import {
 	type DrilldownVariableAction,
@@ -29,6 +30,8 @@ function DrilldownDashboardVariablesMenu({
 	actions,
 	onBack,
 }: DrilldownDashboardVariablesMenuProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<>
 			<ContextMenu.Header>
@@ -39,7 +42,7 @@ function DrilldownDashboardVariablesMenu({
 						onClick={onBack}
 						data-testid="drilldown-var-back"
 					/>
-					<span>Dashboard Variables</span>
+					<span>{t('dashboard_page_v2.drilldown.dashboard_variables')}</span>
 				</div>
 			</ContextMenu.Header>
 			<OverlayScrollbar
@@ -55,17 +58,32 @@ function DrilldownDashboardVariablesMenu({
 						>
 							{kind === DrilldownVariableActionKind.Unset && (
 								<span data-testid="drilldown-var-unset">
-									Unset <strong>${fieldName}</strong>
+									<Trans
+										t={t}
+										i18nKey="dashboard_page_v2.drilldown.unset_variable"
+										values={{ field: fieldName }}
+										components={{ strong: <strong /> }}
+									/>
 								</span>
 							)}
 							{kind === DrilldownVariableActionKind.Set && (
 								<span data-testid="drilldown-var-set">
-									Set <strong>${fieldName}</strong> to <strong>{fieldValue}</strong>
+									<Trans
+										t={t}
+										i18nKey="dashboard_page_v2.drilldown.set_variable"
+										values={{ field: fieldName, value: fieldValue }}
+										components={{ strong: <strong /> }}
+									/>
 								</span>
 							)}
 							{kind === DrilldownVariableActionKind.Create && (
 								<span data-testid="drilldown-var-create">
-									Create var <strong>${fieldName}</strong>:<strong>{fieldValue}</strong>
+									<Trans
+										t={t}
+										i18nKey="dashboard_page_v2.drilldown.create_variable"
+										values={{ field: fieldName, value: fieldValue }}
+										components={{ strong: <strong /> }}
+									/>
 								</span>
 							)}
 						</ContextMenu.Item>

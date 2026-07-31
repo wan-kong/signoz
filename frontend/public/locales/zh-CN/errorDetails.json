@@ -1,9 +1,9 @@
 {
-	"see_trace_graph": "See what happened before and after this error in a trace graph",
-	"see_error_in_trace_graph": "See the error in trace graph",
-	"stack_trace": "Stacktrace",
-	"older": "Older",
-	"newer": "Newer",
-	"something_went_wrong": "Oops !!! Something went wrong",
-	"contact_if_issue_exists": "Don't worry, our team is here to help. Please contact support if the issue persists."
+	"see_trace_graph": "在 Trace 图中查看此错误前后发生了什么",
+	"see_error_in_trace_graph": "在 Trace 图中查看错误",
+	"stack_trace": "堆栈跟踪",
+	"older": "更早",
+	"newer": "更新",
+	"something_went_wrong": "糟糕！出了点问题",
+	"contact_if_issue_exists": "别担心，我们的团队会提供帮助。如果问题仍然存在，请联系支持。"
 }

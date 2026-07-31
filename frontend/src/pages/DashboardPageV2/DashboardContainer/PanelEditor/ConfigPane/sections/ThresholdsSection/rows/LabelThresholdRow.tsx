@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { Input } from 'antd';
 import type { DashboardtypesThresholdWithLabelDTO } from 'api/generated/services/sigNoz.schemas';
@@ -37,6 +38,7 @@ function LabelThresholdRow({
 	onDiscard,
 	onRemove,
 }: LabelThresholdRowProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { draft, setDraft, setValue } = useThresholdDraft(
 		threshold,
 		isEditing,
@@ -86,14 +88,16 @@ function LabelThresholdRow({
 				invalidTestId={`threshold-unit-invalid-${index}`}
 				value={draft.unit}
 				scopeUnit={yAxisUnit}
-				scopeLabel="y-axis unit"
+				scopeLabel={t('dashboard_page_v2.panel_config.thresholds.y_axis_unit')}
 				onChange={(unit): void => setDraft((d) => ({ ...d, unit }))}
 			/>
 			<div className={styles.field}>
-				<Typography.Text className={styles.fieldLabel}>Label</Typography.Text>
+				<Typography.Text className={styles.fieldLabel}>
+					{t('dashboard_page_v2.panel_config.thresholds.label')}
+				</Typography.Text>
 				<Input
 					data-testid={`threshold-label-${index}`}
-					placeholder="Optional"
+					placeholder={t('dashboard_page_v2.panel_config.thresholds.optional')}
 					value={draft.label ?? ''}
 					onChange={(e): void => setDraft((d) => ({ ...d, label: e.target.value }))}
 				/>

@@ -20,6 +20,7 @@ import { NANO_SECOND_MULTIPLIER } from 'store/globalTime/utils';
 import { Querybuildertypesv5QueryWarnDataDTO } from 'api/generated/services/sigNoz.schemas';
 import { openInNewTab } from 'utils/navigation';
 import APIError from 'types/api/error';
+import { useTranslation } from 'react-i18next';
 
 import {
 	INFRA_MONITORING_K8S_PARAMS_KEYS,
@@ -111,6 +112,7 @@ export function K8sBaseList<
 	extraQueryKeyParts = [],
 	detailsQueryKeyPrefix,
 }: K8sBaseListProps<T, TItemKey>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const { currentQuery } = useQueryBuilder();
 	const expression = currentQuery.builder.queryData[0]?.filter?.expression || '';
 	const lineClamp = useInfraMonitoringLineClamp();
@@ -448,7 +450,8 @@ export function K8sBaseList<
 
 				{isError && (
 					<Typography>
-						{data?.error?.toString() || 'Something went wrong'}
+						{data?.error?.toString() ||
+							t('display.something_went_wrong', 'Something went wrong')}
 					</Typography>
 				)}
 
@@ -479,7 +482,9 @@ export function K8sBaseList<
 						pagination={{
 							total: totalCount,
 							showTotalCount: true,
-							totalCountLabel: entity.charAt(0).toUpperCase() + entity.slice(1),
+							totalCountLabel: t(`display.${entity}`, {
+								defaultValue: entity.charAt(0).toUpperCase() + entity.slice(1),
+							}),
 							calculatedPageSize,
 							onLimitChange: setLimit,
 						}}

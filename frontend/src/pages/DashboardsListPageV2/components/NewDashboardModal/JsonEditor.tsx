@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import MEditor, { Monaco } from '@monaco-editor/react';
 import { Color } from '@signozhq/design-tokens';
 import { Button } from '@signozhq/ui/button';
@@ -35,6 +36,7 @@ function JsonEditor({
 	readOnly = false,
 	height = '38vh',
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const isDarkMode = useIsDarkMode();
 	const [expanded, setExpanded] = useState(false);
 
@@ -63,7 +65,7 @@ function JsonEditor({
 				color="secondary"
 				size="icon"
 				className={styles.expandBtn}
-				aria-label="Expand editor"
+				aria-label={t('dashboards_list_page_v2.json_editor.expand_editor')}
 				testId="json-editor-expand"
 				onClick={(): void => setExpanded(true)}
 			>
@@ -72,7 +74,11 @@ function JsonEditor({
 			<div className={styles.editor}>{renderEditor(height)}</div>
 
 			<DialogWrapper
-				title={readOnly ? 'Preview JSON' : 'Edit JSON'}
+				title={
+					readOnly
+						? t('dashboards_list_page_v2.json_editor.preview_json')
+						: t('dashboards_list_page_v2.json_editor.edit_json')
+				}
 				open={expanded}
 				width="extra-wide"
 				onOpenChange={(next): void => {

@@ -1,4 +1,4 @@
 {
-	"delete_confirm_message": "Are you sure you want to delete {{keyName}}? Deleting an ingestion key is irreversible and cannot be undone.",
-	"delete_limit_confirm_message": "Are you sure you want to delete {{limit_name}} limit for ingestion key {{keyName}}?"
+	"delete_confirm_message": "确定要删除 {{keyName}} 吗？删除 ingestion key 是不可逆操作，无法撤销。",
+	"delete_limit_confirm_message": "确定要删除 ingestion key {{keyName}} 的 {{limit_name}} 限制吗？"
 }

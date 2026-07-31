@@ -54,14 +54,16 @@ export const VARIABLE_SORTS: VariableSort[] = [
 	VARIABLE_SORT.CI_DESC,
 ];
 
-export const VARIABLE_SORT_LABEL: Record<VariableSort, string> = {
-	[VARIABLE_SORT.DISABLED]: 'Disabled',
-	[VARIABLE_SORT.ASC]: 'Alphabetical (ascending)',
-	[VARIABLE_SORT.DESC]: 'Alphabetical (descending)',
-	[VARIABLE_SORT.NUMERICAL_ASC]: 'Numerical (ascending)',
-	[VARIABLE_SORT.NUMERICAL_DESC]: 'Numerical (descending)',
-	[VARIABLE_SORT.CI_ASC]: 'Alphabetical, case-insensitive (ascending)',
-	[VARIABLE_SORT.CI_DESC]: 'Alphabetical, case-insensitive (descending)',
+export const VARIABLE_SORT_LABEL_KEY: Record<VariableSort, string> = {
+	[VARIABLE_SORT.DISABLED]: 'dashboard_page_v2.variables.sort.disabled',
+	[VARIABLE_SORT.ASC]: 'dashboard_page_v2.variables.sort.alphabetical_asc',
+	[VARIABLE_SORT.DESC]: 'dashboard_page_v2.variables.sort.alphabetical_desc',
+	[VARIABLE_SORT.NUMERICAL_ASC]:
+		'dashboard_page_v2.variables.sort.numerical_asc',
+	[VARIABLE_SORT.NUMERICAL_DESC]:
+		'dashboard_page_v2.variables.sort.numerical_desc',
+	[VARIABLE_SORT.CI_ASC]: 'dashboard_page_v2.variables.sort.ci_asc',
+	[VARIABLE_SORT.CI_DESC]: 'dashboard_page_v2.variables.sort.ci_desc',
 };
 
 export const DYNAMIC_SIGNALS: DashboardtypesDynamicVariableSignalDTO[] = [
@@ -71,14 +73,18 @@ export const DYNAMIC_SIGNALS: DashboardtypesDynamicVariableSignalDTO[] = [
 	DashboardtypesDynamicVariableSignalDTO.metrics,
 ];
 
-export const DYNAMIC_SIGNAL_LABEL: Record<
+export const DYNAMIC_SIGNAL_LABEL_KEY: Record<
 	DashboardtypesDynamicVariableSignalDTO,
 	string
 > = {
-	[DashboardtypesDynamicVariableSignalDTO.all]: 'All telemetry',
-	[DashboardtypesDynamicVariableSignalDTO.traces]: 'Traces',
-	[DashboardtypesDynamicVariableSignalDTO.logs]: 'Logs',
-	[DashboardtypesDynamicVariableSignalDTO.metrics]: 'Metrics',
+	[DashboardtypesDynamicVariableSignalDTO.all]:
+		'dashboard_page_v2.variables.signals.all',
+	[DashboardtypesDynamicVariableSignalDTO.traces]:
+		'dashboard_page_v2.variables.signals.traces',
+	[DashboardtypesDynamicVariableSignalDTO.logs]:
+		'dashboard_page_v2.variables.signals.logs',
+	[DashboardtypesDynamicVariableSignalDTO.metrics]:
+		'dashboard_page_v2.variables.signals.metrics',
 };
 
 /**

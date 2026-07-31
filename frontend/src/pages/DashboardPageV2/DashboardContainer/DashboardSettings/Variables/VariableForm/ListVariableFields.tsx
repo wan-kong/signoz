@@ -1,4 +1,5 @@
 import { Badge } from '@signozhq/ui/badge';
+import { useTranslation } from 'react-i18next';
 import { Switch } from '@signozhq/ui/switch';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
@@ -7,7 +8,7 @@ import { Select } from 'antd';
 import { CustomSelect } from 'components/NewSelect';
 
 import {
-	VARIABLE_SORT_LABEL,
+	VARIABLE_SORT_LABEL_KEY,
 	VARIABLE_SORTS,
 	type VariableFormModel,
 	type VariableSort,
@@ -38,11 +39,13 @@ function ListVariableFields({
 	onDefaultValueChange,
 	showAllOptionField,
 }: ListVariableFieldsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<>
 			<div className={cx(styles.row, styles.previewSection)}>
 				<Typography.Text className={styles.previewLabel}>
-					Preview of Values
+					{t('dashboard_page_v2.variables.preview_of_values')}
 				</Typography.Text>
 				<div className={styles.previewValues}>
 					{previewError ? (
@@ -65,14 +68,16 @@ function ListVariableFields({
 
 			<div className={cx(styles.row, styles.sortSection)}>
 				<div className={styles.labelContainer}>
-					<Typography.Text className={styles.label}>Sort Values</Typography.Text>
+					<Typography.Text className={styles.label}>
+						{t('dashboard_page_v2.variables.sort_values')}
+					</Typography.Text>
 				</div>
 				<Select
 					className={styles.sortSelect}
 					popupMatchSelectWidth={false}
 					value={model.sort}
 					options={VARIABLE_SORTS.map((sort) => ({
-						label: VARIABLE_SORT_LABEL[sort],
+						label: t(VARIABLE_SORT_LABEL_KEY[sort]),
 						value: sort,
 					}))}
 					onChange={(value): void => onChange({ sort: value as VariableSort })}
@@ -82,7 +87,7 @@ function ListVariableFields({
 
 			<div className={cx(styles.row, styles.multiSection)}>
 				<Typography.Text className={styles.rowLabel}>
-					Enable multiple values to be checked
+					{t('dashboard_page_v2.variables.enable_multiple_values')}
 				</Typography.Text>
 				<Switch
 					value={model.multiSelect}
@@ -99,7 +104,7 @@ function ListVariableFields({
 			{model.multiSelect && showAllOptionField ? (
 				<div className={cx(styles.row, styles.allOptionSection)}>
 					<Typography.Text className={styles.rowLabel}>
-						Include an option for ALL values
+						{t('dashboard_page_v2.variables.include_all_values')}
 					</Typography.Text>
 					<Switch
 						value={model.showAllOption}
@@ -111,18 +116,20 @@ function ListVariableFields({
 
 			<div className={cx(styles.row, styles.defaultValueSection)}>
 				<div className={styles.labelContainer}>
-					<Typography.Text className={styles.label}>Default Value</Typography.Text>
+					<Typography.Text className={styles.label}>
+						{t('dashboard_page_v2.variables.default_value')}
+					</Typography.Text>
 					<Typography.Text className={styles.defaultValueDesc}>
 						{model.type === 'QUERY'
-							? 'Click Test Run Query to see the values or add custom value'
-							: 'Select a value from the preview values or add custom value'}
+							? t('dashboard_page_v2.variables.default_query_hint')
+							: t('dashboard_page_v2.variables.default_preview_hint')}
 					</Typography.Text>
 				</div>
 				<CustomSelect
 					className={styles.searchSelect}
 					showSearch
 					allowClear
-					placeholder="Select a default value"
+					placeholder={t('dashboard_page_v2.variables.default_value_placeholder')}
 					value={defaultValue || undefined}
 					onChange={(value): void => onDefaultValueChange((value as string) ?? '')}
 					options={previewValues.map((value) => ({

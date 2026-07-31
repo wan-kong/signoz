@@ -5,6 +5,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { toast } from '@signozhq/ui/sonner';
 import type {
@@ -88,6 +89,7 @@ export function useVariableListActions({
 	save,
 	patchAsync,
 }: UseVariableListActionsParams): UseVariableListActions {
+	const { t } = useTranslation('dashboard');
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
 	const [confirmDeleteIndex, setConfirmDeleteIndex] = useState<number | null>(
 		null,
@@ -289,11 +291,17 @@ export function useVariableListActions({
 				await patchAsync(ops);
 				let message: string;
 				if (impact.mode === 'rename') {
-					message = `Renamed to $${impact.newName}`;
+					message = t('dashboard_page_v2.variables.renamed_to', {
+						name: impact.newName,
+					});
 				} else if (impact.mode === 'apply') {
-					message = `Applied $${impact.variableName} to panels`;
+					message = t('dashboard_page_v2.variables.applied_to_panels', {
+						name: impact.variableName,
+					});
 				} else {
-					message = `Deleted $${impact.variableName}`;
+					message = t('dashboard_page_v2.variables.deleted_variable', {
+						name: impact.variableName,
+					});
 				}
 				toast.success(message);
 				if (impact.mode === 'delete') {
@@ -314,17 +322,17 @@ export function useVariableListActions({
 			} catch {
 				let message: string;
 				if (impact.mode === 'rename') {
-					message = 'Could not rename the variable';
+					message = t('dashboard_page_v2.variables.could_not_rename');
 				} else if (impact.mode === 'apply') {
-					message = 'Could not apply the variable to panels';
+					message = t('dashboard_page_v2.variables.could_not_apply');
 				} else {
-					message = 'Could not delete the variable';
+					message = t('dashboard_page_v2.variables.could_not_delete');
 				}
 				toast.error(message);
 			}
 			setImpact(null);
 		},
-		[dashboard, dashboardId, impact, patchAsync, setVariables, variables],
+		[dashboard, dashboardId, impact, patchAsync, setVariables, t, variables],
 	);
 
 	return {

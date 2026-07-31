@@ -1,5 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { I18nextProvider } from 'react-i18next';
+import { alertsI18nProviderProps } from 'tests/alertsI18n';
 
+import { createTestI18nInstance } from '../../../ReactI18/testUtils';
 import AlertList from '../index';
 
 const ALERTS_PATH = '/alerts';
@@ -91,6 +94,19 @@ const clickTab = (tabText: string): void => {
 	}
 };
 
+const renderAlertList = (): void => {
+	const i18n = createTestI18nInstance({
+		language: alertsI18nProviderProps.i18nLanguage,
+		resources: alertsI18nProviderProps.i18nResources,
+	});
+
+	render(
+		<I18nextProvider i18n={i18n}>
+			<AlertList />
+		</I18nextProvider>,
+	);
+};
+
 describe('AlertList', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -101,7 +117,7 @@ describe('AlertList', () => {
 			mockQueryParams({});
 			mockLocation(ALERTS_PATH);
 
-			render(<AlertList />);
+			renderAlertList();
 
 			expect(screen.getByText(LIST_ALERT_RULES_TEXT)).toBeInTheDocument();
 		});
@@ -110,7 +126,7 @@ describe('AlertList', () => {
 			mockQueryParams({});
 			mockLocation(ALERTS_PATH);
 
-			render(<AlertList />);
+			renderAlertList();
 
 			expect(screen.getByText(TRIGGERED_ALERTS_TEXT)).toBeInTheDocument();
 			expect(screen.getByText(ALERT_RULES_TEXT)).toBeInTheDocument();
@@ -123,7 +139,7 @@ describe('AlertList', () => {
 			mockQueryParams({ tab: 'TriggeredAlerts' });
 			mockLocation(ALERTS_PATH);
 
-			render(<AlertList />);
+			renderAlertList();
 
 			expect(screen.getByText('Triggered Alerts Component')).toBeInTheDocument();
 		});
@@ -132,7 +148,7 @@ describe('AlertList', () => {
 			mockQueryParams({ tab: 'AlertRules' });
 			mockLocation(ALERTS_PATH);
 
-			render(<AlertList />);
+			renderAlertList();
 
 			expect(screen.getByText(LIST_ALERT_RULES_TEXT)).toBeInTheDocument();
 		});
@@ -141,7 +157,7 @@ describe('AlertList', () => {
 			mockQueryParams({ tab: 'Configuration' });
 			mockLocation(ALERTS_PATH);
 
-			render(<AlertList />);
+			renderAlertList();
 
 			expect(screen.getByText(PLANNED_DOWNTIME_TEXT)).toBeInTheDocument();
 		});
@@ -150,7 +166,7 @@ describe('AlertList', () => {
 			mockQueryParams({ tab: 'AlertRules' });
 			mockLocation(ALERTS_PATH);
 
-			render(<AlertList />);
+			renderAlertList();
 
 			clickTab(TRIGGERED_ALERTS_TEXT);
 
@@ -161,7 +177,7 @@ describe('AlertList', () => {
 			mockQueryParams({ tab: 'TriggeredAlerts' });
 			mockLocation(ALERTS_PATH);
 
-			render(<AlertList />);
+			renderAlertList();
 
 			clickTab(ALERT_RULES_TEXT);
 
@@ -175,7 +191,7 @@ describe('AlertList', () => {
 				mockQueryParams({ tab: CONFIGURATION_TEXT });
 				mockLocation(ALERTS_PATH);
 
-				render(<AlertList />);
+				renderAlertList();
 
 				expect(screen.getByText(PLANNED_DOWNTIME_TEXT)).toBeInTheDocument();
 				expect(screen.getByText(ROUTING_POLICIES_TEXT)).toBeInTheDocument();
@@ -189,7 +205,7 @@ describe('AlertList', () => {
 				});
 				mockLocation(ALERTS_PATH);
 
-				render(<AlertList />);
+				renderAlertList();
 
 				expect(screen.getByText('Routing Policies Component')).toBeInTheDocument();
 			});
@@ -200,7 +216,7 @@ describe('AlertList', () => {
 				mockQueryParams({ tab: 'AlertRules' });
 				mockLocation(ALERTS_PATH);
 
-				render(<AlertList />);
+				renderAlertList();
 
 				clickTab(CONFIGURATION_TEXT);
 
@@ -213,7 +229,7 @@ describe('AlertList', () => {
 				mockQueryParams({ tab: 'AlertRules', subTab: ROUTING_POLICIES_SUB_TAB });
 				mockLocation(ALERTS_PATH);
 
-				render(<AlertList />);
+				renderAlertList();
 
 				clickTab(CONFIGURATION_TEXT);
 
@@ -229,7 +245,7 @@ describe('AlertList', () => {
 				});
 				mockLocation(ALERTS_PATH);
 
-				render(<AlertList />);
+				renderAlertList();
 
 				clickTab(ALERT_RULES_TEXT);
 

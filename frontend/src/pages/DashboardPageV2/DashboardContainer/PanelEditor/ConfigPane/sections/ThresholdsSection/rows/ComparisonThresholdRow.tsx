@@ -3,6 +3,7 @@ import {
 	type DashboardtypesComparisonThresholdDTO,
 	type DashboardtypesThresholdFormatDTO,
 } from 'api/generated/services/sigNoz.schemas';
+import { useTranslation } from 'react-i18next';
 import { formatPanelValue } from 'pages/DashboardPageV2/DashboardContainer/Panels/utils/formatPanelValue';
 
 import {
@@ -47,6 +48,7 @@ function ComparisonThresholdRow({
 	onDiscard,
 	onRemove,
 }: ComparisonThresholdRowProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { draft, setDraft, setValue } = useThresholdDraft(
 		threshold,
 		isEditing,
@@ -59,6 +61,14 @@ function ComparisonThresholdRow({
 			{symbol} {formatPanelValue(threshold.value, threshold.unit)}
 		</span>
 	);
+	const operatorOptions = OPERATOR_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
+	const formatOptions = FORMAT_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
 
 	return (
 		<ThresholdRowShell
@@ -73,11 +83,13 @@ function ComparisonThresholdRow({
 			onRemove={onRemove}
 		>
 			<ThresholdSelectField
-				label="If value is"
+				label={t('dashboard_page_v2.panel_config.thresholds.if_value_is')}
 				testId={`comparison-threshold-operator-${index}`}
-				placeholder="Select condition"
+				placeholder={t(
+					'dashboard_page_v2.panel_config.thresholds.select_condition',
+				)}
 				value={draft.operator}
-				items={OPERATOR_OPTIONS}
+				items={operatorOptions}
 				onChange={(operator): void =>
 					setDraft((d) => ({
 						...d,
@@ -95,7 +107,7 @@ function ComparisonThresholdRow({
 				invalidTestId={`comparison-threshold-unit-invalid-${index}`}
 				value={draft.unit}
 				scopeUnit={yAxisUnit}
-				scopeLabel="y-axis unit"
+				scopeLabel={t('dashboard_page_v2.panel_config.thresholds.y_axis_unit')}
 				onChange={(unit): void => setDraft((d) => ({ ...d, unit }))}
 			/>
 			<ThresholdColorField
@@ -104,11 +116,11 @@ function ComparisonThresholdRow({
 				onChange={(color): void => setDraft((d) => ({ ...d, color }))}
 			/>
 			<ThresholdSelectField
-				label="Display"
+				label={t('dashboard_page_v2.panel_config.thresholds.display')}
 				testId={`comparison-threshold-format-${index}`}
-				placeholder="Select display"
+				placeholder={t('dashboard_page_v2.panel_config.thresholds.select_display')}
 				value={draft.format}
-				items={FORMAT_OPTIONS}
+				items={formatOptions}
 				onChange={(format): void =>
 					setDraft((d) => ({
 						...d,

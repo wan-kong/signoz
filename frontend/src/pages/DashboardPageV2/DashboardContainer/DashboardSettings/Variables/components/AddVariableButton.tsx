@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Plus } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 
@@ -8,6 +9,8 @@ const AddVariableButton = ({
 	isEditable: boolean;
 	setIsEditing: (state: { type: 'new' }) => void;
 }): JSX.Element => {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<Button
 			variant="solid"
@@ -18,7 +21,7 @@ const AddVariableButton = ({
 			testId="add-variable"
 			disabled={!isEditable}
 		>
-			Add variable
+			{t('dashboard_page_v2.variables.add_variable')}
 		</Button>
 	);
 };

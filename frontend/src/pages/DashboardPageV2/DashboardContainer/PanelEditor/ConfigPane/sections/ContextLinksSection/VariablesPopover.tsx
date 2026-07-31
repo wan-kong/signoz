@@ -2,6 +2,7 @@
 // which steals input focus and dismisses on every keystroke. PopoverAnchor is a passive
 // positioning element that leaves the wrapped input fully interactive.
 import { ReactNode, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Popover, PopoverAnchor, PopoverContent } from '@signozhq/ui/popover';
 import { Typography } from '@signozhq/ui/typography';
@@ -32,6 +33,7 @@ function VariablesPopover({
 	onVariableSelect,
 	children,
 }: VariablesPopoverProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [isOpen, setIsOpen] = useState(false);
 	const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 	const anchorRef = useRef<HTMLDivElement>(null);
@@ -80,7 +82,9 @@ function VariablesPopover({
 					onFocusOutside={keepOpenIfInsideAnchor}
 				>
 					{variables.length === 0 ? (
-						<div className={styles.empty}>No variables available</div>
+						<div className={styles.empty}>
+							{t('dashboard_page_v2.panel_config.context_links.no_variables')}
+						</div>
 					) : (
 						variables.map((v) => (
 							<Button
@@ -90,7 +94,10 @@ function VariablesPopover({
 								color="secondary"
 								size="md"
 								className={styles.item}
-								aria-label={`Insert {{${v.name}}}`}
+								aria-label={t(
+									'dashboard_page_v2.panel_config.context_links.insert_variable',
+									{ token: `{{${v.name}}}` },
+								)}
 								testId={`context-link-variable-${v.name}`}
 								// Prevent the input from losing focus when clicking an item.
 								onMouseDown={(e): void => e.preventDefault()}

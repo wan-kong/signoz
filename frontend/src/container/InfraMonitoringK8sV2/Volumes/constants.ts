@@ -27,15 +27,18 @@ export const k8sVolumeDetailsMetadataConfig: K8sDetailsMetadataConfig<Inframonit
 	[
 		{
 			label: 'PVC Name',
+			labelKey: 'display.pvc_name',
 			getValue: (p): string => p.persistentVolumeClaimName || '',
 		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] || '',
 		},
 		{
 			label: 'Namespace Name',
+			labelKey: 'display.namespace_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] || '',
 		},
@@ -68,27 +71,32 @@ export const k8sVolumeGetEntityName = (
 export const volumeWidgetInfo = [
 	{
 		title: 'Volume available',
+		titleKey: 'display.volume_available',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/volumes/#volume-available-1',
 	},
 	{
 		title: 'Volume capacity',
+		titleKey: 'display.volume_capacity',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/volumes/#volume-capacity-1',
 	},
 	{
 		title: 'Volume inodes used',
+		titleKey: 'display.volume_inodes_used',
 		yAxisUnit: 'short',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/volumes/#volume-inodes-used-1',
 	},
 	{
 		title: 'Volume inodes',
+		titleKey: 'display.volume_inodes',
 		yAxisUnit: 'short',
 		docPath: '/infrastructure-monitoring/kubernetes/volumes/#volume-inodes-1',
 	},
 	{
 		title: 'Volume inodes free',
+		titleKey: 'display.volume_inodes_free',
 		yAxisUnit: 'short',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/volumes/#volume-inodes-free-1',

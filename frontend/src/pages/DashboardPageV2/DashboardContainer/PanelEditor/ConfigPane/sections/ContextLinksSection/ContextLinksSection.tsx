@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import type { DashboardtypesLinkDTO } from 'api/generated/services/sigNoz.schemas';
@@ -25,6 +26,7 @@ function ContextLinksSection({
 	registerHeaderAction,
 }: SectionEditorProps<SectionKind.ContextLinks> &
 	Pick<SectionEditorContext, 'registerHeaderAction'>): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const links = value ?? [];
 	const variables = useContextLinkVariables();
 
@@ -81,7 +83,7 @@ function ContextLinksSection({
 				data-testid="panel-editor-v2-add-link"
 				onClick={openAddDialog}
 			>
-				Add Context Link
+				{t('dashboard_page_v2.panel_config.context_links.add')}
 			</Button>
 
 			<ContextLinkDialog

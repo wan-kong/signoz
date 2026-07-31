@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Check, X } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
@@ -37,6 +38,7 @@ function VariableForm({
 	onClose,
 	onSave,
 }: VariableFormProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	// The "apply to panels" selection is transient form state, seeded from the
 	// panels that already reference this variable. Held in a ref so the save
 	// callback (owned by useVariableForm) reads the latest value.
@@ -121,11 +123,11 @@ function VariableForm({
 							<div className={styles.row}>
 								<div className={styles.labelContainer}>
 									<Typography.Text className={styles.label}>
-										Apply to panels
+										{t('dashboard_page_v2.variables.apply_to_panels')}
 									</Typography.Text>
 								</div>
 								<CustomMultiSelect
-									placeholder="Select panels"
+									placeholder={t('dashboard_page_v2.variables.select_panels')}
 									options={panelOptions}
 									value={selectedPanelIds}
 									onChange={(value): void => setSelectedPanelIds(value as string[])}
@@ -161,11 +163,13 @@ function VariableForm({
 									items={[
 										{
 											key: '1',
-											label: 'Options',
+											label: t('dashboard_page_v2.variables.options'),
 											children: (
 												<AntdInput.TextArea
 													value={model.customValue}
-													placeholder="Enter options separated by commas."
+													placeholder={t(
+														'dashboard_page_v2.variables.custom_options_placeholder',
+													)}
 													rootClassName="comma-input"
 													onChange={(e): void => onCustomChange(e.target.value)}
 													data-testid="variable-custom-input"
@@ -184,13 +188,13 @@ function VariableForm({
 							<div className={cx(styles.row, styles.textboxSection)}>
 								<div className={styles.labelContainer}>
 									<Typography.Text className={styles.label}>
-										Default Value
+										{t('dashboard_page_v2.variables.default_value')}
 									</Typography.Text>
 								</div>
 								<Input
 									className={styles.defaultInput}
 									value={model.textValue}
-									placeholder="Enter a default value (if any)..."
+									placeholder={t('dashboard_page_v2.variables.text_default_placeholder')}
 									onChange={(e): void => set({ textValue: e.target.value })}
 									testId="variable-text-input"
 								/>
@@ -212,7 +216,7 @@ function VariableForm({
 						prefix={<X size={14} />}
 						onClick={onClose}
 					>
-						Discard
+						{t('dashboard_page_v2.variables.discard')}
 					</Button>
 					<Button
 						variant="solid"
@@ -223,7 +227,7 @@ function VariableForm({
 						onClick={handleSave}
 						testId="variable-save"
 					>
-						Save Variable
+						{t('dashboard_page_v2.variables.save_variable')}
 					</Button>
 				</div>
 			</div>

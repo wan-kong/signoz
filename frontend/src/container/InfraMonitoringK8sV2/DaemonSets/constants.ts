@@ -30,16 +30,19 @@ export const k8sDaemonSetDetailsMetadataConfig: K8sDetailsMetadataConfig<Inframo
 	[
 		{
 			label: 'Daemonset Name',
+			labelKey: 'display.daemonset_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_DAEMONSET_NAME] ?? '',
 		},
 		{
 			label: 'Cluster Name',
+			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] ?? '',
 		},
 		{
 			label: 'Namespace Name',
+			labelKey: 'display.namespace_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] ?? '',
 		},
@@ -73,23 +76,27 @@ export const k8sDaemonSetGetEntityName = (
 export const daemonSetWidgetInfo = [
 	{
 		title: 'CPU usage, request, limits',
+		titleKey: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/daemonsets/#cpu-usage-request-limits',
 	},
 	{
 		title: 'Memory usage, request, limits',
+		titleKey: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/daemonsets/#memory-usage-request-limits',
 	},
 	{
 		title: 'Network IO',
+		titleKey: 'display.network_io',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/daemonsets/#network-io',
 	},
 	{
 		title: 'Network errors count',
+		titleKey: 'display.network_errors_count',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/daemonsets/#network-errors-count',

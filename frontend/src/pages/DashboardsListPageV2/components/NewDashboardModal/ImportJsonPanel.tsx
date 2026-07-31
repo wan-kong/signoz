@@ -49,7 +49,9 @@ function ImportJsonPanel({ onClose }: Props): JSX.Element {
 				if (!target) {
 					return;
 				}
-				const parsed = JSON.parse(target.toString());
+				const jsonText =
+					typeof target === 'string' ? target : new TextDecoder().decode(target);
+				const parsed = JSON.parse(jsonText);
 				setEditorValue(JSON.stringify(parsed, null, 2));
 				setIsUploadError(false);
 			} catch {
@@ -63,7 +65,7 @@ function ImportJsonPanel({ onClose }: Props): JSX.Element {
 	const handleImport = async (): Promise<void> => {
 		try {
 			setIsCreating(true);
-			logEvent('Dashboard List V2: Import and next clicked', {});
+			void logEvent('Dashboard List V2: Import and next clicked', {});
 			const parsed = JSON.parse(editorValue) as Record<string, unknown>;
 			const payload = normalizeToPostable(parsed);
 			// Only an icon/logo path or a base64 image is a storable `image`; reject
@@ -73,9 +75,7 @@ function ImportJsonPanel({ onClose }: Props): JSX.Element {
 				void logEvent(DashboardListEvents.ImportFailed, {
 					reason: 'invalid-image',
 				});
-				toast.error(
-					'Dashboard "image" must be an /assets/Icons or /assets/Logos path, or a base64 image',
-				);
+				toast.error(t('dashboards_list_page_v2.new_dashboard.invalid_image_toast'));
 				return;
 			}
 			const response = await createDashboardV2(payload);
@@ -129,7 +129,7 @@ function ImportJsonPanel({ onClose }: Props): JSX.Element {
 						prefix={<MonitorDot size={14} />}
 						testId="upload-json-file"
 						onClick={(): void => {
-							logEvent('Dashboard List V2: Upload JSON file clicked', {});
+							void logEvent('Dashboard List V2: Upload JSON file clicked', {});
 						}}
 					>
 						{t('upload_json_file')}

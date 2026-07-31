@@ -1,6 +1,7 @@
 import { Button } from '@signozhq/ui/button';
 import { Kbd } from '@signozhq/ui/kbd';
 import { DEFAULT_PIN_TOOLTIP_KEY } from 'lib/uPlotV2/plugins/TooltipPlugin/types';
+import { useTranslation } from 'react-i18next';
 
 import Styles from './TooltipFooter.module.scss';
 import { MousePointerClick, X } from '@signozhq/icons';
@@ -22,6 +23,7 @@ export default function TooltipFooter({
 	canDrilldown = true,
 	dismiss,
 }: TooltipFooterProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const handleUnpinClick = (): void => {
 		logEvent(Events.TOOLTIP_UNPINNED, {
 			id: id,
@@ -37,11 +39,11 @@ export default function TooltipFooter({
 			<div>
 				{isPinned ? (
 					<div className={Styles.hint}>
-						<span>Press</span>
+						<span>{t('dashboard_container.tooltip_footer.press')}</span>
 						<Kbd active>{pinKey.toUpperCase()}</Kbd>
-						<span>or</span>
+						<span>{t('dashboard_container.tooltip_footer.or')}</span>
 						<Kbd active>Esc</Kbd>
-						<span>to unpin</span>
+						<span>{t('dashboard_container.tooltip_footer.to_unpin')}</span>
 					</div>
 				) : (
 					<div className={Styles.hintList}>
@@ -50,13 +52,15 @@ export default function TooltipFooter({
 								<Kbd>
 									<MousePointerClick size={12} />
 								</Kbd>
-								<span>Click to drilldown</span>
+								<span>
+									{t('dashboard_container.tooltip_footer.click_to_drilldown')}
+								</span>
 							</div>
 						)}
 						<div className={Styles.hint} data-active="false">
-							<span>Press</span>
+							<span>{t('dashboard_container.tooltip_footer.press')}</span>
 							<Kbd>{pinKey.toUpperCase()}</Kbd>
-							<span>to pin the tooltip</span>
+							<span>{t('dashboard_container.tooltip_footer.to_pin_tooltip')}</span>
 						</div>
 					</div>
 				)}
@@ -68,11 +72,11 @@ export default function TooltipFooter({
 					color="secondary"
 					size="sm"
 					onClick={handleUnpinClick}
-					aria-label="Unpin tooltip"
+					aria-label={t('dashboard_container.tooltip_footer.unpin_tooltip')}
 					data-testid="uplot-tooltip-unpin"
 				>
 					<X size={10} />
-					<span>Unpin</span>
+					<span>{t('dashboard_container.tooltip_footer.unpin')}</span>
 				</Button>
 			)}
 		</div>

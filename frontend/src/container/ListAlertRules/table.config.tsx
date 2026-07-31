@@ -8,19 +8,40 @@ import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
 import type { AlertRule } from './types';
 
 const STATE_CONFIG: Record<string, { color: BadgeColor; label: string }> = {
-	firing: { color: 'error', label: 'Firing' },
+	firing: { color: 'error', label: 'alert_rules.state.firing' },
 	inactive: { color: 'success', label: 'OK' },
-	pending: { color: 'warning', label: 'Pending' },
-	disabled: { color: 'secondary', label: 'Disabled' },
+	pending: { color: 'warning', label: 'alert_rules.state.pending' },
+	disabled: { color: 'secondary', label: 'alert_rules.state.disabled' },
 };
 
 export function getAlertRuleColumns(
 	formatTimezoneAdjustedTimestamp: (date: string, format: string) => string,
+	labels: {
+		status: string;
+		alertName: string;
+		severity: string;
+		labels: string;
+		createdAt: string;
+		createdBy: string;
+		updatedAt: string;
+		updatedBy: string;
+		unknown: string;
+		stateFiring: string;
+		statePending: string;
+		stateDisabled: string;
+	},
 ): TableColumnDef<AlertRule>[] {
+	const stateLabels: Record<string, string> = {
+		'alert_rules.state.firing': labels.stateFiring,
+		'alert_rules.state.pending': labels.statePending,
+		'alert_rules.state.disabled': labels.stateDisabled,
+		OK: 'OK',
+	};
+
 	return [
 		{
 			id: 'state',
-			header: 'Status',
+			header: labels.status,
 			accessorKey: 'state',
 			width: { fixed: '100px' },
 			enableSort: true,
@@ -30,7 +51,7 @@ export function getAlertRuleColumns(
 				const state = String(value ?? '').toLowerCase();
 				const config = STATE_CONFIG[state] ?? {
 					color: 'secondary' as BadgeColor,
-					label: 'Unknown',
+					label: labels.unknown,
 				};
 				return (
 					<Badge
@@ -38,14 +59,14 @@ export function getAlertRuleColumns(
 						variant="outline"
 						testId={`alert-row-${row.id ?? ''}-state`}
 					>
-						{config.label}
+						{stateLabels[config.label] ?? config.label}
 					</Badge>
 				);
 			},
 		},
 		{
 			id: 'name',
-			header: 'Alert Name',
+			header: labels.alertName,
 			accessorKey: 'alert',
 			width: { default: '100%' },
 			enableSort: true,
@@ -62,7 +83,7 @@ export function getAlertRuleColumns(
 		},
 		{
 			id: 'severity',
-			header: 'Severity',
+			header: labels.severity,
 			accessorFn: (row) => row.labels?.severity ?? '',
 			width: { fixed: '120px' },
 			enableSort: true,
@@ -89,7 +110,7 @@ export function getAlertRuleColumns(
 		},
 		{
 			id: 'labels',
-			header: 'Labels',
+			header: labels.labels,
 			accessorKey: 'labels',
 			width: { default: '100%' },
 			enableSort: false,
@@ -110,7 +131,7 @@ export function getAlertRuleColumns(
 		},
 		{
 			id: 'createdAt',
-			header: 'Created At',
+			header: labels.createdAt,
 			accessorKey: 'createdAt',
 			width: { default: '100%' },
 			enableSort: true,
@@ -126,7 +147,7 @@ export function getAlertRuleColumns(
 		},
 		{
 			id: 'createdBy',
-			header: 'Created By',
+			header: labels.createdBy,
 			accessorKey: 'createdBy',
 			width: { default: '100%' },
 			enableSort: false,
@@ -138,7 +159,7 @@ export function getAlertRuleColumns(
 		},
 		{
 			id: 'updatedAt',
-			header: 'Updated At',
+			header: labels.updatedAt,
 			accessorKey: 'updatedAt',
 			width: { default: '100%' },
 			enableSort: true,
@@ -154,7 +175,7 @@ export function getAlertRuleColumns(
 		},
 		{
 			id: 'updatedBy',
-			header: 'Updated By',
+			header: labels.updatedBy,
 			accessorKey: 'updatedBy',
 			width: { default: '100%' },
 			enableSort: false,

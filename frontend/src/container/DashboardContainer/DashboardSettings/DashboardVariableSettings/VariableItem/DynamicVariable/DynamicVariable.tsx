@@ -6,6 +6,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Select } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -50,6 +51,7 @@ function DynamicVariable({
 		| undefined;
 	errorAttributeKeyMessage?: string;
 }): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const sources = [
 		AttributeSource.ALL_TELEMETRY,
 		AttributeSource.LOGS,
@@ -162,11 +164,20 @@ function DynamicVariable({
 
 	const isDarkMode = useIsDarkMode();
 	const errorText = (error as any)?.message || errorMessage;
+	const sourceLabelMap: Record<AttributeSource, string> = {
+		[AttributeSource.ALL_TELEMETRY]: t(
+			'dashboard_container.variables.sources.all_telemetry',
+		),
+		[AttributeSource.LOGS]: t('dashboard_container.variables.sources.logs'),
+		[AttributeSource.METRICS]: t('dashboard_container.variables.sources.metrics'),
+		[AttributeSource.TRACES]: t('dashboard_container.variables.sources.traces'),
+	};
+
 	return (
 		<div className="dynamic-variable-container">
 			<div className="dynamic-variable-config-container">
 				<CustomSelect
-					placeholder="Select a field"
+					placeholder={t('dashboard_page_v2.variables.select_field')}
 					options={Object.keys(filteredAttributes).map((key) => ({
 						label: key,
 						value: key,
@@ -188,10 +199,12 @@ function DynamicVariable({
 					}}
 					showRetryButton={isRetryableError}
 				/>
-				<Typography className="dynamic-variable-from-text">from</Typography>
+				<Typography className="dynamic-variable-from-text">
+					{t('dashboard_page_v2.variables.from')}
+				</Typography>
 				<span style={{ display: 'inline-flex', alignItems: 'center' }}>
 					<TextToolTip
-						text="By default, this searches across logs, traces, and metrics, which can be slow. Selecting a single source improves performance. Many fields share the same values across different signals (for example, `k8s.pod.name` is identical in logs, traces and metrics) making one source enough. Only use `All telemetry` when you need fields that have different values in different signal types."
+						text={t('dashboard_page_v2.variables.dynamic_source_tooltip')}
 						useFilledIcon={false}
 						outlinedIcon={
 							<Info
@@ -205,9 +218,12 @@ function DynamicVariable({
 					/>
 				</span>
 				<Select
-					placeholder="Source"
+					placeholder={t('dashboard_container.variables.source')}
 					defaultValue={AttributeSource.ALL_TELEMETRY}
-					options={sources.map((source) => ({ label: source, value: source }))}
+					options={sources.map((source) => ({
+						label: sourceLabelMap[source],
+						value: source,
+					}))}
 					onChange={(value): void => setAttributeSource(value as AttributeSource)}
 					value={attributeSource || dynamicVariablesSelectedValue?.value}
 				/>

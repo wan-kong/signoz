@@ -1,4 +1,5 @@
 import { type ChangeEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line signoz/no-antd-components -- no @signozhq/ui multiline TextArea yet
 import { Input as AntInput } from 'antd';
 import { Button } from '@signozhq/ui/button';
@@ -30,6 +31,7 @@ interface Props {
 }
 
 function BlankDashboardPanel({ onClose }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { safeNavigate } = useSafeNavigate();
 	const { showErrorModal } = useErrorModal();
 
@@ -47,7 +49,7 @@ function BlankDashboardPanel({ onClose }: Props): JSX.Element {
 		}
 		try {
 			setSubmitting(true);
-			logEvent('Dashboard List: Create dashboard clicked', {});
+			void logEvent('Dashboard List: Create dashboard clicked', {});
 			const postableTags = keyValueStringsToTags(tags);
 			const created = await createDashboardV2({
 				schemaVersion: 'v6',
@@ -76,7 +78,10 @@ function BlankDashboardPanel({ onClose }: Props): JSX.Element {
 			);
 		} catch (e) {
 			showErrorModal(e as APIError);
-			toast.error((e as AxiosError).toString() || 'Failed to create dashboard');
+			toast.error(
+				(e as AxiosError).toString() ||
+					t('dashboards_list_page_v2.new_dashboard.failed_to_create'),
+			);
 			setSubmitting(false);
 		}
 	};
@@ -86,7 +91,8 @@ function BlankDashboardPanel({ onClose }: Props): JSX.Element {
 			<div className={styles.form}>
 				<div className={styles.field}>
 					<Typography.Text className={styles.label}>
-						Title <Typography.Text className={styles.required}>*</Typography.Text>
+						{t('dashboards_list_page_v2.fields.title')}{' '}
+						<Typography.Text className={styles.required}>*</Typography.Text>
 					</Typography.Text>
 					<div className={styles.titleRow}>
 						<DashboardImagePicker
@@ -99,7 +105,9 @@ function BlankDashboardPanel({ onClose }: Props): JSX.Element {
 							value={name}
 							autoFocus
 							maxLength={DASHBOARD_NAME_MAX_LENGTH}
-							placeholder="e.g. Sample Dashboard"
+							placeholder={t(
+								'dashboards_list_page_v2.new_dashboard.title_placeholder',
+							)}
 							testId="create-dashboard-name"
 							onChange={(e: ChangeEvent<HTMLInputElement>): void =>
 								setName(e.target.value)
@@ -114,27 +122,33 @@ function BlankDashboardPanel({ onClose }: Props): JSX.Element {
 				</div>
 
 				<div className={styles.field}>
-					<Typography.Text className={styles.label}>Description</Typography.Text>
+					<Typography.Text className={styles.label}>
+						{t('dashboards_list_page_v2.fields.description')}
+					</Typography.Text>
 					{/* eslint-disable-next-line signoz/no-antd-components -- no @signozhq TextArea yet */}
 					<AntInput.TextArea
 						value={description}
 						rows={3}
-						placeholder="What is this dashboard for?"
+						placeholder={t(
+							'dashboards_list_page_v2.new_dashboard.description_placeholder',
+						)}
 						data-testid="create-dashboard-description"
 						onChange={(e): void => setDescription(e.target.value)}
 					/>
 				</div>
 
 				<div className={styles.field}>
-					<Typography.Text className={styles.label}>Tags</Typography.Text>
+					<Typography.Text className={styles.label}>
+						{t('dashboards_list_page_v2.fields.tags')}
+					</Typography.Text>
 					<TagKeyValueInput
 						tags={tags}
 						onTagsChange={setTags}
-						placeholder="team:jarvis (press Enter)"
+						placeholder={t('dashboards_list_page_v2.new_dashboard.tags_placeholder')}
 						testId="create-dashboard-tags"
 					/>
 					<Typography.Text className={styles.hint}>
-						Use key:value (e.g. team:jarvis) and press Enter to add.
+						{t('dashboards_list_page_v2.new_dashboard.tags_hint')}
 					</Typography.Text>
 				</div>
 			</div>
@@ -147,7 +161,7 @@ function BlankDashboardPanel({ onClose }: Props): JSX.Element {
 					onClick={onClose}
 					testId="create-dashboard-cancel"
 				>
-					Cancel
+					{t('dashboards_list_page_v2.actions.cancel')}
 				</Button>
 				<Button
 					variant="solid"
@@ -159,7 +173,7 @@ function BlankDashboardPanel({ onClose }: Props): JSX.Element {
 						void handleCreate();
 					}}
 				>
-					Create dashboard
+					{t('dashboards_list_page_v2.actions.create_dashboard')}
 				</Button>
 			</div>
 		</div>

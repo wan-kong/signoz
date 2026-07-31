@@ -51,18 +51,28 @@ help: ## Displays help.
 ##############################################################
 # devenv commands
 ##############################################################
+define CHECK_DOCKER
+	@if ! docker ps > /dev/null 2>&1; then \
+		echo "❌ Docker is not running. Please start Docker Desktop or OrbStack first."; \
+		exit 1; \
+	fi
+endef
+
 .PHONY: devenv-clickhouse
 devenv-clickhouse: ## Run clickhouse in devenv
+	$(CHECK_DOCKER)
 	@cd .devenv/docker/clickhouse; \
 	docker compose -f compose.yaml up -d
 
 .PHONY: devenv-postgres
 devenv-postgres: ## Run postgres in devenv
+	$(CHECK_DOCKER)
 	@cd .devenv/docker/postgres; \
 	docker compose -f compose.yaml up -d
 
 .PHONY: devenv-signoz-otel-collector
 devenv-signoz-otel-collector: ## Run signoz-otel-collector in devenv (requires clickhouse to be running)
+	$(CHECK_DOCKER)
 	@cd .devenv/docker/signoz-otel-collector; \
 	docker compose -f compose.yaml up -d
 
@@ -77,6 +87,77 @@ devenv-clickhouse-clean: ## Clean all ClickHouse data from filesystem
 	@echo "Removing ClickHouse data..."
 	@rm -rf .devenv/docker/clickhouse/fs/tmp/*
 	@echo "ClickHouse data cleaned!"
+
+.PHONY: dev-start
+dev-start: ## Start all SigNoz services for local development (infrastructure + backend + frontend)
+	@echo "╔══════════════════════════════════════════════════════════════════════════════╗"
+	@echo "║              🚀 Starting SigNoz Development Environment...                   ║"
+	@echo "╚══════════════════════════════════════════════════════════════════════════════╝"
+	@echo ""
+	@$(MAKE) devenv-up
+	@echo ""
+	@echo ">> Starting backend service..."
+	@SIGNOZ_INSTRUMENTATION_LOGS_LEVEL=debug \
+	SIGNOZ_SQLSTORE_SQLITE_PATH=signoz.db \
+	SIGNOZ_WEB_ENABLED=false \
+	SIGNOZ_TOKENIZER_JWT_SECRET=secret \
+	SIGNOZ_ALERTMANAGER_PROVIDER=signoz \
+	SIGNOZ_TELEMETRYSTORE_PROVIDER=clickhouse \
+	SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_DSN=tcp://127.0.0.1:9000 \
+	SIGNOZ_TELEMETRYSTORE_CLICKHOUSE_CLUSTER=cluster \
+	nohup go run -race \
+		$(GO_BUILD_CONTEXT_COMMUNITY)/*.go server > /tmp/signoz-backend.log 2>&1 & \
+	echo "  ✅ Backend started (PID: $$!)"
+	@echo ""
+	@echo ">> Starting frontend service..."
+	@cd $(JS_BUILD_CONTEXT) && nohup pnpm dev > /tmp/signoz-frontend.log 2>&1 & \
+	echo "  ✅ Frontend started (PID: $$!)"
+	@echo ""
+	@echo ">> Waiting for services to be ready..."
+	@sleep 5
+	@echo ""
+	@echo "╔══════════════════════════════════════════════════════════════════════════════╗"
+	@echo "║                    ✅ SigNoz Development Environment Ready!                 ║"
+	@echo "╚══════════════════════════════════════════════════════════════════════════════╝"
+	@echo ""
+	@echo "  🌐 Frontend:  http://localhost:3301/"
+	@echo "  🔧 Backend:   http://localhost:8080/api/v1/"
+	@echo "  📡 OTLP gRPC: localhost:4317"
+	@echo "  📡 OTLP HTTP: localhost:4318"
+	@echo ""
+
+.PHONY: dev-stop
+dev-stop: ## Stop all SigNoz services (backend, frontend, and infrastructure)
+	@echo ">> Stopping SigNoz services..."
+	@echo ""
+	@echo "  📦 Stopping frontend..."
+	@pkill -f "pnpm dev" 2>/dev/null && echo "    ✅ Frontend stopped" || echo "    ℹ️  Frontend not running"
+	@echo "  🛑 Stopping backend..."
+	@pkill -f "go run.*community" 2>/dev/null && echo "    ✅ Backend stopped" || echo "    ℹ️  Backend not running"
+	@echo "  🐳 Stopping Docker containers..."
+	@docker ps --format "{{.Names}}" | grep -E "(clickhouse|zookeeper|signoz-otel-collector-dev|init-clickhouse)" | xargs docker stop 2>/dev/null && echo "    ✅ Containers stopped" || echo "    ℹ️  No containers running"
+	@echo ""
+	@echo "✅ All services stopped!"
+
+.PHONY: dev-status
+dev-status: ## Show status of all SigNoz services
+	@echo "╔══════════════════════════════════════════════════════════════════════════════╗"
+	@echo "║                        📊 SigNoz Service Status                              ║"
+	@echo "╚══════════════════════════════════════════════════════════════════════════════╝"
+	@echo ""
+	@echo "🐳 Docker Containers:"
+	@docker ps --format "  %-30s %-25s %s" | grep -E "(clickhouse|zookeeper|signoz-otel-collector-dev)" || echo "  ℹ️  No containers running"
+	@echo ""
+	@echo "📦 Application Processes:"
+	@(ps aux | grep -E "(pnpm dev|go run.*community)" | grep -v grep | awk '{printf "  %-25s PID: %s\n", $$11, $$2}') || echo "  ℹ️  No processes running"
+	@echo ""
+	@echo "🔗 API Health Check:"
+	@(curl -s http://localhost:8080/api/v1/health 2>/dev/null && echo "  ✅ Backend API is healthy" || echo "  ❌ Backend API is not responding")
+	@(curl -s -o /dev/null -w "  ✅ Frontend: HTTP %{http_code}\n" http://localhost:3301/ 2>/dev/null || echo "  ❌ Frontend is not responding")
+	@echo ""
+
+.PHONY: dev-restart
+dev-restart: dev-stop dev-start ## Restart all SigNoz services
 
 ##############################################################
 # go commands

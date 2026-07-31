@@ -12,29 +12,32 @@ import {
 
 const DOWNLOAD_FORMAT_OPTIONS: {
 	format: DownloadFormat;
-	label: string;
+	labelKey: string;
 	icon: JSX.Element;
 }[] = [
 	{
 		format: DownloadFormat.CSV,
-		label: 'Download as CSV',
+		labelKey: 'dashboard_page_v2.panel_actions.download_as_csv',
 		icon: <FileSpreadsheet size={14} />,
 	},
 	{
 		format: DownloadFormat.PNG,
-		label: 'Download as PNG',
+		labelKey: 'dashboard_page_v2.panel_actions.download_as_png',
 		icon: <FileImage size={14} />,
 	},
 	{
 		format: DownloadFormat.SVG,
-		label: 'Download as SVG',
+		labelKey: 'dashboard_page_v2.panel_actions.download_as_svg',
 		icon: <FileCode size={14} />,
 	},
 ];
 
+type Translate = (key: string, options?: Record<string, unknown>) => string;
+
 interface DownloadMenuItemArgs {
 	supported?: PanelActionCapabilities['download'];
 	onDownload: (format: DownloadFormat) => void;
+	t: Translate;
 }
 
 /**
@@ -44,6 +47,7 @@ interface DownloadMenuItemArgs {
 export function buildDownloadMenuItem({
 	supported,
 	onDownload,
+	t,
 }: DownloadMenuItemArgs): MenuItem | null {
 	if (!supported) {
 		return null;
@@ -51,9 +55,9 @@ export function buildDownloadMenuItem({
 
 	const children: MenuItem[] = DOWNLOAD_FORMAT_OPTIONS.filter(
 		({ format }) => supported[format],
-	).map(({ format, label, icon }) => ({
+	).map(({ format, labelKey, icon }) => ({
 		key: `download-${format}`,
-		label,
+		label: t(labelKey),
 		icon,
 		onClick: (): void => onDownload(format),
 	}));
@@ -63,7 +67,7 @@ export function buildDownloadMenuItem({
 	}
 	return {
 		key: 'download',
-		label: 'Download',
+		label: t('dashboard_page_v2.panel_actions.download'),
 		icon: <CloudDownload size={14} />,
 		children,
 	};

@@ -1,6 +1,7 @@
 import { BookOpenText, CircleX, TriangleAlert } from '@signozhq/icons';
 import { Color } from '@signozhq/design-tokens';
 import { Button } from '@signozhq/ui/button';
+import { useTranslation } from 'react-i18next';
 
 import type { PanelStatusDetail, PanelStatusVariant } from './types';
 import styles from './PanelStatusPopover.module.scss';
@@ -20,6 +21,8 @@ function PanelStatusContent({
 	variant,
 	detail,
 }: PanelStatusContentProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	const { code, message, docsUrl, messages } = detail;
 	const { Icon, color } = VARIANT_ICON[variant];
 
@@ -49,7 +52,7 @@ function PanelStatusContent({
 							rel="noreferrer"
 							data-testid="panel-status-docs"
 						>
-							Open Docs
+							{t('dashboard_page_v2.panel_body.open_docs')}
 						</a>
 					</Button>
 				)}
@@ -59,7 +62,9 @@ function PanelStatusContent({
 				<div className={styles.messageBadge}>
 					<span className={styles.badge}>
 						<span className={styles.badgeDot} />
-						<span className={styles.badgeText}>MESSAGES</span>
+						<span className={styles.badgeText}>
+							{t('dashboard_page_v2.panel_body.messages')}
+						</span>
 						<span className={styles.badgeCount}>{messages.length}</span>
 					</span>
 					<span className={styles.badgeLine} />

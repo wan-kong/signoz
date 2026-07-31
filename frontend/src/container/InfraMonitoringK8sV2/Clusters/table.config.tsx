@@ -40,7 +40,9 @@ export type ClusterTableColumnConfig =
 export const k8sClustersColumnsConfig: ClusterTableColumnConfig[] = [
 	{
 		id: 'clusterGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="Cluster Group" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader title="Cluster Group" titleKey="display.cluster_group" />
+		),
 		accessorFn: (row): string => row.clusterName || '',
 		width: { min: 290 },
 		enableSort: false,
@@ -64,6 +66,7 @@ export const k8sClustersColumnsConfig: ClusterTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Cluster Name"
+				titleKey="display.cluster_name"
 				icon={<Boxes data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/clusters#cluster-name"
 			/>

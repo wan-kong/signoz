@@ -1,7 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 import DeleteRoutingPolicy from '../DeleteRoutingPolicy';
-import { MOCK_ROUTING_POLICY_1 } from './testUtils';
+import { MOCK_ROUTING_POLICY_1, renderWithAlertsI18n } from './testUtils';
 
 const mockRoutingPolicy = MOCK_ROUTING_POLICY_1;
 const mockHandleDelete = jest.fn();
@@ -12,7 +12,7 @@ const CANCEL_BUTTON_TEXT = 'Cancel';
 
 describe('DeleteRoutingPolicy', () => {
 	it('renders base layout with routing policy', () => {
-		render(
+		renderWithAlertsI18n(
 			<DeleteRoutingPolicy
 				routingPolicy={mockRoutingPolicy}
 				isDeletingRoutingPolicy={false}
@@ -41,7 +41,7 @@ describe('DeleteRoutingPolicy', () => {
 	});
 
 	it('should call handleDelete when delete button is clicked', () => {
-		render(
+		renderWithAlertsI18n(
 			<DeleteRoutingPolicy
 				routingPolicy={mockRoutingPolicy}
 				isDeletingRoutingPolicy={false}
@@ -54,7 +54,7 @@ describe('DeleteRoutingPolicy', () => {
 	});
 
 	it('should call handleClose when cancel button is clicked', () => {
-		render(
+		renderWithAlertsI18n(
 			<DeleteRoutingPolicy
 				routingPolicy={mockRoutingPolicy}
 				isDeletingRoutingPolicy={false}
@@ -67,7 +67,7 @@ describe('DeleteRoutingPolicy', () => {
 	});
 
 	it('should be disabled when deleting routing policy', () => {
-		render(
+		renderWithAlertsI18n(
 			<DeleteRoutingPolicy
 				routingPolicy={mockRoutingPolicy}
 				isDeletingRoutingPolicy

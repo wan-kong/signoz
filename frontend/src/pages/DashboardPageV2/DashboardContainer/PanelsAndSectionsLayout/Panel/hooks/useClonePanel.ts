@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from '@signozhq/ui/sonner';
 import logEvent from 'api/common/logEvent';
 import { cloneDeep } from 'lodash-es';
@@ -35,6 +36,7 @@ export function useClonePanel({
 	sections,
 }: Params): (args: ClonePanelArgs) => Promise<void> {
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
+	const { t } = useTranslation('dashboard');
 	const { patchAsync } = useOptimisticPatch();
 	const setScrollTargetId = useScrollIntoViewStore((s) => s.setScrollTargetId);
 
@@ -65,9 +67,9 @@ export function useClonePanel({
 			);
 
 			toast.promise(clone, {
-				loading: 'Cloning panel…',
-				success: 'Panel cloned',
-				error: 'Failed to clone panel',
+				loading: t('dashboard_page_v2.panel_actions.cloning_panel'),
+				success: t('dashboard_page_v2.panel_actions.panel_cloned'),
+				error: t('dashboard_page_v2.panel_actions.clone_failed'),
 				position: 'top-center',
 				duration: 2000,
 				// Defer the reveal to the toast's auto-close so the confirmation shows first.
@@ -88,6 +90,6 @@ export function useClonePanel({
 				// no-op
 			}
 		},
-		[sections, dashboardId, patchAsync, setScrollTargetId],
+		[sections, dashboardId, patchAsync, setScrollTargetId, t],
 	);
 }

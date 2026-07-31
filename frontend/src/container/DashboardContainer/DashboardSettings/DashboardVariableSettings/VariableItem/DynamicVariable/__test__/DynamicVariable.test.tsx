@@ -1,10 +1,14 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useGetFieldKeys } from 'hooks/dynamicVariables/useGetFieldKeys';
+import { ReactElement } from 'react';
+import { I18nextProvider } from 'react-i18next';
+import { dashboardI18nProviderProps } from 'tests/dashboardI18n';
 
 import DynamicVariable from '../DynamicVariable';
+import { createTestI18nInstance } from '../../../../../../../ReactI18/testUtils';
 
 // Mock scrollIntoView since it's not available in JSDOM
-window.HTMLElement.prototype.scrollIntoView = jest.fn();
+jest.spyOn(window.HTMLElement.prototype, 'scrollIntoView').mockImplementation();
 
 // Mock dependencies
 jest.mock('hooks/dynamicVariables/useGetFieldKeys', () => ({
@@ -15,6 +19,15 @@ jest.mock('hooks/useDebounce', () => ({
 	__esModule: true,
 	default: (value: any): any => value, // Return the same value without debouncing for testing
 }));
+
+const i18n = createTestI18nInstance({
+	language: 'en',
+	resources: dashboardI18nProviderProps.i18nResources,
+});
+
+const renderWithI18n = (ui: ReactElement): void => {
+	render(<I18nextProvider i18n={i18n}>{ui}</I18nextProvider>);
+};
 
 describe('DynamicVariable Component', () => {
 	const mockSetDynamicVariablesSelectedValue = jest.fn();
@@ -58,7 +71,7 @@ describe('DynamicVariable Component', () => {
 	const getSourceSelect = (): HTMLElement => screen.getAllByRole('combobox')[1];
 
 	it('renders with default state', () => {
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Check for main components
 		expect(screen.getByText(ATTRIBUTE_PLACEHOLDER)).toBeInTheDocument();
@@ -72,7 +85,7 @@ describe('DynamicVariable Component', () => {
 			value: 'Logs',
 		};
 
-		render(
+		renderWithI18n(
 			<DynamicVariable
 				setDynamicVariablesSelectedValue={mockSetDynamicVariablesSelectedValue}
 				dynamicVariablesSelectedValue={selectedValue}
@@ -92,7 +105,7 @@ describe('DynamicVariable Component', () => {
 			refetch: jest.fn(),
 		});
 
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Open the CustomSelect dropdown
 		const attributeSelectElement = getAttributeSelect();
@@ -112,7 +125,7 @@ describe('DynamicVariable Component', () => {
 			refetch: jest.fn(),
 		});
 
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Open the CustomSelect dropdown
 		const attributeSelectElement = getAttributeSelect();
@@ -123,7 +136,7 @@ describe('DynamicVariable Component', () => {
 	});
 
 	it('updates filteredAttributes when data is loaded', async () => {
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Open the CustomSelect dropdown
 		const attributeSelectElement = getAttributeSelect();
@@ -160,7 +173,7 @@ describe('DynamicVariable Component', () => {
 	});
 
 	it('calls setDynamicVariablesSelectedValue when attribute is selected', async () => {
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Open the attribute dropdown
 		const attributeSelectElement = getAttributeSelect();
@@ -197,7 +210,7 @@ describe('DynamicVariable Component', () => {
 			refetch: mockRefetch,
 		});
 
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Get the Select component
 		const select = screen
@@ -238,7 +251,7 @@ describe('DynamicVariable Component', () => {
 	});
 
 	it('filters attributes locally when complete is true', async () => {
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Open the attribute dropdown
 		const attributeSelectElement = getAttributeSelect();
@@ -287,7 +300,7 @@ describe('DynamicVariable Component', () => {
 		});
 
 		// Render with Logs as the initial source
-		render(
+		renderWithI18n(
 			<DynamicVariable
 				{...DEFAULT_PROPS}
 				dynamicVariablesSelectedValue={{
@@ -309,21 +322,21 @@ describe('DynamicVariable Component', () => {
 			'.ant-select-selection-search-input',
 		);
 
-		if (inputElement) {
-			// Simulate typing in the search input
-			fireEvent.change(inputElement, { target: { value: 'http' } });
+		expect(inputElement).not.toBeNull();
 
-			// Verify that the input has the correct value
-			expect((inputElement as HTMLInputElement).value).toBe('http');
+		// Simulate typing in the search input
+		fireEvent.change(inputElement as Element, { target: { value: 'http' } });
 
-			// Wait for the effect to run and verify refetch was called
-			await waitFor(
-				() => {
-					expect(mockRefetch).toHaveBeenCalled();
-				},
-				{ timeout: 3000 },
-			); // Increase timeout to give more time for the effect to run
-		}
+		// Verify that the input has the correct value
+		expect((inputElement as HTMLInputElement).value).toBe('http');
+
+		// Wait for the effect to run and verify refetch was called
+		await waitFor(
+			() => {
+				expect(mockRefetch).toHaveBeenCalled();
+			},
+			{ timeout: 3000 },
+		); // Increase timeout to give more time for the effect to run
 	});
 
 	it('triggers refetch when attributeSource changes', async () => {
@@ -336,7 +349,7 @@ describe('DynamicVariable Component', () => {
 			refetch: mockRefetch,
 		});
 
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Clear any initial calls
 		mockRefetch.mockClear();
@@ -366,7 +379,7 @@ describe('DynamicVariable Component', () => {
 			refetch: mockRefetch,
 		});
 
-		render(<DynamicVariable {...DEFAULT_PROPS} />);
+		renderWithI18n(<DynamicVariable {...DEFAULT_PROPS} />);
 
 		// Open the attribute dropdown
 		const attributeSelectElement = getAttributeSelect();

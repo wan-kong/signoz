@@ -1,4 +1,5 @@
 import { type ReactNode, useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { DashboardtypesPanelSpecDTO } from 'api/generated/services/sigNoz.schemas';
 import {
 	type PanelFormattingSlice,
@@ -25,7 +26,7 @@ const SECTION_HEADER_SLOT: Partial<
 	[SectionKind.Thresholds]: (trigger): ReactNode => (
 		<SectionHeaderQuickAdd
 			action={{
-				label: 'Add Threshold',
+				labelKey: 'dashboard_page_v2.panel_config.add_threshold',
 				testId: 'panel-editor-v2-add-threshold-header',
 			}}
 			onClick={trigger}
@@ -34,7 +35,7 @@ const SECTION_HEADER_SLOT: Partial<
 	[SectionKind.ContextLinks]: (trigger): ReactNode => (
 		<SectionHeaderQuickAdd
 			action={{
-				label: 'Add Context Link',
+				labelKey: 'dashboard_page_v2.panel_config.add_context_link',
 				testId: 'panel-editor-v2-add-link-header',
 			}}
 			onClick={trigger}
@@ -59,6 +60,7 @@ function SectionSlot({
 	stepInterval,
 	metricUnit,
 }: SectionSlotProps): JSX.Element | null {
+	const { t } = useTranslation('dashboard');
 	const editor = resolveSectionEditor(config.kind);
 	// Controlled so the header slot can expand on click; list sections open when populated.
 	const [open, setOpen] = useState(() => {
@@ -100,7 +102,8 @@ function SectionSlot({
 		return null;
 	}
 
-	const { title, icon: Icon } = SECTION_METADATA[config.kind];
+	const { titleKey, icon: Icon } = SECTION_METADATA[config.kind];
+	const title = t(titleKey);
 	const { Component, get, update } = editor;
 	// Atomic sections carry no `controls`; controlled ones do.
 	const controls = 'controls' in config ? config.controls : undefined;

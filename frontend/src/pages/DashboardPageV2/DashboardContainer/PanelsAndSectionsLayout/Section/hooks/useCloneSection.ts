@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from '@signozhq/ui/sonner';
 import { cloneDeep } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
@@ -18,6 +19,7 @@ import type { DashboardSection } from '../../../utils';
 export function useCloneSection(): (
 	section: DashboardSection,
 ) => Promise<void> {
+	const { t } = useTranslation('dashboard');
 	const { patchAsync } = useOptimisticPatch();
 
 	return useCallback(
@@ -37,13 +39,17 @@ export function useCloneSection(): (
 					: [],
 			);
 
-			const title = section.title ? `${section.title} (Copy)` : 'Section (Copy)';
+			const title = section.title
+				? t('dashboard_page_v2.section_actions.section_copy', {
+						title: section.title,
+					})
+				: t('dashboard_page_v2.section_actions.default_section_copy');
 			const clone = patchAsync(cloneSectionOps(title, panels));
 
 			toast.promise(clone, {
-				loading: 'Cloning section…',
-				success: 'Section cloned',
-				error: 'Failed to clone section',
+				loading: t('dashboard_page_v2.section_actions.cloning_section'),
+				success: t('dashboard_page_v2.section_actions.section_cloned'),
+				error: t('dashboard_page_v2.section_actions.clone_failed'),
 				position: 'top-center',
 			});
 
@@ -57,6 +63,6 @@ export function useCloneSection(): (
 				// toast.promise owns the error UX; the optimistic write + settle handle state.
 			}
 		},
-		[patchAsync],
+		[patchAsync, t],
 	);
 }

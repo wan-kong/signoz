@@ -20,6 +20,7 @@ import {
 import { useInfraMonitoringGroupBy } from 'container/InfraMonitoringK8sV2/hooks';
 import ColumnHeader from 'container/InfraMonitoringK8sV2/Base/ColumnHeader';
 import EntityGroupHeader from 'container/InfraMonitoringK8sV2/Base/EntityGroupHeader';
+import { InfraTrans } from 'container/InfraMonitoringK8s/i18n';
 
 import { HostnameCell } from './utils';
 
@@ -30,19 +31,23 @@ const statusMap: Record<
 	InframonitoringtypesHostStatusDTO,
 	{
 		label: string;
+		labelKey: string;
 		color: BadgeColor;
 	}
 > = {
 	[InframonitoringtypesHostStatusDTO.active]: {
 		label: 'ACTIVE',
+		labelKey: 'display.active_uppercase',
 		color: 'forest',
 	},
 	[InframonitoringtypesHostStatusDTO.inactive]: {
 		label: 'INACTIVE',
+		labelKey: 'display.inactive_uppercase',
 		color: 'amber',
 	},
 	['']: {
 		label: 'UNKNOWN',
+		labelKey: 'display.unknown_uppercase',
 		color: 'secondary',
 	},
 };
@@ -83,7 +88,9 @@ export type HostColumnConfigType =
 export const hostColumnsConfig: HostColumnConfigType[] = [
 	{
 		id: 'hostGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="Host Group" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader title="Host Group" titleKey="display.host_group" />
+		),
 		accessorFn: (row): string => row.hostName ?? '',
 		width: { min: 290 },
 		enableSort: false,
@@ -102,6 +109,7 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Hostname"
+				titleKey="display.hostname"
 				icon={<Container size={14} />}
 				docPath="/infrastructure-monitoring/host-monitoring#hostname"
 			/>
@@ -122,6 +130,7 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				tooltip="Sent system metrics in last 10 mins."
+				tooltipKey="display.sent_system_metrics_in_last_10_mins_period"
 				docPath="/infrastructure-monitoring/host-monitoring#status"
 			>
 				Status
@@ -141,11 +150,13 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 							{
 								value: row.activeHostCount,
 								label: 'Active',
+								labelKey: 'display.active',
 								color: Color.BG_FOREST_500,
 							},
 							{
 								value: row.inactiveHostCount,
 								label: 'Inactive',
+								labelKey: 'display.inactive',
 								color: Color.BG_AMBER_500,
 							},
 						]}
@@ -160,7 +171,10 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 					color={statusDetails.color}
 					className={`${styles.statusTag}`}
 				>
-					{statusDetails.label}
+					<InfraTrans
+						i18nKey={statusDetails.labelKey}
+						fallback={statusDetails.label}
+					/>
 				</Badge>
 			);
 		},
@@ -196,6 +210,7 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				tooltip="Excluding cache memory."
+				tooltipKey="display.excluding_cache_memory_period"
 				docPath="/infrastructure-monitoring/host-monitoring#memory-usage"
 			>
 				Memory Usage (WSS)

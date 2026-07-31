@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Search } from '@signozhq/icons';
 import { Input } from '@signozhq/ui/input';
 import { ComboboxSimple, ComboboxSimpleItem } from '@signozhq/ui/combobox';
@@ -20,7 +21,7 @@ import {
 	useTriggeredAlertsFilters,
 	useTriggeredAlertsGroupBy,
 } from './hooks';
-import { getAlertColumns, groupedColumns } from './table.config';
+import { getAlertColumns, getGroupedColumns } from './table.config';
 import styles from './TriggeredAlerts.module.scss';
 import type { Alert, GroupedAlert } from './types';
 import { useTriggeredAlertsData } from './useTriggeredAlertsData';
@@ -35,30 +36,8 @@ const QUERY_PARAMS_CONFIG = {
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;
 
-const severyFilters: ComboboxSimpleItem[] = [
-	{
-		value: 'severity:critical',
-		label: 'Critical (severity:critical)',
-		displayValue: 'Critical',
-	},
-	{
-		value: 'severity:error',
-		label: 'Error (severity:error)',
-		displayValue: 'Error',
-	},
-	{
-		value: 'severity:warning',
-		label: 'Warning (severity:warning)',
-		displayValue: 'Warning',
-	},
-	{
-		value: 'severity:info',
-		label: 'Info (severity:info)',
-		displayValue: 'Info',
-	},
-];
-
 function TriggeredAlerts(): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const [filterValues, setFilterValues] = useTriggeredAlertsFilters();
 	const [selectedGroupBy, setSelectedGroupBy] = useTriggeredAlertsGroupBy();
 	const { formatTimezoneAdjustedTimestamp } = useTimezone();
@@ -121,8 +100,50 @@ function TriggeredAlerts(): JSX.Element {
 		useTriggeredAlertsHandlers(setSelectedGroupBy);
 
 	const columns = useMemo(
-		() => getAlertColumns(formatTimezoneAdjustedTimestamp),
-		[formatTimezoneAdjustedTimestamp],
+		() =>
+			getAlertColumns(formatTimezoneAdjustedTimestamp, {
+				status: t('triggered_alerts.table.status'),
+				alertName: t('triggered_alerts.table.alert_name'),
+				severity: t('triggered_alerts.table.severity'),
+				firingSince: t('triggered_alerts.table.firing_since'),
+				labels: t('triggered_alerts.table.labels'),
+			}),
+		[formatTimezoneAdjustedTimestamp, t],
+	);
+
+	const groupedColumns = useMemo(
+		() =>
+			getGroupedColumns({
+				group: t('triggered_alerts.table.group'),
+				alerts: t('triggered_alerts.table.alerts'),
+			}),
+		[t],
+	);
+
+	const severyFilters: ComboboxSimpleItem[] = useMemo(
+		() => [
+			{
+				value: 'severity:critical',
+				label: t('triggered_alerts.filters.critical_label'),
+				displayValue: t('option_critical'),
+			},
+			{
+				value: 'severity:error',
+				label: t('triggered_alerts.filters.error_label'),
+				displayValue: t('option_error'),
+			},
+			{
+				value: 'severity:warning',
+				label: t('triggered_alerts.filters.warning_label'),
+				displayValue: t('option_warning'),
+			},
+			{
+				value: 'severity:info',
+				label: t('triggered_alerts.filters.info_label'),
+				displayValue: t('option_info'),
+			},
+		],
+		[t],
 	);
 
 	const labelOptions: ComboboxSimpleItem[] = uniqueLabels.map((label) => ({
@@ -171,7 +192,7 @@ function TriggeredAlerts(): JSX.Element {
 			<div className={styles.filtersRow}>
 				<Input
 					className={styles.searchInput}
-					placeholder="Search alerts by name"
+					placeholder={t('triggered_alerts.search_placeholder')}
 					value={searchText}
 					onChange={handleSearchChange}
 					suffix={<Search size={14} className={styles.searchIcon} />}
@@ -182,8 +203,8 @@ function TriggeredAlerts(): JSX.Element {
 					multiple
 					value={selectedFilter.map((f) => f.value)}
 					onChange={handleFilterChange}
-					placeholder="Filter by tags"
-					inputPlaceholder="Create new filters with 'label:value'"
+					placeholder={t('triggered_alerts.filter_placeholder')}
+					inputPlaceholder={t('triggered_alerts.filter_input_placeholder')}
 					allowCreate
 					items={severyFilters}
 					maxDisplayedPills={2}
@@ -193,8 +214,8 @@ function TriggeredAlerts(): JSX.Element {
 					className={styles.filterSelect}
 					value={selectedGroupBy}
 					onChange={handleGroupByChange}
-					placeholder="Group by tag"
-					inputPlaceholder="Select one or more"
+					placeholder={t('triggered_alerts.group_by_placeholder')}
+					inputPlaceholder={t('triggered_alerts.group_by_input_placeholder')}
 					items={labelOptions}
 					multiple
 					maxDisplayedPills={2}
@@ -204,11 +225,14 @@ function TriggeredAlerts(): JSX.Element {
 
 			<div ref={containerRef} className={styles.tableContainer}>
 				{isError ? (
-					<ErrorEmptyState title="Failed to load alerts" onRefresh={refetch} />
+					<ErrorEmptyState
+						title={t('triggered_alerts.failed_to_load')}
+						onRefresh={refetch}
+					/>
 				) : isEmptyDueToFilters ? (
 					<NoResultsEmptyState
-						title="No matching alerts"
-						subtitle="No alerts match your current filters. Try adjusting your search criteria."
+						title={t('triggered_alerts.no_matching_title')}
+						subtitle={t('triggered_alerts.no_matching_subtitle')}
 						onClear={handleClearFilters}
 					/>
 				) : isEmptyNoAlerts ? (

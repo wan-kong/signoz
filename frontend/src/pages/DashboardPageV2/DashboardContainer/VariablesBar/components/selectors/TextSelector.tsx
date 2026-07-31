@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { InputRef } from 'antd';
 // eslint-disable-next-line signoz/no-antd-components -- match V1 textbox behaviour (commit on blur/Enter, borderless)
 import { Input } from 'antd';
@@ -26,6 +27,7 @@ function TextSelector({
 	onChange,
 	testId,
 }: TextSelectorProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const inputRef = useRef<InputRef>(null);
 	const [value, setValue] = useState<string>(
 		typeof selection.value === 'string' ? selection.value : (defaultValue ?? ''),
@@ -77,7 +79,7 @@ function TextSelector({
 			ref={inputRef}
 			className={styles.control}
 			bordered={false}
-			placeholder="Enter value"
+			placeholder={t('dashboard_page_v2.variables_bar.enter_value')}
 			value={value}
 			title={value}
 			onChange={(e): void => setValue(e.target.value)}

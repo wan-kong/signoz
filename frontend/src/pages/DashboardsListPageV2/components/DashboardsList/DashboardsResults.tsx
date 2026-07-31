@@ -2,6 +2,7 @@ import {
 	DashboardtypesListOrderDTO,
 	DashboardtypesListSortDTO,
 } from 'api/generated/services/sigNoz.schemas';
+import { useTranslation } from 'react-i18next';
 
 import type { DashboardListItem } from '../../utils/helpers';
 import { noResultsCopy } from '../../utils/views';
@@ -60,6 +61,8 @@ function DashboardsResults({
 	showUpdatedBy,
 	loading,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	if (isLoading) {
 		return <LoadingState />;
 	}
@@ -75,7 +78,12 @@ function DashboardsResults({
 	}
 	if (dashboards.length === 0) {
 		const copy = noResultsCopy(activeViewId, searchValue, hasFilters);
-		return <NoResultsState title={copy.title} description={copy.description} />;
+		return (
+			<NoResultsState
+				title={t(copy.titleKey, copy.values)}
+				description={t(copy.descriptionKey)}
+			/>
+		);
 	}
 	return (
 		<>

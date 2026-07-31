@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
@@ -37,6 +38,7 @@ function EditTagsModal({
 	currentTags,
 	onClose,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [tags, setTags] = useState<string[]>(currentTags);
 	const queryClient = useQueryClient();
 	const { showErrorModal } = useErrorModal();
@@ -64,7 +66,7 @@ function EditTagsModal({
 			return patchDashboardV2({ id: dashboardId }, ops);
 		},
 		onSuccess: async () => {
-			toast.success('Tags updated');
+			toast.success(t('dashboards_list_page_v2.actions.tags_updated'));
 			void logEvent(DashboardListEvents.RowAction, {
 				action: 'editTags',
 				dashboardId,
@@ -93,7 +95,10 @@ function EditTagsModal({
 		return (): void => window.removeEventListener('keydown', onKeyDown);
 	}, [open, runSave]);
 
-	const title = currentTags.length > 0 ? 'Edit tags' : 'Add tags';
+	const title =
+		currentTags.length > 0
+			? t('dashboards_list_page_v2.actions.edit_tags')
+			: t('dashboards_list_page_v2.actions.add_tags');
 
 	return (
 		<DialogWrapper
@@ -114,7 +119,7 @@ function EditTagsModal({
 						onClick={onClose}
 						testId="edit-tags-cancel"
 					>
-						Cancel
+						{t('dashboards_list_page_v2.actions.cancel')}
 					</Button>
 					<Button
 						variant="solid"
@@ -125,7 +130,7 @@ function EditTagsModal({
 						onClick={(): void => runSave()}
 						testId="edit-tags-submit"
 					>
-						Save
+						{t('dashboards_list_page_v2.actions.save')}
 					</Button>
 				</div>
 			}
@@ -133,7 +138,7 @@ function EditTagsModal({
 			<TagKeyValueInput
 				tags={tags}
 				onTagsChange={setTags}
-				placeholder="key:value (press Enter)"
+				placeholder={t('dashboards_list_page_v2.actions.tags_placeholder')}
 				testId="edit-dashboard-tags"
 			/>
 		</DialogWrapper>

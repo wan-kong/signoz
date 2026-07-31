@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import AddVariableButton from '../AddVariableButton';
 import { EditingState } from '../../types';
@@ -10,14 +11,16 @@ const NoVariablesCard = ({
 	isEditable: boolean;
 	setIsEditing: React.Dispatch<React.SetStateAction<EditingState | null>>;
 }): JSX.Element => {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={styles.noVariablesCard}>
 			<div className={styles.noVariablesCopy}>
 				<Typography.Text className={styles.noVariablesTitle}>
-					No variables yet
+					{t('dashboard_page_v2.variables.no_variables_title')}
 				</Typography.Text>
 				<Typography.Text className={styles.noVariablesInfo}>
-					Create a variable to parameterize your panel queries.
+					{t('dashboard_page_v2.variables.no_variables_description')}
 				</Typography.Text>
 			</div>
 			<AddVariableButton isEditable={isEditable} setIsEditing={setIsEditing} />

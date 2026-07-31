@@ -1,16 +1,16 @@
 {
-	"days_remaining": "days remaining in your billing period.",
-	"billing": "Billing",
-	"manage_billing_and_costs": "Manage your billing information, invoices, and monitor costs.",
+	"days_remaining": "天后当前账单周期结束。",
+	"billing": "账单",
+	"manage_billing_and_costs": "管理账单信息、发票并监控费用。",
 	"enterprise_cloud": "Enterprise Cloud",
 	"teams_cloud": "Teams Cloud",
 	"enterprise": "Enterprise",
 	"teams": "Teams",
-	"card_details_recieved_and_billing_info": "We have received your card details, your billing will only start after the end of your free trial period.",
-	"upgrade_plan": "Upgrade Plan",
-	"manage_billing": "Manage Billing",
-	"upgrade_now_text": "Upgrade now to have uninterrupted access",
-	"billing_start_info": "Your billing will start only after the trial period",
-	"checkout_plans": "Check out features in paid plans",
-	"here": "here"
+	"card_details_recieved_and_billing_info": "我们已收到你的银行卡信息，账单只会在免费试用期结束后开始计费。",
+	"upgrade_plan": "升级套餐",
+	"manage_billing": "管理账单",
+	"upgrade_now_text": "立即升级，避免访问中断",
+	"billing_start_info": "账单只会在试用期结束后开始计费",
+	"checkout_plans": "查看付费套餐功能",
+	"here": "这里"
 }

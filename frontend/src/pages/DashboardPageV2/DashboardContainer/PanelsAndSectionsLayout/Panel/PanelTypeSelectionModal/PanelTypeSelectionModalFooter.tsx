@@ -1,4 +1,5 @@
 import { Plus } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 
 import SectionPicker from './SectionPicker';
@@ -26,10 +27,14 @@ function PanelTypeSelectionModalFooter({
 	isConfirmDisabled,
 	onConfirm,
 }: PanelTypeSelectionModalFooterProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={styles.footerActions}>
 			<div className={styles.footerPicker}>
-				<span className={styles.pickerLabel}>Add panel to</span>
+				<span className={styles.pickerLabel}>
+					{t('dashboard_page_v2.panel_config.panel_type_modal.add_panel_to')}
+				</span>
 				<SectionPicker
 					options={options}
 					value={selectedValue}
@@ -44,7 +49,7 @@ function PanelTypeSelectionModalFooter({
 				onClick={onConfirm}
 				testId="panel-type-confirm"
 			>
-				Add Panel
+				{t('dashboard_page_v2.panel_config.panel_type_modal.add_panel')}
 			</Button>
 		</div>
 	);

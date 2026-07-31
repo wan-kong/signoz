@@ -8,6 +8,7 @@ import {
 } from 'mocks-server/__mockdata__/dashboards';
 import { server } from 'mocks-server/server';
 import { rest } from 'msw';
+import { dashboardI18nProviderProps } from 'tests/dashboardI18n';
 import { fireEvent, render, userEvent, waitFor } from 'tests/test-utils';
 
 jest.mock('container/DashboardContainer/DashboardDescription/utils', () => ({
@@ -43,6 +44,8 @@ describe('dashboard list page', () => {
 			>
 				<DashboardsList />
 			</MemoryRouter>,
+			undefined,
+			dashboardI18nProviderProps,
 		);
 
 		await waitFor(() => expect(getByText('All Dashboards')).toBeInTheDocument());
@@ -65,6 +68,8 @@ describe('dashboard list page', () => {
 			>
 				<DashboardsList />
 			</MemoryRouter>,
+			undefined,
+			dashboardI18nProviderProps,
 		);
 
 		await waitFor(() => expect(getByText('All Dashboards')).toBeInTheDocument());
@@ -84,6 +89,8 @@ describe('dashboard list page', () => {
 			>
 				<DashboardsList />
 			</MemoryRouter>,
+			undefined,
+			dashboardI18nProviderProps,
 		);
 
 		await waitFor(() => expect(getByText('All Dashboards')).toBeInTheDocument());
@@ -96,12 +103,12 @@ describe('dashboard list page', () => {
 		// click on the sort button
 		const sortByButton = getByTestId('sort-by');
 		expect(sortByButton).toBeInTheDocument();
-		fireEvent.click(sortByButton!);
+		fireEvent.click(sortByButton);
 
 		// change the sort order
 		const sortByUpdatedBy = getByTestId('sort-by-last-updated');
 		await waitFor(() => expect(sortByUpdatedBy).toBeInTheDocument());
-		fireEvent.click(sortByUpdatedBy!);
+		fireEvent.click(sortByUpdatedBy);
 
 		// expect the new order
 		const updatedFirstElement = getByTestId('dashboard-title-0');
@@ -125,6 +132,8 @@ describe('dashboard list page', () => {
 			>
 				<DashboardsList />
 			</MemoryRouter>,
+			undefined,
+			dashboardI18nProviderProps,
 		);
 
 		await waitFor(() => expect(getByText('All Dashboards')).toBeInTheDocument());
@@ -152,6 +161,8 @@ describe('dashboard list page', () => {
 			>
 				<DashboardsList />
 			</MemoryRouter>,
+			undefined,
+			dashboardI18nProviderProps,
 		);
 
 		await waitFor(() =>
@@ -182,6 +193,8 @@ describe('dashboard list page', () => {
 			>
 				<DashboardsList />
 			</MemoryRouter>,
+			undefined,
+			dashboardI18nProviderProps,
 		);
 
 		await waitFor(() =>
@@ -203,7 +216,11 @@ describe('dashboard list page', () => {
 
 	it('ensure that the export JSON popover action works correctly', async () => {
 		const user = userEvent.setup();
-		const { getByText, getAllByTestId } = render(<DashboardsList />);
+		const { getByText, getAllByTestId } = render(
+			<DashboardsList />,
+			undefined,
+			dashboardI18nProviderProps,
+		);
 
 		let popoverTrigger: HTMLElement | undefined;
 		await waitFor(() => {
@@ -212,7 +229,8 @@ describe('dashboard list page', () => {
 			popoverTrigger = popovers[0];
 		});
 
-		await user.click(popoverTrigger!);
+		expect(popoverTrigger).toBeDefined();
+		await user.click(popoverTrigger as HTMLElement);
 
 		const exportJsonBtn = await waitFor(() => getByText('Export JSON'));
 		expect(exportJsonBtn).toBeInTheDocument();

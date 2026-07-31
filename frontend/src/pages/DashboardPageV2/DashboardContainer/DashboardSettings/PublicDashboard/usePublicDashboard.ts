@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { useCopyToClipboard } from 'react-use';
 import { toast } from '@signozhq/ui/sonner';
@@ -47,6 +48,7 @@ export interface UsePublicDashboardReturn {
 export function usePublicDashboard(
 	dashboardId: string,
 ): UsePublicDashboardReturn {
+	const { t } = useTranslation('dashboard');
 	const queryClient = useQueryClient();
 	const { showErrorModal } = useErrorModal();
 	const { user } = useAppContext();
@@ -108,7 +110,8 @@ export function usePublicDashboard(
 	const { mutate: createPublicDashboard, isLoading: isPublishing } =
 		useCreatePublicDashboard({
 			mutation: {
-				onSuccess: () => handleSuccess('Dashboard published successfully'),
+				onSuccess: () =>
+					handleSuccess(t('dashboard_page_v2.public_dashboard.published_success')),
 				onError: handleError,
 			},
 		});
@@ -116,7 +119,8 @@ export function usePublicDashboard(
 	const { mutate: updatePublicDashboard, isLoading: isUpdating } =
 		useUpdatePublicDashboard({
 			mutation: {
-				onSuccess: () => handleSuccess('Public dashboard updated successfully'),
+				onSuccess: () =>
+					handleSuccess(t('dashboard_page_v2.public_dashboard.updated_success')),
 				onError: handleError,
 			},
 		});
@@ -124,7 +128,8 @@ export function usePublicDashboard(
 	const { mutate: deletePublicDashboard, isLoading: isUnpublishing } =
 		useDeletePublicDashboard({
 			mutation: {
-				onSuccess: () => handleSuccess('Dashboard unpublished successfully'),
+				onSuccess: () =>
+					handleSuccess(t('dashboard_page_v2.public_dashboard.unpublished_success')),
 				onError: handleError,
 			},
 		});
@@ -174,12 +179,12 @@ export function usePublicDashboard(
 			return;
 		}
 		copyToClipboard(publicUrl);
-		toast.success('Copied public dashboard URL successfully');
+		toast.success(t('dashboard_page_v2.public_dashboard.copied_url'));
 		void logEvent(DashboardDetailEvents.PublicDashboardAction, {
 			action: 'copyUrl',
 			dashboardId,
 		});
-	}, [copyToClipboard, publicUrl, dashboardId]);
+	}, [copyToClipboard, publicUrl, dashboardId, t]);
 
 	const onOpenUrl = useCallback((): void => {
 		if (publicUrl) {

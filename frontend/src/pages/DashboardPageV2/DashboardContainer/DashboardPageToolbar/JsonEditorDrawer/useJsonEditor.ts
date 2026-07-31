@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from '@signozhq/ui/sonner';
 import logEvent from 'api/common/logEvent';
 import { updateDashboardV2 } from 'api/generated/services/dashboard';
@@ -87,6 +88,7 @@ export function useJsonEditor({
 	readOnly = false,
 	onApplied,
 }: Params): Result {
+	const { t } = useTranslation('dashboard');
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
 	const refetch = useDashboardStore((s) => s.refetch);
 	const { showErrorModal } = useErrorModal();
@@ -113,7 +115,10 @@ export function useJsonEditor({
 		try {
 			parsed = JSON.parse(draft);
 		} catch (error) {
-			const message = error instanceof Error ? error.message : 'Invalid JSON';
+			const message =
+				error instanceof Error
+					? error.message
+					: t('dashboard_page_v2.json_editor.invalid');
 			return {
 				valid: false,
 				lineCount,
@@ -131,12 +136,11 @@ export function useJsonEditor({
 			return {
 				valid: false,
 				lineCount,
-				message:
-					'"image" must be an /assets/Icons/<name> or /assets/Logos/<name> path, or a base64 image data URI',
+				message: t('dashboard_page_v2.json_editor.invalid_image'),
 			};
 		}
 		return { valid: true, lineCount };
-	}, [draft]);
+	}, [draft, t]);
 
 	const isDirty = draft !== appliedText;
 
@@ -201,7 +205,7 @@ export function useJsonEditor({
 				{ id: dashboardId },
 				dashboardToUpdatable({ ...dashboard, ...edited }),
 			);
-			toast.success('Dashboard updated');
+			toast.success(t('dashboard_page_v2.json_editor.dashboard_updated'));
 			void logEvent(DashboardDetailEvents.JsonEditorAction, {
 				action: 'apply',
 				dashboardId,
@@ -223,6 +227,7 @@ export function useJsonEditor({
 		refetch,
 		onApplied,
 		showErrorModal,
+		t,
 	]);
 
 	return {

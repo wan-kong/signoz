@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useQuery } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
 import TanStackTable, {
@@ -28,6 +29,7 @@ import { K8sExpandedRow } from './K8sExpandedRow';
 import K8sHeader from './K8sHeader';
 import { K8sBaseFilters } from './types';
 import { getGroupedByMeta } from './utils';
+import { translateInfraKey, translateInfraText } from '../i18n';
 
 import styles from './K8sBaseList.module.scss';
 import cx from 'classnames';
@@ -77,6 +79,7 @@ export function K8sBaseList<T extends K8sEntityData>({
 	eventCategory,
 	renderEmptyState,
 }: K8sBaseListProps<T>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const [queryFilters] = useInfraMonitoringFiltersK8s();
 	const [currentPage] = useInfraMonitoringPageListing();
 	const [currentPageSize] = useInfraMonitoringPageSizeListing();
@@ -89,6 +92,17 @@ export function K8sBaseList<T extends K8sEntityData>({
 
 	const columnStorageKey = `k8s-${entity}-columns`;
 	const hiddenColumnIds = useHiddenColumnIds(columnStorageKey);
+	const translatedTableColumns = useMemo(
+		() =>
+			tableColumns.map((column) => ({
+				...column,
+				header:
+					typeof column.header === 'string'
+						? translateInfraText(t, column.header)
+						: column.header,
+			})),
+		[tableColumns, t],
+	);
 
 	const selectedTime = useGlobalTimeStore((s) => s.selectedTime);
 	const refreshInterval = useGlobalTimeStore((s) => s.refreshInterval);
@@ -198,8 +212,9 @@ export function K8sBaseList<T extends K8sEntityData>({
 
 	// Filter columns for expanded row based on parent's hidden columns
 	const expandedRowColumns = useMemo(
-		() => tableColumns.filter((col) => !hiddenColumnIds.includes(col.id)),
-		[tableColumns, hiddenColumnIds],
+		() =>
+			translatedTableColumns.filter((col) => !hiddenColumnIds.includes(col.id)),
+		[translatedTableColumns, hiddenColumnIds],
 	);
 
 	const renderExpandedRow = useCallback(
@@ -252,11 +267,18 @@ export function K8sBaseList<T extends K8sEntityData>({
 				controlListPrefix={controlListPrefix}
 				entity={entity}
 				showAutoRefresh={!selectedItem}
-				columns={tableColumns}
+				columns={translatedTableColumns}
 				columnStorageKey={columnStorageKey}
 			/>
 			{isError && (
-				<Typography>{data?.error?.toString() || 'Something went wrong'}</Typography>
+				<Typography>
+					{data?.error?.toString() ||
+						translateInfraKey(
+							t,
+							'display.something_went_wrong',
+							'Something went wrong',
+						)}
+				</Typography>
 			)}
 
 			{showEmptyState ? (
@@ -264,7 +286,7 @@ export function K8sBaseList<T extends K8sEntityData>({
 			) : (
 				<TanStackTable<T>
 					data={pageData}
-					columns={tableColumns}
+					columns={translatedTableColumns}
 					columnStorageKey={columnStorageKey}
 					isLoading={showTableLoadingState}
 					getRowKey={getRowKey}
@@ -287,7 +309,10 @@ export function K8sBaseList<T extends K8sEntityData>({
 						defaultLimit: 10,
 						defaultPage: 1,
 						showTotalCount: true,
-						totalCountLabel: entity.charAt(0).toUpperCase() + entity.slice(1),
+						totalCountLabel: translateInfraText(
+							t,
+							entity.charAt(0).toUpperCase() + entity.slice(1),
+						),
 					}}
 					paginationClassname={styles.paginationContainer}
 				/>

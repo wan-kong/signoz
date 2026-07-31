@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DashboardtypesPatchOpDTO } from 'api/generated/services/sigNoz.schemas';
 import type {
 	DashboardtypesGettableDashboardV2DTO,
@@ -24,6 +25,7 @@ interface OverviewProps {
 }
 
 function Overview({ dashboard }: OverviewProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const id = dashboard.id;
 
 	const { patchAsync } = useOptimisticPatch();
@@ -124,14 +126,14 @@ function Overview({ dashboard }: OverviewProps): JSX.Element {
 		try {
 			setIsSaving(true);
 			await patchAsync(ops);
-			toast.success('Dashboard updated');
+			toast.success(t('dashboard_page_v2.settings.overview.dashboard_updated'));
 			void logEvent(DashboardDetailEvents.OverviewSaved, { dashboardId: id });
 		} catch (error) {
 			showErrorModal(error as APIError);
 		} finally {
 			setIsSaving(false);
 		}
-	}, [buildPatch, patchAsync, showErrorModal, id]);
+	}, [buildPatch, patchAsync, showErrorModal, id, t]);
 
 	useEffect(() => {
 		let numberOfUnsavedChanges = 0;

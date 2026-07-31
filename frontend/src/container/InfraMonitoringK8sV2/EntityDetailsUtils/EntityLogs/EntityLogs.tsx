@@ -35,11 +35,13 @@ import { generateFilterQuery } from 'lib/logs/generateFilterQuery';
 import { ILog } from 'types/api/logs/log';
 import { DataSource } from 'types/common/queryBuilder';
 import { validateQuery } from 'utils/queryValidationUtils';
+import { useTranslation } from 'react-i18next';
 
 import EntityDateTimeSelector from '../EntityDateTimeSelector/EntityDateTimeSelector';
 import { useEntityDetailsTime } from '../EntityDateTimeSelector/useEntityDetailsTime';
 import EntityEmptyState from '../EntityEmptyState/EntityEmptyState';
 import EntityError from '../EntityError/EntityError';
+import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 import { isKeyNotFoundError } from '../utils';
 import { K8S_ENTITY_LOGS_EXPRESSION_KEY, useInfiniteEntityLogs } from './hooks';
 import { getEntityLogsQueryPayload } from './utils';
@@ -66,6 +68,7 @@ function EntityLogsContent({
 	queryKey,
 	category,
 }: Omit<Props, 'initialExpression'>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const { timeRange } = useEntityDetailsTime();
 	const virtuosoRef = useRef<VirtuosoHandle>(null);
 	const logDetailContainerRef = useRef<HTMLDivElement>(null);
@@ -244,13 +247,21 @@ function EntityLogsContent({
 		(): JSX.Element | null => (
 			<>
 				{isFetchingNextPage ? (
-					<div className={styles.logsLoadingSkeleton}> Loading more logs ... </div>
+					<div className={styles.logsLoadingSkeleton}>
+						{translateInfraKey(
+							t,
+							'display.loading_more_logs',
+							'Loading more logs ...',
+						)}
+					</div>
 				) : !hasNextPage && logs.length > 0 ? (
-					<div className={styles.logsLoadingSkeleton}> *** End *** </div>
+					<div className={styles.logsLoadingSkeleton}>
+						{translateInfraKey(t, 'display.end_marker', '*** End ***')}
+					</div>
 				) : null}
 			</>
 		),
-		[isFetchingNextPage, hasNextPage, logs.length],
+		[isFetchingNextPage, hasNextPage, logs.length, t],
 	);
 
 	const renderContent = useMemo(

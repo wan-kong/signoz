@@ -294,13 +294,20 @@ export const onUpdateVariableNode = (
 export const getOptionsForDynamicVariable = (
 	normalizedValues: (string | number | boolean)[],
 	relatedValues: string[],
+	labels: {
+		relatedValues: string;
+		allValues: string;
+	} = {
+		relatedValues: 'Related Values',
+		allValues: 'All Values',
+	},
 ): OptionData[] => {
 	const options: OptionData[] = [];
 
 	if (relatedValues.length > 0) {
 		// Add Related Values group
 		options.push({
-			label: 'Related Values',
+			label: labels.relatedValues,
 			value: 'relatedValues',
 			options: relatedValues.map((option) => ({
 				label: option.toString(),
@@ -310,7 +317,7 @@ export const getOptionsForDynamicVariable = (
 
 		// Add All Values group (complete union - shows everything)
 		options.push({
-			label: 'All Values',
+			label: labels.allValues,
 			value: 'allValues',
 			options: normalizedValues.map((option) => ({
 				label: option.toString(),

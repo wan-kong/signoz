@@ -58,6 +58,7 @@ export const k8sClustersColumnsConfig: TableColumnDef<K8sClusterData>[] = [
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title="Cluster Name"
+				titleKey="display.cluster_name"
 				icon={<Boxes data-hide-expanded="true" size={14} />}
 			/>
 		),

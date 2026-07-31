@@ -1,6 +1,7 @@
 import { logEventMock } from '__tests__/logEventMock';
 import { Events } from 'constants/events';
 import { DEFAULT_PIN_TOOLTIP_KEY } from 'lib/uPlotV2/plugins/TooltipPlugin/types';
+import { dashboardI18nProviderProps } from 'tests/dashboardI18n';
 import { render, screen, userEvent } from 'tests/test-utils';
 
 import TooltipFooter from '../TooltipFooter';
@@ -14,7 +15,11 @@ describe('TooltipFooter', () => {
 
 	describe('when not pinned', () => {
 		it('renders the drilldown and pin hints by default', () => {
-			render(<TooltipFooter {...defaultProps} />);
+			render(
+				<TooltipFooter {...defaultProps} />,
+				undefined,
+				dashboardI18nProviderProps,
+			);
 
 			expect(screen.getByText('Click to drilldown')).toBeInTheDocument();
 			expect(screen.getByText('to pin the tooltip')).toBeInTheDocument();
@@ -24,20 +29,32 @@ describe('TooltipFooter', () => {
 		});
 
 		it('hides the drilldown hint when canDrilldown is false', () => {
-			render(<TooltipFooter {...defaultProps} canDrilldown={false} />);
+			render(
+				<TooltipFooter {...defaultProps} canDrilldown={false} />,
+				undefined,
+				dashboardI18nProviderProps,
+			);
 
 			expect(screen.queryByText('Click to drilldown')).not.toBeInTheDocument();
 			expect(screen.getByText('to pin the tooltip')).toBeInTheDocument();
 		});
 
 		it('renders a custom pin key in uppercase', () => {
-			render(<TooltipFooter {...defaultProps} pinKey="x" />);
+			render(
+				<TooltipFooter {...defaultProps} pinKey="x" />,
+				undefined,
+				dashboardI18nProviderProps,
+			);
 
 			expect(screen.getByText('X')).toBeInTheDocument();
 		});
 
 		it('does not render the unpin button', () => {
-			render(<TooltipFooter {...defaultProps} />);
+			render(
+				<TooltipFooter {...defaultProps} />,
+				undefined,
+				dashboardI18nProviderProps,
+			);
 
 			expect(screen.queryByTestId('uplot-tooltip-unpin')).not.toBeInTheDocument();
 		});
@@ -45,7 +62,11 @@ describe('TooltipFooter', () => {
 
 	describe('when pinned', () => {
 		it('renders the unpin hint with pin key and Esc', () => {
-			render(<TooltipFooter {...defaultProps} isPinned />);
+			render(
+				<TooltipFooter {...defaultProps} isPinned />,
+				undefined,
+				dashboardI18nProviderProps,
+			);
 
 			expect(screen.getByText('to unpin')).toBeInTheDocument();
 			expect(
@@ -55,7 +76,11 @@ describe('TooltipFooter', () => {
 		});
 
 		it('renders the unpin button', () => {
-			render(<TooltipFooter {...defaultProps} isPinned />);
+			render(
+				<TooltipFooter {...defaultProps} isPinned />,
+				undefined,
+				dashboardI18nProviderProps,
+			);
 
 			expect(screen.getByTestId('uplot-tooltip-unpin')).toBeInTheDocument();
 			expect(
@@ -64,7 +89,11 @@ describe('TooltipFooter', () => {
 		});
 
 		it('hides the drilldown and pin-instruction hints', () => {
-			render(<TooltipFooter {...defaultProps} isPinned />);
+			render(
+				<TooltipFooter {...defaultProps} isPinned />,
+				undefined,
+				dashboardI18nProviderProps,
+			);
 
 			expect(screen.queryByText('Click to drilldown')).not.toBeInTheDocument();
 			expect(screen.queryByText('to pin the tooltip')).not.toBeInTheDocument();
@@ -74,7 +103,11 @@ describe('TooltipFooter', () => {
 			const user = userEvent.setup({ pointerEventsCheck: 0 });
 			const dismiss = jest.fn();
 
-			render(<TooltipFooter {...defaultProps} dismiss={dismiss} isPinned />);
+			render(
+				<TooltipFooter {...defaultProps} dismiss={dismiss} isPinned />,
+				undefined,
+				dashboardI18nProviderProps,
+			);
 
 			await user.click(screen.getByTestId('uplot-tooltip-unpin'));
 

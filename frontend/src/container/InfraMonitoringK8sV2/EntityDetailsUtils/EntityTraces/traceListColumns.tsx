@@ -11,6 +11,8 @@ import {
 import { RowData } from 'lib/query/createTableColumnsFromQuery';
 import { BaseAutocompleteData } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { FormatTimezoneAdjustedTimestamp } from 'hooks/useTimezoneFormatter/useTimezoneFormatter';
+import { TFunction } from 'i18next';
+import { translateInfraText } from 'container/InfraMonitoringK8s/i18n';
 import styles from './traceListColumns.module.scss';
 
 const keyToLabelMap: Record<string, string> = {
@@ -63,10 +65,11 @@ const getValueForKey = (data: Record<string, any>, key: string): any => {
 export const getTraceListColumns = (
 	selectedColumns: BaseAutocompleteData[],
 	formatTimezoneAdjustedTimestamp: FormatTimezoneAdjustedTimestamp,
+	t: TFunction,
 ): ColumnsType<RowData> => {
 	const columns: ColumnsType<RowData> =
 		selectedColumns.map(({ dataType, key, type }) => ({
-			title: keyToLabelMap[getPrimaryKey(key)],
+			title: translateInfraText(t, keyToLabelMap[getPrimaryKey(key)]),
 			dataIndex: key,
 			key: `${key}-${dataType}-${type}`,
 			width: 145,

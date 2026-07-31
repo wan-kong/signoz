@@ -15,7 +15,7 @@ export type ViewIcon = typeof Pin;
 
 export interface BuiltinView {
 	id: BuiltinViewId;
-	label: string;
+	labelKey: string;
 	icon: ViewIcon;
 	section: Exclude<ViewSection, 'custom'>;
 }
@@ -23,24 +23,34 @@ export interface BuiltinView {
 export const BUILTIN_VIEWS: BuiltinView[] = [
 	{
 		id: BuiltinViewId.Mine,
-		label: 'My dashboards',
+		labelKey: 'dashboards_list_page_v2.views.builtin.my_dashboards',
 		icon: User,
 		section: 'personal',
 	},
-	{ id: BuiltinViewId.Pinned, label: 'Pinned', icon: Pin, section: 'personal' },
+	{
+		id: BuiltinViewId.Pinned,
+		labelKey: 'dashboards_list_page_v2.views.builtin.pinned',
+		icon: Pin,
+		section: 'personal',
+	},
 	{
 		id: BuiltinViewId.Recent,
-		label: 'Recently viewed',
+		labelKey: 'dashboards_list_page_v2.views.builtin.recently_viewed',
 		icon: Clock,
 		section: 'personal',
 	},
 	{
 		id: BuiltinViewId.All,
-		label: 'All dashboards',
+		labelKey: 'dashboards_list_page_v2.views.builtin.all_dashboards',
 		icon: Layers,
 		section: 'system',
 	},
-	{ id: BuiltinViewId.Locked, label: 'Locked', icon: Lock, section: 'system' },
+	{
+		id: BuiltinViewId.Locked,
+		labelKey: 'dashboards_list_page_v2.views.builtin.locked',
+		icon: Lock,
+		section: 'system',
+	},
 ];
 
 // Pinned/Recently-viewed constrain client-side — Pinned by the per-row `pinned`
@@ -74,8 +84,9 @@ export const builtinViewQuery = (
 };
 
 export interface EmptyStateCopy {
-	title: string;
-	description: string;
+	titleKey: string;
+	descriptionKey: string;
+	values?: Record<string, string>;
 }
 
 // Context-aware copy for the no-results state, so an empty Locked view doesn't
@@ -88,40 +99,43 @@ export const noResultsCopy = (
 	const trimmed = search.trim();
 	if (trimmed) {
 		return {
-			title: `No dashboards match "${trimmed}"`,
-			description: 'Try a different search term or clear your filters.',
+			titleKey: 'dashboards_list_page_v2.no_results.search_title',
+			descriptionKey: 'dashboards_list_page_v2.no_results.search_description',
+			values: { search: trimmed },
 		};
 	}
 	switch (activeViewId) {
 		case BuiltinViewId.Pinned:
 			return {
-				title: 'No pinned dashboards yet',
-				description: 'Pin a dashboard to keep it handy here.',
+				titleKey: 'dashboards_list_page_v2.no_results.no_pinned_title',
+				descriptionKey: 'dashboards_list_page_v2.no_results.no_pinned_description',
 			};
 		case BuiltinViewId.Recent:
 			return {
-				title: 'No recently viewed dashboards',
-				description: 'Dashboards you open will appear here.',
+				titleKey: 'dashboards_list_page_v2.no_results.no_recent_title',
+				descriptionKey: 'dashboards_list_page_v2.no_results.no_recent_description',
 			};
 		case BuiltinViewId.Locked:
 			return {
-				title: 'No locked dashboards',
-				description: 'Dashboards locked for editing will appear here.',
+				titleKey: 'dashboards_list_page_v2.no_results.no_locked_title',
+				descriptionKey: 'dashboards_list_page_v2.no_results.no_locked_description',
 			};
 		case BuiltinViewId.Mine:
 			return {
-				title: "You haven't created any dashboards",
-				description: 'Dashboards you create will appear here.',
+				titleKey: 'dashboards_list_page_v2.no_results.no_mine_title',
+				descriptionKey: 'dashboards_list_page_v2.no_results.no_mine_description',
 			};
 		default:
 			return hasActiveFilters
 				? {
-						title: 'No dashboards match your filters',
-						description: 'Try adjusting or clearing your filters.',
+						titleKey: 'dashboards_list_page_v2.no_results.no_filter_match_title',
+						descriptionKey:
+							'dashboards_list_page_v2.no_results.no_filter_match_description',
 					}
 				: {
-						title: 'No dashboards found',
-						description: 'Create a dashboard to get started.',
+						titleKey: 'dashboards_list_page_v2.no_results.no_dashboards_title',
+						descriptionKey:
+							'dashboards_list_page_v2.no_results.no_dashboards_description',
 					};
 	}
 };

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { commaValuesParser } from 'lib/dashboardVariables/customCommaValuesParser';
 import { DashboardDetailEvents } from 'pages/DashboardPageV2/constants/events';
@@ -63,6 +64,7 @@ export function useVariableForm({
 	isNew,
 	onSave,
 }: UseVariableFormArgs): UseVariableForm {
+	const { t } = useTranslation('dashboard');
 	const [model, setModel] = useState<VariableFormModel>(initial);
 	// Raw, unsorted preview; `previewValues` applies the chosen sort so a shown
 	// preview re-sorts when Sort changes.
@@ -147,10 +149,12 @@ export function useVariableForm({
 	}, [siblings, selections]);
 
 	const trimmedName = model.name.trim();
-	const nameError = getNameError(trimmedName, existingNames, initial.name);
+	const nameErrorKey = getNameError(trimmedName, existingNames, initial.name);
+	const nameError = nameErrorKey ? t(nameErrorKey) : null;
 	// Surface the message only once the field is dirty; Save stays disabled regardless.
 	const visibleNameError = nameTouched ? nameError : null;
-	const attributeError = getAttributeError(model, existingDynamicAttributes);
+	const attributeErrorKey = getAttributeError(model, existingDynamicAttributes);
+	const attributeError = attributeErrorKey ? t(attributeErrorKey) : undefined;
 
 	const isListType =
 		model.type === 'QUERY' || model.type === 'CUSTOM' || model.type === 'DYNAMIC';
@@ -208,9 +212,9 @@ export function useVariableForm({
 		const cycle = detectVariableCycle([...siblings, next]);
 		if (cycle) {
 			setCycleError(
-				`Cannot save: circular dependency detected between variables: ${cycle.join(
-					' → ',
-				)}`,
+				t('dashboard_page_v2.variables.cycle_error', {
+					cycle: cycle.join(' → '),
+				}),
 			);
 			return;
 		}

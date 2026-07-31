@@ -1,4 +1,5 @@
 import type { DragEndEvent } from '@dnd-kit/core';
+import { useTranslation } from 'react-i18next';
 import {
 	DndContext,
 	PointerSensor,
@@ -42,6 +43,7 @@ function VariablesList({
 	onApplyToAll,
 	appliedToAllNames,
 }: VariablesListProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const sensors = useSensors(
 		useSensor(PointerSensor, { activationConstraint: { distance: 1 } }),
 	);
@@ -60,8 +62,12 @@ function VariablesList({
 	return (
 		<div className={styles.table} data-testid="variables-list">
 			<div className={styles.headerRow}>
-				<span className={styles.headerCell}>Variable</span>
-				<span className={styles.headerCell}>Description</span>
+				<span className={styles.headerCell}>
+					{t('dashboard_page_v2.variables.variable')}
+				</span>
+				<span className={styles.headerCell}>
+					{t('dashboard_page_v2.variables.description')}
+				</span>
 			</div>
 			<DndContext
 				sensors={sensors}

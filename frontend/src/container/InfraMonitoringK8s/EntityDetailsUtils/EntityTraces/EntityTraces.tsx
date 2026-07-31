@@ -31,11 +31,11 @@ import { useQueryState } from 'nuqs';
 import { DataSource } from 'types/common/queryBuilder';
 import { parseAsJsonNoValidate } from 'utils/nuqsParsers';
 import { validateQuery } from 'utils/queryValidationUtils';
+import { useTranslation } from 'react-i18next';
 
 import EntityEmptyState from '../EntityEmptyState/EntityEmptyState';
 import EntityError from '../EntityError/EntityError';
-import { selectedEntityTracesColumns } from '../utils';
-import { isKeyNotFoundError } from '../utils';
+import { isKeyNotFoundError, selectedEntityTracesColumns } from '../utils';
 import { K8S_ENTITY_TRACES_EXPRESSION_KEY, useEntityTraces } from './hooks';
 import { getTraceListColumns } from './traceListColumns';
 import { getEntityTracesQueryPayload } from './utils';
@@ -67,6 +67,7 @@ function EntityTracesContent({
 	queryKey,
 	category,
 }: Omit<Props, 'initialExpression'>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const expression = useExpression();
 	const inputExpression = useInputExpression();
 	const userExpression = useUserExpression();
@@ -141,6 +142,7 @@ function EntityTracesContent({
 	const traceListColumns = getTraceListColumns(
 		selectedEntityTracesColumns,
 		formatTimezoneAdjustedTimestamp,
+		t,
 	);
 
 	const isKeyNotFound = isKeyNotFoundError(error);

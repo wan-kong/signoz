@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { toast } from '@signozhq/ui/sonner';
 import {
@@ -7,9 +8,6 @@ import {
 	useUnpinDashboardV2,
 } from 'api/generated/services/dashboard';
 import { getHttpStatusCode } from 'utils/errorUtils';
-
-const PIN_LIMIT_MESSAGE =
-	'You can pin up to 10 dashboards. Unpin one to add another.';
 
 export interface UsePinDashboardResult {
 	// Toggle the pin for a dashboard given its current pinned state.
@@ -20,6 +18,7 @@ export interface UsePinDashboardResult {
 // Wraps the per-user pin/unpin mutations: refreshes the personalized list on
 // success and surfaces the 10-pin limit (HTTP 409) as a toast.
 export function usePinDashboard(): UsePinDashboardResult {
+	const { t } = useTranslation('dashboard');
 	const queryClient = useQueryClient();
 
 	const invalidate = useCallback((): void => {
@@ -32,8 +31,8 @@ export function usePinDashboard(): UsePinDashboardResult {
 			onError: (error): void => {
 				toast.error(
 					getHttpStatusCode(error) === 409
-						? PIN_LIMIT_MESSAGE
-						: 'Failed to pin dashboard.',
+						? t('dashboards_list_page_v2.pin.limit_message')
+						: t('dashboards_list_page_v2.pin.failed_to_pin'),
 				);
 			},
 		},
@@ -43,7 +42,7 @@ export function usePinDashboard(): UsePinDashboardResult {
 		mutation: {
 			onSuccess: invalidate,
 			onError: (): void => {
-				toast.error('Failed to unpin dashboard.');
+				toast.error(t('dashboards_list_page_v2.pin.failed_to_unpin'));
 			},
 		},
 	});

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Group } from '@visx/group';
 import { Pie as VisxPie } from '@visx/shape';
@@ -36,6 +37,7 @@ export default function Pie({
 	onSliceClick,
 	'data-testid': testId,
 }: PieChartProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const {
 		active,
 		setActive,
@@ -126,7 +128,9 @@ export default function Pie({
 				className={styles.pieChartWrapper}
 				data-testid={testId}
 			>
-				<div className={styles.pieChartNoData}>No data</div>
+				<div className={styles.pieChartNoData}>
+					{t('dashboard_container.visualization.no_data')}
+				</div>
 			</div>
 		);
 	}

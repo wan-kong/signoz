@@ -130,5 +130,314 @@
 	"text_alert_frequency": "Run alert every",
 	"text_for": "minutes",
 	"selected_query_placeholder": "Select query",
-	"alert_rule_not_found": "Alert Rule not found"
+	"alert_rule_not_found": "Alert Rule not found",
+	"success": "Success",
+	"loading": "Loading...",
+	"cancel": "Cancel",
+	"refresh": "Refresh",
+	"retry": "Retry",
+	"more": "More",
+	"learn_more": "Learn More",
+	"clear_search": "Clear Search",
+	"select_option": "Select option...",
+	"something_went_wrong": "Something went wrong",
+	"alert_list": {
+		"tabs": {
+			"triggered_alerts": "Triggered Alerts",
+			"alert_rules": "Alert Rules",
+			"notification_channels": "Notification Channels",
+			"configuration": "Configuration",
+			"planned_downtime": "Planned Downtime",
+			"routing_policies": "Routing Policies"
+		}
+	},
+	"alert_rules": {
+		"title": "Alert Rules",
+		"subtitle": "Create and manage alert rules for your resources.",
+		"new_alert": "New Alert",
+		"more_details_tooltip": "More details on how to create alerts",
+		"search_placeholder": "Search by Alert Name, Severity and Labels",
+		"failed_to_load": "Failed to load alert rules",
+		"no_matching_title": "No matching alert rules",
+		"no_matching_subtitle": "No alert rules match your search. Try adjusting your search criteria.",
+		"columns": "Columns",
+		"toggle_columns": "Toggle Columns",
+		"state": {
+			"firing": "Firing",
+			"pending": "Pending",
+			"disabled": "Disabled",
+			"unknown": "Unknown"
+		},
+		"table": {
+			"status": "Status",
+			"alert_name": "Alert Name",
+			"severity": "Severity",
+			"labels": "Labels",
+			"created_at": "Created At",
+			"created_by": "Created By",
+			"updated_at": "Updated At",
+			"updated_by": "Updated By",
+			"actions": "Actions"
+		},
+		"actions": {
+			"enable": "Enable",
+			"disable": "Disable",
+			"edit": "Edit",
+			"edit_in_new_tab": "Edit in New Tab",
+			"clone": "Clone",
+			"delete": "Delete",
+			"enabling": "Enabling alert...",
+			"disabling": "Disabling alert...",
+			"enabled": "Alert enabled",
+			"disabled": "Alert disabled",
+			"toggle_failed": "Failed to toggle alert state",
+			"cloning": "Cloning alert...",
+			"cloned": "Alert cloned successfully",
+			"clone_failed": "Failed to clone alert",
+			"deleting": "Deleting alert...",
+			"deleted": "Alert deleted successfully",
+			"delete_failed": "Failed to delete alert"
+		},
+		"empty": {
+			"title": "No Alert rules yet.",
+			"description": "Create an Alert Rule to get started",
+			"new_alert_rule": "New Alert Rule",
+			"video_tutorial": "Watch a tutorial on creating a sample alert",
+			"sample_alerts_title": "Or get started with these sample alerts",
+			"info_links": {
+				"metrics": "How to create Metrics-based alerts",
+				"logs": "How to create Log-based alerts",
+				"traces": "How to create Trace-based alerts"
+			},
+			"sample_cards": {
+				"high_memory": {
+					"header": "Alert on high memory usage",
+					"subheader": "Monitor your host's memory usage"
+				},
+				"slow_external_api": {
+					"header": "Alert on slow external API calls",
+					"subheader": "Monitor your external API calls"
+				},
+				"timeout_errors": {
+					"header": "Alert on high percentage of timeout errors in logs",
+					"subheader": "Monitor your logs for errors"
+				},
+				"endpoint_errors": {
+					"header": "Alert on high error percentage of an endpoint",
+					"subheader": "Monitor your API endpoint"
+				}
+			}
+		}
+	},
+	"triggered_alerts": {
+		"search_placeholder": "Search alerts by name",
+		"filter_placeholder": "Filter by tags",
+		"filter_input_placeholder": "Create new filters with 'label:value'",
+		"group_by_placeholder": "Group by tag",
+		"group_by_input_placeholder": "Select one or more",
+		"failed_to_load": "Failed to load alerts",
+		"no_matching_title": "No matching alerts",
+		"no_matching_subtitle": "No alerts match your current filters. Try adjusting your search criteria.",
+		"filters": {
+			"critical_label": "Critical (severity:critical)",
+			"error_label": "Error (severity:error)",
+			"warning_label": "Warning (severity:warning)",
+			"info_label": "Info (severity:info)"
+		},
+		"table": {
+			"status": "Status",
+			"alert_name": "Alert Name",
+			"severity": "Severity",
+			"firing_since": "Firing Since",
+			"labels": "Labels",
+			"group": "Group",
+			"alerts": "Alerts"
+		},
+		"status": {
+			"unprocessed": "Unprocessed",
+			"firing": "Firing",
+			"suppressed": "Suppressed",
+			"unknown": "Unknown"
+		},
+		"empty": {
+			"title": "No alerts firing",
+			"subtitle": "All systems are healthy. No alerts are currently triggered.",
+			"create_alert_rule": "Create Alert Rule"
+		}
+	},
+	"planned_downtime": {
+		"title": "Planned Downtime",
+		"subtitle": "Create and manage planned downtimes.",
+		"search_placeholder": "Search for a planned downtime...",
+		"create_permission_tooltip": "You need edit permissions to create a planned downtime",
+		"new_downtime": "New downtime",
+		"delete_success": "Downtime schedule Deleted Successfully",
+		"form": {
+			"select_time": "Please select the time",
+			"schedule_updated": "Schedule updated successfully",
+			"schedule_created": "Schedule created successfully",
+			"schedule_daily": "Scheduled from {{startDate}}, daily starting at {{startTime}}.",
+			"schedule_monthly": "Scheduled from {{startDate}}, monthly on the {{ordinal}} starting at {{startTime}}.",
+			"schedule_weekly": "Scheduled from {{startDate}}, weekly {{days}} starting at {{startTime}}",
+			"schedule_once": "Scheduled for {{startDate}} starting at {{startTime}}.",
+			"schedule_end": "Scheduled to end maintenance on {{endDate}} at {{endTime}}.",
+			"edit_title": "Edit planned downtime",
+			"new_title": "New planned downtime",
+			"name": "Name",
+			"name_placeholder": "e.g. Upgrade downtime",
+			"starts_from": "Starts from",
+			"repeats_every": "Repeats every",
+			"weekly_occurrence": "Weekly occurrence",
+			"duration": "Duration",
+			"mins": "Mins",
+			"hours": "Hours",
+			"duration_placeholder": "Enter duration",
+			"timezone": "Timezone",
+			"timezone_placeholder": "Select timezone",
+			"ends_on": "Ends on",
+			"silence_alerts": "Silence Alerts",
+			"all_alert_rules": "All alert rules",
+			"specific_alert_rules": "Specific alert rules",
+			"alert_rules_required": "Select at least one alert rule, or choose \"All alert rules\" to silence everything.",
+			"alert_rules_placeholder": "Search for alert rules or groups...",
+			"no_alert_available": "No alert available.",
+			"scope": "Scope",
+			"scope_tooltip": "Scope the planned downtime by alert labels. <0>Learn more</0>",
+			"scope_docs_link_label": "Learn more about scoping planned downtime with label expressions",
+			"update_schedule": "Update downtime schedule",
+			"add_schedule": "Add downtime schedule"
+		},
+		"list": {
+			"created_by": "Created by",
+			"created_on": "Created on",
+			"updated_by": "Updated by",
+			"updated_on": "Updated on",
+			"timeframe": "Timeframe",
+			"timezone": "Timezone",
+			"repeats": "Repeats",
+			"alerts_silenced": "Alerts silenced",
+			"start_time": "Start time ⎯ {{time}} {{timezone}}",
+			"downtime": "Downtime"
+		},
+		"recurrence_info": {
+			"no": "No",
+			"to": "to",
+			"on": "on",
+			"duration": "Duration",
+			"repeats": "Repeats",
+			"from": "from"
+		},
+		"recurrence": {
+			"does-not-repeat": "Does not repeat",
+			"daily": "Daily",
+			"weekly": "Weekly",
+			"monthly": "Monthly"
+		},
+		"weekdays": {
+			"monday": "Monday",
+			"tuesday": "Tuesday",
+			"wednesday": "Wednesday",
+			"thursday": "Thursday",
+			"friday": "Friday",
+			"saturday": "Saturday",
+			"sunday": "Sunday"
+		},
+		"delete_modal": {
+			"title": "Delete Schedule",
+			"delete_schedule": "Delete Schedule",
+			"description": "Are you sure you want to delete - {{name}} schedule? Deleting a schedule is irreversible and cannot be undone."
+		}
+	},
+	"routing_policies": {
+		"title": "Routing Policies",
+		"subtitle": "Create and manage routing policies.",
+		"search_placeholder": "Search for a routing policy...",
+		"create_permission_tooltip": "You need edit permissions to create a routing policy",
+		"new_policy": "New routing policy",
+		"list": {
+			"routing_policy": "Routing Policy",
+			"fetch_error": "Something went wrong while fetching routing policies.",
+			"no_matching": "No matching routing policies found.",
+			"empty": "No routing policies yet, <0>Learn more here</0>",
+			"docs_link_label": "Learn more about routing policies",
+			"created_by": "Created by",
+			"created_on": "Created on",
+			"updated_by": "Updated by",
+			"updated_on": "Updated on",
+			"channels": "Channels"
+		},
+		"details": {
+			"edit_title": "Edit routing policy",
+			"create_title": "Create routing policy",
+			"no_channels": "No channels yet.",
+			"create_one": "Create one",
+			"here": "here.",
+			"ask_admin_create": "Please ask your admin to create one.",
+			"name": "Routing Policy Name",
+			"name_required": "Please provide a name for the routing policy",
+			"name_placeholder": "e.g. Base routing policy...",
+			"description": "Description",
+			"description_placeholder": "e.g. This is a routing policy that...",
+			"expression": "Expression",
+			"expression_required": "Please provide an expression for the routing policy",
+			"notification_channels": "Notification Channels",
+			"channels_required": "Please select at least one notification channel",
+			"channels_placeholder": "Select notification channels",
+			"more_channels": "+{{count}} more",
+			"save_policy": "Save Routing Policy"
+		},
+		"delete_modal": {
+			"title": "Delete Routing Policy",
+			"delete_policy": "Delete Routing Policy",
+			"description": "Are you sure you want to delete <strong>{{name}}</strong> routing policy? Deleting a routing policy is irreversible and cannot be undone."
+		},
+		"toast": {
+			"created": "Routing policy created successfully",
+			"updated": "Routing policy updated successfully",
+			"update_failed": "Failed to update routing policy",
+			"deleted": "Routing policy deleted successfully",
+			"delete_failed": "Failed to delete routing policy"
+		}
+	},
+	"alert_details": {
+		"test_alert": "Test Alert",
+		"tabs": {
+			"overview": "Overview",
+			"history": "History"
+		},
+		"actions": {
+			"rename": "Rename",
+			"duplicate": "Duplicate",
+			"delete": "Delete",
+			"enable_alert": "Enable alert",
+			"disable_alert": "Disable alert",
+			"more_options": "More options",
+			"alert_disabled": "Alert has been disabled.",
+			"alert_enabled": "Alert has been enabled.",
+			"renamed": "Alert renamed successfully"
+		},
+		"rename_modal": {
+			"title": "Rename Alert",
+			"rename_alert": "Rename Alert",
+			"enter_new_name": "Enter a new name"
+		},
+		"state": {
+			"no_data": "No Data",
+			"muted": "Muted",
+			"firing": "Firing",
+			"resolved": "Resolved"
+		},
+		"not_found": {
+			"title": "Alert Not Found",
+			"message": "Uh-oh! We couldn't find the given alert rule.",
+			"single_scenario": "This can happen in the following scenario -",
+			"multiple_scenarios": "This can happen in either of the following scenarios -",
+			"incorrect_link": "The alert rule link is incorrect, please verify it once.",
+			"deleted_rule": "The alert rule you're trying to check has been deleted.",
+			"test_alert_reason": "You clicked on the Alert notification link received when testing a new Alert rule. Once the alert rule is saved, future notifications will link to actual alerts.",
+			"contact_support_hint": "If you feel the issue is none of the above, please contact support.",
+			"check_all_rules": "Check all rules",
+			"contact_support": "Contact Support"
+		}
+	}
 }

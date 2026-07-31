@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ExternalLink, SolidInfoCircle } from '@signozhq/icons';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 import { Typography } from '@signozhq/ui/typography';
@@ -22,6 +23,7 @@ interface CrossPanelSyncProps {
 }
 
 function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [cursorSyncMode, setCursorSyncMode] =
 		useDashboardCursorSyncMode(dashboardId);
 	const [syncTooltipFilterMode, setSyncTooltipFilterMode] =
@@ -47,7 +49,7 @@ function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
 		<div className={cx(settingsStyles.settingsCard, styles.crossPanelSyncGroup)}>
 			<div className={styles.crossPanelSyncSectionHeader}>
 				<Typography.Text className={styles.crossPanelsSyncSectionTitle}>
-					Cross-Panel Sync
+					{t('dashboard_page_v2.settings.cross_panel_sync.title')}
 				</Typography.Text>
 
 				<TooltipSimple
@@ -56,10 +58,10 @@ function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
 					title={
 						<div className={styles.crossPanelSyncTooltipContent}>
 							<strong className={styles.crossPanelSyncTooltipTitle}>
-								Cross-Panel Sync
+								{t('dashboard_page_v2.settings.cross_panel_sync.title')}
 							</strong>
 							<span className={styles.crossPanelSyncTooltipDescription}>
-								Sync crosshair and tooltip across all the dashboard panels
+								{t('dashboard_page_v2.settings.cross_panel_sync.description')}
 							</span>
 							<Typography.Link
 								href="https://signoz.io/docs/dashboards/interactivity/#cross-panel-sync"
@@ -67,7 +69,7 @@ function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
 								rel="noopener noreferrer"
 								className={styles.crossPanelSyncTooltipDocLink}
 							>
-								Learn more
+								{t('learn_more')}
 								<ExternalLink size={12} />
 							</Typography.Link>
 						</div>
@@ -80,10 +82,10 @@ function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
 			<div className={styles.crossPanelSyncRow}>
 				<div className={styles.crossPanelSyncInfo}>
 					<Typography.Text className={styles.crossPanelSyncTitle}>
-						Sync Mode
+						{t('dashboard_page_v2.settings.cross_panel_sync.sync_mode')}
 					</Typography.Text>
 					<Typography.Text className={styles.crossPanelSyncDescription}>
-						Sync crosshair and tooltip across all the dashboard panels
+						{t('dashboard_page_v2.settings.cross_panel_sync.description')}
 					</Typography.Text>
 				</div>
 				<SegmentedControl
@@ -91,9 +93,18 @@ function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
 					value={cursorSyncMode}
 					onChange={handleCursorSyncChange}
 					options={[
-						{ label: 'No Sync', value: DashboardCursorSync.None },
-						{ label: 'Crosshair', value: DashboardCursorSync.Crosshair },
-						{ label: 'Tooltip', value: DashboardCursorSync.Tooltip },
+						{
+							label: t('dashboard_page_v2.settings.cross_panel_sync.no_sync'),
+							value: DashboardCursorSync.None,
+						},
+						{
+							label: t('dashboard_page_v2.settings.cross_panel_sync.crosshair'),
+							value: DashboardCursorSync.Crosshair,
+						},
+						{
+							label: t('dashboard_page_v2.settings.cross_panel_sync.tooltip'),
+							value: DashboardCursorSync.Tooltip,
+						},
 					]}
 				/>
 			</div>
@@ -102,11 +113,12 @@ function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
 				<div className={styles.crossPanelSyncRow}>
 					<div className={styles.crossPanelSyncInfo}>
 						<Typography.Text className={styles.crossPanelSyncTitle}>
-							Synced Tooltip Series
+							{t('dashboard_page_v2.settings.cross_panel_sync.synced_series')}
 						</Typography.Text>
 						<Typography.Text className={styles.crossPanelSyncDescription}>
-							Show only series that intersect on group-by, or every series with the
-							matching ones highlighted
+							{t(
+								'dashboard_page_v2.settings.cross_panel_sync.synced_series_description',
+							)}
 						</Typography.Text>
 					</div>
 
@@ -115,8 +127,14 @@ function CrossPanelSync({ dashboardId }: CrossPanelSyncProps): JSX.Element {
 						value={syncTooltipFilterMode}
 						onChange={handleTooltipFilterModeChange}
 						options={[
-							{ label: 'All', value: SyncTooltipFilterMode.All },
-							{ label: 'Filtered', value: SyncTooltipFilterMode.Filtered },
+							{
+								label: t('dashboard_page_v2.settings.cross_panel_sync.all'),
+								value: SyncTooltipFilterMode.All,
+							},
+							{
+								label: t('dashboard_page_v2.settings.cross_panel_sync.filtered'),
+								value: SyncTooltipFilterMode.Filtered,
+							},
 						]}
 					/>
 				</div>

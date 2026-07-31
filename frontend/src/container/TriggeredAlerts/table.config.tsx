@@ -12,11 +12,18 @@ import { GroupTagsCell } from 'container/TriggeredAlerts/components/GroupTagsCel
 
 export function getAlertColumns(
 	formatTimezoneAdjustedTimestamp: (date: string, format: string) => string,
+	labels: {
+		status: string;
+		alertName: string;
+		severity: string;
+		firingSince: string;
+		labels: string;
+	},
 ): TableColumnDef<Alert>[] {
 	return [
 		{
 			id: 'status',
-			header: 'Status',
+			header: labels.status,
 			accessorFn: (row) => row.status?.state,
 			width: { fixed: '100px' },
 			enableSort: false,
@@ -30,7 +37,7 @@ export function getAlertColumns(
 		},
 		{
 			id: 'alertName',
-			header: 'Alert Name',
+			header: labels.alertName,
 			accessorFn: (row) => row.labels?.alertname ?? '',
 			width: { default: '100%' },
 			enableSort: true,
@@ -46,7 +53,7 @@ export function getAlertColumns(
 		},
 		{
 			id: 'severity',
-			header: 'Severity',
+			header: labels.severity,
 			accessorFn: (row) => row.labels?.severity ?? '',
 			width: { fixed: '120px' },
 			enableSort: true,
@@ -70,7 +77,7 @@ export function getAlertColumns(
 		},
 		{
 			id: 'firingSince',
-			header: 'Firing Since',
+			header: labels.firingSince,
 			accessorKey: 'startsAt',
 			width: { min: 280, default: 280 },
 			enableSort: true,
@@ -85,7 +92,7 @@ export function getAlertColumns(
 		},
 		{
 			id: 'labels',
-			header: 'Labels',
+			header: labels.labels,
 			accessorKey: 'labels',
 			width: { default: '100%' },
 			enableMove: false,
@@ -106,38 +113,43 @@ export function getAlertColumns(
 	];
 }
 
-export const groupedColumns: TableColumnDef<GroupedAlert>[] = [
-	{
-		id: 'groupTags',
-		header: (): JSX.Element => (
-			<div className={styles.groupHeader}>
-				<BellDot size={14} />
-				<span>Group</span>
-			</div>
-		),
-		accessorFn: (row) => row.groupKey,
-		width: { default: '100%' },
-		enableRemove: false,
-		enableMove: false,
-		pin: 'left',
-		cell: ({ row: groupRow, isExpanded, toggleExpanded }): JSX.Element => {
-			return (
-				<GroupTagsCell
-					groupRow={groupRow}
-					isExpanded={isExpanded}
-					toggleExpanded={toggleExpanded}
-				/>
-			);
+export function getGroupedColumns(labels: {
+	group: string;
+	alerts: string;
+}): TableColumnDef<GroupedAlert>[] {
+	return [
+		{
+			id: 'groupTags',
+			header: (): JSX.Element => (
+				<div className={styles.groupHeader}>
+					<BellDot size={14} />
+					<span>{labels.group}</span>
+				</div>
+			),
+			accessorFn: (row) => row.groupKey,
+			width: { default: '100%' },
+			enableRemove: false,
+			enableMove: false,
+			pin: 'left',
+			cell: ({ row: groupRow, isExpanded, toggleExpanded }): JSX.Element => {
+				return (
+					<GroupTagsCell
+						groupRow={groupRow}
+						isExpanded={isExpanded}
+						toggleExpanded={toggleExpanded}
+					/>
+				);
+			},
 		},
-	},
-	{
-		id: 'alertCount',
-		header: 'Alerts',
-		accessorFn: (row) => row.alerts.length,
-		width: { min: 80, default: 100 },
-		enableMove: false,
-		cell: ({ value }): JSX.Element => (
-			<TanStackTable.Text>{String(value)}</TanStackTable.Text>
-		),
-	},
-];
+		{
+			id: 'alertCount',
+			header: labels.alerts,
+			accessorFn: (row) => row.alerts.length,
+			width: { min: 80, default: 100 },
+			enableMove: false,
+			cell: ({ value }): JSX.Element => (
+				<TanStackTable.Text>{String(value)}</TanStackTable.Text>
+			),
+		},
+	];
+}

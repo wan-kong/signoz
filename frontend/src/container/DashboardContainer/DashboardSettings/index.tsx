@@ -1,4 +1,5 @@
 import { Button, Tabs, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 import { Braces, Globe, Table } from '@signozhq/icons';
 import { useAppContext } from 'providers/App/App';
@@ -18,6 +19,7 @@ function DashboardSettings({
 }): JSX.Element {
 	const { user } = useAppContext();
 	const { isCloudUser, isEnterpriseSelfHostedUser } = useGetTenantLicense();
+	const { t } = useTranslation('dashboard');
 
 	const enablePublicDashboard = isCloudUser || isEnterpriseSelfHostedUser;
 
@@ -26,7 +28,7 @@ function DashboardSettings({
 			<Tooltip
 				title={
 					user?.role !== USER_ROLES.ADMIN
-						? 'Only admins can publish / manage public dashboards'
+						? t('dashboard_container.settings.admin_publish_tooltip')
 						: ''
 				}
 				placement="right"
@@ -38,7 +40,7 @@ function DashboardSettings({
 						user?.role !== USER_ROLES.ADMIN ? 'disabled-btn' : ''
 					}`}
 				>
-					Publish
+					{t('dashboard_page_v2.settings.tabs.publish')}
 				</Button>
 			</Tooltip>
 		),
@@ -51,7 +53,7 @@ function DashboardSettings({
 		{
 			label: (
 				<Button type="text" icon={<Table size={14} />} className="overview-btn">
-					Overview
+					{t('dashboard_page_v2.settings.tabs.overview')}
 				</Button>
 			),
 			key: 'general',
@@ -60,7 +62,7 @@ function DashboardSettings({
 		{
 			label: (
 				<Button type="text" icon={<Braces size={14} />} className="variables-btn">
-					Variables
+					{t('dashboard_page_v2.settings.tabs.variables')}
 				</Button>
 			),
 			key: 'variables',

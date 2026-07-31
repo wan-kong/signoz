@@ -159,13 +159,34 @@ export function getPodStatusItems(
 	}));
 
 	return [
-		{ value: counts.running, label: 'Running', color: Color.BG_FOREST_500 },
-		{ value: counts.completed, label: 'Completed', color: Color.BG_ROBIN_500 },
-		{ value: counts.pending, label: 'Pending', color: Color.BG_AMBER_500 },
-		{ value: counts.unknown, label: 'Unknown', color: Color.BG_SLATE_400 },
+		{
+			value: counts.running,
+			label: 'Running',
+			labelKey: 'display.running',
+			color: Color.BG_FOREST_500,
+		},
+		{
+			value: counts.completed,
+			label: 'Completed',
+			labelKey: 'display.completed',
+			color: Color.BG_ROBIN_500,
+		},
+		{
+			value: counts.pending,
+			label: 'Pending',
+			labelKey: 'display.pending',
+			color: Color.BG_AMBER_500,
+		},
+		{
+			value: counts.unknown,
+			label: 'Unknown',
+			labelKey: 'display.unknown',
+			color: Color.BG_SLATE_400,
+		},
 		{
 			value: errorTotal,
 			label: 'Error Status',
+			labelKey: 'display.error_status',
 			color: Color.BG_CHERRY_500,
 			breakdown: errorBreakdown,
 		},

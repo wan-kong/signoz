@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Table } from 'antd';
 import type { TableProps } from 'antd/lib';
 import logEvent from 'api/common/logEvent';
@@ -31,10 +32,12 @@ function DashboardsListContent({
 	showUpdatedBy,
 	loading,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	const columns: TableProps<DashboardListItem>['columns'] = useMemo(
 		() => [
 			{
-				title: 'Dashboards',
+				title: t('dashboards_list_page_v2.title'),
 				key: 'dashboard',
 				render: (_, dashboard, index): JSX.Element => (
 					<DashboardRow
@@ -47,7 +50,7 @@ function DashboardsListContent({
 				),
 			},
 		],
-		[canEdit, showUpdatedAt, showUpdatedBy],
+		[canEdit, showUpdatedAt, showUpdatedBy, t],
 	);
 
 	const paginationConfig = total > pageSize && {

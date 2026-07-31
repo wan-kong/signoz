@@ -1,4 +1,5 @@
 import { type ChangeEvent, useCallback, useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
@@ -58,6 +59,7 @@ function ViewsRail({
 	onDelete,
 	onRename,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [saveOpen, setSaveOpen] = useState(false);
 	const [renamingId, setRenamingId] = useState<string | null>(null);
 	const [query, setQuery] = useState('');
@@ -68,10 +70,10 @@ function ViewsRail({
 		!q || label.toLowerCase().includes(q);
 
 	const personal = builtinViews.filter(
-		(v) => v.section === 'personal' && matchesQuery(v.label),
+		(v) => v.section === 'personal' && matchesQuery(t(v.labelKey)),
 	);
 	const system = builtinViews.filter(
-		(v) => v.section === 'system' && matchesQuery(v.label),
+		(v) => v.section === 'system' && matchesQuery(t(v.labelKey)),
 	);
 	const custom = customViews.filter((v) => matchesQuery(v.name));
 	const noMatches =
@@ -82,12 +84,17 @@ function ViewsRail({
 			confirmDelete({
 				title: (
 					<Typography.Title level={5}>
-						Delete the{' '}
-						<Typography.Text className={styles.deleteName}>{label}</Typography.Text>{' '}
-						view?
+						<Trans
+							t={t}
+							i18nKey="dashboards_list_page_v2.views.delete_confirm_title"
+							values={{ name: label }}
+							components={{
+								name: <Typography.Text className={styles.deleteName} />,
+							}}
+						/>
 					</Typography.Title>
 				),
-				content: 'This removes the saved view. Your dashboards are not affected.',
+				content: t('dashboards_list_page_v2.views.delete_confirm_content'),
 				// Return the delete promise so the modal's Delete button stays loading
 				// until the backend call settles, then closes — matching dashboard delete.
 				onConfirm: (): Promise<void> => {
@@ -96,7 +103,7 @@ function ViewsRail({
 				},
 			});
 		},
-		[confirmDelete, onDelete],
+		[confirmDelete, onDelete, t],
 	);
 
 	const handleSaveAsView = (name: string): void => {
@@ -124,7 +131,10 @@ function ViewsRail({
 					<Icon size={16} className={styles.itemIcon} />
 					<Typography.Text className={styles.itemLabel}>{row.label}</Typography.Text>
 					{active && isModified && (
-						<div className={styles.dirtyDot} title="Unsaved changes" />
+						<div
+							className={styles.dirtyDot}
+							title={t('dashboards_list_page_v2.unsaved_changes')}
+						/>
 					)}
 				</Button>
 				{canEdit && row.deletable && (
@@ -136,8 +146,8 @@ function ViewsRail({
 								void logEvent(DashboardListEvents.ViewRenamed, {});
 								onRename(row.id, name);
 							}}
-							title="Rename view"
-							confirmLabel="Rename"
+							title={t('dashboards_list_page_v2.views.rename_view')}
+							confirmLabel={t('dashboards_list_page_v2.actions.rename')}
 							initialName={row.label}
 							testIdPrefix="rename-view"
 							trigger={
@@ -146,8 +156,8 @@ function ViewsRail({
 									color="secondary"
 									size="icon"
 									className={styles.itemAction}
-									aria-label="Rename view"
-									title="Rename view"
+									aria-label={t('dashboards_list_page_v2.views.rename_view')}
+									title={t('dashboards_list_page_v2.views.rename_view')}
 									onClick={(e): void => e.stopPropagation()}
 								>
 									<PenLine size={12} />
@@ -159,8 +169,8 @@ function ViewsRail({
 							color="secondary"
 							size="icon"
 							className={cx(styles.itemAction, styles.itemActionDanger)}
-							aria-label="Delete view"
-							title="Delete view"
+							aria-label={t('dashboards_list_page_v2.views.delete_view')}
+							title={t('dashboards_list_page_v2.views.delete_view')}
 							onClick={(e): void => {
 								e.stopPropagation();
 								onConfirmDelete(row.id, row.label);
@@ -177,21 +187,23 @@ function ViewsRail({
 	return (
 		<aside className={cx(styles.rail, { [styles.collapsed]: collapsed })}>
 			<div className={styles.header}>
-				<h4 className={styles.headerTitle}>Views</h4>
+				<h4 className={styles.headerTitle}>
+					{t('dashboards_list_page_v2.views.title')}
+				</h4>
 				{canEdit && (
 					<ViewNamePopover
 						open={saveOpen}
 						onOpenChange={setSaveOpen}
 						onSubmit={handleSaveAsView}
-						title="Save as view"
-						confirmLabel="Save view"
+						title={t('dashboards_list_page_v2.views.save_as_view')}
+						confirmLabel={t('dashboards_list_page_v2.views.save_view')}
 						testIdPrefix="save-view"
 						trigger={
 							<Button
 								variant="ghost"
 								color="secondary"
 								size="icon"
-								title="Save current filters as a view"
+								title={t('dashboards_list_page_v2.views.save_current_filters_as_view')}
 								testId="dashboards-view-save-trigger"
 							>
 								<Plus size={14} />
@@ -204,7 +216,7 @@ function ViewsRail({
 			<div className={styles.search}>
 				<Input
 					value={query}
-					placeholder="Filter views by name"
+					placeholder={t('dashboards_list_page_v2.views.filter_placeholder')}
 					prefix={<Search size={12} />}
 					testId="dashboards-view-search"
 					onChange={(e: ChangeEvent<HTMLInputElement>): void =>
@@ -216,33 +228,37 @@ function ViewsRail({
 			<div className={styles.scroll}>
 				{personal.length > 0 && (
 					<>
-						<div className={styles.groupLabel}>Personal</div>
-						{personal.map((v) => renderItem(v))}
+						<div className={styles.groupLabel}>
+							{t('dashboards_list_page_v2.views.personal')}
+						</div>
+						{personal.map((v) => renderItem({ ...v, label: t(v.labelKey) }))}
 					</>
 				)}
 
 				{system.length > 0 && (
 					<>
 						<div className={cx(styles.groupLabel, styles.groupLabelSpaced)}>
-							System
+							{t('dashboards_list_page_v2.views.system')}
 						</div>
-						{system.map((v) => renderItem(v))}
+						{system.map((v) => renderItem({ ...v, label: t(v.labelKey) }))}
 					</>
 				)}
 
 				{(!q || custom.length > 0) && (
 					<>
 						<div className={cx(styles.groupLabel, styles.groupLabelSpaced)}>
-							My views
+							{t('dashboards_list_page_v2.views.my_views')}
 							<Typography.Text className={styles.groupCount}>
 								{customViews.length}
 							</Typography.Text>
 						</div>
 						{customViewsLoading ? (
-							<div className={styles.empty}>Loading views…</div>
+							<div className={styles.empty}>
+								{t('dashboards_list_page_v2.views.loading_views')}
+							</div>
 						) : customViews.length === 0 ? (
 							<div className={styles.empty}>
-								No saved views yet. Filter the list, then save it as a view.
+								{t('dashboards_list_page_v2.views.no_saved_views')}
 							</div>
 						) : (
 							custom.map((v) =>
@@ -259,14 +275,16 @@ function ViewsRail({
 
 				{noMatches && (
 					<div className={styles.searchEmpty}>
-						No views match &ldquo;{query}&rdquo;
+						{t('dashboards_list_page_v2.views.no_views_match', { query })}
 					</div>
 				)}
 			</div>
 
 			{isCustomActive && isModified && (
 				<div className={styles.dirtyPanel}>
-					<div className={styles.dirtyTitle}>Unsaved changes</div>
+					<div className={styles.dirtyTitle}>
+						{t('dashboards_list_page_v2.unsaved_changes')}
+					</div>
 					<div className={styles.dirtyActions}>
 						{canEdit && (
 							<>
@@ -277,7 +295,7 @@ function ViewsRail({
 									onClick={handleSaveViewChanges}
 									testId="dashboards-view-save-changes"
 								>
-									Save
+									{t('dashboards_list_page_v2.actions.save')}
 								</Button>
 								<Button
 									variant="outlined"
@@ -285,12 +303,12 @@ function ViewsRail({
 									size="sm"
 									onClick={(): void => setSaveOpen(true)}
 								>
-									Save as…
+									{t('dashboards_list_page_v2.actions.save_as_ellipsis')}
 								</Button>
 							</>
 						)}
 						<Button variant="ghost" color="secondary" size="sm" onClick={onReset}>
-							Reset
+							{t('dashboards_list_page_v2.actions.reset')}
 						</Button>
 					</div>
 				</div>
@@ -298,7 +316,9 @@ function ViewsRail({
 
 			{!isCustomActive && isModified && (
 				<div className={cx(styles.dirtyPanel, styles.dirtyPanelDefault)}>
-					<div className={styles.dirtyTitle}>Filters active</div>
+					<div className={styles.dirtyTitle}>
+						{t('dashboards_list_page_v2.filters_active')}
+					</div>
 					<div className={styles.dirtyActions}>
 						{canEdit && (
 							<Button
@@ -309,11 +329,11 @@ function ViewsRail({
 								onClick={(): void => setSaveOpen(true)}
 								testId="dashboards-view-save-as-new"
 							>
-								Save as new view
+								{t('dashboards_list_page_v2.views.save_as_new_view')}
 							</Button>
 						)}
 						<Button variant="ghost" color="secondary" size="sm" onClick={onReset}>
-							Reset
+							{t('dashboards_list_page_v2.actions.reset')}
 						</Button>
 					</div>
 				</div>

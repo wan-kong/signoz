@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import type {
 	SectionEditorProps,
 	SectionKind,
@@ -34,6 +35,12 @@ function VisualizationSection({
 	queryType,
 	signal,
 }: VisualizationSectionProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+	const timePreferenceOptions = TIME_PREFERENCE_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
+
 	return (
 		<>
 			{controls.switchPanelKind && panelKind && onChangePanelKind && (
@@ -49,12 +56,16 @@ function VisualizationSection({
 
 			{controls.timePreference && (
 				<div className={styles.field}>
-					<Typography.Text>Panel time preference</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.visualization.panel_time_preference')}
+					</Typography.Text>
 					<ConfigSelect
 						testId="panel-editor-v2-time-preference"
-						placeholder="Select time scope…"
+						placeholder={t(
+							'dashboard_page_v2.panel_config.visualization.select_time_scope',
+						)}
 						value={value?.timePreference}
-						items={TIME_PREFERENCE_OPTIONS}
+						items={timePreferenceOptions}
 						onChange={(next): void =>
 							onChange({
 								...value,
@@ -68,8 +79,10 @@ function VisualizationSection({
 			{controls.stacking && (
 				<ConfigSwitch
 					testId="panel-editor-v2-stacked-bar-chart"
-					title="Stack series"
-					description="Stack bars from all series on top of each other"
+					title={t('dashboard_page_v2.panel_config.visualization.stack_series')}
+					description={t(
+						'dashboard_page_v2.panel_config.visualization.stack_series_description',
+					)}
 					value={value?.stackedBarChart ?? false}
 					onChange={(checked): void =>
 						onChange({ ...value, stackedBarChart: checked })
@@ -80,8 +93,10 @@ function VisualizationSection({
 			{controls.fillSpans && (
 				<ConfigSwitch
 					testId="panel-editor-v2-fill-spans"
-					title="Fill gaps"
-					description="Fill gaps in data with 0 for continuity"
+					title={t('dashboard_page_v2.panel_config.visualization.fill_gaps')}
+					description={t(
+						'dashboard_page_v2.panel_config.visualization.fill_gaps_description',
+					)}
 					value={value?.fillSpans ?? false}
 					onChange={(checked): void => onChange({ ...value, fillSpans: checked })}
 				/>

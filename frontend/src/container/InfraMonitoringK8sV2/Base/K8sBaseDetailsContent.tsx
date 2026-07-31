@@ -29,6 +29,7 @@ import {
 	TracesAggregatorOperator,
 } from 'types/common/queryBuilder';
 import { openInNewTab } from 'utils/navigation';
+import { useTranslation } from 'react-i18next';
 
 import { VIEW_TYPES } from '../constants';
 import { useEntityDetailsTime } from '../EntityDetailsUtils/EntityDateTimeSelector/useEntityDetailsTime';
@@ -48,6 +49,7 @@ import {
 import { EntityCountsSection } from './components/EntityCountsSection/EntityCountsSection';
 import { K8sBaseDetailsContentProps } from './types';
 import { getDrawerDurationMs } from './useDrawerLifecycleStore';
+import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 
 import styles from '../EntityDetailsUtils/entityDetails.module.scss';
 
@@ -70,6 +72,7 @@ export default function K8sBaseDetailsContent<T>({
 	logsAndTracesInitialExpression,
 	eventsInitialExpression,
 }: K8sBaseDetailsContentProps<T>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const { timeRange, selectedInterval, handleTimeChange } =
 		useEntityDetailsTime();
 
@@ -309,7 +312,7 @@ export default function K8sBaseDetailsContent<T>({
 											label: (
 												<div className={styles.viewTitle}>
 													<BarChart size={14} />
-													Metrics
+													{translateInfraKey(t, 'display.metrics', 'Metrics')}
 												</div>
 											),
 										},
@@ -322,7 +325,7 @@ export default function K8sBaseDetailsContent<T>({
 											label: (
 												<div className={styles.viewTitle}>
 													<ScrollText size={14} />
-													Logs
+													{translateInfraKey(t, 'display.logs', 'Logs')}
 												</div>
 											),
 										},
@@ -335,7 +338,7 @@ export default function K8sBaseDetailsContent<T>({
 											label: (
 												<div className={styles.viewTitle}>
 													<DraftingCompass size={14} />
-													Traces
+													{translateInfraKey(t, 'display.traces', 'Traces')}
 												</div>
 											),
 										},
@@ -348,7 +351,7 @@ export default function K8sBaseDetailsContent<T>({
 											label: (
 												<div className={styles.viewTitle}>
 													<ChevronsLeftRight size={14} />
-													Events
+													{translateInfraKey(t, 'display.events', 'Events')}
 												</div>
 											),
 										},
@@ -359,7 +362,7 @@ export default function K8sBaseDetailsContent<T>({
 								label: (
 									<div className={styles.viewTitle}>
 										{tab.icon}
-										{tab.label}
+										{translateInfraKey(t, tab.labelKey, tab.label)}
 									</div>
 								),
 							})) ?? []),
@@ -367,7 +370,15 @@ export default function K8sBaseDetailsContent<T>({
 					/>
 
 					{selectedView === VIEW_TYPES.LOGS && (
-						<TooltipSimple title="Go to Logs Explorer" side="left" arrow>
+						<TooltipSimple
+							title={translateInfraKey(
+								t,
+								'display.go_to_logs_explorer',
+								'Go to Logs Explorer',
+							)}
+							side="left"
+							arrow
+						>
 							<Button
 								variant="ghost"
 								size="icon"
@@ -380,7 +391,15 @@ export default function K8sBaseDetailsContent<T>({
 						</TooltipSimple>
 					)}
 					{selectedView === VIEW_TYPES.TRACES && (
-						<TooltipSimple title="Go to Traces Explorer" side="left" arrow>
+						<TooltipSimple
+							title={translateInfraKey(
+								t,
+								'display.go_to_traces_explorer',
+								'Go to Traces Explorer',
+							)}
+							side="left"
+							arrow
+						>
 							<Button
 								variant="ghost"
 								size="icon"

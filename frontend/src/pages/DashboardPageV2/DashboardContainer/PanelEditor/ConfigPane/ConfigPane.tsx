@@ -1,4 +1,5 @@
 import { Input } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import type {
 	DashboardtypesPanelDTO,
@@ -63,6 +64,7 @@ function ConfigPane({
 	panelId,
 	metricUnit,
 }: ConfigPaneProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const panelKind = spec.plugin.kind;
 	const definition = getPanelDefinition(panelKind);
 	const sections = definition.sections;
@@ -78,28 +80,34 @@ function ConfigPane({
 		<div className={styles.config}>
 			<header className={styles.heading}>
 				<span className={styles.marker} />
-				<Typography.Text>Panel Details</Typography.Text>
+				<Typography.Text>
+					{t('dashboard_page_v2.panel_config.panel_details')}
+				</Typography.Text>
 			</header>
 			<div className={styles.divider} />
 
 			<div className={styles.group}>
 				<div className={styles.field}>
-					<Typography.Text>Title</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.title')}
+					</Typography.Text>
 					<Input
 						data-testid="panel-editor-v2-title"
 						value={spec.display.name}
-						placeholder="Panel title"
+						placeholder={t('dashboard_page_v2.panel_config.panel_title_placeholder')}
 						maxLength={DASHBOARD_NAME_MAX_LENGTH}
 						onChange={(e): void => setDisplayField('name', e.target.value)}
 					/>
 				</div>
 
 				<div className={styles.field}>
-					<Typography.Text>Description</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.description')}
+					</Typography.Text>
 					<Input.TextArea
 						data-testid="panel-editor-v2-description"
 						value={spec.display.description ?? ''}
-						placeholder="Add a description"
+						placeholder={t('dashboard_page_v2.panel_config.description_placeholder')}
 						rows={3}
 						onChange={(e): void => setDisplayField('description', e.target.value)}
 					/>
@@ -110,7 +118,9 @@ function ConfigPane({
 				<>
 					<div className={styles.divider} />
 					<div className={styles.sectionsContainer}>
-						<span className={styles.eyebrow}>DISPLAY OPTIONS</span>
+						<span className={styles.eyebrow}>
+							{t('dashboard_page_v2.panel_config.display_options')}
+						</span>
 						<div className={styles.sections}>
 							{sections.map((config) => (
 								<SectionSlot

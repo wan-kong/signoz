@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Badge } from '@signozhq/ui/badge';
 
 interface AlertStatusTagProps {
@@ -6,29 +7,31 @@ interface AlertStatusTagProps {
 }
 
 function AlertStatusTag({ state, testId }: AlertStatusTagProps): JSX.Element {
+	const { t } = useTranslation('alerts');
+
 	switch (state) {
 		case 'unprocessed':
 			return (
 				<Badge color="success" variant="outline" testId={testId}>
-					Unprocessed
+					{t('triggered_alerts.status.unprocessed')}
 				</Badge>
 			);
 		case 'active':
 			return (
 				<Badge color="error" variant="outline" testId={testId}>
-					Firing
+					{t('triggered_alerts.status.firing')}
 				</Badge>
 			);
 		case 'suppressed':
 			return (
 				<Badge color="error" variant="outline" testId={testId}>
-					Suppressed
+					{t('triggered_alerts.status.suppressed')}
 				</Badge>
 			);
 		default:
 			return (
 				<Badge color="secondary" variant="outline" testId={testId}>
-					Unknown
+					{t('triggered_alerts.status.unknown')}
 				</Badge>
 			);
 	}

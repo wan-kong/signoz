@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import * as appHooks from 'providers/App/App';
 
 import RoutingPolicies from '../RoutingPolicies';
@@ -9,6 +9,7 @@ import {
 	MOCK_ROUTING_POLICY_1,
 	mockLocation,
 	mockQueryParams,
+	renderWithAlertsI18n,
 } from './testUtils';
 
 const ROUTING_POLICY_DETAILS_TEST_ID = 'routing-policy-details';
@@ -71,7 +72,7 @@ describe('RoutingPolicies', () => {
 	});
 
 	it('should render components properly', () => {
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 		expect(screen.getByText('Routing Policies')).toBeInTheDocument();
 		expect(
 			screen.getByText('Create and manage routing policies.'),
@@ -88,7 +89,7 @@ describe('RoutingPolicies', () => {
 	});
 
 	it('should enable the "New routing policy" button for users with ADMIN role', () => {
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 		expect(
 			screen.getByRole('button', { name: /New routing policy/ }),
 		).toBeEnabled();
@@ -98,14 +99,14 @@ describe('RoutingPolicies', () => {
 		jest
 			.spyOn(appHooks, 'useAppContext')
 			.mockReturnValueOnce(getAppContextMockState({ role: 'VIEWER' }));
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 		expect(
 			screen.getByRole('button', { name: /New routing policy/ }),
 		).toBeDisabled();
 	});
 
 	it('filters routing policies by search term', () => {
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 		const searchInput = screen.getByPlaceholderText(SEARCH_PLACEHOLDER);
 		fireEvent.change(searchInput, {
 			target: { value: MOCK_ROUTING_POLICY_1.name },
@@ -115,7 +116,7 @@ describe('RoutingPolicies', () => {
 	});
 
 	it('clicking on the "New routing policy" button opens the policy details modal', () => {
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 		const newRoutingPolicyButton = screen.getByRole('button', {
 			name: /New routing policy/,
 		});
@@ -132,7 +133,7 @@ describe('RoutingPolicies', () => {
 				},
 			}),
 		);
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 		expect(
 			screen.getByTestId(ROUTING_POLICY_DETAILS_TEST_ID),
 		).toBeInTheDocument();
@@ -144,7 +145,7 @@ describe('RoutingPolicies', () => {
 				isDeleteModalOpen: true,
 			}),
 		);
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 		expect(screen.getByTestId('delete-routing-policy')).toBeInTheDocument();
 	});
 
@@ -157,7 +158,7 @@ describe('RoutingPolicies', () => {
 			}),
 		);
 
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 
 		const searchInput = screen.getByPlaceholderText(
 			SEARCH_PLACEHOLDER,
@@ -173,7 +174,7 @@ describe('RoutingPolicies', () => {
 			}),
 		);
 
-		render(<RoutingPolicies />);
+		renderWithAlertsI18n(<RoutingPolicies />);
 
 		const searchInput = screen.getByPlaceholderText(
 			SEARCH_PLACEHOLDER,

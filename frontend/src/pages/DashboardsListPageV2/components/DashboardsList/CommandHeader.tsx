@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 
 import NewDashboardButton from './NewDashboardButton';
 
@@ -19,11 +20,18 @@ function CommandHeader({
 	canCreate,
 	onCreate,
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	return (
 		<div className={styles.commandHeader}>
 			<div className={styles.headingBlock}>
 				<Typography.Title className={styles.title}>{label}</Typography.Title>
-				{isModified && <span className={styles.dirtyDot} title="Unsaved changes" />}
+				{isModified && (
+					<span
+						className={styles.dirtyDot}
+						title={t('dashboards_list_page_v2.unsaved_changes')}
+					/>
+				)}
 				<span className={styles.countPill}>{count}</span>
 			</div>
 			<div className={styles.grow} />

@@ -1,4 +1,5 @@
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import { DashboardtypesLegendPositionDTO } from 'api/generated/services/sigNoz.schemas';
 import type {
 	SectionEditorProps,
@@ -17,12 +18,12 @@ type LegendSectionProps = SectionEditorProps<SectionKind.Legend> &
 const POSITION_OPTIONS = [
 	{
 		value: DashboardtypesLegendPositionDTO.bottom,
-		label: 'Bottom',
+		labelKey: 'dashboard_page_v2.panel_config.legend.bottom',
 		icon: 'pos-bottom' as const,
 	},
 	{
 		value: DashboardtypesLegendPositionDTO.right,
-		label: 'Right',
+		labelKey: 'dashboard_page_v2.panel_config.legend.right',
 		icon: 'pos-right' as const,
 	},
 ];
@@ -38,14 +39,22 @@ function LegendSection({
 	onChange,
 	legendSeries,
 }: LegendSectionProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+	const positionOptions = POSITION_OPTIONS.map((option) => ({
+		...option,
+		label: t(option.labelKey),
+	}));
+
 	return (
 		<>
 			{controls.position && (
 				<div className={styles.field}>
-					<Typography.Text>Position</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.legend.position')}
+					</Typography.Text>
 					<ConfigSegmented
 						testId="panel-editor-v2-legend-position"
-						items={POSITION_OPTIONS}
+						items={positionOptions}
 						value={value?.position}
 						onChange={(next): void =>
 							onChange({
@@ -59,7 +68,9 @@ function LegendSection({
 
 			{controls.colors && (
 				<div className={styles.field}>
-					<Typography.Text>Series colors</Typography.Text>
+					<Typography.Text>
+						{t('dashboard_page_v2.panel_config.legend.series_colors')}
+					</Typography.Text>
 					<LegendColors
 						series={legendSeries ?? []}
 						value={value?.customColors}

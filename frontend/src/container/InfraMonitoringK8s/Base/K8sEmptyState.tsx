@@ -3,10 +3,12 @@ import { Button } from '@signozhq/ui/button';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
 import history from 'lib/history';
 import { LifeBuoy, TriangleAlert } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import emptyStateUrl from '@/assets/Icons/emptyState.svg';
 import eyesEmojiUrl from '@/assets/Images/eyesEmoji.svg';
 
+import { translateInfraKey, translateInfraText } from '../i18n';
 import type { K8sBaseListEmptyStateContext } from './K8sBaseList';
 
 import styles from './K8sEmptyState.module.scss';
@@ -33,6 +35,7 @@ export function K8sEmptyState({
 	isLoading,
 	rawData,
 }: K8sEmptyStateProps): JSX.Element | null {
+	const { t } = useTranslation('infraMonitoring');
 	const { isCloudUser } = useGetTenantLicense();
 
 	const handleSupport = useCallback(() => {
@@ -49,11 +52,18 @@ export function K8sEmptyState({
 				<div className={styles.content}>
 					<TriangleAlert size={32} className={styles.errorIcon} />
 					<span className={styles.message}>
-						{error || 'An error occurred while fetching data.'}
+						{error ||
+							translateInfraKey(
+								t,
+								'display.error_occurred_while_fetching_data',
+								'An error occurred while fetching data.',
+							)}
 					</span>
 					<p>
-						Our team is getting on top to resolve this. Please reach out to support if
-						the issue persists.
+						{translateInfraText(
+							t,
+							'Our team is getting on top to resolve this. Please reach out to support if the issue persists.',
+						)}
 					</p>
 					<div className={styles.actions}>
 						<Button
@@ -62,7 +72,7 @@ export function K8sEmptyState({
 							color="secondary"
 							prefix={<LifeBuoy size={14} />}
 						>
-							Contact Support
+							{translateInfraKey(t, 'display.contact_support', 'Contact Support')}
 						</Button>
 					</div>
 				</div>
@@ -78,17 +88,27 @@ export function K8sEmptyState({
 				<div className={styles.content}>
 					<img className={styles.eyesEmoji} src={eyesEmojiUrl} alt="eyes emoji" />
 					<div className={styles.noDataMessage}>
-						<h5 className={styles.title}>No host metrics data received yet</h5>
+						<h5 className={styles.title}>
+							{translateInfraKey(
+								t,
+								'display.no_host_metrics_data_received_yet',
+								'No host metrics data received yet',
+							)}
+						</h5>
 						<span className={styles.message}>
-							Please refer to{' '}
+							{translateInfraKey(t, 'display.please_refer_to', 'Please refer to')}{' '}
 							<a
 								href="https://signoz.io/docs/infrastructure-monitoring/hostmetrics/"
 								target="_blank"
 								rel="noreferrer"
 							>
-								our documentation
+								{translateInfraKey(t, 'display.our_documentation', 'our documentation')}
 							</a>{' '}
-							to learn how to send host metrics.
+							{translateInfraKey(
+								t,
+								'display.to_learn_how_to_send_host_metrics',
+								'to learn how to send host metrics.',
+							)}
 						</span>
 					</div>
 				</div>
@@ -102,8 +122,10 @@ export function K8sEmptyState({
 				<div className={styles.content}>
 					<img className={styles.eyesEmoji} src={eyesEmojiUrl} alt="eyes emoji" />
 					<span className={styles.message}>
-						To see K8s metrics, upgrade to the latest version of SigNoz k8s-infra
-						chart. Please contact support if you need help.
+						{translateInfraText(
+							t,
+							'To see K8s metrics, upgrade to the latest version of SigNoz k8s-infra chart. Please contact support if you need help.',
+						)}
 					</span>
 				</div>
 			</div>
@@ -117,11 +139,16 @@ export function K8sEmptyState({
 					<img className={styles.eyesEmoji} src={eyesEmojiUrl} alt="eyes emoji" />
 					<div className={styles.noDataMessage}>
 						<h5 className={styles.title}>
-							Queried time range is before earliest K8s metrics
+							{translateInfraText(
+								t,
+								'Queried time range is before earliest K8s metrics',
+							)}
 						</h5>
 						<span className={styles.message}>
-							Your requested end time is earlier than the earliest detected time of K8s
-							metrics data, please adjust your end time.
+							{translateInfraText(
+								t,
+								'Your requested end time is earlier than the earliest detected time of K8s metrics data, please adjust your end time.',
+							)}
 						</span>
 					</div>
 				</div>
@@ -138,7 +165,10 @@ export function K8sEmptyState({
 					className={styles.emptyStateSvg}
 				/>
 				<span className={styles.message}>
-					This query had no results. Edit your query and try again!
+					{translateInfraText(
+						t,
+						'This query had no results. Edit your query and try again!',
+					)}
 				</span>
 			</div>
 		</div>

@@ -1,4 +1,5 @@
 import { CalendarRange, Clock, RotateCw } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import type { DashboardtypesPanelDTO } from 'api/generated/services/sigNoz.schemas';
 import { DashboardDetailEvents } from 'pages/DashboardPageV2/constants/events';
@@ -32,13 +33,14 @@ interface NoDataProps {
  * the query.
  */
 function NoData({
-	title = 'No data in this time range',
-	description = 'Nothing in the selected window. Try widening the range.',
+	title,
+	description,
 	isFetching = false,
 	onRetry,
 	panel,
 	'data-testid': testId = 'panel-no-data',
 }: NoDataProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const viewExtend = useViewPanelStore(selectViewPanelExtendWindow);
 	const globalExtend = useExtendTimeWindow();
 	// The View modal's local extender wins; the global one only applies to a panel that
@@ -74,7 +76,7 @@ function NoData({
 
 	const retryAction: PanelMessageAction | undefined = onRetry
 		? {
-				label: 'Retry',
+				label: t('dashboard_page_v2.panel_body.retry'),
 				onClick: (): void => {
 					void logEvent(DashboardDetailEvents.NoDataAction, {
 						action: 'retry',
@@ -89,8 +91,10 @@ function NoData({
 	return (
 		<PanelMessage
 			icon={<Clock size={18} />}
-			title={title}
-			description={description}
+			title={title ?? t('dashboard_page_v2.panel_body.no_data_title')}
+			description={
+				description ?? t('dashboard_page_v2.panel_body.no_data_description')
+			}
 			action={extendAction ?? retryAction}
 			secondaryAction={extendAction ? retryAction : undefined}
 			data-testid={testId}

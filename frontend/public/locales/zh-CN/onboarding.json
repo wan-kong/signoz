@@ -1,8 +1,8 @@
 {
-	"invite_user": "Invite your teammates",
-	"invite": "Invite",
-	"skip": "Skip",
-	"invite_user_helper_text": "Not the right person to get started? No worries! Invite someone who can.",
-	"select_use_case": "Select a use-case to get started",
-	"get_started": "Get Started"
+	"invite_user": "邀请你的队友",
+	"invite": "邀请",
+	"skip": "跳过",
+	"invite_user_helper_text": "不是合适的启动人选？没关系！邀请能上手的人来。",
+	"select_use_case": "选择一个使用场景开始",
+	"get_started": "开始使用"
 }

@@ -6,8 +6,12 @@ import TriggeredAlerts from 'container/TriggeredAlerts';
 import { NuqsTestingAdapter } from 'nuqs/adapters/testing';
 import { AppContext } from 'providers/App/App';
 import TimezoneProvider from 'providers/Timezone';
+import { I18nextProvider } from 'react-i18next';
+import { alertsI18nProviderProps } from 'tests/alertsI18n';
 import { onNuqsUrlUpdate, resetNuqsState } from 'tests/nuqs-helpers';
 import { getAppContextMock } from 'tests/test-utils';
+
+import { createTestI18nInstance } from '../../../ReactI18/testUtils';
 
 interface RenderOptions {
 	initialRoute?: string;
@@ -29,28 +33,34 @@ export function renderTriggeredAlerts(
 			mutations: { retry: false },
 		},
 	});
+	const i18n = createTestI18nInstance({
+		language: alertsI18nProviderProps.i18nLanguage,
+		resources: alertsI18nProviderProps.i18nResources,
+	});
 
 	return render(
-		<MemoryRouter initialEntries={[initialRoute]}>
-			<NuqsTestingAdapter
-				searchParams={initialSearch}
-				onUrlUpdate={onNuqsUrlUpdate}
-				rateLimitFactor={0}
-				hasMemory
-			>
-				<QueryClientProvider client={queryClient}>
-					<AppContext.Provider value={getAppContextMock('ADMIN')}>
-						<TimezoneProvider>
-							<VirtuosoMockContext.Provider
-								value={{ viewportHeight: 800, itemHeight: 46 }}
-							>
-								<TriggeredAlerts />
-							</VirtuosoMockContext.Provider>
-						</TimezoneProvider>
-					</AppContext.Provider>
-				</QueryClientProvider>
-			</NuqsTestingAdapter>
-		</MemoryRouter>,
+		<I18nextProvider i18n={i18n}>
+			<MemoryRouter initialEntries={[initialRoute]}>
+				<NuqsTestingAdapter
+					searchParams={initialSearch}
+					onUrlUpdate={onNuqsUrlUpdate}
+					rateLimitFactor={0}
+					hasMemory
+				>
+					<QueryClientProvider client={queryClient}>
+						<AppContext.Provider value={getAppContextMock('ADMIN')}>
+							<TimezoneProvider>
+								<VirtuosoMockContext.Provider
+									value={{ viewportHeight: 800, itemHeight: 46 }}
+								>
+									<TriggeredAlerts />
+								</VirtuosoMockContext.Provider>
+							</TimezoneProvider>
+						</AppContext.Provider>
+					</QueryClientProvider>
+				</NuqsTestingAdapter>
+			</MemoryRouter>
+		</I18nextProvider>,
 	);
 }
 

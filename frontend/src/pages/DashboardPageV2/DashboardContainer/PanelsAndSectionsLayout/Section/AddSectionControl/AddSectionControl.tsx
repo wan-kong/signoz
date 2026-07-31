@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import type { DashboardtypesLayoutDTO } from 'api/generated/services/sigNoz.schemas';
@@ -8,8 +9,6 @@ import { useAddSection } from '../hooks/useAddSection';
 import { useFirstSectionMigration } from '../hooks/useFirstSectionMigration';
 import FirstSectionMigrationModal from '../FirstSectionMigrationModal';
 import styles from './AddSectionControl.module.scss';
-
-const DEFAULT_SECTION_TITLE = 'New section';
 
 interface AddSectionControlProps {
 	sections: DashboardSection[];
@@ -22,6 +21,7 @@ function AddSectionControl({
 	layouts,
 	isSectioned,
 }: AddSectionControlProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [isMigrationOpen, setIsMigrationOpen] = useState(false);
 	const { addSection } = useAddSection({ layouts });
 	const { migrate, isSaving } = useFirstSectionMigration({ sections });
@@ -36,13 +36,13 @@ function AddSectionControl({
 			setIsMigrationOpen(true);
 			return;
 		}
-		void addSection(DEFAULT_SECTION_TITLE);
-	}, [needsMigration, addSection]);
+		void addSection(t('dashboard_page_v2.section_actions.new_section'));
+	}, [needsMigration, addSection, t]);
 
 	const handleConfirmMigration = useCallback(async (): Promise<void> => {
-		await migrate(DEFAULT_SECTION_TITLE);
+		await migrate(t('dashboard_page_v2.section_actions.new_section'));
 		setIsMigrationOpen(false);
-	}, [migrate]);
+	}, [migrate, t]);
 
 	return (
 		<>
@@ -54,7 +54,7 @@ function AddSectionControl({
 				data-testid="add-section"
 			>
 				<Plus size={14} />
-				Add section
+				{t('dashboard_page_v2.section_actions.add_section')}
 			</Button>
 			<FirstSectionMigrationModal
 				open={isMigrationOpen}

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, Modal } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
@@ -14,6 +15,7 @@ import { PanelTypesWithData } from './menuItems';
 import './PanelTypeSelectionModal.styles.scss';
 
 function PanelTypeSelectionModal(): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { isPanelTypeSelectionModalOpen, setIsPanelTypeSelectionModalOpen } =
 		usePanelTypeSelectionModalStore();
 
@@ -50,7 +52,7 @@ function PanelTypeSelectionModal(): JSX.Element {
 			}}
 			rootClassName="panel-type-selection-modal"
 			footer={null}
-			title="New Panel"
+			title={t('dashboard_page_v2.actions.new_panel')}
 		>
 			<div className="panel-selection">
 				{PanelTypesWithData.map(({ name, icon, display }) => (

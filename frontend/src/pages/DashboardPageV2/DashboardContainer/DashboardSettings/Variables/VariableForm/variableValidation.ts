@@ -10,13 +10,13 @@ export function getNameError(
 	originalName: string,
 ): string | null {
 	if (name === '') {
-		return 'Variable name is required';
+		return 'dashboard_page_v2.variables.name_required';
 	}
 	if (/\s/.test(name)) {
-		return 'Variable name cannot contain whitespaces';
+		return 'dashboard_page_v2.variables.name_no_whitespace';
 	}
 	if (name !== originalName && existingNames.includes(name)) {
-		return 'Variable name already exists';
+		return 'dashboard_page_v2.variables.name_exists';
 	}
 	return null;
 }
@@ -31,7 +31,7 @@ export function getAttributeError(
 		model.dynamicAttribute &&
 		existingDynamicAttributes.includes(model.dynamicAttribute)
 	) {
-		return 'A variable with this attribute key already exists';
+		return 'dashboard_page_v2.variables.attribute_exists';
 	}
 	return undefined;
 }

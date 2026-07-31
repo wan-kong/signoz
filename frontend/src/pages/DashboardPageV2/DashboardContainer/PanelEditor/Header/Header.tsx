@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SolidAlertTriangle, X } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
 import { Button } from '@signozhq/ui/button';
@@ -36,6 +37,7 @@ function Header({
 	onSwitchToView,
 	onClose,
 }: HeaderProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const discard = useConfirmableAction(
 		useCallback(async (): Promise<void> => {
 			// Only reachable after confirming a discard, which is gated on unsaved edits.
@@ -67,10 +69,12 @@ function Header({
 					onClick={handleCloseClick}
 				/>
 				<Divider type="vertical" />
-				<Typography.Text>Configure panel</Typography.Text>
+				<Typography.Text>
+					{t('dashboard_page_v2.panel_editor.configure_panel')}
+				</Typography.Text>
 				{isDirty && (
 					<Badge color="warning" data-testid="panel-editor-v2-unsaved-badge">
-						Unsaved Changes
+						{t('dashboard_page_v2.panel_editor.unsaved_changes')}
 					</Badge>
 				)}
 			</div>
@@ -87,7 +91,7 @@ function Header({
 						data-testid="panel-editor-v2-switch-to-view"
 						onClick={onSwitchToView}
 					>
-						Switch to View Mode
+						{t('dashboard_page_v2.panel_editor.switch_to_view_mode')}
 					</Button>
 				)}
 				<DisabledControlTooltip reason={readOnlyReason ?? ''} disabled={readOnly}>
@@ -99,7 +103,7 @@ function Header({
 						loading={!readOnly && isSaving}
 						onClick={readOnly ? undefined : onSave}
 					>
-						Save changes
+						{t('dashboard_page_v2.panel_editor.save_changes')}
 					</Button>
 				</DisabledControlTooltip>
 			</div>
@@ -111,7 +115,7 @@ function Header({
 						discard.cancel();
 					}
 				}}
-				title="Discard changes?"
+				title={t('dashboard_page_v2.panel_editor.discard_title')}
 				titleIcon={<SolidAlertTriangle size={14} color="#fdd600" />}
 				testId="panel-editor-v2-discard-modal"
 				footer={
@@ -124,7 +128,7 @@ function Header({
 							loading={discard.isPending}
 							onClick={discard.confirm}
 						>
-							Discard
+							{t('dashboard_page_v2.panel_editor.discard')}
 						</Button>
 						<Button
 							type="button"
@@ -133,12 +137,14 @@ function Header({
 							data-testid="panel-editor-v2-discard-cancel"
 							onClick={discard.cancel}
 						>
-							Keep editing
+							{t('dashboard_page_v2.panel_editor.keep_editing')}
 						</Button>
 					</>
 				}
 			>
-				<Typography>Your unsaved edits to this panel will be lost.</Typography>
+				<Typography>
+					{t('dashboard_page_v2.panel_editor.discard_description')}
+				</Typography>
 			</DialogWrapper>
 		</div>
 	);

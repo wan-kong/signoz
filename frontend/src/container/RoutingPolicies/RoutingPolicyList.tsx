@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import { Button, Table, TableProps } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { RotateCw } from '@signozhq/icons';
@@ -19,9 +20,10 @@ function RoutingPolicyList({
 	handleDeleteModalOpen,
 	hasSearchTerm,
 }: RoutingPolicyListProps): JSX.Element {
+	const { t } = useTranslation('alerts');
 	const columns: TableProps<RoutingPolicy>['columns'] = [
 		{
-			title: 'Routing Policy',
+			title: t('routing_policies.list.routing_policy'),
 			key: 'routingPolicy',
 			render: (data: RoutingPolicy): JSX.Element => (
 				<RoutingPolicyListItem
@@ -51,29 +53,34 @@ function RoutingPolicyList({
 				{showError ? (
 					<div className="error-state">
 						<Typography.Text>
-							Something went wrong while fetching routing policies.
+							{t('routing_policies.list.fetch_error')}
 						</Typography.Text>
 						<Button icon={<RotateCw size={14} />} onClick={refetchRoutingPolicies}>
-							Retry
+							{t('retry')}
 						</Button>
 					</div>
 				) : hasSearchTerm ? (
-					<Typography.Text>No matching routing policies found.</Typography.Text>
+					<Typography.Text>{t('routing_policies.list.no_matching')}</Typography.Text>
 				) : (
 					<Typography.Text>
-						No routing policies yet,{' '}
-						<a
-							href="https://signoz.io/docs/alerts-management/routing-policy"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Learn more here
-						</a>
+						<Trans
+							t={t}
+							i18nKey="routing_policies.list.empty"
+							components={[
+								<a
+									key="routing-policy-docs-link"
+									href="https://signoz.io/docs/alerts-management/routing-policy"
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={t('routing_policies.list.docs_link_label')}
+								/>,
+							]}
+						/>
 					</Typography.Text>
 				)}
 			</div>
 		),
-		[showError, hasSearchTerm, refetchRoutingPolicies],
+		[showError, hasSearchTerm, refetchRoutingPolicies, t],
 	);
 
 	return (

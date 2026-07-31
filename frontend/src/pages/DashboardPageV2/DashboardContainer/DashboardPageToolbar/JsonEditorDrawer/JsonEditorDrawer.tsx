@@ -1,4 +1,5 @@
 import { KeyboardEvent, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import MEditor from '@monaco-editor/react';
 import { TriangleAlert } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
@@ -30,6 +31,7 @@ function JsonEditorDrawer({
 	isOpen,
 	onClose,
 }: JsonEditorDrawerProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [, copyToClipboard] = useCopyToClipboard();
 
 	const isEditable = useDashboardStore((s) => s.isEditable);
@@ -52,12 +54,12 @@ function JsonEditorDrawer({
 
 	const onCopy = useCallback((): void => {
 		copyToClipboard(draft);
-		toast.success('JSON copied to clipboard');
+		toast.success(t('dashboard_page_v2.json_editor.copied'));
 		void logEvent(DashboardDetailEvents.JsonEditorAction, {
 			action: 'copy',
 			dashboardId: dashboard.id,
 		});
-	}, [copyToClipboard, draft, dashboard.id]);
+	}, [copyToClipboard, draft, dashboard.id, t]);
 
 	const onDownload = useCallback((): void => {
 		void logEvent(DashboardDetailEvents.JsonEditorAction, {
@@ -96,25 +98,29 @@ function JsonEditorDrawer({
 
 	const applyDisabled = readOnly || !isDirty || !validity.valid || isSaving;
 	const validationText = validity.valid
-		? `Valid JSON · ${validity.lineCount} lines`
-		: `Line ${validity.errorLine ?? '?'} · ${validity.message ?? 'Invalid JSON'}`;
-	const plural = (n: number): string => (n === 1 ? '' : 's');
+		? t('dashboard_page_v2.json_editor.valid_json', {
+				count: validity.lineCount,
+			})
+		: t('dashboard_page_v2.json_editor.invalid_json', {
+				line: validity.errorLine ?? '?',
+				message: validity.message ?? t('dashboard_page_v2.json_editor.invalid'),
+			});
 	const danglingWarning =
 		danglingPanelIds.length > 0
-			? `${danglingPanelIds.length} panel${plural(
-					danglingPanelIds.length,
-				)} not present in layout — they won't be shown after saving.`
+			? t('dashboard_page_v2.json_editor.dangling_panels', {
+					count: danglingPanelIds.length,
+				})
 			: null;
 	const missingRefWarning =
 		missingPanelRefs.length > 0
-			? `${missingPanelRefs.length} layout item${plural(
-					missingPanelRefs.length,
-				)} ${missingPanelRefs.length === 1 ? 'references' : 'reference'} a panel that no longer exists.`
+			? t('dashboard_page_v2.json_editor.missing_refs', {
+					count: missingPanelRefs.length,
+				})
 			: null;
 
 	return (
 		<Drawer
-			title="Dashboard JSON"
+			title={t('dashboard_page_v2.json_editor.title')}
 			placement="right"
 			width={660}
 			onClose={onClose}
@@ -173,7 +179,7 @@ function JsonEditorDrawer({
 							testId="json-editor-cancel"
 							onClick={onClose}
 						>
-							Cancel
+							{t('dashboard_page_v2.json_editor.cancel')}
 						</Button>
 						<DisabledControlTooltip reason={readOnlyReason} disabled={readOnly}>
 							<Button
@@ -184,7 +190,7 @@ function JsonEditorDrawer({
 								disabled={applyDisabled}
 								onClick={readOnly ? undefined : (): void => void apply()}
 							>
-								Apply changes
+								{t('dashboard_page_v2.json_editor.apply_changes')}
 							</Button>
 						</DisabledControlTooltip>
 					</div>

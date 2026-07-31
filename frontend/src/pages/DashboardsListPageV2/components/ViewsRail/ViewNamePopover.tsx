@@ -1,4 +1,5 @@
 import { type ChangeEvent, type ReactNode, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
 import { PopoverSimple } from '@signozhq/ui/popover';
@@ -31,6 +32,7 @@ function ViewNamePopover({
 	initialName = '',
 	testIdPrefix = 'view-name',
 }: Props): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [name, setName] = useState(initialName);
 
 	useEffect(() => {
@@ -58,12 +60,14 @@ function ViewNamePopover({
 		>
 			<div className={styles.savePopover}>
 				<div className={styles.saveTitle}>{title}</div>
-				<Typography.Text className={styles.saveLabel}>Name</Typography.Text>
+				<Typography.Text className={styles.saveLabel}>
+					{t('dashboards_list_page_v2.fields.name')}
+				</Typography.Text>
 				<Input
 					value={name}
 					autoFocus
 					maxLength={VIEW_NAME_MAX_LENGTH}
-					placeholder="e.g. Prod alerts"
+					placeholder={t('dashboards_list_page_v2.views.name_placeholder')}
 					testId={`${testIdPrefix}-name`}
 					onChange={(e: ChangeEvent<HTMLInputElement>): void =>
 						setName(e.target.value)
@@ -81,7 +85,7 @@ function ViewNamePopover({
 						size="sm"
 						onClick={(): void => onOpenChange(false)}
 					>
-						Cancel
+						{t('dashboards_list_page_v2.actions.cancel')}
 					</Button>
 					<Button
 						variant="solid"
