@@ -45,7 +45,7 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'volumeGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader title="Volume Group" titleKey="display.volume_group" />
+			<EntityGroupHeader title="display.volume_group" />
 		),
 		accessorFn: (row): string => row.persistentVolumeClaimName || '',
 		width: { min: 290 },
@@ -69,8 +69,7 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		id: 'pvcName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="PVC Name"
-				titleKey="display.pvc_name"
+				title="display.pvc_name"
 				icon={<HardDrive data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/volumes#pvc-name"
 			/>
@@ -89,9 +88,10 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'namespaceName',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/volumes#namespace-name">
-				Namespace
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/volumes#namespace-name"
+				title="display.namespace"
+			/>
 		),
 		accessorFn: (row): string =>
 			row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] || '',
@@ -104,9 +104,10 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'capacity',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/volumes#volume-capacity">
-				Capacity
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-capacity"
+				title="display.capacity"
+			/>
 		),
 		accessorFn: (row): number => row.volumeCapacity,
 		width: { min: 140 },
@@ -128,9 +129,10 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'usage',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/volumes#volume-used">
-				Used
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-used"
+				title="display.used"
+			/>
 		),
 		accessorFn: (row): number => row.volumeUsage,
 		width: { min: 140 },
@@ -152,9 +154,10 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'available',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/volumes#volume-available">
-				Available
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-available"
+				title="display.available"
+			/>
 		),
 		accessorFn: (row): number => row.volumeAvailable,
 		width: { min: 140 },
@@ -176,9 +179,10 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'inodes',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes">
-				Inodes
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes"
+				title="display.inodes"
+			/>
 		),
 		accessorFn: (row): number => row.volumeInodes,
 		width: { min: 140 },
@@ -200,9 +204,10 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'inodesUsed',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes-used">
-				Inodes Used
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes-used"
+				title="display.inodes_used"
+			/>
 		),
 		accessorFn: (row): number => row.volumeInodesUsed,
 		width: { min: 160 },
@@ -224,9 +229,10 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'inodesFree',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes-free">
-				Inodes Free
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes-free"
+				title="display.inodes_free"
+			/>
 		),
 		accessorFn: (row): number => row.volumeInodesFree,
 		width: { min: 160 },

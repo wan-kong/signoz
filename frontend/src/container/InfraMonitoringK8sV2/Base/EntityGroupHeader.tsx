@@ -2,10 +2,6 @@ import { Group, Info } from '@signozhq/icons';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 import { useTranslation } from 'react-i18next';
 
-import {
-	translateInfraKey,
-	translateInfraText,
-} from '../../InfraMonitoringK8s/i18n';
 import styles from './EntityGroupHeader.module.scss';
 
 const DOCS_BASE_URL = `${process.env.DOCS_BASE_URL}/docs`;
@@ -31,11 +27,9 @@ function EntityGroupHeader({
 
 	const renderInfoIcon = (): React.ReactNode => {
 		if (docPath) {
-			const tooltipTitle = translateInfraKey(
-				t,
-				tooltipKey,
-				tooltip || 'Not sure what this means?',
-			);
+			const tooltipTitle = t(tooltipKey || '', {
+				defaultValue: tooltip || 'Not sure what this means?',
+			});
 			return (
 				<TooltipSimple
 					arrow
@@ -48,7 +42,7 @@ function EntityGroupHeader({
 								rel="noopener"
 								onClick={(e): void => e.stopPropagation()}
 							>
-								{translateInfraKey(t, 'display.learn_more_period', 'Learn more.')}
+								{t('display.learn_more_period', { defaultValue: 'Learn more.' })}
 							</a>
 						</>
 					}
@@ -62,7 +56,7 @@ function EntityGroupHeader({
 
 		if (tooltip) {
 			return (
-				<TooltipSimple title={translateInfraKey(t, tooltipKey, tooltip)}>
+				<TooltipSimple title={t(tooltipKey || '', { defaultValue: tooltip })}>
 					<span className={styles.infoIcon}>
 						<Info size="md" />
 					</span>
@@ -78,9 +72,7 @@ function EntityGroupHeader({
 			<span data-slot="icon">
 				{icon || <Group size={14} data-hide-expanded="true" />}
 			</span>{' '}
-			{titleKey
-				? translateInfraKey(t, titleKey, title)
-				: translateInfraText(t, title)}
+			{t(titleKey || title || '', { defaultValue: title })}
 			{renderInfoIcon()}
 		</div>
 	);

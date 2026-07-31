@@ -70,53 +70,43 @@ export const k8sNodeGetEntityName = (item: K8sNodeData): string =>
 
 export const nodeWidgetInfo = [
 	{
-		title: 'CPU Usage (cores)',
-		titleKey: 'display.cpu_usage_cores',
+		title: 'display.cpu_usage_cores',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Memory Usage (bytes)',
-		titleKey: 'display.memory_usage_bytes',
+		title: 'display.memory_usage_bytes',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'CPU Usage (%)',
-		titleKey: 'display.cpu_usage_percent',
+		title: 'display.cpu_usage_percent',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Memory Usage (%)',
-		titleKey: 'display.memory_usage_percent',
+		title: 'display.memory_usage_percent',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Pods by CPU (top 10)',
-		titleKey: 'display.pods_by_cpu_top_10',
+		title: 'display.pods_by_cpu_top_10',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Pods by Memory (top 10)',
-		titleKey: 'display.pods_by_memory_top_10',
+		title: 'display.pods_by_memory_top_10',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Network error count',
-		titleKey: 'display.network_error_count',
+		title: 'display.network_error_count',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Network IO rate',
-		titleKey: 'display.network_io_rate',
+		title: 'display.network_io_rate',
 		yAxisUnit: 'binBps',
 	},
 	{
-		title: 'Filesystem usage (bytes)',
-		titleKey: 'display.filesystem_usage_bytes',
+		title: 'display.filesystem_usage_bytes',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Filesystem usage (%)',
-		titleKey: 'display.filesystem_usage_percent',
+		title: 'display.filesystem_usage_percent',
 		yAxisUnit: 'percentunit',
 	},
 ];

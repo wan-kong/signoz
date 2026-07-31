@@ -1,15 +1,13 @@
+import { Boxes } from '@signozhq/icons';
 import { Tooltip } from 'antd';
-import { TableColumnDef } from 'components/TanStackTableView';
-import TanStackTable from 'components/TanStackTableView';
-import { ExpandButtonWrapper } from 'container/InfraMonitoringK8s/components';
+import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
 
 import EntityGroupHeader from '../Base/EntityGroupHeader';
 import K8sGroupCell from '../Base/K8sGroupCell';
 import { formatBytes } from '../commonUtils';
-import { ValidateColumnValueWrapper } from '../components';
+import { ExpandButtonWrapper, ValidateColumnValueWrapper } from '../components';
 import { InfraMonitoringEntity } from '../constants';
 import { K8sClusterData, K8sClustersListPayload } from './api';
-import { Boxes } from '@signozhq/icons';
 
 export function getK8sClusterRowKey(cluster: K8sClusterData): string {
 	return (
@@ -57,8 +55,7 @@ export const k8sClustersColumnsConfig: TableColumnDef<K8sClusterData>[] = [
 		id: 'clusterName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Cluster Name"
-				titleKey="display.cluster_name"
+				title="display.cluster_name"
 				icon={<Boxes data-hide-expanded="true" size={14} />}
 			/>
 		),
@@ -80,7 +77,7 @@ export const k8sClustersColumnsConfig: TableColumnDef<K8sClusterData>[] = [
 	},
 	{
 		id: 'cpu',
-		header: 'CPU Usage (cores)',
+		header: 'display.cpu_usage_cores',
 		accessorFn: (row): number => row.cpuUsage,
 		width: { min: 220 },
 		enableSort: true,
@@ -99,7 +96,7 @@ export const k8sClustersColumnsConfig: TableColumnDef<K8sClusterData>[] = [
 	},
 	{
 		id: 'cpu_allocatable',
-		header: 'CPU Alloc (cores)',
+		header: 'display.cpu_alloc_cores',
 		accessorFn: (row): number => row.cpuAllocatable,
 		width: { min: 220 },
 		enableSort: true,
@@ -118,7 +115,7 @@ export const k8sClustersColumnsConfig: TableColumnDef<K8sClusterData>[] = [
 	},
 	{
 		id: 'memory',
-		header: 'Memory Usage (WSS)',
+		header: 'display.memory_usage_wss',
 		accessorFn: (row): number => row.memoryUsage,
 		width: { min: 220 },
 		enableSort: true,
@@ -137,7 +134,7 @@ export const k8sClustersColumnsConfig: TableColumnDef<K8sClusterData>[] = [
 	},
 	{
 		id: 'memory_allocatable',
-		header: 'Memory Allocatable',
+		header: 'display.memory_allocatable',
 		accessorFn: (row): number => row.memoryAllocatable,
 		width: { min: 220 },
 		enableSort: true,

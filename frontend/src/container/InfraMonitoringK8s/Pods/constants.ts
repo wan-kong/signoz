@@ -69,68 +69,55 @@ export const k8sPodGetEntityName = (pod: K8sPodsData): string =>
 
 export const podWidgetInfo = [
 	{
-		title: 'CPU Usage (cores)',
-		titleKey: 'display.cpu_usage_cores',
+		title: 'display.cpu_usage_cores',
 		yAxisUnit: '',
 	},
 	{
-		title: 'CPU Request, Limit Utilization',
-		titleKey: 'display.cpu_request_limit_utilization',
+		title: 'display.cpu_request_limit_utilization',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Memory Usage (bytes)',
-		titleKey: 'display.memory_usage_bytes',
+		title: 'display.memory_usage_bytes',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Memory Request, Limit Utilization',
-		titleKey: 'display.memory_request_limit_utilization',
+		title: 'display.memory_request_limit_utilization',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Memory by State',
-		titleKey: 'display.memory_by_state',
+		title: 'display.memory_by_state',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Memory Major Page Faults',
-		titleKey: 'display.memory_major_page_faults',
+		title: 'display.memory_major_page_faults',
 		yAxisUnit: '',
 	},
 	{
-		title: 'CPU Usage by Container (cores)',
-		titleKey: 'display.cpu_usage_by_container_cores',
+		title: 'display.cpu_usage_by_container_cores',
 		yAxisUnit: '',
 	},
 	{
-		title: 'CPU Request, Limit Utilization by Container',
-		titleKey: 'display.cpu_request_limit_utilization_by_container',
+		title: 'display.cpu_request_limit_utilization_by_container',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Memory Usage by Container (bytes)',
-		titleKey: 'display.memory_usage_by_container_bytes',
+		title: 'display.memory_usage_by_container_bytes',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Memory Request, Limit Utilization by Container',
-		titleKey: 'display.memory_request_limit_utilization_by_container',
+		title: 'display.memory_request_limit_utilization_by_container',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Network rate',
-		titleKey: 'display.network_rate',
+		title: 'display.network_rate',
 		yAxisUnit: 'binBps',
 	},
 	{
-		title: 'Network errors',
-		titleKey: 'display.network_errors',
+		title: 'display.network_errors',
 		yAxisUnit: '',
 	},
 	{
-		title: 'File system (bytes)',
-		titleKey: 'display.file_system_bytes',
+		title: 'display.file_system_bytes',
 		yAxisUnit: 'bytes',
 	},
 ];

@@ -11,18 +11,17 @@ import { RowData } from 'lib/query/createTableColumnsFromQuery';
 import { BaseAutocompleteData } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { FormatTimezoneAdjustedTimestamp } from 'hooks/useTimezoneFormatter/useTimezoneFormatter';
 import { TFunction } from 'i18next';
-import { translateInfraKey, translateInfraText } from '../../i18n';
 import styles from './traceListColumns.module.scss';
 
 const keyToLabelMap: Record<string, string> = {
-	timestamp: 'Timestamp',
-	serviceName: 'Service Name',
-	name: 'Name',
-	durationNano: 'Duration',
-	httpMethod: 'HTTP Method',
-	responseStatusCode: 'Status Code',
-	spanID: 'Span ID',
-	traceID: 'Trace ID',
+	timestamp: 'display.timestamp',
+	serviceName: 'display.service_name',
+	name: 'display.name',
+	durationNano: 'display.duration',
+	httpMethod: 'display.http_method',
+	responseStatusCode: 'display.status_code',
+	spanID: 'display.span_id',
+	traceID: 'display.trace_id',
 };
 
 const keyAliases: Record<string, string[]> = {
@@ -38,6 +37,10 @@ const keyAliases: Record<string, string[]> = {
 	traceID: ['traceID', 'trace.id', 'trace_id'],
 };
 
+type TraceItemData = Record<string, string | number | undefined> & {
+	resource?: Record<string, string | number | undefined>;
+};
+
 const getPrimaryKey = (key: string): string => {
 	for (const [primaryKey, aliases] of Object.entries(keyAliases)) {
 		if (aliases.includes(key)) {
@@ -47,7 +50,10 @@ const getPrimaryKey = (key: string): string => {
 	return key;
 };
 
-const getValueForKey = (data: Record<string, any>, key: string): any => {
+const getValueForKey = (
+	data: TraceItemData,
+	key: string,
+): string | number | undefined => {
 	const primaryKey = getPrimaryKey(key);
 	const aliases = keyAliases[primaryKey];
 	if (aliases) {
@@ -68,12 +74,16 @@ export const getTraceListColumns = (
 ): ColumnsType<RowData> => {
 	const columns: ColumnsType<RowData> =
 		selectedColumns.map(({ dataType, key, type }) => ({
-			title: translateInfraText(t, keyToLabelMap[getPrimaryKey(key)]),
+			title: String(
+				t(keyToLabelMap[getPrimaryKey(key)] || '', {
+					defaultValue: getPrimaryKey(key),
+				}),
+			),
 			dataIndex: key,
 			key: `${key}-${dataType}-${type}`,
 			width: 145,
 			render: (value, item): JSX.Element => {
-				const itemData = item.data as any;
+				const itemData = item.data as unknown as TraceItemData;
 				const primaryKey = getPrimaryKey(key);
 
 				if (primaryKey === 'timestamp') {
@@ -83,7 +93,7 @@ export const getTraceListColumns = (
 							: formatTimezoneAdjustedTimestamp(value / 1e6);
 
 					return (
-						<BlockLink to={getTraceLink(itemData)} openInNewTab>
+						<BlockLink to={getTraceLink(itemData as RowData)} openInNewTab>
 							<Typography.Text className={styles.cellText}>{date}</Typography.Text>
 						</BlockLink>
 					);
@@ -91,9 +101,9 @@ export const getTraceListColumns = (
 
 				if (value === '') {
 					return (
-						<BlockLink to={getTraceLink(itemData)} openInNewTab>
+						<BlockLink to={getTraceLink(itemData as RowData)} openInNewTab>
 							<Typography data-testid={key} className={styles.cellText}>
-								{translateInfraKey(t, 'display.not_available_abbrev', 'N/A')}
+								{String(t('display.not_available_abbrev', { defaultValue: 'N/A' }))}
 							</Typography>
 						</BlockLink>
 					);
@@ -104,16 +114,16 @@ export const getTraceListColumns = (
 
 					if (!httpMethod) {
 						return (
-							<BlockLink to={getTraceLink(itemData)} openInNewTab>
+							<BlockLink to={getTraceLink(itemData as RowData)} openInNewTab>
 								<Typography className={styles.cellText}>
-									{translateInfraKey(t, 'display.not_available_abbrev', 'N/A')}
+									{String(t('display.not_available_abbrev', { defaultValue: 'N/A' }))}
 								</Typography>
 							</BlockLink>
 						);
 					}
 
 					return (
-						<BlockLink to={getTraceLink(itemData)} openInNewTab>
+						<BlockLink to={getTraceLink(itemData as RowData)} openInNewTab>
 							<Badge
 								data-testid={key}
 								color="robin"
@@ -133,10 +143,14 @@ export const getTraceListColumns = (
 
 					if (!isValidCode) {
 						return (
-							<BlockLink to={getTraceLink(itemData)} openInNewTab>
+							<BlockLink to={getTraceLink(itemData as RowData)} openInNewTab>
 								<Typography className={styles.cellText}>
 									{numericCode === 0 || !statusCode
-										? translateInfraKey(t, 'display.not_available_abbrev', 'N/A')
+										? String(
+												t('display.not_available_abbrev', {
+													defaultValue: 'N/A',
+												}),
+											)
 										: statusCode}
 								</Typography>
 							</BlockLink>
@@ -144,9 +158,9 @@ export const getTraceListColumns = (
 					}
 
 					return (
-						<BlockLink to={getTraceLink(itemData)} openInNewTab>
+						<BlockLink to={getTraceLink(itemData as RowData)} openInNewTab>
 							<HttpStatusBadge
-								statusCode={statusCode}
+								statusCode={statusCode ?? 0}
 								testId={key}
 								className={styles.pointer}
 							/>
@@ -158,16 +172,16 @@ export const getTraceListColumns = (
 					const durationNano = getValueForKey(itemData, key);
 
 					return (
-						<BlockLink to={getTraceLink(itemData)} openInNewTab>
+						<BlockLink to={getTraceLink(itemData as RowData)} openInNewTab>
 							<Typography data-testid={key} className={styles.cellText}>
-								{getMs(durationNano)}ms
+								{getMs(String(durationNano ?? 0))}ms
 							</Typography>
 						</BlockLink>
 					);
 				}
 
 				return (
-					<BlockLink to={getTraceLink(itemData)} openInNewTab>
+					<BlockLink to={getTraceLink(itemData as RowData)} openInNewTab>
 						<Typography data-testid={key} className={styles.cellText}>
 							{getValueForKey(itemData, key)}
 						</Typography>

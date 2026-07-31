@@ -1,15 +1,13 @@
+import { Workflow } from '@signozhq/icons';
 import { Tooltip } from 'antd';
-import { TableColumnDef } from 'components/TanStackTableView';
-import TanStackTable from 'components/TanStackTableView';
-import { ExpandButtonWrapper } from 'container/InfraMonitoringK8s/components';
+import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
 
 import EntityGroupHeader from '../Base/EntityGroupHeader';
 import K8sGroupCell from '../Base/K8sGroupCell';
 import { formatBytes } from '../commonUtils';
-import { ValidateColumnValueWrapper } from '../components';
+import { ExpandButtonWrapper, ValidateColumnValueWrapper } from '../components';
 import { InfraMonitoringEntity } from '../constants';
 import { K8sNodeData, K8sNodesListPayload } from './api';
-import { Workflow } from '@signozhq/icons';
 
 export function getK8sNodeRowKey(node: K8sNodeData): string {
 	return node.nodeUID || node.meta.k8s_node_uid || node.meta.k8s_node_name;
@@ -31,10 +29,7 @@ export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 	{
 		id: 'nodeGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader
-				title="NODE GROUP"
-				titleKey="display.node_group_uppercase"
-			/>
+			<EntityGroupHeader title="display.node_group_uppercase" />
 		),
 		accessorFn: (row): string => row.meta.k8s_node_name || '',
 		width: { min: 300 },
@@ -58,8 +53,7 @@ export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 		id: 'nodeName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Node Name"
-				titleKey="display.node_name"
+				title="display.node_name"
 				icon={<Workflow data-hide-expanded="true" size={14} />}
 			/>
 		),
@@ -81,7 +75,7 @@ export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 	},
 	{
 		id: 'clusterName',
-		header: 'Cluster Name',
+		header: 'display.cluster_name',
 		accessorFn: (row): string => row.meta.k8s_cluster_name || '',
 		width: { min: 150, default: 150 },
 		enableSort: false,
@@ -91,7 +85,7 @@ export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 	},
 	{
 		id: 'cpu',
-		header: 'CPU Usage (cores)',
+		header: 'display.cpu_usage_cores',
 		accessorFn: (row): number => row.nodeCPUUsage,
 		width: { min: 200, default: 200 },
 		enableSort: true,
@@ -110,7 +104,7 @@ export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 	},
 	{
 		id: 'cpu_allocatable',
-		header: 'CPU Alloc (cores)',
+		header: 'display.cpu_alloc_cores',
 		accessorFn: (row): number => row.nodeCPUAllocatable,
 		width: { min: 200, default: 200 },
 		enableSort: true,
@@ -129,7 +123,7 @@ export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 	},
 	{
 		id: 'memory',
-		header: 'Memory Usage (WSS)',
+		header: 'display.memory_usage_wss',
 		accessorFn: (row): number => row.nodeMemoryUsage,
 		width: { min: 240, default: 240 },
 		enableSort: true,
@@ -148,7 +142,7 @@ export const k8sNodesColumnsConfig: TableColumnDef<K8sNodeData>[] = [
 	},
 	{
 		id: 'memory_allocatable',
-		header: 'Memory Allocatable',
+		header: 'display.memory_allocatable',
 		accessorFn: (row): number => row.nodeMemoryAllocatable,
 		width: { min: 240, default: 240 },
 		enableSort: true,

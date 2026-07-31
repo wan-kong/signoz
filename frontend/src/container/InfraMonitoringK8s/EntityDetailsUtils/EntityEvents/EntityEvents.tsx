@@ -35,7 +35,6 @@ import { useTranslation } from 'react-i18next';
 
 import EntityEmptyState from '../EntityEmptyState/EntityEmptyState';
 import EntityError from '../EntityError/EntityError';
-import { translateInfraKey } from '../../i18n';
 import { EventContents } from './EventsContent';
 import EventsNotConfigured from './EventsNotConfigured';
 import { K8S_ENTITY_EVENTS_EXPRESSION_KEY, useEntityEvents } from './hooks';
@@ -134,7 +133,7 @@ function EntityEventsContent({
 			if (validation.isValid) {
 				querySearchOnRun(newUserExpression || '');
 
-				logEvent(InfraMonitoringEvents.FilterApplied, {
+				void logEvent(InfraMonitoringEvents.FilterApplied, {
 					entity: InfraMonitoringEvents.K8sEntity,
 					page: InfraMonitoringEvents.DetailedPage,
 					category,
@@ -175,13 +174,13 @@ function EntityEventsContent({
 	const columns: TableColumnsType<EventDataType> = useMemo(
 		() => [
 			{
-				title: translateInfraKey(t, 'display.severity', 'Severity'),
+				title: t('display.severity', { defaultValue: 'Severity' }),
 				dataIndex: 'severity',
 				key: 'severity',
 				width: 100,
 			},
 			{
-				title: translateInfraKey(t, 'display.timestamp', 'Timestamp'),
+				title: t('display.timestamp', { defaultValue: 'Timestamp' }),
 				dataIndex: 'timestamp',
 				width: 240,
 				ellipsis: true,
@@ -192,7 +191,7 @@ function EntityEventsContent({
 					),
 			},
 			{
-				title: translateInfraKey(t, 'display.body', 'Body'),
+				title: t('display.body', { defaultValue: 'Body' }),
 				dataIndex: 'body',
 				key: 'body',
 			},

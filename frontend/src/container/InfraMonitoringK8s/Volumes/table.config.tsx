@@ -1,15 +1,13 @@
+import { HardDrive } from '@signozhq/icons';
 import { Tooltip } from 'antd';
-import { TableColumnDef } from 'components/TanStackTableView';
-import TanStackTable from 'components/TanStackTableView';
-import { ExpandButtonWrapper } from 'container/InfraMonitoringK8s/components';
+import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
 
 import EntityGroupHeader from '../Base/EntityGroupHeader';
 import K8sGroupCell from '../Base/K8sGroupCell';
 import { formatBytes } from '../commonUtils';
-import { ValidateColumnValueWrapper } from '../components';
+import { ExpandButtonWrapper, ValidateColumnValueWrapper } from '../components';
 import { InfraMonitoringEntity } from '../constants';
 import { K8sVolumesData } from './api';
-import { HardDrive } from '@signozhq/icons';
 
 export function getK8sVolumeRowKey(volume: K8sVolumesData): string {
 	return (
@@ -27,10 +25,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	{
 		id: 'volumeGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader
-				title="VOLUME GROUP"
-				titleKey="display.volume_group_uppercase"
-			/>
+			<EntityGroupHeader title="display.volume_group_uppercase" />
 		),
 		accessorFn: (row): string => row.persistentVolumeClaimName || '',
 		width: { min: 300 },
@@ -54,8 +49,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 		id: 'pvcName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="PVC Name"
-				titleKey="display.pvc_name"
+				title="display.pvc_name"
 				icon={<HardDrive data-hide-expanded="true" size={14} />}
 			/>
 		),
@@ -77,7 +71,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	},
 	{
 		id: 'namespaceName',
-		header: 'Namespace Name',
+		header: 'display.namespace_name',
 		accessorFn: (row): string => row.meta.k8s_namespace_name || '',
 		width: { min: 220 },
 		enableSort: false,
@@ -92,7 +86,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	},
 	{
 		id: 'capacity',
-		header: 'Capacity',
+		header: 'display.capacity',
 		accessorFn: (row): number => row.volumeCapacity,
 		width: { min: 140 },
 		enableSort: true,
@@ -111,7 +105,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	},
 	{
 		id: 'usage',
-		header: 'Used',
+		header: 'display.used',
 		accessorFn: (row): number => row.volumeUsage,
 		width: { min: 140 },
 		enableSort: true,
@@ -130,7 +124,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	},
 	{
 		id: 'available',
-		header: 'Available',
+		header: 'display.available',
 		accessorFn: (row): number => row.volumeAvailable,
 		width: { min: 140 },
 		enableSort: true,
@@ -149,7 +143,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	},
 	{
 		id: 'inodes',
-		header: 'Inodes',
+		header: 'display.inodes',
 		accessorFn: (row): number => row.volumeInodes,
 		width: { min: 140 },
 		enableSort: true,
@@ -168,7 +162,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	},
 	{
 		id: 'inodesUsed',
-		header: 'Inodes Used',
+		header: 'display.inodes_used',
 		accessorFn: (row): number => row.volumeInodesUsed,
 		width: { min: 160 },
 		enableSort: true,
@@ -187,7 +181,7 @@ export const k8sVolumesColumnsConfig: TableColumnDef<K8sVolumesData>[] = [
 	},
 	{
 		id: 'inodesFree',
-		header: 'Inodes Free',
+		header: 'display.inodes_free',
 		accessorFn: (row): number => row.volumeInodesFree,
 		width: { min: 160 },
 		enableSort: true,

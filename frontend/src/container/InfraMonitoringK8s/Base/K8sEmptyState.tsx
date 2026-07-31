@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import emptyStateUrl from '@/assets/Icons/emptyState.svg';
 import eyesEmojiUrl from '@/assets/Images/eyesEmoji.svg';
 
-import { translateInfraKey, translateInfraText } from '../i18n';
 import type { K8sBaseListEmptyStateContext } from './K8sBaseList';
 
 import styles from './K8sEmptyState.module.scss';
@@ -53,17 +52,15 @@ export function K8sEmptyState({
 					<TriangleAlert size={32} className={styles.errorIcon} />
 					<span className={styles.message}>
 						{error ||
-							translateInfraKey(
-								t,
-								'display.error_occurred_while_fetching_data',
-								'An error occurred while fetching data.',
-							)}
+							t('display.error_occurred_while_fetching_data', {
+								defaultValue: 'An error occurred while fetching data.',
+							})}
 					</span>
 					<p>
-						{translateInfraText(
-							t,
-							'Our team is getting on top to resolve this. Please reach out to support if the issue persists.',
-						)}
+						{t('display.team_resolving_reach_support', {
+							defaultValue:
+								'Our team is getting on top to resolve this. Please reach out to support if the issue persists.',
+						})}
 					</p>
 					<div className={styles.actions}>
 						<Button
@@ -72,7 +69,7 @@ export function K8sEmptyState({
 							color="secondary"
 							prefix={<LifeBuoy size={14} />}
 						>
-							{translateInfraKey(t, 'display.contact_support', 'Contact Support')}
+							{t('display.contact_support', { defaultValue: 'Contact Support' })}
 						</Button>
 					</div>
 				</div>
@@ -89,26 +86,22 @@ export function K8sEmptyState({
 					<img className={styles.eyesEmoji} src={eyesEmojiUrl} alt="eyes emoji" />
 					<div className={styles.noDataMessage}>
 						<h5 className={styles.title}>
-							{translateInfraKey(
-								t,
-								'display.no_host_metrics_data_received_yet',
-								'No host metrics data received yet',
-							)}
+							{t('display.no_host_metrics_data_received_yet', {
+								defaultValue: 'No host metrics data received yet',
+							})}
 						</h5>
 						<span className={styles.message}>
-							{translateInfraKey(t, 'display.please_refer_to', 'Please refer to')}{' '}
+							{t('display.please_refer_to', { defaultValue: 'Please refer to' })}{' '}
 							<a
 								href="https://signoz.io/docs/infrastructure-monitoring/hostmetrics/"
 								target="_blank"
 								rel="noreferrer"
 							>
-								{translateInfraKey(t, 'display.our_documentation', 'our documentation')}
+								{t('display.our_documentation', { defaultValue: 'our documentation' })}
 							</a>{' '}
-							{translateInfraKey(
-								t,
-								'display.to_learn_how_to_send_host_metrics',
-								'to learn how to send host metrics.',
-							)}
+							{t('display.to_learn_how_to_send_host_metrics', {
+								defaultValue: 'to learn how to send host metrics.',
+							})}
 						</span>
 					</div>
 				</div>
@@ -122,10 +115,10 @@ export function K8sEmptyState({
 				<div className={styles.content}>
 					<img className={styles.eyesEmoji} src={eyesEmojiUrl} alt="eyes emoji" />
 					<span className={styles.message}>
-						{translateInfraText(
-							t,
-							'To see K8s metrics, upgrade to the latest version of SigNoz k8s-infra chart. Please contact support if you need help.',
-						)}
+						{t('display.upgrade_k8s_infra_chart', {
+							defaultValue:
+								'To see K8s metrics, upgrade to the latest version of SigNoz k8s-infra chart. Please contact support if you need help.',
+						})}
 					</span>
 				</div>
 			</div>
@@ -139,16 +132,15 @@ export function K8sEmptyState({
 					<img className={styles.eyesEmoji} src={eyesEmojiUrl} alt="eyes emoji" />
 					<div className={styles.noDataMessage}>
 						<h5 className={styles.title}>
-							{translateInfraText(
-								t,
-								'Queried time range is before earliest K8s metrics',
-							)}
+							{t('display.queried_time_range_before_earliest_k8s_metrics', {
+								defaultValue: 'Queried time range is before earliest K8s metrics',
+							})}
 						</h5>
 						<span className={styles.message}>
-							{translateInfraText(
-								t,
-								'Your requested end time is earlier than the earliest detected time of K8s metrics data, please adjust your end time.',
-							)}
+							{t('display.requested_end_time_before_earliest_k8s_metrics', {
+								defaultValue:
+									'Your requested end time is earlier than the earliest detected time of K8s metrics data, please adjust your end time.',
+							})}
 						</span>
 					</div>
 				</div>
@@ -165,10 +157,9 @@ export function K8sEmptyState({
 					className={styles.emptyStateSvg}
 				/>
 				<span className={styles.message}>
-					{translateInfraText(
-						t,
-						'This query had no results. Edit your query and try again!',
-					)}
+					{t('display.this_query_had_no_results_edit', {
+						defaultValue: 'This query had no results. Edit your query and try again!',
+					})}
 				</span>
 			</div>
 		</div>

@@ -68,23 +68,19 @@ export const k8sDaemonSetGetEntityName = (item: K8sDaemonSetsData): string =>
 
 export const daemonSetWidgetInfo = [
 	{
-		title: 'CPU usage, request, limits',
-		titleKey: 'display.cpu_usage_request_limits',
+		title: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Memory usage, request, limits',
-		titleKey: 'display.memory_usage_request_limits',
+		title: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Network IO',
-		titleKey: 'display.network_io',
+		title: 'display.network_io',
 		yAxisUnit: 'binBps',
 	},
 	{
-		title: 'Network errors count',
-		titleKey: 'display.network_errors_count',
+		title: 'display.network_errors_count',
 		yAxisUnit: '',
 	},
 ];

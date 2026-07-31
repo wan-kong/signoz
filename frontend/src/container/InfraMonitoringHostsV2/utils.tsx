@@ -11,7 +11,6 @@ import TanStackTable from 'components/TanStackTableView';
 import { INFRA_MONITORING_ATTR_KEYS } from 'container/InfraMonitoringK8sV2/constants';
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { DataSource } from 'types/common/queryBuilder';
-import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 import { useTranslation } from 'react-i18next';
 const HOSTNAME_DOCS_URL =
 	'https://signoz.io/docs/infrastructure-monitoring/hostmetrics/#host-name-is-blankempty';
@@ -32,11 +31,9 @@ export function HostnameCell({
 			<Tooltip
 				title={
 					<div>
-						{translateInfraKey(
-							t,
-							'display.missing_host_name_metadata',
-							'Missing host.name metadata.',
-						)}
+						{t('display.missing_host_name_metadata', {
+							defaultValue: 'Missing host.name metadata.',
+						})}
 						<br />
 						<a
 							href={HOSTNAME_DOCS_URL}
@@ -44,34 +41,31 @@ export function HostnameCell({
 							rel="noopener noreferrer"
 							onClick={(e): void => e.stopPropagation()}
 						>
-							{translateInfraKey(
-								t,
-								'display.learn_how_to_configure_arrow',
-								'Learn how to configure →',
-							)}
+							{t('display.learn_how_to_configure_arrow', {
+								defaultValue: 'Learn how to configure →',
+							})}
 						</a>
 					</div>
 				}
 				trigger={['hover', 'focus']}
 			>
-				<span
+				<button
+					type="button"
 					className="hostname-cell-warning-icon"
-					tabIndex={0}
-					role="img"
-					aria-label={translateInfraKey(
-						t,
-						'display.missing_host_name_metadata',
-						'Missing host.name metadata.',
-					)}
-					onClick={(e): void => e.stopPropagation()}
-					onKeyDown={(e): void => {
-						if (e.key === 'Enter' || e.key === ' ') {
-							e.stopPropagation();
-						}
+					style={{
+						padding: 0,
+						border: 0,
+						background: 'none',
+						cursor: 'pointer',
+						lineHeight: 0,
 					}}
+					aria-label={t('display.missing_host_name_metadata', {
+						defaultValue: 'Missing host.name metadata.',
+					})}
+					onClick={(e): void => e.stopPropagation()}
 				>
 					<TriangleAlert size={14} color={Color.BG_CHERRY_500} />
-				</span>
+				</button>
 			</Tooltip>
 		</>
 	);
@@ -81,7 +75,7 @@ export function getHostsQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Host Name',
+			title: 'display.host_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.HOST_NAME,
 				dataType: DataTypes.String,
@@ -94,7 +88,7 @@ export function getHostsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'OS Type',
+			title: 'display.os_type',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.OS_TYPE,
 				dataType: DataTypes.String,
@@ -107,7 +101,7 @@ export function getHostsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,

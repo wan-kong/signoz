@@ -6,7 +6,6 @@ import logEvent from 'api/common/logEvent';
 import QuickFilters from 'components/QuickFilters/QuickFilters';
 import { QuickFiltersSource } from 'components/QuickFilters/types';
 import { InfraMonitoringEvents } from 'constants/events';
-import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useQueryOperations } from 'hooks/queryBuilder/useQueryBuilderOperations';
 import {
@@ -105,9 +104,9 @@ export default function InfraMonitoringK8s(): JSX.Element {
 		// in infra monitoring k8s, we are using only one query, hence updating the 0th index of queryData
 		const filters = query.builder.queryData[0].filters;
 		// The useEffect will sync filters to query builder, avoiding double state updates
-		setUrlFilters(filters || null);
+		void setUrlFilters(filters || null);
 
-		logEvent(InfraMonitoringEvents.FilterApplied, {
+		void logEvent(InfraMonitoringEvents.FilterApplied, {
 			entity: InfraMonitoringEvents.K8sEntity,
 			page: InfraMonitoringEvents.ListPage,
 			category: selectedCategory,
@@ -119,55 +118,55 @@ export default function InfraMonitoringK8s(): JSX.Element {
 		() => [
 			{
 				key: K8sCategories.PODS,
-				label: 'Pods',
+				label: 'display.pods',
 				icon: <Container size={14} />,
 				config: GetPodsQuickFiltersConfig(dotMetricsEnabled),
 			},
 			{
 				key: K8sCategories.NODES,
-				label: 'Nodes',
+				label: 'display.nodes',
 				icon: <Workflow size={14} />,
 				config: GetNodesQuickFiltersConfig(dotMetricsEnabled),
 			},
 			{
 				key: K8sCategories.NAMESPACES,
-				label: 'Namespaces',
+				label: 'display.namespaces',
 				icon: <FilePenLine size={14} />,
 				config: GetNamespaceQuickFiltersConfig(dotMetricsEnabled),
 			},
 			{
 				key: K8sCategories.CLUSTERS,
-				label: 'Clusters',
+				label: 'display.clusters',
 				icon: <Boxes size={14} />,
 				config: GetClustersQuickFiltersConfig(dotMetricsEnabled),
 			},
 			{
 				key: K8sCategories.DEPLOYMENTS,
-				label: 'Deployments',
+				label: 'display.deployments',
 				icon: <Computer size={14} />,
 				config: GetDeploymentsQuickFiltersConfig(dotMetricsEnabled),
 			},
 			{
 				key: K8sCategories.JOBS,
-				label: 'Jobs',
+				label: 'display.jobs',
 				icon: <Bolt size={14} />,
 				config: GetJobsQuickFiltersConfig(dotMetricsEnabled),
 			},
 			{
 				key: K8sCategories.DAEMONSETS,
-				label: 'DaemonSets',
+				label: 'display.daemonsets',
 				icon: <Group size={14} />,
 				config: GetDaemonsetsQuickFiltersConfig(dotMetricsEnabled),
 			},
 			{
 				key: K8sCategories.STATEFULSETS,
-				label: 'StatefulSets',
+				label: 'display.statefulsets',
 				icon: <ArrowUpDown size={14} />,
 				config: GetStatefulsetsQuickFiltersConfig(dotMetricsEnabled),
 			},
 			{
 				key: K8sCategories.VOLUMES,
-				label: 'Volumes',
+				label: 'display.volumes',
 				icon: <HardDrive size={14} />,
 				config: GetVolumesQuickFiltersConfig(dotMetricsEnabled),
 			},
@@ -176,17 +175,23 @@ export default function InfraMonitoringK8s(): JSX.Element {
 	);
 
 	const selectedCategoryConfig = useMemo(
-		() => categories.find((cat) => cat.key === selectedCategory)?.config,
-		[categories, selectedCategory],
+		() =>
+			categories
+				.find((cat) => cat.key === selectedCategory)
+				?.config.map((filter) => ({
+					...filter,
+					title: t(filter.title || '', { defaultValue: filter.title }),
+				})),
+		[categories, selectedCategory, t],
 	);
 
 	const handleCategorySelect = (key: string): void => {
 		if (key !== selectedCategory) {
-			setSelectedCategory(key);
+			void setSelectedCategory(key);
 			// Reset filters
-			setUrlFilters(null);
-			setOrderBy(null);
-			setGroupBy(null);
+			void setUrlFilters(null);
+			void setOrderBy(null);
+			void setGroupBy(null);
 			handleChangeQueryData('filters', { items: [], op: 'and' });
 		}
 	};
@@ -219,19 +224,15 @@ export default function InfraMonitoringK8s(): JSX.Element {
 							<div className={styles.categorySelectorSection}>
 								<div className={styles.sectionHeader} data-type="resource">
 									<Typography.Text className={styles.sectionLabel}>
-										{translateInfraKey(
-											t,
-											'display.viewing_resource',
-											'Viewing · Resource',
-										)}
+										{t('display.viewing_resource', {
+											defaultValue: 'Viewing · Resource',
+										})}
 									</Typography.Text>
 									<div className={styles.sectionLine} />
 									<Tooltip
-										title={translateInfraKey(
-											t,
-											'display.collapse_filters',
-											'Collapse Filters',
-										)}
+										title={t('display.collapse_filters', {
+											defaultValue: 'Collapse Filters',
+										})}
 									>
 										<ArrowUpToLine
 											style={{ transform: 'rotate(270deg)' }}
@@ -255,7 +256,9 @@ export default function InfraMonitoringK8s(): JSX.Element {
 												data-testid={`category-${category.key}`}
 											>
 												{category.icon}
-												<Typography.Text>{category.label}</Typography.Text>
+												<Typography.Text>
+													{t(category.label || '', { defaultValue: category.label })}
+												</Typography.Text>
 											</button>
 										))}
 									</div>
@@ -265,7 +268,7 @@ export default function InfraMonitoringK8s(): JSX.Element {
 							<div className={styles.quickFiltersSection}>
 								<div className={styles.sectionHeader} data-type="filter">
 									<Typography.Text className={styles.sectionLabel}>
-										Filter by
+										{t('display.filter_by', { defaultValue: 'Filter by' })}
 									</Typography.Text>
 									<div className={styles.sectionLine} />
 								</div>

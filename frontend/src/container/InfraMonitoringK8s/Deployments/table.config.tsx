@@ -1,15 +1,17 @@
+import { Computer } from '@signozhq/icons';
 import { Tooltip } from 'antd';
-import { TableColumnDef } from 'components/TanStackTableView';
-import TanStackTable from 'components/TanStackTableView';
-import { ExpandButtonWrapper } from 'container/InfraMonitoringK8s/components';
+import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
 
 import EntityGroupHeader from '../Base/EntityGroupHeader';
 import K8sGroupCell from '../Base/K8sGroupCell';
 import { formatBytes } from '../commonUtils';
-import { EntityProgressBar, ValidateColumnValueWrapper } from '../components';
+import {
+	ExpandButtonWrapper,
+	EntityProgressBar,
+	ValidateColumnValueWrapper,
+} from '../components';
 import { InfraMonitoringEntity } from '../constants';
 import { K8sDeploymentsData } from './api';
-import { Computer } from '@signozhq/icons';
 
 export function getK8sDeploymentRowKey(deployment: K8sDeploymentsData): string {
 	return deployment.meta.k8s_deployment_name || deployment.deploymentName;
@@ -26,10 +28,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		{
 			id: 'deploymentGroup',
 			header: (): React.ReactNode => (
-				<EntityGroupHeader
-					title="DEPLOYMENT GROUP"
-					titleKey="display.deployment_group_uppercase"
-				/>
+				<EntityGroupHeader title="display.deployment_group_uppercase" />
 			),
 			accessorFn: (row): string => row.meta.k8s_deployment_name || '',
 			width: { min: 220 },
@@ -53,8 +52,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 			id: 'deploymentName',
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
-					title="Deployment Name"
-					titleKey="display.deployment_name"
+					title="display.deployment_name"
 					icon={<Computer data-hide-expanded="true" size={14} />}
 				/>
 			),
@@ -76,7 +74,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'namespaceName',
-			header: 'Namespace Name',
+			header: 'display.namespace_name',
 			accessorFn: (row): string => row.meta.k8s_namespace_name || '',
 			width: { default: 220 },
 			enableSort: false,
@@ -87,7 +85,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'available_pods',
-			header: 'Available',
+			header: 'display.available',
 			accessorFn: (row): number => row.availablePods,
 			width: { min: 100 },
 			enableSort: false,
@@ -108,7 +106,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'desired_pods',
-			header: 'Desired',
+			header: 'display.desired',
 			accessorFn: (row): number => row.desiredPods,
 			width: { min: 80 },
 			enableSort: false,
@@ -129,7 +127,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'cpu_request',
-			header: 'CPU Req Usage (%)',
+			header: 'display.cpu_req_usage_percent',
 			accessorFn: (row): number => row.cpuRequest,
 			width: { min: 210 },
 			enableSort: true,
@@ -149,7 +147,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'cpu_limit',
-			header: 'CPU Limit Usage (%)',
+			header: 'display.cpu_limit_usage_percent',
 			accessorFn: (row): number => row.cpuLimit,
 			width: { min: 210 },
 			enableSort: true,
@@ -169,7 +167,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'cpu',
-			header: 'CPU Usage (cores)',
+			header: 'display.cpu_usage_cores',
 			accessorFn: (row): number => row.cpuUsage,
 			width: { min: 210 },
 			enableSort: true,
@@ -189,7 +187,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'memory_request',
-			header: 'Mem Req Usage (%)',
+			header: 'display.mem_req_usage_percent',
 			accessorFn: (row): number => row.memoryRequest,
 			width: { min: 210 },
 			enableSort: true,
@@ -209,7 +207,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'memory_limit',
-			header: 'Mem Limit Usage (%)',
+			header: 'display.mem_limit_usage_percent',
 			accessorFn: (row): number => row.memoryLimit,
 			width: { min: 210 },
 			enableSort: true,
@@ -229,7 +227,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<K8sDeploymentsData>[] =
 		},
 		{
 			id: 'memory',
-			header: 'Mem Usage (WSS)',
+			header: 'display.mem_usage_wss',
 			accessorFn: (row): number => row.memoryUsage,
 			width: { min: 140 },
 			enableSort: true,

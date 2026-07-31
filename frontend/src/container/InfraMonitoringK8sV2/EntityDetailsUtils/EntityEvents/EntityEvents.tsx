@@ -35,7 +35,6 @@ import EntityDateTimeSelector from '../EntityDateTimeSelector/EntityDateTimeSele
 import { useEntityDetailsTime } from '../EntityDateTimeSelector/useEntityDetailsTime';
 import EntityEmptyState from '../EntityEmptyState/EntityEmptyState';
 import EntityError from '../EntityError/EntityError';
-import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 import { EventContents } from './EventsContent';
 import EventsNotConfigured from './EventsNotConfigured';
 import { K8S_ENTITY_EVENTS_EXPRESSION_KEY, useEntityEvents } from './hooks';
@@ -178,13 +177,13 @@ function EntityEventsContent({
 	const columns: TableColumnsType<EventDataType> = useMemo(
 		() => [
 			{
-				title: translateInfraKey(t, 'display.severity', 'Severity'),
+				title: t('display.severity', { defaultValue: 'Severity' }),
 				dataIndex: 'severity',
 				key: 'severity',
 				width: 100,
 			},
 			{
-				title: translateInfraKey(t, 'display.timestamp', 'Timestamp'),
+				title: t('display.timestamp', { defaultValue: 'Timestamp' }),
 				dataIndex: 'timestamp',
 				width: 240,
 				ellipsis: true,
@@ -195,7 +194,7 @@ function EntityEventsContent({
 					),
 			},
 			{
-				title: translateInfraKey(t, 'display.body', 'Body'),
+				title: t('display.body', { defaultValue: 'Body' }),
 				dataIndex: 'body',
 				key: 'body',
 			},

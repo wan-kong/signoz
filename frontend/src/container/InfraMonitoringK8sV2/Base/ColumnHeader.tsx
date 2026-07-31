@@ -6,7 +6,7 @@ import {
 	translateInfraKey,
 	translateInfraNode,
 	translateInfraText,
-} from '../../InfraMonitoringK8s/i18n';
+} from 'container/InfraMonitoringK8s/i18n';
 import styles from './ColumnHeader.module.scss';
 import cx from 'classnames';
 

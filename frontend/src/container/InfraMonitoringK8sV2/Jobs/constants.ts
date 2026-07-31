@@ -74,26 +74,22 @@ export const k8sJobGetEntityName = (
 
 export const jobWidgetInfo = [
 	{
-		title: 'CPU usage',
-		titleKey: 'display.cpu_usage_lower',
+		title: 'display.cpu_usage_lower',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/jobs/#cpu-usage',
 	},
 	{
-		title: 'Memory Usage',
-		titleKey: 'display.memory_usage',
+		title: 'display.memory_usage',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/jobs/#memory-usage',
 	},
 	{
-		title: 'Network IO',
-		titleKey: 'display.network_io',
+		title: 'display.network_io',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/jobs/#network-io',
 	},
 	{
-		title: 'Network errors count',
-		titleKey: 'display.network_errors_count',
+		title: 'display.network_errors_count',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/jobs/#network-errors-count',
 	},

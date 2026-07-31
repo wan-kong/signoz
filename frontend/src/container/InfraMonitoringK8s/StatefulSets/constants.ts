@@ -67,33 +67,27 @@ export const k8sStatefulSetGetEntityName = (
 
 export const statefulSetWidgetInfo = [
 	{
-		title: 'CPU usage, request, limits',
-		titleKey: 'display.cpu_usage_request_limits',
+		title: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 	},
 	{
-		title: 'CPU request, limit util (%)',
-		titleKey: 'display.cpu_request_limit_util_percent',
+		title: 'display.cpu_request_limit_util_percent',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Memory usage, request, limits',
-		titleKey: 'display.memory_usage_request_limits',
+		title: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Memory request, limit util (%)',
-		titleKey: 'display.memory_request_limit_util_percent',
+		title: 'display.memory_request_limit_util_percent',
 		yAxisUnit: 'percentunit',
 	},
 	{
-		title: 'Network IO',
-		titleKey: 'display.network_io',
+		title: 'display.network_io',
 		yAxisUnit: 'binBps',
 	},
 	{
-		title: 'Network errors count',
-		titleKey: 'display.network_errors_count',
+		title: 'display.network_errors_count',
 		yAxisUnit: '',
 	},
 ];

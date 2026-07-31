@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 
 import awwSnapUrl from '@/assets/Icons/awwSnap.svg';
 
-import { translateInfraKey, translateInfraText } from '../../i18n';
 import styles from './EntityError.module.scss';
 
 export default function EntityError(): JSX.Element {
@@ -28,30 +27,24 @@ export default function EntityError(): JSX.Element {
 				<img src={awwSnapUrl} alt="error" className={styles.icon} />
 				<Typography.Text>
 					<span className={styles.title}>
-						{translateInfraKey(t, 'display.aw_snap', 'Aw snap :/')}{' '}
+						{t('display.aw_snap', { defaultValue: 'Aw snap :/' })}{' '}
 					</span>
-					{translateInfraText(
-						t,
-						'Something went wrong. Please try again or contact support.',
-					)}
+					{t('display.something_went_wrong_try_again_contact_support', {
+						defaultValue:
+							'Something went wrong. Please try again or contact support.',
+					})}
 				</Typography.Text>
 
-				<div
+				<button
+					type="button"
 					className={styles.contactSupport}
 					onClick={handleContactSupport}
-					role="button"
-					tabIndex={0}
-					onKeyDown={(e): void => {
-						if (e.key === 'Enter') {
-							handleContactSupport();
-						}
-					}}
 				>
 					<Typography.Link className={styles.contactSupportText}>
-						{translateInfraKey(t, 'display.contact_support', 'Contact Support')}
+						{t('display.contact_support', { defaultValue: 'Contact Support' })}
 					</Typography.Link>
 					<ArrowRight size={14} />
-				</div>
+				</button>
 			</div>
 		</div>
 	);

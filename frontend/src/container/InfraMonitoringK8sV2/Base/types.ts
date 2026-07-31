@@ -64,7 +64,6 @@ export interface K8sDetailsFilters {
 
 export interface K8sDetailsWidgetInfo {
 	title: string;
-	titleKey?: string;
 	yAxisUnit: string;
 }
 

@@ -1,7 +1,6 @@
-import {
-	FiltersType,
-	IQuickFiltersConfig,
-} from 'components/QuickFilters/types';
+// oxlint-disable import/no-cycle
+import { FiltersType } from 'components/QuickFilters/types';
+import type { IQuickFiltersConfig } from 'components/QuickFilters/types';
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { DataSource } from 'types/common/queryBuilder';
 
@@ -117,7 +116,7 @@ export function GetPodsQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Pod',
+			title: 'display.pod',
 			attributeKey: {
 				key: podKey,
 				dataType: DataTypes.String,
@@ -131,7 +130,7 @@ export function GetPodsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace',
+			title: 'display.namespace',
 			attributeKey: {
 				key: namespaceKey,
 				dataType: DataTypes.String,
@@ -145,7 +144,7 @@ export function GetPodsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Node',
+			title: 'display.node',
 			attributeKey: {
 				key: nodeKey,
 				dataType: DataTypes.String,
@@ -159,7 +158,7 @@ export function GetPodsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster',
+			title: 'display.cluster',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -173,7 +172,7 @@ export function GetPodsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Deployment',
+			title: 'display.deployment',
 			attributeKey: {
 				key: deploymentKey,
 				dataType: DataTypes.String,
@@ -187,7 +186,7 @@ export function GetPodsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Statefulset',
+			title: 'display.statefulset',
 			attributeKey: {
 				key: statefulsetKey,
 				dataType: DataTypes.String,
@@ -201,7 +200,7 @@ export function GetPodsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'DaemonSet',
+			title: 'display.daemonset',
 			attributeKey: {
 				key: daemonsetKey,
 				dataType: DataTypes.String,
@@ -215,7 +214,7 @@ export function GetPodsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Job',
+			title: 'display.job',
 			attributeKey: {
 				key: jobKey,
 				dataType: DataTypes.String,
@@ -229,7 +228,7 @@ export function GetPodsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,
@@ -258,7 +257,7 @@ export function GetNodesQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Node Name',
+			title: 'display.node_name',
 			attributeKey: {
 				key: nodeKey,
 				dataType: DataTypes.String,
@@ -272,7 +271,7 @@ export function GetNodesQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -286,7 +285,7 @@ export function GetNodesQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,
@@ -314,7 +313,7 @@ export function GetNamespaceQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: namespaceKey,
 				dataType: DataTypes.String,
@@ -328,7 +327,7 @@ export function GetNamespaceQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -342,7 +341,7 @@ export function GetNamespaceQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,
@@ -367,7 +366,7 @@ export function GetClustersQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -381,7 +380,7 @@ export function GetClustersQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,
@@ -412,7 +411,7 @@ export function GetVolumesQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'PVC Volume Claim Name',
+			title: 'display.pvc_volume_claim_name',
 			attributeKey: {
 				key: pvcKey,
 				dataType: DataTypes.String,
@@ -426,7 +425,7 @@ export function GetVolumesQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: namespaceKey,
 				dataType: DataTypes.String,
@@ -440,7 +439,7 @@ export function GetVolumesQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -454,7 +453,7 @@ export function GetVolumesQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,
@@ -483,7 +482,7 @@ export function GetDeploymentsQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Deployment Name',
+			title: 'display.deployment_name',
 			attributeKey: {
 				key: deployKey,
 				dataType: DataTypes.String,
@@ -497,7 +496,7 @@ export function GetDeploymentsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: namespaceKey,
 				dataType: DataTypes.String,
@@ -511,7 +510,7 @@ export function GetDeploymentsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -525,7 +524,7 @@ export function GetDeploymentsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,
@@ -554,7 +553,7 @@ export function GetStatefulsetsQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Statefulset Name',
+			title: 'display.statefulset_name',
 			attributeKey: {
 				key: ssKey,
 				dataType: DataTypes.String,
@@ -568,7 +567,7 @@ export function GetStatefulsetsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: namespaceKey,
 				dataType: DataTypes.String,
@@ -582,7 +581,7 @@ export function GetStatefulsetsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -596,7 +595,7 @@ export function GetStatefulsetsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,
@@ -627,7 +626,7 @@ export function GetDaemonsetsQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'DaemonSet Name',
+			title: 'display.daemonset_name',
 			attributeKey: {
 				key: nameKey,
 				dataType: DataTypes.String,
@@ -641,7 +640,7 @@ export function GetDaemonsetsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: namespaceKey,
 				dataType: DataTypes.String,
@@ -654,7 +653,7 @@ export function GetDaemonsetsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -667,7 +666,7 @@ export function GetDaemonsetsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,
@@ -696,7 +695,7 @@ export function GetJobsQuickFiltersConfig(
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Job Name',
+			title: 'display.job_name',
 			attributeKey: {
 				key: nameKey,
 				dataType: DataTypes.String,
@@ -710,7 +709,7 @@ export function GetJobsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: namespaceKey,
 				dataType: DataTypes.String,
@@ -723,7 +722,7 @@ export function GetJobsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: clusterKey,
 				dataType: DataTypes.String,
@@ -736,7 +735,7 @@ export function GetJobsQuickFiltersConfig(
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: environmentKey,
 				dataType: DataTypes.String,

@@ -1,15 +1,17 @@
+import { Container } from '@signozhq/icons';
 import { Tooltip } from 'antd';
-import { TableColumnDef } from 'components/TanStackTableView';
-import TanStackTable from 'components/TanStackTableView';
-import { ExpandButtonWrapper } from 'container/InfraMonitoringK8s/components';
+import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
 
 import EntityGroupHeader from '../Base/EntityGroupHeader';
 import K8sGroupCell from '../Base/K8sGroupCell';
 import { formatBytes } from '../commonUtils';
-import { EntityProgressBar, ValidateColumnValueWrapper } from '../components';
+import {
+	ExpandButtonWrapper,
+	EntityProgressBar,
+	ValidateColumnValueWrapper,
+} from '../components';
 import { InfraMonitoringEntity } from '../constants';
 import { K8sPodsData } from './api';
-import { Container } from '@signozhq/icons';
 
 export function getK8sPodRowKey(pod: K8sPodsData): string {
 	return pod.podUID || pod.meta.k8s_pod_uid || pod.meta.k8s_pod_name;
@@ -23,10 +25,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	{
 		id: 'podGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader
-				title="POD GROUP"
-				titleKey="display.pod_group_uppercase"
-			/>
+			<EntityGroupHeader title="display.pod_group_uppercase" />
 		),
 		accessorFn: (row): string => row.meta.k8s_pod_name || '',
 		width: { min: 300 },
@@ -50,8 +49,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 		id: 'podName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Pod Name"
-				titleKey="display.pod_name"
+				title="display.pod_name"
 				icon={<Container data-hide-expanded="true" size={14} />}
 			/>
 		),
@@ -73,7 +71,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'cpu_request',
-		header: 'CPU Req Usage (%)',
+		header: 'display.cpu_req_usage_percent',
 		accessorFn: (row): number => row.podCPURequest,
 		width: { min: 210 },
 		enableSort: true,
@@ -92,7 +90,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'cpu_limit',
-		header: 'CPU Limit Usage (%)',
+		header: 'display.cpu_limit_usage_percent',
 		accessorFn: (row): number => row.podCPULimit,
 		width: { min: 210 },
 		enableSort: true,
@@ -111,7 +109,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'cpu',
-		header: 'CPU Usage (cores)',
+		header: 'display.cpu_usage_cores',
 		accessorFn: (row): number => row.podCPU,
 		width: { min: 210 },
 		enableSort: true,
@@ -130,7 +128,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'memory_request',
-		header: 'Mem Req Usage (%)',
+		header: 'display.mem_req_usage_percent',
 		accessorFn: (row): number => row.podMemoryRequest,
 		width: { min: 210 },
 		enableSort: true,
@@ -149,7 +147,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'memory_limit',
-		header: 'Mem Limit Usage (%)',
+		header: 'display.mem_limit_usage_percent',
 		accessorFn: (row): number => row.podMemoryLimit,
 		width: { min: 210 },
 		enableSort: true,
@@ -168,7 +166,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'memory',
-		header: 'Mem Usage (WSS)',
+		header: 'display.mem_usage_wss',
 		accessorFn: (row): number => row.podMemory,
 		width: { min: 210, default: '100%' },
 		enableSort: true,
@@ -187,7 +185,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'namespace',
-		header: 'Namespace',
+		header: 'display.namespace',
 		accessorFn: (row): string => row.meta.k8s_namespace_name || '',
 		width: { default: 100 },
 		enableSort: false,
@@ -198,7 +196,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'node',
-		header: 'Node',
+		header: 'display.node',
 		accessorFn: (row): string => row.meta.k8s_node_name || '',
 		width: { default: 100 },
 		enableSort: false,
@@ -209,7 +207,7 @@ export const k8sPodColumnsConfig: TableColumnDef<K8sPodsData>[] = [
 	},
 	{
 		id: 'cluster',
-		header: 'Cluster',
+		header: 'display.cluster',
 		accessorFn: (row): string => row.meta.k8s_cluster_name || '',
 		width: { default: 100 },
 		enableSort: false,

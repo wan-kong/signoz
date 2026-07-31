@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import { I18nextProvider } from 'react-i18next';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import {
 	NuqsTestingAdapter,
@@ -12,6 +13,7 @@ import { AppContext } from 'providers/App/App';
 import TimezoneProvider from 'providers/Timezone';
 import store from 'store';
 import { getAppContextMock } from 'tests/test-utils';
+import { createTestI18nInstance } from '../../ReactI18/testUtils';
 
 import StatusFilter from './StatusFilter';
 
@@ -19,6 +21,22 @@ const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: { retry: false },
 		mutations: { retry: false },
+	},
+});
+
+const i18n = createTestI18nInstance({
+	language: 'en',
+	resources: {
+		en: {
+			infraMonitoring: {
+				display: {
+					status: 'Status',
+					all: 'All',
+					active: 'Active',
+					inactive: 'Inactive',
+				},
+			},
+		},
 	},
 });
 
@@ -30,22 +48,24 @@ function renderStatusFilter({
 	onUrlUpdate?: OnUrlUpdateFunction;
 }): ReturnType<typeof render> {
 	return render(
-		<MemoryRouter>
-			<TimezoneProvider>
-				<QueryClientProvider client={queryClient}>
-					<Provider store={store}>
-						<AppContext.Provider value={getAppContextMock('ADMIN')}>
-							<NuqsTestingAdapter
-								searchParams={searchParams}
-								onUrlUpdate={onUrlUpdate}
-							>
-								<StatusFilter />
-							</NuqsTestingAdapter>
-						</AppContext.Provider>
-					</Provider>
-				</QueryClientProvider>
-			</TimezoneProvider>
-		</MemoryRouter>,
+		<I18nextProvider i18n={i18n}>
+			<MemoryRouter>
+				<TimezoneProvider>
+					<QueryClientProvider client={queryClient}>
+						<Provider store={store}>
+							<AppContext.Provider value={getAppContextMock('ADMIN')}>
+								<NuqsTestingAdapter
+									searchParams={searchParams}
+									onUrlUpdate={onUrlUpdate}
+								>
+									<StatusFilter />
+								</NuqsTestingAdapter>
+							</AppContext.Provider>
+						</Provider>
+					</QueryClientProvider>
+				</TimezoneProvider>
+			</MemoryRouter>
+		</I18nextProvider>,
 	);
 }
 

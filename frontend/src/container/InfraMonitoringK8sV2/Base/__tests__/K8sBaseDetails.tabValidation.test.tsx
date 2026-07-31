@@ -17,6 +17,19 @@ jest.mock('container/TopNav/DateTimeSelectionV2/index.tsx', () => ({
 	default: (): JSX.Element => <div data-testid="mock-datetime" />,
 }));
 
+const i18nResources = {
+	en: {
+		infraMonitoring: {
+			display: {
+				metrics: 'Metrics',
+				logs: 'Logs',
+				traces: 'Traces',
+				events: 'Events',
+			},
+		},
+	},
+};
+
 type TestEntity = {
 	name: string;
 	namespace: string;
@@ -83,6 +96,11 @@ function renderK8sBaseDetails({
 				customTabs={customTabs}
 			/>
 		</NuqsTestingAdapter>,
+		undefined,
+		{
+			i18nLanguage: 'en',
+			i18nResources,
+		},
 	);
 }
 

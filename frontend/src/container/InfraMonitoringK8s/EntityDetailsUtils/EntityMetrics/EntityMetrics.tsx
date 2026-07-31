@@ -29,7 +29,6 @@ import { isKeyNotFoundError } from '../utils';
 import styles from './EntityMetrics.module.scss';
 import { MetricsTable } from './MetricsTable';
 import { DEFAULT_TIME_RANGE } from 'container/TopNav/DateTimeSelectionV2/constants';
-import { translateInfraKey } from '../../i18n';
 
 interface EntityMetricsProps<T> {
 	timeRange: {
@@ -45,7 +44,6 @@ interface EntityMetricsProps<T> {
 	entity: T;
 	entityWidgetInfo: {
 		title: string;
-		titleKey?: string;
 		yAxisUnit: string;
 	}[];
 	getEntityQueryPayload: (
@@ -151,11 +149,9 @@ function EntityMetrics<T>({
 		if (query.error && !isKeyNotFoundError(query.error)) {
 			const errorMessage =
 				(query.error as Error)?.message ||
-				translateInfraKey(
-					t,
-					'display.something_went_wrong',
-					'Something went wrong',
-				);
+				t('display.something_went_wrong', {
+					defaultValue: 'Something went wrong',
+				});
 			return <div>{errorMessage}</div>;
 		}
 
@@ -214,11 +210,9 @@ function EntityMetrics<T>({
 						className={styles.entityMetricsCol}
 					>
 						<span className={styles.entityMetricsTitle}>
-							{translateInfraKey(
-								t,
-								entityWidgetInfo[idx].titleKey,
-								entityWidgetInfo[idx].title,
-							)}
+							{t(entityWidgetInfo[idx].title || '', {
+								defaultValue: entityWidgetInfo[idx].title,
+							})}
 						</span>
 						<div className={styles.entityMetricsCard} ref={graphRef}>
 							{renderCardContent(query, idx)}

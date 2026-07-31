@@ -118,64 +118,54 @@ export const k8sNamespaceGetCountsFilterExpression = (
 
 export const namespaceWidgetInfo = [
 	{
-		title: 'CPU Usage (cores)',
-		titleKey: 'display.cpu_usage_cores',
+		title: 'display.cpu_usage_cores',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#cpu-usage-cores',
 	},
 	{
-		title: 'Memory Usage (bytes)',
-		titleKey: 'display.memory_usage_bytes',
+		title: 'display.memory_usage_bytes',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/namespaces/#memory-usage-bytes',
 	},
 	{
-		title: 'Pods CPU (top 10)',
-		titleKey: 'display.pods_cpu_top_10',
+		title: 'display.pods_cpu_top_10',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#pods-cpu-top-10',
 	},
 	{
-		title: 'Pods Memory (top 10)',
-		titleKey: 'display.pods_memory_top_10',
+		title: 'display.pods_memory_top_10',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/namespaces/#pods-memory-top-10',
 	},
 	{
-		title: 'Network rate',
-		titleKey: 'display.network_rate',
+		title: 'display.network_rate',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#network-rate',
 	},
 	{
-		title: 'Network errors',
-		titleKey: 'display.network_errors',
+		title: 'display.network_errors',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#network-errors',
 	},
 	{
-		title: 'StatefulSets (pods)',
-		titleKey: 'display.statefulsets_pods',
+		title: 'display.statefulsets_pods',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#statefulsets',
 	},
 	{
-		title: 'ReplicaSets (pods)',
-		titleKey: 'display.replicasets_pods',
+		title: 'display.replicasets_pods',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#replicasets',
 	},
 	{
-		title: 'DaemonSets (nodes)',
-		titleKey: 'display.daemonsets_nodes',
+		title: 'display.daemonsets_nodes',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#daemonsets',
 	},
 	{
-		title: 'Deployments (pods)',
-		titleKey: 'display.deployments_pods',
+		title: 'display.deployments_pods',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/namespaces/#deployments',
 	},

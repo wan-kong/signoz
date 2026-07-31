@@ -47,10 +47,7 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 	{
 		id: 'namespaceGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader
-				title="Namespace Group"
-				titleKey="display.namespace_group"
-			/>
+			<EntityGroupHeader title="display.namespace_group" />
 		),
 		accessorFn: (row): string => row.namespaceName || '',
 		width: { min: 290 },
@@ -74,8 +71,7 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 		id: 'namespaceName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Namespace Name"
-				titleKey="display.namespace_name"
+				title="display.namespace_name"
 				icon={<FilePenLine data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/namespaces#namespace-name"
 			/>
@@ -94,9 +90,10 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 	{
 		id: 'clusterName',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/namespaces#cluster-name">
-				Cluster Name
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/namespaces#cluster-name"
+				title="display.cluster_name"
+			/>
 		),
 		accessorFn: (row): string =>
 			row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] || '',
@@ -109,9 +106,10 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 	{
 		id: 'podCountsByStatus',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/namespaces#pod-counts-by-status">
-				Pod Status
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/namespaces#pod-counts-by-status"
+				title="display.pod_status"
+			/>
 		),
 		accessorFn: (
 			row,
@@ -135,9 +133,10 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 	{
 		id: 'cpu',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/namespaces#cpu-usage-cores">
-				CPU Usage (cores)
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/namespaces#cpu-usage-cores"
+				title="display.cpu_usage_cores"
+			/>
 		),
 		accessorFn: (row): number => row.namespaceCPU,
 		width: { min: 190 },
@@ -159,9 +158,10 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 	{
 		id: 'memory',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/namespaces#mem-usage-wss">
-				Memory Usage (WSS)
-			</ColumnHeader>
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/kubernetes/namespaces#mem-usage-wss"
+				title="display.memory_usage_wss"
+			/>
 		),
 		accessorFn: (row): number => row.namespaceMemory,
 		width: { min: 220 },

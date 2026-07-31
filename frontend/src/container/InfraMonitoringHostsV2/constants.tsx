@@ -13,7 +13,7 @@ import { TextNoData } from 'container/InfraMonitoringK8sV2/components';
 import { SelectedItemParams } from 'container/InfraMonitoringK8sV2/hooks';
 import {
 	getHostQueryPayload,
-	hostWidgetInfo,
+	hostWidgetInfo as baseHostWidgetInfo,
 } from 'container/LogDetailedView/InfraMetrics/constants';
 
 import infraHostsStyles from './InfraMonitoringHosts.module.scss';
@@ -109,7 +109,33 @@ export function getHostMetricsQueryPayload(
 	return getHostQueryPayload(host.hostName, start, end, true);
 }
 
-export { hostWidgetInfo };
+const HOST_WIDGET_TITLE_KEYS: Record<string, string> = {
+	'details.infra_metrics.charts.host_cpu_usage': 'display.host_cpu_usage',
+	'details.infra_metrics.charts.host_memory_usage': 'display.host_memory_usage',
+	'details.infra_metrics.charts.system_load_average':
+		'display.system_load_average',
+	'details.infra_metrics.charts.network_usage_bytes':
+		'display.network_usage_bytes',
+	'details.infra_metrics.charts.network_usage_packets':
+		'display.network_usage_packets',
+	'details.infra_metrics.charts.network_errors': 'display.network_errors',
+	'details.infra_metrics.charts.network_drops': 'display.network_drops',
+	'details.infra_metrics.charts.network_connections':
+		'display.network_connections',
+	'details.infra_metrics.charts.system_disk_io': 'display.system_disk_io',
+	'details.infra_metrics.charts.system_disk_operations':
+		'display.system_disk_operations',
+	'details.infra_metrics.charts.queue_size': 'display.queue_size',
+	'details.infra_metrics.charts.system_disk_operation_time':
+		'display.system_disk_operation_time',
+	'details.infra_metrics.charts.disk_usage_by_mountpoint':
+		'display.disk_usage_by_mountpoint',
+};
+
+export const hostWidgetInfo = baseHostWidgetInfo.map((widget) => ({
+	...widget,
+	title: HOST_WIDGET_TITLE_KEYS[widget.title] ?? widget.title,
+}));
 
 export const hostGetSelectedItemExpression = (
 	params: SelectedItemParams,

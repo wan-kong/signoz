@@ -68,7 +68,6 @@ import {
 	useInfraMonitoringView,
 } from '../hooks';
 import LoadingContainer from '../LoadingContainer';
-import { translateInfraKey } from '../i18n';
 
 import '../EntityDetailsUtils/entityDetails.styles.scss';
 import { parseAsString, useQueryState } from 'nuqs';
@@ -104,7 +103,6 @@ export interface K8sBaseDetailsProps<T> {
 	metadataConfig: K8sDetailsMetadataConfig<T>[];
 	entityWidgetInfo: {
 		title: string;
-		titleKey?: string;
 		yAxisUnit: string;
 	}[];
 	getEntityQueryPayload: (
@@ -248,7 +246,7 @@ export default function K8sBaseDetails<T>({
 	}, [entity, getInitialEventsFilters]);
 
 	const handleClose = useCallback((): void => {
-		setSelectedItem(null);
+		void setSelectedItem(null);
 	}, [setSelectedItem]);
 
 	const entityName = entity ? getEntityName(entity) : '';
@@ -305,7 +303,7 @@ export default function K8sBaseDetails<T>({
 
 	useEffect(() => {
 		if (entity) {
-			logEvent(InfraMonitoringEvents.PageVisited, {
+			void logEvent(InfraMonitoringEvents.PageVisited, {
 				entity: InfraMonitoringEvents.K8sEntity,
 				page: InfraMonitoringEvents.DetailedPage,
 				category: eventCategory,
@@ -327,11 +325,11 @@ export default function K8sBaseDetails<T>({
 	}, [getMinMaxTime, selectedTime]);
 
 	const handleTabChange = (value: string): void => {
-		setSelectedView(value);
-		setLogFiltersParam(null);
-		setTracesFiltersParam(null);
-		setEventsFiltersParam(null);
-		logEvent(InfraMonitoringEvents.TabChanged, {
+		void setSelectedView(value);
+		void setLogFiltersParam(null);
+		void setTracesFiltersParam(null);
+		void setEventsFiltersParam(null);
+		void logEvent(InfraMonitoringEvents.TabChanged, {
 			entity: InfraMonitoringEvents.K8sEntity,
 			page: InfraMonitoringEvents.DetailedPage,
 			category: eventCategory,
@@ -358,7 +356,7 @@ export default function K8sBaseDetails<T>({
 				});
 			}
 
-			logEvent(InfraMonitoringEvents.TimeUpdated, {
+			void logEvent(InfraMonitoringEvents.TimeUpdated, {
 				entity: InfraMonitoringEvents.K8sEntity,
 				page: InfraMonitoringEvents.DetailedPage,
 				category: eventCategory,
@@ -380,7 +378,7 @@ export default function K8sBaseDetails<T>({
 			urlQuery.set(QueryParams.endTime, modalTimeRange.endTime.toString());
 		}
 
-		logEvent(InfraMonitoringEvents.ExploreClicked, {
+		void logEvent(InfraMonitoringEvents.ExploreClicked, {
 			entity: InfraMonitoringEvents.K8sEntity,
 			page: InfraMonitoringEvents.DetailedPage,
 			category: eventCategory,
@@ -449,13 +447,11 @@ export default function K8sBaseDetails<T>({
 					<Typography.Text className="title">
 						{entityName ||
 							((isEntityError || hasResponseError) &&
-								translateInfraKey(
-									t,
-									'display.failed_to_load_entity_details',
-									'Failed to load entity details',
-								)) ||
+								t('display.failed_to_load_entity_details', {
+									defaultValue: 'Failed to load entity details',
+								})) ||
 							(isEntityLoading &&
-								translateInfraKey(t, 'display.loading', 'Loading...')) ||
+								t('display.loading', { defaultValue: 'Loading...' })) ||
 							'-'}
 					</Typography.Text>
 				</>
@@ -478,11 +474,9 @@ export default function K8sBaseDetails<T>({
 						{entityResponse?.error ||
 							(entityError instanceof Error
 								? entityError.message
-								: translateInfraKey(
-										t,
-										'display.failed_to_load_entity_details',
-										'Failed to load entity details',
-									))}
+								: t('display.failed_to_load_entity_details', {
+										defaultValue: 'Failed to load entity details',
+									}))}
 					</Typography.Text>
 				</div>
 			)}
@@ -497,7 +491,7 @@ export default function K8sBaseDetails<T>({
 										color="muted"
 										className="entity-details-metadata-label"
 									>
-										{translateInfraKey(t, config.labelKey, config.label)}
+										{t(config.labelKey || '', { defaultValue: config.label })}
 									</Typography.Text>
 								))}
 							</div>
@@ -538,7 +532,7 @@ export default function K8sBaseDetails<T>({
 													label: (
 														<div className="view-title">
 															<BarChart size={14} />
-															{translateInfraKey(t, 'display.metrics', 'Metrics')}
+															{t('display.metrics', { defaultValue: 'Metrics' })}
 														</div>
 													),
 												},
@@ -551,7 +545,7 @@ export default function K8sBaseDetails<T>({
 													label: (
 														<div className="view-title">
 															<ScrollText size={14} />
-															{translateInfraKey(t, 'display.logs', 'Logs')}
+															{t('display.logs', { defaultValue: 'Logs' })}
 														</div>
 													),
 												},
@@ -564,7 +558,7 @@ export default function K8sBaseDetails<T>({
 													label: (
 														<div className="view-title">
 															<DraftingCompass size={14} />
-															{translateInfraKey(t, 'display.traces', 'Traces')}
+															{t('display.traces', { defaultValue: 'Traces' })}
 														</div>
 													),
 												},
@@ -577,7 +571,7 @@ export default function K8sBaseDetails<T>({
 													label: (
 														<div className="view-title">
 															<ChevronsLeftRight size={14} />
-															{translateInfraKey(t, 'display.events', 'Events')}
+															{t('display.events', { defaultValue: 'Events' })}
 														</div>
 													),
 												},
@@ -588,7 +582,7 @@ export default function K8sBaseDetails<T>({
 										label: (
 											<div className="view-title">
 												{tab.icon}
-												{translateInfraKey(t, tab.labelKey, tab.label)}
+												{t(tab.labelKey || '', { defaultValue: tab.label })}
 											</div>
 										),
 									})) ?? []),
@@ -597,11 +591,9 @@ export default function K8sBaseDetails<T>({
 
 							{selectedView === VIEW_TYPES.LOGS && (
 								<Tooltip
-									title={translateInfraKey(
-										t,
-										'display.go_to_logs_explorer',
-										'Go to Logs Explorer',
-									)}
+									title={t('display.go_to_logs_explorer', {
+										defaultValue: 'Go to Logs Explorer',
+									})}
 									placement="left"
 								>
 									<Button
@@ -613,11 +605,9 @@ export default function K8sBaseDetails<T>({
 							)}
 							{selectedView === VIEW_TYPES.TRACES && (
 								<Tooltip
-									title={translateInfraKey(
-										t,
-										'display.go_to_traces_explorer',
-										'Go to Traces Explorer',
-									)}
+									title={t('display.go_to_traces_explorer', {
+										defaultValue: 'Go to Traces Explorer',
+									})}
 									placement="left"
 								>
 									<Button

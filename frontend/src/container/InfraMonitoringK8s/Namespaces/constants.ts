@@ -70,53 +70,43 @@ export const k8sNamespaceGetEntityName = (item: K8sNamespacesData): string =>
 
 export const namespaceWidgetInfo = [
 	{
-		title: 'CPU Usage (cores)',
-		titleKey: 'display.cpu_usage_cores',
+		title: 'display.cpu_usage_cores',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Memory Usage (bytes)',
-		titleKey: 'display.memory_usage_bytes',
+		title: 'display.memory_usage_bytes',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Pods CPU (top 10)',
-		titleKey: 'display.pods_cpu_top_10',
+		title: 'display.pods_cpu_top_10',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Pods Memory (top 10)',
-		titleKey: 'display.pods_memory_top_10',
+		title: 'display.pods_memory_top_10',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Network rate',
-		titleKey: 'display.network_rate',
+		title: 'display.network_rate',
 		yAxisUnit: 'binBps',
 	},
 	{
-		title: 'Network errors',
-		titleKey: 'display.network_errors',
+		title: 'display.network_errors',
 		yAxisUnit: '',
 	},
 	{
-		title: 'StatefulSets',
-		titleKey: 'display.statefulsets',
+		title: 'display.statefulsets',
 		yAxisUnit: '',
 	},
 	{
-		title: 'ReplicaSets',
-		titleKey: 'display.replicasets',
+		title: 'display.replicasets',
 		yAxisUnit: '',
 	},
 	{
-		title: 'DaemonSets',
-		titleKey: 'display.daemonsets',
+		title: 'display.daemonsets',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Deployments',
-		titleKey: 'display.deployments',
+		title: 'display.deployments',
 		yAxisUnit: '',
 	},
 ];

@@ -5,7 +5,6 @@ import FieldRenderer from 'container/LogDetailedView/FieldRenderer';
 import { DataType } from 'container/LogDetailedView/TableView';
 import { useTranslation } from 'react-i18next';
 
-import { translateInfraKey } from '../../i18n';
 import styles from './EventsContent.module.scss';
 
 export function EventContents({
@@ -22,7 +21,7 @@ export function EventContents({
 
 	const columns: ColumnsType<DataType> = [
 		{
-			title: translateInfraKey(t, 'display.key', 'Key'),
+			title: t('display.key', { defaultValue: 'Key' }),
 			dataIndex: 'key',
 			key: 'key',
 			width: 50,
@@ -31,7 +30,7 @@ export function EventContents({
 			render: (field: string): JSX.Element => <FieldRenderer field={field} />,
 		},
 		{
-			title: translateInfraKey(t, 'display.value', 'Value'),
+			title: t('display.value', { defaultValue: 'Value' }),
 			dataIndex: 'value',
 			key: 'value',
 			width: 50,

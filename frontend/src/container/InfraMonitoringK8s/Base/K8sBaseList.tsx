@@ -29,7 +29,6 @@ import { K8sExpandedRow } from './K8sExpandedRow';
 import K8sHeader from './K8sHeader';
 import { K8sBaseFilters } from './types';
 import { getGroupedByMeta } from './utils';
-import { translateInfraKey, translateInfraText } from '../i18n';
 
 import styles from './K8sBaseList.module.scss';
 import cx from 'classnames';
@@ -69,6 +68,20 @@ export type K8sBaseListProps<T extends K8sEntityData> = {
 	) => React.ReactNode | null;
 };
 
+const ENTITY_LABEL_KEYS: Record<InfraMonitoringEntity, string> = {
+	[InfraMonitoringEntity.HOSTS]: 'display.hosts',
+	[InfraMonitoringEntity.PODS]: 'display.pods',
+	[InfraMonitoringEntity.NODES]: 'display.nodes',
+	[InfraMonitoringEntity.NAMESPACES]: 'display.namespaces',
+	[InfraMonitoringEntity.CLUSTERS]: 'display.clusters',
+	[InfraMonitoringEntity.DEPLOYMENTS]: 'display.deployments',
+	[InfraMonitoringEntity.STATEFULSETS]: 'display.statefulsets',
+	[InfraMonitoringEntity.DAEMONSETS]: 'display.daemonsets',
+	[InfraMonitoringEntity.CONTAINERS]: 'display.containers',
+	[InfraMonitoringEntity.JOBS]: 'display.jobs',
+	[InfraMonitoringEntity.VOLUMES]: 'display.volumes',
+};
+
 export function K8sBaseList<T extends K8sEntityData>({
 	controlListPrefix,
 	entity,
@@ -98,7 +111,7 @@ export function K8sBaseList<T extends K8sEntityData>({
 				...column,
 				header:
 					typeof column.header === 'string'
-						? translateInfraText(t, column.header)
+						? t(column.header || '', { defaultValue: column.header })
 						: column.header,
 			})),
 		[tableColumns, t],
@@ -165,7 +178,7 @@ export function K8sBaseList<T extends K8sEntityData>({
 	);
 
 	useEffect(() => {
-		logEvent(InfraMonitoringEvents.PageVisited, {
+		void logEvent(InfraMonitoringEvents.PageVisited, {
 			entity: InfraMonitoringEvents.K8sEntity,
 			page: InfraMonitoringEvents.ListPage,
 			category: eventCategory,
@@ -176,10 +189,10 @@ export function K8sBaseList<T extends K8sEntityData>({
 	const handleRowClick = useCallback(
 		(_record: T, itemKey: string): void => {
 			if (groupBy.length === 0) {
-				setSelectedItem(itemKey);
+				void setSelectedItem(itemKey);
 			}
 
-			logEvent(InfraMonitoringEvents.ItemClicked, {
+			void logEvent(InfraMonitoringEvents.ItemClicked, {
 				entity: InfraMonitoringEvents.K8sEntity,
 				page: InfraMonitoringEvents.ListPage,
 				category: eventCategory,
@@ -199,7 +212,7 @@ export function K8sBaseList<T extends K8sEntityData>({
 			url.searchParams.set('selectedItem', itemKey);
 			openInNewTab(url.pathname + url.search);
 
-			logEvent(InfraMonitoringEvents.ItemClicked, {
+			void logEvent(InfraMonitoringEvents.ItemClicked, {
 				entity: InfraMonitoringEvents.K8sEntity,
 				page: InfraMonitoringEvents.ListPage,
 				category: eventCategory,
@@ -273,11 +286,9 @@ export function K8sBaseList<T extends K8sEntityData>({
 			{isError && (
 				<Typography>
 					{data?.error?.toString() ||
-						translateInfraKey(
-							t,
-							'display.something_went_wrong',
-							'Something went wrong',
-						)}
+						t('display.something_went_wrong', {
+							defaultValue: 'Something went wrong',
+						})}
 				</Typography>
 			)}
 
@@ -309,10 +320,9 @@ export function K8sBaseList<T extends K8sEntityData>({
 						defaultLimit: 10,
 						defaultPage: 1,
 						showTotalCount: true,
-						totalCountLabel: translateInfraText(
-							t,
-							entity.charAt(0).toUpperCase() + entity.slice(1),
-						),
+						totalCountLabel: t(ENTITY_LABEL_KEYS[entity] || '', {
+							defaultValue: entity,
+						}),
 					}}
 					paginationClassname={styles.paginationContainer}
 				/>

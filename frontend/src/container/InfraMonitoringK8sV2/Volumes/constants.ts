@@ -70,33 +70,28 @@ export const k8sVolumeGetEntityName = (
 
 export const volumeWidgetInfo = [
 	{
-		title: 'Volume available',
-		titleKey: 'display.volume_available',
+		title: 'display.volume_available',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/volumes/#volume-available-1',
 	},
 	{
-		title: 'Volume capacity',
-		titleKey: 'display.volume_capacity',
+		title: 'display.volume_capacity',
 		yAxisUnit: 'bytes',
 		docPath: '/infrastructure-monitoring/kubernetes/volumes/#volume-capacity-1',
 	},
 	{
-		title: 'Volume inodes used',
-		titleKey: 'display.volume_inodes_used',
+		title: 'display.volume_inodes_used',
 		yAxisUnit: 'short',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/volumes/#volume-inodes-used-1',
 	},
 	{
-		title: 'Volume inodes',
-		titleKey: 'display.volume_inodes',
+		title: 'display.volume_inodes',
 		yAxisUnit: 'short',
 		docPath: '/infrastructure-monitoring/kubernetes/volumes/#volume-inodes-1',
 	},
 	{
-		title: 'Volume inodes free',
-		titleKey: 'display.volume_inodes_free',
+		title: 'display.volume_inodes_free',
 		yAxisUnit: 'short',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/volumes/#volume-inodes-free-1',

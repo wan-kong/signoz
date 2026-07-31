@@ -71,23 +71,19 @@ export const k8sDeploymentGetEntityName = (item: K8sDeploymentsData): string =>
 
 export const deploymentWidgetInfo = [
 	{
-		title: 'CPU usage, request, limits',
-		titleKey: 'display.cpu_usage_request_limits',
+		title: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Memory usage, request, limits',
-		titleKey: 'display.memory_usage_request_limits',
+		title: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Network IO',
-		titleKey: 'display.network_io',
+		title: 'display.network_io',
 		yAxisUnit: 'binBps',
 	},
 	{
-		title: 'Network error count',
-		titleKey: 'display.network_error_count',
+		title: 'display.network_error_count',
 		yAxisUnit: '',
 	},
 ];

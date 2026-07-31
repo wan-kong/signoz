@@ -75,28 +75,24 @@ export const k8sDaemonSetGetEntityName = (
 
 export const daemonSetWidgetInfo = [
 	{
-		title: 'CPU usage, request, limits',
-		titleKey: 'display.cpu_usage_request_limits',
+		title: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/daemonsets/#cpu-usage-request-limits',
 	},
 	{
-		title: 'Memory usage, request, limits',
-		titleKey: 'display.memory_usage_request_limits',
+		title: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/daemonsets/#memory-usage-request-limits',
 	},
 	{
-		title: 'Network IO',
-		titleKey: 'display.network_io',
+		title: 'display.network_io',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/daemonsets/#network-io',
 	},
 	{
-		title: 'Network errors count',
-		titleKey: 'display.network_errors_count',
+		title: 'display.network_errors_count',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/daemonsets/#network-errors-count',

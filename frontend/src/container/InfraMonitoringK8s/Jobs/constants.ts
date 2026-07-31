@@ -68,23 +68,19 @@ export const k8sJobGetEntityName = (item: K8sJobsData): string =>
 
 export const jobWidgetInfo = [
 	{
-		title: 'CPU usage',
-		titleKey: 'display.cpu_usage_lower',
+		title: 'display.cpu_usage_lower',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Memory Usage',
-		titleKey: 'display.memory_usage',
+		title: 'display.memory_usage',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Network IO',
-		titleKey: 'display.network_io',
+		title: 'display.network_io',
 		yAxisUnit: 'binBps',
 	},
 	{
-		title: 'Network errors count',
-		titleKey: 'display.network_errors_count',
+		title: 'display.network_errors_count',
 		yAxisUnit: '',
 	},
 ];

@@ -26,7 +26,6 @@ import {
 	useInfraMonitoringPageListing,
 } from '../hooks';
 import K8sFiltersSidePanel from './K8sFiltersSidePanel';
-import { translateInfraKey } from '../i18n';
 
 import styles from './K8sHeader.module.scss';
 
@@ -88,12 +87,12 @@ function K8sHeader<TData>({
 	const [, setCurrentPage] = useInfraMonitoringPageListing();
 	const handleChangeTagFilters = useCallback(
 		(value: IBuilderQuery['filters']) => {
-			setUrlFilters(value || null);
+			void setUrlFilters(value || null);
 			handleChangeQueryData('filters', value);
-			setCurrentPage(1);
+			void setCurrentPage(1);
 
 			if (value?.items && value?.items?.length > 0) {
-				logEvent(InfraMonitoringEvents.FilterApplied, {
+				void logEvent(InfraMonitoringEvents.FilterApplied, {
 					entity: InfraMonitoringEvents.K8sEntity,
 					page: InfraMonitoringEvents.ListPage,
 					category: InfraMonitoringEvents.Pod,
@@ -155,10 +154,10 @@ function K8sHeader<TData>({
 			}
 
 			// Reset pagination on switching to groupBy
-			setCurrentPage(1);
-			setGroupBy(newGroupBy);
+			void setCurrentPage(1);
+			void setGroupBy(newGroupBy);
 
-			logEvent(InfraMonitoringEvents.GroupByChanged, {
+			void logEvent(InfraMonitoringEvents.GroupByChanged, {
 				entity: InfraMonitoringEvents.K8sEntity,
 				page: InfraMonitoringEvents.ListPage,
 				category: InfraMonitoringEvents.Pod,
@@ -188,7 +187,7 @@ function K8sHeader<TData>({
 
 				<div className={styles.k8SAttributeSearchContainer}>
 					<div className={styles.groupByLabel}>
-						{translateInfraKey(t, 'display.group_by', 'Group by')}
+						{t('display.group_by', { defaultValue: 'Group by' })}
 					</div>
 					<Select
 						className={styles.groupBySelect}
@@ -197,11 +196,9 @@ function K8sHeader<TData>({
 						value={groupBy}
 						allowClear
 						maxTagCount="responsive"
-						placeholder={translateInfraKey(
-							t,
-							'display.search_for_attribute',
-							'Search for attribute',
-						)}
+						placeholder={t('display.search_for_attribute', {
+							defaultValue: 'Search for attribute',
+						})}
 						style={{ width: '100%' }}
 						options={groupByOptions}
 						onChange={handleGroupByChange}

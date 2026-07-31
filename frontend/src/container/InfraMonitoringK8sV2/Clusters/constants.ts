@@ -102,53 +102,45 @@ export const k8sClusterGetCountsFilterExpression = (
 
 export const clusterWidgetInfo = [
 	{
-		title: 'CPU Usage, allocatable',
-		titleKey: 'display.cpu_usage_allocatable',
+		title: 'display.cpu_usage_allocatable',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/clusters/#cpu-usage-allocatable',
 	},
 	{
-		title: 'Memory Usage, allocatable',
-		titleKey: 'display.memory_usage_allocatable',
+		title: 'display.memory_usage_allocatable',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/clusters/#memory-usage-allocatable',
 	},
 	{
-		title: 'Ready Nodes',
-		titleKey: 'display.ready_nodes',
+		title: 'display.ready_nodes',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/clusters/#ready-nodes',
 	},
 	{
-		title: 'NotReady Nodes',
-		titleKey: 'display.not_ready_nodes',
+		title: 'display.not_ready_nodes',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/clusters/#notready-nodes',
 	},
 	{
-		title: 'Deployments available and desired',
-		titleKey: 'display.deployments_available_and_desired',
+		title: 'display.deployments_available_and_desired',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/clusters/#deployments-available-and-desired',
 	},
 	{
-		title: 'Statefulset pods',
-		titleKey: 'display.statefulset_pods',
+		title: 'display.statefulset_pods',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/clusters/#statefulset-pods',
 	},
 	{
-		title: 'Daemonset nodes',
-		titleKey: 'display.daemonset_nodes',
+		title: 'display.daemonset_nodes',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/clusters/#daemonset-nodes',
 	},
 	{
-		title: 'Jobs',
-		titleKey: 'display.jobs',
+		title: 'display.jobs',
 		yAxisUnit: '',
 		docPath: '/infrastructure-monitoring/kubernetes/clusters/#jobs',
 	},

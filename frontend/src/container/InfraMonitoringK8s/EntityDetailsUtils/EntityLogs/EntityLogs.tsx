@@ -49,7 +49,6 @@ import { useTranslation } from 'react-i18next';
 
 import EntityEmptyState from '../EntityEmptyState/EntityEmptyState';
 import EntityError from '../EntityError/EntityError';
-import { translateInfraKey } from '../../i18n';
 import { isKeyNotFoundError } from '../utils';
 import { K8S_ENTITY_LOGS_EXPRESSION_KEY, useInfiniteEntityLogs } from './hooks';
 import { getEntityLogsQueryPayload } from './utils';
@@ -248,15 +247,13 @@ function EntityLogsContent({
 			<>
 				{isFetchingNextPage ? (
 					<div className={styles.logsLoadingSkeleton}>
-						{translateInfraKey(
-							t,
-							'display.loading_more_logs',
-							'Loading more logs ...',
-						)}
+						{t('display.loading_more_logs', {
+							defaultValue: 'Loading more logs ...',
+						})}
 					</div>
 				) : !hasNextPage && logs.length > 0 ? (
 					<div className={styles.logsLoadingSkeleton}>
-						{translateInfraKey(t, 'display.end_marker', '*** End ***')}
+						{t('display.end_marker', { defaultValue: '*** End ***' })}
 					</div>
 				) : null}
 			</>

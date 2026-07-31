@@ -57,43 +57,35 @@ export const k8sClusterGetEntityName = (item: K8sClusterData): string =>
 
 export const clusterWidgetInfo = [
 	{
-		title: 'CPU Usage, allocatable',
-		titleKey: 'display.cpu_usage_allocatable',
+		title: 'display.cpu_usage_allocatable',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Memory Usage, allocatable',
-		titleKey: 'display.memory_usage_allocatable',
+		title: 'display.memory_usage_allocatable',
 		yAxisUnit: 'bytes',
 	},
 	{
-		title: 'Ready Nodes',
-		titleKey: 'display.ready_nodes',
+		title: 'display.ready_nodes',
 		yAxisUnit: '',
 	},
 	{
-		title: 'NotReady Nodes',
-		titleKey: 'display.not_ready_nodes',
+		title: 'display.not_ready_nodes',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Deployments available and desired',
-		titleKey: 'display.deployments_available_and_desired',
+		title: 'display.deployments_available_and_desired',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Statefulset pods',
-		titleKey: 'display.statefulset_pods',
+		title: 'display.statefulset_pods',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Daemonset nodes',
-		titleKey: 'display.daemonset_nodes',
+		title: 'display.daemonset_nodes',
 		yAxisUnit: '',
 	},
 	{
-		title: 'Jobs',
-		titleKey: 'display.jobs',
+		title: 'display.jobs',
 		yAxisUnit: '',
 	},
 ];

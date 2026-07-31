@@ -75,28 +75,24 @@ export const k8sDeploymentGetEntityName = (
 
 export const deploymentWidgetInfo = [
 	{
-		title: 'CPU usage, request, limits',
-		titleKey: 'display.cpu_usage_request_limits',
+		title: 'display.cpu_usage_request_limits',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/deployments/#cpu-usage-request-limits',
 	},
 	{
-		title: 'Memory usage, request, limits',
-		titleKey: 'display.memory_usage_request_limits',
+		title: 'display.memory_usage_request_limits',
 		yAxisUnit: 'bytes',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/deployments/#memory-usage-request-limits',
 	},
 	{
-		title: 'Network IO',
-		titleKey: 'display.network_io',
+		title: 'display.network_io',
 		yAxisUnit: 'binBps',
 		docPath: '/infrastructure-monitoring/kubernetes/deployments/#network-io',
 	},
 	{
-		title: 'Network error count',
-		titleKey: 'display.network_error_count',
+		title: 'display.network_error_count',
 		yAxisUnit: '',
 		docPath:
 			'/infrastructure-monitoring/kubernetes/deployments/#network-error-count',

@@ -10,7 +10,6 @@ import {
 } from 'components/TanStackTableView';
 
 import styles from './K8sFiltersSidePanel.module.scss';
-import { translateInfraKey, translateInfraText } from '../i18n';
 
 type ColumnPickerItem = {
 	id: string;
@@ -81,11 +80,9 @@ function K8sFiltersSidePanel<TData>({
 	const drawerContent = (
 		<>
 			<div className={styles.columnsTitle}>
-				{translateInfraKey(
-					t,
-					'display.added_columns_click_to_remove',
-					'Added Columns (Click to remove)',
-				)}
+				{t('display.added_columns_click_to_remove', {
+					defaultValue: 'Added Columns (Click to remove)',
+				})}
 			</div>
 
 			<div className={styles.columnsList}>
@@ -99,7 +96,7 @@ function K8sFiltersSidePanel<TData>({
 							data-testid={`remove-column-${column.id}`}
 							onClick={(): void => handleRemoveColumn(column.id)}
 						>
-							{translateInfraText(t, column.label)}
+							{t(column.label || '', { defaultValue: column.label })}
 						</Button>
 					</div>
 				))}
@@ -108,11 +105,9 @@ function K8sFiltersSidePanel<TData>({
 			<div className={styles.horizontalDivider} />
 
 			<div className={styles.columnsTitle}>
-				{translateInfraKey(
-					t,
-					'display.other_columns_click_to_add',
-					'Other Columns (Click to add)',
-				)}
+				{t('display.other_columns_click_to_add', {
+					defaultValue: 'Other Columns (Click to add)',
+				})}
 			</div>
 
 			<div className={styles.columnsList}>
@@ -127,7 +122,7 @@ function K8sFiltersSidePanel<TData>({
 							onClick={(): void => handleAddColumn(column.id)}
 							tabIndex={0}
 						>
-							{translateInfraText(t, column.label)}
+							{t(column.label || '', { defaultValue: column.label })}
 						</Button>
 					</div>
 				))}
@@ -143,7 +138,7 @@ function K8sFiltersSidePanel<TData>({
 					onClose();
 				}
 			}}
-			title={translateInfraKey(t, 'display.columns', 'Columns')}
+			title={t('display.columns', { defaultValue: 'Columns' })}
 			direction="right"
 			showCloseButton
 			showOverlay={false}

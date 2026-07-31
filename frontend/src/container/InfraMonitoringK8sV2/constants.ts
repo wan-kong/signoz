@@ -200,7 +200,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Pod',
+			title: 'display.pod',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_POD_NAME,
 				dataType: DataTypes.String,
@@ -214,7 +214,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace',
+			title: 'display.namespace',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME,
 				dataType: DataTypes.String,
@@ -228,7 +228,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Node',
+			title: 'display.node',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NODE_NAME,
 				dataType: DataTypes.String,
@@ -242,7 +242,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster',
+			title: 'display.cluster',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -256,7 +256,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Deployment',
+			title: 'display.deployment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_DEPLOYMENT_NAME,
 				dataType: DataTypes.String,
@@ -270,7 +270,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Statefulset',
+			title: 'display.statefulset',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_STATEFULSET_NAME,
 				dataType: DataTypes.String,
@@ -284,7 +284,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'DaemonSet',
+			title: 'display.daemonset',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_DAEMONSET_NAME,
 				dataType: DataTypes.String,
@@ -298,7 +298,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Job',
+			title: 'display.job',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_JOB_NAME,
 				dataType: DataTypes.String,
@@ -312,7 +312,7 @@ export function GetPodsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -327,7 +327,7 @@ export function GetNodesQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Node Name',
+			title: 'display.node_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NODE_NAME,
 				dataType: DataTypes.String,
@@ -341,7 +341,7 @@ export function GetNodesQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -355,7 +355,7 @@ export function GetNodesQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -370,7 +370,7 @@ export function GetNamespaceQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME,
 				dataType: DataTypes.String,
@@ -384,7 +384,7 @@ export function GetNamespaceQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -398,7 +398,7 @@ export function GetNamespaceQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -413,7 +413,7 @@ export function GetClustersQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -427,7 +427,7 @@ export function GetClustersQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -442,7 +442,7 @@ export function GetVolumesQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'PVC Volume Claim Name',
+			title: 'display.pvc_volume_claim_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_PERSISTENT_VOLUME_CLAIM_NAME,
 				dataType: DataTypes.String,
@@ -456,7 +456,7 @@ export function GetVolumesQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME,
 				dataType: DataTypes.String,
@@ -470,7 +470,7 @@ export function GetVolumesQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -484,7 +484,7 @@ export function GetVolumesQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -499,7 +499,7 @@ export function GetDeploymentsQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Deployment Name',
+			title: 'display.deployment_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_DEPLOYMENT_NAME,
 				dataType: DataTypes.String,
@@ -513,7 +513,7 @@ export function GetDeploymentsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME,
 				dataType: DataTypes.String,
@@ -527,7 +527,7 @@ export function GetDeploymentsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -541,7 +541,7 @@ export function GetDeploymentsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -556,7 +556,7 @@ export function GetStatefulsetsQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Statefulset Name',
+			title: 'display.statefulset_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_STATEFULSET_NAME,
 				dataType: DataTypes.String,
@@ -570,7 +570,7 @@ export function GetStatefulsetsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME,
 				dataType: DataTypes.String,
@@ -584,7 +584,7 @@ export function GetStatefulsetsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -598,7 +598,7 @@ export function GetStatefulsetsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -613,7 +613,7 @@ export function GetDaemonsetsQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'DaemonSet Name',
+			title: 'display.daemonset_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_DAEMONSET_NAME,
 				dataType: DataTypes.String,
@@ -627,7 +627,7 @@ export function GetDaemonsetsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME,
 				dataType: DataTypes.String,
@@ -640,7 +640,7 @@ export function GetDaemonsetsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -653,7 +653,7 @@ export function GetDaemonsetsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -668,7 +668,7 @@ export function GetJobsQuickFiltersConfig(): IQuickFiltersConfig[] {
 	return [
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Job Name',
+			title: 'display.job_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_JOB_NAME,
 				dataType: DataTypes.String,
@@ -682,7 +682,7 @@ export function GetJobsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Namespace Name',
+			title: 'display.namespace_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME,
 				dataType: DataTypes.String,
@@ -695,7 +695,7 @@ export function GetJobsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Cluster Name',
+			title: 'display.cluster_name',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 				dataType: DataTypes.String,
@@ -708,7 +708,7 @@ export function GetJobsQuickFiltersConfig(): IQuickFiltersConfig[] {
 		},
 		{
 			type: FiltersType.CHECKBOX,
-			title: 'Environment',
+			title: 'display.environment',
 			attributeKey: {
 				key: INFRA_MONITORING_ATTR_KEYS.DEPLOYMENT_ENVIRONMENT,
 				dataType: DataTypes.String,
@@ -799,27 +799,27 @@ export interface WorkloadFilterContext {
 
 export const podUtilizationByPodWidgetInfo = [
 	{
-		title: 'CPU Limit Utilization By Pod Name',
+		title: 'display.cpu_limit_utilization_by_pod_name',
 		yAxisUnit: 'percentunit',
 		docPath: '#cpu-limit-utilization-by-pod-name',
 	},
 	{
-		title: 'CPU Request Utilization By Pod Name',
+		title: 'display.cpu_request_utilization_by_pod_name',
 		yAxisUnit: 'percentunit',
 		docPath: '#cpu-request-utilization-by-pod-name',
 	},
 	{
-		title: 'Memory Limit Utilization By Pod Name',
+		title: 'display.memory_limit_utilization_by_pod_name',
 		yAxisUnit: 'percentunit',
 		docPath: '#memory-limit-utilization-by-pod-name',
 	},
 	{
-		title: 'Memory Request Utilization By Pod Name',
+		title: 'display.memory_request_utilization_by_pod_name',
 		yAxisUnit: 'percentunit',
 		docPath: '#memory-request-utilization-by-pod-name',
 	},
 	{
-		title: 'FileSystem Usage Percentage By Pod Name',
+		title: 'display.filesystem_usage_percentage_by_pod_name',
 		yAxisUnit: 'percentunit',
 		docPath: '#filesystem-usage-percentage-by-pod-name',
 	},

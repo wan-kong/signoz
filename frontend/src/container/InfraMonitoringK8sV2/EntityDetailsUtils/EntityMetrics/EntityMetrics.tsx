@@ -36,14 +36,12 @@ import { isKeyNotFoundError } from '../utils';
 
 import styles from './EntityMetrics.module.scss';
 import { MetricsTable } from './MetricsTable';
-import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 
 interface EntityMetricsProps<T> {
 	entity: T;
 	eventEntity: string;
 	entityWidgetInfo: {
 		title: string;
-		titleKey?: string;
 		yAxisUnit: string;
 		docPath?: string;
 	}[];
@@ -149,11 +147,9 @@ function EntityMetrics<T>({
 		if (query.error && !isKeyNotFoundError(query.error)) {
 			const errorMessage =
 				(query.error as Error)?.message ||
-				translateInfraKey(
-					t,
-					'display.something_went_wrong',
-					'Something went wrong',
-				);
+				t('display.something_went_wrong', {
+					defaultValue: 'Something went wrong',
+				});
 			return <div>{errorMessage}</div>;
 		}
 
@@ -206,11 +202,9 @@ function EntityMetrics<T>({
 						className={styles.entityMetricsCol}
 					>
 						<ChartHeader
-							title={translateInfraKey(
-								t,
-								entityWidgetInfo[idx].titleKey,
-								entityWidgetInfo[idx].title,
-							)}
+							title={t(entityWidgetInfo[idx].title || '', {
+								defaultValue: entityWidgetInfo[idx].title,
+							})}
 							docPath={entityWidgetInfo[idx].docPath}
 							metricsExplorerUrl={
 								queryPayloads[idx] && queryPayloads[idx].graphType !== PANEL_TYPES.TABLE

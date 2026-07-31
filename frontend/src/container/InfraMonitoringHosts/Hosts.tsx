@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
@@ -14,7 +14,6 @@ import {
 	useInfraMonitoringFiltersK8s,
 	useInfraMonitoringPageListing,
 } from 'container/InfraMonitoringK8s/hooks';
-import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useQueryOperations } from 'hooks/queryBuilder/useQueryBuilderOperations';
 import { useAppContext } from 'providers/App/App';
@@ -84,9 +83,9 @@ function Hosts(): JSX.Element {
 		const filters = query.builder.queryData[0].filters;
 		// Nuqs batches these calls into a single URL update
 		// The useEffect will sync filters to query builder
-		setUrlFilters(filters || null);
-		setCurrentPage(1);
-		logEvent(InfraMonitoringEvents.FilterApplied, {
+		void setUrlFilters(filters || null);
+		void setCurrentPage(1);
+		void logEvent(InfraMonitoringEvents.FilterApplied, {
 			entity: InfraMonitoringEvents.HostEntity,
 			page: InfraMonitoringEvents.ListPage,
 		});
@@ -124,6 +123,15 @@ function Hosts(): JSX.Element {
 		[dotMetricsEnabled],
 	);
 
+	const quickFiltersConfig = useMemo(
+		() =>
+			getHostsQuickFiltersConfig(dotMetricsEnabled).map((filter) => ({
+				...filter,
+				title: t(filter.title || '', { defaultValue: filter.title }),
+			})),
+		[dotMetricsEnabled, t],
+	);
+
 	const controlListPrefix = !showFilters ? (
 		<div className={styles.quickFiltersToggleContainer}>
 			<Button
@@ -145,14 +153,12 @@ function Hosts(): JSX.Element {
 						<div className={styles.quickFiltersContainer}>
 							<div className={styles.quickFiltersContainerHeader}>
 								<Typography.Text>
-									{translateInfraKey(t, 'display.filters', 'Filters')}
+									{t('display.filters', { defaultValue: 'Filters' })}
 								</Typography.Text>
 								<Tooltip
-									title={translateInfraKey(
-										t,
-										'display.collapse_filters',
-										'Collapse Filters',
-									)}
+									title={t('display.collapse_filters', {
+										defaultValue: 'Collapse Filters',
+									})}
 								>
 									<ArrowUpToLine
 										style={{ rotate: '270deg', cursor: 'pointer' }}
@@ -163,7 +169,7 @@ function Hosts(): JSX.Element {
 							</div>
 							<QuickFilters
 								source={QuickFiltersSource.INFRA_MONITORING}
-								config={getHostsQuickFiltersConfig(dotMetricsEnabled)}
+								config={quickFiltersConfig}
 								handleFilterVisibilityChange={handleFilterVisibilityChange}
 								onFilterChange={handleQuickFiltersChange}
 							/>

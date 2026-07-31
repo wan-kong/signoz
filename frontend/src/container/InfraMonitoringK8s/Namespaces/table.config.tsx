@@ -1,11 +1,10 @@
 import { Tooltip } from 'antd';
 import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
-import { ExpandButtonWrapper } from 'container/InfraMonitoringK8s/components';
 
 import EntityGroupHeader from '../Base/EntityGroupHeader';
 import K8sGroupCell from '../Base/K8sGroupCell';
 import { formatBytes } from '../commonUtils';
-import { ValidateColumnValueWrapper } from '../components';
+import { ExpandButtonWrapper, ValidateColumnValueWrapper } from '../components';
 import { InfraMonitoringEntity } from '../constants';
 import { K8sNamespacesData, K8sNamespacesListPayload } from './api';
 import { FilePenLine } from '@signozhq/icons';
@@ -30,10 +29,7 @@ export const k8sNamespacesColumnsConfig: TableColumnDef<K8sNamespacesData>[] = [
 	{
 		id: 'namespaceGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader
-				title="NAMESPACE GROUP"
-				titleKey="display.namespace_group_uppercase"
-			/>
+			<EntityGroupHeader title="display.namespace_group_uppercase" />
 		),
 		accessorFn: (row): string => row.meta.k8s_namespace_name || '',
 		width: { min: 300 },
@@ -57,8 +53,7 @@ export const k8sNamespacesColumnsConfig: TableColumnDef<K8sNamespacesData>[] = [
 		id: 'namespaceName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Namespace Name"
-				titleKey="display.namespace_name"
+				title="display.namespace_name"
 				icon={<FilePenLine data-hide-expanded="true" size={14} />}
 			/>
 		),
@@ -80,7 +75,7 @@ export const k8sNamespacesColumnsConfig: TableColumnDef<K8sNamespacesData>[] = [
 	},
 	{
 		id: 'clusterName',
-		header: 'Cluster Name',
+		header: 'display.cluster_name',
 		accessorFn: (row): string => row.meta.k8s_cluster_name || '',
 		width: { default: 150 },
 		enableSort: false,
@@ -90,7 +85,7 @@ export const k8sNamespacesColumnsConfig: TableColumnDef<K8sNamespacesData>[] = [
 	},
 	{
 		id: 'cpu',
-		header: 'CPU Usage (cores)',
+		header: 'display.cpu_usage_cores',
 		accessorFn: (row): number => row.cpuUsage,
 		width: { min: 220 },
 		enableSort: true,
@@ -109,7 +104,7 @@ export const k8sNamespacesColumnsConfig: TableColumnDef<K8sNamespacesData>[] = [
 	},
 	{
 		id: 'memory',
-		header: 'Mem Usage (WSS)',
+		header: 'display.mem_usage_wss',
 		accessorFn: (row): number => row.memoryUsage,
 		width: { min: 220 },
 		enableSort: true,
