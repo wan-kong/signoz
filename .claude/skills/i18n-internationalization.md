@@ -167,6 +167,352 @@ useTranslation('common')
 t('loading')                   // Looks in common.json → loading
 ```
 
+## Handling Constants with Translations
+
+### Core Principle: Keys in Constants, Translation in Rendering
+
+**Constants should contain translation keys, not translated strings. Translation happens in the rendering layer.**
+
+This pattern provides:
+- ✅ Single source of truth for translation keys
+- ✅ No need to pass `t` function through props or parameters
+- ✅ Clear separation between data structure and presentation
+- ✅ Easier testing and maintenance
+
+### ✅ Correct Pattern: Use Keys in Constants
+
+**1. Define constants with key properties (using `Key` or `key` suffix):**
+
+```typescript
+// constants.ts
+export interface ChecklistItem {
+  id: string;
+  titleKey: string;           // ✅ Translation key
+  descriptionKey: string;     // ✅ Translation key
+  completed: boolean;
+  isSkipped: boolean;
+  isSkippable?: boolean;
+  skippedPreferenceKey?: string;
+  toRoute?: string;
+  docsLink?: string;
+}
+
+export const defaultChecklistItemsState: ChecklistItem[] = [
+  {
+    id: 'SETUP_WORKSPACE',
+    titleKey: 'checklist.items.SETUP_WORKSPACE.title',
+    descriptionKey: 'checklist.items.SETUP_WORKSPACE.description',
+    completed: true,
+    isSkipped: false,
+    isSkippable: false,
+  },
+  {
+    id: 'ADD_DATA_SOURCE',
+    titleKey: 'checklist.items.ADD_DATA_SOURCE.title',
+    descriptionKey: 'checklist.items.ADD_DATA_SOURCE.description',
+    completed: false,
+    isSkipped: false,
+    isSkippable: false,
+    toRoute: ROUTES.GET_STARTED_WITH_CLOUD,
+    docsLink: DOCS_LINKS.ADD_DATA_SOURCE,
+  },
+];
+```
+
+**2. Use `t()` in the rendering component:**
+
+```tsx
+// HomeChecklist.tsx
+import { useTranslation } from 'react-i18next';
+import { ChecklistItem } from './constants';
+
+function HomeChecklist({ checklistItems }: { checklistItems: ChecklistItem[] }) {
+  const { t } = useTranslation('home');
+
+  return (
+    <div>
+      {checklistItems.map((item) => (
+        <div key={item.id}>
+          <h3>{t(item.titleKey)}</h3>           {/* ✅ Use t() in render */}
+          <p>{t(item.descriptionKey)}</p>       {/* ✅ Use t() in render */}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+**3. Define translations in locale files:**
+
+```json
+// frontend/public/locales/en/home.json
+{
+  "checklist": {
+    "items": {
+      "SETUP_WORKSPACE": {
+        "title": "Set up your workspace",
+        "description": "Configure your workspace settings"
+      },
+      "ADD_DATA_SOURCE": {
+        "title": "Add your first data source",
+        "description": "Connect a data source to start monitoring"
+      }
+    }
+  }
+}
+```
+
+### ❌ Anti-Patterns to Avoid
+
+#### ❌ Don't: Hardcode translated strings in constants
+
+```typescript
+// ❌ BAD - Hardcoded English in constants
+export const defaultChecklistItemsState: ChecklistItem[] = [
+  {
+    id: 'SETUP_WORKSPACE',
+    title: 'Set up your workspace',              // ❌ Hardcoded
+    description: 'Configure your workspace',     // ❌ Hardcoded
+  }
+];
+```
+
+#### ❌ Don't: Pass `t` function through props or parameters
+
+```typescript
+// ❌ BAD - Passing t as a prop
+interface ChecklistItem {
+  title: string;
+}
+
+interface HomeChecklistProps {
+  checklistItems: ChecklistItem[];
+  t: TFunction;  // ❌ Don't pass t in props
+}
+
+function HomeChecklist({ checklistItems, t }: HomeChecklistProps) {
+  return <h3>{t(checklistItems[0].title)}</h3>;
+}
+
+// ❌ BAD - Converting constants to functions to receive t
+export function getChecklistItems(t: TFunction): ChecklistItem[] {
+  return [
+    { title: t('setup_workspace') }  // ❌ Don't convert constants to functions
+  ];
+}
+```
+
+#### ❌ Don't: Wrap `t()` in utility functions in constants files
+
+```typescript
+// ❌ BAD - Creating wrapper functions in constants
+export const t = (key: string) => translate(key);  // ❌ Don't do this
+
+export const defaultChecklistItemsState = [
+  { title: t('setup_workspace') }  // ❌ Don't use t() in constants
+];
+```
+
+#### ❌ Don't: Use function components in constant arrays
+
+```typescript
+// ❌ BAD - Mixing components and data
+export const defaultChecklistItemsState = [
+  {
+    id: 'SETUP_WORKSPACE',
+    title: () => t('checklist.items.SETUP_WORKSPACE.title'),  // ❌ Don't use functions
+  }
+];
+```
+
+### ✅ Recommended Patterns
+
+#### Pattern 1: Simple Key Properties (Most Common)
+
+Best for: Configuration objects, menu items, static data
+
+```typescript
+// constants.ts
+export const menuItems = [
+  { id: 'logs', labelKey: 'nav.logs', icon: <LogsIcon /> },
+  { id: 'traces', labelKey: 'nav.traces', icon: <TracesIcon /> },
+  { id: 'metrics', labelKey: 'nav.metrics', icon: <MetricsIcon /> },
+];
+
+// Component
+function SideNav() {
+  const { t } = useTranslation('common');
+  
+  return (
+    <nav>
+      {menuItems.map((item) => (
+        <div key={item.id}>{t(item.labelKey)}</div>
+      ))}
+    </nav>
+  );
+}
+```
+
+#### Pattern 2: Dynamic Key Construction
+
+Best for: When keys need to be constructed dynamically
+
+```typescript
+// constants.ts
+export interface DataField {
+  id: string;
+  type: string;
+}
+
+// Component
+function FieldLabel({ field }: { field: DataField }) {
+  const { t } = useTranslation('common');
+  
+  return <span>{t(`fields.${field.type}.label`)}</span>;
+}
+```
+
+#### Pattern 3: Wrapper Components for Complex Rendering
+
+Best for: When multiple translations are needed together
+
+```typescript
+// constants.ts
+export const tabRoutes = [
+  { key: 'tabs.explorer', icon: <Compass /> },
+  { key: 'tabs.pipelines', icon: <Workflow /> },
+];
+
+// Component
+interface TabLabelProps {
+  labelKey: string;
+  icon: JSX.Element;
+}
+
+function TabLabel({ labelKey, icon }: TabLabelProps) {
+  const { t } = useTranslation('logs');
+  
+  return (
+    <div className="tab-item">
+      {icon} {t(labelKey)}
+    </div>
+  );
+}
+
+// Usage
+<TabLabel labelKey="tabs.explorer" icon={<Compass />} />
+```
+
+#### Pattern 4: Type-Safe Keys with Union Types
+
+Best for: Ensuring compile-time safety for translation keys
+
+```typescript
+// constants.ts
+export type ChecklistKey = 
+  | 'checklist.items.SETUP_WORKSPACE.title'
+  | 'checklist.items.ADD_DATA_SOURCE.title';
+
+export interface ChecklistItem {
+  id: string;
+  titleKey: ChecklistKey;  // Type-safe key
+}
+
+// Component
+function Checklist({ item }: { item: ChecklistItem }) {
+  const { t } = useTranslation('home');
+  
+  // TypeScript ensures titleKey is a valid key
+  return <h3>{t(item.titleKey)}</h3>;
+}
+```
+
+### Migration Guide: From Hardcoded to Keys
+
+If you have existing constants with hardcoded strings:
+
+**Before:**
+```typescript
+// constants.ts (BAD)
+export const defaultChecklistItemsState = [
+  {
+    id: 'SETUP_WORKSPACE',
+    title: 'Set up your workspace',
+    description: 'Configure your workspace',
+  }
+];
+```
+
+**After:**
+```typescript
+// constants.ts (GOOD)
+export interface ChecklistItem {
+  id: string;
+  titleKey: string;
+  descriptionKey: string;
+}
+
+export const defaultChecklistItemsState = [
+  {
+    id: 'SETUP_WORKSPACE',
+    titleKey: 'checklist.items.SETUP_WORKSPACE.title',
+    descriptionKey: 'checklist.items.SETUP_WORKSPACE.description',
+  }
+];
+```
+
+**Update locale files:**
+```json
+{
+  "checklist": {
+    "items": {
+      "SETUP_WORKSPACE": {
+        "title": "Set up your workspace",
+        "description": "Configure your workspace"
+      }
+    }
+  }
+}
+```
+
+**Update component:**
+```tsx
+function HomeChecklist({ checklistItems }) {
+  const { t } = useTranslation('home');
+  
+  return (
+    <div>
+      {checklistItems.map((item) => (
+        <div key={item.id}>
+          <h3>{t(item.titleKey)}</h3>      {/* ✅ Use t() here */}
+          <p>{t(item.descriptionKey)}</p>  {/* ✅ Use t() here */}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### When to Use Each Pattern
+
+| Scenario | Recommended Pattern |
+|----------|---------------------|
+| Simple label in config object | Pattern 1: Simple Key Properties |
+| Dynamic key construction | Pattern 2: Dynamic Key Construction |
+| Complex component with multiple translations | Pattern 3: Wrapper Components |
+| Large codebase needing type safety | Pattern 4: Type-Safe Keys |
+| Legacy code with hardcoded strings | Migration Guide approach |
+
+### Checklist for Constants with Translations
+
+- [ ] Constants contain **only translation keys**, not translated strings
+- [ ] Key properties use `Key` or `key` suffix (e.g., `titleKey`, `labelKey`)
+- [ ] No `TFunction` in interfaces or types
+- [ ] No functions in constants that require `t` parameter
+- [ ] `t()` is called **only in rendering components**, not in constants
+- [ ] Translation keys match the structure in locale JSON files
+- [ ] Keys are organized by namespace: `section.subsection.key`
+
 ## Adding i18n to a New Module
 
 ### Step 1: Create Locale JSON Files
@@ -360,6 +706,28 @@ To add a new language (e.g., `ja-JP` for Japanese):
    // "1 item" or "5 items" based on count
    ```
 
+8. **Use translation keys in constants, not translated strings**
+   - ✅ Define constants with `titleKey`, `labelKey`, `descriptionKey` properties
+   - ✅ Call `t()` in the rendering component, not in the constant
+   - ❌ Never pass `t: TFunction` in props or function parameters
+   - ❌ Never convert constants to functions to receive `t`
+   - ❌ Never hardcode translated strings in constants
+   
+   **Example:**
+   ```typescript
+   // ✅ GOOD - constants.ts
+   export const menuItems = [
+     { id: 'logs', labelKey: 'nav.logs' },
+     { id: 'traces', labelKey: 'nav.traces' },
+   ];
+   
+   // ✅ GOOD - Component.tsx
+   function Menu() {
+     const { t } = useTranslation('common');
+     return <nav>{menuItems.map(item => <div>{t(item.labelKey)}</div>)}</nav>;
+   }
+   ```
+
 ### ❌ DON'T
 
 1. **Don't translate non-user-facing strings**
@@ -404,6 +772,26 @@ To add a new language (e.g., `ja-JP` for Japanese):
    // ✅ Good - for complex JSX
    const title = t('section.title');
    return <div>{title}</div>;
+   ```
+
+6. **Don't pass `t` function through props or parameters**
+   ```typescript
+   // ❌ Bad - passing t as prop
+   interface Props {
+     items: Item[];
+     t: TFunction;
+   }
+   
+   // ❌ Bad - converting constants to functions
+   export function getItems(t: TFunction): Item[] {
+     return [{ title: t('title') }];
+   }
+   ```
+
+7. **Don't create wrapper functions for t() in constants files**
+   ```typescript
+   // ❌ Bad - creating t wrapper in constants file
+   export const t = (key: string) => translate(key);
    ```
 
 ## Date and Number Formatting
