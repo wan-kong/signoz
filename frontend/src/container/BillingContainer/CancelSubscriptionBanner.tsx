@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import {
 	CircleCheck,
 	Copy,
@@ -76,6 +77,7 @@ function CancelSubscriptionBanner(): JSX.Element {
 	const [, copyToClipboard] = useCopyToClipboard();
 	const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const { user, org } = useAppContext();
+	const { t } = useTranslation('common');
 
 	useEffect(
 		() => (): void => {
@@ -144,7 +146,7 @@ function CancelSubscriptionBanner(): JSX.Element {
 				prefix={<Undo2 size={14} />}
 				onClick={handleClose}
 			>
-				Go back
+				{t('billings.go_back')}
 			</Button>
 			<Button
 				variant="solid"
@@ -154,14 +156,14 @@ function CancelSubscriptionBanner(): JSX.Element {
 				onClick={handleContactSupport}
 				data-testid="cancel-subscription-confirm-btn"
 			>
-				Cancel subscription
+				{t('billings.cancel_subscription')}
 			</Button>
 		</>
 	);
 
 	const fallbackFooter = (
 		<Button variant="solid" color="secondary" onClick={handleClose}>
-			Close
+			{t('close')}
 		</Button>
 	);
 
@@ -171,12 +173,11 @@ function CancelSubscriptionBanner(): JSX.Element {
 				<div className={styles.info}>
 					<div className={styles.titleRow}>
 						<SolidInfoCircle color={Color.BG_SAKURA_500} size={12} />
-						<span className={styles.title}>Cancel your subscription</span>
+						<span className={styles.title}>
+							{t('billings.cancel_your_subscription')}
+						</span>
 					</div>
-					<span className={styles.subtitle}>
-						When you cancel your SigNoz subscription, all your data will be deleted
-						immediately and removed from our servers.
-					</span>
+					<span className={styles.subtitle}>{t('billings.cancel_warning')}</span>
 				</div>
 				<Button
 					variant="solid"
@@ -185,13 +186,13 @@ function CancelSubscriptionBanner(): JSX.Element {
 					onClick={handleOpenCancelDialog}
 					className={styles.cancelButton}
 				>
-					Cancel Subscription
+					{t('billings.cancel_subscription_header')}
 				</Button>
 			</div>
 			<DialogWrapper
 				open={dialogView !== null}
 				onOpenChange={handleClose}
-				title="Cancel your subscription?"
+				title={t('billings.cancel_subscription_question')}
 				width="narrow"
 				showCloseButton={false}
 				footer={dialogView === 'confirm' ? confirmFooter : fallbackFooter}
@@ -199,14 +200,17 @@ function CancelSubscriptionBanner(): JSX.Element {
 				{dialogView === 'confirm' && (
 					<div className={styles.dialogBody}>
 						<p className={styles.dialogDescription}>
-							Cancelling your subscription would stop your data from being ingested to
-							SigNoz. All the data that has been already sent will also be deleted.
+							{t('billings.cancel_description')}
 						</p>
 						<p className={styles.dialogConfirmLabel}>
-							Type <code>cancel</code> to confirm the cancellation.
+							<Trans
+								t={t}
+								i18nKey="billings.type_cancel_to_confirm"
+								components={{ code: <code /> }}
+							/>
 						</p>
 						<Input
-							placeholder="Enter the word cancel..."
+							placeholder={t('billings.enter_cancel_word')}
 							value={confirmText}
 							onChange={(e): void => setConfirmText(e.target.value)}
 							data-testid="cancel-confirm-input"
@@ -215,10 +219,7 @@ function CancelSubscriptionBanner(): JSX.Element {
 				)}
 				{dialogView === 'fallback' && (
 					<div className={styles.fallbackBody}>
-						<p className={styles.fallbackHint}>
-							An email draft has been opened. If it did not open, send your
-							cancellation request directly to:
-						</p>
+						<p className={styles.fallbackHint}>{t('billings.email_draft_opened')}</p>
 						<span className={styles.fallbackEmail}>{SUPPORT_EMAIL}</span>
 						<div className={styles.fallbackActions}>
 							<Button
@@ -228,7 +229,7 @@ function CancelSubscriptionBanner(): JSX.Element {
 								onClick={handleCopyTemplate}
 								data-testid="copy-email-template-btn"
 							>
-								{copied ? 'Copied!' : 'Copy email template'}
+								{copied ? t('copied') : t('billings.copy_email_template')}
 							</Button>
 							<Button
 								asChild
@@ -244,7 +245,7 @@ function CancelSubscriptionBanner(): JSX.Element {
 									rel="noopener noreferrer"
 								>
 									<MailOpen size={14} />
-									Reopen email client
+									{t('billings.reopen_email_client')}
 								</a>
 							</Button>
 						</div>

@@ -3,6 +3,7 @@ import { Button } from '@signozhq/ui/button';
 import { Select } from 'antd';
 import { Download, SlidersVertical } from '@signozhq/icons';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import {
 	InfraMonitoringEvents,
@@ -33,6 +34,7 @@ function K8sTableToolbar({
 	onOpenOptionsDrawer,
 	onDownload,
 }: K8sTableToolbarProps): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const { groupByOptions, isLoading: isLoadingGroupByFilters } =
 		useInfraMonitoringGroupByData(entity);
 
@@ -66,7 +68,7 @@ function K8sTableToolbar({
 					value={groupBy}
 					allowClear
 					maxTagCount="responsive"
-					placeholder="Search for attribute"
+					placeholder={t('display.search_for_attribute')}
 					options={groupByOptions}
 					onChange={handleGroupByChange}
 				/>

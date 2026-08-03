@@ -10,6 +10,7 @@ import OrderByFilter from 'container/QueryBuilder/filters/Formula/OrderBy/OrderB
 // ** Hooks
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useQueryOperations } from 'hooks/queryBuilder/useQueryBuilderOperations';
+import { useTranslation } from 'react-i18next';
 import {
 	IBuilderFormula,
 	OrderByPayload,
@@ -34,6 +35,8 @@ export function Formula({
 }: FormulaProps): JSX.Element {
 	const { removeQueryBuilderEntityByIndex, handleSetFormulaData } =
 		useQueryBuilder();
+
+	const { t } = useTranslation('common');
 
 	const { listOfAdditionalFormulaFilters, handleChangeFormulaData } =
 		useQueryOperations({
@@ -128,7 +131,7 @@ export function Formula({
 				<Col span={11}>
 					<Row gutter={[11, 5]}>
 						<Col flex="5.93rem">
-							<FilterLabel label="Limit" />
+							<FilterLabel label={t('query_add_ons.limit')} />
 						</Col>
 						<Col flex="1 1 12.5rem">
 							<LimitFilter formula={formula} onChange={handleChangeLimit} />
@@ -138,7 +141,7 @@ export function Formula({
 				<Col span={11}>
 					<Row gutter={[11, 5]}>
 						<Col flex="5.93rem">
-							<FilterLabel label="HAVING" />
+							<FilterLabel label={t('query_add_ons.having')} />
 						</Col>
 						<Col flex="1 1 12.5rem">
 							<HavingFilter formula={formula} onChange={handleChangeHavingFilter} />
@@ -148,7 +151,7 @@ export function Formula({
 				<Col span={11}>
 					<Row gutter={[11, 5]}>
 						<Col flex="5.93rem">
-							<FilterLabel label="Order by" />
+							<FilterLabel label={t('query_add_ons.order_by')} />
 						</Col>
 						<Col flex="1 1 12.5rem">
 							<OrderByFilter
@@ -192,7 +195,7 @@ export function Formula({
 							onChange={handleChange}
 							size="middle"
 							value={formula.expression}
-							placeholder="Enter formula"
+							placeholder={t('query_builder.enter_formula')}
 							rows={2}
 						/>
 					</Col>
@@ -228,7 +231,7 @@ export function Formula({
 											showSearch
 											filterOption={false}
 											showArrow={false}
-											placeholder="Select order by"
+											placeholder={t('query_builder.select_order_by')}
 											options={qbV2OrderByOptions}
 											onChange={handleQBV2OrderByChange}
 											value={qbV2OrderByValue}
@@ -241,7 +244,7 @@ export function Formula({
 									type="number"
 									onChange={(value): void => handleChangeLimit(Number(value))}
 									initialValue={formula?.limit ?? undefined}
-									placeholder="Enter limit"
+									placeholder={t('query_add_ons.limit_placeholder')}
 								/>
 							</div>
 						</Col>

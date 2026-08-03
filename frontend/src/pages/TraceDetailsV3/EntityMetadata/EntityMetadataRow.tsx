@@ -3,6 +3,7 @@ import { Badge } from '@signozhq/ui/badge';
 import cx from 'classnames';
 import { getYAxisFormattedValue } from 'components/Graph/yAxisConfig';
 import HttpStatusBadge from 'components/HttpStatusBadge/HttpStatusBadge';
+import { useTranslation } from 'react-i18next';
 
 import EntityMetadataItem from './EntityMetadataItem';
 
@@ -33,9 +34,13 @@ function EntityMetadataRow({
 	timestamp,
 	statusCode,
 }: EntityMetadataRowProps): JSX.Element {
-	const entityLabel = entity === 'trace' ? 'Trace' : 'Span';
+	const { t } = useTranslation('traceDetails');
+	const entityLabel =
+		entity === 'trace' ? t('trace_details.trace') : t('trace_details.span');
 	const durationTooltip =
-		entity === 'trace' ? 'Trace Duration' : 'Span Duration';
+		entity === 'trace'
+			? t('trace_details.trace_duration')
+			: t('trace_details.span_duration');
 	// Single source of duration formatting so both rows label units identically.
 	const duration =
 		durationMs != null
@@ -46,7 +51,7 @@ function EntityMetadataRow({
 		<div className={cx(styles.row, className)}>
 			{service && (
 				<EntityMetadataItem
-					tooltip="Root service and entry-point span"
+					tooltip={t('trace_details.root_service_tooltip')}
 					icon={<Server size={ICON_SIZE} />}
 				>
 					{service.name}
@@ -71,7 +76,7 @@ function EntityMetadataRow({
 						<>
 							{' — '}
 							<strong>{execTimePercent.toFixed(2)}%</strong>
-							{' of total exec time'}
+							{t('trace_details.of_total_exec_time')}
 						</>
 					)}
 				</EntityMetadataItem>
@@ -79,7 +84,7 @@ function EntityMetadataRow({
 
 			{timestamp && (
 				<EntityMetadataItem
-					tooltip={`${entityLabel} start time`}
+					tooltip={t('trace_details.entity_start_time', { entity: entityLabel })}
 					icon={<CalendarClock size={ICON_SIZE} />}
 				>
 					{timestamp}
@@ -87,7 +92,7 @@ function EntityMetadataRow({
 			)}
 
 			{statusCode && (
-				<EntityMetadataItem tooltip="Root span status code">
+				<EntityMetadataItem tooltip={t('trace_details.root_span_status_code')}>
 					<HttpStatusBadge statusCode={statusCode} />
 				</EntityMetadataItem>
 			)}

@@ -1,4 +1,12 @@
 {
 	"name_of_the_view": "视图名称",
-	"delete_confirm_message": "确定要删除 {{viewName}} 视图吗？删除视图是不可逆操作，无法撤销。"
+	"delete_confirm_message": "确定要删除 {{viewName}} 视图吗？删除视图是不可逆操作，无法撤销。",
+	"select_a_view": "选择视图",
+	"view_name_placeholder": "例如：崩溃着陆视图",
+	"views": "视图",
+	"manage_views_description": "管理你在 {{sourcePage}} 中保存的视图。",
+	"delete_view_title": "删除视图",
+	"delete_view_button": "删除视图",
+	"edit_view_details": "编辑视图详情",
+	"label": "标签"
 }

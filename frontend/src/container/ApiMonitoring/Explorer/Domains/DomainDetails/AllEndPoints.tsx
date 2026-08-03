@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select } from 'antd';
 import { ENTITY_VERSION_V5 } from 'constants/app';
 import { initialQueriesMap } from 'constants/queryBuilder';
@@ -38,6 +39,7 @@ function AllEndPoints({
 	initialFilters: IBuilderQuery['filters'];
 	setInitialFiltersEndPointStats: (filters: IBuilderQuery['filters']) => void;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const [params, setParams] = useApiMonitoringParams();
 	const [groupBySearchValue, setGroupBySearchValue] = useState<string>('');
 	const [allAvailableGroupByOptions, setAllAvailableGroupByOptions] = useState<{
@@ -236,12 +238,12 @@ function AllEndPoints({
 					<QueryBuilderSearchV2
 						query={query}
 						onChange={handleFilterChange}
-						placeholder="Search for filters..."
+						placeholder={t('api_monitoring.search_for_filters')}
 					/>
 				</div>
 			</div>
 			<div className="group-by-container">
-				<div className="group-by-label"> Group by </div>
+				<div className="group-by-label">{t('api_monitoring.group_by_label')}</div>
 				<Select
 					className="group-by-select"
 					loading={isLoadingGroupByFilters}
@@ -249,7 +251,7 @@ function AllEndPoints({
 					value={groupBy}
 					allowClear
 					maxTagCount="responsive"
-					placeholder="Search for attribute"
+					placeholder={t('api_monitoring.search_for_attribute')}
 					options={groupByOptions}
 					onChange={handleGroupByChange}
 					onSearch={(value: string): void => setGroupBySearchValue(value)}

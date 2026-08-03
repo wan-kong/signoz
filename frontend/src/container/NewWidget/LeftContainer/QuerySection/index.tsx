@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Button, Tabs } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -41,6 +42,8 @@ function QuerySection({
 	const { registerShortcut, deregisterShortcut } = useKeyboardHotkeys();
 
 	const isDarkMode = useIsDarkMode();
+
+	const { t } = useTranslation('common');
 
 	const { query } = selectedWidget;
 
@@ -176,7 +179,7 @@ function QuerySection({
 						<TextToolTip text="This will temporarily save the current query and graph state. This will persist across tab change" />
 						<RunQueryBtn
 							className="run-query-dashboard-btn"
-							label="Stage & Run Query"
+							label={t('stage_and_run_query')}
 							onStageRunQuery={handleRunQuery}
 							isLoadingQueries={isLoadingQueries}
 							handleCancelQuery={handleCancelQuery}

@@ -9,6 +9,7 @@ import { HavingFilterTag } from 'container/QueryBuilder/components';
 import { HavingTagRenderProps } from 'container/QueryBuilder/components/HavingFilterTag/HavingFilterTag.interfaces';
 // ** Hooks
 import { useTagValidation } from 'hooks/queryBuilder/useTagValidation';
+import { useTranslation } from 'react-i18next';
 import {
 	transformFromStringToHaving,
 	transformHavingToStringValue,
@@ -28,6 +29,7 @@ export function HavingFilter({
 	onChange,
 }: HavingFilterProps): JSX.Element {
 	const getPopupContainer = useSelectPopupContainer();
+	const { t } = useTranslation('common');
 	const { having } = query;
 	const [searchText, setSearchText] = useState<string>('');
 	const [options, setOptions] = useState<SelectOption<string, string>[]>([]);
@@ -243,7 +245,7 @@ export function HavingFilter({
 				disabled={isMetricsDataSource && !query.aggregateAttribute?.key}
 				style={{ width: '100%' }}
 				notFoundContent={currentFormValue.value.length === 0 ? undefined : null}
-				placeholder="GroupBy(operation) > 5"
+				placeholder={t('query_builder.having_placeholder_grp')}
 				onDeselect={handleDeselect}
 				onChange={handleChange}
 				onSelect={handleSelect}

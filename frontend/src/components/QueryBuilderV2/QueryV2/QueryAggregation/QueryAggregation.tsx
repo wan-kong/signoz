@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Tooltip } from 'antd';
 import InputWithLabel from 'components/InputWithLabel/InputWithLabel';
@@ -25,6 +26,7 @@ function QueryAggregationOptions({
 	onChange?: (value: string) => void;
 	queryData: IBuilderQuery | IBuilderTraceOperator;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const showAggregationInterval = useMemo(() => {
 		if (panelType === PANEL_TYPES.VALUE) {
 			return false;
@@ -62,7 +64,7 @@ function QueryAggregationOptions({
 						<Tooltip
 							title={
 								<div>
-									Set the time interval for aggregation
+									{t('metrics_aggregate.set_time_interval')}
 									<br />
 									<a
 										href="https://signoz.io/docs/userguide/query-builder-v5/#temporal-aggregation-within-each-time-series"
@@ -70,7 +72,7 @@ function QueryAggregationOptions({
 										rel="noopener noreferrer"
 										style={{ color: '#1890ff', textDecoration: 'underline' }}
 									>
-										Learn about step intervals
+										{t('metrics_aggregate.learn_about_step_intervals')}
 									</a>
 								</div>
 							}
@@ -80,7 +82,7 @@ function QueryAggregationOptions({
 								className="metrics-aggregation-section-content-item-label"
 								style={{ cursor: 'help' }}
 							>
-								every
+								{t('every')}
 							</div>
 						</Tooltip>
 
@@ -88,8 +90,8 @@ function QueryAggregationOptions({
 							<InputWithLabel
 								initialValue={queryData?.stepInterval ? queryData?.stepInterval : null}
 								className="query-aggregation-interval-input"
-								label="Seconds"
-								placeholder="Auto"
+								label={t('seconds')}
+								placeholder={t('auto')}
 								type="number"
 								onChange={handleAggregationIntervalChange}
 								labelAfter

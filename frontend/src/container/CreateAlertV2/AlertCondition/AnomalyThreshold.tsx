@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Select } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useAppContext } from 'providers/App/App';
@@ -39,6 +40,7 @@ function AnomalyThreshold({
 	} = useCreateAlertState();
 
 	const { currentQuery } = useQueryBuilder();
+	const { t } = useTranslation('create_alert');
 
 	const queryNames = getQueryNames(currentQuery);
 
@@ -207,7 +209,7 @@ function AnomalyThreshold({
 									label: channel.name,
 								}))}
 								mode="multiple"
-								placeholder="Select notification channels"
+								placeholder={t('select_notification_channels')}
 								showSearch
 								maxTagCount={2}
 								maxTagPlaceholder={(omittedValues): string =>

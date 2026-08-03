@@ -115,6 +115,10 @@ export default function CheckboxFilterV2(
 		setSearchText(args[0] as string);
 	}, DEBOUNCE_DELAY);
 
+	const displayTitle = filter.titleKey
+		? t(filter.titleKey, { defaultValue: filter.title })
+		: filter.title;
+
 	const currentFilterOp = useMemo(() => {
 		const filterSync = currentQuery?.builder.queryData?.[
 			activeQueryIndex
@@ -162,7 +166,7 @@ export default function CheckboxFilterV2(
 	return (
 		<div className={styles.checkboxFilter} data-testid="checkbox-filter-v2">
 			<CheckboxFilterV2Header
-				title={filter.title}
+				title={displayTitle}
 				isOpen={isOpen}
 				showClearAll={!!attributeValues.length}
 				onToggleOpen={onToggleOpen}

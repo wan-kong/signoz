@@ -156,12 +156,12 @@ function QuerySearch({
 			} catch (error) {
 				setValidation({
 					isValid: false,
-					message: 'Failed to process query',
+					message: t('query_search.failed_to_process'),
 					errors: [error as IDetailedError],
 				});
 			}
 		},
-		[initialExpression, isScopedFilter],
+		[initialExpression, isScopedFilter, t],
 	);
 
 	const getCurrentExpression = useCallback(
@@ -481,7 +481,7 @@ function QuerySearch({
 
 			setValueSuggestions([
 				{
-					label: 'Loading suggestions...',
+					label: t('query_search.loading_suggestions'),
 					type: 'text',
 					boost: -99,
 					apply: (): boolean => false,
@@ -568,7 +568,7 @@ function QuerySearch({
 					} else {
 						setValueSuggestions([
 							{
-								label: 'No suggestions available',
+								label: t('query_search.no_suggestions'),
 								type: 'text',
 								boost: -99,
 								apply: (): boolean => false,
@@ -586,7 +586,7 @@ function QuerySearch({
 				if (lastKeyRef.current === key && isMountedRef.current) {
 					setValueSuggestions([
 						{
-							label: 'Error loading suggestions',
+							label: t('query_search.error_loading_suggestions'),
 							type: 'text',
 							boost: -99, // Lower boost to appear at the bottom
 							apply: (): boolean => false, // Prevent selection
@@ -606,6 +606,7 @@ function QuerySearch({
 			signalSource,
 			toggleSuggestions,
 			valueSuggestionsOverride,
+			t,
 		],
 	);
 
@@ -716,26 +717,26 @@ function QuerySearch({
 	// Helper function to render a badge for the current context mode
 	const renderContextBadge = (): JSX.Element => {
 		if (!editingMode) {
-			return <Badge color="vanilla">Unknown</Badge>;
+			return <Badge color="vanilla">{t('query_search.unknown')}</Badge>;
 		}
 
 		switch (editingMode) {
 			case 'key':
-				return <Badge color="robin">Key</Badge>;
+				return <Badge color="robin">{t('query_search.key')}</Badge>;
 			case 'operator':
-				return <Badge color="sakura">Operator</Badge>;
+				return <Badge color="sakura">{t('query_search.operator')}</Badge>;
 			case 'value':
-				return <Badge color="forest">Value</Badge>;
+				return <Badge color="forest">{t('query_search.value')}</Badge>;
 			case 'conjunction':
-				return <Badge color="amber">Conjunction</Badge>;
+				return <Badge color="amber">{t('query_search.conjunction')}</Badge>;
 			case 'function':
-				return <Badge color="aqua">Function</Badge>;
+				return <Badge color="aqua">{t('query_search.function')}</Badge>;
 			case 'parenthesis':
-				return <Badge color="sakura">Parenthesis</Badge>;
+				return <Badge color="sakura">{t('query_search.parenthesis')}</Badge>;
 			case 'bracketList':
 				return <Badge color="cherry">{t('query_builder.bracket_list')}</Badge>;
 			default:
-				return <Badge color="vanilla">Unknown</Badge>;
+				return <Badge color="vanilla">{t('query_search.unknown')}</Badge>;
 		}
 	};
 
@@ -1319,8 +1320,16 @@ function QuerySearch({
 					// In expression context, suggest keys, functions, or nested parentheses
 					options = [
 						...dedupedKeySuggestions,
-						{ label: '(', type: 'parenthesis', info: 'Open nested group' },
-						{ label: 'NOT', type: 'operator', info: 'Negate expression' },
+						{
+							label: '(',
+							type: 'parenthesis',
+							info: t('query_search.open_nested_group'),
+						},
+						{
+							label: 'NOT',
+							type: 'operator',
+							info: t('query_search.negate_expression'),
+						},
 						...options.filter((opt) => opt.type === 'function'),
 					];
 
@@ -1435,7 +1444,7 @@ function QuerySearch({
 
 	const getTooltipContent = (): JSX.Element => (
 		<div>
-			Need help with search syntax?
+			{t('query_search.need_help_syntax')}
 			<br />
 			<a
 				href="https://signoz.io/docs/userguide/search-syntax/"
@@ -1443,7 +1452,7 @@ function QuerySearch({
 				rel="noopener noreferrer"
 				style={{ color: '#1890ff', textDecoration: 'underline' }}
 			>
-				View documentation
+				{t('query_search.view_documentation')}
 			</a>
 		</div>
 	);
@@ -1452,25 +1461,29 @@ function QuerySearch({
 		<div className="code-mirror-where-clause">
 			{editingMode && (
 				<div className={`context-indicator context-indicator-${editingMode}`}>
-					Currently editing: {renderContextBadge()}
+					{t('query_search.currently_editing')} {renderContextBadge()}
 					{queryContext?.keyToken && (
 						<span className="triplet-info">
-							Key: <Badge color="vanilla">{queryContext.keyToken}</Badge>
+							{t('query_search.key_label')}{' '}
+							<Badge color="vanilla">{queryContext.keyToken}</Badge>
 						</span>
 					)}
 					{queryContext?.operatorToken && (
 						<span className="triplet-info">
-							Operator: <Badge color="vanilla">{queryContext.operatorToken}</Badge>
+							{t('query_search.operator_label')}{' '}
+							<Badge color="vanilla">{queryContext.operatorToken}</Badge>
 						</span>
 					)}
 					{queryContext?.valueToken && (
 						<span className="triplet-info">
-							Value: <Badge color="vanilla">{queryContext.valueToken}</Badge>
+							{t('query_search.value_label')}{' '}
+							<Badge color="vanilla">{queryContext.valueToken}</Badge>
 						</span>
 					)}
 					{queryContext?.currentPair && (
 						<span className="triplet-info query-pair-info">
-							Current pair: <Badge color="robin">{queryContext.currentPair.key}</Badge>
+							{t('query_search.current_pair')}{' '}
+							<Badge color="robin">{queryContext.currentPair.key}</Badge>
 							<Badge color="sakura">{queryContext.currentPair.operator}</Badge>
 							{queryContext.currentPair.value && (
 								<Badge color="forest">{queryContext.currentPair.value}</Badge>
@@ -1478,13 +1491,15 @@ function QuerySearch({
 							<Badge
 								color={queryContext.currentPair.isComplete ? 'success' : 'warning'}
 							>
-								{queryContext.currentPair.isComplete ? 'Complete' : 'Incomplete'}
+								{queryContext.currentPair.isComplete
+									? t('query_search.complete')
+									: t('query_search.incomplete')}
 							</Badge>
 						</span>
 					)}
 					{queryContext?.queryPairs && queryContext.queryPairs.length > 0 && (
 						<span className="triplet-info">
-							Total pairs:{' '}
+							{t('query_search.total_pairs')}{' '}
 							<Badge color="robin">{queryContext.queryPairs.length}</Badge>
 						</span>
 					)}
@@ -1663,7 +1678,7 @@ function QuerySearch({
 						className="query-examples"
 						defaultActiveKey={[]}
 					>
-						<Panel header="Query Examples" key="1">
+						<Panel header={t('query_search.query_examples')} key="1">
 							<div className="query-examples-list">
 								{queryExamples.map((example) => (
 									<div
@@ -1695,50 +1710,6 @@ function QuerySearch({
 					</Collapse>
 				</Card>
 			)}
-
-			{/* {queryContext && (
-				<Card size="small" title={t("query_builder.current_context")} className="query-context">
-					<div className="context-details">
-						<Space direction="vertical" size={4}>
-							<Space>
-								<Typography.Text strong>Token:</Typography.Text>
-								<Typography.Text code>
-									{queryContext.currentToken || '-'}
-								</Typography.Text>
-							</Space>
-							<Space>
-								<Typography.Text strong>Type:</Typography.Text>
-								<Typography.Text>{queryContext.tokenType || '-'}</Typography.Text>
-							</Space>
-							<Space>
-								<Typography.Text strong>Context:</Typography.Text>
-								{renderContextBadge()}
-							</Space>
-
-							{queryContext.keyToken && (
-								<Space>
-									<Typography.Text strong>Key:</Typography.Text>
-									<Typography.Text code>{queryContext.keyToken}</Typography.Text>
-								</Space>
-							)}
-
-							{queryContext.operatorToken && (
-								<Space>
-									<Typography.Text strong>Operator:</Typography.Text>
-									<Typography.Text code>{queryContext.operatorToken}</Typography.Text>
-								</Space>
-							)}
-
-							{queryContext.valueToken && (
-								<Space>
-									<Typography.Text strong>Value:</Typography.Text>
-									<Typography.Text code>{queryContext.valueToken}</Typography.Text>
-								</Space>
-							)}
-						</Space>
-					</div>
-				</Card>
-			)} */}
 		</div>
 	);
 }

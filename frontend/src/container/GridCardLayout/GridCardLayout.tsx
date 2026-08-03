@@ -9,6 +9,7 @@ import { Color } from '@signozhq/design-tokens';
 import { Input } from '@signozhq/ui/input';
 import { Button, Form, Modal } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import logEvent from 'api/common/logEvent';
 import cx from 'classnames';
 import { ENTITY_VERSION_V5 } from 'constants/app';
@@ -67,6 +68,7 @@ interface GraphLayoutProps {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function GraphLayout(props: GraphLayoutProps): JSX.Element {
 	const { handle, enableDrillDown = false } = props;
+	const { t } = useTranslation('common');
 	const { safeNavigate } = useSafeNavigate();
 	const isDashboardFetching =
 		useIsFetching([REACT_QUERY_KEY.DASHBOARD_BY_ID]) > 0;
@@ -550,7 +552,7 @@ function GraphLayout(props: GraphLayoutProps): JSX.Element {
 					</Typography.Text>
 					<Form.Item required name={['title']}>
 						<Input
-							placeholder="Enter row name here..."
+							placeholder={t('grid_card_layout.enter_row_name_placeholder')}
 							defaultValue={defaultTo(
 								widgets?.find((widget) => widget.id === currentSelectRowId)
 									?.title as string,

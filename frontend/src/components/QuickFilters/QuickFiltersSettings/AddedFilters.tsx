@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import {
 	closestCenter,
@@ -30,6 +31,7 @@ function SortableFilter({
 	allowDrag: boolean;
 	allowRemove: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const { attributes, listeners, setNodeRef, transform, transition } =
 		useSortable({ id: filter.key });
 
@@ -56,7 +58,7 @@ function SortableFilter({
 						onRemove(filter as FilterType);
 					}}
 				>
-					Remove
+					{t('remove')}
 				</Button>
 			)}
 		</div>
@@ -72,6 +74,7 @@ function AddedFilters({
 	addedFilters: FilterType[];
 	setAddedFilters: React.Dispatch<React.SetStateAction<FilterType[]>>;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const sensors = useSensors(useSensor(PointerSensor));
 
 	const handleDragEnd = (event: DragEndEvent): void => {
@@ -104,7 +107,7 @@ function AddedFilters({
 
 	return (
 		<div className="qf-filters added-filters">
-			<div className="qf-filters-header">ADDED FILTERS</div>
+			<div className="qf-filters-header">{t('quick_filters.added_filters')}</div>
 			<div className="qf-added-filters-list">
 				<OverlayScrollbar>
 					<DndContext
@@ -113,7 +116,7 @@ function AddedFilters({
 						onDragEnd={handleDragEnd}
 					>
 						{filteredAddedFilters.length === 0 ? (
-							<div className="no-values-found">No values found</div>
+							<div className="no-values-found">{t('no_values_found')}</div>
 						) : (
 							<SortableContext
 								items={addedFilters.map((f) => f.key)}

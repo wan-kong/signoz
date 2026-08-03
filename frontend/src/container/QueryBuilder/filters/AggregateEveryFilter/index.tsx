@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { InputNumber, InputNumberProps } from 'antd';
 import { IBuilderQuery } from 'types/api/queryBuilder/queryBuilderData';
 import { DataSource } from 'types/common/queryBuilder';
@@ -10,6 +11,7 @@ function AggregateEveryFilter({
 	query,
 	disabled,
 }: AggregateEveryFilterProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const isMetricsDataSource = useMemo(
 		() => query.dataSource === DataSource.METRICS,
 		[query.dataSource],
@@ -26,7 +28,7 @@ function AggregateEveryFilter({
 
 	return (
 		<InputNumber
-			placeholder="Enter in seconds"
+			placeholder={t('query_builder.enter_in_seconds')}
 			disabled={isDisabled}
 			style={selectStyle}
 			value={query?.stepInterval}

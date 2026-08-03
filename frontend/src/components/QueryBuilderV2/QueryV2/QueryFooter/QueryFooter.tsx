@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Button, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -14,6 +15,7 @@ function TraceOperatorSection({
 }: {
 	addTraceOperator?: () => void;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const { currentQuery, panelType } = useQueryBuilder();
 
 	const showTraceOperatorWarning = useMemo(() => {
@@ -35,14 +37,16 @@ function TraceOperatorSection({
 			return '';
 		}
 		const firstQuery = currentQuery.builder.queryData[0];
-		return `Currently, you are only seeing results from query ${firstQuery.queryName}. Add a trace operator to combine results of multiple queries.`;
-	}, [currentQuery]);
+		return t('query_builder.trace_operator_warning', {
+			queryName: firstQuery.queryName,
+		});
+	}, [currentQuery, t]);
 	return (
 		<div className="qb-trace-operator-button-container">
 			<Tooltip
 				title={
 					<div style={{ textAlign: 'center' }}>
-						Add Trace Matching
+						{t('query_builder.add_trace_matching')}
 						<Typography.Link
 							href="https://signoz.io/docs/querying/multi-query-analysis/#trace-matching"
 							target="_blank"
@@ -50,7 +54,7 @@ function TraceOperatorSection({
 						>
 							{' '}
 							<br />
-							Learn more
+							{t('learn_more')}
 						</Typography.Link>
 					</div>
 				}
@@ -61,7 +65,7 @@ function TraceOperatorSection({
 					onClick={(): void => addTraceOperator?.()}
 				>
 					<div className="qb-trace-operator-button-container-text">
-						Add Trace Matching
+						{t('query_builder.add_trace_matching')}
 						<BetaTag />
 					</div>
 				</Button>
@@ -86,11 +90,18 @@ export default function QueryFooter({
 	showAddTraceOperator: boolean;
 	showAddFormula?: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className="qb-footer">
 			<div className="qb-footer-container">
 				<div className="qb-add-new-query">
-					<Tooltip title={<div style={{ textAlign: 'center' }}>Add New Query</div>}>
+					<Tooltip
+						title={
+							<div style={{ textAlign: 'center' }}>
+								{t('query_builder.add_new_query')}
+							</div>
+						}
+					>
 						<Button
 							className="add-new-query-button periscope-btn "
 							icon={<Plus size={16} />}
@@ -104,7 +115,7 @@ export default function QueryFooter({
 						<Tooltip
 							title={
 								<div style={{ textAlign: 'center' }}>
-									Add New Formula
+									{t('query_builder.add_new_formula')}
 									<Typography.Link
 										href="https://signoz.io/docs/querying/multi-query-analysis/#advanced-comparisons"
 										target="_blank"
@@ -112,7 +123,7 @@ export default function QueryFooter({
 									>
 										{' '}
 										<br />
-										Learn more
+										{t('learn_more')}
 									</Typography.Link>
 								</div>
 							}
@@ -122,7 +133,7 @@ export default function QueryFooter({
 								icon={<Sigma size={16} />}
 								onClick={addNewFormula}
 							>
-								Add Formula
+								{t('query_builder.add_formula')}
 							</Button>
 						</Tooltip>
 					</div>

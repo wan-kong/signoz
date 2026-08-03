@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Callout } from '@signozhq/ui/callout';
 import { Input } from '@signozhq/ui/input';
@@ -36,6 +37,7 @@ function SignUp(): JSX.Element {
 	const [formError, setFormError] = useState<APIError | null>();
 
 	const { notifications } = useNotifications();
+	const { t } = useTranslation('signup');
 	const [form] = Form.useForm<FormValues>();
 
 	// Watch form values for reactive validation
@@ -79,7 +81,7 @@ function SignUp(): JSX.Element {
 				setLoading(false);
 			} catch (error) {
 				notifications.error({
-					message: 'Something went wrong',
+					message: t('unexpected_error'),
 				});
 				setLoading(false);
 			}
@@ -109,11 +111,10 @@ function SignUp(): JSX.Element {
 						<img src={tvUrl} alt="TV" width="32" height="32" />
 					</div>
 					<Typography.Title level={4} className="signup-header-title">
-						Create your account
+						{t('title_create_account')}
 					</Typography.Title>
 					<Typography.Text className="signup-header-subtitle">
-						You&apos;re almost in. Create a password to start monitoring your
-						applications with SigNoz.
+						{t('subtitle_create_account')}
 					</Typography.Text>
 				</div>
 
@@ -121,10 +122,10 @@ function SignUp(): JSX.Element {
 					<div className="signup-form-container">
 						<div className="signup-form-fields">
 							<div className="signup-field-container">
-								<Label htmlFor="signupEmail">Email address</Label>
+								<Label htmlFor="signupEmail">{t('label_email')}</Label>
 								<FormContainer.Item noStyle name="email">
 									<Input
-										placeholder="e.g. john@signoz.io"
+										placeholder={t('placeholder_email')}
 										type="email"
 										autoFocus
 										required
@@ -135,16 +136,18 @@ function SignUp(): JSX.Element {
 							</div>
 
 							<div className="signup-field-container">
-								<Label htmlFor="currentPassword">Set your password</Label>
+								<Label htmlFor="currentPassword">{t('label_set_password')}</Label>
 								<FormContainer.Item
 									name="password"
 									validateTrigger="onBlur"
-									rules={[{ required: true, message: 'Please enter password!' }]}
+									rules={[
+										{ required: true, message: t('validation_password_required') },
+									]}
 								>
 									<AntdInput.Password
 										required
 										id="currentPassword"
-										placeholder="Enter new password"
+										placeholder={t('placeholder_password')}
 										disabled={loading}
 										className="signup-antd-input"
 									/>
@@ -152,22 +155,27 @@ function SignUp(): JSX.Element {
 							</div>
 
 							<div className="signup-field-container">
-								<Label htmlFor="confirmPassword">Confirm your new password</Label>
+								<Label htmlFor="confirmPassword">
+									{t('label_confirm_password_new')}
+								</Label>
 								<FormContainer.Item
 									name="confirmPassword"
 									validateTrigger="onBlur"
 									validateStatus={showPasswordMismatchError ? 'error' : undefined}
 									help={
-										showPasswordMismatchError
-											? "Passwords don't match. Please try again."
-											: undefined
+										showPasswordMismatchError ? t('failed_confirm_password') : undefined
 									}
-									rules={[{ required: true, message: 'Please enter confirm password!' }]}
+									rules={[
+										{
+											required: true,
+											message: t('validation_confirm_password_required'),
+										},
+									]}
 								>
 									<AntdInput.Password
 										required
 										id="confirmPassword"
-										placeholder="Confirm your new password"
+										placeholder={t('placeholder_confirm_password')}
 										disabled={loading}
 										className="signup-antd-input"
 										onBlur={() => setConfirmPasswordTouched(true)}
@@ -178,8 +186,7 @@ function SignUp(): JSX.Element {
 					</div>
 
 					<Callout type="info" size="small" showIcon className="signup-info-callout">
-						This will create an admin account. If you are not an admin, please ask
-						your admin for an invite link
+						{t('prompt_admin_warning')}
 					</Callout>
 
 					{formError && <AuthError error={formError} />}
@@ -194,7 +201,7 @@ function SignUp(): JSX.Element {
 							className="signup-submit-button"
 							suffix={<ArrowRight size={16} />}
 						>
-							Access My Workspace
+							{t('button_access_workspace')}
 						</Button>
 					</div>
 				</FormContainer>

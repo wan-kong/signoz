@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { InputNumber } from 'antd';
 import { Switch } from '@signozhq/ui/switch';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 
 import SettingsSection from '../../components/SettingsSection/SettingsSection';
 
@@ -24,6 +25,7 @@ export default function HistogramBucketsSection({
 	combineHistogram,
 	setCombineHistogram,
 }: HistogramBucketsSectionProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<SettingsSection title="Histogram / Buckets">
 			<section className="histogram-settings__bucket-config control-container">
@@ -35,7 +37,7 @@ export default function HistogramBucketsSection({
 					type="number"
 					min={0}
 					rootClassName="bucket-input"
-					placeholder="Default: 30"
+					placeholder={t('new_widget.default_30')}
 					onChange={(val): void => {
 						setBucketCount(val || 0);
 					}}
@@ -47,7 +49,7 @@ export default function HistogramBucketsSection({
 					value={bucketWidth || null}
 					type="number"
 					precision={2}
-					placeholder="Default: Auto"
+					placeholder={t('new_widget.default_auto')}
 					step={0.1}
 					min={0.0}
 					rootClassName="histogram-settings__bucket-input"

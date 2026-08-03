@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { KeyRound, X } from '@signozhq/icons';
 import { Pagination, Skeleton, Table, Tooltip } from 'antd';
 import type { ColumnsType } from 'antd/es/table/interface';
@@ -38,15 +39,27 @@ interface BuildColumnsParams {
 	handleformatLastObservedAt: (
 		lastObservedAt: Date | null | undefined,
 	) => string;
+	labels: {
+		expired: string;
+		expiry: string;
+		lastObservedAt: string;
+		name: string;
+		never: string;
+		revokeKey: string;
+		serviceAccountDisabled: string;
+	};
 }
 
-function formatExpiry(expiresAt: number): JSX.Element {
+function formatExpiry(
+	expiresAt: number,
+	labels: Pick<BuildColumnsParams['labels'], 'expired' | 'never'>,
+): JSX.Element {
 	if (expiresAt === 0) {
-		return <span className="keys-tab__expiry--never">Never</span>;
+		return <span className="keys-tab__expiry--never">{labels.never}</span>;
 	}
 	const expiryDate = dayjs.unix(expiresAt);
 	if (expiryDate.isBefore(dayjs())) {
-		return <span className="keys-tab__expiry--expired">Expired</span>;
+		return <span className="keys-tab__expiry--expired">{labels.expired}</span>;
 	}
 	return <span>{expiryDate.format(DATE_TIME_FORMATS.MONTH_DATE)}</span>;
 }
@@ -56,10 +69,11 @@ function buildColumns({
 	accountId,
 	onRevokeClick,
 	handleformatLastObservedAt,
+	labels,
 }: BuildColumnsParams): ColumnsType<ServiceaccounttypesGettableFactorAPIKeyDTO> {
 	return [
 		{
-			title: 'Name',
+			title: labels.name,
 			dataIndex: 'name',
 			key: 'name',
 			className: 'keys-tab__name-column',
@@ -69,7 +83,7 @@ function buildColumns({
 			),
 		},
 		{
-			title: 'Expiry',
+			title: labels.expiry,
 			dataIndex: 'expiresAt',
 			key: 'expiry',
 			width: 160,
@@ -79,10 +93,10 @@ function buildColumns({
 				const bVal = b.expiresAt === 0 ? Infinity : b.expiresAt;
 				return aVal - bVal;
 			},
-			render: (expiresAt: number): JSX.Element => formatExpiry(expiresAt),
+			render: (expiresAt: number): JSX.Element => formatExpiry(expiresAt, labels),
 		},
 		{
-			title: 'Last Observed At',
+			title: labels.lastObservedAt,
 			dataIndex: 'lastObservedAt',
 			key: 'lastObservedAt',
 			width: 220,
@@ -112,7 +126,9 @@ function buildColumns({
 				style: { cursor: 'default' },
 			}),
 			render: (_, record): JSX.Element => {
-				const tooltipTitle = isDisabled ? 'Service account disabled' : 'Revoke Key';
+				const tooltipTitle = isDisabled
+					? labels.serviceAccountDisabled
+					: labels.revokeKey;
 				return (
 					<Tooltip title={tooltipTitle}>
 						<AuthZButton
@@ -149,6 +165,7 @@ function KeysTab({
 	pageSize,
 	onPageChange,
 }: KeysTabProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [, setIsAddKeyOpen] = useQueryState(
 		'add-key',
 		parseAsBoolean.withDefault(false),
@@ -184,8 +201,17 @@ function KeysTab({
 				accountId,
 				onRevokeClick,
 				handleformatLastObservedAt,
+				labels: {
+					expired: t('sa_keys.expired'),
+					expiry: t('sa_keys.expiry'),
+					lastObservedAt: t('sa_keys.last_observed_at'),
+					name: t('sa_keys.name'),
+					never: t('sa_keys.never'),
+					revokeKey: t('sa_edit_key.revoke_key'),
+					serviceAccountDisabled: t('sa_keys.service_account_disabled'),
+				},
 			}),
-		[isDisabled, accountId, onRevokeClick, handleformatLastObservedAt],
+		[isDisabled, accountId, onRevokeClick, handleformatLastObservedAt, t],
 	);
 
 	if (isLoading) {
@@ -201,14 +227,14 @@ function KeysTab({
 			<div className="keys-tab__empty">
 				<KeyRound size={24} className="keys-tab__empty-icon" />
 				<p className="keys-tab__empty-text">
-					No keys. Start by creating one.{' '}
+					{t('sa_keys.no_keys')}{' '}
 					<a
 						href="https://signoz.io/docs/manage/administrator-guide/iam/service-accounts/#step-3-generate-an-api-key"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="keys-tab__learn-more"
 					>
-						Learn more
+						{t('learn_more')}
 					</a>
 				</p>
 				<AuthZButton
@@ -221,7 +247,7 @@ function KeysTab({
 					}}
 					disabled={isDisabled}
 				>
-					+ Add your first key
+					{t('sa_keys.add_first_key')}
 				</AuthZButton>
 			</div>
 		);
@@ -270,7 +296,9 @@ function KeysTab({
 					},
 					role: 'button',
 					tabIndex: 0,
-					'aria-label': `Edit key ${record.name || 'options'}`,
+					'aria-label': t('sa_keys.edit_key_aria', {
+						name: record.name || 'options',
+					}),
 				})}
 			/>
 

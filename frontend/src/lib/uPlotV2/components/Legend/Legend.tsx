@@ -3,6 +3,7 @@ import { VirtuosoGrid } from 'react-virtuoso';
 import { Input } from 'antd';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { useResizeObserver } from 'hooks/useDimensions';
 import { LegendItem } from 'lib/uPlotV2/config/types';
 import CopyButton from 'periscope/components/CopyButton/CopyButton';
@@ -31,6 +32,7 @@ export default function Legend({
 }: LegendProps): JSX.Element {
 	const legendContainerRef = useRef<HTMLDivElement | null>(null);
 	const [legendSearchQuery, setLegendSearchQuery] = useState('');
+	const { t } = useTranslation('common');
 
 	// Search is intrinsic to the right-positioned legend.
 	const searchEnabled = position === LegendPosition.RIGHT;
@@ -115,7 +117,7 @@ export default function Legend({
 				<div className="legend-search-container">
 					<Input
 						allowClear
-						placeholder="Search..."
+						placeholder={t('custom_select.search_placeholder')}
 						value={legendSearchQuery}
 						onChange={(e): void => setLegendSearchQuery(e.target.value)}
 						data-testid="legend-search-input"
@@ -125,7 +127,7 @@ export default function Legend({
 			)}
 			{isEmptyState ? (
 				<div className="legend-empty-state">
-					No series found matching &quot;{legendSearchQuery}&quot;
+					{t('uplot.no_series_found', { query: legendSearchQuery })}
 				</div>
 			) : (
 				<VirtuosoGrid

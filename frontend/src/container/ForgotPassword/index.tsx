@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
@@ -36,6 +37,7 @@ function ForgotPassword({
 	orgs,
 }: ForgotPasswordRouteState): JSX.Element {
 	const [form] = Form.useForm<FormValues>();
+	const { t } = useTranslation('login');
 	const {
 		mutate: forgotPasswordMutate,
 		isLoading,
@@ -136,16 +138,14 @@ function ForgotPassword({
 					<div className="login-form-emoji">
 						<img src={tvUrl} alt="TV" width="32" height="32" />
 					</div>
-					<h4 className="forgot-password-title">Forgot your password?</h4>
-					<p className="forgot-password-description">
-						Send a reset link to your inbox and get back to monitoring.
-					</p>
+					<h4 className="forgot-password-title">{t('forgot_password_title')}</h4>
+					<p className="forgot-password-description">{t('forgot_password_desc')}</p>
 				</div>
 
 				<div className="login-form-card">
 					<div className="forgot-password-field">
 						<label className="forgot-password-label" htmlFor="forgotPasswordEmail">
-							Email address
+							{t('label_email_address')}
 						</label>
 						<Form.Item name="email">
 							<Input
@@ -162,17 +162,19 @@ function ForgotPassword({
 					{hasMultipleOrgs && (
 						<div className="forgot-password-field">
 							<label className="forgot-password-label" htmlFor="orgId">
-								Organization Name
+								{t('label_organization_name')}
 							</label>
 							<Form.Item
 								name="orgId"
-								rules={[{ required: true, message: 'Please select your organization' }]}
+								rules={[
+									{ required: true, message: t('forgot_password_select_org_error') },
+								]}
 							>
 								<Select
 									id="orgId"
 									data-testid="orgId"
 									className="login-form-input login-form-select-no-border"
-									placeholder="Select your organization"
+									placeholder={t('placeholder_select_organization')}
 									options={orgs.map((org) => ({
 										value: org.id,
 										label: org.name || 'default',
@@ -194,7 +196,7 @@ function ForgotPassword({
 						onClick={handleBackToLogin}
 						prefix={<ArrowLeft size={12} />}
 					>
-						Back to login
+						{t('forgot_password_back')}
 					</Button>
 
 					<Button
@@ -207,7 +209,7 @@ function ForgotPassword({
 						className="login-submit-btn"
 						suffix={<ArrowRight size={12} />}
 					>
-						{isLoading ? 'Sending...' : 'Send reset link'}
+						{isLoading ? t('forgot_password_sending') : t('forgot_password_send')}
 					</Button>
 				</div>
 			</Form>

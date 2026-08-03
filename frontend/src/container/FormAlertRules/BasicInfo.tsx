@@ -188,14 +188,10 @@ function BasicInfo({
 
 				<FormItemMedium
 					name="alert_all_configured_channels"
-					label="Alert all the configured channels"
+					label={t('alert_all_configured_channels')}
 				>
 					<Tooltip
-						title={
-							noChannels
-								? 'No channels. Ask an admin to create a notification channel'
-								: undefined
-						}
+						title={noChannels ? t('no_channels_ask_admin') : undefined}
 						placement="right"
 					>
 						<Switch
@@ -211,13 +207,13 @@ function BasicInfo({
 					<Tooltip
 						title={
 							noChannels && !addNewChannelPermission
-								? 'No channels. Ask an admin to create a notification channel'
+								? t('no_channels_ask_admin')
 								: undefined
 						}
 						placement="right"
 					>
 						<FormItemMedium
-							label="Notification Channels"
+							label={t('notification_channels')}
 							name="notification_channels"
 							required
 							rules={[
@@ -247,9 +243,7 @@ function BasicInfo({
 				{noChannels && (
 					<Tooltip
 						title={
-							!addNewChannelPermission
-								? 'Ask an admin to create a notification channel'
-								: undefined
+							!addNewChannelPermission ? t('ask_admin_create_channel') : undefined
 						}
 						placement="right"
 					>

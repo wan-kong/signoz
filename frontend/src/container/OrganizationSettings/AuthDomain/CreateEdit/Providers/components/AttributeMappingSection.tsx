@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color, Style } from '@signozhq/design-tokens';
 import {
 	ChevronDown,
@@ -23,6 +24,8 @@ function AttributeMappingSection({
 	isExpanded,
 	onExpandChange,
 }: AttributeMappingSectionProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
+
 	// Support both controlled and uncontrolled modes
 	const [internalExpanded, setInternalExpanded] = useState(false);
 	const isControlled = isExpanded !== undefined;
@@ -64,11 +67,10 @@ function AttributeMappingSection({
 							{!expanded ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
 							<div className="attribute-mapping-section__collapse-header-text">
 								<h4 className="attribute-mapping-section__section-title">
-									Attribute Mapping (Advanced)
+									{t('auth_domain.attribute_mapping')}
 								</h4>
 								<p className="attribute-mapping-section__section-description">
-									Configure how SAML assertion attributes from your Identity Provider map
-									to SigNoz user attributes. Leave empty to use default values.
+									{t('auth_domain.attribute_mapping_desc')}
 								</p>
 							</div>
 							{!expanded && hasErrors && (
@@ -96,8 +98,8 @@ function AttributeMappingSection({
 								className="attribute-mapping-section__label"
 								htmlFor="email-attribute"
 							>
-								Email Attribute
-								<Tooltip title="The SAML attribute key that contains the user's email. Default: 'email'">
+								{t('auth_domain.email_attribute')}
+								<Tooltip title={t('auth_domain.email_attribute_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -105,7 +107,10 @@ function AttributeMappingSection({
 								name={[...fieldNamePrefix, 'email']}
 								className="attribute-mapping-section__form-item"
 							>
-								<Input id="email-attribute" placeholder="Email" />
+								<Input
+									id="email-attribute"
+									placeholder={t('auth_domain.placeholder_email')}
+								/>
 							</Form.Item>
 						</div>
 
@@ -115,8 +120,8 @@ function AttributeMappingSection({
 								className="attribute-mapping-section__label"
 								htmlFor="name-attribute"
 							>
-								Name Attribute
-								<Tooltip title="The SAML attribute key that contains the user's display name. Default: 'name'">
+								{t('auth_domain.name_attribute')}
+								<Tooltip title={t('auth_domain.name_attribute_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -124,7 +129,10 @@ function AttributeMappingSection({
 								name={[...fieldNamePrefix, 'name']}
 								className="attribute-mapping-section__form-item"
 							>
-								<Input id="name-attribute" placeholder="Name" />
+								<Input
+									id="name-attribute"
+									placeholder={t('auth_domain.placeholder_name')}
+								/>
 							</Form.Item>
 						</div>
 
@@ -134,8 +142,8 @@ function AttributeMappingSection({
 								className="attribute-mapping-section__label"
 								htmlFor="groups-attribute"
 							>
-								Groups Attribute
-								<Tooltip title="The SAML attribute key that contains the user's group memberships. Used for role mapping. Default: 'groups'">
+								{t('auth_domain.groups_attribute')}
+								<Tooltip title={t('auth_domain.groups_attribute_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -143,7 +151,10 @@ function AttributeMappingSection({
 								name={[...fieldNamePrefix, 'groups']}
 								className="attribute-mapping-section__form-item"
 							>
-								<Input id="groups-attribute" placeholder="Groups" />
+								<Input
+									id="groups-attribute"
+									placeholder={t('auth_domain.placeholder_groups')}
+								/>
 							</Form.Item>
 						</div>
 
@@ -153,8 +164,8 @@ function AttributeMappingSection({
 								className="attribute-mapping-section__label"
 								htmlFor="role-attribute"
 							>
-								Role Attribute
-								<Tooltip title="The SAML attribute key that contains the user's role directly from the IDP. Default: 'role'">
+								{t('auth_domain.role_attribute')}
+								<Tooltip title={t('auth_domain.role_attribute_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -162,7 +173,10 @@ function AttributeMappingSection({
 								name={[...fieldNamePrefix, 'role']}
 								className="attribute-mapping-section__form-item"
 							>
-								<Input id="role-attribute" placeholder="Role" />
+								<Input
+									id="role-attribute"
+									placeholder={t('auth_domain.placeholder_role')}
+								/>
 							</Form.Item>
 						</div>
 					</div>

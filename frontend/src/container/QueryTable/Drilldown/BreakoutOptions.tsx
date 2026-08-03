@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { Input } from '@signozhq/ui/input';
 import { Skeleton } from 'antd';
@@ -36,6 +37,7 @@ function BreakoutOptions({
 }: BreakoutOptionsProps): JSX.Element {
 	const { groupBy = [] } = queryData;
 	const [searchText, setSearchText] = useState<string>('');
+	const { t } = useTranslation('common');
 	const debouncedSearchText = useDebounce(searchText, 400);
 
 	const handleInputChange = useCallback(
@@ -99,7 +101,7 @@ function BreakoutOptions({
 				<Input
 					type="text"
 					value={searchText}
-					placeholder="Search breakout options..."
+					placeholder={t('search.placeholder', { field: 'breakout options' })}
 					onChange={handleInputChange}
 				/>
 			</section>

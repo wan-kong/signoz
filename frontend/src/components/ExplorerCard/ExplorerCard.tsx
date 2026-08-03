@@ -4,7 +4,7 @@ import { Button, Col, Popover, Row, Select, Space } from 'antd';
 import { DropdownMenuSimple, type MenuProps } from '@signozhq/ui/dropdown-menu';
 import { Typography } from '@signozhq/ui/typography';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
+import { isAxiosError } from 'axios';
 import TextToolTip from 'components/TextToolTip';
 import { SOMETHING_WENT_WRONG } from 'constants/api';
 import { LOCALSTORAGE } from 'constants/localStorage';
@@ -21,7 +21,7 @@ import { mapCompositeQueryFromQuery } from 'lib/newQueryBuilder/queryBuilderMapp
 import { DataSource, StringOperators } from 'types/common/queryBuilder';
 import { popupContainer } from 'utils/selectPopupContainer';
 
-import { ExploreHeaderToolTip, SaveButtonText } from './constants';
+import { ExploreHeaderToolTip } from './constants';
 import MenuItemGenerator from './MenuItemGenerator';
 import SaveViewWithName from './SaveViewWithName';
 import {
@@ -102,7 +102,7 @@ function ExplorerCard({
 
 	const showErrorNotification = (err: Error): void => {
 		notifications.error({
-			message: axios.isAxiosError(err) ? err.message : SOMETHING_WENT_WRONG,
+			message: isAxiosError(err) ? err.message : SOMETHING_WENT_WRONG,
 		});
 	};
 
@@ -131,7 +131,7 @@ function ExplorerCard({
 			{
 				onSuccess: () => {
 					notifications.success({
-						message: 'View Updated Successfully',
+						message: t('explorer_card.view_updated'),
 					});
 					refetchAllView();
 				},
@@ -146,7 +146,9 @@ function ExplorerCard({
 		items: [
 			{
 				key: 'delete',
-				label: <Typography.Text strong>Delete</Typography.Text>,
+				label: (
+					<Typography.Text strong>{t('explorer_card.delete')}</Typography.Text>
+				),
 				onClick: onDeleteHandler,
 				icon: <Trash2 size="md" />,
 			},
@@ -165,10 +167,10 @@ function ExplorerCard({
 					<Row align="middle">
 						<Col span={6}>
 							<Space>
-								<Typography>Query Builder</Typography>
+								<Typography>{t('explorer_card.query_builder')}</Typography>
 								<TextToolTip
 									url={ExploreHeaderToolTip.url}
-									text={ExploreHeaderToolTip.text}
+									text={t('explorer_card.more_details_query_builder')}
 									useFilledIcon={false}
 								/>
 							</Space>
@@ -205,7 +207,7 @@ function ExplorerCard({
 								)}
 								{isQueryUpdated && (
 									<Button type="primary" icon={<Save />} onClick={onUpdateQueryHandler}>
-										Save changes
+										{t('save_changes')}
 									</Button>
 								)}
 								<Popover
@@ -229,8 +231,8 @@ function ExplorerCard({
 										data-testid="traces-save-view-action"
 									>
 										{isQueryUpdated
-											? SaveButtonText.SAVE_AS_NEW_VIEW
-											: SaveButtonText.SAVE_VIEW}
+											? t('explorer_card.save_as_new_view')
+											: t('explorer_card.save_view_text')}
 									</Button>
 								</Popover>
 								<Share2 onClick={onCopyUrlHandler} size="md" />

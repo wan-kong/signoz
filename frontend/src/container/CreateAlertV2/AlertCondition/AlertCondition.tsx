@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import { Button, Tooltip } from 'antd';
 import getAllChannels from 'api/channels/getAll';
 import classNames from 'classnames';
@@ -13,11 +14,15 @@ import AdvancedOptions from '../EvaluationSettings/AdvancedOptions';
 import Stepper from '../Stepper';
 import AlertThreshold from './AlertThreshold';
 import AnomalyThreshold from './AnomalyThreshold';
-import { ANOMALY_TAB_TOOLTIP, THRESHOLD_TAB_TOOLTIP } from './constants';
+import {
+	ANOMALY_TAB_TOOLTIP_KEY,
+	THRESHOLD_TAB_TOOLTIP_KEY,
+} from './constants';
 
 import './styles.scss';
 
 function AlertCondition(): JSX.Element {
+	const { t } = useTranslation('create_alert');
 	const { alertType, setAlertType } = useCreateAlertState();
 
 	const {
@@ -36,7 +41,7 @@ function AlertCondition(): JSX.Element {
 
 	const tabs = [
 		{
-			label: 'Threshold',
+			label: t('threshold'),
 			icon: <ChartLine size={14} data-testid="threshold-view" />,
 			value: AlertTypes.METRICS_BASED_ALERT,
 		},
@@ -61,18 +66,18 @@ function AlertCondition(): JSX.Element {
 
 	const getTabTooltip = (tab: { value: AlertTypes }): string => {
 		if (tab.value === AlertTypes.ANOMALY_BASED_ALERT) {
-			return ANOMALY_TAB_TOOLTIP;
+			return ANOMALY_TAB_TOOLTIP_KEY;
 		}
-		return THRESHOLD_TAB_TOOLTIP;
+		return THRESHOLD_TAB_TOOLTIP_KEY;
 	};
 
 	return (
 		<div className="alert-condition-container">
-			<Stepper stepNumber={2} label="Set alert conditions" />
+			<Stepper stepNumber={2} label={t('set_alert_conditions')} />
 			<div className="alert-condition">
 				<div className="alert-condition-tabs">
 					{tabs.map((tab) => (
-						<Tooltip key={tab.value} title={getTabTooltip(tab)}>
+						<Tooltip key={tab.value} title={t(getTabTooltip(tab))}>
 							<Button
 								className={classNames('list-view-tab', 'explorer-view-option', {
 									'active-tab': alertType === tab.value,

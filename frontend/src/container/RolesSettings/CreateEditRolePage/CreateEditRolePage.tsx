@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useState } from 'react';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import { ArrowLeft, SolidAlertTriangle } from '@signozhq/icons';
@@ -50,6 +51,7 @@ function authzCheckFn(
 
 function CreateEditRolePageContent(): JSX.Element {
 	const history = useHistory();
+	const { t } = useTranslation('settings');
 	const { pathname } = useLocation();
 	const urlQuery = useUrlQuery();
 	const match = matchPath<{ roleId: string }>(pathname, {
@@ -125,7 +127,7 @@ function CreateEditRolePageContent(): JSX.Element {
 							<ArrowLeft size={16} />
 						</Button>
 						<Typography.Title level={3}>
-							{isCreateMode ? 'Create Role' : 'Edit Role'}
+							{isCreateMode ? t('create_role') : t('edit_role')}
 						</Typography.Title>
 					</div>
 				</div>
@@ -136,8 +138,7 @@ function CreateEditRolePageContent(): JSX.Element {
 							httpStatusCode: 403,
 							error: {
 								code: 'FEATURE_DISABLED',
-								message:
-									'Custom roles feature is not available. Please check your license or feature configuration.',
+								message: t('role_feature_disabled'),
 								url: '',
 								errors: [],
 							},
@@ -175,7 +176,7 @@ function CreateEditRolePageContent(): JSX.Element {
 						>
 							<ArrowLeft size={16} />
 						</Button>
-						<Typography.Title level={3}>Failed to load role</Typography.Title>
+						<Typography.Title level={3}>{t('role_load_error')}</Typography.Title>
 					</div>
 				</div>
 
@@ -203,8 +204,8 @@ function CreateEditRolePageContent(): JSX.Element {
 					</Button>
 					<Typography.Title level={3}>
 						{isCreateMode
-							? 'Create Role'
-							: `Role - ${formData.name || 'Loading role...'}`}
+							? t('create_role')
+							: `${t('edit_role')} - ${formData.name || t('role_loading')}`}
 					</Typography.Title>
 				</div>
 
@@ -213,7 +214,7 @@ function CreateEditRolePageContent(): JSX.Element {
 						<div className={styles.unsavedIndicator}>
 							<span className={styles.unsavedDot} />
 							<Typography as="span" size="base" className={styles.unsavedText}>
-								Unsaved changes
+								{t('unsaved_changes')}
 							</Typography>
 						</div>
 					)}
@@ -230,7 +231,7 @@ function CreateEditRolePageContent(): JSX.Element {
 						disabled={!hasUnsavedChanges || hasJsonError}
 						data-testid="save-button"
 					>
-						{isCreateMode ? 'Create role' : 'Save changes'}
+						{isCreateMode ? t('create_role') : t('save_changes')}
 					</AuthZButton>
 				</div>
 			</div>
@@ -252,26 +253,26 @@ function CreateEditRolePageContent(): JSX.Element {
 						{isCreateMode ? (
 							<div className={styles.formField}>
 								<label htmlFor="role-name" className={styles.formLabel}>
-									Name
+									{t('role_name_label')}
 								</label>
 								<Input
 									id="role-name"
 									value={formData.name}
 									onChange={(e): void => handleFormChange('name', e.target.value)}
-									placeholder="my-custom-role"
+									placeholder={t('role_name_placeholder')}
 									data-testid="role-name-input"
 								/>
 							</div>
 						) : null}
 						<div className={styles.formField}>
 							<label htmlFor="role-description" className={styles.formLabel}>
-								Description
+								{t('role_description_label')}
 							</label>
 							<Input
 								id="role-description"
 								value={formData.description}
 								onChange={(e): void => handleFormChange('description', e.target.value)}
-								placeholder="Custom role for the support team"
+								placeholder={t('role_description_placeholder')}
 								data-testid="role-description-input"
 							/>
 						</div>
@@ -298,19 +299,17 @@ function CreateEditRolePageContent(): JSX.Element {
 						cancelNavigation();
 					}
 				}}
-				title="Discard unsaved changes?"
+				title={t('discard_unsaved_title')}
 				titleIcon={<SolidAlertTriangle size={14} color="#fdd600" />}
-				confirmText="Discard"
+				confirmText={t('discard_button')}
 				confirmColor="destructive"
-				cancelText="Keep editing"
+				cancelText={t('keep_editing_button')}
 				onConfirm={confirmNavigation}
 				onCancel={cancelNavigation}
 				data-testid="discard-changes-dialog"
 			>
 				<Typography>
-					{isCreateMode
-						? 'This new role will not be created.'
-						: 'Your unsaved changes will be lost.'}
+					{isCreateMode ? t('discard_create_message') : t('discard_edit_message')}
 				</Typography>
 			</ConfirmDialog>
 		</div>

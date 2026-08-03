@@ -415,7 +415,7 @@ function MultiIngestionSettings(): JSX.Element {
 				{
 					onSuccess: () => {
 						notifications.success({
-							message: 'Ingestion key deleted successfully',
+							message: t('key_deleted_success'),
 						});
 						void refetchAPIKeys();
 						setIsDeleteModalOpen(false);
@@ -445,7 +445,7 @@ function MultiIngestionSettings(): JSX.Element {
 						{
 							onSuccess: () => {
 								notifications.success({
-									message: 'Ingestion key updated successfully',
+									message: t('key_updated_success'),
 								});
 								void refetchAPIKeys();
 								setIsEditModalOpen(false);
@@ -478,7 +478,7 @@ function MultiIngestionSettings(): JSX.Element {
 						{
 							onSuccess: (_data) => {
 								notifications.success({
-									message: 'Ingestion key created successfully',
+									message: t('key_created_success'),
 								});
 								// The new API returns GatewaytypesGettableCreatedIngestionKeyDTO with only id and value
 								// We rely on refetchAPIKeys to get the full key object
@@ -503,10 +503,10 @@ function MultiIngestionSettings(): JSX.Element {
 		(text: string): void => {
 			handleCopyToClipboard(text);
 			notifications.success({
-				message: 'Copied to clipboard',
+				message: t('copied_to_clipboard', { ns: 'common' }),
 			});
 		},
-		[handleCopyToClipboard, notifications],
+		[handleCopyToClipboard, notifications, t],
 	);
 
 	const gbToBytes = (gb: number): number => Math.round(gb * 1024 ** 3);
@@ -547,8 +547,8 @@ function MultiIngestionSettings(): JSX.Element {
 	): void => {
 		if (!APIKey.id) {
 			notifications.error({
-				message: 'Invalid ingestion key',
-				description: 'Cannot create limit for ingestion key without a valid ID',
+				message: t('invalid_ingestion_key'),
+				description: t('cannot_create_limit'),
 			});
 			return;
 		}
@@ -648,8 +648,8 @@ function MultiIngestionSettings(): JSX.Element {
 			{
 				onSuccess: () => {
 					notifications.success({
-						message: 'Limit created successfully',
-						description: "Set up an alert to know when you're close to hitting it.",
+						message: t('limit_created_success'),
+						description: t('limit_created_description'),
 					});
 					setActiveSignal(null);
 					setActiveAPIKey(null);
@@ -662,7 +662,7 @@ function MultiIngestionSettings(): JSX.Element {
 				onError: (error: AxiosError<RenderErrorResponseDTO>) => {
 					setHasCreateLimitForIngestionKeyError(true);
 					setCreateLimitForIngestionKeyError(
-						error.response?.data?.error?.message || 'Failed to create limit',
+						error.response?.data?.error?.message || t('failed_to_create_limit'),
 					);
 				},
 			},
@@ -675,8 +675,8 @@ function MultiIngestionSettings(): JSX.Element {
 	): void => {
 		if (!signal.id) {
 			notifications.error({
-				message: 'Invalid limit',
-				description: 'Cannot update limit without a valid ID',
+				message: t('invalid_limit'),
+				description: t('cannot_update_limit'),
 			});
 			return;
 		}
@@ -752,8 +752,8 @@ function MultiIngestionSettings(): JSX.Element {
 			{
 				onSuccess: () => {
 					notifications.success({
-						message: 'Limit updated successfully',
-						description: "Set up an alert to know when you're close to hitting it.",
+						message: t('limit_updated_success'),
+						description: t('limit_created_description'),
 					});
 					setActiveSignal(null);
 					setActiveAPIKey(null);
@@ -766,7 +766,7 @@ function MultiIngestionSettings(): JSX.Element {
 				onError: (error: AxiosError<RenderErrorResponseDTO>) => {
 					setHasUpdateLimitForIngestionKeyError(true);
 					setUpdateLimitForIngestionKeyError(
-						error.response?.data?.error?.message || 'Failed to update limit',
+						error.response?.data?.error?.message || t('failed_to_update_limit'),
 					);
 				},
 			},
@@ -841,7 +841,7 @@ function MultiIngestionSettings(): JSX.Element {
 				{
 					onSuccess: () => {
 						notifications.success({
-							message: 'Limit deleted successfully',
+							message: t('limit_deleted_success'),
 						});
 						setIsDeleteModalOpen(false);
 						setIsDeleteLimitModalOpen(false);
@@ -927,7 +927,7 @@ function MultiIngestionSettings(): JSX.Element {
 
 	const columns: AntDTableProps<GatewaytypesIngestionKeyDTO>['columns'] = [
 		{
-			title: 'Ingestion Key',
+			title: t('column_ingestion_key'),
 			key: 'ingestion-key',
 			// eslint-disable-next-line sonarjs/cognitive-complexity
 			render: (APIKey: GatewaytypesIngestionKeyDTO): JSX.Element => {
@@ -941,7 +941,7 @@ function MultiIngestionSettings(): JSX.Element {
 				const expiresOn =
 					!APIKey?.expires_at ||
 					dayjs(APIKey?.expires_at).toISOString() === '0001-01-01T00:00:00.000Z'
-						? 'No Expiry'
+						? t('no_expiry')
 						: getFormattedTime(
 								dayjs(APIKey?.expires_at).toISOString(),
 								formatTimezoneAdjustedTimestamp,
@@ -1011,7 +1011,7 @@ function MultiIngestionSettings(): JSX.Element {
 										size="icon"
 										color="secondary"
 										suffix={<PenLine size={14} />}
-										aria-label="Edit ingestion key"
+										aria-label={t('edit_ingestion_key')}
 										onClick={onEditKey}
 									/>
 									<Button
@@ -1027,14 +1027,14 @@ function MultiIngestionSettings(): JSX.Element {
 						children: (
 							<div className="ingestion-key-info-container">
 								<Row>
-									<Col span={6}> ID </Col>
+									<Col span={6}> {t('id')} </Col>
 									<Col span={12}>
 										<Typography.Text>{APIKey?.id}</Typography.Text>
 									</Col>
 								</Row>
 
 								<Row>
-									<Col span={6}> Created on </Col>
+									<Col span={6}> {t('created_on')} </Col>
 									<Col span={12}>
 										<Typography.Text>{createdOn}</Typography.Text>
 									</Col>
@@ -1042,7 +1042,7 @@ function MultiIngestionSettings(): JSX.Element {
 
 								{updatedOn && (
 									<Row>
-										<Col span={6}> Updated on </Col>
+										<Col span={6}> {t('updated_on')} </Col>
 										<Col span={12}>
 											<Typography.Text>{updatedOn}</Typography.Text>
 										</Col>
@@ -1053,7 +1053,7 @@ function MultiIngestionSettings(): JSX.Element {
 									Array.isArray(APIKey.tags) &&
 									APIKey.tags.length > 0 && (
 										<Row>
-											<Col span={6}> Tags </Col>
+											<Col span={6}> {t('tags')} </Col>
 											<Col span={12}>
 												<div className="ingestion-key-tags-container">
 													<div className="ingestion-key-tags">
@@ -1071,7 +1071,7 @@ function MultiIngestionSettings(): JSX.Element {
 									)}
 
 								<div className="limits-container">
-									<h4 className=""> LIMITS </h4>
+									<h4 className=""> {t('limits_heading')} </h4>
 
 									<div className="limits-data">
 										<div className="signals">
@@ -1158,7 +1158,7 @@ function MultiIngestionSettings(): JSX.Element {
 																		disabled={!!(activeAPIKey?.id === APIKey?.id && activeSignal)}
 																		onClick={onAddSignalLimit}
 																	>
-																		Limits
+																		{t('limits_button')}
 																	</Button>
 																)}
 															</div>
@@ -1183,7 +1183,7 @@ function MultiIngestionSettings(): JSX.Element {
 																		<div className="daily-limit">
 																			<div className="heading">
 																				<div className="title">
-																					Daily limit
+																					{t('daily_limit')}
 																					<div className="limit-enable-disable-toggle">
 																						<Form.Item name="enableDailyLimit">
 																							<Switch
@@ -1208,9 +1208,7 @@ function MultiIngestionSettings(): JSX.Element {
 																						</Form.Item>
 																					</div>
 																				</div>
-																				<div className="subtitle">
-																					Add a limit for data ingested daily
-																				</div>
+																				<div className="subtitle">{t('daily_limit_subtitle')}</div>
 																			</div>
 																			{signalCfg.usesSize && (
 																				<div className="size">
@@ -1230,7 +1228,7 @@ function MultiIngestionSettings(): JSX.Element {
 																						</Form.Item>
 																					) : (
 																						<div className="no-limit">
-																							<InfinityIcon size={16} /> NO LIMIT
+																							<InfinityIcon size={16} /> {t('no_limit')}
 																						</div>
 																					)}
 																				</div>
@@ -1240,7 +1238,7 @@ function MultiIngestionSettings(): JSX.Element {
 																					{activeSignal?.config?.day?.enabled ? (
 																						<Form.Item name="dailyCount" key="dailyCount">
 																							<InputNumber
-																								placeholder="Enter max # of samples/day"
+																								placeholder={t('days_sample_placeholder')}
 																								addonAfter={
 																									<Form.Item
 																										name="dailyCountUnit"
@@ -1252,9 +1250,9 @@ function MultiIngestionSettings(): JSX.Element {
 																												width: 90,
 																											}}
 																										>
-																											<Option value="thousand">Thousand</Option>
-																											<Option value="million">Million</Option>
-																											<Option value="billion">Billion</Option>
+																											<Option value="thousand">{t('thousand')}</Option>
+																											<Option value="million">{t('million')}</Option>
+																											<Option value="billion">{t('billion')}</Option>
 																										</Select>
 																									</Form.Item>
 																								}
@@ -1262,7 +1260,7 @@ function MultiIngestionSettings(): JSX.Element {
 																						</Form.Item>
 																					) : (
 																						<div className="no-limit">
-																							<InfinityIcon size={16} /> NO LIMIT
+																							<InfinityIcon size={16} /> {t('no_limit')}
 																						</div>
 																					)}
 																				</div>
@@ -1272,7 +1270,7 @@ function MultiIngestionSettings(): JSX.Element {
 																		<div className="second-limit">
 																			<div className="heading">
 																				<div className="title">
-																					Per Second limit
+																					{t('per_second_limit')}
 																					<div className="limit-enable-disable-toggle">
 																						<Form.Item name="enableSecondLimit">
 																							<Switch
@@ -1298,7 +1296,7 @@ function MultiIngestionSettings(): JSX.Element {
 																					</div>
 																				</div>
 																				<div className="subtitle">
-																					Add a limit for data ingested every second
+																					{t('per_second_limit_subtitle')}
 																				</div>
 																			</div>
 																			{signalCfg.usesSize && (
@@ -1319,7 +1317,7 @@ function MultiIngestionSettings(): JSX.Element {
 																						</Form.Item>
 																					) : (
 																						<div className="no-limit">
-																							<InfinityIcon size={16} /> NO LIMIT
+																							<InfinityIcon size={16} /> {t('no_limit')}
 																						</div>
 																					)}
 																				</div>
@@ -1329,7 +1327,7 @@ function MultiIngestionSettings(): JSX.Element {
 																					{activeSignal?.config?.second?.enabled ? (
 																						<Form.Item name="secondsCount" key="secondsCount">
 																							<InputNumber
-																								placeholder="Enter max # of samples/s"
+																								placeholder={t('seconds_sample_placeholder')}
 																								addonAfter={
 																									<Form.Item
 																										name="secondsCountUnit"
@@ -1341,9 +1339,9 @@ function MultiIngestionSettings(): JSX.Element {
 																												width: 90,
 																											}}
 																										>
-																											<Option value="thousand">Thousand</Option>
-																											<Option value="million">Million</Option>
-																											<Option value="billion">Billion</Option>
+																											<Option value="thousand">{t('thousand')}</Option>
+																											<Option value="million">{t('million')}</Option>
+																											<Option value="billion">{t('billion')}</Option>
 																										</Select>
 																									</Form.Item>
 																								}
@@ -1351,7 +1349,7 @@ function MultiIngestionSettings(): JSX.Element {
 																						</Form.Item>
 																					) : (
 																						<div className="no-limit">
-																							<InfinityIcon size={16} /> NO LIMIT
+																							<InfinityIcon size={16} /> {t('no_limit')}
 																						</div>
 																					)}
 																				</div>
@@ -1395,7 +1393,7 @@ function MultiIngestionSettings(): JSX.Element {
 																						}
 																						onClick={onSaveSignalLimit}
 																					>
-																						Save
+																						{t('save', { ns: 'common' })}
 																					</Button>
 																					<Button
 																						variant="outlined"
@@ -1406,10 +1404,10 @@ function MultiIngestionSettings(): JSX.Element {
 																						}
 																						onClick={handleDiscardSaveLimit}
 																					>
-																						Discard
+																						{t('discard', { ns: 'common' })}
 																					</Button>
 																					<span className="signal-limit-alert-helper">
-																						You can set up an alert after saving
+																						{t('alert_after_saving')}
 																					</span>
 																				</div>
 																			</div>
@@ -1420,7 +1418,7 @@ function MultiIngestionSettings(): JSX.Element {
 																	{/* DAILY limit usage/limit */}
 																	<div className="signal-limit-value">
 																		<div className="limit-type">
-																			Daily <Minus size={16} />
+																			{t('daily')} <Minus size={16} />
 																		</div>
 																		<div className="limit-value">
 																			{/* Size (if usesSize) */}
@@ -1440,7 +1438,7 @@ function MultiIngestionSettings(): JSX.Element {
 																					</>
 																				) : (
 																					<>
-																						<InfinityIcon size={16} /> NO LIMIT
+																						<InfinityIcon size={16} /> {t('no_limit')}
 																					</>
 																				))}
 
@@ -1459,7 +1457,7 @@ function MultiIngestionSettings(): JSX.Element {
 																					</div>
 																				) : (
 																					<>
-																						<InfinityIcon size={16} /> NO LIMIT
+																						<InfinityIcon size={16} /> {t('no_limit')}
 																					</>
 																				))}
 																		</div>
@@ -1477,7 +1475,7 @@ function MultiIngestionSettings(): JSX.Element {
 																			>
 																				<Button onClick={onCreateSignalAlert} size="sm">
 																					<BellPlus size={12} />
-																					Set alert
+																					{t('set_alert')}
 																				</Button>
 																			</Badge>
 																		)}
@@ -1486,7 +1484,7 @@ function MultiIngestionSettings(): JSX.Element {
 																	{/* SECOND limit usage/limit */}
 																	<div className="signal-limit-value">
 																		<div className="limit-type">
-																			Seconds <Minus size={16} />
+																			{t('seconds')} <Minus size={16} />
 																		</div>
 																		<div className="limit-value">
 																			{/* Size (if usesSize) */}
@@ -1506,7 +1504,7 @@ function MultiIngestionSettings(): JSX.Element {
 																					</>
 																				) : (
 																					<>
-																						<InfinityIcon size={16} /> NO LIMIT
+																						<InfinityIcon size={16} /> {t('no_limit')}
 																					</>
 																				))}
 
@@ -1525,7 +1523,7 @@ function MultiIngestionSettings(): JSX.Element {
 																					</div>
 																				) : (
 																					<>
-																						<InfinityIcon size={16} /> NO LIMIT
+																						<InfinityIcon size={16} /> {t('no_limit')}
 																					</>
 																				))}
 																		</div>
@@ -1552,12 +1550,12 @@ function MultiIngestionSettings(): JSX.Element {
 							<div className="ingestion-key-last-used-at">
 								{((): JSX.Element | null => {
 									const daysToExpiry = getDaysUntilExpiry(expiresOn);
-									const isNoExpiry = expiresOn === 'No Expiry';
+									const isNoExpiry = expiresOn === t('no_expiry');
 
 									if (!isNoExpiry && daysToExpiry < 0) {
 										return (
 											<div className="ingestion-key-expires-in danger">
-												<CalendarClock size={14} /> Expired on
+												<CalendarClock size={14} /> {t('expired_on')}
 												<Minus size={12} /> {expiresOn}
 											</div>
 										);
@@ -1565,7 +1563,7 @@ function MultiIngestionSettings(): JSX.Element {
 									if (!isNoExpiry && daysToExpiry <= 3) {
 										return (
 											<div className="ingestion-key-expires-in warning">
-												<CalendarClock size={14} /> Expires on
+												<CalendarClock size={14} /> {t('expires_on')}
 												<Minus size={12} /> {expiresOn}
 											</div>
 										);
@@ -1574,7 +1572,7 @@ function MultiIngestionSettings(): JSX.Element {
 										<>
 											{!isNoExpiry && (
 												<>
-													<CalendarClock size={14} /> Expires on <Minus size={12} />
+													<CalendarClock size={14} /> {t('expires_on')} <Minus size={12} />
 												</>
 											)}
 											<Typography.Text>{expiresOn}</Typography.Text>
@@ -1613,16 +1611,16 @@ function MultiIngestionSettings(): JSX.Element {
 		<div className="ingestion-key-container">
 			<div className="ingestion-key-content">
 				<header>
-					<Typography.Title className="title"> Ingestion Keys </Typography.Title>
+					<Typography.Title className="title"> {t('title')} </Typography.Title>
 					<Typography.Text className="subtitle">
-						Create and manage ingestion keys for the SigNoz Cloud{' '}
+						{t('subtitle')}{' '}
 						<a
 							href="https://signoz.io/docs/ingestion/signoz-cloud/keys/"
 							target="_blank"
 							className="learn-more"
 							rel="noreferrer"
 						>
-							Learn more <ArrowUpRight size={14} />
+							{t('learn_more', { ns: 'common' })} <ArrowUpRight size={14} />
 						</a>
 					</Typography.Text>
 				</header>
@@ -1630,7 +1628,7 @@ function MultiIngestionSettings(): JSX.Element {
 				{!isLoadingGlobalConfig && (
 					<div className="ingestion-setup-details-links">
 						<div className="ingestion-key-url-container">
-							<div className="ingestion-key-url-label">Ingestion URL</div>
+							<div className="ingestion-key-url-label">{t('ingestion_url_label')}</div>
 
 							{!isErrorGlobalConfig && (
 								<div
@@ -1664,7 +1662,7 @@ function MultiIngestionSettings(): JSX.Element {
 										size="icon"
 										color="secondary"
 										prefix={<TriangleAlert size={14} />}
-										aria-label="Ingestion URL error details"
+										aria-label={t('ingestion_url_error_details', { ns: 'common' })}
 									/>
 								</Tooltip>
 							)}
@@ -1674,7 +1672,7 @@ function MultiIngestionSettings(): JSX.Element {
 
 				<div className="ingestion-keys-search-add-new">
 					<Input
-						placeholder="Search for ingestion key..."
+						placeholder={t('search_placeholder')}
 						prefix={<Search size={12} color={Color.BG_VANILLA_400} />}
 						value={searchValue}
 						onChange={handleSearch}
@@ -1686,7 +1684,7 @@ function MultiIngestionSettings(): JSX.Element {
 						prefix={<Plus size={14} />}
 						onClick={showAddModal}
 					>
-						New Ingestion key
+						{t('new_ingestion_key')}
 					</Button>
 				</div>
 
@@ -1700,7 +1698,7 @@ function MultiIngestionSettings(): JSX.Element {
 						pageSize: isSearching ? SEARCH_PAGE_SIZE : paginationParams?.per_page,
 						hideOnSinglePage: true,
 						showTotal: (total: number, range: number[]): string =>
-							`${range[0]}-${range[1]} of ${total} Ingestion keys`,
+							t('pagination', { range: `${range[0]}-${range[1]}`, total: total }),
 						total: totalIngestionKeys,
 					}}
 					className="ingestion-keys-table"
@@ -1710,7 +1708,7 @@ function MultiIngestionSettings(): JSX.Element {
 			{/* Delete Key Modal */}
 			<Modal
 				className="delete-ingestion-key-modal"
-				title={<span className="title">Delete Ingestion Key</span>}
+				title={<span className="title">{t('delete_modal_title')}</span>}
 				open={isDeleteModalOpen}
 				closable
 				afterClose={handleModalClose}
@@ -1725,7 +1723,7 @@ function MultiIngestionSettings(): JSX.Element {
 						onClick={hideDeleteViewModal}
 						className="cancel-btn"
 					>
-						Cancel
+						{t('cancel', { ns: 'common' })}
 					</Button>,
 					<Button
 						key="submit"
@@ -1736,7 +1734,7 @@ function MultiIngestionSettings(): JSX.Element {
 						onClick={onDeleteHandler}
 						className="delete-btn"
 					>
-						Delete Ingestion Key
+						{t('delete_key_button')}
 					</Button>,
 				]}
 			>
@@ -1750,7 +1748,7 @@ function MultiIngestionSettings(): JSX.Element {
 			{/* Delete Limit Modal */}
 			<Modal
 				className="delete-ingestion-key-modal"
-				title={<span className="title">Delete Limit </span>}
+				title={<span className="title">{t('delete_limit_modal_title')}</span>}
 				open={isDeleteLimitModalOpen}
 				closable
 				afterClose={handleModalClose}
@@ -1765,7 +1763,7 @@ function MultiIngestionSettings(): JSX.Element {
 						onClick={hideDeleteLimitModal}
 						className="cancel-btn"
 					>
-						Cancel
+						{t('cancel', { ns: 'common' })}
 					</Button>,
 					<Button
 						key="submit"
@@ -1776,7 +1774,7 @@ function MultiIngestionSettings(): JSX.Element {
 						onClick={onDeleteLimitHandler}
 						className="delete-btn"
 					>
-						Delete Limit
+						{t('delete_limit_button')}
 					</Button>,
 				]}
 			>
@@ -1791,7 +1789,7 @@ function MultiIngestionSettings(): JSX.Element {
 			{/* Edit Modal */}
 			<Modal
 				className="ingestion-key-modal"
-				title="Edit Ingestion Key"
+				title={t('edit_modal_title')}
 				open={isEditModalOpen}
 				key="edit-ingestion-key-modal"
 				closable
@@ -1807,7 +1805,7 @@ function MultiIngestionSettings(): JSX.Element {
 						prefix={<X size={16} />}
 						onClick={hideEditViewModal}
 					>
-						Cancel
+						{t('cancel', { ns: 'common' })}
 					</Button>,
 					<Button
 						key="submit"
@@ -1816,7 +1814,7 @@ function MultiIngestionSettings(): JSX.Element {
 						loading={isLoadingUpdateAPIKey}
 						onClick={onUpdateApiKey}
 					>
-						Update Ingestion Key
+						{t('update_key_button')}
 					</Button>,
 				]}
 			>
@@ -1834,20 +1832,20 @@ function MultiIngestionSettings(): JSX.Element {
 				>
 					<Form.Item
 						name="name"
-						label="Name"
+						label={t('name_label')}
 						rules={[{ required: true }, { type: 'string', min: 6 }]}
 					>
-						<Input placeholder="Enter Ingestion Key name" disabled />
+						<Input placeholder={t('name_placeholder')} disabled />
 					</Form.Item>
 
-					<Form.Item name="tags" label="Tags">
+					<Form.Item name="tags" label={t('tags_label')}>
 						<Badges tags={updatedTags} setTags={setUpdatedTags} />
 					</Form.Item>
 
 					<Form.Item
 						className="expires-at"
 						name="expires_at"
-						label="Expiration"
+						label={t('expiration_label')}
 						rules={[{ required: true }]}
 					>
 						<DatePicker
@@ -1861,7 +1859,7 @@ function MultiIngestionSettings(): JSX.Element {
 			{/* Create New Key Modal */}
 			<Modal
 				className="ingestion-key-modal"
-				title="Create new ingestion key"
+				title={t('create_modal_title')}
 				open={isAddModalOpen}
 				key="create-ingestion-key-modal"
 				closable
@@ -1875,7 +1873,7 @@ function MultiIngestionSettings(): JSX.Element {
 						prefix={<X size={16} />}
 						onClick={hideAddViewModal}
 					>
-						Cancel
+						{t('cancel', { ns: 'common' })}
 					</Button>,
 					<Button
 						key="submit"
@@ -1885,7 +1883,7 @@ function MultiIngestionSettings(): JSX.Element {
 						loading={isLoadingCreateAPIKey}
 						onClick={onCreateIngestionKey}
 					>
-						Create new Ingestion key
+						{t('create_key_button')}
 					</Button>,
 				]}
 			>
@@ -1903,25 +1901,24 @@ function MultiIngestionSettings(): JSX.Element {
 				>
 					<Form.Item
 						name="name"
-						label="Name"
+						label={t('name_label')}
 						rules={[
 							{ required: true },
 							{ type: 'string', min: 6 },
 							{
 								pattern: /^[a-zA-Z0-9_-]*$/,
-								message:
-									'Ingestion key name should only contain letters, numbers, underscores, and hyphens.',
+								message: t('name_validation'),
 							},
 						]}
 						validateTrigger="onBlur"
 					>
-						<Input placeholder="Enter Ingestion Key name" />
+						<Input placeholder={t('name_placeholder')} />
 					</Form.Item>
 
 					<Form.Item
 						className="expires-at"
 						name="expires_at"
-						label="Expiration"
+						label={t('expiration_label')}
 						rules={[{ required: true }]}
 					>
 						<DatePicker
@@ -1930,7 +1927,7 @@ function MultiIngestionSettings(): JSX.Element {
 						/>
 					</Form.Item>
 
-					<Form.Item name="tags" label="Tags">
+					<Form.Item name="tags" label={t('tags_label')}>
 						<Badges tags={updatedTags} setTags={setUpdatedTags} />
 					</Form.Item>
 				</Form>

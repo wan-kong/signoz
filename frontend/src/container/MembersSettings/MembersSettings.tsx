@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Check, ChevronDown, Plus } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { DropdownMenuSimple, type MenuItem } from '@signozhq/ui/dropdown-menu';
@@ -19,6 +20,7 @@ import './MembersSettings.styles.scss';
 const PAGE_SIZE = 20;
 
 function MembersSettings(): JSX.Element {
+	const { t } = useTranslation('common');
 	const history = useHistory();
 	const urlQuery = useUrlQuery();
 	const pageParam = parseInt(urlQuery.get('page') ?? '1', 10);
@@ -103,7 +105,9 @@ function MembersSettings(): JSX.Element {
 			key: FilterMode.All,
 			label: (
 				<div className="members-filter-option">
-					<span>All members ⎯ {totalCount}</span>
+					<span>
+						{t('members_settings.all_members_count', { count: totalCount })}
+					</span>
 					{filterMode === FilterMode.All && <Check size={14} />}
 				</div>
 			),
@@ -116,7 +120,9 @@ function MembersSettings(): JSX.Element {
 			key: FilterMode.Invited,
 			label: (
 				<div className="members-filter-option">
-					<span>Pending invites ⎯ {pendingCount}</span>
+					<span>
+						{t('members_settings.pending_invites_count', { count: pendingCount })}
+					</span>
 					{filterMode === FilterMode.Invited && <Check size={14} />}
 				</div>
 			),
@@ -129,7 +135,7 @@ function MembersSettings(): JSX.Element {
 			key: FilterMode.Deleted,
 			label: (
 				<div className="members-filter-option">
-					<span>Deleted ⎯ {deletedCount}</span>
+					<span>{t('members_settings.deleted_count', { count: deletedCount })}</span>
 					{filterMode === FilterMode.Deleted && <Check size={14} />}
 				</div>
 			),
@@ -142,10 +148,10 @@ function MembersSettings(): JSX.Element {
 
 	const filterLabel =
 		filterMode === FilterMode.All
-			? `All members ⎯ ${totalCount}`
+			? t('members_settings.all_members_count', { count: totalCount })
 			: filterMode === FilterMode.Invited
-				? `Pending invites ⎯ ${pendingCount}`
-				: `Deleted ⎯ ${deletedCount}`;
+				? t('members_settings.pending_invites_count', { count: pendingCount })
+				: t('members_settings.deleted_count', { count: deletedCount });
 
 	const handleInviteComplete = useCallback((): void => {
 		void refetchUsers();
@@ -167,9 +173,9 @@ function MembersSettings(): JSX.Element {
 		<div className="members-settings-page">
 			<div className="members-settings">
 				<div className="members-settings__header">
-					<h1 className="members-settings__title">Members</h1>
+					<h1 className="members-settings__title">{t('nav.members')}</h1>
 					<p className="members-settings__subtitle">
-						Overview of people added to this workspace.
+						{t('members_settings.overview_subtitle')}
 					</p>
 				</div>
 
@@ -191,7 +197,7 @@ function MembersSettings(): JSX.Element {
 					<div className="members-settings__search">
 						<Input
 							type="search"
-							placeholder="Search by name or email..."
+							placeholder={t('members_settings.search_by_name_email')}
 							value={searchQuery}
 							onChange={(e): void => {
 								setSearchQuery(e.target.value);
@@ -208,7 +214,7 @@ function MembersSettings(): JSX.Element {
 						onClick={(): void => void setIsInviteModalOpen(true)}
 					>
 						<Plus size={12} />
-						Invite member
+						{t('organizationsettings.invite_members')}
 					</Button>
 				</div>
 			</div>

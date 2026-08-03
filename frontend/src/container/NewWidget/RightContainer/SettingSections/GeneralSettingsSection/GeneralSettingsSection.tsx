@@ -9,6 +9,7 @@ import {
 import type { InputRef } from 'antd';
 import { AutoComplete, Input } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import { popupContainer } from 'utils/selectPopupContainer';
 
 import SettingsSection from '../../components/SettingsSection/SettingsSection';
@@ -40,6 +41,7 @@ export default function GeneralSettingsSection({
 	const [inputValue, setInputValue] = useState(title);
 	const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
 	const [cursorPos, setCursorPos] = useState(0);
+	const { t } = useTranslation('common');
 	const inputRef = useRef<InputRef>(null);
 
 	const onChangeHandler = (
@@ -129,7 +131,7 @@ export default function GeneralSettingsSection({
 					onSelect={onSelect}
 					filterOption={filterOption}
 					getPopupContainer={popupContainer}
-					placeholder="Enter the panel name here..."
+					placeholder={t('new_widget.panel_name_placeholder')}
 					open={autoCompleteOpen}
 				>
 					<Input
@@ -143,7 +145,7 @@ export default function GeneralSettingsSection({
 				</AutoComplete>
 				<Typography.Text className="section-heading">Description</Typography.Text>
 				<TextArea
-					placeholder="Enter the panel description here..."
+					placeholder={t('new_widget.panel_description_placeholder')}
 					bordered
 					allowClear
 					value={description}

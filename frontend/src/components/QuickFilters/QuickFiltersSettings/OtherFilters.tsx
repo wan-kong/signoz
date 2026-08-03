@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Button, Skeleton } from 'antd';
 import OverlayScrollbar from 'components/OverlayScrollbar/OverlayScrollbar';
@@ -40,6 +41,7 @@ function OtherFilters({
 	addedFilters: FilterType[];
 	setAddedFilters: React.Dispatch<React.SetStateAction<FilterType[]>>;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const isLogDataSource = useMemo(
 		() => SIGNAL_DATA_SOURCE_MAP[signal as SignalType] === DataSource.LOGS,
 		[signal],
@@ -140,7 +142,7 @@ function OtherFilters({
 			return <OtherFiltersSkeleton />;
 		}
 		if (!otherFilters?.length) {
-			return <div className="no-values-found">No values found</div>;
+			return <div className="no-values-found">{t('no_values_found')}</div>;
 		}
 
 		return otherFilters.map((filter) => (
@@ -151,7 +153,7 @@ function OtherFilters({
 					size="small"
 					onClick={(): void => handleAddFilter(filter as FilterType)}
 				>
-					Add
+					{t('add')}
 				</Button>
 			</div>
 		));
@@ -159,7 +161,7 @@ function OtherFilters({
 
 	return (
 		<div className="qf-filters other-filters">
-			<div className="qf-filters-header">OTHER FILTERS</div>
+			<div className="qf-filters-header">{t('quick_filters.other_filters')}</div>
 			<div className="qf-other-filters-list">
 				<OverlayScrollbar>
 					<>{renderFilters()}</>

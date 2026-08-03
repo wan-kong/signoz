@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Form, Space, Tooltip } from 'antd';
 import { DropdownMenuSimple, type MenuItem } from '@signozhq/ui/dropdown-menu';
 import { Divider } from '@signozhq/ui/divider';
@@ -30,6 +31,7 @@ function FunnelStep({
 	index,
 	stepsCount,
 }: FunnelStepProps): JSX.Element {
+	const { t } = useTranslation(['trace', 'common']);
 	const { handleStepChange: onStepChange, handleStepRemoval: onStepRemove } =
 		useFunnelContext();
 	const [form] = Form.useForm();
@@ -96,7 +98,9 @@ function FunnelStep({
 							{stepData.name ? (
 								<div className="funnel-step-details__title">{stepData.name}</div>
 							) : (
-								<div className="funnel-step-details__title">Step {index + 1}</div>
+								<div className="funnel-step-details__title">
+									{t('funnels.step_n', { n: index + 1 })}
+								</div>
 							)}
 						</div>
 						{!!stepData.description && (
@@ -109,8 +113,8 @@ function FunnelStep({
 						<Tooltip
 							title={
 								!hasEditPermission
-									? 'You need editor or admin access to add details to step'
-									: 'Add details to step'
+									? t('funnels.no_permission_step_details')
+									: t('funnels.add_details_to_step')
 							}
 						>
 							<Button
@@ -144,7 +148,7 @@ function FunnelStep({
 							<div className="service">
 								<Form.Item name={['steps', stepData.id, 'service_name']}>
 									<FilterSelect
-										placeholder="Select Service"
+										placeholder={t('funnels.select_service')}
 										queryParam={QueryParams.service}
 										filterType="serviceName"
 										shouldSetQueryParams={false}
@@ -163,7 +167,7 @@ function FunnelStep({
 							<div className="span">
 								<Form.Item name={['steps', stepData.id, 'span_name']}>
 									<FilterSelect
-										placeholder="Select Span name"
+										placeholder={t('funnels.select_span_name')}
 										queryParam={QueryParams.spanName}
 										filterType="name"
 										shouldSetQueryParams={false}
@@ -180,7 +184,7 @@ function FunnelStep({
 							</div>
 						</div>
 						<div className="filters__where-filter">
-							<div className="label">Where</div>
+							<div className="label">{t('funnels.where')}</div>
 							<Form.Item name={['steps', stepData.id, 'filters']}>
 								<QueryBuilderSearchV2
 									query={query}
@@ -190,7 +194,7 @@ function FunnelStep({
 											: (): void => {}
 									}
 									hasPopupContainer={false}
-									placeholder="Search for filters..."
+									placeholder={t('funnels.search_filters_placeholder')}
 									rootClassName="traces-funnel-where-filter"
 								/>
 							</Form.Item>
@@ -207,10 +211,12 @@ function FunnelStep({
 								onStepChange(index, { has_errors: !stepData.has_errors })
 							}
 						/>
-						<div className="error__label">Errors</div>
+						<div className="error__label">{t('funnels.errors')}</div>
 					</div>
 					<div className="latency-pointer">
-						<div className="latency-pointer__label">Latency pointer</div>
+						<div className="latency-pointer__label">
+							{t('funnels.latency_pointer')}
+						</div>
 						{hasEditPermission ? (
 							<DropdownMenuSimple menu={{ items: latencyPointerItems }}>
 								<Space>

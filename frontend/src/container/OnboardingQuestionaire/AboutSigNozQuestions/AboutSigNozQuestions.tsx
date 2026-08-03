@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Checkbox } from '@signozhq/ui/checkbox';
 import { Input } from '@signozhq/ui/input';
@@ -56,6 +57,7 @@ export function AboutSigNozQuestions({
 	setSignozDetails,
 	onNext,
 }: AboutSigNozQuestionsProps): JSX.Element {
+	const { t } = useTranslation('onboarding');
 	const { versionData } = useAppContext();
 
 	const [interestInSignoz, setInterestInSignoz] = useState<string[]>(
@@ -120,18 +122,18 @@ export function AboutSigNozQuestions({
 	return (
 		<div className="questions-container">
 			<OnboardingQuestionHeader
-				title="Set up your workspace"
-				subtitle="Tailor SigNoz to suit your observability needs."
+				title={t('setup_workspace')}
+				subtitle={t('setup_workspace_subtitle')}
 			/>
 
 			<div className="questions-form-container">
 				<div className="questions-form">
 					<div className="form-group">
-						<div className="question">How did you first come across SigNoz?</div>
+						<div className="question">{t('discover_signoz_question')}</div>
 
 						<AntdInput.TextArea
 							className="discover-signoz-input"
-							placeholder={`e.g., googling "datadog alternative", a post on r/devops, from a friend/colleague, a LinkedIn post, ChatGPT, etc.`}
+							placeholder={t('discover_signoz_placeholder')}
 							value={discoverSignoz}
 							autoFocus
 							rows={4}
@@ -140,7 +142,7 @@ export function AboutSigNozQuestions({
 					</div>
 
 					<div className="form-group">
-						<div className="question">What got you interested in SigNoz?</div>
+						<div className="question">{t('interested_in_signoz')}</div>
 						<div className="checkbox-grid">
 							{shuffledOptionKeys.map((option: string) => (
 								<div key={option} className="checkbox-item">
@@ -160,13 +162,13 @@ export function AboutSigNozQuestions({
 									value={interestInSignoz.includes('Others')}
 									onChange={createInterestChangeHandler('Others')}
 								>
-									{interestInSignoz.includes('Others') ? '' : 'Others'}
+									{interestInSignoz.includes('Others') ? '' : t('others')}
 								</Checkbox>
 								{interestInSignoz.includes('Others') && (
 									<Input
 										type="text"
 										className="onboarding-questionaire-other-input"
-										placeholder="What got you interested in SigNoz?"
+										placeholder={t('interested_in_signoz_placeholder')}
 										value={otherInterestInSignoz}
 										autoFocus
 										onChange={(e): void => setOtherInterestInSignoz(e.target.value)}
@@ -186,7 +188,7 @@ export function AboutSigNozQuestions({
 						disabled={isNextDisabled}
 						suffix={<ArrowRight size={12} />}
 					>
-						Next
+						{t('next')}
 					</Button>
 				</div>
 			</div>

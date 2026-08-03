@@ -1,10 +1,12 @@
 import { Input, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { Info } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import { useCreateAlertState } from '../context';
 
 function NotificationMessage(): JSX.Element {
+	const { t } = useTranslation('create_alert');
 	const { notificationSettings, setNotificationSettings } =
 		useCreateAlertState();
 
@@ -54,14 +56,13 @@ function NotificationMessage(): JSX.Element {
 			<div className="notification-message-header">
 				<div className="notification-message-header-content">
 					<Typography.Text className="notification-message-header-title">
-						Notification Message
-						<Tooltip title="Customize the message content sent in alert notifications. Template variables like {{alertname}}, {{value}}, and {{threshold}} will be replaced with actual values when the alert fires.">
+						{t('notification_message')}
+						<Tooltip title={t('notification_message_tooltip')}>
 							<Info size={16} />
 						</Tooltip>
 					</Typography.Text>
 					<Typography.Text className="notification-message-header-description">
-						Custom message content for alert notifications. Use template variables to
-						include dynamic information.
+						{t('notification_message_desc')}
 					</Typography.Text>
 				</div>
 				<div className="notification-message-header-actions">
@@ -82,7 +83,7 @@ function NotificationMessage(): JSX.Element {
 						payload: e.target.value,
 					})
 				}
-				placeholder="Enter notification message..."
+				placeholder={t('enter_notification_message')}
 			/>
 		</div>
 	);

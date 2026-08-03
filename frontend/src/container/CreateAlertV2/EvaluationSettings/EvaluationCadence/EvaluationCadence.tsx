@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Input, Select, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { Info } from '@signozhq/icons';
 
@@ -14,6 +15,7 @@ import '../AdvancedOptionItem/styles.scss';
 
 function EvaluationCadence(): JSX.Element {
 	const { advancedOptions, setAdvancedOptions } = useCreateAlertState();
+	const { t } = useTranslation('create_alert');
 
 	const [
 		isEvaluationCadenceDetailsVisible,
@@ -45,13 +47,13 @@ function EvaluationCadence(): JSX.Element {
 			<div className="advanced-option-item evaluation-cadence-item">
 				<div className="advanced-option-item-left-content">
 					<Typography.Text className="advanced-option-item-title">
-						How often to check
-						<Tooltip title="Controls how frequently the alert evaluates your conditions. For most alerts, 1-5 minutes is sufficient.">
+						{t('how_often_to_check')}
+						<Tooltip title={t('evaluation_cadence_tooltip')}>
 							<Info data-testid="evaluation-cadence-tooltip-icon" size={16} />
 						</Tooltip>
 					</Typography.Text>
 					<Typography.Text className="advanced-option-item-description">
-						How frequently this alert checks your data. Default: Every 1 minute
+						{t('how_frequently_check_desc')}
 					</Typography.Text>
 				</div>
 				{isCustomScheduleButtonVisible && (
@@ -62,7 +64,7 @@ function EvaluationCadence(): JSX.Element {
 						<Input.Group className="advanced-option-item-input-group">
 							<Input
 								type="number"
-								placeholder="Enter time"
+								placeholder={t('enter_time')}
 								style={{ width: 180 }}
 								value={advancedOptions.evaluationCadence.default.value}
 								onChange={(value): void =>
@@ -81,7 +83,7 @@ function EvaluationCadence(): JSX.Element {
 							/>
 							<Select
 								options={ADVANCED_OPTIONS_TIME_UNIT_OPTIONS}
-								placeholder="Select time unit"
+								placeholder={t('select_time_unit')}
 								style={{ width: 120 }}
 								value={advancedOptions.evaluationCadence.default.timeUnit}
 								onChange={(value): void =>

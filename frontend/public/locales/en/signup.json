@@ -1,5 +1,5 @@
 {
-  "label_email": "Email",
+  "label_email": "Email address",
   "placeholder_email": "name@yourcompany.com",
   "label_password": "Password",
   "label_confirm_password": "Confirm Password",
@@ -14,5 +14,14 @@
   "failed_to_initiate_login": "Signup completed but failed to initiate login",
   "token_required": "Invite token is required for signup, please request one from your admin",
   "button_get_started": "Get Started",
-  "prompt_admin_warning": "This will create an admin account. If you are not an admin, please ask your admin for an invite link"
+  "prompt_admin_warning": "This will create an admin account. If you are not an admin, please ask your admin for an invite link",
+  "title_create_account": "Create your account",
+  "subtitle_create_account": "You're almost in. Create a password to start monitoring your applications with SigNoz.",
+  "label_set_password": "Set your password",
+  "placeholder_password": "Enter new password",
+  "label_confirm_password_new": "Confirm your new password",
+  "placeholder_confirm_password": "Confirm your new password",
+  "validation_password_required": "Please enter password!",
+  "validation_confirm_password_required": "Please enter confirm password!",
+  "button_access_workspace": "Access My Workspace"
 }

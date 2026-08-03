@@ -3,6 +3,7 @@ import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
 import { SelectSimple } from '@signozhq/ui/select';
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { BrandedPermission } from '../../hooks/useAuthZ/types';
 
@@ -37,6 +38,8 @@ export function AuthZDevModalHeader({
 	denyAll,
 	clearAllOverrides,
 }: AuthZDevModalHeaderProps): JSX.Element {
+	const { t } = useTranslation('common');
+
 	const handleGrantAll = useCallback((): void => {
 		grantAll(hasActiveFilter ? filteredPermissions : undefined);
 	}, [grantAll, hasActiveFilter, filteredPermissions]);
@@ -54,11 +57,11 @@ export function AuthZDevModalHeader({
 			<div className={styles.searchRow}>
 				<div className={styles.search}>
 					<Input
-						placeholder="Search permissions..."
+						placeholder={t('authz_dev.search_permissions')}
 						value={search}
 						onChange={(e): void => setSearch(e.target.value)}
 						prefix={<Search size={14} className={styles.searchIcon} />}
-						aria-label="Search permissions"
+						aria-label={t('authz_dev.search_permissions')}
 						data-testid="authz-dev-search"
 					/>
 				</div>
@@ -82,7 +85,9 @@ export function AuthZDevModalHeader({
 					disabled={filteredPermissions.length === 0}
 					data-testid="authz-dev-grant-all"
 				>
-					{hasActiveFilter ? 'Grant filtered' : 'Grant all'}
+					{hasActiveFilter
+						? t('authz_dev.grant_filtered')
+						: t('authz_dev.grant_all')}
 				</Button>
 				<Button
 					className={styles.actionButton}
@@ -93,7 +98,7 @@ export function AuthZDevModalHeader({
 					disabled={filteredPermissions.length === 0}
 					data-testid="authz-dev-deny-all"
 				>
-					{hasActiveFilter ? 'Deny filtered' : 'Deny all'}
+					{hasActiveFilter ? t('authz_dev.deny_filtered') : t('authz_dev.deny_all')}
 				</Button>
 				<Button
 					className={styles.actionButton}
@@ -107,8 +112,8 @@ export function AuthZDevModalHeader({
 					data-testid="authz-dev-clear-all"
 				>
 					{hasActiveFilter
-						? `Clear filtered (${filteredOverrideCount})`
-						: `Clear all (${overrideCount})`}
+						? t('authz_dev.clear_filtered', { count: filteredOverrideCount })
+						: t('authz_dev.clear_all', { count: overrideCount })}
 				</Button>
 			</div>
 		</div>

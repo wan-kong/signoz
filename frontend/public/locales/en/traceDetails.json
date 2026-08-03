@@ -1,3 +1,11 @@
 {
-	"search_tags": "Search Tag Names"
+  "search_tags": "Search Tag Names",
+  "trace": "Trace",
+  "span": "Span",
+  "trace_duration": "Trace Duration",
+  "span_duration": "Span Duration",
+  "root_service_tooltip": "Root service and entry-point span",
+  "of_total_exec_time": " of total exec time",
+  "entity_start_time": "{{entity}} start time",
+  "root_span_status_code": "Root span status code"
 }

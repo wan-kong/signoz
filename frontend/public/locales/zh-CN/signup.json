@@ -14,5 +14,14 @@
 	"failed_to_initiate_login": "注册已完成，但启动登录失败",
 	"token_required": "注册需要邀请 token，请向管理员申请",
 	"button_get_started": "开始使用",
-	"prompt_admin_warning": "这将创建一个管理员账号。如果你不是管理员，请向管理员索要邀请链接"
+	"prompt_admin_warning": "这将创建一个管理员账号。如果你不是管理员，请向管理员索要邀请链接",
+	"title_create_account": "创建你的账户",
+	"subtitle_create_account": "只差一步。创建密码即可开始使用 SigNoz 监控你的应用。",
+	"label_set_password": "设置密码",
+	"placeholder_password": "输入新密码",
+	"label_confirm_password_new": "确认新密码",
+	"placeholder_confirm_password": "确认你的新密码",
+	"validation_password_required": "请输入密码！",
+	"validation_confirm_password_required": "请输入确认密码！",
+	"button_access_workspace": "进入工作区"
 }

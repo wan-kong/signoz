@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
 import classNames from 'classnames';
 import { YAxisSource } from 'components/YAxisUnitSelector/types';
@@ -36,6 +37,8 @@ function QuerySection(): JSX.Element {
 	} = useQueryBuilder();
 	const { alertType, setAlertType, thresholdState } = useCreateAlertState();
 	const urlQuery = useUrlQuery();
+
+	const { t } = useTranslation('create_alert');
 
 	const alertDef = buildAlertDefForChartPreview({ alertType, thresholdState });
 
@@ -131,7 +134,7 @@ function QuerySection(): JSX.Element {
 
 	return (
 		<div className="query-section">
-			<Stepper stepNumber={1} label="Define the query" />
+			<Stepper stepNumber={1} label={t('define_the_query')} />
 			<ChartPreview
 				alertDef={alertDef}
 				source={source}

@@ -1,5 +1,6 @@
 import { Input } from '@signozhq/ui/input';
 import { Form } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { CloudintegrationtypesCredentialsDTO } from 'api/generated/services/sigNoz.schemas';
 
 function RenderConnectionFields({
@@ -11,6 +12,8 @@ function RenderConnectionFields({
 	connectionParams?: CloudintegrationtypesCredentialsDTO | null;
 	isFormDisabled?: boolean;
 }): JSX.Element | null {
+	const { t } = useTranslation('common');
+
 	if (
 		isConnectionParamsLoading ||
 		(!!connectionParams?.ingestionUrl &&
@@ -26,37 +29,57 @@ function RenderConnectionFields({
 			{!connectionParams?.ingestionUrl && (
 				<Form.Item
 					name="ingestionUrl"
-					label="Ingestion URL"
-					rules={[{ required: true, message: 'Please enter ingestion URL' }]}
+					label={t('cloud_integration.ingestion_url')}
+					rules={[
+						{ required: true, message: t('cloud_integration.enter_ingestion_url') },
+					]}
 				>
-					<Input placeholder="Enter ingestion URL" disabled={isFormDisabled} />
+					<Input
+						placeholder={t('cloud_integration.enter_ingestion_url')}
+						disabled={isFormDisabled}
+					/>
 				</Form.Item>
 			)}
 			{!connectionParams?.ingestionKey && (
 				<Form.Item
 					name="ingestionKey"
-					label="Ingestion Key"
-					rules={[{ required: true, message: 'Please enter ingestion key' }]}
+					label={t('cloud_integration.ingestion_key')}
+					rules={[
+						{ required: true, message: t('cloud_integration.enter_ingestion_key') },
+					]}
 				>
-					<Input placeholder="Enter ingestion key" disabled={isFormDisabled} />
+					<Input
+						placeholder={t('cloud_integration.enter_ingestion_key')}
+						disabled={isFormDisabled}
+					/>
 				</Form.Item>
 			)}
 			{!connectionParams?.sigNozApiUrl && (
 				<Form.Item
 					name="sigNozApiUrl"
-					label="SigNoz API URL"
-					rules={[{ required: true, message: 'Please enter SigNoz API URL' }]}
+					label={t('cloud_integration.signoz_api_url')}
+					rules={[
+						{ required: true, message: t('cloud_integration.enter_signoz_api_url') },
+					]}
 				>
-					<Input placeholder="Enter SigNoz API URL" disabled={isFormDisabled} />
+					<Input
+						placeholder={t('cloud_integration.enter_signoz_api_url')}
+						disabled={isFormDisabled}
+					/>
 				</Form.Item>
 			)}
 			{!connectionParams?.sigNozApiKey && (
 				<Form.Item
 					name="sigNozApiKey"
-					label="SigNoz API KEY"
-					rules={[{ required: true, message: 'Please enter SigNoz API Key' }]}
+					label={t('cloud_integration.signoz_api_key')}
+					rules={[
+						{ required: true, message: t('cloud_integration.enter_signoz_api_key') },
+					]}
 				>
-					<Input placeholder="Enter SigNoz API Key" disabled={isFormDisabled} />
+					<Input
+						placeholder={t('cloud_integration.enter_signoz_api_key')}
+						disabled={isFormDisabled}
+					/>
 				</Form.Item>
 			)}
 		</Form.Item>

@@ -1,4 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
@@ -22,6 +23,7 @@ interface IntegrationsHeaderProps {
 function IntegrationsHeader(props: IntegrationsHeaderProps): JSX.Element {
 	const history = useHistory();
 	const { user } = useAppContext();
+	const { t } = useTranslation('common');
 
 	const { searchQuery, onSearchChange } = props;
 	const [isRequestIntegrationDialogOpen, setIsRequestIntegrationDialogOpen] =
@@ -85,7 +87,7 @@ function IntegrationsHeader(props: IntegrationsHeaderProps): JSX.Element {
 
 			<div className="integrations-search-request-container">
 				<Input
-					placeholder="Search for an integration..."
+					placeholder={t('integrations.search_placeholder')}
 					value={searchQuery}
 					onChange={(e: ChangeEvent<HTMLInputElement>): void =>
 						onSearchChange(e.target.value)
@@ -112,7 +114,7 @@ function IntegrationsHeader(props: IntegrationsHeaderProps): JSX.Element {
 							Which integration are you looking for?
 						</div>
 						<Input
-							placeholder="Enter integration name..."
+							placeholder={t('integrations.enter_integration_name')}
 							value={requestedIntegrationName}
 							onChange={(e: ChangeEvent<HTMLInputElement>): void => {
 								setRequestedIntegrationName(e.target.value);

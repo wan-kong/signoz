@@ -1,3 +1,11 @@
 {
-	"search_tags": "搜索标签名称"
+  "search_tags": "搜索标签名称",
+  "trace": "Trace",
+  "span": "Span",
+  "trace_duration": "Trace 持续时间",
+  "span_duration": "Span 持续时间",
+  "root_service_tooltip": "根服务和入口点 Span",
+  "of_total_exec_time": " 占总执行时间",
+  "entity_start_time": "{{entity}} 开始时间",
+  "root_span_status_code": "根 span 状态码"
 }

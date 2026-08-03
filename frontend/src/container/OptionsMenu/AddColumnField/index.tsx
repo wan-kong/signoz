@@ -15,7 +15,7 @@ import {
 } from './styles';
 
 function AddColumnField({ config }: AddColumnFieldProps): JSX.Element | null {
-	const { t } = useTranslation(['trace']);
+	const { t } = useTranslation(['trace', 'common']);
 	const isDarkMode = useIsDarkMode();
 
 	if (!config) {
@@ -31,7 +31,7 @@ function AddColumnField({ config }: AddColumnFieldProps): JSX.Element | null {
 					loading={config.isFetching}
 					size="small"
 					mode="multiple"
-					placeholder="Search"
+					placeholder={t('common:search.button')}
 					options={config.options}
 					value={[]}
 					onSelect={config.onSelect}

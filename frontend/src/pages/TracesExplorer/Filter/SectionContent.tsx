@@ -6,6 +6,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Card, Input, Tooltip } from 'antd';
 import { Checkbox } from '@signozhq/ui/checkbox';
 import { ParaGraph } from 'container/Trace/Filters/Panel/PanelBody/Common/styles';
@@ -33,6 +34,7 @@ interface SectionBodyProps {
 }
 
 export function SectionBody(props: SectionBodyProps): JSX.Element {
+	const { t } = useTranslation(['trace', 'common']);
 	const { type, setSelectedFilters, selectedFilters, handleRun } = props;
 	const [visibleItemsCount, setVisibleItemsCount] = useState(10);
 	const [searchFilter, setSearchFilter] = useState<string>('');
@@ -139,11 +141,11 @@ export function SectionBody(props: SectionBodyProps): JSX.Element {
 				<Input.Search
 					value={searchFilter}
 					onChange={handleSearch}
-					placeholder="Filter Values"
+					placeholder={t('filter_values')}
 					className="search-input"
 				/>
 				{listData.length === 0 && isEmpty(searchFilter) ? (
-					<div style={{ padding: '8px 18px' }}>No data found</div>
+					<div style={{ padding: '8px 18px' }}>{t('no_data_found')}</div>
 				) : (
 					<>
 						{listData.map((item) => (
@@ -166,7 +168,7 @@ export function SectionBody(props: SectionBodyProps): JSX.Element {
 						))}
 						{visibleItemsCount < results.length && (
 							<Button onClick={handleShowMore} type="link">
-								Show More
+								{t('show_more')}
 							</Button>
 						)}
 					</>

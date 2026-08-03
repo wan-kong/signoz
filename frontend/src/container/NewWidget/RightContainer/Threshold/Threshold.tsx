@@ -9,6 +9,7 @@ import { YAxisSource } from 'components/YAxisUnitSelector/types';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { unitOptions } from 'container/NewWidget/utils';
 import { useIsDarkMode } from 'hooks/useDarkMode';
+import { useTranslation } from 'react-i18next';
 import { getColumnUnit } from 'lib/query/createTableColumnsFromQuery';
 import { Check, Pencil, Trash2, X } from '@signozhq/icons';
 
@@ -50,6 +51,7 @@ function Threshold({
 	yAxisUnit,
 }: ThresholdProps): JSX.Element {
 	const [isEditMode, setIsEditMode] = useState<boolean>(isEditEnabled);
+	const { t } = useTranslation('common');
 	const [operator, setOperator] = useState<string | number>(
 		thresholdOperator as string | number,
 	);
@@ -333,7 +335,7 @@ function Threshold({
 						<YAxisUnitSelector
 							value={unit}
 							onChange={handleUnitChange}
-							placeholder="Select unit"
+							placeholder={t('threshold.select_unit')}
 							source={YAxisSource.DASHBOARDS}
 							initialValue={unit}
 							data-testid="threshold-unit-input"

@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
 import {
 	Bell,
@@ -80,6 +81,7 @@ function WidgetHeader({
 	tableProcessedDataRef,
 	setSearchTerm,
 }: IWidgetHeaderProps): JSX.Element | null {
+	const { t } = useTranslation('common');
 	const urlQuery = useUrlQuery();
 	const { safeNavigate } = useSafeNavigate();
 	const onEditHandler = useCallback((): void => {
@@ -239,7 +241,7 @@ function WidgetHeader({
 			{showGlobalSearch ? (
 				<Input
 					addonBefore={<Search size={14} />}
-					placeholder="Search..."
+					placeholder={t('custom_select.search_placeholder')}
 					bordered={false}
 					data-testid="widget-header-search-input"
 					addonAfter={

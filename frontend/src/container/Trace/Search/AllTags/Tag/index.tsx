@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X } from '@signozhq/icons';
 import { Select } from 'antd';
 import { TraceReducer } from 'types/reducer/trace';
@@ -96,6 +97,7 @@ export const AllMenu: AllMenuProps[] = [
 function SingleTags(props: AllTagsProps): JSX.Element {
 	const { tag, onCloseHandler, setLocalSelectedTags, index, localSelectedTags } =
 		props;
+	const { t } = useTranslation('trace');
 	const {
 		Key: selectedKey,
 		Operator: selectedOperator,
@@ -139,7 +141,7 @@ function SingleTags(props: AllTagsProps): JSX.Element {
 					// filter out the operator that does not include supported type of the selected key
 					mapOperators(selectedKey).map((e) => (
 						<Option key={e.value} value={e.key}>
-							{e.value}
+							{t(`operator_labels.${e.key}`)}
 						</Option>
 					))
 				}

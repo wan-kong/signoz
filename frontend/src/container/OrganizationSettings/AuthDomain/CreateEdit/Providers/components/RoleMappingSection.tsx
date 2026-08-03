@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color, Style } from '@signozhq/design-tokens';
 import {
 	ChevronDown,
@@ -31,6 +32,7 @@ function RoleMappingSection({
 	onExpandChange,
 }: RoleMappingSectionProps): JSX.Element {
 	const form = Form.useFormInstance();
+	const { t } = useTranslation('organizationsettings');
 	const useRoleAttribute = Form.useWatch(
 		[...fieldNamePrefix, 'useRoleAttribute'],
 		form,
@@ -78,12 +80,10 @@ function RoleMappingSection({
 							{!expanded ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
 							<div className="role-mapping-section__collapse-header-text">
 								<h4 className="role-mapping-section__section-title">
-									Role Mapping (Advanced)
+									{t('auth_domain.role_mapping')}
 								</h4>
 								<p className="role-mapping-section__section-description">
-									Configure how user roles are determined from your Identity Provider.
-									You can either use a direct role attribute or map IDP groups to SigNoz
-									roles.
+									{t('auth_domain.role_mapping_desc')}
 								</p>
 							</div>
 							{!expanded && hasErrors && (
@@ -105,8 +105,8 @@ function RoleMappingSection({
 					<div id="role-mapping-content" className="role-mapping-section__content">
 						<div className="role-mapping-section__field-group">
 							<label className="role-mapping-section__label" htmlFor="default-role">
-								Default Role
-								<Tooltip title='The default role assigned to new SSO users if no other role mapping applies. Default: "signoz-viewer"'>
+								{t('auth_domain.default_role')}
+								<Tooltip title={t('auth_domain.default_role_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -142,10 +142,10 @@ function RoleMappingSection({
 										form.setFieldValue([...fieldNamePrefix, 'useRoleAttribute'], checked);
 									}}
 								>
-									Use Role Attribute Directly
+									{t('auth_domain.use_role_attribute')}
 								</Checkbox>
 							</Form.Item>
-							<Tooltip title="If enabled, the role claim/attribute from the IDP will be used directly instead of group mappings. The role value must match a SigNoz role name (e.g. signoz-viewer, signoz-editor, signoz-admin, or a custom role).">
+							<Tooltip title={t('auth_domain.use_role_attribute_tooltip')}>
 								<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 							</Tooltip>
 						</div>
@@ -154,11 +154,10 @@ function RoleMappingSection({
 							<div className="role-mapping-section__group-mappings">
 								<div className="role-mapping-section__group-header">
 									<span className="role-mapping-section__group-title">
-										Group to Role Mappings
+										{t('auth_domain.group_to_role_mappings')}
 									</span>
 									<p className="role-mapping-section__group-description">
-										Map IDP group names to SigNoz roles. If a user belongs to multiple
-										groups, the highest privilege role will be assigned.
+										{t('auth_domain.group_mappings_desc')}
 									</p>
 								</div>
 
@@ -170,15 +169,22 @@ function RoleMappingSection({
 													<Form.Item
 														name={[field.name, 'groupName']}
 														className="role-mapping-section__field role-mapping-section__field--group"
-														rules={[{ required: true, message: 'Group name is required' }]}
+														rules={[
+															{
+																required: true,
+																message: t('auth_domain.group_name_required'),
+															},
+														]}
 													>
-														<Input placeholder="IDP Group Name" />
+														<Input placeholder={t('auth_domain.idp_group_name')} />
 													</Form.Item>
 
 													<Form.Item
 														name={[field.name, 'role']}
 														className="role-mapping-section__field role-mapping-section__field--role"
-														rules={[{ required: true, message: 'Role is required' }]}
+														rules={[
+															{ required: true, message: t('auth_domain.role_required') },
+														]}
 														initialValue={SIGNOZ_VIEWER_ROLE}
 													>
 														<RolesSelect
@@ -198,7 +204,7 @@ function RoleMappingSection({
 														color="secondary"
 														className="role-mapping-section__remove-btn"
 														onClick={(): void => remove(field.name)}
-														aria-label="Remove mapping"
+														aria-label={t('auth_domain.remove_mapping')}
 													>
 														<Trash2 size={12} />
 													</Button>
@@ -213,7 +219,7 @@ function RoleMappingSection({
 												}
 												prefix={<Plus size={14} />}
 											>
-												Add Group Mapping
+												{t('auth_domain.add_group_mapping')}
 											</Button>
 										</div>
 									)}

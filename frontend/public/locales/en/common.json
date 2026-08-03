@@ -26,6 +26,9 @@
   "time_series_view": "Time Series",
   "trace_view": "Trace View",
   "loading": "Loading...",
+  "select_environments": "Select Environment/s",
+  "search_filter_resource_attributes": "Search and Filter based on resource attributes.",
+  "no_resource_attributes": "No resource attributes available to filter. Please refer docs to send attributes.",
   "language": "Language",
   "select_language": "Select language",
   "feedback": "Feedback",
@@ -57,6 +60,10 @@
   "share": "Share",
   "save": "Save",
   "edit": "Edit",
+  "auto": "Auto",
+  "by": "By",
+  "every": "Every",
+  "seconds": "Seconds",
   "logged_in": "Logged In",
   "pending_data_placeholder": "Retrieving your {{dataSource}}!",
   "time": {
@@ -410,7 +417,21 @@
   "explorer": {
     "copied_to_clipboard": "Copied to clipboard",
     "save": "Save",
-    "select_view": "Select a view"
+    "select_view": "Select a view",
+    "learn_more_logs": "Learn more about Logs explorer",
+    "learn_more_metrics": "Learn more about Metrics explorer",
+    "learn_more_traces": "Learn more about Traces explorer",
+    "create_alert": "Create an Alert",
+    "add_to_dashboard": "Add to Dashboard",
+    "formula_query": "Formula {{name}}",
+    "query_query": "Query {{name}}",
+    "clear_this_view": "Clear this view",
+    "update_this_view": "Update this view",
+    "save_this_view": "Save this view",
+    "label": "Label",
+    "view_name_placeholder": "e.g. External http method view",
+    "view_updated_successfully": "View Updated Successfully",
+    "hide_toolbar": "Hide"
   },
   "spinner": {
     "loading": "Loading...",
@@ -481,6 +502,21 @@
     "key_copy_failed": "Failed to copy key",
     "secure_storage_warning": "Store the key securely. This is the only time it will be displayed."
   },
+  "sa_add_key_modal": {
+    "form_title": "Add Key",
+    "created_title": "Key Created"
+  },
+  "sa_keys": {
+    "name": "Name",
+    "expiry": "Expiry",
+    "last_observed_at": "Last Observed At",
+    "never": "Never",
+    "expired": "Expired",
+    "service_account_disabled": "Service account is disabled",
+    "no_keys": "No keys yet.",
+    "add_first_key": "Add first key",
+    "edit_key_aria": "Edit key {{name}}"
+  },
   "sa_created": {
     "title": "Key Created",
     "copy_key_message": "Copy your API key now. You won't be able to see it again.",
@@ -492,7 +528,13 @@
     "select_view": "Select a view",
     "saving": "Saving...",
     "created_by": "Created by",
-    "delete_view": "Delete view"
+    "delete_view": "Delete view",
+    "view_updated": "View updated",
+    "delete": "Delete",
+    "query_builder": "Query Builder",
+    "more_details_query_builder": "More details on how to use query builder",
+    "save_as_new_view": "Save as new view",
+    "save_view_text": "Save view"
   },
   "query_builder": {
     "add_aggregate": "Add Aggregate",
@@ -507,7 +549,13 @@
     "remove_trace_operator": "Remove Trace Operator",
     "current_context": "Current Context",
     "bracket_list": "Bracket List",
+    "enter_formula": "Enter formula",
+    "enter_in_seconds": "Enter in seconds",
+    "formula_having_placeholder": "Count(operation) > 5",
     "having_placeholder": "Type Having query like count() > 10 ...",
+    "having_placeholder_grp": "GroupBy(operation) > 5",
+    "select_order_by": "Select order by",
+    "select_unit": "Select unit",
     "source_placeholder": "Source"
   },
   "order_by": {
@@ -587,7 +635,17 @@
     "discard": "Discard",
     "save_changes": "Save changes",
     "clear_all": "Clear All",
-    "toggle": "Toggle"
+    "toggle": "Toggle",
+    "titles": {
+      "severity_text": "Severity Text",
+      "environment": "Environment",
+      "service_name": "Service Name",
+      "hostname": "Hostname",
+      "k8s_cluster_name": "K8s Cluster Name",
+      "k8s_deployment_name": "K8s Deployment Name",
+      "k8s_namespace_name": "K8s Namespace Name",
+      "k8s_pod_name": "K8s Pod Name"
+    }
   },
   "changelog_renderer": {
     "bug_fixes": "Bug Fixes",
@@ -647,6 +705,150 @@
     "slack_message": "Join our Slack community for more details:"
   },
   "uplot": {
-    "no_data": "No Data"
+    "no_data": "No Data",
+    "no_series_found": "No series found matching \"{{query}}\""
+  },
+  "metrics_aggregate": {
+    "within_time_series": "AGGREGATE WITHIN TIME SERIES",
+    "across_time_series": "AGGREGATE ACROSS TIME SERIES",
+    "learn_more_temporal": "Learn more about temporal aggregation",
+    "learn_more_spatial": "Learn more about spatial aggregation",
+    "set_time_interval": "Set the time interval for aggregation",
+    "learn_about_step_intervals": "Learn about step intervals"
+  },
+  "query_search": {
+    "loading_suggestions": "Loading suggestions...",
+    "no_suggestions": "No suggestions available",
+    "error_loading_suggestions": "Error loading suggestions",
+    "unknown": "Unknown",
+    "key": "Key",
+    "operator": "Operator",
+    "value": "Value",
+    "conjunction": "Conjunction",
+    "function": "Function",
+    "parenthesis": "Parenthesis",
+    "need_help_syntax": "Need help with search syntax?",
+    "view_documentation": "View documentation",
+    "query_examples": "Query Examples",
+    "current_pair": "Current pair:",
+    "total_pairs": "Total pairs:",
+    "currently_editing": "Currently editing:",
+    "complete": "Complete",
+    "incomplete": "Incomplete",
+    "key_label": "Key:",
+    "operator_label": "Operator:",
+    "value_label": "Value:",
+    "failed_to_process": "Failed to process query",
+    "open_nested_group": "Open nested group",
+    "negate_expression": "Negate expression",
+    "placeholder": "Enter your filter query (e.g., http.status_code >= 500 AND service.name = 'frontend')"
+  },
+  "context_links": {
+    "view_traces_placeholder": "View Traces details: {{_traceId}}",
+    "key": "Key",
+    "value": "Value"
+  },
+  "threshold": {
+    "select_unit": "Select unit"
+  },
+  "grid_card_layout": {
+    "enter_row_name_placeholder": "Enter row name here..."
+  },
+  "search_for_attributes": "Search for attributes...",
+  "search_values": "Search values",
+  "select_interval": "Select interval...",
+  "select_option": "Select option",
+  "integrations": {
+    "enter_integration_name": "Enter integration name...",
+    "search_placeholder": "Search for an integration..."
+  },
+  "metrics_explorer": {
+    "search_metrics": "Search metrics",
+    "search_metrics_placeholder": "Search your metrics. Try service.name='api' to see all API service metrics, or http.client for HTTP client metrics.",
+    "select_attributes": "Select attributes"
+  },
+  "new_widget": {
+    "default_30": "Default: 30",
+    "default_auto": "Default: Auto",
+    "panel_description_placeholder": "Enter the panel description here...",
+    "panel_name_placeholder": "Enter the panel name here..."
+  },
+  "anomaly_alert": {
+    "search_series": "Search a series"
+  },
+  "authz_dev": {
+    "search_permissions": "Search permissions...",
+    "grant_filtered": "Grant filtered",
+    "grant_all": "Grant all",
+    "deny_filtered": "Deny filtered",
+    "deny_all": "Deny all",
+    "clear_filtered": "Clear filtered ({{count}})",
+    "clear_all": "Clear all ({{count}})"
+  },
+  "periscope": {
+    "copy_value": "Copy Value",
+    "pin_field": "Pin field",
+    "unpin_field": "Unpin field",
+    "pinned_items": "PINNED ITEMS"
+  },
+  "billings": {
+    "go_back": "Go back",
+    "cancel_subscription": "Cancel subscription",
+    "cancel_your_subscription": "Cancel your subscription",
+    "cancel_warning": "When you cancel your SigNoz subscription, all your data will be deleted immediately and removed from our servers.",
+    "cancel_subscription_header": "Cancel Subscription",
+    "cancel_subscription_question": "Cancel your subscription?",
+    "cancel_description": "Cancelling your subscription would stop your data from being ingested to SigNoz. All the data that has been already sent will also be deleted.",
+    "type_cancel_to_confirm": "Type <code>cancel</code> to confirm the cancellation.",
+    "enter_cancel_word": "Enter the word cancel...",
+    "email_draft_opened": "An email draft has been opened. If it did not open, send your cancellation request directly to:",
+    "copy_email_template": "Copy email template",
+    "reopen_email_client": "Reopen email client"
+  },
+  "members_settings": {
+    "overview_subtitle": "Overview of people added to this workspace.",
+    "search_by_name_email": "Search by name or email...",
+    "all_members_count": "All members ⎯ {{count}}",
+    "pending_invites_count": "Pending invites ⎯ {{count}}",
+    "deleted_count": "Deleted ⎯ {{count}}"
+  },
+  "cloud_integration": {
+    "ingestion_url": "Ingestion URL",
+    "enter_ingestion_url": "Enter ingestion URL",
+    "ingestion_key": "Ingestion Key",
+    "enter_ingestion_key": "Enter ingestion key",
+    "signoz_api_url": "SigNoz API URL",
+    "enter_signoz_api_url": "Enter SigNoz API URL",
+    "signoz_api_key": "SigNoz API KEY",
+    "enter_signoz_api_key": "Enter SigNoz API Key"
+  },
+  "ingestion_url_error_details": "Ingestion URL error details",
+  "reset_password_title": "Reset Your Password",
+  "reset_password_subtitle": "Monitor your applications. Find what is causing issues.",
+  "reset_password_new_password": "New Password",
+  "reset_password_password_required": "Please enter password!",
+  "reset_password_enter_new_password": "Enter new password",
+  "reset_password_confirm_new_password": "Confirm New Password",
+  "reset_password_confirm_password_required": "Please enter confirm password!",
+  "reset_password_confirm_your_new_password": "Confirm your new password",
+  "reset_password_passwords_dont_match": "Passwords don't match. Please try again.",
+  "reset_password_reset_password": "Reset Password",
+  "stage_and_run_query": "Stage & Run Query",
+  "api_monitoring": {
+    "search_for_filters": "Search for filters...",
+    "group_by_label": "Group by",
+    "search_for_attribute": "Search for attribute",
+    "endpoint": "Endpoint",
+    "all_endpoints": "All Endpoints",
+    "port": "Port",
+    "select_endpoint": "Select endpoint",
+    "filter_query_placeholder": "Enter your filter query (e.g., deployment.environment = 'otel-demo' AND service.name = 'frontend')",
+    "click_run_query": "Click \"Run Query\" to load API monitoring data.",
+    "no_external_api_calls": "No External API calls detected with applied filters.",
+    "ensure_http_spans_1": "Ensure all HTTP client spans are being sent with kind as",
+    "ensure_http_spans_2": "and url set in",
+    "ensure_http_spans_3": "attribute",
+    "learn_external_api": "Learn how External API monitoring works in SigNoz",
+    "thinking_emoji_alt": "thinking-emoji"
   }
 }

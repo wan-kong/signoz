@@ -103,10 +103,27 @@ const REDUCE_TO = {
 		'https://signoz.io/docs/userguide/query-builder-v5/#result-manipulation',
 };
 
+const ADD_ON_LABEL_KEY_MAP: Record<string, string> = {
+	[ADD_ONS_KEYS.GROUP_BY]: 'query_add_ons.group_by',
+	[ADD_ONS_KEYS.HAVING]: 'query_add_ons.having',
+	[ADD_ONS_KEYS.ORDER_BY]: 'query_add_ons.order_by',
+	[ADD_ONS_KEYS.LIMIT]: 'query_add_ons.limit',
+	[ADD_ONS_KEYS.LEGEND_FORMAT]: 'query_add_ons.legend_format',
+	[ADD_ONS_KEYS.REDUCE_TO]: 'query_add_ons.reduce_to',
+};
+
+const ADD_ON_DESC_KEY_MAP: Record<string, string> = {
+	[ADD_ONS_KEYS.GROUP_BY]: 'query_add_ons.group_by_desc',
+	[ADD_ONS_KEYS.HAVING]: 'query_add_ons.having_desc',
+	[ADD_ONS_KEYS.ORDER_BY]: 'query_add_ons.order_by_desc',
+	[ADD_ONS_KEYS.LIMIT]: 'query_add_ons.limit_desc',
+	[ADD_ONS_KEYS.LEGEND_FORMAT]: 'query_add_ons.legend_format_desc',
+	[ADD_ONS_KEYS.REDUCE_TO]: 'query_add_ons.reduce_to_desc',
+};
+
 const hasValue = (value: unknown): boolean =>
 	value != null && value !== '' && !(Array.isArray(value) && value.length === 0);
 
-// Custom tooltip content component
 function TooltipContent({
 	label,
 	description,
@@ -116,6 +133,7 @@ function TooltipContent({
 	description?: string;
 	docLink?: string;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div
 			style={{
@@ -144,7 +162,7 @@ function TooltipContent({
 						marginTop: '4px',
 					}}
 				>
-					Learn more
+					{t('learn_more')}
 					<ExternalLink size={12} />
 				</a>
 			)}
@@ -186,6 +204,19 @@ function QueryAddOns({
 
 	const { handleSetQueryData } = useQueryBuilder();
 
+	const getTranslatedLabel = useCallback(
+		(key: string): string => t(ADD_ON_LABEL_KEY_MAP[key] || key),
+		[t],
+	);
+
+	const getTranslatedDescription = useCallback(
+		(key: string): string | undefined => {
+			const descKey = ADD_ON_DESC_KEY_MAP[key];
+			return descKey ? t(descKey) : undefined;
+		},
+		[t],
+	);
+
 	useEffect(() => {
 		if (isListViewPanel) {
 			setAddOns([]);
@@ -199,7 +230,6 @@ function QueryAddOns({
 
 		let filteredAddOns: AddOn[];
 		if (panelType === PANEL_TYPES.VALUE) {
-			// Filter out all add-ons except legend format
 			filteredAddOns = ADD_ONS.filter(
 				(addOn) => addOn.key === ADD_ONS_KEYS.LEGEND_FORMAT,
 			);
@@ -207,7 +237,6 @@ function QueryAddOns({
 			filteredAddOns = Object.values(ADD_ONS);
 
 			if (query.dataSource === DataSource.METRICS) {
-				// Filter out group_by for metrics data source (handled in MetricsAggregateSection)
 				filteredAddOns = filteredAddOns.filter(
 					(addOn) => addOn.key !== ADD_ONS_KEYS.GROUP_BY,
 				);
@@ -236,7 +265,6 @@ function QueryAddOns({
 					.map(([key]) => key),
 			);
 
-			// Initial seeding from query values on mount
 			setSelectedViews(
 				filteredAddOns.filter(
 					(addOn) =>
@@ -263,9 +291,6 @@ function QueryAddOns({
 				prev.filter((view) => view.key !== clickedAddOn.key),
 			);
 		} else {
-			// When enabling Legend format for the first time with an empty legend
-			// and existing group-by keys, prefill the legend using all group-by keys.
-			// This keeps existing custom legends intact and only helps seed a sensible default.
 			if (
 				clickedAddOn.key === ADD_ONS_KEYS.LEGEND_FORMAT &&
 				isEmpty(query?.legend) &&
@@ -349,8 +374,8 @@ function QueryAddOns({
 								<Tooltip
 									title={
 										<TooltipContent
-											label="Group By"
-											description="Break down data by attributes like service name, endpoint, status code, or region. Essential for spotting patterns and comparing performance across different segments."
+											label={getTranslatedLabel(ADD_ONS_KEYS.GROUP_BY)}
+											description={getTranslatedDescription(ADD_ONS_KEYS.GROUP_BY)}
 											docLink="https://signoz.io/docs/querying/aggregation-grouping/#grouping"
 										/>
 									}
@@ -358,7 +383,7 @@ function QueryAddOns({
 									mouseEnterDelay={0.5}
 								>
 									<div className="label" style={{ cursor: 'help' }}>
-										Group By
+										{getTranslatedLabel(ADD_ONS_KEYS.GROUP_BY)}
 									</div>
 								</Tooltip>
 								<div className="input">
@@ -385,8 +410,8 @@ function QueryAddOns({
 								<Tooltip
 									title={
 										<TooltipContent
-											label="Having"
-											description="Filter grouped results based on aggregate conditions. Show only groups meeting specific criteria, like error rates > 5% or p99 latency > 500"
+											label={getTranslatedLabel(ADD_ONS_KEYS.HAVING)}
+											description={getTranslatedDescription(ADD_ONS_KEYS.HAVING)}
 											docLink="https://signoz.io/docs/querying/result-manipulation/#conditional-filtering-with-having"
 										/>
 									}
@@ -394,7 +419,7 @@ function QueryAddOns({
 									mouseEnterDelay={0.5}
 								>
 									<div className="label" style={{ cursor: 'help' }}>
-										Having
+										{getTranslatedLabel(ADD_ONS_KEYS.HAVING)}
 									</div>
 								</Tooltip>
 								<div className="input">
@@ -434,8 +459,8 @@ function QueryAddOns({
 								<Tooltip
 									title={
 										<TooltipContent
-											label="Order By"
-											description="Sort results to surface what matters most. Quickly identify slowest operations, most frequent errors, or highest resource consumers."
+											label={getTranslatedLabel(ADD_ONS_KEYS.ORDER_BY)}
+											description={getTranslatedDescription(ADD_ONS_KEYS.ORDER_BY)}
 											docLink="https://signoz.io/docs/querying/result-manipulation/#sorting--limiting"
 										/>
 									}
@@ -443,7 +468,7 @@ function QueryAddOns({
 									mouseEnterDelay={0.5}
 								>
 									<div className="label" style={{ cursor: 'help' }}>
-										Order By
+										{getTranslatedLabel(ADD_ONS_KEYS.ORDER_BY)}
 									</div>
 								</Tooltip>
 								<div className="input">
@@ -473,8 +498,8 @@ function QueryAddOns({
 									<Tooltip
 										title={
 											<TooltipContent
-												label="Reduce to"
-												description="Apply mathematical operations like sum, average, min, max, or percentiles to reduce multiple time series into a single value."
+												label={getTranslatedLabel(ADD_ONS_KEYS.REDUCE_TO)}
+												description={getTranslatedDescription(ADD_ONS_KEYS.REDUCE_TO)}
 												docLink="https://signoz.io/docs/userguide/query-builder-v5/#result-manipulation"
 											/>
 										}
@@ -482,7 +507,7 @@ function QueryAddOns({
 										mouseEnterDelay={0.5}
 									>
 										<div className="label" style={{ cursor: 'help' }}>
-											Reduce to
+											{getTranslatedLabel(ADD_ONS_KEYS.REDUCE_TO)}
 										</div>
 									</Tooltip>
 									<div className="input">
@@ -540,8 +565,8 @@ function QueryAddOns({
 						<Tooltip
 							title={
 								<TooltipContent
-									label={addOn.label}
-									description={addOn.description}
+									label={getTranslatedLabel(addOn.key)}
+									description={getTranslatedDescription(addOn.key)}
 									docLink={addOn.docLink}
 								/>
 							}
@@ -553,7 +578,7 @@ function QueryAddOns({
 								data-testid={`query-add-on-${addOn.key}`}
 							>
 								{addOn.icon}
-								{addOn.label}
+								{getTranslatedLabel(addOn.key)}
 							</span>
 						</Tooltip>
 					),

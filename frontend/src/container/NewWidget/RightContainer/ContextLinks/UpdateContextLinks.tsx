@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 // supports the `spellCheck` prop on the URL input below.
 import { Button, Col, Form, Input, Input as AntInput, Row } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import { CONTEXT_LINK_FIELDS } from 'container/NewWidget/RightContainer/ContextLinks/constants';
 import {
 	getInitialValues,
@@ -35,6 +36,7 @@ function UpdateContextLinks({
 	selectedWidget,
 }: UpdateContextLinksProps): JSX.Element {
 	const [form] = Form.useForm();
+	const { t } = useTranslation('common');
 	// const label = Form.useWatch(CONTEXT_LINK_FIELDS.LABEL, form);
 	const url = Form.useWatch(CONTEXT_LINK_FIELDS.URL, form);
 
@@ -209,7 +211,7 @@ function UpdateContextLinks({
 						name={CONTEXT_LINK_FIELDS.LABEL}
 						rules={[{ required: false, message: 'Please input the label' }]}
 					>
-						<Input placeholder="View Traces details: {{_traceId}}" />
+						<Input placeholder={t('context_links.view_traces_placeholder')} />
 					</Form.Item>
 					{/* //url */}
 					<Typography.Text className="form-label">
@@ -267,8 +269,8 @@ function UpdateContextLinks({
 					{params.length > 0 && (
 						<div className="url-parameters-section">
 							<Row gutter={[8, 8]} className="parameter-header">
-								<Col span={6}>Key</Col>
-								<Col span={16}>Value</Col>
+								<Col span={6}>{t('context_links.key')}</Col>
+								<Col span={16}>{t('context_links.value')}</Col>
 								<Col span={2}>{/* Empty column for spacing */}</Col>
 							</Row>
 
@@ -278,7 +280,7 @@ function UpdateContextLinks({
 									<Col span={6}>
 										<Input
 											id={`param-key-${index}`}
-											placeholder="Key"
+											placeholder={t('context_links.key')}
 											value={param.key}
 											onChange={(e): void =>
 												handleParamChange(index, 'key', e.target.value)
@@ -295,7 +297,7 @@ function UpdateContextLinks({
 											{({ setIsOpen, setCursorPosition }): JSX.Element => (
 												<TextArea
 													rows={1}
-													placeholder="Value"
+													placeholder={t('context_links.value')}
 													value={param.value}
 													onChange={(event): void => {
 														setCursorPosition(event.target.selectionStart || 0);

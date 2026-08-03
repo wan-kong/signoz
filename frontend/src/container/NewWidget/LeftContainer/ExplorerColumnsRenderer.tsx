@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	DragDropContext,
 	Draggable,
@@ -50,6 +51,7 @@ function ExplorerColumnsRenderer({
 	setSelectedTracesFields,
 }: LogColumnsRendererProps): JSX.Element {
 	const { currentQuery } = useQueryBuilder();
+	const { t } = useTranslation('common');
 	const [searchText, setSearchText] = useState<string>('');
 	const [querySearchText, setQuerySearchText] = useState<string>('');
 	const [open, setOpen] = useState<boolean>(false);
@@ -321,7 +323,7 @@ function ExplorerColumnsRenderer({
 							<DropdownMenuContent side="top" className="explorer-columns-dropdown">
 								<Input
 									type="text"
-									placeholder="Search"
+									placeholder={t('search.button')}
 									className="explorer-columns-search"
 									value={searchText}
 									onChange={handleSearchChange}

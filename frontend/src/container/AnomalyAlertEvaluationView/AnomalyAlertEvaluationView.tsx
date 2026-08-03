@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from 'antd';
 import { Checkbox } from '@signozhq/ui/checkbox';
 import { Typography } from '@signozhq/ui/typography';
@@ -63,6 +64,7 @@ function AnomalyAlertEvaluationView({
 	const _spline = spline ? spline() : undefined;
 	const chartRef = useRef<HTMLDivElement>(null);
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('common');
 	const [seriesData, setSeriesData] = useState<any>({});
 	const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
 
@@ -312,7 +314,7 @@ function AnomalyAlertEvaluationView({
 						<div className="anomaly-alert-evaluation-view-series-list">
 							<Search
 								className="anomaly-alert-evaluation-view-series-list-search"
-								placeholder="Search a series"
+								placeholder={t('anomaly_alert.search_series')}
 								allowClear
 								onChange={handleSearchValueChange}
 							/>

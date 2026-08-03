@@ -13,7 +13,7 @@
 		"addColumn": "添加列"
 	},
 	"query_cancelled": {
-		"load_traces": "点击“运行查询”加载 Trace。"
+		"load_traces": "点击「运行查询」加载 Trace。"
 	},
 	"tabs": {
 		"explorer": "浏览器",
@@ -31,8 +31,8 @@
 		"colour_by": "按字段着色",
 		"colour_by_label": "按字段着色",
 		"copy_span_link": "复制 Span 链接",
-			"copy_trace_id": "点击复制 Trace ID",
-			"download_trace": "下载 Trace",
+		"copy_trace_id": "点击复制 Trace ID",
+		"download_trace": "下载 Trace",
 		"events": {
 			"no_data_for_span": "选中的 Span 没有找到 {{name}}",
 			"search_placeholder": "搜索事件...",
@@ -77,10 +77,84 @@
 		"trace_id_copied": "Trace ID 已复制到剪贴板"
 	},
 	"view_modes": {
-			"clickhouse": "ClickHouse",
+		"clickhouse": "ClickHouse",
 		"list": "列表",
 		"table": "表格",
 		"timeseries": "时间序列",
 		"trace": "Trace"
-	}
+	},
+	"filter_by_trace_id": "按 Trace ID 过滤",
+	"filter_values": "过滤值",
+	"more": "更多",
+	"click_to_filter": "点击按标签过滤",
+	"function": "函数",
+	"group_by": "分组",
+	"please_select": "请选择",
+	"no_tags_available": "暂无可用标签",
+	"operator_labels": {
+		"Equals": "等于",
+		"NotEquals": "不等于",
+		"In": "包含于",
+		"NotIn": "不包含于",
+		"Exists": "存在",
+		"NotExists": "不存在",
+		"GreaterThan": "大于",
+		"LessThan": "小于",
+		"GreaterThanEquals": "大于等于",
+		"LessThanEquals": "小于等于",
+		"StartsWith": "开头是",
+		"NotStartsWith": "开头不是",
+		"Contains": "包含",
+		"NotContains": "不包含"
+	},
+	"span_percentile": {
+		"title": "Span 百分位",
+		"search_resource_attributes": "搜索资源属性",
+		"distribution_text": "此 span 的持续时间在自 span 开始时间起 {{selectedTimeRange}} 小时内评估的该资源分布中处于 {{percentile}} 的位置。",
+		"select_timerange": "选择时间范围",
+		"percentile": "百分位",
+		"duration": "持续时间",
+		"this_span": "（此 span）"
+	},
+	"funnels": {
+		"search_placeholder": "按名称、描述或标签搜索...",
+		"all_funnels": "所有漏斗",
+		"add_span_to_funnel": "将 Span 添加到漏斗",
+		"save_funnel": "保存漏斗",
+		"create_new_funnel": "创建新漏斗",
+		"create_funnel": "创建漏斗",
+		"add_step_details": "添加漏斗步骤详情",
+		"step_name": "步骤名称",
+		"step_name_placeholder": "例如：checkout-dropoff-funnel-step1",
+		"description": "描述",
+		"description_placeholder": "例如：结账流失漏斗",
+		"step_details_updated": "漏斗步骤详情更新成功",
+		"step_details_update_failed": "漏斗步骤详情更新失败",
+		"step_n": "第 {{n}} 步",
+		"no_permission_step_details": "你需要编辑者或管理员权限才能添加步骤详情",
+		"add_details_to_step": "添加步骤详情",
+		"select_service": "选择服务",
+		"select_span_name": "选择 Span 名称",
+		"where": "筛选条件",
+		"search_filters_placeholder": "搜索过滤条件...",
+		"errors": "错误",
+		"latency_pointer": "延迟指标",
+		"enter_funnel_name": "输入漏斗名称",
+		"funnel_name_placeholder": "例如：结账流失漏斗",
+		"create_success": "漏斗创建成功",
+		"invalid_name": "无效的漏斗名称",
+		"create_failed": "创建漏斗失败",
+		"sort_by": "排序方式",
+		"last_created": "最近创建",
+		"last_updated": "最近更新",
+		"sort": "排序",
+		"no_permission_create": "你需要编辑者或管理员权限才能创建漏斗",
+		"new_funnel": "新建漏斗",
+		"slowest_5_traces": "最慢的 5 条 Trace",
+		"slowest_traces_tooltip": "漏斗中最慢的 Trace 列表",
+		"traces_with_errors": "包含错误的 Trace",
+		"errors_tooltip": "漏斗中包含错误的 Trace 列表"
+	},
+	"no_data_found": "未找到数据",
+	"show_more": "显示更多"
 }

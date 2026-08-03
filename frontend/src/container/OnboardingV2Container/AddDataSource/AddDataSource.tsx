@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, Check, Goal, Search, UserPlus, X } from '@signozhq/icons';
 import {
 	Button,
@@ -153,6 +154,7 @@ const allGroupedDataSources = groupDataSourcesByTags(
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function OnboardingAddDataSource(): JSX.Element {
+	const { t } = useTranslation(['onboarding', 'common']);
 	const { safeNavigate } = useSafeNavigate();
 	const urlQuery = useUrlQuery();
 	const [groupedDataSources, setGroupedDataSources] = useState<{
@@ -778,7 +780,7 @@ function OnboardingAddDataSource(): JSX.Element {
 											<div className="data-sources-container">
 												<div className="onboarding-data-source-search">
 													<Input
-														placeholder="Search"
+														placeholder={t('common:search.button')}
 														maxLength={20}
 														onChange={handleSearch}
 														addonAfter={<Search size="md" />}
@@ -1238,7 +1240,7 @@ function OnboardingAddDataSource(): JSX.Element {
 					<div className="request-data-source-modal-content">
 						<Typography.Text>Enter your request</Typography.Text>
 						<Input
-							placeholder="Eg: Kotlin"
+							placeholder={t('data_source_placeholder')}
 							className="request-data-source-modal-input"
 							onChange={(e): void => setDataSourceRequest(e.target.value)}
 						/>

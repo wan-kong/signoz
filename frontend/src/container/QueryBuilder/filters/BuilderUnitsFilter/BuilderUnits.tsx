@@ -2,6 +2,7 @@ import { Select, SelectProps, Space } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { getCategorySelectOptionByName } from 'container/NewWidget/RightContainer/alertFomatCategories';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
+import { useTranslation } from 'react-i18next';
 import { useSelectPopupContainer } from 'utils/selectPopupContainer';
 
 import { categoryToSupport } from './config';
@@ -13,6 +14,7 @@ function BuilderUnitsFilter({
 	onChange,
 	yAxisUnit,
 }: IBuilderUnitsFilterProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const getPopupContainer = useSelectPopupContainer();
 	const { currentQuery, handleOnUnitsChange } = useQueryBuilder();
 
@@ -45,7 +47,7 @@ function BuilderUnitsFilter({
 				allowClear
 				showSearch
 				optionFilterProp="label"
-				placeholder="Select unit"
+				placeholder={t('query_builder.select_unit')}
 				filterOption={filterOption}
 			/>
 		</Space>

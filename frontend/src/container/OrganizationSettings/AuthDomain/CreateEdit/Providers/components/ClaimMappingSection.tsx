@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color, Style } from '@signozhq/design-tokens';
 import {
 	ChevronDown,
@@ -23,6 +24,8 @@ function ClaimMappingSection({
 	isExpanded,
 	onExpandChange,
 }: ClaimMappingSectionProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
+
 	// Support both controlled and uncontrolled modes
 	const [internalExpanded, setInternalExpanded] = useState(false);
 	const isControlled = isExpanded !== undefined;
@@ -64,11 +67,10 @@ function ClaimMappingSection({
 							{!expanded ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
 							<div className="claim-mapping-section__collapse-header-text">
 								<h4 className="claim-mapping-section__section-title">
-									Claim Mapping (Advanced)
+									{t('auth_domain.claim_mapping')}
 								</h4>
 								<p className="claim-mapping-section__section-description">
-									Configure how claims from your Identity Provider map to SigNoz user
-									attributes. Leave empty to use default values.
+									{t('auth_domain.claim_mapping_desc')}
 								</p>
 							</div>
 							{!expanded && hasErrors && (
@@ -91,8 +93,8 @@ function ClaimMappingSection({
 						{/* Email Claim */}
 						<div className="claim-mapping-section__field-group">
 							<label className="claim-mapping-section__label" htmlFor="email-claim">
-								Email Claim
-								<Tooltip title="The claim key that contains the user's email address. Default: 'email'">
+								{t('auth_domain.email_claim')}
+								<Tooltip title={t('auth_domain.email_claim_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -100,15 +102,18 @@ function ClaimMappingSection({
 								name={[...fieldNamePrefix, 'email']}
 								className="claim-mapping-section__form-item"
 							>
-								<Input id="email-claim" placeholder="Email" />
+								<Input
+									id="email-claim"
+									placeholder={t('auth_domain.placeholder_email')}
+								/>
 							</Form.Item>
 						</div>
 
 						{/* Name Claim */}
 						<div className="claim-mapping-section__field-group">
 							<label className="claim-mapping-section__label" htmlFor="name-claim">
-								Name Claim
-								<Tooltip title="The claim key that contains the user's display name. Default: 'name'">
+								{t('auth_domain.name_claim')}
+								<Tooltip title={t('auth_domain.name_claim_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -116,15 +121,18 @@ function ClaimMappingSection({
 								name={[...fieldNamePrefix, 'name']}
 								className="claim-mapping-section__form-item"
 							>
-								<Input id="name-claim" placeholder="Name" />
+								<Input
+									id="name-claim"
+									placeholder={t('auth_domain.placeholder_name')}
+								/>
 							</Form.Item>
 						</div>
 
 						{/* Groups Claim */}
 						<div className="claim-mapping-section__field-group">
 							<label className="claim-mapping-section__label" htmlFor="groups-claim">
-								Groups Claim
-								<Tooltip title="The claim key that contains the user's group memberships. Used for role mapping. Default: 'groups'">
+								{t('auth_domain.groups_claim')}
+								<Tooltip title={t('auth_domain.groups_claim_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -132,15 +140,18 @@ function ClaimMappingSection({
 								name={[...fieldNamePrefix, 'groups']}
 								className="claim-mapping-section__form-item"
 							>
-								<Input id="groups-claim" placeholder="Groups" />
+								<Input
+									id="groups-claim"
+									placeholder={t('auth_domain.placeholder_groups')}
+								/>
 							</Form.Item>
 						</div>
 
 						{/* Role Claim */}
 						<div className="claim-mapping-section__field-group">
 							<label className="claim-mapping-section__label" htmlFor="role-claim">
-								Role Claim
-								<Tooltip title="The claim key that contains the user's role directly from the IDP. Default: 'role'">
+								{t('auth_domain.role_claim')}
+								<Tooltip title={t('auth_domain.role_claim_tooltip')}>
 									<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 								</Tooltip>
 							</label>
@@ -148,7 +159,10 @@ function ClaimMappingSection({
 								name={[...fieldNamePrefix, 'role']}
 								className="claim-mapping-section__form-item"
 							>
-								<Input id="role-claim" placeholder="Role" />
+								<Input
+									id="role-claim"
+									placeholder={t('auth_domain.placeholder_role')}
+								/>
 							</Form.Item>
 						</div>
 					</div>

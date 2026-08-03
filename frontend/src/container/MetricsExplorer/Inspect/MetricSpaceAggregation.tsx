@@ -1,6 +1,7 @@
 import { Typography } from '@signozhq/ui/typography';
 import { Select } from 'antd';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { SPACE_AGGREGATION_OPTIONS } from './constants';
 import { InspectionStep } from './types';
@@ -12,6 +13,7 @@ function MetricSpaceAggregation({
 	dispatchMetricInspectionOptions,
 	inspectionStep,
 }: MetricSpaceAggregationProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div
 			data-testid="metric-space-aggregation"
@@ -28,7 +30,7 @@ function MetricSpaceAggregation({
 				<div className="metric-space-aggregation-content-left">
 					<Select
 						value={currentMetricInspectionOptions.spaceAggregationOption}
-						placeholder="Select option"
+						placeholder={t('select_option')}
 						onChange={(value): void => {
 							dispatchMetricInspectionOptions({
 								type: 'SET_SPACE_AGGREGATION_OPTION',
@@ -49,7 +51,7 @@ function MetricSpaceAggregation({
 				<Select
 					mode="multiple"
 					style={{ width: '100%' }}
-					placeholder="Search for attributes..."
+					placeholder={t('search_for_attributes')}
 					value={currentMetricInspectionOptions.spaceAggregationLabels}
 					onChange={(value): void => {
 						dispatchMetricInspectionOptions({

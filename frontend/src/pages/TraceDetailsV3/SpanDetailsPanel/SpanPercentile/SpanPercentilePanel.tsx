@@ -8,6 +8,7 @@ import { getYAxisFormattedValue } from 'components/Graph/yAxisConfig';
 import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
 import dayjs from 'dayjs';
 import { Check, ChevronDown, Loader, Plus } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { SpanV3 } from 'types/api/trace/getTraceV3';
 
 import { UseSpanPercentileReturn } from './useSpanPercentile';
@@ -33,6 +34,7 @@ function SpanPercentilePanel({
 	selectedSpan,
 	percentile,
 }: SpanPercentilePanelProps): JSX.Element | null {
+	const { t } = useTranslation('trace');
 	const {
 		isOpen,
 		toggleOpen,
@@ -65,7 +67,7 @@ function SpanPercentilePanel({
 					onClick={toggleOpen}
 					prefix={<ChevronDown size={16} />}
 				>
-					Span Percentile
+					{t('span_percentile.title')}
 				</Button>
 
 				<Button
@@ -88,7 +90,7 @@ function SpanPercentilePanel({
 				>
 					<div className={styles.resourceSelectorHeader}>
 						<Input
-							placeholder="Search resource attributes"
+							placeholder={t('span_percentile.search_resource_attributes')}
 							className={styles.resourceSelectorInput}
 							value={resourceAttributesSearchQuery}
 							onChange={(e): void =>
@@ -129,24 +131,22 @@ function SpanPercentilePanel({
 
 			<div className={styles.content}>
 				<Typography.Text className={styles.contentTitle}>
-					This span duration is{' '}
 					{!loading && spanPercentileData ? (
-						<span className={styles.contentHighlight}>
-							p{Math.floor(spanPercentileData.percentile || 0)}
-						</span>
+						t('span_percentile.distribution_text', {
+							percentile: `p${Math.floor(spanPercentileData.percentile || 0)}`,
+							selectedTimeRange: selectedTimeRange,
+						})
 					) : (
 						<span className={styles.contentLoader}>
 							<Loader size={12} className="animate-spin" />
 						</span>
-					)}{' '}
-					out of the distribution for this resource evaluated for {selectedTimeRange}{' '}
-					hour(s) since the span start time.
+					)}
 				</Typography.Text>
 
 				<div className={styles.timerange}>
 					<Select
 						labelInValue
-						placeholder="Select timerange"
+						placeholder={t('span_percentile.select_timerange')}
 						className={styles.timerangeSelect}
 						getPopupContainer={(trigger): HTMLElement =>
 							trigger.parentElement || document.body
@@ -169,10 +169,10 @@ function SpanPercentilePanel({
 				<div>
 					<div className={styles.tableHeader}>
 						<Typography.Text className={styles.tableHeaderText}>
-							Percentile
+							{t('span_percentile.percentile')}
 						</Typography.Text>
 						<Typography.Text className={styles.tableHeaderText}>
-							Duration
+							{t('span_percentile.duration')}
 						</Typography.Text>
 					</div>
 
@@ -205,7 +205,7 @@ function SpanPercentilePanel({
 									</Typography.Text>
 									<div className={styles.tableRowDash} />
 									<Typography.Text className={styles.tableRowValue}>
-										(this span){' '}
+										{t('span_percentile.this_span')}{' '}
 										{getYAxisFormattedValue(
 											`${selectedSpan.duration_nano / 1000000}`,
 											'ms',

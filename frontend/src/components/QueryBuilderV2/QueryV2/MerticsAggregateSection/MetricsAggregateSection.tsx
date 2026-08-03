@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import { Tooltip } from 'antd';
 import cx from 'classnames';
@@ -26,6 +27,7 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 	panelType: PANEL_TYPES | null;
 	signalSource: string;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const { setAggregationOptions } = useQueryBuilderV2Context();
 	const {
 		operators,
@@ -39,7 +41,6 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 		entityVersion: version,
 	});
 
-	// this function is only relevant for metrics and now operators are part of aggregations
 	const queryAggregation = useMemo(
 		() => query.aggregations?.[0] as MetricAggregation,
 		[query.aggregations],
@@ -105,12 +106,12 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 											rel="noopener noreferrer"
 											style={{ color: '#1890ff', textDecoration: 'underline' }}
 										>
-											Learn more about temporal aggregation
+											{t('metrics_aggregate.learn_more_temporal')}
 										</a>
 									}
 								>
 									<div className="metrics-aggregation-section-content-item-label main-label">
-										AGGREGATE WITHIN TIME SERIES{' '}
+										{t('metrics_aggregate.within_time_series')}{' '}
 									</div>
 								</Tooltip>
 								<div className="metrics-aggregation-section-content-item-value">
@@ -128,7 +129,7 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 									<Tooltip
 										title={
 											<div>
-												Set the time interval for aggregation
+												{t('metrics_aggregate.set_time_interval')}
 												<br />
 												<a
 													href="https://signoz.io/docs/userguide/query-builder-v5/#temporal-aggregation-within-each-time-series"
@@ -136,7 +137,7 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 													rel="noopener noreferrer"
 													style={{ color: '#1890ff', textDecoration: 'underline' }}
 												>
-													Learn about step intervals
+													{t('metrics_aggregate.learn_about_step_intervals')}
 												</a>
 											</div>
 										}
@@ -146,15 +147,15 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 											className="metrics-aggregation-section-content-item-label"
 											style={{ cursor: 'help' }}
 										>
-											every
+											{t('every')}
 										</div>
 									</Tooltip>
 
 									<div className="metrics-aggregation-section-content-item-value">
 										<InputWithLabel
 											onChange={handleChangeAggregateEvery}
-											label="Seconds"
-											placeholder="Auto"
+											label={t('seconds')}
+											placeholder={t('auto')}
 											labelAfter
 											initialValue={query?.stepInterval ?? null}
 										/>
@@ -174,12 +175,12 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 											rel="noopener noreferrer"
 											style={{ color: '#1890ff', textDecoration: 'underline' }}
 										>
-											Learn more about spatial aggregation
+											{t('metrics_aggregate.learn_more_spatial')}
 										</a>
 									}
 								>
 									<div className="metrics-aggregation-section-content-item-label main-label">
-										AGGREGATE ACROSS TIME SERIES
+										{t('metrics_aggregate.across_time_series')}
 									</div>
 								</Tooltip>
 								<div className="metrics-aggregation-section-content-item-value">
@@ -199,7 +200,9 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 							</div>
 
 							<div className="metrics-aggregation-section-content-item">
-								<div className="metrics-aggregation-section-content-item-label">by</div>
+								<div className="metrics-aggregation-section-content-item-label">
+									{t('by')}
+								</div>
 
 								<div className="metrics-aggregation-section-content-item-value group-by-filter-container">
 									<GroupByFilter
@@ -236,7 +239,9 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 						</div>
 
 						<div className="metrics-aggregation-section-content-item">
-							<div className="metrics-aggregation-section-content-item-label">by</div>
+							<div className="metrics-aggregation-section-content-item-label">
+								{t('by')}
+							</div>
 
 							<div className="metrics-aggregation-section-content-item-value group-by-filter-container">
 								<GroupByFilter
@@ -251,7 +256,7 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 							<Tooltip
 								title={
 									<div>
-										Set the time interval for aggregation
+										{t('metrics_aggregate.set_time_interval')}
 										<br />
 										<a
 											href="https://signoz.io/docs/userguide/query-builder-v5/#temporal-aggregation-within-each-time-series"
@@ -259,7 +264,7 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 											rel="noopener noreferrer"
 											style={{ color: '#1890ff', textDecoration: 'underline' }}
 										>
-											Learn about step intervals
+											{t('metrics_aggregate.learn_about_step_intervals')}
 										</a>
 									</div>
 								}
@@ -269,15 +274,15 @@ const MetricsAggregateSection = memo(function MetricsAggregateSection({
 									className="metrics-aggregation-section-content-item-label"
 									style={{ cursor: 'help' }}
 								>
-									every
+									{t('every')}
 								</div>
 							</Tooltip>
 
 							<div className="metrics-aggregation-section-content-item-value">
 								<InputWithLabel
 									onChange={handleChangeAggregateEvery}
-									label="Seconds"
-									placeholder="Auto"
+									label={t('seconds')}
+									placeholder={t('auto')}
 									labelAfter
 									initialValue={query?.stepInterval ?? null}
 									className="histogram-every-input"

@@ -27,5 +27,11 @@
 	"failed_to_login": "抱歉，登录失败",
 	"invalid_email": "请输入有效的邮箱地址",
 	"invalid_account": "此账号不存在。要创建新账号，请联系管理员获取邀请链接",
-	"invalid_config": "检测到无效配置，请联系管理员"
+	"invalid_config": "检测到无效配置，请联系管理员",
+  "forgot_password_title": "忘记密码？",
+  "forgot_password_desc": "发送重置链接到你的邮箱，快速恢复监控。",
+  "forgot_password_select_org_error": "请选择你的组织",
+  "forgot_password_back": "返回登录",
+  "forgot_password_sending": "发送中...",
+  "forgot_password_send": "发送重置链接"
 }

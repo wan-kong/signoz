@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
+import { useTranslation } from 'react-i18next';
 import type { TableColumnsType as ColumnsType } from 'antd';
 import { Button, Collapse, Input, Menu, Popover, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -36,6 +37,7 @@ function AllAttributes({
 	minTime,
 	maxTime,
 }: AllAttributesProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [searchString, setSearchString] = useState('');
 	const [activeKey, setActiveKey] = useState<string[]>([ALL_ATTRIBUTES_KEY]);
 	const [keyPopoverOpen, setKeyPopoverOpen] = useState<string | null>(null);
@@ -275,7 +277,7 @@ function AllAttributes({
 						</div>
 						<Input
 							className="all-attributes-search-input"
-							placeholder="Search"
+							placeholder={t('search.button')}
 							value={searchString}
 							size="small"
 							suffix={<Search size={12} />}

@@ -1,5 +1,6 @@
 import { Typography } from '@signozhq/ui/typography';
 import { Select } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { popupContainer } from 'utils/selectPopupContainer';
 
 import { RuleMode } from '../../../types';
@@ -20,6 +21,7 @@ function LabelSelector({
 	onChange,
 	loading,
 }: LabelSelectorProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const helpText =
 		mode === 'include'
 			? 'Only the selected attributes will remain queryable.'
@@ -39,7 +41,7 @@ function LabelSelector({
 			<Select
 				mode="multiple"
 				className={styles.attributeSelect}
-				placeholder="Select attributes"
+				placeholder={t('metrics_explorer.select_attributes')}
 				value={value}
 				onChange={onChange}
 				loading={loading}

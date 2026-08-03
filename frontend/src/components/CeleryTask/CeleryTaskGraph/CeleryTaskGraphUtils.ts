@@ -5,6 +5,7 @@ import { Widgets } from 'types/api/dashboard/getAll';
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { DataSource, ReduceOperators } from 'types/common/queryBuilder';
 import { v4 as uuidv4 } from 'uuid';
+import i18n from 'ReactI18';
 
 // dynamic step interval
 export const getStepInterval = (startTime: number, endTime: number): number => {
@@ -74,9 +75,8 @@ export const celeryAllStateWidgetData = (
 					timeAggregation: 'rate',
 				},
 			],
-			title: 'All',
-			description:
-				'Represents all states of task, including success, failed, and retry.',
+			title: i18n.t('messagingQueues:celery.widget_all_title'),
+			description: i18n.t('messagingQueues:celery.widget_all_desc'),
 			panelTypes: PANEL_TYPES.BAR,
 		}),
 	);
@@ -87,8 +87,8 @@ export const celeryRetryStateWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Retry',
-			description: 'Represents the number of retry tasks.',
+			title: i18n.t('messagingQueues:celery.widget_retry_title'),
+			description: i18n.t('messagingQueues:celery.widget_retry_desc'),
 			panelTypes: PANEL_TYPES.BAR,
 			queryData: [
 				{
@@ -147,8 +147,8 @@ export const celeryFailedStateWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Failed',
-			description: 'Represents the number of failed tasks.',
+			title: i18n.t('messagingQueues:celery.widget_failed_title'),
+			description: i18n.t('messagingQueues:celery.widget_failed_desc'),
 			panelTypes: PANEL_TYPES.BAR,
 			queryData: [
 				{
@@ -207,8 +207,8 @@ export const celerySuccessStateWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Success',
-			description: 'Represents the number of successful tasks.',
+			title: i18n.t('messagingQueues:celery.widget_success_title'),
+			description: i18n.t('messagingQueues:celery.widget_success_desc'),
 			panelTypes: PANEL_TYPES.BAR,
 			queryData: [
 				{
@@ -267,8 +267,8 @@ export const celeryTasksByWorkerWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Tasks/s by worker',
-			description: 'Represents the number of tasks executed by each worker.',
+			title: i18n.t('messagingQueues:celery.widget_tasks_by_worker_title'),
+			description: i18n.t('messagingQueues:celery.widget_tasks_by_worker_desc'),
 			queryData: [
 				{
 					aggregateAttribute: {
@@ -315,8 +315,8 @@ export const celeryErrorByWorkerWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Error% by worker',
-			description: 'Represents the number of errors by each worker.',
+			title: i18n.t('messagingQueues:celery.widget_error_by_worker_title'),
+			description: i18n.t('messagingQueues:celery.widget_error_by_worker_desc'),
 			queryData: [
 				{
 					dataSource: DataSource.TRACES,
@@ -415,8 +415,8 @@ export const celeryLatencyByWorkerWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Latency by worker',
-			description: 'Represents the latency of tasks by each worker.',
+			title: i18n.t('messagingQueues:celery.widget_latency_by_worker_title'),
+			description: i18n.t('messagingQueues:celery.widget_latency_by_worker_desc'),
 			queryData: [
 				{
 					aggregateAttribute: {
@@ -463,8 +463,8 @@ export const celeryActiveTasksWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Active Tasks by worker',
-			description: 'Represents the number of active tasks.',
+			title: i18n.t('messagingQueues:celery.widget_active_tasks_title'),
+			description: i18n.t('messagingQueues:celery.widget_active_tasks_desc'),
 			queryData: [
 				{
 					aggregateAttribute: {
@@ -512,8 +512,8 @@ export const celeryTaskLatencyWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Task Latency',
-			description: 'Represents the latency of task execution.',
+			title: i18n.t('messagingQueues:celery.widget_task_latency_title'),
+			description: i18n.t('messagingQueues:celery.widget_task_latency_desc'),
 			queryData: [
 				{
 					aggregateAttribute: {
@@ -562,8 +562,8 @@ export const celeryTaskLatencyWidgetData = (
 // Tables
 export const celerySlowestTasksTableWidgetData = getWidgetQueryBuilder(
 	getWidgetQuery({
-		title: 'Slowest Tasks',
-		description: 'Represents the slowest tasks.',
+		title: i18n.t('messagingQueues:celery.widget_slowest_tasks_title'),
+		description: i18n.t('messagingQueues:celery.widget_slowest_tasks_desc'),
 		panelTypes: PANEL_TYPES.TABLE,
 		queryData: [
 			{
@@ -612,8 +612,8 @@ export const celerySlowestTasksTableWidgetData = getWidgetQueryBuilder(
 
 export const celeryRetryTasksTableWidgetData = getWidgetQueryBuilder(
 	getWidgetQuery({
-		title: 'Top 10 tasks in retry state',
-		description: 'Represents the top 10 tasks in retry state.',
+		title: i18n.t('messagingQueues:celery.widget_retry_tasks_table_title'),
+		description: i18n.t('messagingQueues:celery.widget_retry_tasks_table_desc'),
 		panelTypes: PANEL_TYPES.TABLE,
 		queryData: [
 			{
@@ -674,8 +674,8 @@ export const celeryRetryTasksTableWidgetData = getWidgetQueryBuilder(
 
 export const celeryFailedTasksTableWidgetData = getWidgetQueryBuilder(
 	getWidgetQuery({
-		title: 'Top 10 tasks in FAILED state',
-		description: 'Represents the top 10 tasks in failed state.',
+		title: i18n.t('messagingQueues:celery.widget_failed_tasks_table_title'),
+		description: i18n.t('messagingQueues:celery.widget_failed_tasks_table_desc'),
 		panelTypes: PANEL_TYPES.TABLE,
 		columnUnits: { A: 'ns' },
 		queryData: [
@@ -736,8 +736,8 @@ export const celeryFailedTasksTableWidgetData = getWidgetQueryBuilder(
 
 export const celerySuccessTasksTableWidgetData = getWidgetQueryBuilder(
 	getWidgetQuery({
-		title: 'Top 10 tasks in SUCCESS state',
-		description: 'Represents the top 10 tasks in success state.',
+		title: i18n.t('messagingQueues:celery.widget_success_tasks_table_title'),
+		description: i18n.t('messagingQueues:celery.widget_success_tasks_table_desc'),
 		panelTypes: PANEL_TYPES.TABLE,
 		queryData: [
 			{
@@ -861,8 +861,8 @@ export const celeryTimeSeriesTablesWidgetData = (
 // State Count Widget
 export const celeryAllStateCountWidgetData = getWidgetQueryBuilder(
 	getWidgetQuery({
-		title: 'All State Count',
-		description: 'Represents the all state count.',
+		title: i18n.t('messagingQueues:celery.widget_all_state_count_title'),
+		description: i18n.t('messagingQueues:celery.widget_all_state_count_desc'),
 		panelTypes: PANEL_TYPES.VALUE,
 		queryData: [
 			{
@@ -898,8 +898,8 @@ export const celeryAllStateCountWidgetData = getWidgetQueryBuilder(
 
 export const celerySuccessStateCountWidgetData = getWidgetQueryBuilder(
 	getWidgetQuery({
-		title: 'Successful State Count',
-		description: 'Represents the successful state count.',
+		title: i18n.t('messagingQueues:celery.widget_success_state_count_title'),
+		description: i18n.t('messagingQueues:celery.widget_success_state_count_desc'),
 		panelTypes: PANEL_TYPES.VALUE,
 		queryData: [
 			{
@@ -947,8 +947,8 @@ export const celerySuccessStateCountWidgetData = getWidgetQueryBuilder(
 
 export const celeryFailedStateCountWidgetData = getWidgetQueryBuilder(
 	getWidgetQuery({
-		title: 'Failed State Count',
-		description: 'Represents the failed state count.',
+		title: i18n.t('messagingQueues:celery.widget_failed_state_count_title'),
+		description: i18n.t('messagingQueues:celery.widget_failed_state_count_desc'),
 		panelTypes: PANEL_TYPES.VALUE,
 		queryData: [
 			{
@@ -996,8 +996,8 @@ export const celeryFailedStateCountWidgetData = getWidgetQueryBuilder(
 
 export const celeryRetryStateCountWidgetData = getWidgetQueryBuilder(
 	getWidgetQuery({
-		title: 'Retry State Count',
-		description: 'Represents the retry state count.',
+		title: i18n.t('messagingQueues:celery.widget_retry_state_count_title'),
+		description: i18n.t('messagingQueues:celery.widget_retry_state_count_desc'),
 		panelTypes: PANEL_TYPES.VALUE,
 		queryData: [
 			{

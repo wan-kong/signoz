@@ -1,4 +1,12 @@
 {
     "name_of_the_view": "Name of the view",
-    "delete_confirm_message": "Are you sure you want to delete {{viewName}} view? Deleting a view is irreversible and cannot be undone."
+    "delete_confirm_message": "Are you sure you want to delete {{viewName}} view? Deleting a view is irreversible and cannot be undone.",
+    "select_a_view": "Select a view",
+    "view_name_placeholder": "e.g. Crash landing view",
+    "views": "Views",
+    "manage_views_description": "Manage your saved views for {{sourcePage}}.",
+    "delete_view_title": "Delete view",
+    "delete_view_button": "Delete view",
+    "edit_view_details": "Edit view details",
+    "label": "Label"
 }

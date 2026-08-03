@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { Color, Style } from '@signozhq/design-tokens';
 import {
 	ChevronDown,
@@ -26,6 +27,7 @@ function ConfigureGoogleAuthAuthnProvider({
 	isCreate: boolean;
 }): JSX.Element {
 	const form = Form.useFormInstance();
+	const { t } = useTranslation('organizationsettings');
 	const fetchGroups = Form.useWatch(['googleAuthConfig', 'fetchGroups'], form);
 
 	const [expandedSection, setExpandedSection] = useState<ExpandedSection>(null);
@@ -59,18 +61,21 @@ function ConfigureGoogleAuthAuthnProvider({
 	return (
 		<div className="authn-provider">
 			<section className="authn-provider__header">
-				<h3 className="authn-provider__title">Edit Google Authentication</h3>
+				<h3 className="authn-provider__title">{t('auth_domain.edit_google')}</h3>
 				<p className="authn-provider__description">
-					Enter OAuth 2.0 credentials obtained from the Google API Console below.
-					Read the{' '}
-					<a
-						href="https://signoz.io/docs/manage/administrator-guide/sso/overview/"
-						target="_blank"
-						rel="noreferrer"
-					>
-						docs
-					</a>{' '}
-					for more information.
+					<Trans
+						i18nKey="auth_domain.google_description"
+						ns="organizationsettings"
+						components={{
+							1: (
+								<a
+									href="https://signoz.io/docs/manage/administrator-guide/sso/overview/"
+									target="_blank"
+									rel="noreferrer"
+								/>
+							),
+						}}
+					/>
 				</p>
 			</section>
 
@@ -79,8 +84,8 @@ function ConfigureGoogleAuthAuthnProvider({
 				<div className="authn-provider__left">
 					<div className="authn-provider__field-group">
 						<label className="authn-provider__label" htmlFor="google-domain">
-							Domain
-							<Tooltip title="The email domain for users who should use SSO (e.g., `example.com` for users with `@example.com` emails)">
+							{t('auth_domain.domain')}
+							<Tooltip title={t('auth_domain.domain_tooltip')}>
 								<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 							</Tooltip>
 						</label>
@@ -88,7 +93,11 @@ function ConfigureGoogleAuthAuthnProvider({
 							name="name"
 							className="authn-provider__form-item"
 							rules={[
-								{ required: true, message: 'Domain is required', whitespace: true },
+								{
+									required: true,
+									message: t('auth_domain.domain_required'),
+									whitespace: true,
+								},
 							]}
 						>
 							<Input id="google-domain" disabled={!isCreate} />
@@ -97,8 +106,8 @@ function ConfigureGoogleAuthAuthnProvider({
 
 					<div className="authn-provider__field-group">
 						<label className="authn-provider__label" htmlFor="google-client-id">
-							Client ID
-							<Tooltip title="ClientID is the application's ID. For example, 292085223830.apps.googleusercontent.com.">
+							{t('auth_domain.client_id')}
+							<Tooltip title={t('auth_domain.google_client_id_tooltip')}>
 								<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 							</Tooltip>
 						</label>
@@ -106,7 +115,11 @@ function ConfigureGoogleAuthAuthnProvider({
 							name={['googleAuthConfig', 'clientId']}
 							className="authn-provider__form-item"
 							rules={[
-								{ required: true, message: 'Client ID is required', whitespace: true },
+								{
+									required: true,
+									message: t('auth_domain.client_id_required'),
+									whitespace: true,
+								},
 							]}
 						>
 							<Input id="google-client-id" />
@@ -115,8 +128,8 @@ function ConfigureGoogleAuthAuthnProvider({
 
 					<div className="authn-provider__field-group">
 						<label className="authn-provider__label" htmlFor="google-client-secret">
-							Client Secret
-							<Tooltip title="It is the application's secret.">
+							{t('auth_domain.client_secret')}
+							<Tooltip title={t('auth_domain.google_client_secret_tooltip')}>
 								<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 							</Tooltip>
 						</label>
@@ -126,7 +139,7 @@ function ConfigureGoogleAuthAuthnProvider({
 							rules={[
 								{
 									required: true,
-									message: 'Client Secret is required',
+									message: t('auth_domain.client_secret_required'),
 									whitespace: true,
 								},
 							]}
@@ -150,18 +163,17 @@ function ConfigureGoogleAuthAuthnProvider({
 									);
 								}}
 							>
-								Skip Email Verification
+								{t('auth_domain.skip_email_verification')}
 							</Checkbox>
 						</Form.Item>
-						<Tooltip title='Whether to skip email verification. Defaults to "false"'>
+						<Tooltip title={t('auth_domain.skip_email_verification_tooltip')}>
 							<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 						</Tooltip>
 					</div>
 
 					<div className="authn-provider__callout-wrapper">
 						<Callout type="warning" size="small" showIcon className="callout">
-							Google OAuth2 won&apos;t be enabled unless you enter all the attributes
-							above
+							{t('auth_domain.google_callout')}
 						</Callout>
 					</div>
 				</div>
@@ -188,11 +200,10 @@ function ConfigureGoogleAuthAuthnProvider({
 									)}
 									<div className="authn-provider__collapse-header-text">
 										<h4 className="authn-provider__section-title">
-											Google Workspace Groups (Advanced)
+											{t('auth_domain.google_workspace_groups')}
 										</h4>
 										<p className="authn-provider__section-description">
-											Enable group fetching to retrieve user groups from Google Workspace.
-											Requires a Service Account with domain-wide delegation.
+											{t('auth_domain.google_workspace_groups_desc')}
 										</p>
 									</div>
 									{expandedSection !== 'workspace-groups' &&
@@ -225,10 +236,10 @@ function ConfigureGoogleAuthAuthnProvider({
 												form.setFieldValue(['googleAuthConfig', 'fetchGroups'], checked);
 											}}
 										>
-											Fetch Groups
+											{t('auth_domain.fetch_groups')}
 										</Checkbox>
 									</Form.Item>
-									<Tooltip title="Enable fetching Google Workspace groups for the user. Requires service account configuration.">
+									<Tooltip title={t('auth_domain.fetch_groups_tooltip')}>
 										<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 									</Tooltip>
 								</div>
@@ -240,8 +251,8 @@ function ConfigureGoogleAuthAuthnProvider({
 												className="authn-provider__label"
 												htmlFor="google-service-account-json"
 											>
-												Service Account JSON
-												<Tooltip title="The JSON content of the Google Service Account credentials file. Required for group fetching.">
+												{t('auth_domain.service_account_json')}
+												<Tooltip title={t('auth_domain.service_account_json_tooltip')}>
 													<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 												</Tooltip>
 											</label>
@@ -252,7 +263,7 @@ function ConfigureGoogleAuthAuthnProvider({
 												<AntdInput.TextArea
 													id="google-service-account-json"
 													rows={3}
-													placeholder="Paste service account JSON"
+													placeholder={t('auth_domain.service_account_json_placeholder')}
 													className="authn-provider__textarea"
 												/>
 											</Form.Item>
@@ -277,10 +288,12 @@ function ConfigureGoogleAuthAuthnProvider({
 														);
 													}}
 												>
-													Fetch Transitive Group Membership
+													{t('auth_domain.fetch_transitive_membership')}
 												</Checkbox>
 											</Form.Item>
-											<Tooltip title="If enabled, recursively fetch groups that contain other groups (transitive membership).">
+											<Tooltip
+												title={t('auth_domain.fetch_transitive_membership_tooltip')}
+											>
 												<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 											</Tooltip>
 										</div>
@@ -290,8 +303,8 @@ function ConfigureGoogleAuthAuthnProvider({
 												className="authn-provider__label"
 												htmlFor="google-allowed-groups"
 											>
-												Allowed Groups
-												<Tooltip title="Optional list of allowed groups. If configured, only users belonging to one of these groups will be allowed to login.">
+												{t('auth_domain.allowed_groups')}
+												<Tooltip title={t('auth_domain.allowed_groups_tooltip')}>
 													<CircleHelp size={14} color={Style.L3_FOREGROUND} cursor="help" />
 												</Tooltip>
 											</label>
@@ -299,7 +312,7 @@ function ConfigureGoogleAuthAuthnProvider({
 												name={['googleAuthConfig', 'allowedGroups']}
 												className="authn-provider__form-item"
 											>
-												<EmailTagInput placeholder="Type a group email and press Enter" />
+												<EmailTagInput placeholder={t('auth_domain.type_group_email')} />
 											</Form.Item>
 										</div>
 									</div>

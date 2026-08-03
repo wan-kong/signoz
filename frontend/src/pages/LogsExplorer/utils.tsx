@@ -27,7 +27,8 @@ export enum ExplorerViews {
 export const LogsQuickFiltersConfig: IQuickFiltersConfig[] = [
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'Severity Text',
+		title: 'severity_text',
+		titleKey: 'quick_filters.titles.severity_text',
 		attributeKey: {
 			key: 'severity_text',
 			dataType: DataTypes.String,
@@ -38,7 +39,8 @@ export const LogsQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'Environment',
+		title: 'deployment.environment',
+		titleKey: 'quick_filters.titles.environment',
 		attributeKey: {
 			key: 'deployment.environment',
 			dataType: DataTypes.String,
@@ -48,7 +50,8 @@ export const LogsQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'Service Name',
+		title: 'service.name',
+		titleKey: 'quick_filters.titles.service_name',
 		attributeKey: {
 			key: 'service.name',
 			dataType: DataTypes.String,
@@ -59,7 +62,8 @@ export const LogsQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'Hostname',
+		title: 'host.name',
+		titleKey: 'quick_filters.titles.hostname',
 		attributeKey: {
 			key: 'host.name',
 			dataType: DataTypes.String,
@@ -69,7 +73,8 @@ export const LogsQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'K8s Cluster Name',
+		title: 'k8s.cluster.name',
+		titleKey: 'quick_filters.titles.k8s_cluster_name',
 		attributeKey: {
 			key: 'k8s.cluster.name',
 			dataType: DataTypes.String,
@@ -79,7 +84,8 @@ export const LogsQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'K8s Deployment Name',
+		title: 'k8s.deployment.name',
+		titleKey: 'quick_filters.titles.k8s_deployment_name',
 		attributeKey: {
 			key: 'k8s.deployment.name',
 			dataType: DataTypes.String,
@@ -89,7 +95,8 @@ export const LogsQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'K8s Namespace Name',
+		title: 'k8s.namespace.name',
+		titleKey: 'quick_filters.titles.k8s_namespace_name',
 		attributeKey: {
 			key: 'k8s.namespace.name',
 			dataType: DataTypes.String,
@@ -99,7 +106,8 @@ export const LogsQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'K8s Pod Name',
+		title: 'k8s.pod.name',
+		titleKey: 'quick_filters.titles.k8s_pod_name',
 		attributeKey: {
 			key: 'k8s.pod.name',
 			dataType: DataTypes.String,

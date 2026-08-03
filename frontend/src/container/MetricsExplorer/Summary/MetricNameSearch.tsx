@@ -20,6 +20,7 @@ import {
 } from 'components/QueryBuilderV2/utils';
 import useDebouncedFn from 'hooks/useDebouncedFunction';
 import { Search } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 function MetricNameSearch({
 	queryFilterExpression,
@@ -28,6 +29,7 @@ function MetricNameSearch({
 	queryFilterExpression: Filter;
 	onFilterChange: (value: string) => void;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 	const [searchString, setSearchString] = useState<string>('');
 	const [debouncedSearchString, setDebouncedSearchString] = useState<string>('');
@@ -203,7 +205,7 @@ function MetricNameSearch({
 				<Input
 					ref={inputRef}
 					onKeyDown={handleKeyDown}
-					placeholder="Search..."
+					placeholder={t('custom_select.search_placeholder')}
 					value={searchString}
 					onChange={handleInputChange}
 					bordered

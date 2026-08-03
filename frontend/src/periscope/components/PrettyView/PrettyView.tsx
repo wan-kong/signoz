@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { JSONTree, KeyPath } from 'react-json-tree';
 import { useCopyToClipboard } from 'react-use';
+import { useTranslation } from 'react-i18next';
 import { Copy, Ellipsis, Pin, PinOff } from '@signozhq/icons';
 import { DropdownMenuSimple as Dropdown } from '@signozhq/ui/dropdown-menu';
 import { Input } from '@signozhq/ui/input';
@@ -80,6 +81,7 @@ function PrettyView({
 	onPinnedFieldsChange,
 }: PrettyViewProps): JSX.Element {
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('common');
 	const [, setCopy] = useCopyToClipboard();
 	const { searchQuery, setSearchQuery, filteredData } = useSearchFilter(data);
 	const {
@@ -137,7 +139,7 @@ function PrettyView({
 			if (isActionVisible('copy', context.isNested)) {
 				items.push({
 					key: 'copy-value',
-					label: 'Copy Value',
+					label: t('periscope.copy_value'),
 					icon: <Copy size={12} />,
 					onClick: (): void => {
 						const text =
@@ -145,7 +147,7 @@ function PrettyView({
 								? JSON.stringify(context.fieldValue, null, 2)
 								: String(context.fieldValue);
 						setCopy(text);
-						toast.success('Copied to clipboard', {
+						toast.success(t('explorer.copied_to_clipboard'), {
 							position: 'top-right',
 						});
 					},
@@ -161,7 +163,7 @@ function PrettyView({
 
 				items.push({
 					key: 'pin',
-					label: pinned ? 'Unpin field' : 'Pin field',
+					label: pinned ? t('periscope.unpin_field') : t('periscope.pin_field'),
 					icon: pinned ? <PinOff size={12} /> : <Pin size={12} />,
 					onClick: (): void => {
 						togglePin(resolvedPath);
@@ -196,7 +198,15 @@ function PrettyView({
 
 			return items;
 		},
-		[actions, isActionVisible, isPinned, togglePin, displayKeyToForwardPath],
+		[
+			actions,
+			isActionVisible,
+			isPinned,
+			togglePin,
+			displayKeyToForwardPath,
+			setCopy,
+			t,
+		],
 	);
 
 	const renderWithActions = useCallback(
@@ -318,7 +328,7 @@ function PrettyView({
 					<Input
 						className="pretty-view__search-input"
 						type="text"
-						placeholder="Search for a field..."
+						placeholder={t('search_for_field')}
 						value={searchQuery}
 						onChange={(e): void => setSearchQuery(e.target.value)}
 					/>
@@ -327,7 +337,9 @@ function PrettyView({
 
 			{showPinned && Object.keys(filteredPinnedData).length > 0 && (
 				<div className="pretty-view__pinned">
-					<div className="pretty-view__pinned-header">PINNED ITEMS</div>
+					<div className="pretty-view__pinned-header">
+						{t('periscope.pinned_items')}
+					</div>
 					<JSONTree
 						key={`pinned-${searchQuery}`}
 						data={filteredPinnedData}

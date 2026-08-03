@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Input } from '@signozhq/ui/input';
 import { Button, Select, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { CircleX, Trash } from '@signozhq/icons';
 import { useAppContext } from 'providers/App/App';
@@ -25,11 +26,12 @@ function ThresholdItem({
 	const { user } = useAppContext();
 	const { thresholdState, notificationSettings } = useCreateAlertState();
 	const [showRecoveryThreshold, setShowRecoveryThreshold] = useState(false);
+	const { t } = useTranslation('create_alert');
 
 	const yAxisUnitSelect = useMemo(() => {
 		let component = (
 			<Select
-				placeholder="Unit"
+				placeholder={t('unit_label')}
 				value={threshold.unit ? threshold.unit : null}
 				onChange={(value): void => updateThreshold(threshold.id, 'unit', value)}
 				style={{ width: 150 }}
@@ -40,9 +42,9 @@ function ThresholdItem({
 		);
 		if (units.length === 0) {
 			component = (
-				<Tooltip trigger="hover" title="No compatible units available">
+				<Tooltip trigger="hover" title={t('no_compatible_units')}>
 					<Select
-						placeholder="Unit"
+						placeholder={t('unit_label')}
 						value={threshold.unit ? threshold.unit : null}
 						onChange={(value): void => updateThreshold(threshold.id, 'unit', value)}
 						style={{ width: 150 }}
@@ -92,7 +94,7 @@ function ThresholdItem({
 				</div>
 				<div className="threshold-controls">
 					<Input
-						placeholder="Enter threshold name"
+						placeholder={t('enter_threshold_name')}
 						value={threshold.label}
 						onChange={(e): void =>
 							updateThreshold(threshold.id, 'label', e.target.value)
@@ -105,7 +107,7 @@ function ThresholdItem({
 						{getOperatorSymbol()}
 					</Typography.Text>
 					<Input
-						placeholder="Enter threshold value"
+						placeholder={t('enter_threshold_value')}
 						value={threshold.thresholdValue}
 						onChange={(e): void =>
 							updateThreshold(threshold.id, 'thresholdValue', e.target.value)
@@ -131,7 +133,7 @@ function ThresholdItem({
 									'data-testid': `threshold-notification-channel-option-${threshold.label}`,
 								}))}
 								mode="multiple"
-								placeholder="Select notification channels"
+								placeholder={t('select_notification_channels')}
 								showSearch
 								maxTagCount={2}
 								maxTagPlaceholder={(omittedValues): string =>
@@ -156,7 +158,7 @@ function ThresholdItem({
 						<>
 							<Typography.Text className="sentence-text">recover on</Typography.Text>
 							<Input
-								placeholder="Enter recovery threshold value"
+								placeholder={t('enter_recovery_threshold_value')}
 								value={threshold.recoveryThresholdValue ?? ''}
 								onChange={(e): void =>
 									updateThreshold(threshold.id, 'recoveryThresholdValue', e.target.value)
@@ -165,7 +167,7 @@ function ThresholdItem({
 								type="number"
 								data-testid="recovery-threshold-value-input"
 							/>
-							<Tooltip title="Remove recovery threshold">
+							<Tooltip title={t('remove_recovery_threshold')}>
 								<Button
 									type="default"
 									icon={<Trash size={16} />}
@@ -179,7 +181,7 @@ function ThresholdItem({
 					<Button.Group>
 						{/* TODO: Add recovery threshold back once the functionality is implemented */}
 						{/* {!showRecoveryThreshold && (
-							<Tooltip title="Add recovery threshold">
+							<Tooltip title={t('add_recovery_threshold')}>
 								<Button
 									type="default"
 									icon={<ChartLine size={16} />}
@@ -189,7 +191,7 @@ function ThresholdItem({
 							</Tooltip>
 						)} */}
 						{showRemoveButton && (
-							<Tooltip title="Remove threshold">
+							<Tooltip title={t('remove_threshold')}>
 								<Button
 									type="default"
 									icon={<CircleX size={16} />}

@@ -17,6 +17,7 @@ import OverlayScrollbar from 'components/OverlayScrollbar/OverlayScrollbar';
 import { QueryBuilderV2 } from 'components/QueryBuilderV2/QueryBuilderV2';
 import QueryCancelledPlaceholder from 'components/QueryCancelledPlaceholder';
 import Spinner from 'components/Spinner';
+import { useTranslation } from 'react-i18next';
 import TimePreference from 'components/TimePreferenceDropDown';
 import WarningPopover from 'components/WarningPopover/WarningPopover';
 import { ENTITY_VERSION_V5 } from 'constants/app';
@@ -75,6 +76,7 @@ function FullView({
 	setCurrentGraphRef,
 	enableDrillDown = false,
 }: FullViewProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { safeNavigate } = useSafeNavigate();
 	const {
 		selectedTime: globalSelectedTime,
@@ -398,7 +400,7 @@ function FullView({
 								<Input
 									addonBefore={<Search size={14} />}
 									className="global-search"
-									placeholder="Search..."
+									placeholder={t('custom_select.search_placeholder')}
 									allowClear
 									key={widget.id}
 									onChange={(e): void => {

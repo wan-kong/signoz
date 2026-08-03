@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line signoz/no-antd-components
 import { Select, SelectProps } from 'antd';
 import { ExportDashboard } from 'hooks/dashboard/useExportDashboards';
@@ -32,6 +33,7 @@ function ExportDashboardSelect({
 	onChange,
 	onSearch,
 }: ExportDashboardSelectProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const options = useMemo<SelectProps['options']>(() => {
 		const base = getSelectOptions(dashboards) ?? [];
 		if (
@@ -49,7 +51,7 @@ function ExportDashboardSelect({
 	return (
 		<Select
 			className={styles.dashboardSelect}
-			placeholder="Select a dashboard"
+			placeholder={t('explorer.select_view')}
 			showSearch
 			filterOption={false}
 			loading={loading}

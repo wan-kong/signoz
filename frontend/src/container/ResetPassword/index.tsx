@@ -144,10 +144,10 @@ function ResetPassword({ version }: ResetPasswordProps): JSX.Element {
 						<KeyRound size={32} />
 					</div>
 					<Typography.Title level={4} className="reset-password-header-title">
-						Reset Your Password
+						{t('reset_password_title')}
 					</Typography.Title>
 					<Typography.Text className="reset-password-header-subtitle">
-						Monitor your applications. Find what is causing issues.
+						{t('reset_password_subtitle')}
 					</Typography.Text>
 					{version && (
 						<div className="reset-password-version-badge">SigNoz {version}</div>
@@ -162,11 +162,13 @@ function ResetPassword({ version }: ResetPasswordProps): JSX.Element {
 					<div className="reset-password-form-container">
 						<div className="reset-password-form-fields">
 							<div className="reset-password-field-container">
-								<Label htmlFor="password">New Password</Label>
+								<Label htmlFor="password">{t('reset_password_new_password')}</Label>
 								<Form.Item
 									name="password"
 									validateTrigger="onBlur"
-									rules={[{ required: true, message: 'Please enter password!' }]}
+									rules={[
+										{ required: true, message: t('reset_password_password_required') },
+									]}
 								>
 									<AntdInput.Password
 										tabIndex={0}
@@ -174,25 +176,32 @@ function ResetPassword({ version }: ResetPasswordProps): JSX.Element {
 										onBlur={handlePasswordBlur}
 										id="password"
 										data-testid="password"
-										placeholder="Enter new password"
+										placeholder={t('reset_password_enter_new_password')}
 										className="reset-password-form-input"
 									/>
 								</Form.Item>
 							</div>
 
 							<div className="reset-password-field-container">
-								<Label htmlFor="confirmPassword">Confirm New Password</Label>
+								<Label htmlFor="confirmPassword">
+									{t('reset_password_confirm_new_password')}
+								</Label>
 								<Form.Item
 									name="confirmPassword"
 									validateTrigger="onBlur"
-									rules={[{ required: true, message: 'Please enter confirm password!' }]}
+									rules={[
+										{
+											required: true,
+											message: t('reset_password_confirm_password_required'),
+										},
+									]}
 								>
 									<AntdInput.Password
 										onChange={handleValuesChange}
 										onBlur={handleConfirmPasswordBlur}
 										id="confirmPassword"
 										data-testid="confirmPassword"
-										placeholder="Confirm your new password"
+										placeholder={t('reset_password_confirm_your_new_password')}
 										className="reset-password-form-input"
 									/>
 								</Form.Item>
@@ -208,7 +217,7 @@ function ResetPassword({ version }: ResetPasswordProps): JSX.Element {
 							icon={<CircleAlert size={12} />}
 							className="reset-password-error-callout"
 						>
-							Passwords don&apos;t match. Please try again.
+							{t('reset_password_passwords_dont_match')}
 						</Callout>
 					)}
 
@@ -226,7 +235,7 @@ function ResetPassword({ version }: ResetPasswordProps): JSX.Element {
 							className="reset-password-submit-button"
 							suffix={<ArrowRight size={16} />}
 						>
-							Reset Password
+							{t('reset_password_reset_password')}
 						</Button>
 					</div>
 				</FormContainer>

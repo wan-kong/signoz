@@ -27,5 +27,11 @@
   "failed_to_login": "sorry, failed to login",
   "invalid_email": "Please enter a valid email address",
   "invalid_account": "This account does not exist. To create a new account, contact your admin to get an invite link",
-  "invalid_config": "Invalid configuration detected, please contact your administrator"
+  "invalid_config": "Invalid configuration detected, please contact your administrator",
+  "forgot_password_title": "Forgot your password?",
+  "forgot_password_desc": "Send a reset link to your inbox and get back to monitoring.",
+  "forgot_password_select_org_error": "Please select your organization",
+  "forgot_password_back": "Back to login",
+  "forgot_password_sending": "Sending...",
+  "forgot_password_send": "Send reset link"
 }

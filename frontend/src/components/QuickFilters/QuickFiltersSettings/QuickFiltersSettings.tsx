@@ -43,7 +43,6 @@ function QuickFiltersSettings({
 
 	const hasUnsavedChanges = useMemo(
 		() =>
-			// check if both arrays have the same length and same order of elements
 			!(
 				addedFilters.length === customFilters.length &&
 				addedFilters.every(
@@ -58,7 +57,7 @@ function QuickFiltersSettings({
 			<div className="qf-header">
 				<div className="qf-title">
 					<TableColumnsSplit width={16} height={16} />
-					Edit quick filters
+					{t('quick_filters.edit_quick_filters')}
 				</div>
 				<X
 					className="qf-header-icon"
@@ -93,7 +92,7 @@ function QuickFiltersSettings({
 						onClick={handleDiscardChanges}
 						icon={<X size={16} />}
 					>
-						Discard
+						{t('discard')}
 					</Button>
 					<Button
 						type="primary"
@@ -101,7 +100,7 @@ function QuickFiltersSettings({
 						icon={<Check size={16} />}
 						loading={isUpdatingCustomFilters}
 					>
-						Save changes
+						{t('save_changes')}
 					</Button>
 				</div>
 			)}

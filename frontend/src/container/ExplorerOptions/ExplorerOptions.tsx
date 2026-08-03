@@ -8,6 +8,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import {
 	Check,
@@ -106,6 +107,7 @@ function ExplorerOptions({
 	const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
 	const [newViewName, setNewViewName] = useState<string>('');
 	const [color, setColor] = useState(Color.BG_SIENNA_500);
+	const { t } = useTranslation('common');
 	const { notifications } = useNotifications();
 	const history = useHistory();
 	const ref = useRef<RefSelectProps>(null);
@@ -377,7 +379,7 @@ function ExplorerOptions({
 			{
 				onSuccess: () => {
 					notifications.success({
-						message: 'View Updated Successfully',
+						message: t('explorer.view_updated_successfully'),
 					});
 					refetchAllView();
 				},
@@ -707,13 +709,13 @@ function ExplorerOptions({
 
 	const infoIconText = useMemo(() => {
 		if (isLogsExplorer) {
-			return 'Learn more about Logs explorer';
+			return t('explorer.learn_more_logs');
 		}
 		if (isMetricsExplorer) {
-			return 'Learn more about Metrics explorer';
+			return t('explorer.learn_more_metrics');
 		}
-		return 'Learn more about Traces explorer';
-	}, [isLogsExplorer, isMetricsExplorer]);
+		return t('explorer.learn_more_traces');
+	}, [isLogsExplorer, isMetricsExplorer, t]);
 
 	const infoIconLink = useMemo(() => {
 		if (isLogsExplorer) {
@@ -728,9 +730,13 @@ function ExplorerOptions({
 
 	const getQueryName = (query: Query): string => {
 		if (query.builder.queryFormulas.length > 0) {
-			return `Formula ${query.builder.queryFormulas[0].queryName}`;
+			return t('explorer.formula_query', {
+				name: query.builder.queryFormulas[0].queryName,
+			});
 		}
-		return `Query ${query.builder.queryData[0].queryName}`;
+		return t('explorer.query_query', {
+			name: query.builder.queryData[0].queryName,
+		});
 	};
 
 	const CreateAlertButton = useMemo(() => {
@@ -741,7 +747,7 @@ function ExplorerOptions({
 					shape="round"
 					icon={<ConciergeBell size={16} />}
 				>
-					Create an Alert
+					{t('explorer.create_alert')}
 				</Button>
 			);
 			return (
@@ -775,7 +781,7 @@ function ExplorerOptions({
 				onClick={(): void => onCreateAlertsHandler(query)}
 				icon={<ConciergeBell size={16} />}
 			>
-				Create an Alert
+				{t('explorer.create_alert')}
 			</Button>
 		);
 	}, [
@@ -796,7 +802,7 @@ function ExplorerOptions({
 					onClick={onAddToDashboard}
 					icon={<Plus size={16} />}
 				>
-					Add to Dashboard
+					{t('explorer.add_to_dashboard')}
 				</Button>
 			);
 			return (
@@ -835,7 +841,7 @@ function ExplorerOptions({
 				onClick={onAddToDashboard}
 				icon={<Plus size={16} />}
 			>
-				Add to Dashboard
+				{t('explorer.add_to_dashboard')}
 			</Button>
 		);
 	}, [disabled, isOneChartPerQuery, onAddToDashboard, splitedQueries]);
@@ -860,7 +866,7 @@ function ExplorerOptions({
 						'explorer-update',
 					)}
 				>
-					<Tooltip title="Clear this view" placement="top">
+					<Tooltip title={t('explorer.clear_this_view')} placement="top">
 						<Button
 							className="action-icon"
 							onClick={handleClearSelect}
@@ -878,7 +884,7 @@ function ExplorerOptions({
 									hidden: !isEditDeleteSupported,
 								})}
 							/>
-							<Tooltip title="Update this view" placement="top">
+							<Tooltip title={t('explorer.update_this_view')} placement="top">
 								<Button
 									className={cx('action-icon', isEditDeleteSupported ? ' ' : 'hidden')}
 									disabled={isViewUpdating}
@@ -902,7 +908,7 @@ function ExplorerOptions({
 					<div className="view-options">
 						<Select<string, { key: string; value: string }>
 							showSearch
-							placeholder="Select a view"
+							placeholder={t('explorer.select_view')}
 							loading={viewsIsLoading || isRefetching}
 							value={viewName || undefined}
 							onSelect={handleSelect}
@@ -945,7 +951,7 @@ function ExplorerOptions({
 							disabled={viewsIsLoading || isRefetching}
 							icon={<Disc3 size={16} />}
 						>
-							Save this view
+							{t('explorer.save_this_view')}
 						</Button>
 					</div>
 
@@ -967,7 +973,7 @@ function ExplorerOptions({
 										{infoIconText}
 										<Typography.Link href={infoIconLink} target="_blank">
 											{' '}
-											here
+											{t('here')}
 										</Typography.Link>{' '}
 									</div>
 								}
@@ -976,7 +982,7 @@ function ExplorerOptions({
 							</Tooltip>
 						)}
 
-						<Tooltip title="Hide">
+						<Tooltip title={t('explorer.hide_toolbar')}>
 							<Button
 								disabled={disabled}
 								shape="circle"
@@ -1000,7 +1006,7 @@ function ExplorerOptions({
 			/>
 			<Modal
 				className="save-view-modal"
-				title={<span className="title">Save this view</span>}
+				title={<span className="title">{t('explorer.save_this_view')}</span>}
 				open={isSaveModalOpen}
 				closable
 				onCancel={hideSaveViewModal}
@@ -1014,18 +1020,18 @@ function ExplorerOptions({
 						data-testid="save-view-btn"
 						className="save-button"
 					>
-						Save this view
+						{t('explorer.save_this_view')}
 					</Button>,
 				]}
 			>
-				<Typography.Text>Label</Typography.Text>
+				<Typography.Text>{t('explorer.label')}</Typography.Text>
 				<div className="save-view-input">
 					<ColorPicker
 						value={color}
 						onChange={(value, hex): void => setColor(hex)}
 					/>
 					<Input
-						placeholder="e.g. External http method view"
+						placeholder={t('explorer.view_name_placeholder')}
 						value={newViewName}
 						onChange={(e): void => setNewViewName(e.target.value)}
 					/>

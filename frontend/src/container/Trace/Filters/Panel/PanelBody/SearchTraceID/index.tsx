@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from 'antd';
@@ -27,6 +28,7 @@ function TraceID(): JSX.Element {
 		spanKind,
 	} = useSelector<AppState, TraceReducer>((state) => state.traces);
 	const dispatch = useDispatch<Dispatch<AppActions>>();
+	const { t } = useTranslation('trace');
 	const globalTime = useSelector<AppState, GlobalReducer>(
 		(state) => state.globalTime,
 	);
@@ -116,7 +118,7 @@ function TraceID(): JSX.Element {
 	return (
 		<div>
 			<Search
-				placeholder="Filter by Trace ID"
+				placeholder={t('filter_by_trace_id')}
 				onSearch={onSearch}
 				style={{
 					marginBottom: '5rem',

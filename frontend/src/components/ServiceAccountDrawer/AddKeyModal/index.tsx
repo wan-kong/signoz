@@ -24,7 +24,7 @@ import APIError from 'types/api/error';
 import KeyCreatedPhase from './KeyCreatedPhase';
 import KeyFormPhase from './KeyFormPhase';
 import type { FormValues } from './types';
-import { DEFAULT_FORM_VALUES, ExpiryMode, Phase, PHASE_TITLES } from './types';
+import { DEFAULT_FORM_VALUES, ExpiryMode, Phase } from './types';
 
 import './AddKeyModal.styles.scss';
 
@@ -148,7 +148,11 @@ function AddKeyModal(): JSX.Element {
 					handleClose();
 				}
 			}}
-			title={PHASE_TITLES[phase]}
+			title={
+				phase === Phase.FORM
+					? t('sa_add_key_modal.form_title')
+					: t('sa_add_key_modal.created_title')
+			}
 			width="base"
 			className="add-key-modal"
 			showCloseButton

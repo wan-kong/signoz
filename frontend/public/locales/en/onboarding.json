@@ -4,5 +4,22 @@
 	"skip": "Skip",
 	"invite_user_helper_text": "Not the right person to get started? No worries! Invite someone who can.",
 	"select_use_case": "Select a use-case to get started",
-	"get_started": "Get Started"
+	"get_started": "Get Started",
+	"setup_workspace": "Set up your workspace",
+	"setup_workspace_subtitle": "Tailor SigNoz to suit your observability needs.",
+	"discover_signoz_question": "How did you first come across SigNoz?",
+	"discover_signoz_placeholder": "e.g., googling \"datadog alternative\", a post on r/devops, from a friend/colleague, a LinkedIn post, ChatGPT, etc.",
+	"interested_in_signoz": "What got you interested in SigNoz?",
+	"interested_in_signoz_placeholder": "What got you interested in SigNoz?",
+	"others": "Others",
+	"next": "Next",
+	"welcome_signoz_cloud": "Welcome to SigNoz Cloud",
+	"lets_get_started": "Let's get you started",
+	"current_tool_question": "Which observability tool do you currently use?",
+	"current_tool_placeholder": "What tool do you currently use?",
+	"migration_timeline_question": "What is your timeline for migrating to SigNoz?",
+	"already_use_otel": "Do you already use OpenTelemetry?",
+	"yes": "Yes",
+	"no": "No",
+	"data_source_placeholder": "Eg: Kotlin"
 }

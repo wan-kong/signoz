@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
 import logEvent from 'api/common/logEvent';
@@ -21,6 +22,8 @@ function CreateAlertHeader(): JSX.Element {
 	const { alertState, setAlertState, isEditMode } = useCreateAlertState();
 	const alertRuleContext = useAlertRuleOptional();
 
+	const { t } = useTranslation('create_alert');
+
 	const { currentQuery } = useQueryBuilder();
 	const { safeNavigate } = useSafeNavigate();
 	const urlQuery = useUrlQuery();
@@ -39,7 +42,7 @@ function CreateAlertHeader(): JSX.Element {
 	const validateLabelsKey = useCallback(
 		(key: string): string | null => {
 			if (groupByLabels.includes(key)) {
-				return `Cannot use ${key} as a key`;
+				return t('cannot_use_key', { key });
 			}
 			return null;
 		},
@@ -60,7 +63,7 @@ function CreateAlertHeader(): JSX.Element {
 		>
 			{!isEditMode && (
 				<div className="alert-header__tab-bar">
-					<div className="alert-header__tab">New Alert Rule</div>
+					<div className="alert-header__tab">{t('new_alert_rule')}</div>
 					<Button
 						prefix={<RotateCcw size={12} />}
 						onClick={handleSwitchToClassicExperience}
@@ -68,7 +71,7 @@ function CreateAlertHeader(): JSX.Element {
 						color="secondary"
 						size="sm"
 					>
-						Switch to Classic Experience
+						{t('switch_to_classic_experience')}
 					</Button>
 				</div>
 			)}
@@ -84,7 +87,7 @@ function CreateAlertHeader(): JSX.Element {
 						}
 					}}
 					className="alert-header__input title"
-					placeholder="Enter alert rule name"
+					placeholder={t('enter_alert_rule_name')}
 					data-testid="alert-name-input"
 				/>
 				<LabelsInput

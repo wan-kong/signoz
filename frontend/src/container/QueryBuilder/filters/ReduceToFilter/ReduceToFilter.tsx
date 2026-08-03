@@ -1,4 +1,5 @@
 import { memo, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select } from 'antd';
 import { REDUCE_TO_VALUES } from 'constants/queryBuilder';
 import { MetricAggregation } from 'types/api/v5/queryRange';
@@ -12,6 +13,7 @@ export const ReduceToFilter = memo(function ReduceToFilter({
 	query,
 	onChange,
 }: ReduceToFilterProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [currentValue, setCurrentValue] = useState<
 		SelectOption<ReduceOperators, string>
 	>(REDUCE_TO_VALUES[2]);
@@ -39,7 +41,7 @@ export const ReduceToFilter = memo(function ReduceToFilter({
 
 	return (
 		<Select
-			placeholder="Reduce to"
+			placeholder={t('query_add_ons.reduce_to')}
 			style={{ width: '100%' }}
 			options={REDUCE_TO_VALUES}
 			value={currentValue}

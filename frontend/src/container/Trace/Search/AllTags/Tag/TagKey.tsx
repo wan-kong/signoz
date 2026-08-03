@@ -5,6 +5,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
@@ -25,6 +26,8 @@ function TagsKey(props: TagsKeysProps): JSX.Element {
 	const { index, setLocalSelectedTags, tag } = props;
 
 	const [selectedKey, setSelectedKey] = useState<string>(tag.Key || '');
+
+	const { t } = useTranslation('trace');
 
 	const traces = useSelector<AppState, TraceReducer>((state) => state.traces);
 
@@ -71,7 +74,7 @@ function TagsKey(props: TagsKeysProps): JSX.Element {
 			value={selectedKey}
 			allowClear
 			disabled={isLoading}
-			notFoundContent="No tags available"
+			notFoundContent={t('no_tags_available')}
 			showSearch
 			options={options?.map((e) => ({
 				label: e.label?.toString(),
@@ -83,7 +86,7 @@ function TagsKey(props: TagsKeysProps): JSX.Element {
 			onChange={(e): void => setSelectedKey(e)}
 			onSelect={onSelectHandler}
 		>
-			<Input placeholder="Please select" />
+			<Input placeholder={t('please_select')} />
 		</AutoComplete>
 	);
 }

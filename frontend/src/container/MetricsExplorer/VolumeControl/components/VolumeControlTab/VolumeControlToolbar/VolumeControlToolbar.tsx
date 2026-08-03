@@ -1,4 +1,5 @@
 import { Input } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import styles from './VolumeControlToolbar.module.scss';
 
@@ -11,11 +12,13 @@ function VolumeControlToolbar({
 	value,
 	onChange,
 }: VolumeControlToolbarProps): JSX.Element {
+	const { t } = useTranslation('common');
+
 	return (
 		<div className={styles.toolbar}>
 			<Input
 				className={styles.search}
-				placeholder="Search metrics"
+				placeholder={t('metrics_explorer.search_metrics')}
 				allowClear
 				value={value}
 				onChange={(e): void => onChange(e.target.value)}

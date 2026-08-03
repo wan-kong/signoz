@@ -34,6 +34,7 @@ export type CheckedState = 'checked' | 'unchecked' | 'indeterminate';
 export interface IQuickFiltersConfig {
 	type: FiltersType;
 	title: string;
+	titleKey?: string;
 	attributeKey: BaseAutocompleteData;
 	aggregateOperator?: string;
 	aggregateAttribute?: string;

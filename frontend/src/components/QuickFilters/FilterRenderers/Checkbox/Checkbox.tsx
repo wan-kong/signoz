@@ -72,6 +72,10 @@ export default function CheckboxFilter(props: ICheckboxProps): JSX.Element {
 		setSearchText(args[0] as string);
 	}, DEBOUNCE_DELAY);
 
+	const displayTitle = filter.titleKey
+		? t(filter.titleKey, { defaultValue: filter.title })
+		: filter.title;
+
 	// Sort checked items to the top, then unchecked items
 	const currentAttributeKeys = useMemo(() => {
 		const checkedValues = attributeValues.filter(
@@ -97,7 +101,7 @@ export default function CheckboxFilter(props: ICheckboxProps): JSX.Element {
 	return (
 		<div className="checkbox-filter">
 			<CheckboxFilterHeader
-				title={filter.title}
+				title={displayTitle}
 				isOpen={isOpen}
 				showClearAll={!!attributeValues.length}
 				onToggleOpen={onToggleOpen}

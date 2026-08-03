@@ -26,6 +26,9 @@
   "time_series_view": "时间序列",
   "trace_view": "Trace 视图",
   "loading": "加载中...",
+  "select_environments": "选择环境",
+  "search_filter_resource_attributes": "搜索并根据资源属性进行过滤。",
+  "no_resource_attributes": "没有可用的资源属性用于过滤。请参考文档发送属性。",
   "language": "语言",
   "select_language": "选择语言",
   "feedback": "反馈",
@@ -57,6 +60,10 @@
   "share": "分享",
   "save": "保存",
   "edit": "编辑",
+  "auto": "自动",
+  "by": "按",
+  "every": "每",
+  "seconds": "秒",
   "logged_in": "已登录",
   "pending_data_placeholder": "正在获取你的 {{dataSource}}！",
   "time": {
@@ -410,7 +417,21 @@
   "explorer": {
     "copied_to_clipboard": "已复制到剪贴板",
     "save": "保存",
-    "select_view": "选择视图"
+    "select_view": "选择视图",
+    "learn_more_logs": "了解更多关于日志浏览器",
+    "learn_more_metrics": "了解更多关于指标浏览器",
+    "learn_more_traces": "了解更多关于 Trace 浏览器",
+    "create_alert": "创建告警",
+    "add_to_dashboard": "添加到仪表盘",
+    "formula_query": "公式 {{name}}",
+    "query_query": "查询 {{name}}",
+    "clear_this_view": "清除此视图",
+    "update_this_view": "更新此视图",
+    "save_this_view": "保存此视图",
+    "label": "标签",
+    "view_name_placeholder": "例如：外部 HTTP 方法视图",
+    "view_updated_successfully": "视图更新成功",
+    "hide_toolbar": "隐藏"
   },
   "spinner": {
     "loading": "加载中...",
@@ -481,6 +502,21 @@
     "key_copy_failed": "复制密钥失败",
     "secure_storage_warning": "请安全保存此密钥。这是它唯一一次显示。"
   },
+  "sa_add_key_modal": {
+    "form_title": "添加密钥",
+    "created_title": "密钥已创建"
+  },
+  "sa_keys": {
+    "name": "名称",
+    "expiry": "过期时间",
+    "last_observed_at": "最近使用时间",
+    "never": "永不过期",
+    "expired": "已过期",
+    "service_account_disabled": "服务账号已禁用",
+    "no_keys": "暂无密钥。",
+    "add_first_key": "添加第一个密钥",
+    "edit_key_aria": "编辑密钥 {{name}}"
+  },
   "sa_created": {
     "title": "密钥已创建",
     "copy_key_message": "请立即复制您的 API 密钥，之后将无法再次查看。",
@@ -492,7 +528,13 @@
     "select_view": "选择视图",
     "saving": "保存中...",
     "created_by": "创建者",
-    "delete_view": "删除视图"
+    "delete_view": "删除视图",
+    "view_updated": "视图已更新",
+    "delete": "删除",
+    "query_builder": "查询构建器",
+    "more_details_query_builder": "了解如何使用查询构建器",
+    "save_as_new_view": "另存为新视图",
+    "save_view_text": "保存视图"
   },
   "query_builder": {
     "add_aggregate": "添加聚合",
@@ -507,7 +549,13 @@
     "remove_trace_operator": "移除 Trace 运算符",
     "current_context": "当前上下文",
     "bracket_list": "括号列表",
+    "enter_formula": "输入公式",
+    "enter_in_seconds": "输入秒数",
+    "formula_having_placeholder": "Count(operation) > 5",
     "having_placeholder": "输入 Having 查询，如 count() > 10 ...",
+    "having_placeholder_grp": "GroupBy(operation) > 5",
+    "select_order_by": "选择排序方式",
+    "select_unit": "选择单位",
     "source_placeholder": "来源"
   },
   "order_by": {
@@ -587,7 +635,17 @@
     "discard": "放弃",
     "save_changes": "保存更改",
     "clear_all": "清除全部",
-    "toggle": "切换"
+    "toggle": "切换",
+    "titles": {
+      "severity_text": "严重级别文本",
+      "environment": "环境",
+      "service_name": "服务名称",
+      "hostname": "主机名",
+      "k8s_cluster_name": "K8s 集群名称",
+      "k8s_deployment_name": "K8s Deployment 名称",
+      "k8s_namespace_name": "K8s Namespace 名称",
+      "k8s_pod_name": "K8s Pod 名称"
+    }
   },
   "changelog_renderer": {
     "bug_fixes": "Bug 修复",
@@ -647,6 +705,150 @@
     "slack_message": "加入我们的 Slack 社区了解更多详情："
   },
   "uplot": {
-    "no_data": "暂无数据"
+    "no_data": "无数据",
+    "no_series_found": "未找到匹配 \"{{query}}\" 的系列"
+  },
+  "integrations": {
+    "enter_integration_name": "输入集成名称...",
+    "search_placeholder": "搜索集成..."
+  },
+  "metrics_explorer": {
+    "search_metrics": "搜索指标",
+    "search_metrics_placeholder": "搜索您的指标。尝试 service.name='api' 查看所有 API 服务指标，或 http.client 查看 HTTP 客户端指标。",
+    "select_attributes": "选择属性"
+  },
+  "new_widget": {
+    "default_30": "默认：30",
+    "default_auto": "默认：自动",
+    "panel_description_placeholder": "在此输入面板描述...",
+    "panel_name_placeholder": "在此输入面板名称..."
+  },
+  "anomaly_alert": {
+    "search_series": "搜索序列"
+  },
+  "metrics_aggregate": {
+    "within_time_series": "时间序列内聚合",
+    "across_time_series": "跨时间序列聚合",
+    "learn_more_temporal": "了解更多关于时间聚合",
+    "learn_more_spatial": "了解更多关于空间聚合",
+    "set_time_interval": "设置聚合的时间间隔",
+    "learn_about_step_intervals": "了解步长间隔"
+  },
+  "query_search": {
+    "loading_suggestions": "加载建议中...",
+    "no_suggestions": "无可用建议",
+    "error_loading_suggestions": "加载建议出错",
+    "unknown": "未知",
+    "key": "键",
+    "operator": "运算符",
+    "value": "值",
+    "conjunction": "连接词",
+    "function": "函数",
+    "parenthesis": "括号",
+    "need_help_syntax": "需要搜索语法帮助？",
+    "view_documentation": "查看文档",
+    "query_examples": "查询示例",
+    "current_pair": "当前对：",
+    "total_pairs": "总对数：",
+    "currently_editing": "当前编辑：",
+    "complete": "完整",
+    "incomplete": "不完整",
+    "key_label": "键：",
+    "operator_label": "运算符：",
+    "value_label": "值：",
+    "failed_to_process": "查询处理失败",
+    "open_nested_group": "打开嵌套分组",
+    "negate_expression": "否定表达式",
+    "placeholder": "输入过滤查询（例如 http.status_code >= 500 AND service.name = 'frontend'）"
+  },
+  "context_links": {
+    "view_traces_placeholder": "查看 Traces 详情：{{_traceId}}",
+    "key": "键",
+    "value": "值"
+  },
+  "threshold": {
+    "select_unit": "选择单位"
+  },
+  "grid_card_layout": {
+    "enter_row_name_placeholder": "在此输入行名称..."
+  },
+  "search_for_attributes": "搜索属性...",
+  "search_values": "搜索值",
+  "select_interval": "选择时间间隔...",
+  "select_option": "选择选项",
+  "authz_dev": {
+    "search_permissions": "搜索权限...",
+    "grant_filtered": "授权已筛选",
+    "grant_all": "全部授权",
+    "deny_filtered": "拒绝已筛选",
+    "deny_all": "全部拒绝",
+    "clear_filtered": "清除已筛选 ({{count}})",
+    "clear_all": "全部清除 ({{count}})"
+  },
+  "periscope": {
+    "copy_value": "复制值",
+    "pin_field": "固定字段",
+    "unpin_field": "取消固定",
+    "pinned_items": "已固定项目"
+  },
+  "billings": {
+    "go_back": "返回",
+    "cancel_subscription": "取消订阅",
+    "cancel_your_subscription": "取消你的订阅",
+    "cancel_warning": "取消 SigNoz 订阅后，你的所有数据将立即被删除并从我们的服务器中移除。",
+    "cancel_subscription_header": "取消订阅",
+    "cancel_subscription_question": "确认取消订阅？",
+    "cancel_description": "取消订阅将停止你的数据被摄入到 SigNoz。所有已经发送的数据也将被删除。",
+    "type_cancel_to_confirm": "输入 <code>cancel</code> 以确认取消。",
+    "enter_cancel_word": "输入单词 cancel...",
+    "email_draft_opened": "邮件草稿已打开。如果未打开，请直接发送取消请求至：",
+    "copy_email_template": "复制邮件模板",
+    "reopen_email_client": "重新打开邮件客户端"
+  },
+  "members_settings": {
+    "overview_subtitle": "此工作空间已添加成员的概览。",
+    "search_by_name_email": "按姓名或邮箱搜索...",
+    "all_members_count": "所有成员 ⎯ {{count}}",
+    "pending_invites_count": "待处理邀请 ⎯ {{count}}",
+    "deleted_count": "已删除 ⎯ {{count}}"
+  },
+  "cloud_integration": {
+    "ingestion_url": "采集 URL",
+    "enter_ingestion_url": "输入采集 URL",
+    "ingestion_key": "采集密钥",
+    "enter_ingestion_key": "输入采集密钥",
+    "signoz_api_url": "SigNoz API URL",
+    "enter_signoz_api_url": "输入 SigNoz API URL",
+    "signoz_api_key": "SigNoz API KEY",
+    "enter_signoz_api_key": "输入 SigNoz API Key"
+  },
+  "ingestion_url_error_details": "Ingestion URL 错误详情",
+  "reset_password_title": "重置密码",
+  "reset_password_subtitle": "监控你的应用程序，发现问题根源。",
+  "reset_password_new_password": "新密码",
+  "reset_password_password_required": "请输入密码！",
+  "reset_password_enter_new_password": "输入新密码",
+  "reset_password_confirm_new_password": "确认新密码",
+  "reset_password_confirm_password_required": "请输入确认密码！",
+  "reset_password_confirm_your_new_password": "确认你的新密码",
+  "reset_password_passwords_dont_match": "密码不匹配，请重试。",
+  "reset_password_reset_password": "重置密码",
+  "stage_and_run_query": "暂存并运行查询",
+  "api_monitoring": {
+    "search_for_filters": "搜索过滤条件...",
+    "group_by_label": "分组",
+    "search_for_attribute": "搜索属性",
+    "endpoint": "端点",
+    "all_endpoints": "所有端点",
+    "port": "端口",
+    "select_endpoint": "选择端点",
+    "filter_query_placeholder": "输入过滤查询 (例如: deployment.environment = 'otel-demo' AND service.name = 'frontend')",
+    "click_run_query": "点击\"运行查询\"以加载 API 监控数据。",
+    "no_external_api_calls": "未检测到符合过滤条件的外部 API 调用。",
+    "ensure_http_spans_1": "确保所有 HTTP 客户端 span 的 kind 设置为",
+    "ensure_http_spans_2": "且 url 设置在",
+    "ensure_http_spans_3": "属性",
+    "learn_external_api": "了解 SigNoz 中的外部 API 监控如何工作",
+    "thinking_emoji_alt": "思考表情"
   }
 }

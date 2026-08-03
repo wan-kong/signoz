@@ -3,6 +3,7 @@ import { Select } from 'antd';
 import { HAVING_OPERATORS, initialHavingValues } from 'constants/queryBuilder';
 import { HavingFilterTag } from 'container/QueryBuilder/components';
 import { useTagValidation } from 'hooks/queryBuilder/useTagValidation';
+import { useTranslation } from 'react-i18next';
 import {
 	transformFromStringToHaving,
 	transformHavingToStringValue,
@@ -16,6 +17,7 @@ import { HavingFilterProps, HavingTagRenderProps } from './types';
 
 function HavingFilter({ formula, onChange }: HavingFilterProps): JSX.Element {
 	const getPopupContainer = useSelectPopupContainer();
+	const { t } = useTranslation('common');
 	const { having } = formula;
 	const [searchText, setSearchText] = useState<string>('');
 	const [localValues, setLocalValues] = useState<string[]>([]);
@@ -178,7 +180,7 @@ function HavingFilter({ formula, onChange }: HavingFilterProps): JSX.Element {
 			onSearch={handleSearch}
 			searchValue={searchText}
 			data-testid="havingSelectFormula"
-			placeholder="Count(operation) > 5"
+			placeholder={t('query_builder.formula_having_placeholder')}
 			style={{ width: '100%' }}
 			tagRender={tagRender}
 			onDeselect={handleDeselect}

@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Input } from '@signozhq/ui/input';
 import { Spin } from 'antd';
@@ -91,6 +92,7 @@ function AddSpanToFunnelModal({
 	onClose,
 	span,
 }: AddSpanToFunnelModalProps): JSX.Element {
+	const { t } = useTranslation(['trace', 'common']);
 	const [activeView, setActiveView] = useState<ModalView>(ModalView.LIST);
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [selectedFunnelId, setSelectedFunnelId] = useState<string | undefined>(
@@ -167,7 +169,7 @@ function AddSpanToFunnelModal({
 				<div className={styles.search}>
 					<Input
 						className={styles.searchInput}
-						placeholder="Search by name, description, or tags..."
+						placeholder={t('funnels.search_placeholder')}
 						prefix={<Search size={12} />}
 						value={searchQuery}
 						onChange={handleSearch}
@@ -210,7 +212,7 @@ function AddSpanToFunnelModal({
 				onClick={handleBack}
 				prefix={<ArrowLeft size={14} />}
 			>
-				All funnels
+				{t('funnels.all_funnels')}
 			</Button>
 			<div className="traces-funnel-details">
 				<div className="traces-funnel-details__steps-config">
@@ -245,7 +247,7 @@ function AddSpanToFunnelModal({
 			open={isOpen}
 			onCancel={onClose}
 			width={570}
-			title="Add span to funnel"
+			title={t('funnels.add_span_to_funnel')}
 			className={styles.container}
 			footer={
 				activeView === ModalView.DETAILS
@@ -258,7 +260,7 @@ function AddSpanToFunnelModal({
 								className={styles.discardButton}
 								disabled={!isUnsavedChanges}
 							>
-								Discard
+								{t('common:discard')}
 							</Button>,
 							<Button
 								key="save"
@@ -269,7 +271,7 @@ function AddSpanToFunnelModal({
 								disabled={!isUnsavedChanges}
 								prefix={<Check size={14} />}
 							>
-								Save Funnel
+								{t('funnels.save_funnel')}
 							</Button>,
 						]
 					: [
@@ -281,7 +283,7 @@ function AddSpanToFunnelModal({
 								onClick={handleCreateNewClick}
 								prefix={<Plus size={14} />}
 							>
-								Create new funnel
+								{t('funnels.create_new_funnel')}
 							</Button>,
 						]
 			}

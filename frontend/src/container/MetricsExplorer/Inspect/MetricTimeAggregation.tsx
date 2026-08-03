@@ -3,6 +3,7 @@ import { Typography } from '@signozhq/ui/typography';
 // supports the `onWheel` handler (used to blur on scroll for number inputs).
 import { Input, Select } from 'antd';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { TIME_AGGREGATION_OPTIONS } from './constants';
 import { InspectionStep } from './types';
@@ -15,6 +16,7 @@ function MetricTimeAggregation({
 	inspectionStep,
 	inspectMetricsTimeSeries,
 }: MetricTimeAggregationProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div
 			data-testid="metric-time-aggregation"
@@ -48,7 +50,7 @@ function MetricTimeAggregation({
 							}
 						}}
 						style={{ width: 130 }}
-						placeholder="Select option"
+						placeholder={t('select_option')}
 					>
 						{Object.entries(TIME_AGGREGATION_OPTIONS).map(([key, value]) => (
 							<Select.Option key={key} value={key}>
@@ -63,7 +65,7 @@ function MetricTimeAggregation({
 						type="number"
 						className="no-arrows-input"
 						value={currentMetricInspectionOptions.timeAggregationInterval}
-						placeholder="Select interval..."
+						placeholder={t('select_interval')}
 						suffix="seconds"
 						onChange={(e): void => {
 							dispatchMetricInspectionOptions({

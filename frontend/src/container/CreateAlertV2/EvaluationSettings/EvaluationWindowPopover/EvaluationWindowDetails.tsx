@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Input } from '@signozhq/ui/input';
 import { Select } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 
 import { ADVANCED_OPTIONS_TIME_UNIT_OPTIONS } from '../../context/constants';
@@ -17,6 +18,7 @@ function EvaluationWindowDetails({
 	evaluationWindow,
 	setEvaluationWindow,
 }: IEvaluationWindowDetailsProps): JSX.Element {
+	const { t } = useTranslation('create_alert');
 	const currentHourOptions = useMemo(() => {
 		const options = [];
 		for (let i = 0; i < 60; i++) {
@@ -123,12 +125,12 @@ function EvaluationWindowDetails({
 				</Typography.Text>
 				<Typography.Text>{displayText}</Typography.Text>
 				<div className="select-group">
-					<Typography.Text>STARTING AT MINUTE</Typography.Text>
+					<Typography.Text>{t('starting_at_minute')}</Typography.Text>
 					<Select
 						options={currentHourOptions}
 						value={evaluationWindow.startingAt.number || null}
 						onChange={handleNumberChange}
-						placeholder="Select starting at"
+						placeholder={t('select_starting_at')}
 						data-testid="evaluation-window-details-starting-at-select"
 					/>
 				</div>
@@ -144,19 +146,19 @@ function EvaluationWindowDetails({
 				</Typography.Text>
 				<Typography.Text>{displayText}</Typography.Text>
 				<div className="select-group time-select-group">
-					<Typography.Text>STARTING AT</Typography.Text>
+					<Typography.Text>{t('starting_at')}</Typography.Text>
 					<TimeInput
 						value={evaluationWindow.startingAt.time}
 						onChange={handleTimeChange}
 					/>
 				</div>
 				<div className="select-group">
-					<Typography.Text>SELECT TIMEZONE</Typography.Text>
+					<Typography.Text>{t('select_timezone_label')}</Typography.Text>
 					<Select
 						options={TIMEZONE_DATA}
 						value={evaluationWindow.startingAt.timezone || null}
 						onChange={handleTimezoneChange}
-						placeholder="Select timezone"
+						placeholder={t('select_timezone')}
 						data-testid="evaluation-window-details-timezone-select"
 					/>
 				</div>
@@ -172,29 +174,29 @@ function EvaluationWindowDetails({
 				</Typography.Text>
 				<Typography.Text>{displayText}</Typography.Text>
 				<div className="select-group">
-					<Typography.Text>STARTING ON DAY</Typography.Text>
+					<Typography.Text>{t('starting_on_day')}</Typography.Text>
 					<Select
 						options={currentMonthOptions}
 						value={evaluationWindow.startingAt.number || null}
 						onChange={handleNumberChange}
-						placeholder="Select starting at"
+						placeholder={t('select_starting_at')}
 						data-testid="evaluation-window-details-starting-at-select"
 					/>
 				</div>
 				<div className="select-group time-select-group">
-					<Typography.Text>STARTING AT</Typography.Text>
+					<Typography.Text>{t('starting_at')}</Typography.Text>
 					<TimeInput
 						value={evaluationWindow.startingAt.time}
 						onChange={handleTimeChange}
 					/>
 				</div>
 				<div className="select-group">
-					<Typography.Text>SELECT TIMEZONE</Typography.Text>
+					<Typography.Text>{t('select_timezone_label')}</Typography.Text>
 					<Select
 						options={TIMEZONE_DATA}
 						value={evaluationWindow.startingAt.timezone || null}
 						onChange={handleTimezoneChange}
-						placeholder="Select timezone"
+						placeholder={t('select_timezone')}
 						data-testid="evaluation-window-details-timezone-select"
 					/>
 				</div>
@@ -207,26 +209,26 @@ function EvaluationWindowDetails({
 			<Typography.Text>
 				{getRollingWindowDescription(evaluationWindow.timeframe)}
 			</Typography.Text>
-			<Typography.Text>Specify custom duration</Typography.Text>
+			<Typography.Text>{t('specify_custom_duration')}</Typography.Text>
 			<Typography.Text>{displayText}</Typography.Text>
 			<div className="select-group">
-				<Typography.Text>VALUE</Typography.Text>
+				<Typography.Text>{t('value')}</Typography.Text>
 				<Input
 					name="value"
 					type="number"
 					value={evaluationWindow.startingAt.number}
 					onChange={(e): void => handleNumberChange(e.target.value)}
-					placeholder="Enter value"
+					placeholder={t('enter_value')}
 					data-testid="evaluation-window-details-custom-rolling-window-duration-input"
 				/>
 			</div>
 			<div className="select-group time-select-group">
-				<Typography.Text>UNIT</Typography.Text>
+				<Typography.Text>{t('unit')}</Typography.Text>
 				<Select
 					options={ADVANCED_OPTIONS_TIME_UNIT_OPTIONS}
 					value={evaluationWindow.startingAt.unit || null}
 					onChange={handleUnitChange}
-					placeholder="Select unit"
+					placeholder={t('select_unit')}
 					data-testid="evaluation-window-details-custom-rolling-window-unit-select"
 				/>
 			</div>

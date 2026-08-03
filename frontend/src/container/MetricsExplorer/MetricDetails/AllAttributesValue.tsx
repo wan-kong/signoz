@@ -3,6 +3,7 @@ import { useCopyToClipboard } from 'react-use';
 import { Button, Input, Menu, Popover, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { Check, Copy, Search, SquareArrowOutUpRight } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import MetricDetailsErrorState from './MetricDetailsErrorState';
 import { AllAttributesEmptyTextProps, AllAttributesValueProps } from './types';
@@ -32,6 +33,7 @@ export function AllAttributesValue({
 	filterValue,
 	goToMetricsExploreWithAppliedAttribute,
 }: AllAttributesValueProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [attributePopoverKey, setAttributePopoverKey] = useState<string | null>(
 		null,
 	);
@@ -106,7 +108,7 @@ export function AllAttributesValue({
 	const allValuesPopoverContent = (
 		<div className="all-values-popover">
 			<Input
-				placeholder="Search values"
+				placeholder={t('search_values')}
 				size="small"
 				prefix={<Search size={12} />}
 				value={allValuesSearch}
