@@ -1,0 +1,27 @@
+{
+	"alert_popover": {
+		"view_logs": "查看日志",
+		"view_traces": "查看链路"
+	},
+	"stats_cards": {
+		"total_triggered": "总触发次数",
+		"none_triggered": "未触发。",
+		"avg_resolution_time": "平均解决时间",
+		"no_resolutions": "无解决记录。"
+	},
+	"top_contributors": {
+		"empty_message": "贡献者排名会突出显示多维告警中最常触发的分组属性",
+		"title": "主要贡献者"
+	},
+	"view_all": {
+		"button": "查看全部",
+		"title": "查看所有贡献者"
+	},
+	"total_triggered": {
+		"title": "总触发次数"
+	},
+	"timeline": {
+		"title": "时间线",
+		"triggers_in": "在 {{time}} 内触发了 {{count}} 次"
+	}
+}

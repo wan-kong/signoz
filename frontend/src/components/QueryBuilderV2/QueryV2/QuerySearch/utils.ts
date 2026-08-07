@@ -2,6 +2,7 @@ import { closeCompletion, startCompletion } from '@codemirror/autocomplete';
 import type { Completion } from '@codemirror/autocomplete';
 import type { EditorView } from '@uiw/react-codemirror';
 import dayjs from 'dayjs';
+import i18n from 'ReactI18';
 import { normalizeFilterExpression } from 'lib/recentQueries/normalize';
 import * as recentQueriesStore from 'lib/recentQueries/recentQueriesStore';
 import type { RecentQueryEntry } from 'lib/recentQueries/types';
@@ -158,8 +159,21 @@ export function renderRecentDeleteButton(
 	const btn = document.createElement('button');
 	btn.type = 'button';
 	btn.className = 'cm-recent-delete';
-	btn.setAttribute('aria-label', 'Remove from recent searches');
-	btn.title = 'Remove from recent searches';
+	btn.setAttribute(
+		'aria-label',
+		i18n.t(
+			'query_search_extra.remove_from_recent',
+			'Remove from recent searches',
+			{
+				ns: 'common',
+			},
+		),
+	);
+	btn.title = i18n.t(
+		'query_search_extra.remove_from_recent',
+		'Remove from recent searches',
+		{ ns: 'common' },
+	);
 	btn.textContent = '×';
 	queueMicrotask(() => {
 		if (btn.parentElement) {

@@ -1,0 +1,65 @@
+{
+	"left": {
+		"explorer_attributes": {
+			"loading": "加载中...",
+			"no_columns_found": "未找到列"
+		},
+		"query_type_tag": {
+			"query_builder": "查询构建器",
+			"clickhouse_query": "ClickHouse 查询",
+			"promql": "PromQL"
+		},
+		"query_builder": {
+			"add_query": "查询",
+			"clickhouse": {
+				"learn_queries": "了解如何编写更快、更优化的查询",
+				"using_ai": " · 正在使用 AI？ ",
+				"install_skill": "安装 SigNoz ClickHouse 查询代理技能",
+				"legend_format": "图例格式"
+			},
+			"promql": {
+				"query": "PromQL 查询",
+				"legend_format": "图例格式"
+			}
+		}
+	},
+	"widget": {
+		"plot_tag": {
+			"plotted_with": "使用 "
+		},
+		"graph": {
+			"invalid_widget": "无效的面板",
+			"loading": "加载中...",
+			"no_data": "暂无数据",
+			"reload_chart": "点击“运行查询”以重新加载图表。"
+		}
+	},
+	"right": {
+		"panel_settings": "面板设置",
+		"decimal_precision": {
+			"zero_decimals": "0 位小数",
+			"one_decimal": "1 位小数",
+			"two_decimals": "2 位小数",
+			"three_decimals": "3 位小数"
+		},
+		"show_as_options": {
+			"text": "文本",
+			"background": "背景"
+		}
+	},
+	"discard_changes": {
+		"title": "放弃更改？",
+		"confirm": "放弃",
+		"cancel": "继续编辑",
+		"to": "到",
+		"new_panel_message": "此新面板不会被添加",
+		"this_panel": "此面板",
+		"edits_lost_prefix": "你对此面板的未保存编辑",
+		"will_be_lost_suffix": "将丢失。"
+	},
+	"new_widget": {
+		"configure_panel": "配置面板",
+		"switch_to_view_mode": "切换到查看模式",
+		"save_changes": "保存更改"
+	}
+}

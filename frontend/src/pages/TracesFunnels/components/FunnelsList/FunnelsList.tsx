@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { generatePath, Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
@@ -25,6 +26,7 @@ export function FunnelListItem({
 	isSpanDetailsPage,
 }: FunnelListItemProps): JSX.Element {
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
+	const { t } = useTranslation('trace');
 	const funnelDetailsLink = generatePath(ROUTES.TRACES_FUNNELS_DETAIL, {
 		funnelId: funnel.funnel_id,
 	});
@@ -42,7 +44,7 @@ export function FunnelListItem({
 						className="funnel-item__open-button"
 						icon={<DecimalsArrowRight size={12} />}
 					>
-						Open funnel
+						{t('funnels_list.open_funnel', 'Open funnel')}
 					</Button>
 				) : (
 					<FunnelItemPopover

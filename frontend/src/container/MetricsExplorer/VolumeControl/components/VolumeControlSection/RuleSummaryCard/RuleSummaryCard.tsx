@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import { MetricreductionruletypesGettableReductionRuleDTO } from 'api/generated/services/sigNoz.schemas';
@@ -17,6 +18,7 @@ function RuleSummaryCard({
 	canManage,
 	onEdit,
 }: RuleSummaryCardProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className={styles.card} data-testid="volume-control-active">
 			<div className={styles.cardRow}>
@@ -28,8 +30,11 @@ function RuleSummaryCard({
 				/>
 				<Typography.Text weight="semibold">
 					{rule.active
-						? 'Aggregation rule active'
-						: 'Aggregation rule pending activation'}
+						? t('volume_control.rule_active', 'Aggregation rule active')
+						: t(
+								'volume_control.rule_pending_activation',
+								'Aggregation rule pending activation',
+							)}
 				</Typography.Text>
 				{canManage && (
 					<Button
@@ -39,7 +44,7 @@ function RuleSummaryCard({
 						onClick={onEdit}
 						data-testid="volume-control-edit"
 					>
-						Edit
+						{t('volume_control.rule_edit', 'Edit')}
 					</Button>
 				)}
 			</div>

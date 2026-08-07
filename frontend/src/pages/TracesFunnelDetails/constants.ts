@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { FunnelStepData, LatencyOptions } from 'types/api/traceFunnels';
 import { v4 } from 'uuid';
 
@@ -50,10 +51,10 @@ export const LatencyPointers: {
 }[] = [
 	{
 		value: 'start',
-		key: 'Start of span',
+		key: i18n.t('funnel.start_of_span', 'Start of span', { ns: 'common' }),
 	},
 	{
 		value: 'end',
-		key: 'End of span',
+		key: i18n.t('funnel.end_of_span', 'End of span', { ns: 'common' }),
 	},
 ];

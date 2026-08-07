@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import i18n from 'ReactI18';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import ContextMenu, { ClickedData } from 'periscope/components/ContextMenu';
 import { IBuilderQuery, Query } from 'types/api/queryBuilder/queryBuilderData';
@@ -57,7 +58,14 @@ export function getGroupContextMenuConfig({
 			items: (
 				<>
 					<ContextMenu.Header>
-						<div>Filter by {filterKey}</div>
+						<div>
+							{String(
+								i18n.t('context_config.filter_by', 'Filter by {{filterKey}}', {
+									filterKey: filterKey ?? '',
+									ns: 'query_table',
+								}),
+							)}
+						</div>
 					</ContextMenu.Header>
 					{filterOperators.map((operator) => (
 						<ContextMenu.Item

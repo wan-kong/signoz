@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Badge } from '@signozhq/ui/badge';
 import { Typography } from '@signozhq/ui/typography';
 import type { TableColumnDef } from 'components/TanStackTableView';
@@ -32,7 +33,7 @@ export function getModelCostsColumns({
 	return [
 		{
 			id: 'model',
-			header: 'Model',
+			header: i18n.t('model_costs_table.column_model', 'Model', { ns: 'llm' }),
 			accessorFn: (row): string => row.modelName ?? '',
 			// Flexes to absorb spare width alongside Extra buckets so the row fills
 			// the container instead of leaving a gap on the right.
@@ -55,7 +56,9 @@ export function getModelCostsColumns({
 		},
 		{
 			id: 'provider',
-			header: 'Provider',
+			header: i18n.t('model_costs_table.column_provider', 'Provider', {
+				ns: 'llm',
+			}),
 			accessorKey: 'provider',
 			width: { min: 140 },
 			enableMove: false,
@@ -67,7 +70,9 @@ export function getModelCostsColumns({
 		},
 		{
 			id: 'input',
-			header: 'Input / 1M',
+			header: i18n.t('model_costs_table.column_input', 'Input / 1M', {
+				ns: 'llm',
+			}),
 			width: { min: 120 },
 			enableMove: false,
 			cell: ({ row }): JSX.Element => (
@@ -78,7 +83,9 @@ export function getModelCostsColumns({
 		},
 		{
 			id: 'output',
-			header: 'Output / 1M',
+			header: i18n.t('model_costs_table.column_output', 'Output / 1M', {
+				ns: 'llm',
+			}),
 			width: { min: 120 },
 			enableMove: false,
 			cell: ({ row }): JSX.Element => (
@@ -89,7 +96,9 @@ export function getModelCostsColumns({
 		},
 		{
 			id: 'extraBuckets',
-			header: 'Extra buckets',
+			header: i18n.t('model_costs_table.column_extra_buckets', 'Extra buckets', {
+				ns: 'llm',
+			}),
 			width: { min: 200, default: '100%' },
 			enableMove: false,
 			cell: ({ row }): JSX.Element => {
@@ -133,7 +142,7 @@ export function getModelCostsColumns({
 		},
 		{
 			id: 'source',
-			header: 'Source',
+			header: i18n.t('model_costs_table.column_source', 'Source', { ns: 'llm' }),
 			width: { min: 130 },
 			enableMove: false,
 			cell: ({ row }): JSX.Element => (
@@ -149,7 +158,9 @@ export function getModelCostsColumns({
 		},
 		{
 			id: 'lastSeen',
-			header: 'Last seen',
+			header: i18n.t('model_costs_table.column_last_seen', 'Last seen', {
+				ns: 'llm',
+			}),
 			width: { min: 120 },
 			enableMove: false,
 			cell: ({ row }): JSX.Element => (

@@ -60,7 +60,7 @@ function K8sTableToolbar({
 	return (
 		<div className={styles.toolbar}>
 			<div className={styles.groupByContainer}>
-				<div className={styles.groupByLabel}>Group by</div>
+				<div className={styles.groupByLabel}>{t('group_by')}</div>
 				<Select
 					className={styles.groupBySelect}
 					loading={isLoadingGroupByFilters}

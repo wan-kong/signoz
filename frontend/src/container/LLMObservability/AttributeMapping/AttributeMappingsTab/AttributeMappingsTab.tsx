@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { DraftGroup } from '../types';
 import { AttributeMappingEditor } from '../hooks/useAttributeMappingEditor';
 import styles from './AttributeMappingsTab.module.scss';
@@ -17,11 +18,15 @@ function AttributeMappingsTab({
 	onEditGroup,
 	onAddGroup,
 }: AttributeMappingsTabProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	return (
 		<div data-testid="attribute-mappings-tab">
 			{editor.isError ? (
 				<div className={styles.pageError} role="alert">
-					Failed to load mapping groups. Please try again.
+					{t(
+						'attribute_mappings_table.load_error',
+						'Failed to load mapping groups. Please try again.',
+					)}
 				</div>
 			) : (
 				<MappingsTable

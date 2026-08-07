@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
 import { Typography } from '@signozhq/ui/typography';
 import { LineInterpolation } from 'lib/uPlotV2/config/types';
@@ -13,10 +14,11 @@ export default function LineInterpolationSelector({
 	value,
 	onChange,
 }: LineInterpolationSelectorProps): JSX.Element {
+	const { t } = useTranslation('new_widget_components');
 	return (
 		<section className="line-interpolation-selector control-container">
 			<Typography.Text className="section-heading">
-				Line interpolation
+				{t('line_interpolation.heading', 'Line interpolation')}
 			</Typography.Text>
 			<ToggleGroupSimple
 				type="single"
@@ -30,7 +32,7 @@ export default function LineInterpolationSelector({
 				items={[
 					{
 						value: LineInterpolation.Linear,
-						'aria-label': 'Linear',
+						'aria-label': t('line_interpolation.linear', 'Linear'),
 						label: (
 							<svg
 								className="line-interpolation-icon"
@@ -50,7 +52,7 @@ export default function LineInterpolationSelector({
 					},
 					{
 						value: LineInterpolation.Spline,
-						'aria-label': 'Spline',
+						'aria-label': t('line_interpolation.spline', 'Spline'),
 						label: (
 							<svg
 								className="line-interpolation-icon"
@@ -70,7 +72,7 @@ export default function LineInterpolationSelector({
 					},
 					{
 						value: LineInterpolation.StepAfter,
-						'aria-label': 'Step After',
+						'aria-label': t('line_interpolation.step_after', 'Step After'),
 						label: (
 							<svg
 								className="line-interpolation-icon"
@@ -90,7 +92,7 @@ export default function LineInterpolationSelector({
 					},
 					{
 						value: LineInterpolation.StepBefore,
-						'aria-label': 'Step Before',
+						'aria-label': t('line_interpolation.step_before', 'Step Before'),
 						label: (
 							<svg
 								className="line-interpolation-icon"

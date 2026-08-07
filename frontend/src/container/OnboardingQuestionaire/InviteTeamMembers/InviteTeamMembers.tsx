@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, LoaderCircle } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import logEvent from 'api/common/logEvent';
@@ -29,6 +30,7 @@ function InviteTeamMembers({
 	isLoading,
 	onNext,
 }: InviteTeamMembersProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { notifications } = useNotifications();
 	const { roles } = useRoles();
 
@@ -59,7 +61,7 @@ function InviteTeamMembers({
 			teamMembers: toTeamMembers(rows),
 		});
 		notifications.success({
-			message: 'Invites sent successfully!',
+			message: t('invites_sent', 'Invites sent successfully!'),
 		});
 		setTimeout(() => {
 			onNext();

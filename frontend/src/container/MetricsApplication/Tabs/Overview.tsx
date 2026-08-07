@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
@@ -62,6 +63,7 @@ import {
 } from './util';
 
 function Application(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { servicename: encodedServiceName } = useParams<IServiceName>();
 	const servicename = decodeURIComponent(encodedServiceName);
 
@@ -333,7 +335,7 @@ function Application(): JSX.Element {
 							safeNavigate,
 						})}
 					>
-						View Traces
+						{t('metrics_application_extra.view_traces')}
 					</Button>
 					<TopLevelOperation
 						handleGraphClick={handleGraphClick}
@@ -363,7 +365,7 @@ function Application(): JSX.Element {
 								safeNavigate,
 							})}
 						>
-							View Traces
+							{t('metrics_application_extra.view_traces')}
 						</Button>
 						<ApDex
 							handleGraphClick={handleGraphClick}

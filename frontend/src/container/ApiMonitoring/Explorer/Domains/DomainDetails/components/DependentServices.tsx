@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
 import { Skeleton, Table, TablePaginationConfig } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -32,6 +33,8 @@ function DependentServices({
 }: DependentServicesProps): JSX.Element {
 	const { data, refetch, isError, isLoading, isRefetching } =
 		dependentServicesQuery;
+
+	const { t } = useTranslation('common');
 
 	const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
@@ -83,7 +86,10 @@ function DependentServices({
 										/>
 
 										<Typography.Text className="no-status-code-data-message">
-											This query had no results. Edit your query and try again!
+											{t(
+												'api_monitoring.no_results',
+												'This query had no results. Edit your query and try again!',
+											)}
 										</Typography.Text>
 									</div>
 								</div>
@@ -117,7 +123,9 @@ function DependentServices({
 						tabIndex={0}
 					>
 						<UnfoldVertical size={14} />
-						{isExpanded ? 'Show less...' : 'Show more...'}
+						{isExpanded
+							? t('api_monitoring.show_less', 'Show less...')
+							: t('api_monitoring.show_more', 'Show more...')}
 					</div>
 				)}
 			</div>

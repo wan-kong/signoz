@@ -1,6 +1,7 @@
 //@ts-nocheck
 
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -64,6 +65,7 @@ export interface graphDataType {
 }
 
 function ServiceMap(props: ServiceMapProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const fgRef = useRef();
 
 	const { getDetailedServiceMapItems, globalTime, serviceMap } = props;
@@ -83,14 +85,14 @@ function ServiceMap(props: ServiceMapProps): JSX.Element {
 	});
 
 	if (serviceMap.loading) {
-		return <Spinner size="large" tip="Loading..." />;
+		return <Spinner size="large" tip={t('loading', { ns: 'common' })} />;
 	}
 
 	if (!serviceMap.loading && serviceMap.items.length === 0) {
 		return (
 			<Container>
 				<ResourceAttributesFilter />
-				<Card>No Service Found</Card>
+				<Card>{t('no_service_found', 'No Service Found', { ns: 'common' })}</Card>
 			</Container>
 		);
 	}

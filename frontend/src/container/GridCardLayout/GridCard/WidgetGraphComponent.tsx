@@ -8,6 +8,7 @@ import {
 	useState,
 } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Skeleton, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
@@ -68,6 +69,7 @@ function WidgetGraphComponent({
 	enableDrillDown,
 	hidePagination,
 }: WidgetGraphComponentProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { safeNavigate } = useSafeNavigate();
 	const [deleteModal, setDeleteModal] = useState(false);
 	const { notifications } = useNotifications();
@@ -202,7 +204,10 @@ function WidgetGraphComponent({
 						setDashboardData(updatedDashboard.data);
 					}
 					notifications.success({
-						message: 'Panel cloned successfully, redirecting to new copy.',
+						message: t(
+							'widget_graph_component.panel_cloned_success',
+							'Panel cloned successfully, redirecting to new copy.',
+						),
 					});
 
 					const clonedWidget = updatedDashboard.data?.data?.widgets?.find(
@@ -341,18 +346,25 @@ function WidgetGraphComponent({
 				onCancel={onDeleteModelHandler}
 				open={deleteModal}
 				confirmLoading={updateDashboardMutation.isLoading}
-				title="Delete"
+				title={t('widget_graph_component.delete', 'Delete')}
 				height="10vh"
 				onOk={onDeleteHandler}
 				centered
 			>
-				<Typography>Are you sure you want to delete this widget</Typography>
+				<Typography>
+					{t(
+						'widget_graph_component.delete_confirm',
+						'Are you sure you want to delete this widget',
+					)}
+				</Typography>
 			</Modal>
 
 			<Modal
 				title={
 					<Tooltip title={fullText} placement="top">
-						<span>{truncatedText || fullText || 'View'}</span>
+						<span>
+							{truncatedText || fullText || t('widget_graph_component.view', 'View')}
+						</span>
 					</Tooltip>
 				}
 				footer={[]}

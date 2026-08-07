@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { InframonitoringtypesNamespaceRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
@@ -34,12 +35,16 @@ export const k8sNamespaceGetSelectedItemExpression = (
 export const k8sNamespaceDetailsMetadataConfig: K8sDetailsMetadataConfig<InframonitoringtypesNamespaceRecordDTO>[] =
 	[
 		{
-			label: 'Namespace Name',
+			label: i18n.t('display.namespace_name', 'Namespace Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.namespace_name',
 			getValue: (p): string => p.namespaceName || '',
 		},
 		{
-			label: 'Cluster Name',
+			label: i18n.t('display.cluster_name', 'Cluster Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] || '',
@@ -49,25 +54,29 @@ export const k8sNamespaceDetailsMetadataConfig: K8sDetailsMetadataConfig<Inframo
 export const k8sNamespaceDetailsCountsConfig: K8sDetailsCountConfig<InframonitoringtypesNamespaceRecordDTO>[] =
 	[
 		{
-			label: 'Deployments',
+			label: i18n.t('display.deployments', 'Deployments', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.deployments',
 			getValue: (p): number => p.counts?.deployments ?? 0,
 			targetCategory: InfraMonitoringEntity.DEPLOYMENTS,
 		},
 		{
-			label: 'StatefulSets',
+			label: i18n.t('display.statefulsets', 'StatefulSets', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.statefulsets',
 			getValue: (p): number => p.counts?.statefulSets ?? 0,
 			targetCategory: InfraMonitoringEntity.STATEFULSETS,
 		},
 		{
-			label: 'DaemonSets',
+			label: i18n.t('display.daemonsets', 'DaemonSets', { ns: 'infraMonitoring' }),
 			labelKey: 'display.daemonsets',
 			getValue: (p): number => p.counts?.daemonSets ?? 0,
 			targetCategory: InfraMonitoringEntity.DAEMONSETS,
 		},
 		{
-			label: 'Jobs',
+			label: i18n.t('display.jobs', 'Jobs', { ns: 'infraMonitoring' }),
 			labelKey: 'display.jobs',
 			getValue: (p): number => p.counts?.jobs ?? 0,
 			targetCategory: InfraMonitoringEntity.JOBS,

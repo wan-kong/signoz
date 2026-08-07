@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Drawer } from 'antd';
 import { useIsDarkMode } from 'hooks/useDarkMode';
@@ -17,6 +18,7 @@ function ViewAllDrawer({
 	totalCurrentTriggers: AlertRuleStats['totalCurrentTriggers'];
 }): JSX.Element {
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('alert_history');
 	return (
 		<Drawer
 			open={isViewAllVisible}
@@ -29,7 +31,7 @@ function ViewAllDrawer({
 				overscrollBehavior: 'contain',
 				background: isDarkMode ? Color.BG_INK_400 : Color.BG_VANILLA_100,
 			}}
-			title="Viewing All Contributors"
+			title={t('view_all.title', 'Viewing All Contributors')}
 		>
 			<div className="top-contributors-card--view-all">
 				<div className="top-contributors-card__content">

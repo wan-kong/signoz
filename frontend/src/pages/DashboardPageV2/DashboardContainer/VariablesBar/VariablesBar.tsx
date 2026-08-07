@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ChevronLeft } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
@@ -31,6 +32,7 @@ interface VariablesBarProps {
  * either way so auto-selection and option fetching keep driving the panels.
  */
 function VariablesBar({ dashboard }: VariablesBarProps): JSX.Element | null {
+	const { t } = useTranslation('dashboard');
 	const dashboardId = dashboard.id ?? '';
 	const { variables, selection, setSelection, autoSelect } =
 		useVariableSelection(dashboard);
@@ -66,7 +68,9 @@ function VariablesBar({ dashboard }: VariablesBarProps): JSX.Element | null {
 			testId="dashboard-variables-more"
 			onClick={(): void => setVariablesExpanded(dashboardId, !expanded)}
 		>
-			{expanded ? 'Less' : `+${overflowCount}`}
+			{expanded
+				? t('dashboard_page_v2.variables_bar.less', 'Less')
+				: `+${overflowCount}`}
 		</Button>
 	);
 

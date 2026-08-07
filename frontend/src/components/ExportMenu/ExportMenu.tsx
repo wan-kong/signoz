@@ -36,7 +36,8 @@ export default function ExportMenu({
 	fileName,
 }: ExportMenuProps): JSX.Element {
 	const { t: translate } = useTranslation('common');
-	const t = (key: string): string => String(translate(key));
+	const t = (key: string, defaultValue?: string): string =>
+		String(translate(key, defaultValue));
 	const [exportFormat, setExportFormat] = useState<string>(ExportFormat.Csv);
 	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
@@ -54,13 +55,13 @@ export default function ExportMenu({
 
 	return (
 		<Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-			<TooltipSimple title={t('download')}>
+			<TooltipSimple title={t('download', 'Download')}>
 				<PopoverTrigger asChild>
 					<Button
 						variant="ghost"
 						color="secondary"
 						size="icon"
-						aria-label={t('download')}
+						aria-label={t('download', 'Download')}
 						data-testid={`export-menu-${dataSource}`}
 						disabled={isExporting}
 						loading={isExporting}
@@ -71,7 +72,9 @@ export default function ExportMenu({
 			</TooltipSimple>
 			<PopoverContent align="end" className="export-menu-popover">
 				<div className="export-format">
-					<Typography.Text className="title">{t('format')}</Typography.Text>
+					<Typography.Text className="title">
+						{t('format', 'FORMAT')}
+					</Typography.Text>
 					<RadioGroup value={exportFormat} onChange={setExportFormat}>
 						<RadioGroupItem value={ExportFormat.Csv}>csv</RadioGroupItem>
 						<RadioGroupItem value={ExportFormat.Jsonl}>jsonl</RadioGroupItem>
@@ -87,7 +90,7 @@ export default function ExportMenu({
 					loading={isExporting}
 					prefix={<Download size={16} />}
 				>
-					{t('export')}
+					{t('export', 'Export')}
 				</Button>
 			</PopoverContent>
 		</Popover>

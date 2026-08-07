@@ -1,4 +1,5 @@
 import { memo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Spinner from 'components/Spinner';
 import { Card, GraphContainer } from 'container/MetricsApplication/styles';
@@ -15,6 +16,7 @@ function ApDexApplication({
 	topLevelOperationsRoute,
 	tagFilterItems,
 }: ApDexApplicationProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { servicename: encodedServiceName } = useParams<IServiceName>();
 	const servicename = decodeURIComponent(encodedServiceName);
 	const { notifications } = useNotifications();
@@ -34,7 +36,7 @@ function ApDexApplication({
 	if (isLoading || isRefetching) {
 		return (
 			<Card>
-				<Spinner height="40vh" tip="Loading..." />
+				<Spinner height="40vh" tip={t('loading', 'Loading...', { ns: 'common' })} />
 			</Card>
 		);
 	}

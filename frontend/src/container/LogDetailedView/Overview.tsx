@@ -111,7 +111,7 @@ function Overview({
 						label: (
 							<Badge color="vanilla">
 								<Typography.Text style={{ color: Color.BG_ROBIN_400 }}>
-									body
+									{t('log_fields.body', 'body')}
 								</Typography.Text>
 							</Badge>
 						),

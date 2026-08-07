@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { ScanSearch } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
 import { Tooltip } from 'antd';
@@ -109,6 +110,8 @@ export const showPaginationTotal = (
 		<span className="sa-pagination-range">
 			{range[0]} &#8212; {range[1]}
 		</span>
-		<span className="sa-pagination-total"> of {_total}</span>
+		<span className="sa-pagination-total">
+			{String(i18n.t('of', 'of', { ns: 'common' }))} {_total}
+		</span>
 	</>
 );

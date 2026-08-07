@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import i18n from 'ReactI18';
 import { useMutation } from 'react-query';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Button, Card, Modal } from 'antd';
@@ -49,38 +50,47 @@ const channelsMap = {
 const supportChannels = [
 	{
 		key: 'documentation',
-		name: 'Documentation',
+		name: i18n.t('support.documentation', 'Documentation'),
 		icon: <Book size={16} />,
-		title: 'Find answers in the documentation.',
+		title: i18n.t('support.find_answers', 'Find answers in the documentation.'),
 		url: 'https://signoz.io/docs/',
-		btnText: 'Visit docs',
+		btnText: i18n.t('support.visit_docs', 'Visit docs'),
 		isExternal: true,
 	},
 	{
 		key: 'github',
-		name: 'Github',
+		name: i18n.t('support.github', 'Github'),
 		icon: <Github size={16} />,
-		title: 'Create an issue on GitHub to report bugs or request new features.',
+		title: i18n.t(
+			'support.create_issue',
+			'Create an issue on GitHub to report bugs or request new features.',
+		),
 		url: 'https://github.com/SigNoz/signoz/issues',
-		btnText: 'Create issue',
+		btnText: i18n.t('support.create_issue_btn', 'Create issue'),
 		isExternal: true,
 	},
 	{
 		key: 'slack_community',
-		name: 'Slack Community',
+		name: i18n.t('support.slack_community', 'Slack Community'),
 		icon: <Slack size={16} />,
-		title: 'Get support from the SigNoz community on Slack.',
+		title: i18n.t(
+			'support.get_support_slack',
+			'Get support from the SigNoz community on Slack.',
+		),
 		url: 'https://signoz.io/slack',
-		btnText: 'Join Slack',
+		btnText: i18n.t('support.join_slack', 'Join Slack'),
 		isExternal: true,
 	},
 	{
 		key: 'chat',
-		name: 'Chat',
+		name: i18n.t('support.chat', 'Chat'),
 		icon: <MessageSquare size={16} />,
-		title: 'Get quick support directly from the team.',
+		title: i18n.t(
+			'support.get_quick_support',
+			'Get quick support directly from the team.',
+		),
 		url: '',
-		btnText: 'Launch chat',
+		btnText: i18n.t('support.launch_chat', 'Launch chat'),
 		isExternal: false,
 	},
 ];

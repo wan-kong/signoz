@@ -1,4 +1,5 @@
 import { convertTimeToRelevantUnit } from 'container/TraceDetail/utils';
+import { useTranslation } from 'react-i18next';
 import { Diamond } from '@signozhq/icons';
 import cx from 'classnames';
 import { toFixed } from 'utils/toFixed';
@@ -18,19 +19,21 @@ export function EventTooltipContent({
 	isError,
 	attributeMap,
 }: EventTooltipContentProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const { time, timeUnitName } = convertTimeToRelevantUnit(timeOffsetMs);
 
 	return (
 		<div className={styles.root}>
 			<div className={styles.header}>
 				<Diamond size={10} />
-				<span>EVENT DETAILS</span>
+				<span>{t('trace_details.events.event_details', 'EVENT DETAILS')}</span>
 			</div>
 			<div className={cx(styles.name, isError && styles.hasError)}>
 				{eventName}
 			</div>
 			<div className={styles.time}>
-				{toFixed(time, 2)} {timeUnitName} since span start
+				{toFixed(time, 2)} {timeUnitName}{' '}
+				{t('trace_details.events.since_span_start', 'since span start')}
 			</div>
 			{Object.keys(attributeMap).length > 0 && (
 				<>

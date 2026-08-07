@@ -17,6 +17,9 @@ import type {
 } from 'api/ai-assistant/sigNozAIAssistantAPI.schemas';
 import { CircleHelp, Send, X } from '@signozhq/icons';
 
+import { useTranslation } from 'react-i18next';
+import i18n from 'ReactI18';
+
 import { AIAssistantEvents } from '../../events';
 import { useAIAssistantAnalyticsContext } from '../../hooks/useAIAssistantAnalyticsContext';
 import { useAIAssistantStore } from '../../store/useAIAssistantStore';
@@ -26,7 +29,13 @@ import styles from './ClarificationForm.module.scss';
 /** Sentinel emitted by the select dropdown when the user picks the custom slot. */
 const CUSTOM_OPTION_SENTINEL = '__signoz_ai_custom__';
 /** User-facing label for the synthetic "type your own answer" option. */
-const CUSTOM_OPTION_LABEL = 'Other (type your own)';
+const CUSTOM_OPTION_LABEL = i18n.t(
+	'other_type_your_own',
+	'Other (type your own)',
+	{
+		ns: 'ai_assistant',
+	},
+);
 
 interface ClarificationFormProps {
 	conversationId: string;
@@ -49,6 +58,7 @@ export default function ClarificationForm({
 	);
 	const { threadId, page, mode } =
 		useAIAssistantAnalyticsContext(conversationId);
+	const { t } = useTranslation('ai_assistant');
 
 	const fields = clarification.fields ?? [];
 	const initialAnswers = Object.fromEntries(
@@ -104,7 +114,9 @@ export default function ClarificationForm({
 		return (
 			<div className={cx(styles.clarification, styles.submitted)}>
 				<Send size={13} className={styles.icon} />
-				<span className={styles.statusText}>Answers submitted — resuming…</span>
+				<span className={styles.statusText}>
+					{t('answers_submitted_resuming', 'Answers submitted — resuming…')}
+				</span>
 			</div>
 		);
 	}
@@ -113,7 +125,9 @@ export default function ClarificationForm({
 		return (
 			<div className={cx(styles.clarification, styles.submitted)}>
 				<X size={13} className={styles.icon} />
-				<span className={styles.statusText}>Request cancelled.</span>
+				<span className={styles.statusText}>
+					{t('request_cancelled', 'Request cancelled.')}
+				</span>
 			</div>
 		);
 	}
@@ -122,7 +136,9 @@ export default function ClarificationForm({
 		<div className={styles.clarification}>
 			<div className={styles.header}>
 				<CircleHelp size={13} className={styles.headerIcon} />
-				<span className={styles.headerLabel}>A few details needed</span>
+				<span className={styles.headerLabel}>
+					{t('few_details_needed', 'A few details needed')}
+				</span>
 			</div>
 
 			<p className={styles.message}>{clarification.message}</p>
@@ -146,7 +162,7 @@ export default function ClarificationForm({
 					disabled={isStreaming || !isFormValid}
 					prefix={<Send />}
 				>
-					Submit
+					{t('submit', 'Submit')}
 				</Button>
 				<Button
 					variant="outlined"
@@ -155,7 +171,7 @@ export default function ClarificationForm({
 					disabled={isStreaming}
 					prefix={<X />}
 				>
-					Cancel request
+					{t('cancel_request', 'Cancel request')}
 				</Button>
 			</div>
 		</div>
@@ -225,6 +241,7 @@ interface FieldInputProps {
 }
 
 function FieldInput({ field, value, onChange }: FieldInputProps): JSX.Element {
+	const { t } = useTranslation('ai_assistant');
 	const { id, type, label, required, options, allowCustom } = field;
 
 	// Local UI state for the synthetic "custom" option on select /
@@ -268,7 +285,7 @@ function FieldInput({ field, value, onChange }: FieldInputProps): JSX.Element {
 				>
 					<SelectTrigger
 						id={id}
-						placeholder="Select…"
+						placeholder={t('select_placeholder', 'Select…')}
 						aria-required={required || undefined}
 					/>
 					{/* Pin the dropdown width to the trigger via Radix's
@@ -291,7 +308,7 @@ function FieldInput({ field, value, onChange }: FieldInputProps): JSX.Element {
 					<Input
 						type="text"
 						className={styles.input}
-						placeholder="Enter a custom value"
+						placeholder={t('enter_custom_value', 'Enter a custom value')}
 						value={customValue}
 						onChange={(e): void => {
 							setCustomValue(e.target.value);
@@ -404,7 +421,7 @@ function FieldInput({ field, value, onChange }: FieldInputProps): JSX.Element {
 					<Input
 						type="text"
 						className={styles.input}
-						placeholder="Enter a custom value"
+						placeholder={t('enter_custom_value', 'Enter a custom value')}
 						value={customValue}
 						onChange={(e): void => updateCustomValue(e.target.value)}
 					/>

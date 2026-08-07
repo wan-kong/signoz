@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { InframonitoringtypesNodeRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
@@ -24,12 +25,14 @@ export const k8sNodeGetSelectedItemExpression = (
 export const k8sNodeDetailsMetadataConfig: K8sDetailsMetadataConfig<InframonitoringtypesNodeRecordDTO>[] =
 	[
 		{
-			label: 'Node Name',
+			label: i18n.t('display.node_name', 'Node Name', { ns: 'infraMonitoring' }),
 			labelKey: 'display.node_name',
 			getValue: (p): string => p.nodeName || '',
 		},
 		{
-			label: 'Cluster Name',
+			label: i18n.t('display.cluster_name', 'Cluster Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] || '',

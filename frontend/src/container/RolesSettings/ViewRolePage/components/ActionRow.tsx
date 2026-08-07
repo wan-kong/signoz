@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronRight } from '@signozhq/icons';
 
 import { Typography } from '@signozhq/ui/typography';
@@ -28,6 +29,7 @@ function ActionRow({
 	scope,
 	selectedIds = [],
 }: ActionRowProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
 	const isExpandable =
 		scope === PermissionScope.ONLY_SELECTED && selectedIds.length > 0;
 
@@ -49,7 +51,11 @@ function ActionRow({
 							className={styles.chevron}
 							onClick={handleToggle}
 							aria-expanded={isExpanded}
-							aria-label={`${isExpanded ? 'Collapse' : 'Expand'} selected items`}
+							aria-label={t(
+								isExpanded
+									? 'role_view_collapse_selected_items'
+									: 'role_view_expand_selected_items',
+							)}
 							data-testid={`toggle-items-${actionName}`}
 						>
 							{isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}

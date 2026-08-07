@@ -37,15 +37,159 @@
 	"processor_pattern_placeholder": "模式",
 	"processor_field_placeholder": "字段",
 	"processor_value_placeholder": "值",
-		"path_prefix": "路径前缀",
-		"path_prefix_placeholder": "路径前缀",
-		"enable_paths": "启用路径",
-		"enable_mapping": "启用映射",
-		"mapping_priority_tooltip": "填写的键的顺序将决定键的优先级，即较早的键具有更高的优先级",
+	"path_prefix": "路径前缀",
+	"path_prefix_placeholder": "路径前缀",
+	"enable_paths": "启用路径",
+	"enable_mapping": "启用映射",
+	"mapping_priority_tooltip": "填写的键的顺序将决定键的优先级，即较早的键具有更高的优先级",
 	"processor_description_placeholder": "示例规则：%{word:first}",
 	"processor_trace_id_placeholder": "从此处解析 Trace ID",
 	"processor_span_id_placeholder": "从此处解析 Span ID",
 	"processor_trace_flags_placeholder": "从此处解析 Trace flags",
 	"processor_from_placeholder": "从",
-	"processor_to_placeholder": "到"
+	"processor_to_placeholder": "到",
+	"additional_filters": {
+		"and_separator": " 和 ",
+		"add_conditions_for": "添加条件："
+	},
+	"formula": {
+		"legend_format": "图例格式",
+		"order_by": "排序方式",
+		"limit": "限制"
+	},
+	"entity_options": {
+		"uncollapse": "展开",
+		"collapse": "收起",
+		"show": "显示",
+		"hide": "隐藏",
+		"clone_query": "克隆查询 {{name}}"
+	},
+	"query_functions": {
+		"early_access_notice": "函数功能处于早期访问阶段，目前最多可添加 {{max}} 个函数。"
+	},
+	"aggregator_filter": {
+		"meter_name": "计量名称",
+		"metric_name": "指标名称",
+		"aggregate_attribute": "聚合属性"
+	},
+	"builder_units": {
+		"y_axis_unit": "Y 轴单位"
+	},
+	"group_by_filter": {
+		"everything_no_breakdown": "全部（不拆分）"
+	},
+	"having_filter": {
+		"invalid_clause": "无效的 HAVING 子句"
+	},
+	"metric_name_selector": {
+		"search_meter": "搜索计量指标...",
+		"search_metric": "搜索指标...",
+		"failed_to_load": "加载指标失败"
+	},
+	"query_builder_search": {
+		"type_label": "类型：",
+		"data_type_label": "数据类型：",
+		"placeholder": "搜索筛选器：从建议值中选择选项，对于 IN/NOT IN 操作符 - 选择后按 \"Enter\"",
+		"operator_for": "操作符用于 ",
+		"show_all_filter_items": "显示所有筛选项",
+		"suggested_filters": "建议的筛选器",
+		"example_queries": "示例查询",
+		"show_all_filters": "显示所有筛选器属性",
+		"to_navigate": "进行导航",
+		"to_update_query": "更新查询",
+		"value_for": "值用于 "
+	},
+	"quick_filters": {
+		"announcement_tooltip": "新的筛选器可用"
+	},
+	"query_v2": {
+		"metrics_select": {
+			"placeholder": "选择指标"
+		},
+		"having_filter": {
+			"label": "HAVING"
+		},
+		"aggregation": {
+			"label": "聚合"
+		},
+		"query_search": {
+			"placeholder": "搜索...",
+			"no_results": "未找到结果"
+		},
+		"trace_operator": {
+			"label": "操作符"
+		}
+	},
+	"change_history": {
+		"title": "变更历史",
+		"in_progress": "进行中",
+		"deployed": "已部署",
+		"dirty": "有改动",
+		"failed": "失败",
+		"unknown": "未知",
+		"version": "版本",
+		"deployment_stage": "部署阶段",
+		"last_deploy_message": "上次部署信息",
+		"last_deployed_time": "上次部署时间",
+		"edited_by": "编辑人"
+	},
+	"add_processor": {
+		"title": "添加新的处理器"
+	},
+	"mode_config": {
+		"mode": "模式",
+		"configuration": "配置"
+	},
+	"pipeline_view": {
+		"title": "管道",
+		"preview": "预览",
+		"sample_logs": "示例日志",
+		"simulator": "日志处理模拟器",
+		"simulation_result": "模拟结果",
+		"interval_selector": "预览间隔",
+		"logs_count": "日志数量",
+		"sample_response": "示例响应",
+		"preview_action": "预览"
+	},
+	"pipeline_lists": {
+		"name": "名称",
+		"description": "描述",
+		"filter": "筛选",
+		"pipeline_name": "日志流水线名称",
+		"filters": "筛选条件",
+		"last_edited": "最后编辑时间",
+		"edited_by": "编辑人"
+	},
+	"preview": {
+		"filtered_logs_preview": "筛选日志预览",
+		"select_filter": "请选择筛选条件",
+		"simulate_processing": "模拟处理",
+		"error": "发生错误",
+		"loading": "加载中...",
+		"no_logs": "未找到日志",
+		"sample_logs": "示例日志",
+		"processed_output": "处理后的输出",
+		"matches_in": "{{count}} 条匹配",
+		"sample_logs_error": "查询示例日志时发生错误",
+		"preview_for": "{{name}} 的日志处理预览"
+	},
+	"processor_config": {
+		"processor_type": {
+			"grok": "Grok",
+			"regex": "Regex",
+			"json_parser": "Json 解析器",
+			"trace_parser": "Trace 解析器",
+			"timestamp_parser": "时间戳解析器",
+			"severity_parser": "严重级别解析器",
+			"add": "添加",
+			"remove": "移除",
+			"move": "移动",
+			"copy": "复制"
+		},
+		"trace_parser_fields_required": "必须至少指定一个 trace 解析器字段。",
+		"parse_from": "解析来源"
+	},
+	"tag_input": {
+		"placeholder": "输入标签"
+	}
 }

@@ -1,4 +1,6 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
+import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
 import { QueryParams } from 'constants/query';
 import useUrlQuery from 'hooks/useUrlQuery';
@@ -24,6 +26,7 @@ function ChangePercentage({
 	direction,
 	duration,
 }: ChangePercentageProps): JSX.Element {
+	const { t } = useTranslation('common');
 	if (direction > 0) {
 		return (
 			<div className="change-percentage change-percentage--success">
@@ -31,7 +34,7 @@ function ChangePercentage({
 					<ArrowDownLeft size={14} color={Color.BG_FOREST_500} />
 				</div>
 				<div className="change-percentage__label">
-					{percentage}% vs Last {duration}
+					{percentage}% {t('vs_last')} {duration}
 				</div>
 			</div>
 		);
@@ -43,7 +46,7 @@ function ChangePercentage({
 					<ArrowUpRight size={14} color={Color.BG_CHERRY_500} />
 				</div>
 				<div className="change-percentage__label">
-					{percentage}% vs Last {duration}
+					{percentage}% {t('vs_last')} {duration}
 				</div>
 			</div>
 		);
@@ -51,7 +54,9 @@ function ChangePercentage({
 
 	return (
 		<div className="change-percentage change-percentage--no-previous-data">
-			<div className="change-percentage__label">no previous data</div>
+			<div className="change-percentage__label">
+				{t('no_previous_data', { ns: 'common' })}
+			</div>
 		</div>
 	);
 }
@@ -75,6 +80,7 @@ function StatsCard({
 	emptyMessage,
 	timeSeries = [],
 }: StatsCardProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const urlQuery = useUrlQuery();
 
 	const relativeTime = urlQuery.get('relativeTime');
@@ -114,7 +120,11 @@ function StatsCard({
 						<div className="text">{displayTime}</div>
 					) : (
 						<Tooltip
-							title={`From ${formattedStartTimeForTooltip} to ${formattedEndTimeForTooltip}`}
+							title={t('from_to', {
+								from: formattedStartTimeForTooltip,
+								to: formattedEndTimeForTooltip,
+								ns: 'common',
+							})}
 						>
 							<div className="text">{displayTime}</div>
 						</Tooltip>
@@ -149,7 +159,7 @@ StatsCard.defaultProps = {
 	totalCurrentCount: 0,
 	totalPastCount: 0,
 	isEmpty: false,
-	emptyMessage: 'No Data',
+	emptyMessage: i18n.t('no_data', 'No Data', { ns: 'common' }),
 	displayValue: '',
 	timeSeries: [],
 };

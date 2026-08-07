@@ -211,7 +211,7 @@ describe('CreateAlertRule', () => {
 
 		it('should navigate with threshold alert params for metrics alert', () => {
 			render(<CreateAlertRule />);
-			fireEvent.click(screen.getByText('metric_based_alert'));
+			fireEvent.click(screen.getByText('Metric based Alert'));
 
 			expect(mockSetUrlQuery).toHaveBeenCalledWith(
 				QueryParams.ruleType,
@@ -226,7 +226,7 @@ describe('CreateAlertRule', () => {
 
 		it('should navigate with threshold alert params for logs alert', () => {
 			render(<CreateAlertRule />);
-			fireEvent.click(screen.getByText('log_based_alert'));
+			fireEvent.click(screen.getByText('Log-based Alert'));
 
 			expect(mockSetUrlQuery).toHaveBeenCalledWith(
 				QueryParams.ruleType,
@@ -241,7 +241,7 @@ describe('CreateAlertRule', () => {
 
 		it('should navigate with threshold alert params for traces alert', () => {
 			render(<CreateAlertRule />);
-			fireEvent.click(screen.getByText('traces_based_alert'));
+			fireEvent.click(screen.getByText('Trace-based Alert'));
 
 			expect(mockSetUrlQuery).toHaveBeenCalledWith(
 				QueryParams.ruleType,
@@ -256,7 +256,7 @@ describe('CreateAlertRule', () => {
 
 		it('should navigate with threshold alert params for exceptions alert', () => {
 			render(<CreateAlertRule />);
-			fireEvent.click(screen.getByText('exceptions_based_alert'));
+			fireEvent.click(screen.getByText('Exceptions-based Alert'));
 
 			expect(mockSetUrlQuery).toHaveBeenCalledWith(
 				QueryParams.ruleType,
@@ -284,7 +284,7 @@ describe('CreateAlertRule', () => {
 			});
 
 			render(<CreateAlertRule />);
-			fireEvent.click(screen.getByText('anomaly_based_alert'));
+			fireEvent.click(screen.getByText('Anomaly based Alert'));
 
 			expect(mockSetUrlQuery).toHaveBeenCalledWith(
 				QueryParams.ruleType,
@@ -306,7 +306,7 @@ describe('CreateAlertRule', () => {
 			});
 
 			render(<CreateAlertRule />);
-			fireEvent.click(screen.getByText('metric_based_alert'));
+			fireEvent.click(screen.getByText('Metric based Alert'));
 
 			expect(mockSetUrlQuery).toHaveBeenCalledWith(
 				QueryParams.ruleType,

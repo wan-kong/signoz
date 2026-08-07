@@ -60,7 +60,7 @@ function RunQueryBtn({
 			onClick={onStageRunQuery}
 			prefix={<Play size={14} />}
 		>
-			{label || t('run_query')}
+			{label || t('run_query', 'Run Query')}
 			<div className="cmd-hint">
 				{isMac ? (
 					<Command size={12} data-testid="cmd-hint-modifier-mac" />

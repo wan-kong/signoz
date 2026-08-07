@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { DataSource } from 'types/common/queryBuilder';
 
@@ -6,11 +7,21 @@ import loadingPlaneUrl from '@/assets/Icons/loading-plane.gif';
 import styles from './MeterLoading.module.scss';
 
 export default function MeterLoading(): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className={styles.loadingMeter}>
 			<div className={styles.loadingMeterContent}>
-				<img className={styles.loadingGif} src={loadingPlaneUrl} alt="wait-icon" />
-				<Typography>Retrieving your {DataSource.METRICS}</Typography>
+				<img
+					className={styles.loadingGif}
+					src={loadingPlaneUrl}
+					alt={t('wait_icon_alt', { ns: 'common' })}
+				/>
+				<Typography>
+					{t('retrieving_your_data', {
+						dataSource: DataSource.METRICS,
+						ns: 'common',
+					})}
+				</Typography>
 			</div>
 		</div>
 	);

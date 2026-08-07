@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import type { PanelDefinition } from '../../types/panelDefinition';
 import Renderer from './Renderer';
 import { sections } from './sections';
@@ -6,7 +7,7 @@ import { EQueryType } from 'types/common/dashboard';
 
 export const definition: PanelDefinition<'signoz/PieChartPanel'> = {
 	kind: 'signoz/PieChartPanel',
-	displayName: 'Pie Chart',
+	displayName: i18n.t('panel.types.pie_chart', 'Pie Chart', { ns: 'dashboard' }),
 	Renderer,
 	sections,
 	supportedSignals: [

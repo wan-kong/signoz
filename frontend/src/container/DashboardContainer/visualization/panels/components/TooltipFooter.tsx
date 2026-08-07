@@ -39,11 +39,13 @@ export default function TooltipFooter({
 			<div>
 				{isPinned ? (
 					<div className={Styles.hint}>
-						<span>{t('dashboard_container.tooltip_footer.press')}</span>
+						<span>{t('dashboard_container.tooltip_footer.press', 'Press')}</span>
 						<Kbd active>{pinKey.toUpperCase()}</Kbd>
-						<span>{t('dashboard_container.tooltip_footer.or')}</span>
+						<span>{t('dashboard_container.tooltip_footer.or', 'or')}</span>
 						<Kbd active>Esc</Kbd>
-						<span>{t('dashboard_container.tooltip_footer.to_unpin')}</span>
+						<span>
+							{t('dashboard_container.tooltip_footer.to_unpin', 'to unpin')}
+						</span>
 					</div>
 				) : (
 					<div className={Styles.hintList}>
@@ -53,14 +55,22 @@ export default function TooltipFooter({
 									<MousePointerClick size={12} />
 								</Kbd>
 								<span>
-									{t('dashboard_container.tooltip_footer.click_to_drilldown')}
+									{t(
+										'dashboard_container.tooltip_footer.click_to_drilldown',
+										'Click to drilldown',
+									)}
 								</span>
 							</div>
 						)}
 						<div className={Styles.hint} data-active="false">
-							<span>{t('dashboard_container.tooltip_footer.press')}</span>
+							<span>{t('dashboard_container.tooltip_footer.press', 'Press')}</span>
 							<Kbd>{pinKey.toUpperCase()}</Kbd>
-							<span>{t('dashboard_container.tooltip_footer.to_pin_tooltip')}</span>
+							<span>
+								{t(
+									'dashboard_container.tooltip_footer.to_pin_tooltip',
+									'to pin the tooltip',
+								)}
+							</span>
 						</div>
 					</div>
 				)}
@@ -72,11 +82,14 @@ export default function TooltipFooter({
 					color="secondary"
 					size="sm"
 					onClick={handleUnpinClick}
-					aria-label={t('dashboard_container.tooltip_footer.unpin_tooltip')}
+					aria-label={t(
+						'dashboard_container.tooltip_footer.unpin_tooltip',
+						'Unpin tooltip',
+					)}
 					data-testid="uplot-tooltip-unpin"
 				>
 					<X size={10} />
-					<span>{t('dashboard_container.tooltip_footer.unpin')}</span>
+					<span>{t('dashboard_container.tooltip_footer.unpin', 'Unpin')}</span>
 				</Button>
 			)}
 		</div>

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { toast } from '@signozhq/ui/sonner';
 import { getAggregateKeys } from 'api/queryBuilder/getAttributeKeys';
@@ -71,6 +72,7 @@ export const SPAN_ACTION = {
 export function useSpanAttributeActions(): SpanAttributeAction[] {
 	const { currentQuery, redirectWithQueryBuilderData } = useQueryBuilder();
 	const queryClient = useQueryClient();
+	const { t } = useTranslation('traceDetails');
 
 	const getAutocompleteKey = useCallback(
 		async (fieldKey: string): Promise<BaseAutocompleteData> => {
@@ -193,7 +195,7 @@ export function useSpanAttributeActions(): SpanAttributeAction[] {
 
 	return [
 		{
-			label: 'Filter for value',
+			label: t('span_attributes.filter_for_value', 'Filter for value'),
 			value: SPAN_ACTION.FILTER_IN,
 			icon: React.createElement(ArrowDownToDot, {
 				size: 14,
@@ -203,7 +205,7 @@ export function useSpanAttributeActions(): SpanAttributeAction[] {
 			shouldHide: shouldHideForKey,
 		},
 		{
-			label: 'Filter out value',
+			label: t('span_attributes.filter_out_value', 'Filter out value'),
 			value: SPAN_ACTION.FILTER_OUT,
 			icon: React.createElement(ArrowUpFromDot, {
 				size: 14,
@@ -213,7 +215,7 @@ export function useSpanAttributeActions(): SpanAttributeAction[] {
 			shouldHide: shouldHideForKey,
 		},
 		{
-			label: 'Group by attribute',
+			label: t('span_attributes.group_by_attribute', 'Group by attribute'),
 			value: SPAN_ACTION.GROUP_BY,
 			icon: React.createElement(GroupByIcon),
 			callback: handleGroupBy,

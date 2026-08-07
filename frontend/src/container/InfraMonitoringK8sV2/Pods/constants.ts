@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { InframonitoringtypesPodRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
@@ -23,19 +24,23 @@ export const k8sPodGetSelectedItemExpression = (
 export const k8sPodDetailsMetadataConfig: K8sDetailsMetadataConfig<InframonitoringtypesPodRecordDTO>[] =
 	[
 		{
-			label: 'NAMESPACE',
+			label: i18n.t('display.namespace_uppercase', 'NAMESPACE', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.namespace_uppercase',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] || '',
 		},
 		{
-			label: 'Cluster Name',
+			label: i18n.t('display.cluster_name', 'Cluster Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] || '',
 		},
 		{
-			label: 'Node',
+			label: i18n.t('display.node', 'Node', { ns: 'infraMonitoring' }),
 			labelKey: 'display.node',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NODE_NAME] || '',

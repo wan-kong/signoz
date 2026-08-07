@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports -- global time still lives in redux
 import { useSelector } from 'react-redux';
 import { toast } from '@signozhq/ui/sonner';
@@ -34,6 +35,7 @@ export function useCreateAlertFromPanel(): (
 	panel: DashboardtypesPanelDTO,
 	panelId: string,
 ) => void {
+	const { t } = useTranslation('dashboard');
 	const { safeNavigate } = useSafeNavigate();
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
 	const variables = useDashboardStore(selectResolvedVariables(dashboardId));
@@ -87,12 +89,15 @@ export function useCreateAlertFromPanel(): (
 					},
 					onError: () => {
 						toast.error(SOMETHING_WENT_WRONG, {
-							description: 'Failed to create alert from panel',
+							description: t(
+								'create_alert.failed_to_create_from_panel',
+								'Failed to create alert from panel',
+							),
 						});
 					},
 				},
 			);
 		},
-		[dashboardId, variables, minTime, maxTime, substituteVars, safeNavigate],
+		[dashboardId, variables, minTime, maxTime, substituteVars, safeNavigate, t],
 	);
 }

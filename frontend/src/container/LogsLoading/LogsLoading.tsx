@@ -11,7 +11,11 @@ export function LogsLoading(): JSX.Element {
 	return (
 		<div className="loading-logs">
 			<div className="loading-logs-content">
-				<img className="loading-gif" src={loadingPlaneUrl} alt="wait-icon" />
+				<img
+					className="loading-gif"
+					src={loadingPlaneUrl}
+					alt={t('loading_icon_alt')}
+				/>
 
 				<Typography>
 					{t('pending_data_placeholder', { dataSource: DataSource.LOGS })}

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { grey } from '@ant-design/colors';
 import { Chart } from 'chart.js';
 
@@ -11,7 +12,11 @@ export const emptyGraph = {
 		ctx.textBaseline = 'middle';
 		ctx.font = '1.5rem sans-serif';
 		ctx.fillStyle = `${grey.primary}`;
-		ctx.fillText('No data', width / 2, height / 2);
+		ctx.fillText(
+			i18n.t('no_data', 'No data', { ns: 'common' }),
+			width / 2,
+			height / 2,
+		);
 		ctx.restore();
 	},
 };

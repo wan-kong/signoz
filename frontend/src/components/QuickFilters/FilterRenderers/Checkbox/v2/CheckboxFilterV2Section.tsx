@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
 	IQuickFiltersConfig,
 	CheckedState,
@@ -13,22 +14,6 @@ import styles from './CheckboxFilterV2.module.scss';
 interface SectionConfig {
 	label: string;
 	tooltip?: string;
-}
-
-function getSectionConfig(type: SectionType): SectionConfig | null {
-	switch (type) {
-		case SectionType.SELECTED:
-			return { label: 'Selected' };
-		case SectionType.RELATED:
-			return {
-				label: 'Related',
-				tooltip: 'Values that are filtered by your current selection.',
-			};
-		case SectionType.ALL_VALUES:
-			return { label: 'All values' };
-		default:
-			return null;
-	}
 }
 
 interface CheckboxFilterV2SectionProps {
@@ -60,9 +45,30 @@ export function CheckboxFilterV2Section(
 		onChange,
 	} = props;
 
+	const { t } = useTranslation('quick_filters');
+
 	if (section.items.length === 0) {
 		return null;
 	}
+
+	const getSectionConfig = (type: SectionType): SectionConfig | null => {
+		switch (type) {
+			case SectionType.SELECTED:
+				return { label: t('checkbox_filter.section.selected', 'Selected') };
+			case SectionType.RELATED:
+				return {
+					label: t('checkbox_filter.section.related', 'Related'),
+					tooltip: t(
+						'checkbox_filter.section.related_tooltip',
+						'Values that are filtered by your current selection.',
+					),
+				};
+			case SectionType.ALL_VALUES:
+				return { label: t('checkbox_filter.section.all_values', 'All values') };
+			default:
+				return null;
+		}
+	};
 
 	const config = getSectionConfig(section.type);
 
@@ -89,9 +95,9 @@ export function CheckboxFilterV2Section(
 						onlyButtonLabel={
 							isSomeFilterPresentForCurrentAttribute
 								? isChecked && !isMultipleValuesTrueForTheKey
-									? 'All'
-									: 'Only'
-								: 'Only'
+									? t('checkbox_filter.section.all', 'All')
+									: t('checkbox_filter.section.only', 'Only')
+								: t('checkbox_filter.section.only', 'Only')
 						}
 						customRendererForValue={filter.customRendererForValue}
 						onCheckboxChange={(checked, previousState): void =>

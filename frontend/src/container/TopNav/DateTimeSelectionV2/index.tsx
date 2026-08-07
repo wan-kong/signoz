@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { connect, useDispatch, useSelector } from 'react-redux';
@@ -78,6 +79,7 @@ function DateTimeSelection({
 	disableUrlSync = false,
 	showRecentlyUsed = true,
 }: Props): JSX.Element {
+	const { t } = useTranslation('topnav');
 	const [formSelector] = Form.useForm();
 	const { safeNavigate } = useSafeNavigate();
 	const navigationType = useNavigationType(); // Returns 'POP' for back/forward navigation
@@ -260,23 +262,43 @@ function DateTimeSelection({
 		const monthsDiff = currentTime.diff(lastRefresh, 'months');
 
 		if (monthsDiff > 0) {
-			return `Refreshed ${monthsDiff} months ago`;
+			return t(
+				'date_time_selection.refreshed_months_ago',
+				'Refreshed {{count}} months ago',
+				{ count: monthsDiff },
+			);
 		}
 
 		if (daysDiff > 0) {
-			return `Refreshed ${daysDiff} days ago`;
+			return t(
+				'date_time_selection.refreshed_days_ago',
+				'Refreshed {{count}} days ago',
+				{ count: daysDiff },
+			);
 		}
 
 		if (hoursDiff > 0) {
-			return `Refreshed ${hoursDiff} hrs ago`;
+			return t(
+				'date_time_selection.refreshed_hours_ago',
+				'Refreshed {{count}} hrs ago',
+				{ count: hoursDiff },
+			);
 		}
 
 		if (minutedDiff > 0) {
-			return `Refreshed ${minutedDiff} mins ago`;
+			return t(
+				'date_time_selection.refreshed_minutes_ago',
+				'Refreshed {{count}} mins ago',
+				{ count: minutedDiff },
+			);
 		}
 
-		return `Refreshed ${secondsDiff} sec ago`;
-	}, [maxTime, minTime, selectedTime]);
+		return t(
+			'date_time_selection.refreshed_seconds_ago',
+			'Refreshed {{count}} sec ago',
+			{ count: secondsDiff },
+		);
+	}, [maxTime, minTime, selectedTime, t]);
 
 	const getUpdatedCompositeQuery = useCallback((): string => {
 		let updatedCompositeQuery = cloneDeep(currentQuery);
@@ -680,10 +702,12 @@ function DateTimeSelection({
 						type="default"
 						className="reset-button"
 						onClick={handleReset}
-						title={`Reset to ${defaultRelativeTime}`}
+						title={t('date_time_selection.reset_to', 'Reset to {{value}}', {
+							value: defaultRelativeTime,
+						})}
 						icon={<Undo size={14} />}
 					>
-						Reset
+						{t('date_time_selection.reset', 'Reset')}
 					</Button>
 				</FormItem>
 			)}

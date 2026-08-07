@@ -6,10 +6,10 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { InputRef } from 'antd';
 import { AutoComplete, Input } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
-import { useTranslation } from 'react-i18next';
 import { popupContainer } from 'utils/selectPopupContainer';
 
 import SettingsSection from '../../components/SettingsSection/SettingsSection';

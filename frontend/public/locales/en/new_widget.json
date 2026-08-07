@@ -1,0 +1,65 @@
+{
+	"left": {
+		"explorer_attributes": {
+			"loading": "Loading...",
+			"no_columns_found": "No columns found"
+		},
+		"query_type_tag": {
+			"query_builder": "Query Builder",
+			"clickhouse_query": "ClickHouse Query",
+			"promql": "PromQL"
+		},
+		"query_builder": {
+			"add_query": "Query",
+			"clickhouse": {
+				"learn_queries": "Learn to write faster, optimized queries",
+				"using_ai": " · Using AI? ",
+				"install_skill": "Install the SigNoz ClickHouse query agent skill",
+				"legend_format": "Legend Format"
+			},
+			"promql": {
+				"query": "PromQL Query",
+				"legend_format": "Legend Format"
+			}
+		}
+	},
+	"widget": {
+		"plot_tag": {
+			"plotted_with": "Plotted with "
+		},
+		"graph": {
+			"invalid_widget": "Invalid widget",
+			"loading": "Loading...",
+			"no_data": "No Data",
+			"reload_chart": "Click \"Run Query\" to reload the chart."
+		}
+	},
+	"right": {
+		"panel_settings": "Panel Settings",
+		"decimal_precision": {
+			"zero_decimals": "0 decimals",
+			"one_decimal": "1 decimal",
+			"two_decimals": "2 decimals",
+			"three_decimals": "3 decimals"
+		},
+		"show_as_options": {
+			"text": "Text",
+			"background": "Background"
+		}
+	},
+	"discard_changes": {
+		"title": "Discard changes?",
+		"confirm": "Discard",
+		"cancel": "Keep editing",
+		"to": "to",
+		"new_panel_message": "This new panel won't be added",
+		"this_panel": "this panel",
+		"edits_lost_prefix": "Your unsaved edits to",
+		"will_be_lost_suffix": "will be lost."
+	},
+	"new_widget": {
+		"configure_panel": "Configure panel",
+		"switch_to_view_mode": "Switch to View Mode",
+		"save_changes": "Save Changes"
+	}
+}

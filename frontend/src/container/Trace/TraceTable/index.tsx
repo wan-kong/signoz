@@ -1,4 +1,5 @@
 import { HTMLAttributes } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
 import { TableColumnsType as ColumnsType, TableProps } from 'antd';
@@ -49,6 +50,7 @@ function TraceTable(): JSX.Element {
 	const selectedStatusFilter = selectedFilter.get('status');
 
 	const dispatch = useDispatch<Dispatch<AppActions>>();
+	const { t } = useTranslation('trace');
 
 	const { loading, order: spansAggregateOrder } = spansAggregate;
 
@@ -76,7 +78,7 @@ function TraceTable(): JSX.Element {
 
 	const columns: ColumnsType<TableType> = [
 		{
-			title: 'Date',
+			title: t('trace_table.date', 'Date'),
 			dataIndex: 'timestamp',
 			key: 'timestamp',
 			width: 120,
@@ -91,21 +93,21 @@ function TraceTable(): JSX.Element {
 			},
 		},
 		{
-			title: 'Service',
+			title: t('trace_table.service', 'Service'),
 			dataIndex: 'serviceName',
 			key: 'serviceName',
 			width: 50,
 			render: getValue,
 		},
 		{
-			title: 'Operation',
+			title: t('trace_table.operation', 'Operation'),
 			dataIndex: 'operation',
 			key: 'operation',
 			width: 110,
 			render: getValue,
 		},
 		{
-			title: 'Duration',
+			title: t('trace_table.duration', 'Duration'),
 			dataIndex: 'durationNano',
 			key: 'durationNano',
 			width: 50,
@@ -120,14 +122,14 @@ function TraceTable(): JSX.Element {
 			),
 		},
 		{
-			title: 'Method',
+			title: t('trace_table.method', 'Method'),
 			dataIndex: 'method',
 			key: 'method',
 			width: 50,
 			render: getHttpMethodOrStatus,
 		},
 		{
-			title: 'Status Code',
+			title: t('trace_table.status_code', 'Status Code'),
 			dataIndex: 'statusCode',
 			key: 'statusCode',
 			width: 50,

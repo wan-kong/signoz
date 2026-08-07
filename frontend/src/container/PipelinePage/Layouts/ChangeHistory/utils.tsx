@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Spin } from 'antd';
 import {
 	CircleMinus,
@@ -10,15 +11,17 @@ import {
 export function getDeploymentStage(value: string): string {
 	switch (value) {
 		case 'in_progress':
-			return 'In Progress';
+			return i18n.t('change_history.in_progress', 'In Progress', {
+				ns: 'pipeline',
+			});
 		case 'deployed':
-			return 'Deployed';
+			return i18n.t('change_history.deployed', 'Deployed', { ns: 'pipeline' });
 		case 'dirty':
-			return 'Dirty';
+			return i18n.t('change_history.dirty', 'Dirty', { ns: 'pipeline' });
 		case 'failed':
-			return 'Failed';
+			return i18n.t('change_history.failed', 'Failed', { ns: 'pipeline' });
 		case 'unknown':
-			return 'Unknown';
+			return i18n.t('change_history.unknown', 'Unknown', { ns: 'pipeline' });
 		default:
 			return '';
 	}

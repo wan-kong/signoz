@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Empty } from 'antd';
 import Spinner from 'components/Spinner';
 
@@ -31,6 +32,8 @@ function FunnelMetricsContentRenderer({
 	isError?: boolean;
 	emptyState?: JSX.Element;
 }): JSX.Element {
+	const { t } = useTranslation('funnel_results');
+
 	if (isLoading) {
 		return (
 			<div className="funnel-metrics--loading-state">
@@ -44,7 +47,12 @@ function FunnelMetricsContentRenderer({
 
 	if (isError) {
 		return (
-			<Empty description="Error fetching data. If the problem persists, please contact support." />
+			<Empty
+				description={t(
+					'metrics_table.error_fetching',
+					'Error fetching data. If the problem persists, please contact support.',
+				)}
+			/>
 		);
 	}
 

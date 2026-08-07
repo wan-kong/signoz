@@ -1,5 +1,6 @@
 {
 	"rps_over_100": "你发送数据的速率已超过 100 RPS，摄取可能会被限速。请通过聊天支持或 ",
+	"email": "邮件",
 	"table": {
 		"columns": {
 			"application": "应用",

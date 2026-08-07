@@ -1,4 +1,5 @@
 import { useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import QueryCancelledPlaceholder from 'components/QueryCancelledPlaceholder';
@@ -33,6 +34,7 @@ function TimeSeries({
 	onFetchingStateChange,
 	isCancelled = false,
 }: TimeSeriesProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const graphRef = useRef<HTMLDivElement>(null);
 
 	const { stagedQuery, currentQuery } = useQueryBuilder();
@@ -112,7 +114,9 @@ function TimeSeries({
 			<div className={styles.timeSeriesContainer} ref={graphRef}>
 				{!hasMetricSelected && <EmptyMeterSearch />}
 				{isCancelled && hasMetricSelected && (
-					<QueryCancelledPlaceholder subText='Click "Run Query" to load metrics.' />
+					<QueryCancelledPlaceholder
+						subText={t('meter_explorer_extra.run_query_load_metrics')}
+					/>
 				)}
 				{isLoading && hasMetricSelected && !isCancelled && <MeterLoading />}
 				{!isCancelled &&

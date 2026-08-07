@@ -21,6 +21,11 @@ import {
 
 import './styles.scss';
 
+const TAB_TOOLTIP_FALLBACKS: Record<string, string> = {
+	[THRESHOLD_TAB_TOOLTIP_KEY]: 'Threshold',
+	[ANOMALY_TAB_TOOLTIP_KEY]: 'Anomaly',
+};
+
 function AlertCondition(): JSX.Element {
 	const { t } = useTranslation('create_alert');
 	const { alertType, setAlertType } = useCreateAlertState();
@@ -41,7 +46,7 @@ function AlertCondition(): JSX.Element {
 
 	const tabs = [
 		{
-			label: t('threshold'),
+			label: t('threshold', 'Threshold'),
 			icon: <ChartLine size={14} data-testid="threshold-view" />,
 			value: AlertTypes.METRICS_BASED_ALERT,
 		},
@@ -73,11 +78,17 @@ function AlertCondition(): JSX.Element {
 
 	return (
 		<div className="alert-condition-container">
-			<Stepper stepNumber={2} label={t('set_alert_conditions')} />
+			<Stepper
+				stepNumber={2}
+				label={t('set_alert_conditions', 'Set alert conditions')}
+			/>
 			<div className="alert-condition">
 				<div className="alert-condition-tabs">
 					{tabs.map((tab) => (
-						<Tooltip key={tab.value} title={t(getTabTooltip(tab))}>
+						<Tooltip
+							key={tab.value}
+							title={t(getTabTooltip(tab), TAB_TOOLTIP_FALLBACKS[getTabTooltip(tab)])}
+						>
 							<Button
 								className={classNames('list-view-tab', 'explorer-view-option', {
 									'active-tab': alertType === tab.value,

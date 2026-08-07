@@ -4,6 +4,7 @@ import ChevronRight from '@signozhq/icons/ChevronRight';
 import { Button } from '@signozhq/ui/button';
 import { GroupedAlert } from 'container/TriggeredAlerts/types';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from '../TriggeredAlerts.module.scss';
 
 export type GroupTagsCellProps = {
@@ -18,6 +19,7 @@ export function GroupTagsCell({
 	isExpanded,
 	toggleExpanded,
 }: GroupTagsCellProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const tags = Object.entries(groupRow.groupLabels)
 		.filter(([, v]) => v)
 		.map(([k, v]) => `${k}:${v}`);
@@ -54,7 +56,7 @@ export function GroupTagsCell({
 				))}
 				{tags.length === 0 ? (
 					<Badge color="secondary" variant="outline">
-						{'<no-value>'}
+						{t('triggered_alerts_extra.no_value')}
 					</Badge>
 				) : null}
 			</div>

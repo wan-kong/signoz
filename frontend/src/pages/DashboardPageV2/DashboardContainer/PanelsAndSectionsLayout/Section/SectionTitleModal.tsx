@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
 import { Input } from '@signozhq/ui/input';
@@ -26,10 +27,13 @@ function SectionTitleModal({
 	okText,
 	initialValue,
 	isSaving,
-	placeholder = 'Section name',
+	placeholder,
 	onClose,
 	onSubmit,
 }: SectionTitleModalProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+	const resolvedPlaceholder =
+		placeholder || t('section_title.placeholder', 'Section name');
 	const [value, setValue] = useState<string>(initialValue);
 
 	// Reseed the field each time the modal opens.
@@ -69,7 +73,7 @@ function SectionTitleModal({
 						onClick={onClose}
 						testId="section-title-cancel"
 					>
-						Cancel
+						{t('section_title.cancel', 'Cancel')}
 					</Button>
 					<Button
 						variant="solid"
@@ -90,7 +94,7 @@ function SectionTitleModal({
 				autoFocus
 				value={value}
 				maxLength={DASHBOARD_NAME_MAX_LENGTH}
-				placeholder={placeholder}
+				placeholder={resolvedPlaceholder}
 				onChange={(e): void => setValue(e.target.value)}
 				onKeyDown={(e): void => {
 					if (e.key === 'Enter' && canSave) {

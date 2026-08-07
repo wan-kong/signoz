@@ -1,0 +1,61 @@
+{
+	"add_description": {
+		"success": "Success",
+		"success_message": "Funnel description saved successfully",
+		"error_message": "Failed to save funnel description",
+		"title": "Add funnel description",
+		"cancel": "Cancel",
+		"save_changes": "Save changes",
+		"description_label": "Description",
+		"description_placeholder": "(Optional) Eg. checkout dropoff funnel"
+	},
+	"delete_step": {
+		"title": "Delete this step",
+		"cancel": "Cancel",
+		"delete_step": "Delete Step",
+		"description": "Deleting this step would stop further analytics using this step of the funnel."
+	},
+	"breadcrumb": {
+		"all_funnels": "All funnels"
+	},
+	"funnel_config": {
+		"no_permission_description": "You need editor or admin access to edit funnel description",
+		"edit_description": "Edit funnel description",
+		"add_description": "Add funnel description",
+		"edit_description_aria": "Edit Funnel Description",
+		"no_description": "No description added."
+	},
+	"step_popover": {
+		"add_details": "Add details",
+		"no_permission_delete": "You need editor or admin access to delete steps",
+		"min_steps_required": "Minimum 2 steps required",
+		"delete": "Delete",
+		"no_permission_add_details": "You need editor or admin access to add details to step"
+	},
+	"inter_step": {
+		"latency_type": "Latency type"
+	},
+	"steps_content": {
+		"no_permission_replace": "You need editor or admin access to replace steps",
+		"replace": "Replace",
+		"no_permission_add": "You need editor or admin access to add steps",
+		"add_for_new_step": "Add for new Step",
+		"add_funnel_step": "Add Funnel Step"
+	},
+	"steps_footer": {
+		"no_service_span_names": "No service / span names",
+		"missing_service_span_names": "Missing service / span names",
+		"no_valid_traces": "No valid traces found",
+		"valid_traces": "Valid traces found",
+		"steps_count": "{{stepsCount}} steps",
+		"save_funnel": "Save funnel"
+	},
+	"steps_header": {
+		"funnel_steps": "FUNNEL STEPS"
+	},
+	"graph": {
+		"success_spans": "Success spans",
+		"error_spans": "Error spans",
+		"total_spans": "Total spans"
+	}
+}

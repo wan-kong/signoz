@@ -54,7 +54,7 @@ describe('DataSourceInfo', () => {
 		render(<DataSourceInfo dataSentToSigNoz={false} isLoading={false} />);
 
 		await expect(
-			screen.findByText('home:welcome.workspace_ready'),
+			screen.findByText('Your workspace is ready'),
 		).resolves.toBeInTheDocument();
 		expect(screen.queryByText(/signoz\.cloud/i)).not.toBeInTheDocument();
 	});

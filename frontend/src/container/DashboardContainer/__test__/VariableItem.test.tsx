@@ -184,7 +184,7 @@ describe('VariableItem Component - Creation Flow', () => {
 			// Should show cycle detection error
 			await waitFor(() => {
 				expect(
-					screen.getByText(/Circular dependency detected/),
+					screen.getByText(/Cannot save: circular dependency detected/i),
 				).toBeInTheDocument();
 			});
 		});

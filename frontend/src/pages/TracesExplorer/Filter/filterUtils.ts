@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import i18n from 'ReactI18';
 import { getAttributesValues } from 'api/queryBuilder/getAttributesValues';
 import { DATA_TYPE_VS_ATTRIBUTE_VALUES_KEY } from 'constants/queryBuilder';
 import { SPAN_ATTRIBUTES } from 'container/ApiMonitoring/Explorer/Domains/DomainDetails/constants';
@@ -10,30 +11,42 @@ import { TagFilterItem } from 'types/api/queryBuilder/queryBuilderData';
 import { DataSource } from 'types/common/queryBuilder';
 
 export const AllTraceFilterKeyValue: Record<string, string> = {
-	durationNanoMin: 'Duration',
-	durationNano: 'Duration',
-	duration_nano: 'Duration',
-	durationNanoMax: 'Duration',
-	'deployment.environment': 'Environment',
-	hasError: 'Status',
-	has_error: 'Status',
-	serviceName: 'Service Name',
+	durationNanoMin: i18n.t('filter_keys.duration', 'Duration', { ns: 'trace' }),
+	durationNano: i18n.t('filter_keys.duration', 'Duration', { ns: 'trace' }),
+	duration_nano: i18n.t('filter_keys.duration', 'Duration', { ns: 'trace' }),
+	durationNanoMax: i18n.t('filter_keys.duration', 'Duration', { ns: 'trace' }),
+	'deployment.environment': i18n.t('filter_keys.environment', 'Environment', {
+		ns: 'trace',
+	}),
+	hasError: i18n.t('filter_keys.status', 'Status', { ns: 'trace' }),
+	has_error: i18n.t('filter_keys.status', 'Status', { ns: 'trace' }),
+	serviceName: i18n.t('filter_keys.service_name', 'Service Name', {
+		ns: 'trace',
+	}),
 	'service.name': 'service.name',
-	name: 'Operation / Name',
-	rpcMethod: 'RPC Method',
-	'rpc.method': 'RPC Method',
-	responseStatusCode: 'Status Code',
-	response_status_code: 'Status Code',
-	httpHost: 'HTTP Host',
-	http_host: 'HTTP Host',
-	httpMethod: 'HTTP Method',
-	http_method: 'HTTP Method',
-	httpRoute: 'HTTP Route',
-	'http.route': 'HTTP Route',
-	httpUrl: 'HTTP URL',
-	[SPAN_ATTRIBUTES.HTTP_URL]: 'HTTP URL',
-	traceID: 'Trace ID',
-	trace_id: 'Trace ID',
+	name: i18n.t('filter_keys.operation_name', 'Operation / Name', {
+		ns: 'trace',
+	}),
+	rpcMethod: i18n.t('filter_keys.rpc_method', 'RPC Method', { ns: 'trace' }),
+	'rpc.method': i18n.t('filter_keys.rpc_method', 'RPC Method', { ns: 'trace' }),
+	responseStatusCode: i18n.t('filter_keys.status_code', 'Status Code', {
+		ns: 'trace',
+	}),
+	response_status_code: i18n.t('filter_keys.status_code', 'Status Code', {
+		ns: 'trace',
+	}),
+	httpHost: i18n.t('filter_keys.http_host', 'HTTP Host', { ns: 'trace' }),
+	http_host: i18n.t('filter_keys.http_host', 'HTTP Host', { ns: 'trace' }),
+	httpMethod: i18n.t('filter_keys.http_method', 'HTTP Method', { ns: 'trace' }),
+	http_method: i18n.t('filter_keys.http_method', 'HTTP Method', { ns: 'trace' }),
+	httpRoute: i18n.t('filter_keys.http_route', 'HTTP Route', { ns: 'trace' }),
+	'http.route': i18n.t('filter_keys.http_route', 'HTTP Route', { ns: 'trace' }),
+	httpUrl: i18n.t('filter_keys.http_url', 'HTTP URL', { ns: 'trace' }),
+	[SPAN_ATTRIBUTES.HTTP_URL]: i18n.t('filter_keys.http_url', 'HTTP URL', {
+		ns: 'trace',
+	}),
+	traceID: i18n.t('filter_keys.trace_id', 'Trace ID', { ns: 'trace' }),
+	trace_id: i18n.t('filter_keys.trace_id', 'Trace ID', { ns: 'trace' }),
 } as const;
 
 export type AllTraceFilterKeys = keyof typeof AllTraceFilterKeyValue;

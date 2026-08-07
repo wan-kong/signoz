@@ -10,6 +10,7 @@
  * URL parser shape via `redirectWithQueryBuilderData`.
  */
 
+import i18n from 'ReactI18';
 import { convertFiltersToExpression } from 'components/QueryBuilderV2/utils';
 import {
 	aiFilterToTagFilterItem,
@@ -56,19 +57,36 @@ export function metricsRunQueryAction(
 ): PageAction<RunQueryParams> {
 	return {
 		id: 'metrics.runQuery',
-		description: 'Replace the active metric filters and re-run the query',
+		description: i18n.t(
+			'ai_actions.replace_filters',
+			'Replace the active metric filters and re-run the query',
+			{
+				ns: 'common',
+				dataSource: 'metric',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
 				filters: {
 					type: 'array',
-					description: 'Replacement filter list',
+					description: i18n.t(
+						'ai_actions.replacement_filter_list',
+						'Replacement filter list',
+						{
+							ns: 'common',
+						},
+					),
 					items: {
 						type: 'object',
 						properties: {
 							key: {
 								type: 'string',
-								description: 'Label key, e.g. service_name, deployment_environment',
+								description: i18n.t(
+									'ai_actions.label_key_description',
+									'Label key, e.g. service_name, deployment_environment',
+									{ ns: 'common' },
+								),
 							},
 							op: {
 								type: 'string',
@@ -89,7 +107,16 @@ export function metricsRunQueryAction(
 		execute: async ({ filters }): Promise<ActionResult> => {
 			const baseQuery = deps.currentQuery.builder.queryData[0];
 			if (!baseQuery) {
-				throw new Error('No active query found in Metrics Explorer.');
+				throw new Error(
+					i18n.t(
+						'ai_actions.no_active_query',
+						'No active query found in Metrics Explorer.',
+						{
+							ns: 'common',
+							explorer: 'Metrics Explorer',
+						},
+					),
+				);
 			}
 
 			const tagItems = filters.map(aiFilterToTagFilterItem);
@@ -106,7 +133,11 @@ export function metricsRunQueryAction(
 			);
 
 			return {
-				summary: `Query updated with ${filters.length} filter(s) and re-run.`,
+				summary: i18n.t(
+					'ai_actions.query_updated',
+					'Query updated with {{count}} filter(s) and re-run.',
+					{ ns: 'common', count: filters.length },
+				),
 			};
 		},
 		getContext: (): Record<string, unknown> => ({
@@ -131,13 +162,24 @@ export function metricsAddFilterAction(
 ): PageAction<AddFilterParams> {
 	return {
 		id: 'metrics.addFilter',
-		description: 'Add a single filter to the current metric query and re-run',
+		description: i18n.t(
+			'ai_actions.add_single_filter',
+			'Add a single filter to the current metric query and re-run',
+			{
+				ns: 'common',
+				dataSource: 'metric',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
 				key: {
 					type: 'string',
-					description: 'Label key, e.g. service_name, deployment_environment',
+					description: i18n.t(
+						'ai_actions.label_key_description',
+						'Label key, e.g. service_name, deployment_environment',
+						{ ns: 'common' },
+					),
 				},
 				op: {
 					type: 'string',
@@ -154,7 +196,16 @@ export function metricsAddFilterAction(
 		execute: async ({ key, op, value }): Promise<ActionResult> => {
 			const baseQuery = deps.currentQuery.builder.queryData[0];
 			if (!baseQuery) {
-				throw new Error('No active query found in Metrics Explorer.');
+				throw new Error(
+					i18n.t(
+						'ai_actions.no_active_query',
+						'No active query found in Metrics Explorer.',
+						{
+							ns: 'common',
+							explorer: 'Metrics Explorer',
+						},
+					),
+				);
 			}
 
 			const existing = baseQuery.filters?.items ?? [];
@@ -171,7 +222,13 @@ export function metricsAddFilterAction(
 				replaceFirstQueryData(deps.currentQuery, updatedBuilderQuery),
 			);
 
-			return { summary: `Filter added: ${key} ${op} "${value}". Query re-run.` };
+			return {
+				summary: i18n.t(
+					'ai_actions.filter_added',
+					'Filter added: {{key}} {{op}} "{{value}}". Query re-run.',
+					{ ns: 'common', key, op, value },
+				),
+			};
 		},
 	};
 }
@@ -185,17 +242,38 @@ export function metricsSaveViewAction(deps: {
 }): PageAction<SaveViewParams> {
 	return {
 		id: 'metrics.saveView',
-		description: 'Save the current metric query as a named view',
+		description: i18n.t(
+			'ai_actions.save_current_query',
+			'Save the current metric query as a named view',
+			{
+				ns: 'common',
+				dataSource: 'metric',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
-				name: { type: 'string', description: 'Name for the saved view' },
+				name: {
+					type: 'string',
+					description: i18n.t(
+						'ai_actions.name_for_saved_view',
+						'Name for the saved view',
+						{
+							ns: 'common',
+						},
+					),
+				},
 			},
 			required: ['name'],
 		},
 		execute: async ({ name }): Promise<ActionResult> => {
 			await deps.onSaveView(name);
-			return { summary: `View "${name}" saved.` };
+			return {
+				summary: i18n.t('ai_actions.view_saved', 'View "{{name}}" saved.', {
+					ns: 'common',
+					name,
+				}),
+			};
 		},
 	};
 }

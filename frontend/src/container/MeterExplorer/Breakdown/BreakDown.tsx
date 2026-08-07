@@ -1,4 +1,6 @@
+import i18n from 'ReactI18';
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -44,7 +46,7 @@ type MetricSection = {
 const sections: MetricSection[] = [
 	{
 		id: uuid(),
-		title: 'Total',
+		title: i18n.t('meter_explorer_extra.total', 'Total', { ns: 'common' }),
 		graphs: [
 			getTotalLogSizeWidgetData(),
 			getTotalTraceSizeWidgetData(),
@@ -53,17 +55,17 @@ const sections: MetricSection[] = [
 	},
 	{
 		id: uuid(),
-		title: 'Logs',
+		title: i18n.t('meter_explorer_extra.logs', 'Logs', { ns: 'common' }),
 		graphs: [getLogCountWidgetData(), getLogSizeWidgetData()],
 	},
 	{
 		id: uuid(),
-		title: 'Traces',
+		title: i18n.t('meter_explorer_extra.traces', 'Traces', { ns: 'common' }),
 		graphs: [getSpanCountWidgetData(), getSpanSizeWidgetData()],
 	},
 	{
 		id: uuid(),
-		title: 'Metrics',
+		title: i18n.t('meter_explorer_extra.metrics', 'Metrics', { ns: 'common' }),
 		graphs: [getMetricCountWidgetData()],
 	},
 ];
@@ -115,6 +117,7 @@ function Section(section: MetricSection): JSX.Element {
 }
 
 function BreakDown(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { isCloudUser } = useGetTenantLicense();
 	const { maxTime, minTime } = useSelector<AppState, GlobalReducer>(
 		(state) => state.globalTime,
@@ -142,15 +145,14 @@ function BreakDown(): JSX.Element {
 						onClose={(): void => {
 							setLocalStorageApi(LOCALSTORAGE.DISSMISSED_COST_METER_INFO, 'true');
 						}}
-						message="Billing is calculated in UTC. To match your meter data with billing, select full-day ranges in UTC time (00:00 – 23:59 UTC). 
-						For example, if you’re in PT, for the billing of Jan 1, select your time range as Dec 31, 4:00 PM – Jan 1, 3:59 PM PT."
+						message={t('meter_explorer_extra.billing_utc')}
 					/>
 				)}
 				{isCloudUser && isDateBeforeAugust22nd2025(minTime) && (
 					<Alert
 						type="warning"
 						showIcon
-						message="Meter module data is accurate only from 22nd August 2025, 00:00 UTC onwards. Data before this time was collected during the beta phase and may be inaccurate."
+						message={t('meter_explorer_extra.beta_accuracy')}
 					/>
 				)}
 
@@ -161,15 +163,14 @@ function BreakDown(): JSX.Element {
 						closable
 						message={
 							<>
-								Meter metrics data is aggregated over 1 hour period. Please select time
-								range accordingly.&nbsp;
+								{t('meter_explorer_extra.hour_aggregation')}&nbsp;
 								<a
 									href="https://signoz.io/docs/cost-meter/overview/#get-started"
 									rel="noopener noreferrer"
 									target="_blank"
 									style={{ textDecoration: 'underline' }}
 								>
-									Learn more
+									{t('learn_more')}
 								</a>
 								.
 							</>

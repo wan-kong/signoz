@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight } from '@signozhq/icons';
 import { Button, Flex, Select } from 'antd';
 import { DEFAULT_PER_PAGE_OPTIONS, Pagination } from 'hooks/queryPagination';
@@ -19,6 +20,7 @@ function Controls({
 	isLogPanel = false,
 	showSizeChanger = true,
 }: ControlsProps): JSX.Element | null {
+	const { t } = useTranslation('common');
 	const isNextAndPreviousDisabled = useMemo(
 		() => isLoading || countPerPage < 0 || totalCount === 0,
 		[isLoading, countPerPage, totalCount],
@@ -43,7 +45,7 @@ function Controls({
 				onClick={handleNavigatePrevious}
 			>
 				<Flex align="center" gap="4px">
-					<ChevronLeft size={16} /> Previous
+					<ChevronLeft size={16} /> {t('previous')}
 				</Flex>
 			</Button>
 			<Button
@@ -54,7 +56,7 @@ function Controls({
 				onClick={handleNavigateNext}
 			>
 				<Flex align="center" gap="4px">
-					Next <ChevronRight size={16} />
+					{t('next')} <ChevronRight size={16} />
 				</Flex>
 			</Button>
 
@@ -70,7 +72,7 @@ function Controls({
 						<Select.Option
 							key={count}
 							value={count}
-						>{`${count} / page`}</Select.Option>
+						>{`${count} ${t('per_page')}`}</Select.Option>
 					))}
 				</Select>
 			)}

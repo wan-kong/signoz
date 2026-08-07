@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import {
 	ChartNoAxesGantt,
@@ -51,6 +52,7 @@ function renderPanelExpandIcon({
 }
 
 function TraceDetailsV3(): JSX.Element {
+	const { t } = useTranslation('traceDetails');
 	const { id: traceId } = useParams<TraceDetailV3URLProps>();
 	const urlQuery = useUrlQuery();
 	const [interestedSpanId, setInterestedSpanId] = useState<IInterestedSpan>(
@@ -414,11 +416,11 @@ function TraceDetailsV3(): JSX.Element {
 											label: (
 												<div className={styles.collapseLabel}>
 													<span className={styles.collapseTitle}>
-														Flame Graph
+														{t('trace_flamegraph.flame_graph')}
 														{traceData?.payload?.totalSpansCount &&
 															traceData.payload.totalSpansCount > FLAMEGRAPH_SPAN_LIMIT && (
 																<WarningPopover
-																	message="The total span count exceeds the visualization limit. Displaying a sampled subset of spans in flamegraph."
+																	message={t('trace_flamegraph.span_limit_warning')}
 																	placement="bottomLeft"
 																>
 																	<Info
@@ -433,7 +435,8 @@ function TraceDetailsV3(): JSX.Element {
 														<span className={styles.collapseCount}>
 															<span className={styles.collapseCountItem}>
 																<ChartNoAxesGantt size={13} />
-																Spans: {traceData.payload.totalSpansCount}
+																{t('trace_flamegraph.spans')}
+																{traceData.payload.totalSpansCount}
 															</span>
 															<span
 																className={cx(styles.collapseCountItem, {
@@ -441,7 +444,8 @@ function TraceDetailsV3(): JSX.Element {
 																})}
 															>
 																<TriangleAlert size={13} />
-																Errors: {traceData.payload.totalErrorSpansCount ?? 0}
+																{t('trace_flamegraph.errors')}
+																{traceData.payload.totalErrorSpansCount ?? 0}
 															</span>
 														</span>
 													) : null}
@@ -474,7 +478,7 @@ function TraceDetailsV3(): JSX.Element {
 									items={[
 										{
 											key: 'waterfall',
-											label: 'Waterfall',
+											label: t('trace_flamegraph.waterfall'),
 											children: activeKeys.includes('waterfall')
 												? waterfallChildren
 												: null,

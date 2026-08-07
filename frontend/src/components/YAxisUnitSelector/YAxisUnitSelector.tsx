@@ -5,7 +5,10 @@ import { Select, Tooltip } from 'antd';
 import type { DefaultOptionType } from 'antd/es/select';
 import cx from 'classnames';
 
-import { UniversalYAxisUnitMappings } from './constants';
+import {
+	UniversalYAxisUnitMappings,
+	Y_AXIS_CATEGORY_LABELS,
+} from './constants';
 import { UniversalYAxisUnit, YAxisUnitSelectorProps } from './types';
 import {
 	getUniversalNameFromMetricUnit,
@@ -80,7 +83,9 @@ function YAxisUnitSelector({
 				showSearch
 				value={universalUnit}
 				onChange={onChange}
-				placeholder={placeholder || t('y_axis_unit.select_unit')}
+				placeholder={
+					placeholder || t('y_axis_unit.select_unit', 'Please select a unit')
+				}
 				filterOption={(input, option): boolean => handleSearch(input, option)}
 				loading={loading}
 				suffixIcon={
@@ -102,7 +107,10 @@ function YAxisUnitSelector({
 				allowClear
 			>
 				{categoriesToRender.map((category) => (
-					<Select.OptGroup key={category.name} label={category.name}>
+					<Select.OptGroup
+						key={category.name}
+						label={Y_AXIS_CATEGORY_LABELS[category.name]}
+					>
 						{category.units.map((unit) => (
 							<Select.Option key={unit.id} value={unit.id}>
 								{unit.name}

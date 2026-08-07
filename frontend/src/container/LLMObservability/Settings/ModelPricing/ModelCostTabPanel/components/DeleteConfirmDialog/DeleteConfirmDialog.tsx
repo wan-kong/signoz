@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { AlertDialog } from '@signozhq/ui/alert-dialog';
 import { Button } from '@signozhq/ui/button';
 import { Trash2, X } from '@signozhq/icons';
@@ -20,6 +21,7 @@ function DeleteConfirmDialog({
 	onConfirm,
 	onCancel,
 }: DeleteConfirmDialogProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	return (
 		<AlertDialog
 			open={open}
@@ -29,7 +31,7 @@ function DeleteConfirmDialog({
 				}
 			}}
 			width="narrow"
-			title="Delete Model Cost Data "
+			title={t('model_cost_delete.title', 'Delete Model Cost Data ')}
 			titleIcon={<Trash2 size={16} />}
 			footer={
 				<>
@@ -40,7 +42,7 @@ function DeleteConfirmDialog({
 						prefix={<X size={12} />}
 						testId="drawer-delete-cancel-btn"
 					>
-						Cancel
+						{t('model_cost_delete.cancel', 'Cancel')}
 					</Button>
 					<Button
 						variant="solid"
@@ -50,13 +52,20 @@ function DeleteConfirmDialog({
 						prefix={<Trash2 size={12} />}
 						testId="drawer-delete-confirm-btn"
 					>
-						Delete
+						{t('model_cost_delete.delete', 'Delete')}
 					</Button>
 				</>
 			}
 		>
-			Are you sure you want to delete <strong>{modelName}</strong>? Once deleted,
-			this action cannot be undone.
+			{t(
+				'model_cost_delete.confirm_message_prefix',
+				'Are you sure you want to delete',
+			)}{' '}
+			<strong>{modelName}</strong>?{' '}
+			{t(
+				'model_cost_delete.confirm_message_suffix',
+				'Once deleted, this action cannot be undone.',
+			)}
 		</AlertDialog>
 	);
 }

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { InframonitoringtypesDaemonSetRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
@@ -29,19 +30,25 @@ export const k8sDaemonSetGetSelectedItemExpression = (
 export const k8sDaemonSetDetailsMetadataConfig: K8sDetailsMetadataConfig<InframonitoringtypesDaemonSetRecordDTO>[] =
 	[
 		{
-			label: 'Daemonset Name',
+			label: i18n.t('display.daemonset_name', 'Daemonset Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.daemonset_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_DAEMONSET_NAME] ?? '',
 		},
 		{
-			label: 'Cluster Name',
+			label: i18n.t('display.cluster_name', 'Cluster Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] ?? '',
 		},
 		{
-			label: 'Namespace Name',
+			label: i18n.t('display.namespace_name', 'Namespace Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.namespace_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] ?? '',

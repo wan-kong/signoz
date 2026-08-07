@@ -36,7 +36,7 @@ function BuilderUnitsFilter({
 	return (
 		<Space className="builder-units-filter">
 			<Typography.Text className="builder-units-filter-label">
-				Y-axis unit
+				{t('builder_units.y_axis_unit', { ns: 'pipeline' })}
 			</Typography.Text>
 			<Select
 				getPopupContainer={getPopupContainer}

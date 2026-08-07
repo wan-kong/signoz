@@ -1,4 +1,5 @@
 import { Button } from '@signozhq/ui/button';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { handleContactSupport } from 'container/Integrations/utils';
 import { useGetTenantLicense } from 'hooks/useGetTenantLicense';
@@ -11,29 +12,36 @@ import noDataUrl from '@/assets/Icons/no-data.svg';
 import styles from './NoData.module.scss';
 
 function NoData(): JSX.Element {
+	const { t } = useTranslation('trace');
 	const { isCloudUser: isCloudUserVal } = useGetTenantLicense();
 
 	return (
 		<div className={styles.notFoundTrace} data-testid="trace-no-data">
 			<section className={styles.description}>
-				<img src={noDataUrl} alt="no-data" className={styles.notFoundImg} />
+				<img
+					src={noDataUrl}
+					alt={t('no_data_alt')}
+					className={styles.notFoundImg}
+				/>
 				<Typography.Text className={styles.notFoundText1}>
-					Uh-oh! We cannot show the selected trace.
-					<span className={styles.notFoundText2}>
-						This can happen in either of the two scenarios -
-					</span>
+					{t('no_data.trace_unavailable')}
+					<span className={styles.notFoundText2}>{t('no_data.two_scenarios')}</span>
 				</Typography.Text>
 			</section>
 			<section className={styles.reasons}>
 				<div className={styles.reason}>
-					<img src={constructionUrl} alt="no-data" className={styles.reasonImg} />
+					<img
+						src={constructionUrl}
+						alt={t('no_data_alt')}
+						className={styles.reasonImg}
+					/>
 					<Typography.Text className={styles.reasonText}>
 						The trace data has not been rendered on your SigNoz server yet. You can
 						wait for a bit and refresh this page if this is the case.
 					</Typography.Text>
 				</div>
 				<div className={styles.reason}>
-					<img src={broomUrl} alt="no-data" className={styles.reasonImg} />
+					<img src={broomUrl} alt={t('no_data_alt')} className={styles.reasonImg} />
 					<Typography.Text className={styles.reasonText}>
 						The trace has been deleted as the data has crossed it’s retention period.
 					</Typography.Text>
@@ -41,7 +49,7 @@ function NoData(): JSX.Element {
 			</section>
 			<section className={styles.noneOfAbove}>
 				<Typography.Text className={styles.noneText}>
-					If you feel the issue is none of the above, please contact support.
+					{t('no_data.none_of_above')}
 				</Typography.Text>
 				<div className={styles.actionBtns}>
 					<Button
@@ -52,7 +60,7 @@ function NoData(): JSX.Element {
 						onClick={(): void => window.location.reload()}
 						testId="trace-no-data-refresh-button"
 					>
-						Refresh this page
+						{t('no_data.refresh')}
 					</Button>
 					<Button
 						variant="outlined"
@@ -62,7 +70,7 @@ function NoData(): JSX.Element {
 						onClick={(): void => handleContactSupport(isCloudUserVal)}
 						testId="trace-no-data-contact-support-button"
 					>
-						Contact Support
+						{t('no_data.contact_support')}
 					</Button>
 				</div>
 			</section>

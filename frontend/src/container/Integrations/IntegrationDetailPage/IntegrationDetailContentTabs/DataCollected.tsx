@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Table } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { BarChart, ScrollText } from '@signozhq/icons';
@@ -10,20 +11,21 @@ interface DataCollectedProps {
 }
 
 function DataCollected(props: DataCollectedProps): JSX.Element {
+	const { t } = useTranslation('integrations');
 	const { logsData, metricsData } = props;
 	const logsColumns = [
 		{
-			title: 'Name',
+			title: t('name', 'Name'),
 			dataIndex: 'name',
 			key: 'name',
 		},
 		{
-			title: 'Path',
+			title: t('path', 'Path'),
 			dataIndex: 'path',
 			key: 'path',
 		},
 		{
-			title: 'Type',
+			title: t('type', 'Type'),
 			dataIndex: 'type',
 			key: 'type',
 		},
@@ -31,17 +33,17 @@ function DataCollected(props: DataCollectedProps): JSX.Element {
 
 	const metricsColumns = [
 		{
-			title: 'Name',
+			title: t('name', 'Name'),
 			dataIndex: 'name',
 			key: 'name',
 		},
 		{
-			title: 'Type',
+			title: t('type', 'Type'),
 			dataIndex: 'type',
 			key: 'type',
 		},
 		{
-			title: 'Unit',
+			title: t('unit', 'Unit'),
 			dataIndex: 'unit',
 			key: 'unit',
 		},
@@ -54,7 +56,7 @@ function DataCollected(props: DataCollectedProps): JSX.Element {
 			<div className="logs-section">
 				<div className="logs-heading">
 					<ScrollText size={14} />
-					<Typography.Text>Logs</Typography.Text>
+					<Typography.Text>{t('logs', 'Logs')}</Typography.Text>
 				</div>
 				<Table
 					columns={logsColumns}
@@ -69,7 +71,7 @@ function DataCollected(props: DataCollectedProps): JSX.Element {
 			<div className="metrics-section">
 				<div className="metrics-heading">
 					<BarChart size={14} />
-					<Typography.Text>Metrics</Typography.Text>
+					<Typography.Text>{t('metrics', 'Metrics')}</Typography.Text>
 				</div>
 				<Table
 					columns={metricsColumns}

@@ -2,6 +2,7 @@ import { ErrorResponseHandlerForGeneratedAPIs } from 'api/ErrorResponseHandlerFo
 import { RenderErrorResponseDTO } from 'api/generated/services/sigNoz.schemas';
 import { ErrorType } from 'api/generatedAPIInstance';
 import { AxiosError } from 'axios';
+import i18n from 'ReactI18';
 import APIError from 'types/api/error';
 
 /**
@@ -37,7 +38,13 @@ export const isRetryableError = (error: any): boolean => {
 
 export function toAPIError(
 	error: ErrorType<RenderErrorResponseDTO>,
-	defaultMessage = 'An unexpected error occurred.',
+	defaultMessage = i18n.t(
+		'constants_extra.unexpected_error',
+		'An unexpected error occurred.',
+		{
+			ns: 'common',
+		},
+	),
 ): APIError {
 	try {
 		ErrorResponseHandlerForGeneratedAPIs(error);

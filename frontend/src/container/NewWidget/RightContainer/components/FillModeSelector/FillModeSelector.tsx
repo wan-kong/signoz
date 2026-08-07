@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
 import { Typography } from '@signozhq/ui/typography';
 import { FillMode } from 'lib/uPlotV2/config/types';
@@ -13,9 +14,12 @@ export default function FillModeSelector({
 	value,
 	onChange,
 }: FillModeSelectorProps): JSX.Element {
+	const { t } = useTranslation('new_widget_components');
 	return (
 		<section className="fill-mode-selector control-container">
-			<Typography.Text className="section-heading">Fill mode</Typography.Text>
+			<Typography.Text className="section-heading">
+				{t('fill_mode.heading', 'Fill mode')}
+			</Typography.Text>
 			<ToggleGroupSimple
 				type="single"
 				value={value}
@@ -28,7 +32,7 @@ export default function FillModeSelector({
 				items={[
 					{
 						value: FillMode.None,
-						'aria-label': 'None',
+						'aria-label': t('fill_mode.none', 'None'),
 						label: (
 							<>
 								<svg
@@ -43,14 +47,14 @@ export default function FillModeSelector({
 									<rect x="8" y="16" width="32" height="16" stroke="#888" fill="none" />
 								</svg>
 								<Typography.Text className="section-heading-small">
-									None
+									{t('fill_mode.none', 'None')}
 								</Typography.Text>
 							</>
 						),
 					},
 					{
 						value: FillMode.Solid,
-						'aria-label': 'Solid',
+						'aria-label': t('fill_mode.solid', 'Solid'),
 						label: (
 							<>
 								<svg
@@ -65,14 +69,14 @@ export default function FillModeSelector({
 									<rect x="8" y="16" width="32" height="16" fill="#888" />
 								</svg>
 								<Typography.Text className="section-heading-small">
-									Solid
+									{t('fill_mode.solid', 'Solid')}
 								</Typography.Text>
 							</>
 						),
 					},
 					{
 						value: FillMode.Gradient,
-						'aria-label': 'Gradient',
+						'aria-label': t('fill_mode.gradient', 'Gradient'),
 						label: (
 							<>
 								<svg
@@ -100,7 +104,7 @@ export default function FillModeSelector({
 									/>
 								</svg>
 								<Typography.Text className="section-heading-small">
-									Gradient
+									{t('fill_mode.gradient', 'Gradient')}
 								</Typography.Text>
 							</>
 						),

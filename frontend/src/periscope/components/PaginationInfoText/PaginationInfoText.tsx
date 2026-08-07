@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Typography } from '@signozhq/ui/typography';
 
 function PaginationInfoText(
@@ -16,7 +17,10 @@ function PaginationInfoText(
 			<Typography.Text className="numbers">
 				{start} &#8212; {end}
 			</Typography.Text>
-			<Typography.Text className="total"> of {total}</Typography.Text>
+			<Typography.Text className="total">
+				{' '}
+				{String(i18n.t('of', 'of', { ns: 'common' }))} {total}
+			</Typography.Text>
 		</span>
 	);
 }

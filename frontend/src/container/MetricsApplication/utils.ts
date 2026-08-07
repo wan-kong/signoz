@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { QueryParams } from 'constants/query';
 import ROUTES from 'constants/routes';
 import { withBasePath } from 'utils/basePath';
@@ -62,9 +63,13 @@ export const convertedTracesToDownloadData = (
 ): Record<string, string>[] =>
 	originalData.map((item) => {
 		const newObj: Record<string, string> = {
-			Name: item.name,
-			'P50 (in ms)': (item.p50 / 1000000).toFixed(2),
-			'P95 (in ms)': (item.p95 / 1000000).toFixed(2),
+			[i18n.t('name', 'Name', { ns: 'common' })]: item.name,
+			[i18n.t('p50_ms', 'P50 (in ms)', { ns: 'common' })]: (
+				item.p50 / 1000000
+			).toFixed(2),
+			[i18n.t('p95_ms', 'P95 (in ms)', { ns: 'common' })]: (
+				item.p95 / 1000000
+			).toFixed(2),
 			'P99 (in ms)': (item.p99 / 1000000).toFixed(2),
 			'Number of calls': item.numCalls.toString(),
 			'Error Rate (%)': getErrorRate(item).toFixed(2),

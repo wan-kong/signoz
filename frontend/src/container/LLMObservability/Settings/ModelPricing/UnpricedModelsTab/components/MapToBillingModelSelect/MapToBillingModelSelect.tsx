@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import {
 	Combobox,
@@ -48,6 +49,7 @@ function MapToBillingModelSelect({
 	onSelect,
 	onCreateNew,
 }: MapToBillingModelSelectProps): JSX.Element {
+	const { t } = useTranslation('llm_unpriced');
 	const [open, setOpen] = useState(false);
 	const { searchText, setSearchText, rules, rulesById, isFetching } =
 		useMapToBillingModelSearch(open);
@@ -72,7 +74,10 @@ function MapToBillingModelSelect({
 				<ComboboxTrigger
 					className={styles.mapToSelect}
 					disabled={disabled}
-					placeholder="Select / Create a pricing model"
+					placeholder={t(
+						'map_to_billing.select_placeholder',
+						'Select / Create a pricing model',
+					)}
 					value={selectedLabel}
 					testId={`map-to-select-${modelName}`}
 				/>
@@ -81,7 +86,10 @@ function MapToBillingModelSelect({
 						<ComboboxInput
 							value={searchText}
 							onValueChange={setSearchText}
-							placeholder="Search billing models"
+							placeholder={t(
+								'map_to_billing.search_placeholder',
+								'Search billing models',
+							)}
 							testId={`map-to-search-${modelName}`}
 						/>
 						<ComboboxList>
@@ -112,7 +120,9 @@ function MapToBillingModelSelect({
 								</div>
 							)}
 							{!isFetching && rules.length === 0 && (
-								<ComboboxEmpty>No billing models found</ComboboxEmpty>
+								<ComboboxEmpty>
+									{t('map_to_billing.no_models_found', 'No billing models found')}
+								</ComboboxEmpty>
 							)}
 						</ComboboxList>
 						{/* Kept outside ComboboxList so it stays pinned as a footer while the
@@ -126,7 +136,7 @@ function MapToBillingModelSelect({
 							onSelect={handleCreateNew}
 							testId={`map-to-create-${modelName}`}
 						>
-							Create pricing for &quot;{modelName}&quot;
+							{t('map_to_billing.create_pricing_for', { modelName })}
 						</ComboboxCreateItem>
 					</ComboboxCommand>
 				</ComboboxContent>

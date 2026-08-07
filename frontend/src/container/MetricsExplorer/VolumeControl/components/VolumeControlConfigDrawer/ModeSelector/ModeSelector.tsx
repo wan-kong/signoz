@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
 
@@ -10,30 +11,41 @@ interface ModeOption {
 	description: string;
 }
 
-const MODE_OPTIONS: ModeOption[] = [
-	{
-		mode: 'all',
-		title: 'Allow all attributes',
-		description: 'All attributes stay queryable. Removes any existing rule.',
-	},
-	{
-		mode: 'include',
-		title: 'Include',
-		description: 'Allowlist: only the selected attributes stay queryable.',
-	},
-	{
-		mode: 'exclude',
-		title: 'Exclude',
-		description: 'Blocklist: the selected attributes are aggregated away.',
-	},
-];
-
 interface ModeSelectorProps {
 	mode: RuleMode;
 	onChange: (mode: RuleMode) => void;
 }
 
 function ModeSelector({ mode, onChange }: ModeSelectorProps): JSX.Element {
+	const { t } = useTranslation('common');
+
+	const MODE_OPTIONS: ModeOption[] = [
+		{
+			mode: 'all',
+			title: t('volume_control.allow_all_attributes', 'Allow all attributes'),
+			description: t(
+				'volume_control.allow_all_attributes_desc',
+				'All attributes stay queryable. Removes any existing rule.',
+			),
+		},
+		{
+			mode: 'include',
+			title: t('volume_control.include', 'Include'),
+			description: t(
+				'volume_control.include_desc',
+				'Allowlist: only the selected attributes stay queryable.',
+			),
+		},
+		{
+			mode: 'exclude',
+			title: t('volume_control.exclude', 'Exclude'),
+			description: t(
+				'volume_control.exclude_desc',
+				'Blocklist: the selected attributes are aggregated away.',
+			),
+		},
+	];
+
 	return (
 		<div
 			className={styles.modeOptions}

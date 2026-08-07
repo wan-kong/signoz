@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -39,6 +40,7 @@ export default function OverviewRightPanelGraph({
 	const { pathname } = useLocation();
 	const dispatch = useDispatch();
 	const urlQuery = useUrlQuery();
+	const { t } = useTranslation('common');
 
 	const onDragSelect = useCallback(
 		(start: number, end: number) => {
@@ -151,7 +153,7 @@ export default function OverviewRightPanelGraph({
 						goToTraces(requestRateWidget);
 					}}
 				>
-					View Traces
+					{t('celery_graph.view_traces')}
 				</Button>
 				<GridCard
 					widget={requestRateWidget}
@@ -171,7 +173,7 @@ export default function OverviewRightPanelGraph({
 					id="Celery_error_rate_button"
 					onClick={(): void => goToTraces(errorRateWidget)}
 				>
-					View Traces
+					{t('celery_graph.view_traces')}
 				</Button>
 				<GridCard
 					widget={errorRateWidget}
@@ -191,7 +193,7 @@ export default function OverviewRightPanelGraph({
 					id="Celery_avg_latency_button"
 					onClick={(): void => goToTraces(avgLatencyWidget)}
 				>
-					View Traces
+					{t('celery_graph.view_traces')}
 				</Button>
 				<GridCard
 					widget={avgLatencyWidget}

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
 import { Button } from '@signozhq/ui/button';
@@ -34,6 +35,7 @@ import { useViewRolePageActions } from './useViewRolePageActions';
 import styles from './ViewRolePage.module.scss';
 
 function ViewRolePageContent(): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
 	const { formatTimezoneAdjustedTimestampOptional } = useTimezone();
 	const { isRolesEnabled, isLoading: isFeatureGateLoading } =
 		useRolesFeatureGate();
@@ -74,7 +76,7 @@ function ViewRolePageContent(): JSX.Element {
 		() => [
 			{
 				key: 'overview' as const,
-				label: 'Overview',
+				label: t('role_view_overview_tab'),
 				children: (
 					<div className={styles.permissionSection}>
 						<div className={styles.permissionHeader}>
@@ -85,7 +87,7 @@ function ViewRolePageContent(): JSX.Element {
 								color="muted"
 								className={styles.permissionTitle}
 							>
-								Transaction Groups
+								{t('role_view_transaction_groups')}
 							</Typography>
 							<hr className={styles.permissionDivider} />
 							<RadioGroup
@@ -100,7 +102,7 @@ function ViewRolePageContent(): JSX.Element {
 									className={styles.permissionModeInput}
 									testId="permission-view-mode-list"
 								>
-									List
+									{t('role_view_list')}
 								</RadioGroupItem>
 								<RadioGroupItem
 									value="json"
@@ -135,6 +137,7 @@ function ViewRolePageContent(): JSX.Element {
 			role,
 			expandedResources,
 			setExpandedResources,
+			t,
 		],
 	);
 
@@ -152,7 +155,9 @@ function ViewRolePageContent(): JSX.Element {
 						>
 							<ArrowLeft size={16} />
 						</Button>
-						<Typography.Title level={3}>View Role</Typography.Title>
+						<Typography.Title level={3}>
+							{t('role_view_view_role_title')}
+						</Typography.Title>
 					</div>
 				</div>
 
@@ -162,8 +167,7 @@ function ViewRolePageContent(): JSX.Element {
 							httpStatusCode: 403,
 							error: {
 								code: 'FEATURE_DISABLED',
-								message:
-									'Custom roles feature is not available. Please check your license or feature configuration.',
+								message: t('role_view_feature_error'),
 								url: '',
 								errors: [],
 							},
@@ -197,12 +201,14 @@ function ViewRolePageContent(): JSX.Element {
 						>
 							<ArrowLeft size={16} />
 						</Button>
-						<Typography.Title level={3}>Failed to load role</Typography.Title>
+						<Typography.Title level={3}>
+							{t('role_view_failed_to_load_role')}
+						</Typography.Title>
 					</div>
 				</div>
 
 				<ErrorInPlace
-					error={toAPIError(error, 'Failed to load role details')}
+					error={toAPIError(error, t('role_view_failed_to_load_role_details'))}
 					data-testid="role-error-banner"
 				/>
 			</div>
@@ -227,13 +233,13 @@ function ViewRolePageContent(): JSX.Element {
 						<ArrowLeft size={16} />
 					</Button>
 					<Typography.Title level={3}>
-						{'Role - ' + role.name || 'Loading role...'}
+						{t('role_view_role_title', { name: role.name }) || 'Loading role...'}
 					</Typography.Title>
 				</div>
 
 				<div className={styles.viewRolePageActions}>
 					{isManaged ? (
-						<TooltipSimple title="Managed roles cannot be deleted">
+						<TooltipSimple title={t('role_view_managed_roles_cannot_be_deleted')}>
 							<Button
 								variant="link"
 								color="destructive"
@@ -241,7 +247,7 @@ function ViewRolePageContent(): JSX.Element {
 								data-testid="delete-button"
 								className={styles.deleteButton}
 							>
-								Delete
+								{t('delete')}
 							</Button>
 						</TooltipSimple>
 					) : (
@@ -253,21 +259,21 @@ function ViewRolePageContent(): JSX.Element {
 							data-testid="delete-button"
 							className={styles.deleteButton}
 						>
-							Delete
+							{t('delete')}
 						</AuthZButton>
 					)}
 
 					<Divider type="vertical" />
 
 					{isManaged ? (
-						<TooltipSimple title="Managed roles cannot be updated">
+						<TooltipSimple title={t('role_view_managed_roles_cannot_be_updated')}>
 							<Button
 								variant="solid"
 								color="primary"
 								disabled
 								data-testid="save-button"
 							>
-								Update
+								{t('update')}
 							</Button>
 						</TooltipSimple>
 					) : (
@@ -278,7 +284,7 @@ function ViewRolePageContent(): JSX.Element {
 							data-testid="save-button"
 							onClick={handleRedirectToUpdate}
 						>
-							Update
+							{t('update')}
 						</AuthZButton>
 					)}
 				</div>
@@ -288,14 +294,14 @@ function ViewRolePageContent(): JSX.Element {
 				<div className={styles.viewRolePageForm}>
 					<div className={styles.formField}>
 						<label htmlFor="role-description" className={styles.formLabel}>
-							Description
+							{t('description')}
 						</label>
 						<Typography>{role.description}</Typography>
 					</div>
 					<div className={styles.formRow}>
 						<div className={styles.formField}>
 							<label htmlFor="role-created-at" className={styles.formLabel}>
-								Created At
+								{t('created_at')}
 							</label>
 							<Badge color="secondary">
 								{formatTimezoneAdjustedTimestampOptional(role.createdAt)}
@@ -303,7 +309,7 @@ function ViewRolePageContent(): JSX.Element {
 						</div>
 						<div className={styles.formField}>
 							<label htmlFor="role-modified-at" className={styles.formLabel}>
-								Last Modified At
+								{t('last_modified_at')}
 							</label>
 							<Badge color="secondary">
 								{formatTimezoneAdjustedTimestampOptional(role.updatedAt)}

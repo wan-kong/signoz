@@ -88,26 +88,26 @@ function QuerySection({
 
 	const anomalyDisabledTooltip = (url: string): JSX.Element => (
 		<span>
-			Coming soon for anomaly detection.{' '}
+			{t('anomaly_coming_soon', 'Coming soon for anomaly detection.')}{' '}
 			<Typography.Link
 				href={url}
 				target="_blank"
 				rel="noopener noreferrer"
 				style={{ color: 'inherit', textDecoration: 'underline' }}
 			>
-				Leave a thumbs-up
+				{t('leave_thumbs_up', 'Leave a thumbs-up')}
 			</Typography.Link>{' '}
-			to help us prioritize!
+			{t('help_us_prioritize', 'to help us prioritize!')}
 		</span>
 	);
 
 	const tabs = [
 		{
 			label: (
-				<Tooltip title="Query Builder">
+				<Tooltip title={t('tab_qb', 'Query Builder')}>
 					<Button className="nav-btns">
 						<Atom size={14} />
-						<Typography.Text>Query Builder</Typography.Text>
+						<Typography.Text>{t('tab_qb', 'Query Builder')}</Typography.Text>
 					</Button>
 				</Tooltip>
 			),
@@ -119,12 +119,12 @@ function QuerySection({
 					title={
 						isAnomalyDetection
 							? anomalyDisabledTooltip(ANOMALY_QUERY_SUPPORT_CLICKHOUSE_ISSUE)
-							: 'ClickHouse'
+							: t('tab_clickhouse', 'ClickHouse')
 					}
 				>
 					<Button className="nav-btns" disabled={isAnomalyDetection}>
 						<Terminal size={14} />
-						<Typography.Text>ClickHouse Query</Typography.Text>
+						<Typography.Text>{t('tab_chquery', 'ClickHouse Query')}</Typography.Text>
 					</Button>
 				</Tooltip>
 			),
@@ -144,10 +144,10 @@ function QuerySection({
 		() => [
 			{
 				label: (
-					<Tooltip title="Query Builder">
+					<Tooltip title={t('tab_qb', 'Query Builder')}>
 						<Button className="nav-btns" data-testid="query-builder-tab">
 							<Atom size={14} />
-							<Typography.Text>Query Builder</Typography.Text>
+							<Typography.Text>{t('tab_qb', 'Query Builder')}</Typography.Text>
 						</Button>
 					</Tooltip>
 				),
@@ -159,12 +159,12 @@ function QuerySection({
 						title={
 							isAnomalyDetection
 								? anomalyDisabledTooltip(ANOMALY_QUERY_SUPPORT_CLICKHOUSE_ISSUE)
-								: 'ClickHouse'
+								: t('tab_clickhouse', 'ClickHouse')
 						}
 					>
 						<Button className="nav-btns" disabled={isAnomalyDetection}>
 							<Terminal size={14} />
-							<Typography.Text>ClickHouse Query</Typography.Text>
+							<Typography.Text>{t('tab_chquery', 'ClickHouse Query')}</Typography.Text>
 						</Button>
 					</Tooltip>
 				),
@@ -177,14 +177,14 @@ function QuerySection({
 						title={
 							isAnomalyDetection
 								? anomalyDisabledTooltip(ANOMALY_QUERY_SUPPORT_PROMQL_ISSUE)
-								: 'PromQL'
+								: t('tab_promql', 'PromQL')
 						}
 					>
 						<Button className="nav-btns" disabled={isAnomalyDetection}>
 							<PromQLIcon
 								fillColor={isDarkMode ? Color.BG_VANILLA_200 : Color.BG_INK_300}
 							/>
-							<Typography.Text>PromQL</Typography.Text>
+							<Typography.Text>{t('tab_promql', 'PromQL')}</Typography.Text>
 						</Button>
 					</Tooltip>
 				),
@@ -283,7 +283,10 @@ function QuerySection({
 	return (
 		<>
 			{!hideTitle && (
-				<StepHeading> {t('alert_form_step2', { step: step2Label })}</StepHeading>
+				<StepHeading>
+					{' '}
+					{t('alert_form_step2', 'Define the metric', { step: step2Label })}
+				</StepHeading>
 			)}
 			<FormContainer className="alert-query-section-container">
 				<div>{renderTabs(alertType)}</div>

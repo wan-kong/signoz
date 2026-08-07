@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Color } from '@signozhq/design-tokens';
 import { TimelineFilter, TimelineTab } from 'container/AlertHistory/types';
@@ -9,9 +10,12 @@ import Tabs2 from 'periscope/components/Tabs2';
 import './TabsAndFilters.styles.scss';
 
 function ComingSoon(): JSX.Element {
+	const { t } = useTranslation(['alerts', 'common']);
 	return (
 		<div className="coming-soon">
-			<div className="coming-soon__text">Coming Soon</div>
+			<div className="coming-soon__text">
+				{t('common:coming_soon', 'Coming Soon')}
+			</div>
 			<div className="coming-soon__icon">
 				<Info size={10} color={Color.BG_SIENNA_400} />
 			</div>
@@ -19,16 +23,17 @@ function ComingSoon(): JSX.Element {
 	);
 }
 function TimelineTabs(): JSX.Element {
+	const { t } = useTranslation(['alerts', 'common']);
 	const tabs = [
 		{
 			value: TimelineTab.OVERALL_STATUS,
-			label: 'Overall Status',
+			label: t('alert_details.timeline.overall_status', 'Overall Status'),
 		},
 		{
 			value: TimelineTab.TOP_5_CONTRIBUTORS,
 			label: (
 				<div className="top-5-contributors">
-					Top 5 Contributors
+					{t('alert_details.timeline.top_5_contributors', 'Top 5 Contributors')}
 					<ComingSoon />
 				</div>
 			),
@@ -40,6 +45,7 @@ function TimelineTabs(): JSX.Element {
 }
 
 function TimelineFilters(): JSX.Element {
+	const { t } = useTranslation(['alerts', 'common']);
 	const { search } = useLocation();
 	const searchParams = useMemo(() => new URLSearchParams(search), [search]);
 
@@ -56,15 +62,15 @@ function TimelineFilters(): JSX.Element {
 	const tabs = [
 		{
 			value: TimelineFilter.ALL,
-			label: 'All',
+			label: t('common:all', 'All'),
 		},
 		{
 			value: TimelineFilter.FIRED,
-			label: 'Fired',
+			label: t('alert_details.timeline.fired', 'Fired'),
 		},
 		{
 			value: TimelineFilter.RESOLVED,
-			label: 'Resolved',
+			label: t('alert_details.state.resolved', 'Resolved'),
 		},
 	];
 

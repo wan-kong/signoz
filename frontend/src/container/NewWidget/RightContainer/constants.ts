@@ -1,4 +1,5 @@
 import type { DefaultOptionType } from 'antd/es/select';
+import i18n from 'ReactI18';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 
 export const operatorOptions: DefaultOptionType[] = [
@@ -9,8 +10,20 @@ export const operatorOptions: DefaultOptionType[] = [
 ];
 
 export const showAsOptions: DefaultOptionType[] = [
-	{ value: 'Text', label: 'Text' },
-	{ value: 'Background', label: 'Background' },
+	{
+		value: 'Text',
+		label: String(
+			i18n.t('right.show_as_options.text', 'Text', { ns: 'new_widget' }),
+		),
+	},
+	{
+		value: 'Background',
+		label: String(
+			i18n.t('right.show_as_options.background', 'Background', {
+				ns: 'new_widget',
+			}),
+		),
+	},
 ];
 
 export const panelTypeVsThreshold: { [key in PANEL_TYPES]: boolean } = {

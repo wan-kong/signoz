@@ -38,7 +38,7 @@ describe('ApDexSettings', () => {
 			/>,
 		);
 
-		const loadingSpan = container.querySelector('[aria-label="loading"]');
+		const loadingSpan = container.querySelector('[aria-label="Loading..."]');
 
 		// Assert that the loading span is found
 		expect(loadingSpan).toBeInTheDocument();

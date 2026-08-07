@@ -1,4 +1,5 @@
 import { memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Tooltip } from 'antd';
 import { Divider } from '@signozhq/ui/divider';
 import cx from 'classnames';
@@ -45,6 +46,7 @@ function FunnelConfiguration({
 		});
 	const [isDescriptionModalOpen, setIsDescriptionModalOpen] =
 		useState<boolean>(false);
+	const { t } = useTranslation('funnel_config');
 
 	const handleDescriptionModalClose = (): void => {
 		setIsDescriptionModalOpen(false);
@@ -61,10 +63,13 @@ function FunnelConfiguration({
 						<Tooltip
 							title={
 								!hasEditPermission
-									? 'You need editor or admin access to edit funnel description'
+									? t(
+											'funnel_config.no_permission_description',
+											'You need editor or admin access to edit funnel description',
+										)
 									: funnel?.description
-										? 'Edit funnel description'
-										: 'Add funnel description'
+										? t('funnel_config.edit_description', 'Edit funnel description')
+										: t('funnel_config.add_description', 'Add funnel description')
 							}
 						>
 							<Button
@@ -72,7 +77,10 @@ function FunnelConfiguration({
 								className="funnel-item__action-btn funnel-configuration__rename-btn"
 								icon={<PencilLine size={14} />}
 								onClick={(): void => setIsDescriptionModalOpen(true)}
-								aria-label="Edit Funnel Description"
+								aria-label={t(
+									'funnel_config.edit_description_aria',
+									'Edit Funnel Description',
+								)}
 								disabled={!hasEditPermission}
 							/>
 						</Tooltip>
@@ -97,7 +105,8 @@ function FunnelConfiguration({
 							<div className="funnel-configuration__description-wrapper">
 								<div className="funnel-title">{funnel.funnel_name}</div>
 								<div className="funnel-description">
-									{funnel?.description ?? 'No description added.'}
+									{funnel?.description ??
+										t('funnel_config.no_description', 'No description added.')}
 								</div>
 							</div>
 						)}

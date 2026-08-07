@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Popover } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
@@ -26,6 +27,7 @@ function Span(props: SpanLengthProps): JSX.Element {
 	const { width, leftOffset, bgColor, inMsCount, startTime, name, globalStart } =
 		props;
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('gant_chart');
 	const { time, timeUnitName } = convertTimeToRelevantUnit(inMsCount);
 
 	const { timezone } = useTimezone();
@@ -44,11 +46,14 @@ function Span(props: SpanLengthProps): JSX.Element {
 			<div>
 				<Typography.Text style={{ marginBottom: '8px' }}>
 					{' '}
-					Duration : {inMsCount}
+					{t('gant_span.duration', 'Duration : {{value}}', { value: inMsCount })}
 				</Typography.Text>
 				<br />
 				<Typography.Text style={{ marginBottom: '8px' }}>
-					Start Time: {startTimeInMs}ms [{timeStamp}]{' '}
+					{t('gant_span.start_time', 'Start Time: {{startTime}}ms [{{timeStamp}}]', {
+						startTime: startTimeInMs,
+						timeStamp,
+					})}{' '}
 				</Typography.Text>
 			</div>
 		);

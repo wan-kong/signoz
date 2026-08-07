@@ -23,7 +23,11 @@ export default function LogsError(): JSX.Element {
 	return (
 		<div className="logs-error-container">
 			<div className="logs-error-content">
-				<img src={awwSnapUrl} alt="error-emoji" className="error-state-svg" />
+				<img
+					src={awwSnapUrl}
+					alt={t('error.emoji_alt')}
+					className="error-state-svg"
+				/>
 				<Typography.Text>
 					<Trans
 						t={t}

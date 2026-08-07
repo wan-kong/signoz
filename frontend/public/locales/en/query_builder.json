@@ -1,0 +1,47 @@
+{
+	"additional_filters": {
+		"and": "and",
+		"add_conditions_for": "Add conditions for {{filters}}"
+	},
+	"qb_entity": {
+		"collapse": "Collapse",
+		"uncollapse": "Uncollapse",
+		"show": "Show",
+		"hide": "Hide",
+		"clone_query": "Clone Query {{queryName}}"
+	},
+	"query_functions": {
+		"max_functions_limit": "Functions are in early access. You can add a maximum of {{max}} function as of now.",
+		"add_new_function": "Add new function",
+		"learn_more": "Learn more"
+	},
+	"space_aggregation": {
+		"by": " By"
+	},
+	"query_aggregation": {
+		"max_aggregations_allowed": "Maximum {{max}} aggregation{{plural}} allowed",
+		"invalid_functions": "Invalid function{{plural}}: {{funcs}}",
+		"incomplete_function_call": "Incomplete function call - missing closing parenthesis",
+		"functions_require_arguments": "Function{{plural}} {{funcs}} require{{verb}} arguments",
+		"loading_suggestions": "Loading suggestions...",
+		"placeholder_max": "Type aggregator functions (max {{max}}) like sum(), count_distinct(...), etc.",
+		"placeholder": "Type aggregator functions like sum(), count_distinct(...), etc.",
+		"aggregation_functions_title": "Aggregation functions:",
+		"fn_count_desc": "number of occurrences",
+		"fn_sum_avg_desc": "sum/average of values",
+		"fn_min_max_desc": "minimum/maximum value",
+		"fn_p50_p90_p99_desc": "percentiles",
+		"fn_count_distinct_desc": "unique values",
+		"fn_rate_desc": "per-interval rate",
+		"view_documentation": "View documentation"
+	},
+	"query_v2": {
+		"in": "in",
+		"clone": "Clone",
+		"delete": "Delete"
+	},
+	"trace_operator": {
+		"placeholder": "Enter your trace operator query",
+		"failed_to_process": "Failed to process trace operator"
+	}
+}

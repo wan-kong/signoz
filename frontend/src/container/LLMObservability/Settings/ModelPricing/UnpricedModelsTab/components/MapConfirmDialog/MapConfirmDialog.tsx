@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
 import { Typography } from '@signozhq/ui/typography';
@@ -37,11 +38,20 @@ function MapConfirmDialog({
 	onConfirm,
 	onCancel,
 }: MapConfirmDialogProps): JSX.Element {
+	const { t } = useTranslation('llm_unpriced');
 	const extraBuckets = getExtraBuckets(rule);
 
 	const pricingRows = [
-		{ key: 'input', label: 'Input / 1M', value: rule.pricing?.input },
-		{ key: 'output', label: 'Output / 1M', value: rule.pricing?.output },
+		{
+			key: 'input',
+			label: t('map_confirm_dialog.input_per_million', 'Input / 1M'),
+			value: rule.pricing?.input,
+		},
+		{
+			key: 'output',
+			label: t('map_confirm_dialog.output_per_million', 'Output / 1M'),
+			value: rule.pricing?.output,
+		},
 		...extraBuckets.map((bucket) => ({
 			key: bucket.key,
 			label: startCase(bucket.key),
@@ -59,7 +69,7 @@ function MapConfirmDialog({
 				prefix={<X size={12} />}
 				testId="unpriced-map-cancel-btn"
 			>
-				Cancel
+				{t('map_confirm_dialog.cancel', 'Cancel')}
 			</Button>
 			<Button
 				variant="solid"
@@ -69,7 +79,7 @@ function MapConfirmDialog({
 				prefix={<Check size={12} />}
 				testId="unpriced-map-confirm-btn"
 			>
-				Map model
+				{t('map_confirm_dialog.map_model', 'Map model')}
 			</Button>
 		</div>
 	);
@@ -83,14 +93,17 @@ function MapConfirmDialog({
 				}
 			}}
 			width="base"
-			title="Map to billing model"
+			title={t('map_confirm_dialog.title', 'Map to billing model')}
 			titleIcon={<Link2 size={16} />}
 			footer={footer}
 			testId="unpriced-map-confirm-dialog"
 		>
 			<div className={styles.body}>
 				<Typography.Text as="p" size="small" color="muted">
-					Spans from this model will be priced using the selected billing model.
+					{t(
+						'map_confirm_dialog.body',
+						'Spans from this model will be priced using the selected billing model.',
+					)}
 				</Typography.Text>
 
 				<div className={styles.mapping}>

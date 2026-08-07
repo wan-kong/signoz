@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Select } from 'antd';
@@ -24,6 +25,7 @@ import MessagingQueuesGraph from '../MQGraph/MQGraph';
 import '../MessagingQueues.styles.scss';
 
 function MQDetailPage(): JSX.Element {
+	const { t } = useTranslation('messagingQueues');
 	const history = useHistory();
 	const [selectedView, setSelectedView] =
 		useState<MessagingQueuesViewTypeOptions>(
@@ -86,7 +88,7 @@ function MQDetailPage(): JSX.Element {
 						role="button"
 						tabIndex={0}
 					>
-						Kafka / views /
+						{t('mq_detail.breadcrumb', 'Kafka / views /')}
 					</div>
 					<Select
 						className="messaging-queue-options"

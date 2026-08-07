@@ -9,6 +9,8 @@
 	"stale_version": "你正在使用较旧版本，可能错过了我们已经发布的新功能。建议升级到最新版本。",
 	"oops_something_went_wrong_version": "糟糕，获取版本更新信息时出现问题",
 	"n_a": "不适用",
+	"beta_badge": "Beta",
+	"click_here_to_see_how_to_create_sample_alert": "点击此处查看如何创建示例告警。",
 	"routes": {
 		"general": "通用",
 		"alert_channels": "告警渠道",

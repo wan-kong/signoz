@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import type { TableProps } from 'antd';
 import type { DashboardtypesTableThresholdDTO } from 'api/generated/services/sigNoz.schemas';
 import type { PrecisionOption } from 'components/Graph/types';
@@ -18,7 +19,7 @@ import styles from './TablePanel.module.scss';
 /** A prepared scalar-table row flattened for the antd Table, with the antd key. */
 export type TableRowData = Record<string, unknown> & { key: number };
 
-const NA_TEXT = 'n/a';
+const NA_TEXT = i18n.t('panel.na_lower', 'n/a', { ns: 'dashboard' });
 
 // Empty cells (null/undefined/'') aren't numbers: `Number(null)` is 0, which
 // would render/colour/sort an empty cell as a real zero.

@@ -1,4 +1,5 @@
 /* eslint-disable sonarjs/cognitive-complexity */
+import { useTranslation } from 'react-i18next';
 import {
 	Dispatch,
 	memo,
@@ -205,6 +206,7 @@ const SpanOverview = memo(function SpanOverview({
 	onHoverEnter: (spanId: string) => void;
 	onHoverLeave: () => void;
 }): JSX.Element {
+	const { t } = useTranslation('trace');
 	const isRootSpan = span.level === 0;
 	const { onSpanCopy } = useCopySpanLink(span);
 	const colorByFieldName = useTraceStore((s) => s.colorByField.name);
@@ -359,7 +361,7 @@ const SpanOverview = memo(function SpanOverview({
 							</Button>
 						</TooltipTrigger>
 						<TooltipContent className={styles.actionTooltip}>
-							Copy Span Link
+							{t('trace_details.copy_span_link', 'Copy Span Link')}
 						</TooltipContent>
 					</TooltipRoot>
 					<TooltipRoot>
@@ -375,7 +377,7 @@ const SpanOverview = memo(function SpanOverview({
 							</Button>
 						</TooltipTrigger>
 						<TooltipContent className={styles.actionTooltip}>
-							Add to Trace Funnel
+							{t('trace_details.add_to_trace_funnel', 'Add to Trace Funnel')}
 						</TooltipContent>
 					</TooltipRoot>
 				</TooltipProvider>

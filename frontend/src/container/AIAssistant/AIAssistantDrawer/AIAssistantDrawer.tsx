@@ -6,12 +6,14 @@ import { Drawer } from 'antd';
 import ROUTES from 'constants/routes';
 import { Maximize2, Plus, X } from '@signozhq/icons';
 import Noz from 'components/Noz/Noz';
+import { useTranslation } from 'react-i18next';
 
 import ConversationView from '../ConversationView';
 import { useAIAssistantStore } from '../store/useAIAssistantStore';
 import { VariantContext } from '../VariantContext';
 
 export default function AIAssistantDrawer(): JSX.Element {
+	const { t } = useTranslation('ai_assistant');
 	const history = useHistory();
 
 	const isDrawerOpen = useAIAssistantStore((s) => s.isDrawerOpen);
@@ -53,38 +55,38 @@ export default function AIAssistantDrawer(): JSX.Element {
 					</div>
 
 					<div>
-						<TooltipSimple title="New conversation">
+						<TooltipSimple title={t('new_conversation', 'New conversation')}>
 							<Button
 								variant="ghost"
 								size="icon"
 								color="secondary"
 								onClick={handleNewConversation}
-								aria-label="New conversation"
+								aria-label={t('new_conversation', 'New conversation')}
 							>
 								<Plus size={16} />
 							</Button>
 						</TooltipSimple>
 
-						<TooltipSimple title="Open full screen">
+						<TooltipSimple title={t('open_full_screen', 'Open full screen')}>
 							<Button
 								variant="ghost"
 								size="icon"
 								color="secondary"
 								onClick={handleExpand}
 								disabled={!activeConversationId}
-								aria-label="Open full screen"
+								aria-label={t('open_full_screen', 'Open full screen')}
 							>
 								<Maximize2 size={16} />
 							</Button>
 						</TooltipSimple>
 
-						<TooltipSimple title="Close">
+						<TooltipSimple title={t('close', 'Close')}>
 							<Button
 								variant="ghost"
 								size="icon"
 								color="secondary"
 								onClick={closeDrawer}
-								aria-label="Close drawer"
+								aria-label={t('close_drawer', 'Close drawer')}
 							>
 								<X size={16} />
 							</Button>

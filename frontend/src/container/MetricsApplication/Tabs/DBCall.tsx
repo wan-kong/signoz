@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Col } from 'antd';
 import logEvent from 'api/common/logEvent';
 import { ENTITY_VERSION_V4 } from 'constants/app';
@@ -49,6 +50,7 @@ import {
 } from './util';
 
 function DBCall(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { servicename: encodedServiceName } = useParams<IServiceName>();
 
 	const servicename = decodeURIComponent(encodedServiceName);
@@ -194,7 +196,7 @@ function DBCall(): JSX.Element {
 						safeNavigate,
 					})}
 				>
-					View Traces
+					{t('metrics_application_extra.view_traces')}
 				</Button>
 				<Card data-testid="database_call_rps">
 					<GraphContainer>
@@ -231,7 +233,7 @@ function DBCall(): JSX.Element {
 						safeNavigate,
 					})}
 				>
-					View Traces
+					{t('metrics_application_extra.view_traces')}
 				</Button>
 
 				<Card data-testid="database_call_avg_duration">

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Gauge } from '@signozhq/icons';
 import { Typography } from '@signozhq/ui/typography';
 import { Skeleton } from 'antd';
@@ -18,6 +19,7 @@ interface VolumeControlSectionProps {
 function VolumeControlSection({
 	metricName,
 }: VolumeControlSectionProps): JSX.Element | null {
+	const { t } = useTranslation('common');
 	const { isVolumeControlEnabled, canManageVolumeControl } =
 		useVolumeControlFeatureGate();
 	const [isConfigOpen, setIsConfigOpen] = useState(false);
@@ -47,7 +49,7 @@ function VolumeControlSection({
 			<div className={styles.header}>
 				<Gauge size={14} />
 				<Typography.Text size="sm" weight="semibold" className={styles.title}>
-					Volume control
+					{t('volume_control.section_title', 'Volume control')}
 				</Typography.Text>
 			</div>
 
@@ -59,7 +61,10 @@ function VolumeControlSection({
 					color="danger"
 					data-testid="volume-control-section-error"
 				>
-					Failed to load volume control. Please try again.
+					{t(
+						'volume_control.section_load_error',
+						'Failed to load volume control. Please try again.',
+					)}
 				</Typography.Text>
 			)}
 

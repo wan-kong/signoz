@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Info } from '@signozhq/icons';
 import { Typography } from '@signozhq/ui/typography';
 import {
@@ -36,6 +37,7 @@ interface RelatedAssetsWarningProps {
 function RelatedAssetsWarning({
 	affectedAssets,
 }: RelatedAssetsWarningProps): JSX.Element | null {
+	const { t } = useTranslation('common');
 	const impacted = (affectedAssets ?? []).filter(
 		(asset) =>
 			asset.type === AssetType.alert_rule ||
@@ -54,13 +56,24 @@ function RelatedAssetsWarning({
 			<Info size={14} />
 			<div className={styles.warningBody}>
 				<Typography.Text as="div" size="base" weight="semibold" color="warning">
-					This rule affects {impacted.length} related asset
-					{impacted.length > 1 ? 's' : ''}.
+					{t(
+						'metrics_explorer.related_assets_warning',
+						'This rule affects {{count}} related asset{{s}}.',
+						{
+							count: impacted.length,
+							s: impacted.length > 1 ? 's' : '',
+						},
+					)}
 				</Typography.Text>
 				{impactedLabels.length > 0 && (
 					<Typography.Text as="div" size="base" color="muted">
-						{impactedLabels.join(', ')} will no longer be queryable; affected panels
-						fall back to aggregated data once the rule applies.
+						{t(
+							'metrics_explorer.related_assets_labels_warning',
+							'{{labels}} will no longer be queryable; affected panels fall back to aggregated data once the rule applies.',
+							{
+								labels: impactedLabels.join(', '),
+							},
+						)}
 					</Typography.Text>
 				)}
 				<ul className={styles.assetList}>

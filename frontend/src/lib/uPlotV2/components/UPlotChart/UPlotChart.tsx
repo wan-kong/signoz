@@ -4,6 +4,7 @@ import { Typography } from '@signozhq/ui/typography';
 import { isEqual } from 'lodash-es';
 import { ChartLine } from '@signozhq/icons';
 import ErrorBoundaryFallback from 'pages/ErrorBoundaryFallback/ErrorBoundaryFallback';
+import { useTranslation } from 'react-i18next';
 import uPlot, { AlignedData, Options } from 'uplot';
 
 import { usePlotContext } from '../../context/PlotContext';
@@ -46,6 +47,7 @@ export default function UPlotChart({
 	'data-testid': testId = 'uplot-main-div',
 }: UPlotChartProps): JSX.Element {
 	const { setPlotContextInitialState } = usePlotContext();
+	const { t } = useTranslation('common');
 	const containerRef = useRef<HTMLDivElement>(null);
 	const plotInstanceRef = useRef<uPlot | null>(null);
 	const prevPropsRef = useRef<UPlotChartProps | null>(null);
@@ -192,7 +194,7 @@ export default function UPlotChart({
 				}}
 			>
 				<ChartLine size={48} strokeWidth={0.5} />
-				<Typography>No Data</Typography>
+				<Typography>{t('uplot.no_data', 'No Data')}</Typography>
 			</div>
 		);
 	}

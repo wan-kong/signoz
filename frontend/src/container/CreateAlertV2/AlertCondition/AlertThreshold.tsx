@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Button, Select, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import classNames from 'classnames';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
@@ -49,6 +50,8 @@ function AlertThreshold({
 		notificationSettings,
 		setNotificationSettings,
 	} = useCreateAlertState();
+
+	const { t } = useTranslation('create_alert');
 
 	const { currentQuery } = useQueryBuilder();
 	const queryNames = getQueryNames(currentQuery);
@@ -229,7 +232,7 @@ function AlertThreshold({
 			<div className="alert-condition-sentences">
 				<div className="alert-condition-sentence">
 					<Typography.Text className="sentence-text">
-						Send a notification when
+						{t('send_a_notification_when', 'Send a notification when')}
 					</Typography.Text>
 					<Select
 						value={thresholdState.selectedQuery}
@@ -238,7 +241,9 @@ function AlertThreshold({
 						options={queryNames}
 						data-testid="alert-threshold-query-select"
 					/>
-					<Typography.Text className="sentence-text">is</Typography.Text>
+					<Typography.Text className="sentence-text">
+						{t('is', 'is')}
+					</Typography.Text>
 					<Select
 						value={
 							(normalizeOperator(thresholdState.operator) ??
@@ -255,7 +260,7 @@ function AlertThreshold({
 						data-testid="alert-threshold-operator-select"
 					/>
 					<Typography.Text className="sentence-text">
-						the threshold(s)
+						{t('the_threshold_s', 'the threshold(s)')}
 					</Typography.Text>
 					<Select
 						value={
@@ -273,7 +278,7 @@ function AlertThreshold({
 						data-testid="alert-threshold-match-type-select"
 					/>
 					<Typography.Text className="sentence-text">
-						during the <EvaluationSettings />
+						{t('during_the', 'during the')} <EvaluationSettings />
 					</Typography.Text>
 				</div>
 			</div>
@@ -300,7 +305,7 @@ function AlertThreshold({
 					className="add-threshold-btn"
 					data-testid="add-threshold-button"
 				>
-					Add Threshold
+					{t('add_threshold', 'Add Threshold')}
 				</Button>
 			</div>
 

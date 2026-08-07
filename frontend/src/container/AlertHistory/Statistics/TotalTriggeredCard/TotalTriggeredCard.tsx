@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { AlertRuleStats } from 'types/api/alerts/def';
 
 import StatsCard from '../StatsCard/StatsCard';
@@ -13,11 +14,12 @@ function TotalTriggeredCard({
 	totalPastTriggers,
 	timeSeries,
 }: TotalTriggeredCardProps): JSX.Element {
+	const { t } = useTranslation('alert_history');
 	return (
 		<StatsCard
 			totalCurrentCount={totalCurrentTriggers}
 			totalPastCount={totalPastTriggers}
-			title="Total Triggered"
+			title={t('total_triggered.title', 'Total Triggered')}
 			timeSeries={timeSeries}
 		/>
 	);

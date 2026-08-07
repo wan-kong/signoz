@@ -88,7 +88,7 @@ function ExportPanelContainer({
 					onClose();
 				}
 			}}
-			title="Add to dashboard"
+			title={t('add_to_dashboard')}
 			testId="export-panel-dialog"
 			footer={
 				<div className={styles.footer}>

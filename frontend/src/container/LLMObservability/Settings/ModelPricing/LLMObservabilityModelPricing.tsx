@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Badge } from '@signozhq/ui/badge';
 import { Tabs } from '@signozhq/ui/tabs';
 import { useListUnmappedLLMModels } from 'api/generated/services/llmpricingrules';
@@ -9,6 +10,7 @@ import ModelCostTabPanel from './ModelCostTabPanel';
 import UnpricedModelsTab from './UnpricedModelsTab';
 
 function LLMObservabilityModelPricing(): JSX.Element {
+	const { t } = useTranslation('llm_unpriced');
 	const [activeTab, setActiveTab] = useQueryState(
 		TAB_KEY,
 		parseAsStringEnum([MODEL_COSTS_TAB, UNPRICED_MODELS_TAB]).withDefault(
@@ -33,14 +35,14 @@ function LLMObservabilityModelPricing(): JSX.Element {
 				items={[
 					{
 						key: MODEL_COSTS_TAB,
-						label: 'Model Costs',
+						label: t('model_pricing.model_costs_tab', 'Model Costs'),
 						children: <ModelCostTabPanel />,
 					},
 					{
 						key: UNPRICED_MODELS_TAB,
 						label: (
 							<span className={styles.tabLabel}>
-								Unpriced models
+								{t('model_pricing.unpriced_models_tab', 'Unpriced models')}
 								{unpricedCount > 0 && (
 									<Badge
 										variant="default"

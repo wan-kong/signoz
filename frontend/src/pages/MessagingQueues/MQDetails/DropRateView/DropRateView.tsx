@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import { Table } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
+import i18n from 'ReactI18';
 import logEvent from 'api/common/logEvent';
 import { MessagingQueueServicePayload } from 'api/messagingQueues/getConsumerLagDetails';
 import { getKafkaSpanEval } from 'api/messagingQueues/getKafkaSpanEval';
@@ -108,7 +110,12 @@ export function getColumns(
 												onClick={(): void => handleShowMore(index)}
 												className="remaing-count"
 											>
-												+ {remainingCount} more
+												{String(
+													i18n.t('drop_rate.show_more', '+ {{remainingCount}} more', {
+														ns: 'messagingQueues',
+														remainingCount,
+													}),
+												)}
 											</Typography.Text>
 										)}
 									</div>
@@ -151,16 +158,8 @@ export function getColumns(
 	return columns;
 }
 
-const showPaginationItem = (total: number, range: number[]): JSX.Element => (
-	<>
-		<Typography.Text className="numbers">
-			{range[0]} &#8212; {range[1]}
-		</Typography.Text>
-		<Typography.Text className="total"> of {total}</Typography.Text>
-	</>
-);
-
 function DropRateView(): JSX.Element {
+	const { t } = useTranslation('messagingQueues');
 	const [columns, setColumns] = useState<any[]>([]);
 	const [tableData, setTableData] = useState<any[]>([]);
 	const { notifications } = useNotifications();
@@ -174,6 +173,20 @@ function DropRateView(): JSX.Element {
 
 	const [visibleCounts, setVisibleCounts] = useState<Record<number, number>>({});
 
+	const showPaginationItem = useCallback(
+		(total: number, range: number[]): JSX.Element => (
+			<>
+				<Typography.Text className="numbers">
+					{range[0]} &#8212; {range[1]}
+				</Typography.Text>
+				<Typography.Text className="total">
+					{t('drop_rate.of_total', ' of {{total}}', { total })}
+				</Typography.Text>
+			</>
+		),
+		[t],
+	);
+
 	const paginationConfig = useMemo(
 		() =>
 			tableData?.length > 10 && {
@@ -182,7 +195,7 @@ function DropRateView(): JSX.Element {
 				showSizeChanger: false,
 				hideOnSinglePage: true,
 			},
-		[tableData],
+		[tableData, showPaginationItem],
 	);
 
 	const evaluationTime = useMemo(

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
 import { Table } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -17,6 +18,7 @@ function StatusCodeTable({
 }: {
 	endPointStatusCodeDataQuery: UseQueryResult<SuccessResponse<any>, unknown>;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const { isLoading, isRefetching, isError, data, refetch } =
 		endPointStatusCodeDataQuery;
 
@@ -56,7 +58,10 @@ function StatusCodeTable({
 									/>
 
 									<Typography.Text className="no-status-code-data-message">
-										This query had no results. Edit your query and try again!
+										{t(
+											'api_monitoring.no_results',
+											'This query had no results. Edit your query and try again!',
+										)}
 									</Typography.Text>
 								</div>
 							</div>

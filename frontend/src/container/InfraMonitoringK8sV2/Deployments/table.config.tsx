@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import { InframonitoringtypesDeploymentRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
@@ -49,7 +50,9 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 			id: 'deploymentGroup',
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
-					title="Deployment Group"
+					title={i18n.t('display.deployment_group', 'Deployment Group', {
+						ns: 'infraMonitoring',
+					})}
 					titleKey="display.deployment_group"
 				/>
 			),
@@ -76,7 +79,9 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 			id: 'deploymentName',
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
-					title="Deployment Name"
+					title={i18n.t('display.deployment_name', 'Deployment Name', {
+						ns: 'infraMonitoring',
+					})}
 					titleKey="display.deployment_name"
 					icon={<Computer data-hide-expanded="true" size={14} />}
 					docPath="/infrastructure-monitoring/kubernetes/deployments#deployment-name"

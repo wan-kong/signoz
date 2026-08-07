@@ -145,7 +145,7 @@ describe('PipelinePage container test', () => {
 		expect(
 			document.querySelectorAll('[data-testid="pipeline-edit-action"]'),
 		).toHaveLength(2);
-		expect(getByText('add_new_pipeline')).toBeInTheDocument();
+		expect(getByText('Add a New Pipeline')).toBeInTheDocument();
 
 		// expand action
 		const expandIcon = document.querySelectorAll(
@@ -159,7 +159,7 @@ describe('PipelinePage container test', () => {
 		expect(
 			document.querySelector('[data-testid="pipeline-row-collapse"]'),
 		).toBeInTheDocument();
-		expect(getByText('add_new_processor')).toBeInTheDocument();
+		expect(getByText('Add Processor')).toBeInTheDocument();
 		expect(getByText('grok use common asd')).toBeInTheDocument();
 		expect(getByText('rename auth')).toBeInTheDocument();
 	});
@@ -241,7 +241,7 @@ describe('PipelinePage container test', () => {
 			</PreferenceContextProvider>,
 		);
 
-		const addNewPipelineBtn = getByText('add_new_pipeline');
+		const addNewPipelineBtn = getByText('Add a New Pipeline');
 		expect(addNewPipelineBtn).toBeInTheDocument();
 
 		const switchToggle = document.querySelectorAll('[role="switch"]');
@@ -297,7 +297,7 @@ describe('PipelinePage container test', () => {
 			document.querySelectorAll('[data-testid="pipeline-delete-action"]'),
 		).toHaveLength(1);
 
-		const saveBtn = getByText('save_configuration');
+		const saveBtn = getByText('Save Configuration');
 		expect(saveBtn).toBeInTheDocument();
 		await fireEvent.click(saveBtn);
 	});

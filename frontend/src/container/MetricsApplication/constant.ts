@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { DownloadOptions } from 'container/Download/Download.types';
 import { MenuItemKeys } from 'container/GridCardLayout/WidgetHeader/contants';
 import {
@@ -21,7 +22,9 @@ export const LATENCY_AGGREGATEOPERATOR_SPAN_METRICS = [
 	MetricAggregateOperator.P99,
 ];
 
-export const OPERATION_LEGENDS = ['Operations'];
+export const OPERATION_LEGENDS = [
+	i18n.t('operations', 'Operations', { ns: 'common' }),
+];
 
 export const MENU_ITEMS = [MenuItemKeys.View, MenuItemKeys.CreateAlerts];
 

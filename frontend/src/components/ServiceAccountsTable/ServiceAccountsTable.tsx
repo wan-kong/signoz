@@ -100,7 +100,10 @@ function ServiceAccountsTable({
 						style: { cursor: 'pointer' },
 						tabIndex: 0,
 						role: 'button',
-						'aria-label': `View service account ${record.name || record.email}`,
+						'aria-label': t('service_accounts.view', {
+							name: record.name || record.email,
+							ns: 'common',
+						}),
 					};
 				}}
 			/>

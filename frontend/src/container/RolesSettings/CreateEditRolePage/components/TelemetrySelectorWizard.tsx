@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Wand } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { Checkbox } from '@signozhq/ui/checkbox';
@@ -34,6 +35,7 @@ function TelemetrySelectorWizard({
 	resource,
 	testId,
 }: TelemetrySelectorWizardProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
 	const {
 		open,
 		queryType,
@@ -60,7 +62,7 @@ function TelemetrySelectorWizard({
 			data-testid={`telemetry-wizard-trigger-${testId}`}
 		>
 			<Wand size={14} />
-			Wizard
+			{t('role_form_wizard')}
 		</Button>
 	);
 
@@ -71,7 +73,7 @@ function TelemetrySelectorWizard({
 				color="secondary"
 				onClick={(): void => handleOpenChange(false)}
 			>
-				Cancel
+				{t('cancel')}
 			</Button>
 			<Button
 				variant="solid"
@@ -79,7 +81,7 @@ function TelemetrySelectorWizard({
 				disabled={!canAdd}
 				data-testid={`wizard-add-btn-${testId}`}
 			>
-				Add Selector
+				{t('role_form_add_selector')}
 			</Button>
 		</>
 	);
@@ -88,7 +90,7 @@ function TelemetrySelectorWizard({
 		<DialogWrapper
 			open={open}
 			onOpenChange={handleOpenChange}
-			title="Selector Wizard"
+			title={t('role_form_selector_wizard_title')}
 			width="wide"
 			testId={`telemetry-wizard-dialog-${testId}`}
 			trigger={trigger}
@@ -98,7 +100,7 @@ function TelemetrySelectorWizard({
 			<div className={styles.wizardBody}>
 				<div className={styles.wizardField}>
 					<Typography as="label" weight="medium">
-						Query Type
+						{t('role_form_query_type')}
 					</Typography>
 					<Select value={queryType} onChange={handleQueryTypeChange}>
 						<SelectTrigger data-testid={`wizard-query-type-select-${testId}`}>
@@ -123,7 +125,7 @@ function TelemetrySelectorWizard({
 				{supportsKeyScoping && (
 					<div className={styles.wizardField}>
 						<Typography as="label" weight="medium">
-							Key
+							{t('role_form_key')}
 						</Typography>
 						<Input
 							value={SUPPORTED_GRANT_KEY}
@@ -136,14 +138,14 @@ function TelemetrySelectorWizard({
 
 				<div className={styles.wizardField}>
 					<Typography as="label" weight="medium">
-						Value
+						{t('role_form_value')}
 					</Typography>
 					<div className={styles.wizardValueRow}>
 						<Input
 							className={styles.wizardValueInput}
 							placeholder={
 								supportsKeyScoping
-									? 'Value or leave empty to allow every query'
+									? t('role_form_value_placeholder')
 									: ANY_RESOURCE_VALUE
 							}
 							value={value}
@@ -159,14 +161,14 @@ function TelemetrySelectorWizard({
 							onChange={(checked): void => handleAnyResourceChange(checked === true)}
 							testId={`wizard-any-resource-checkbox-${testId}`}
 						>
-							Any value
+							{t('role_form_any_value')}
 						</Checkbox>
 					</div>
 				</div>
 
 				<div className={styles.wizardField}>
 					<Typography as="label" weight="medium">
-						Selector
+						{t('role_form_selector')}
 					</Typography>
 					<Input
 						value={selector}

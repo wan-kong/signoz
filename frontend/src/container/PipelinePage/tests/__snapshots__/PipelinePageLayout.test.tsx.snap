@@ -40,7 +40,7 @@ exports[`PipelinePage container test should render PipelinePageLayout section 1`
         <svg />
       </span>
       <span>
-        new_pipeline
+        New Pipeline
       </span>
     </button>
   </div>
@@ -70,7 +70,7 @@ exports[`PipelinePage container test should render PipelinePageLayout section 1`
               frameborder="0"
               sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
               src="https://www.youtube.com/embed/OneENGNmLd0"
-              title="learn_more"
+              title="Learn more about pipelines"
             />
             <div>
               <p
@@ -78,7 +78,7 @@ exports[`PipelinePage container test should render PipelinePageLayout section 1`
                 data-slot="typography"
                 data-variant="text"
               >
-                learn_more 
+                Learn more about pipelines 
                 <a
                   href="https://signoz.io/docs/logs-pipelines/introduction/?utm_source=product&utm_medium=pipelines-tab"
                   rel="noopener noreferrer"

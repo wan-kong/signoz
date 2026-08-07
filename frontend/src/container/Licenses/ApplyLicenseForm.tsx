@@ -30,7 +30,7 @@ function ApplyLicenseForm({
 		const params = values as { key: string };
 		if (params.key === '' || !params.key) {
 			notifications.error({
-				message: 'Error',
+				message: t('error', { ns: 'common' }),
 				description: t('enter_license_key'),
 			});
 			return;
@@ -43,7 +43,7 @@ function ApplyLicenseForm({
 			});
 			await Promise.all([licenseRefetch()]);
 			notifications.success({
-				message: 'Success',
+				message: t('success', { ns: 'common' }),
 				description: t('license_applied'),
 			});
 		} catch (e) {

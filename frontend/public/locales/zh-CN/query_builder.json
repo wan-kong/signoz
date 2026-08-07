@@ -1,0 +1,47 @@
+{
+	"additional_filters": {
+		"and": "和",
+		"add_conditions_for": "为 {{filters}} 添加条件"
+	},
+	"qb_entity": {
+		"collapse": "折叠",
+		"uncollapse": "展开",
+		"show": "显示",
+		"hide": "隐藏",
+		"clone_query": "克隆查询 {{queryName}}"
+	},
+	"query_functions": {
+		"max_functions_limit": "函数功能处于早期访问阶段。目前你最多可以添加 {{max}} 个函数。",
+		"add_new_function": "添加新函数",
+		"learn_more": "了解更多"
+	},
+	"space_aggregation": {
+		"by": " 按"
+	},
+	"query_aggregation": {
+		"max_aggregations_allowed": "最多允许 {{max}} 个聚合",
+		"invalid_functions": "无效函数: {{funcs}}",
+		"incomplete_function_call": "函数调用不完整 - 缺少右括号",
+		"functions_require_arguments": "函数 {{funcs}} 需要参数",
+		"loading_suggestions": "正在加载建议...",
+		"placeholder_max": "输入聚合函数(最多 {{max}} 个),例如 sum()、count_distinct(...) 等",
+		"placeholder": "输入聚合函数,例如 sum()、count_distinct(...) 等",
+		"aggregation_functions_title": "聚合函数:",
+		"fn_count_desc": "出现次数",
+		"fn_sum_avg_desc": "值的总和/平均值",
+		"fn_min_max_desc": "最小值/最大值",
+		"fn_p50_p90_p99_desc": "百分位数",
+		"fn_count_distinct_desc": "唯一值",
+		"fn_rate_desc": "每个时间间隔的速率",
+		"view_documentation": "查看文档"
+	},
+	"query_v2": {
+		"in": "中",
+		"clone": "克隆",
+		"delete": "删除"
+	},
+	"trace_operator": {
+		"placeholder": "输入你的跟踪操作符查询",
+		"failed_to_process": "无法处理跟踪操作符"
+	}
+}

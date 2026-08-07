@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import i18n from 'ReactI18';
 import { AutoCompleteProps } from 'antd';
 import type { DefaultOptionType } from 'antd/es/select';
 import { PayloadProps as TagKeyPayload } from 'types/api/trace/getTagFilters';
@@ -171,7 +172,7 @@ export function getTagKeyOptions(
 		return [
 			{
 				value: '',
-				label: 'No tags available',
+				label: String(i18n.t('trace:no_tags_available', 'No tags available')),
 			},
 		];
 	}

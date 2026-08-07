@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { OPERATORS } from 'constants/queryBuilder';
 import {
 	BaseAutocompleteData,
@@ -133,7 +134,11 @@ export const externalCallDuration = ({
 		type: '',
 	};
 	const expressions = [FORMULA.DATABASE_CALLS_AVG_DURATION];
-	const legendFormulas = ['Average Duration'];
+	const legendFormulas = [
+		i18n.t('metrics_application_extra.average_duration', 'Average Duration', {
+			ns: 'common',
+		}),
+	];
 	const legend = '';
 	const disabled = [true, true];
 	const additionalItemsA: TagFilterItem[] = [

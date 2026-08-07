@@ -20,6 +20,14 @@
 		"funnels": "漏斗",
 		"views": "视图"
 	},
+	"trace_table": {
+		"date": "日期",
+		"service": "服务",
+		"operation": "操作",
+		"duration": "耗时",
+		"method": "方法",
+		"status_code": "状态码"
+	},
 	"trace_details": {
 		"analytics": {
 			"exec_time": "% 执行时间",
@@ -28,12 +36,17 @@
 			"spans": "Span",
 			"title": "分析"
 		},
+		"back": "返回",
 		"colour_by": "按字段着色",
 		"colour_by_label": "按字段着色",
 		"copy_span_link": "复制 Span 链接",
 		"copy_trace_id": "点击复制 Trace ID",
 		"download_trace": "下载 Trace",
+		"downloading_trace": "正在下载 Trace",
+		"cancel_download": "取消下载",
+		"add_to_trace_funnel": "添加到 Trace 漏斗",
 		"events": {
+			"event_details": "事件详情",
 			"no_data_for_span": "选中的 Span 没有找到 {{name}}",
 			"search_placeholder": "搜索事件...",
 			"since_span_start": "自 Span 开始",
@@ -91,6 +104,8 @@
 	"group_by": "分组",
 	"please_select": "请选择",
 	"no_tags_available": "暂无可用标签",
+	"no_trace_found": "未找到 ID 为 {{id}} 的 Trace",
+	"root_spans_note": "此标签页仅显示根 Span。更多详情",
 	"operator_labels": {
 		"Equals": "等于",
 		"NotEquals": "不等于",
@@ -116,7 +131,46 @@
 		"duration": "持续时间",
 		"this_span": "（此 span）"
 	},
+	"duration_filter": {
+		"min": "最小",
+		"max": "最大",
+		"min_label": "最小",
+		"max_label": "最大"
+	},
+	"all_tags": {
+		"add_tags_filter": "添加标签过滤器",
+		"click_search_bar": "请点击搜索栏以获取下拉菜单来选择相关标签",
+		"results_description": "结果将包含具有所有指定标签的跨度（行之间为“AND”关系）",
+		"run_query": "运行查询",
+		"tags": "标签",
+		"unrecognized_query_format": "无法识别的查询格式。请点击上方搜索栏中的“X”重置查询。"
+	},
+	"query_result": {
+		"api_error": "API 错误",
+		"no_results_found": "未找到结果",
+		"something_went_wrong": "出了点问题"
+	},
+	"filter_panel": {
+		"filters": "过滤条件",
+		"reset": "重置",
+		"collapse": "折叠"
+	},
+	"filter_keys": {
+		"duration": "持续时间",
+		"environment": "环境",
+		"status": "状态",
+		"service_name": "服务名称",
+		"operation_name": "操作 / 名称",
+		"rpc_method": "RPC 方法",
+		"status_code": "状态码",
+		"http_host": "HTTP 主机",
+		"http_method": "HTTP 方法",
+		"http_route": "HTTP 路由",
+		"http_url": "HTTP URL",
+		"trace_id": "Trace ID"
+	},
 	"funnels": {
+		"header_subtitle": "创建和管理 Trace 漏斗。",
 		"search_placeholder": "按名称、描述或标签搜索...",
 		"all_funnels": "所有漏斗",
 		"add_span_to_funnel": "将 Span 添加到漏斗",
@@ -153,8 +207,69 @@
 		"slowest_5_traces": "最慢的 5 条 Trace",
 		"slowest_traces_tooltip": "漏斗中最慢的 Trace 列表",
 		"traces_with_errors": "包含错误的 Trace",
-		"errors_tooltip": "漏斗中包含错误的 Trace 列表"
+		"errors_tooltip": "漏斗中包含错误的 Trace 列表",
+		"something_went_wrong": "出错了"
+	},
+	"delete_funnel": {
+		"title": "删除此漏斗",
+		"cancel_text": "取消",
+		"ok_text": "删除漏斗",
+		"content": "删除漏斗将停止使用此漏斗的进一步分析。此操作不可逆，无法撤销。",
+		"delete_success": "漏斗删除成功",
+		"delete_failed": "删除漏斗失败"
+	},
+	"filter_section": {
+		"clear_all": "全部清除"
+	},
+	"funnel_popover": {
+		"rename": "重命名",
+		"delete": "删除",
+		"no_permission": "你需要编辑者或管理员权限才能编辑漏斗"
+	},
+	"funnels_empty": {
+		"icon_alt": "漏斗空状态图标",
+		"title": "还没有漏斗。",
+		"subtitle": "创建漏斗以开始分析您的数据"
+	},
+	"funnels_list": {
+		"open_funnel": "打开漏斗"
+	},
+	"rename_funnel": {
+		"title": "重命名漏斗",
+		"cancel_text": "取消",
+		"ok_text": "重命名漏斗",
+		"enter_new_name": "输入新名称",
+		"rename_success": "漏斗重命名成功",
+		"rename_failed": "重命名漏斗失败"
 	},
 	"no_data_found": "未找到数据",
-	"show_more": "显示更多"
+	"show_more": "显示更多",
+	"no_data": "暂无数据",
+	"span_hover": {
+		"duration": "时长",
+		"error": "错误",
+		"event": "事件",
+		"events": "事件",
+		"ok": "正常",
+		"start": "开始",
+		"status": "状态"
+	},
+	"trace_header": {
+		"missing_spans": "检测到缺失的 Span",
+		"open_noz": "打开 Noz",
+		"download_trace": "下载 Trace"
+	},
+	"trace_waterfall": {
+		"error": "加载 Trace 时出错",
+		"no_data": "未找到 Span",
+		"query_result": "查询结果",
+		"success": "成功",
+		"category_filter": "按类别筛选"
+	},
+	"trace_waterfall_states": {
+		"error": "错误",
+		"no_data": "暂无数据",
+		"success_filters": "筛选器",
+		"something_went_wrong": "出了点问题！"
+	}
 }

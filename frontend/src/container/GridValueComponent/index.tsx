@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Typography } from '@signozhq/ui/typography';
 import { getYAxisFormattedValue } from 'components/Graph/yAxisConfig';
@@ -21,6 +22,7 @@ function GridValueComponent({
 	contextLinks,
 	enableDrillDown = false,
 }: GridValueComponentProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const value = ((data[1] || [])[0] || 0) as number;
 
 	const location = useLocation();
@@ -64,7 +66,7 @@ function GridValueComponent({
 	if (data.length === 0) {
 		return (
 			<ValueContainer>
-				<Typography>No Data</Typography>
+				<Typography>{t('no_data', { ns: 'common' })}</Typography>
 			</ValueContainer>
 		);
 	}

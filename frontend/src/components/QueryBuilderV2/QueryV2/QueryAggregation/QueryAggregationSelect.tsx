@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable sonarjs/cognitive-complexity */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import {
 	autocompletion,
@@ -155,6 +156,7 @@ function QueryAggregationSelect({
 	maxAggregations?: number;
 }): JSX.Element {
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('query_builder');
 	const { setAggregationOptions } = useQueryBuilderV2Context();
 
 	const formatAggregations = useCallback(
@@ -237,9 +239,11 @@ function QueryAggregationSelect({
 		const validateAggregations = (): string | null => {
 			// Check maxAggregations limit
 			if (maxAggregations !== undefined && pairs.length > maxAggregations) {
-				return `Maximum ${maxAggregations} aggregation${
-					maxAggregations === 1 ? '' : 's'
-				} allowed`;
+				return t(
+					'query_aggregation.max_aggregations_allowed',
+					'Maximum {{max}} aggregation{{plural}} allowed',
+					{ max: maxAggregations, plural: maxAggregations === 1 ? '' : 's' },
+				);
 			}
 
 			// Check for invalid functions
@@ -248,12 +252,19 @@ function QueryAggregationSelect({
 			);
 			if (invalidFuncs.length > 0) {
 				const funcs = invalidFuncs.map((f) => f.func).join(', ');
-				return `Invalid function${invalidFuncs.length === 1 ? '' : 's'}: ${funcs}`;
+				return t(
+					'query_aggregation.invalid_functions',
+					'Invalid function{{plural}}: {{funcs}}',
+					{ plural: invalidFuncs.length === 1 ? '' : 's', funcs },
+				);
 			}
 
 			// Check for incomplete function calls
 			if (/([a-zA-Z_][\w]*)\s*\([^)]*$/g.test(input)) {
-				return 'Incomplete function call - missing closing parenthesis';
+				return t(
+					'query_aggregation.incomplete_function_call',
+					'Incomplete function call - missing closing parenthesis',
+				);
 			}
 
 			// Check for empty function calls that require arguments
@@ -264,9 +275,15 @@ function QueryAggregationSelect({
 
 			if (emptyFuncs.length > 0) {
 				const isPlural = emptyFuncs.length > 1;
-				return `Function${isPlural ? 's' : ''} ${emptyFuncs.join(', ')} require${
-					isPlural ? '' : 's'
-				} arguments`;
+				return t(
+					'query_aggregation.functions_require_arguments',
+					'Function{{plural}} {{funcs}} require{{verb}} arguments',
+					{
+						plural: isPlural ? 's' : '',
+						funcs: emptyFuncs.join(', '),
+						verb: isPlural ? '' : 's',
+					},
+				);
 			}
 
 			return null;
@@ -513,7 +530,10 @@ function QueryAggregationSelect({
 									from: cursorPos,
 									options: [
 										{
-											label: 'Loading suggestions...',
+											label: t(
+												'query_aggregation.loading_suggestions',
+												'Loading suggestions...',
+											),
 											type: 'text',
 											apply: (): void => {},
 										},
@@ -604,6 +624,7 @@ function QueryAggregationSelect({
 			functionArgPairs,
 			maxAggregations,
 			validFunctions,
+			t,
 		],
 	);
 
@@ -636,8 +657,15 @@ function QueryAggregationSelect({
 				]}
 				placeholder={
 					maxAggregations !== undefined
-						? `Type aggregator functions (max ${maxAggregations}) like sum(), count_distinct(...), etc.`
-						: 'Type aggregator functions like sum(), count_distinct(...), etc.'
+						? t(
+								'query_aggregation.placeholder_max',
+								'Type aggregator functions (max {{max}}) like sum(), count_distinct(...), etc.',
+								{ max: maxAggregations },
+							)
+						: t(
+								'query_aggregation.placeholder',
+								'Type aggregator functions like sum(), count_distinct(...), etc.',
+							)
 				}
 				basicSetup={{
 					lineNumbers: false,
@@ -664,15 +692,24 @@ function QueryAggregationSelect({
 			<Tooltip
 				title={
 					<div>
-						Aggregation functions:
+						{t(
+							'query_aggregation.aggregation_functions_title',
+							'Aggregation functions:',
+						)}
 						<br />
 						<span style={{ fontSize: '12px', lineHeight: '1.4' }}>
-							• <strong>count</strong> - number of occurrences
-							<br />• <strong>sum/avg</strong> - sum/average of values
-							<br />• <strong>min/max</strong> - minimum/maximum value
-							<br />• <strong>p50/p90/p99</strong> - percentiles
-							<br />• <strong>count_distinct</strong> - unique values
-							<br />• <strong>rate</strong> - per-interval rate
+							• <strong>count</strong> -{' '}
+							{t('query_aggregation.fn_count_desc', 'number of occurrences')}
+							<br />• <strong>sum/avg</strong> -{' '}
+							{t('query_aggregation.fn_sum_avg_desc', 'sum/average of values')}
+							<br />• <strong>min/max</strong> -{' '}
+							{t('query_aggregation.fn_min_max_desc', 'minimum/maximum value')}
+							<br />• <strong>p50/p90/p99</strong> -{' '}
+							{t('query_aggregation.fn_p50_p90_p99_desc', 'percentiles')}
+							<br />• <strong>count_distinct</strong> -{' '}
+							{t('query_aggregation.fn_count_distinct_desc', 'unique values')}
+							<br />• <strong>rate</strong> -{' '}
+							{t('query_aggregation.fn_rate_desc', 'per-interval rate')}
 						</span>
 						<br />
 						<a
@@ -681,7 +718,7 @@ function QueryAggregationSelect({
 							rel="noopener noreferrer"
 							style={{ color: '#1890ff', textDecoration: 'underline' }}
 						>
-							View documentation
+							{t('query_aggregation.view_documentation', 'View documentation')}
 						</a>
 					</div>
 				}

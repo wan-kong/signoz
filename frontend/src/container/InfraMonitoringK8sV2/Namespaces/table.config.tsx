@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { FilePenLine } from '@signozhq/icons';
 import { InframonitoringtypesNamespaceRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
@@ -47,7 +48,12 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 	{
 		id: 'namespaceGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader title="display.namespace_group" />
+			<EntityGroupHeader
+				title={i18n.t('namespaces_table.namespace_group', 'Namespace Group', {
+					ns: 'infraMonitoring',
+				})}
+				titleKey="namespaces_table.namespace_group"
+			/>
 		),
 		accessorFn: (row): string => row.namespaceName || '',
 		width: { min: 290 },
@@ -71,7 +77,10 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 		id: 'namespaceName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="display.namespace_name"
+				title={i18n.t('display.namespace_name', 'Namespace Name', {
+					ns: 'infraMonitoring',
+				})}
+				titleKey="display.namespace_name"
 				icon={<FilePenLine data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/namespaces#namespace-name"
 			/>
@@ -92,7 +101,9 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/namespaces#cluster-name"
-				title="display.cluster_name"
+				title={i18n.t('display.cluster_name', 'Cluster Name', {
+					ns: 'infraMonitoring',
+				})}
 			/>
 		),
 		accessorFn: (row): string =>
@@ -108,7 +119,9 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/namespaces#pod-counts-by-status"
-				title="display.pod_status"
+				title={i18n.t('display.pod_status', 'Pod Status', {
+					ns: 'infraMonitoring',
+				})}
 			/>
 		),
 		accessorFn: (
@@ -135,7 +148,9 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/namespaces#cpu-usage-cores"
-				title="display.cpu_usage_cores"
+				title={i18n.t('namespaces_table.cpu_usage_cores', 'CPU Usage (cores)', {
+					ns: 'infraMonitoring',
+				})}
 			/>
 		),
 		accessorFn: (row): number => row.namespaceCPU,
@@ -160,7 +175,9 @@ export const k8sNamespacesColumnsConfig: NamespaceTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/namespaces#mem-usage-wss"
-				title="display.memory_usage_wss"
+				title={i18n.t('namespaces_table.memory_usage_wss', 'Memory Usage (WSS)', {
+					ns: 'infraMonitoring',
+				})}
 			/>
 		),
 		accessorFn: (row): number => row.namespaceMemory,

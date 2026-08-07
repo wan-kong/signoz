@@ -1,0 +1,29 @@
+{
+	"checkbox_filter": {
+		"section": {
+			"selected": "Selected",
+			"related": "Related",
+			"related_tooltip": "Values that are filtered by your current selection.",
+			"all_values": "All values",
+			"all": "All",
+			"only": "Only"
+		}
+	},
+	"duration_filter": {
+		"title": "Duration",
+		"clear_all": "Clear All"
+	},
+	"slider_filter": {
+		"placeholder": "Slider"
+	},
+	"announcement_tooltip": {
+		"okay": "Okay"
+	},
+	"filter_settings": {
+		"updated_successfully": "Quick filters updated successfully"
+	},
+	"quick_filter_utils": {
+		"duration": "Duration",
+		"has_error": "Has Error (Status)"
+	}
+}

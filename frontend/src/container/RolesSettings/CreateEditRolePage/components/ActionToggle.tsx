@@ -1,4 +1,6 @@
+import i18n from 'ReactI18';
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ConfirmDialog } from '@signozhq/ui/dialog';
 import { Divider } from '@signozhq/ui/divider';
 import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
@@ -14,9 +16,15 @@ import { AuthZResource, AuthZVerb } from 'lib/authz/hooks/useAuthZ/types';
 import { getActionLabel } from 'container/RolesSettings/ViewRolePage/components/permissionDisplay.utils';
 
 const SCOPE_LABELS: Record<PermissionScope, string> = {
-	[PermissionScope.NONE]: 'None',
-	[PermissionScope.ALL]: 'All',
-	[PermissionScope.ONLY_SELECTED]: 'Only selected',
+	[PermissionScope.NONE]: i18n.t('none', 'None', { ns: 'organizationsettings' }),
+	[PermissionScope.ALL]: i18n.t('all', 'All', { ns: 'organizationsettings' }),
+	[PermissionScope.ONLY_SELECTED]: i18n.t(
+		'role_form_only_selected',
+		'Only selected',
+		{
+			ns: 'organizationsettings',
+		},
+	),
 };
 
 interface ActionToggleProps {
@@ -41,6 +49,8 @@ function ActionToggle({
 	hasError = false,
 }: ActionToggleProps): JSX.Element {
 	const panel = getResourcePanel(resource);
+
+	const { t } = useTranslation('organizationsettings');
 
 	const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 	const [pendingScope, setPendingScope] = useState<PermissionScope | null>(null);
@@ -156,19 +166,17 @@ function ActionToggle({
 						handleCancelScopeChange();
 					}
 				}}
-				title="Change permission scope?"
-				confirmText="Change scope"
-				cancelText="Cancel"
+				title={t('role_form_change_permission_scope_title')}
+				confirmText={t('role_form_change_scope_confirm')}
+				cancelText={t('cancel')}
 				onConfirm={handleConfirmScopeChange}
 				onCancel={handleCancelScopeChange}
 			>
 				<Typography>
-					You have {selectedIds.length} item{selectedIds.length > 1 ? 's' : ''}{' '}
-					selected. Changing the scope will clear your current items.
+					{t('role_form_scope_change_body_count', { count: selectedIds.length })}
 					<br />
 					<br />
-					Don&apos;t worry, this doesn&apos;t update this role yet, it only confirms
-					that you want to clear the items.
+					{t('role_form_scope_change_body_hint')}
 				</Typography>
 			</ConfirmDialog>
 		</>

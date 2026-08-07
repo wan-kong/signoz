@@ -1,0 +1,149 @@
+{
+	"model_cost_tab": {
+		"search_placeholder": "按模型或提供商搜索",
+		"clear_search": "清除搜索",
+		"add_model_cost": "添加模型费用",
+		"load_error": "加载定价规则失败，请重试。"
+	},
+	"model_cost_delete": {
+		"title": "删除模型费用数据 ",
+		"cancel": "取消",
+		"delete": "删除",
+		"confirm_message_prefix": "确定要删除",
+		"confirm_message_suffix": "删除后此操作无法撤销。",
+		"delete_failed": "删除失败"
+	},
+	"model_cost_drawer": {
+		"title_add": "添加模型费用",
+		"title_view": "查看模型费用",
+		"title_edit": "编辑模型费用",
+		"cancel": "取消",
+		"close": "关闭",
+		"save": "保存",
+		"billing_model_id": "计费模型 ID",
+		"model_id_placeholder": "例如 openai:gpt-4o",
+		"provider": "提供商",
+		"save_failed": "保存失败"
+	},
+	"extra_pricing": {
+		"title": "额外定价桶",
+		"optional": "可选",
+		"per_1m_tokens_tooltip": "每 1M tokens 的定价",
+		"remove_bucket_aria": "移除 {{bucketLabel}}",
+		"cache_mode": "缓存模式",
+		"add_bucket": "添加定价桶",
+		"add_bucket_title": "添加定价桶",
+		"cancel": "取消"
+	},
+	"pattern_editor": {
+		"title": "模型名称模式",
+		"prefix_match_hint": "(前缀匹配)",
+		"remove_pattern_aria": "移除模式 {{pattern}}",
+		"add_placeholder": "添加模式…",
+		"add": "+ 添加",
+		"each_pattern_uses": "每个模式使用",
+		"prefix_matching": "前缀匹配",
+		"against": "匹配"
+	},
+	"pricing_fields": {
+		"title": "定价(每 1M tokens,美元)",
+		"read_only": "只读",
+		"input_cost": "输入费用",
+		"output_cost": "输出费用"
+	},
+	"source_selector": {
+		"title": "来源",
+		"managed_by_signoz": "由 SigNoz 管理",
+		"auto_populated": "自动填充",
+		"auto_disabled_desc": "当 SigNoz 有此模型的默认定价后可用。",
+		"auto_default_desc": "来自 SigNoz 的默认定价。",
+		"user_override": "用户覆盖",
+		"override_desc": "自定义定价，优先采用。",
+		"reset_aria": "重置为默认定价",
+		"reset_confirm_message": "重置为默认定价？自定义值将被丢弃。更改可能需要 24 小时才能生效。",
+		"keep": "保留",
+		"reset": "重置"
+	},
+	"model_costs_table": {
+		"empty": "暂无模型费用。",
+		"total_count_label": "个模型",
+		"column_model": "模型",
+		"column_provider": "提供商",
+		"column_input": "输入 / 1M",
+		"column_output": "输出 / 1M",
+		"column_extra_buckets": "额外桶",
+		"column_source": "来源",
+		"column_last_seen": "最近出现"
+	},
+	"model_cost_actions": {
+		"edit": "编辑",
+		"delete": "删除"
+	},
+	"attribute_mappings_table": {
+		"add_group": "添加新分组",
+		"no_groups": "暂无映射分组。",
+		"column_target": "目标",
+		"column_sources": "来源",
+		"column_actions": "操作",
+		"load_error": "加载映射分组失败。请重试。"
+	},
+	"attribute_mappings_tab": {
+		"attribute_mappings": "属性映射",
+		"test": "测试"
+	},
+	"source_attribute_row": {
+		"attribute": "属性",
+		"resource": "资源",
+		"move": "移动",
+		"copy": "复制",
+		"placeholder": "源属性键",
+		"remove_aria": "移除来源"
+	},
+	"attribute_mappings_header": {
+		"description": "为 LLM 链路配置源到目标的属性重映射",
+		"unsaved_changes": "未保存的更改",
+		"discard": "放弃",
+		"saving": "保存中…",
+		"save_changes": "保存更改"
+	},
+	"mapper_form_drawer": {
+		"title_edit": "编辑映射",
+		"title_new": "新建自定义映射",
+		"subtitle": "将源属性映射到标准目标属性",
+		"deleting": "删除中…",
+		"delete": "删除",
+		"cancel": "取消",
+		"saving": "保存中…",
+		"save_mapping": "保存映射",
+		"create_mapping": "创建映射",
+		"target_attribute": "目标属性",
+		"target_placeholder": "例如 gen_ai.content.prompt",
+		"target_read_only_hint": "创建后无法更改目标属性。",
+		"write_target_to": "写入目标到",
+		"write_target_to_hint": "标准属性写入的位置。",
+		"source_attributes": "源属性",
+		"priority_hint": "· 优先级：从上到下 · 拖拽可重新排序",
+		"add_another_source": "添加另一个源",
+		"span_attribute": "Span 属性",
+		"resource": "资源"
+	},
+	"mapper_row": {
+		"more": "更多"
+	},
+	"test_tab": {
+		"aria_label": "示例 span JSON",
+		"badge_moved_out": "移出",
+		"badge_populated": "已填充",
+		"badge_remapped": "已重映射",
+		"description": "粘贴 JSON span 对象,查看哪些目标属性被填充以及哪个源键被匹配。",
+		"heading": "使用示例 span 测试",
+		"no_keys_in_map": "此映射中没有键。",
+		"no_results_desc": "运行测试以查看映射器填充了哪些目标属性。",
+		"no_results_title": "暂无结果",
+		"no_spans": "未返回任何 span。映射器对此输入未产生输出。",
+		"reset_default": "重置为默认 Span",
+		"resulting_attributes": "结果属性",
+		"resulting_resource": "结果资源",
+		"run_test": "运行测试"
+	}
+}

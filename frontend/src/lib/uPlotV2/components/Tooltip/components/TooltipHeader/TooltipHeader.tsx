@@ -4,6 +4,7 @@ import type { Timezone } from 'components/CustomTimePicker/timezoneUtils';
 import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
 import dayjs from 'dayjs';
 import { Pin } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { useTimezone } from 'providers/Timezone';
 import type uPlot from 'uplot';
 
@@ -32,6 +33,7 @@ export default function TooltipHeader({
 	dateFormat = DATE_TIME_FORMATS.MONTH_DATETIME_SECONDS,
 }: TooltipHeaderProps): JSX.Element {
 	const { timezone: userTimezone } = useTimezone();
+	const { t } = useTranslation('common');
 	const resolvedTimezone = timezone?.value ?? userTimezone.value;
 
 	const headerTitle = useMemo(() => {
@@ -69,7 +71,7 @@ export default function TooltipHeader({
 						<div className={cx(Styles.status)} data-testid="uplot-tooltip-status">
 							<>
 								<Pin size={12} />
-								<span>Pinned</span>
+								<span>{t('uplot.pinned', 'Pinned')}</span>
 							</>
 						</div>
 					)}

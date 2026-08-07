@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import {
 	Check,
 	ChevronDown,
@@ -38,13 +39,18 @@ function DomainUpdateToast({
 	toastId: string | number;
 	url: string;
 }): JSX.Element {
+	const { t } = useTranslation('generalSettings');
 	const displayUrl = url?.split('://')[1] ?? url;
 
 	return (
 		<div className="custom-domain-toast">
 			<span className="custom-domain-toast-message">
-				Your workspace URL is being updated to <strong>{displayUrl}</strong>. This
-				may take a few minutes.
+				<Trans
+					t={t}
+					i18nKey="custom_domain.updating_workspace_url_toast"
+					values={{ displayUrl }}
+					components={{ strong: <strong /> }}
+				/>
 			</span>
 			<div className="custom-domain-toast-actions">
 				<Button
@@ -57,7 +63,7 @@ function DomainUpdateToast({
 						window.open(url, '_blank', 'noopener,noreferrer');
 					}}
 				>
-					Visit new URL
+					{t('custom_domain.visit_new_url', 'Visit new URL')}
 				</Button>
 				<Button
 					variant="ghost"
@@ -66,7 +72,7 @@ function DomainUpdateToast({
 					onClick={(): void => {
 						toast.dismiss(toastId);
 					}}
-					aria-label="Dismiss"
+					aria-label={t('custom_domain.dismiss', 'Dismiss')}
 					prefix={<X size={14} />}
 				/>
 			</div>
@@ -77,6 +83,7 @@ function DomainUpdateToast({
 export default function CustomDomainSettings(): JSX.Element {
 	const { org } = useAppContext();
 	const { timezone } = useTimezone();
+	const { t } = useTranslation('generalSettings');
 
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [isPollingEnabled, setIsPollingEnabled] = useState(false);
@@ -216,7 +223,7 @@ export default function CustomDomainSettings(): JSX.Element {
 							<DropdownMenuContent align="start">
 								<div className="workspace-url-dropdown">
 									<span className="workspace-url-dropdown-header">
-										All Workspace URLs
+										{t('custom_domain.all_workspace_urls', 'All Workspace URLs')}
 									</span>
 									<div className="workspace-url-dropdown-divider" />
 									{sortedHosts.map((host) => {
@@ -262,7 +269,7 @@ export default function CustomDomainSettings(): JSX.Element {
 					disabled={isFetchingHosts || isPollingEnabled}
 					onClick={(): void => setIsEditModalOpen(true)}
 				>
-					Edit workspace link
+					{t('custom_domain.edit_workspace_link', 'Edit workspace link')}
 				</Button>
 			</div>
 
@@ -273,7 +280,11 @@ export default function CustomDomainSettings(): JSX.Element {
 					className="custom-domain-callout"
 					size="small"
 					icon={<SolidAlertCircle size={13} color="primary" />}
-					title={`Updating your URL to ⎯ ${customDomainSubdomain}.${dnsSuffix}. This may take a few mins.`}
+					title={t(
+						'custom_domain.updating_workspace_url',
+						'Updating your URL to ⎯ {{subdomain}}.{{dnsSuffix}}. This may take a few mins.',
+						{ subdomain: customDomainSubdomain, dnsSuffix },
+					)}
 				/>
 			)}
 

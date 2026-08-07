@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo, useState } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import { useInterval } from 'react-use';
@@ -82,6 +83,7 @@ function PublicDashboardContainer({
 	publicDashboardId: string;
 	publicDashboardData: SuccessResponseV2<PublicDashboardDataProps>;
 }): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const isDarkMode = useIsDarkMode();
 	const { dashboard, publicDashboard } = publicDashboardData?.data || {};
 	const { widgets } = dashboard?.data || {};
@@ -220,9 +222,10 @@ function PublicDashboardContainer({
 							let { title } = currentWidget;
 							if (rowWidgetProperties.collapsed) {
 								const widgetCount = rowWidgetProperties.widgets?.length || 0;
-								const collapsedText = `(${widgetCount} widget${
-									widgetCount > 1 ? 's' : ''
-								})`;
+								const collapsedText = t(
+									'dashboard_container.public_dashboard.collapsed_widget_count',
+									{ count: widgetCount },
+								);
 								title += ` ${collapsedText}`;
 							}
 

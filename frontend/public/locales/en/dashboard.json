@@ -1,4 +1,5 @@
 {
+	"breadcrumb_dashboard": "Dashboard /",
 	"create_dashboard": "Create Dashboard",
 	"import_json": "Import Dashboard JSON",
 	"view_template": "View templates",
@@ -293,6 +294,8 @@
 			"public_dashboard_url": "Public Dashboard URL",
 			"variables_not_supported": "Dashboard variables won't work in public dashboards",
 			"update_published_dashboard": "Update published dashboard",
+			"collapsed_widget_count_one": "({{count}} widget)",
+			"collapsed_widget_count_other": "({{count}} widgets)",
 			"time_ranges": {
 				"5m": "Last 5 minutes",
 				"15m": "Last 15 minutes",
@@ -344,6 +347,27 @@
 			"filter_series": "Filter Series",
 			"graphs_legends_saved": "The updated graphs & legends are saved"
 		}
+	},
+	"dashboard_empty_state": {
+		"welcome": "Welcome to your new dashboard",
+		"follow_steps": "Follow the steps to populate it with data and share with your teammates",
+		"configure_title": "Configure your new dashboard",
+		"configure_desc": "Give it a name, add description, tags and variables",
+		"configure_btn": "Configure",
+		"add_panels": "Add panels",
+		"add_panels_desc": "Add panels to visualize your data",
+		"new_panel_btn": "New Panel",
+		"empty_widget_click_to_add": "Click one of the widget types above (Time Series / Value) to add here",
+		"configuration_drawer_title": "Dashboard Configuration"
+	},
+	"widget_graph_component": {
+		"panel_cloned_success": "Panel cloned successfully, redirecting to new copy.",
+		"delete": "Delete",
+		"delete_confirm": "Are you sure you want to delete this widget",
+		"view": "View"
+	},
+	"display_threshold": {
+		"threshold": "Threshold "
 	},
 	"dashboard_page_v2": {
 		"loading": "Loading..",
@@ -408,9 +432,9 @@
 			"invalid": "Invalid JSON",
 			"invalid_image": "\"image\" must be an /assets/Icons/<name> or /assets/Logos/<name> path, or a base64 image data URI",
 			"dangling_panels": "{{count}} panel not present in layout — they won't be shown after saving.",
-			"dangling_panels_plural": "{{count}} panels not present in layout — they won't be shown after saving.",
+			"dangling_panels_other": "{{count}} panels not present in layout — they won't be shown after saving.",
 			"missing_refs": "{{count}} layout item references a panel that no longer exists.",
-			"missing_refs_plural": "{{count}} layout items reference a panel that no longer exists.",
+			"missing_refs_other": "{{count}} layout items reference a panel that no longer exists.",
 			"cancel": "Cancel",
 			"apply_changes": "Apply changes",
 			"format": "Format",
@@ -466,10 +490,10 @@
 			"private_description": "Publish it to share a read-only view with anyone who has the link.",
 			"public": "Public",
 			"private": "Private",
-			"published_success": "Dashboard published successfully",
+			"published_success": "Public dashboard created successfully",
 			"updated_success": "Public dashboard updated successfully",
 			"unpublished_success": "Dashboard unpublished successfully",
-			"copied_url": "Copied public dashboard URL successfully"
+			"copied_url": "Copied Public Dashboard URL successfully"
 		},
 		"variables": {
 			"no_variables_title": "No variables yet",
@@ -574,8 +598,10 @@
 			"enter_value": "Enter value",
 			"add_variable": "Add variable",
 			"include_variables": "Include variables",
+			"less": "Less",
 			"depends_on": "Depends on",
-			"used_by": "Used by"
+			"used_by": "Used by",
+			"all": "ALL"
 		},
 		"panel_config": {
 			"panel_details": "Panel Details",
@@ -825,6 +851,7 @@
 			"add_panel": "Add panel",
 			"clone_section": "Clone section",
 			"delete_section": "Delete section",
+			"remove_section": "Remove Section",
 			"section_actions": "Section actions",
 			"group_panels_title": "Group panels into sections?",
 			"continue": "Continue",
@@ -855,5 +882,15 @@
 			"title": "Dashboard updated elsewhere",
 			"description": "This dashboard was changed in another tab or by another user. Reload to see the latest version."
 		}
+	},
+	"sortable": {
+		"remove": "Remove {{name}}",
+		"reorder": "Reorder {{name}}"
+	},
+	"span_details": {
+		"linked_spans_zero": "0 linked spans",
+		"linked_span_one": "{{count}} linked span",
+		"linked_span_other": "{{count}} linked spans",
+		"linked_span_id": "Linked Span ID"
 	}
 }

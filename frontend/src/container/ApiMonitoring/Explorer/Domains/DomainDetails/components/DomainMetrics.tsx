@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueries } from 'react-query';
 import { Color } from '@signozhq/design-tokens';
 import { Skeleton, Tooltip } from 'antd';
@@ -28,6 +29,7 @@ function DomainMetrics({
 	domainListFilters: IBuilderQuery['filters'];
 }): JSX.Element {
 	const { startTime: minTime, endTime: maxTime } = timeRange;
+	const { t } = useTranslation('common');
 
 	const queryPayloads = useMemo(
 		() =>
@@ -90,16 +92,16 @@ function DomainMetrics({
 			<div className="domain-details-grid">
 				<div className="labels-row">
 					<Typography.Text color="muted" className="domain-details-metadata-label">
-						EXTERNAL API
+						{t('api_monitoring.external_api_upper', 'EXTERNAL API')}
 					</Typography.Text>
 					<Typography.Text color="muted" className="domain-details-metadata-label">
-						AVERAGE LATENCY
+						{t('api_monitoring.average_latency_upper', 'AVERAGE LATENCY')}
 					</Typography.Text>
 					<Typography.Text color="muted" className="domain-details-metadata-label">
-						ERROR %
+						{t('api_monitoring.error_percentage_upper', 'ERROR %')}
 					</Typography.Text>
 					<Typography.Text color="muted" className="domain-details-metadata-label">
-						LAST USED
+						{t('api_monitoring.last_used_upper', 'LAST USED')}
 					</Typography.Text>
 				</div>
 

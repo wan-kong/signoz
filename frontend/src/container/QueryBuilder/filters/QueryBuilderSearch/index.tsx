@@ -8,6 +8,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Button, Select, Spin, Tooltip } from 'antd';
 import { Badge } from '@signozhq/ui/badge';
@@ -95,6 +96,8 @@ function QueryBuilderSearch({
 	disableNavigationShortcuts,
 	entity,
 }: QueryBuilderSearchProps): JSX.Element {
+	const { t } = useTranslation('pipeline');
+	const { t: tCommon } = useTranslation('common');
 	const getPopupContainer = useSelectPopupContainer();
 	const { pathname } = useLocation();
 	const isLogsExplorerPage = useMemo(
@@ -445,14 +448,19 @@ function QueryBuilderSearch({
 				dropdownRender={(menu): ReactElement => (
 					<div>
 						{!searchKey && isLogsExplorerPage && (
-							<div className="ant-select-item-group ">Suggested Filters</div>
+							<div className="ant-select-item-group ">
+								{t('query_builder_search.suggested_filters', 'Suggested Filters')}
+							</div>
 						)}
 						{menu}
 						{isLogsExplorerPage && (
 							<div>
 								{!searchKey && tags.length === 0 && (
 									<div className="example-queries">
-										<div className="heading"> Example Queries </div>
+										<div className="heading">
+											{' '}
+											{t('query_builder_search.example_queries', 'Example Queries')}{' '}
+										</div>
 										<div className="query-container">
 											{convertExampleQueriesToOptions(exampleQueries).map((query) => (
 												<ExampleQueriesRendererForLogs
@@ -479,7 +487,10 @@ function QueryBuilderSearch({
 											<section className="left-section">
 												<Filter size={14} />
 												<Typography.Text className="text">
-													Show all filters properties
+													{t(
+														'query_builder_search.show_all_filters',
+														'Show all filters properties',
+													)}
 												</Typography.Text>
 											</section>
 											<section className="right-section">
@@ -498,11 +509,15 @@ function QueryBuilderSearch({
 									<section className="navigate">
 										<ArrowDown size={10} className="icons" />
 										<ArrowUp size={10} className="icons" />
-										<span className="keyboard-text">to navigate</span>
+										<span className="keyboard-text">
+											{tCommon('custom_select.to_navigate', 'to navigate')}
+										</span>
 									</section>
 									<section className="update-query">
 										<CornerDownLeft size={10} className="icons" />
-										<span className="keyboard-text">to update query</span>
+										<span className="keyboard-text">
+											{t('query_builder_search.to_update_query', 'to update query')}
+										</span>
 									</section>
 								</div>
 							</div>

@@ -17,5 +17,31 @@
 	"retention_comparison_error": "Total retention period for {{name}} can’t be lower or equal to the period after which data is moved to s3.",
 	"retention_null_value_error": "Retention Period for {{name}} is not set yet. Please set by choosing below",
 	"retention_confirmation": "Are you sure you want to change the retention period?",
-	"retention_confirmation_description": "This will change the amount of storage needed for saving {{name}}."
+	"retention_confirmation_description": "This will change the amount of storage needed for saving {{name}}.",
+	"license_key_row": {
+		"copied": "License key copied to clipboard.",
+		"label": "SigNoz License Key",
+		"copy_aria": "Copy license key"
+	},
+	"license_row_callout": {
+		"not_ingestion_key": "This is **NOT** your ingestion or Service account key.",
+		"find_your": "Find your",
+		"service_account_here": "Service account here",
+		"and": " and ",
+		"ingestion_key_here": "Ingestion key here"
+	},
+	"general_settings": {
+		"time_unit_hours": "Hours",
+		"time_unit_days": "Days",
+		"time_unit_months": "Months",
+		"retention_change_message": "Please <1> email us </1> or connect with us via chat support to change the retention period."
+	},
+	"custom_domain": {
+		"all_workspace_urls": "All Workspace URLs",
+		"dismiss": "Dismiss",
+		"edit_workspace_link": "Edit workspace link",
+		"updating_workspace_url": "Updating your URL to ⎯ {{subdomain}}.{{dnsSuffix}}. This may take a few mins.",
+		"updating_workspace_url_toast": "Your workspace URL is being updated to <1>{{displayUrl}}</1>. This may take a few minutes.",
+		"visit_new_url": "Visit new URL"
+	}
 }

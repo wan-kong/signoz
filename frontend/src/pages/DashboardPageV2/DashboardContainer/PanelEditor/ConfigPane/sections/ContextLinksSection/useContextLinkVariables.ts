@@ -3,12 +3,12 @@ import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { dtoToFormModel } from 'pages/DashboardPageV2/DashboardContainer/DashboardSettings/Variables/variableAdapters';
 import { useDashboardFetchRequired } from 'pages/DashboardPageV2/DashboardContainer/hooks/useDashboardFetchRequired';
 
-import type { VariableItem } from './types';
+import { CONTEXT_LINK_SOURCES, type VariableItem } from './types';
 
 // Global time-range variables, always available (V1 parity: `timestamp_start` / `_end`).
 const GLOBAL_TIMESTAMP_VARIABLES: VariableItem[] = [
-	{ name: 'timestamp_start', source: 'Global timestamp' },
-	{ name: 'timestamp_end', source: 'Global timestamp' },
+	{ name: 'timestamp_start', source: CONTEXT_LINK_SOURCES.globalTimestamp },
+	{ name: 'timestamp_end', source: CONTEXT_LINK_SOURCES.globalTimestamp },
 ];
 
 /**
@@ -49,10 +49,16 @@ export function useContextLinkVariables(): VariableItem[] {
 		() => [
 			...GLOBAL_TIMESTAMP_VARIABLES,
 			...fieldVariableNames.map(
-				(name): VariableItem => ({ name, source: 'Query variable' }),
+				(name): VariableItem => ({
+					name,
+					source: CONTEXT_LINK_SOURCES.queryVariable,
+				}),
 			),
 			...dashboardVariableNames.map(
-				(name): VariableItem => ({ name, source: 'Dashboard variable' }),
+				(name): VariableItem => ({
+					name,
+					source: CONTEXT_LINK_SOURCES.dashboardVariable,
+				}),
 			),
 		],
 		[fieldVariableNames, dashboardVariableNames],

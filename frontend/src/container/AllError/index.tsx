@@ -272,7 +272,7 @@ function AllErrors(): JSX.Element {
 					>
 						<Flex align="center" justify="center" gap={4}>
 							<Search size="md" />
-							Search
+							{t('search')}
 						</Flex>
 					</Button>
 				</Space>
@@ -325,11 +325,15 @@ function AllErrors(): JSX.Element {
 
 	const columns: ColumnsType<Exception> = [
 		{
-			title: 'Exception Type',
+			title: t('exception_type'),
 			width: 100,
 			dataIndex: 'exceptionType',
 			key: 'exceptionType',
-			...getFilter(onExceptionTypeFilter, 'Search By Exception', 'exceptionType'),
+			...getFilter(
+				onExceptionTypeFilter,
+				t('search_by_exception'),
+				'exceptionType',
+			),
 			render: (value, record): JSX.Element => (
 				<Tooltip overlay={(): JSX.Element => value}>
 					<Link
@@ -349,7 +353,7 @@ function AllErrors(): JSX.Element {
 			),
 		},
 		{
-			title: 'Error Message',
+			title: t('error_message'),
 			dataIndex: 'exceptionMessage',
 			key: 'exceptionMessage',
 			width: 100,
@@ -360,7 +364,7 @@ function AllErrors(): JSX.Element {
 			),
 		},
 		{
-			title: 'Count',
+			title: t('count'),
 			width: 50,
 			dataIndex: 'exceptionCount',
 			key: 'exceptionCount',
@@ -372,7 +376,7 @@ function AllErrors(): JSX.Element {
 			),
 		},
 		{
-			title: 'Last Seen',
+			title: t('last_seen'),
 			dataIndex: 'lastSeen',
 			width: 80,
 			key: 'lastSeen',
@@ -386,7 +390,7 @@ function AllErrors(): JSX.Element {
 			),
 		},
 		{
-			title: 'First Seen',
+			title: t('first_seen'),
 			dataIndex: 'firstSeen',
 			width: 80,
 			key: 'firstSeen',
@@ -400,7 +404,7 @@ function AllErrors(): JSX.Element {
 			),
 		},
 		{
-			title: 'Application',
+			title: t('application'),
 			dataIndex: 'serviceName',
 			width: 100,
 			key: 'serviceName',

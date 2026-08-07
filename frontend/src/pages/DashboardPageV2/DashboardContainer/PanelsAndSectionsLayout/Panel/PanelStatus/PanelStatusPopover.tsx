@@ -1,4 +1,5 @@
 import { Color } from '@signozhq/design-tokens';
+import { useTranslation } from 'react-i18next';
 import { CircleX, TriangleAlert } from '@signozhq/icons';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 
@@ -8,10 +9,13 @@ import styles from './PanelStatusPopover.module.scss';
 
 const VARIANT_CONFIG: Record<
 	PanelStatusVariant,
-	{ color: string; ariaLabel: string }
+	{ color: string; ariaLabelKey: string }
 > = {
-	error: { color: Color.BG_CHERRY_500, ariaLabel: 'Panel error' },
-	warning: { color: Color.BG_AMBER_500, ariaLabel: 'Panel warning' },
+	error: { color: Color.BG_CHERRY_500, ariaLabelKey: 'panel_status.error_aria' },
+	warning: {
+		color: Color.BG_AMBER_500,
+		ariaLabelKey: 'panel_status.warning_aria',
+	},
 };
 
 interface PanelStatusPopoverProps {
@@ -30,7 +34,9 @@ function PanelStatusPopover({
 	detail,
 	testId,
 }: PanelStatusPopoverProps): JSX.Element {
-	const { color, ariaLabel } = VARIANT_CONFIG[variant];
+	const { t } = useTranslation('dashboard');
+	const { color, ariaLabelKey } = VARIANT_CONFIG[variant];
+	const ariaLabel = t(ariaLabelKey);
 	const Icon = variant === 'error' ? CircleX : TriangleAlert;
 
 	return (

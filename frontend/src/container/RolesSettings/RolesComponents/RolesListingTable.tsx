@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import cx from 'classnames';
 import { Pagination, Skeleton } from 'antd';
@@ -28,6 +29,7 @@ interface RolesListContentProps {
 }
 
 function RolesListContent({ searchQuery }: RolesListContentProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
 	const { isRolesEnabled } = useRolesFeatureGate();
 
 	const { data, isLoading, isError, error } = useListRoles();
@@ -76,19 +78,19 @@ function RolesListContent({ searchQuery }: RolesListContentProps): JSX.Element {
 		const result: DisplayItem[] = [];
 
 		if (managedRoles.length > 0) {
-			result.push({ type: 'section', label: 'Managed roles' });
+			result.push({ type: 'section', label: t('roles_table_managed_roles') });
 			managedRoles.forEach((role) => result.push({ type: 'role', role }));
 		}
 		if (customRoles.length > 0) {
 			result.push({
 				type: 'section',
-				label: 'Custom roles',
+				label: t('roles_table_custom_roles'),
 				count: customRoles.length,
 			});
 			customRoles.forEach((role) => result.push({ type: 'role', role }));
 		}
 		return result;
-	}, [managedRoles, customRoles]);
+	}, [managedRoles, customRoles, t]);
 
 	const totalRoleCount = managedRoles.length + customRoles.length;
 
@@ -141,7 +143,10 @@ function RolesListContent({ searchQuery }: RolesListContentProps): JSX.Element {
 			<span className="numbers">
 				{range[0]} &#8212; {range[1]}
 			</span>
-			<span className="total"> of {total}</span>
+			<span className="total">
+				{' '}
+				{t('of')} {total}
+			</span>
 		</>
 	);
 
@@ -156,12 +161,7 @@ function RolesListContent({ searchQuery }: RolesListContentProps): JSX.Element {
 	if (isError) {
 		return (
 			<div className={styles.rolesListingTable}>
-				<ErrorInPlace
-					error={toAPIError(
-						error,
-						'An unexpected error occurred while fetching roles.',
-					)}
-				/>
+				<ErrorInPlace error={toAPIError(error, t('roles_table_error_fetching'))} />
 			</div>
 		);
 	}
@@ -170,7 +170,7 @@ function RolesListContent({ searchQuery }: RolesListContentProps): JSX.Element {
 		return (
 			<div className={styles.rolesListingTable}>
 				<div className={styles.emptyState}>
-					{searchQuery ? 'No roles match your search.' : 'No roles found.'}
+					{searchQuery ? t('roles_table_no_roles_match') : t('roles_table_no_roles')}
 				</div>
 			</div>
 		);
@@ -226,15 +226,17 @@ function RolesListContent({ searchQuery }: RolesListContentProps): JSX.Element {
 			<div className={styles.scrollContainer}>
 				<div className={styles.tableInner}>
 					<div className={styles.tableHeader}>
-						<div className={cx(styles.headerCell, styles.headerCellName)}>Name</div>
+						<div className={cx(styles.headerCell, styles.headerCellName)}>
+							{t('name')}
+						</div>
 						<div className={cx(styles.headerCell, styles.headerCellDescription)}>
-							Description
+							{t('description')}
 						</div>
 						<div className={cx(styles.headerCell, styles.headerCellUpdatedAt)}>
-							Updated At
+							{t('updated_at')}
 						</div>
 						<div className={cx(styles.headerCell, styles.headerCellCreatedAt)}>
-							Created At
+							{t('created_at')}
 						</div>
 					</div>
 

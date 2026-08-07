@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
 	TooltipRoot,
 	TooltipContent,
@@ -48,6 +49,7 @@ export function SpanTooltipContent({
 	durationMs,
 	previewRows,
 }: SpanTooltipContentProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const { time: formattedDuration, timeUnitName } =
 		convertTimeToRelevantUnit(durationMs);
 
@@ -56,10 +58,16 @@ export function SpanTooltipContent({
 			<div className={styles.name} style={{ color }}>
 				{spanName}
 			</div>
-			<div className={styles.row}>status: {hasError ? 'error' : 'ok'}</div>
-			<div className={styles.row}>start: {toFixed(relativeStartMs, 2)} ms</div>
 			<div className={styles.row}>
-				duration: {toFixed(formattedDuration, 2)} {timeUnitName}
+				{t('span_hover.status', 'status')}:{' '}
+				{hasError ? t('span_hover.error', 'error') : t('span_hover.ok', 'ok')}
+			</div>
+			<div className={styles.row}>
+				{t('span_hover.start', 'start')}: {toFixed(relativeStartMs, 2)} ms
+			</div>
+			<div className={styles.row}>
+				{t('span_hover.duration', 'duration')}: {toFixed(formattedDuration, 2)}{' '}
+				{timeUnitName}
 			</div>
 			{previewRows && previewRows.length > 0 && (
 				<div className={styles.preview}>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { Antenna } from '@signozhq/icons';
@@ -24,9 +25,11 @@ export default function ThresholdsSection({
 	selectedGraph,
 	columnUnits,
 }: ThresholdsSectionProps): JSX.Element {
+	const { t } = useTranslation('new_widget_settings');
+
 	return (
 		<SettingsSection
-			title="Thresholds"
+			title={t('thresholds.title', 'Thresholds')}
 			icon={<Antenna size={14} />}
 			defaultOpen={!!thresholds.length}
 		>

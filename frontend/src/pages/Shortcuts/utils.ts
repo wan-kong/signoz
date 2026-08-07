@@ -1,4 +1,5 @@
 import { TableProps } from 'antd';
+import i18n from 'ReactI18';
 import {
 	DashboardShortcuts,
 	DashboardShortcutsDescription,
@@ -21,39 +22,64 @@ import {
 } from 'constants/shortcuts/QBShortcuts';
 
 export const ALL_SHORTCUTS: Record<string, Record<string, string>> = {
-	'Global Shortcuts': GlobalShortcuts,
-	'Logs Explorer Shortcuts': LogsExplorerShortcuts,
-	'Query Builder Shortcuts': QBShortcuts,
-	'Dashboard Shortcuts': DashboardShortcuts,
+	[i18n.t('shortcuts_extra.global', 'Global Shortcuts', { ns: 'common' })]:
+		GlobalShortcuts,
+	[i18n.t('shortcuts_extra.logs_explorer', 'Logs Explorer Shortcuts', {
+		ns: 'common',
+	})]: LogsExplorerShortcuts,
+	[i18n.t('shortcuts_extra.query_builder', 'Query Builder Shortcuts', {
+		ns: 'common',
+	})]: QBShortcuts,
+	[i18n.t('shortcuts_extra.dashboard', 'Dashboard Shortcuts', {
+		ns: 'common',
+	})]: DashboardShortcuts,
 };
 
 export const ALL_SHORTCUTS_LABEL: Record<string, Record<string, string>> = {
-	'Global Shortcuts': GlobalShortcutsName,
-	'Logs Explorer Shortcuts': LogsExplorerShortcutsName,
-	'Query Builder Shortcuts': QBShortcutsName,
-	'Dashboard Shortcuts': DashboardShortcutsName,
+	[i18n.t('shortcuts_extra.global', 'Global Shortcuts', { ns: 'common' })]:
+		GlobalShortcutsName,
+	[i18n.t('shortcuts_extra.logs_explorer', 'Logs Explorer Shortcuts', {
+		ns: 'common',
+	})]: LogsExplorerShortcutsName,
+	[i18n.t('shortcuts_extra.query_builder', 'Query Builder Shortcuts', {
+		ns: 'common',
+	})]: QBShortcutsName,
+	[i18n.t('shortcuts_extra.dashboard', 'Dashboard Shortcuts', {
+		ns: 'common',
+	})]: DashboardShortcutsName,
 };
 
 export const ALL_SHORTCUTS_DESCRIPTION: Record<
 	string,
 	Record<string, string>
 > = {
-	'Global Shortcuts': GlobalShortcutsDescription,
-	'Logs Explorer Shortcuts': LogsExplorerShortcutsDescription,
-	'Query Builder Shortcuts': QBShortcutsDescription,
-	'Dashboard Shortcuts': DashboardShortcutsDescription,
+	[i18n.t('shortcuts_extra.global', 'Global Shortcuts', { ns: 'common' })]:
+		GlobalShortcutsDescription,
+	[i18n.t('shortcuts_extra.logs_explorer', 'Logs Explorer Shortcuts', {
+		ns: 'common',
+	})]: LogsExplorerShortcutsDescription,
+	[i18n.t('shortcuts_extra.query_builder', 'Query Builder Shortcuts', {
+		ns: 'common',
+	})]: QBShortcutsDescription,
+	[i18n.t('shortcuts_extra.dashboard', 'Dashboard Shortcuts', {
+		ns: 'common',
+	})]: DashboardShortcutsDescription,
 };
 
 export const shortcutColumns = [
 	{
-		title: 'Keyboard Shortcut',
+		title: i18n.t('shortcuts_extra.keyboard_shortcut', 'Keyboard Shortcut', {
+			ns: 'common',
+		}),
 		dataIndex: 'shortcutKey',
 		key: 'shortcutKey',
 		width: '30%',
 		className: 'shortcut-key',
 	},
 	{
-		title: 'Description',
+		title: i18n.t('shortcuts_extra.description', 'Description', {
+			ns: 'common',
+		}),
 		dataIndex: 'shortcutDescription',
 		key: 'shortcutDescription',
 		className: 'shortcut-description',

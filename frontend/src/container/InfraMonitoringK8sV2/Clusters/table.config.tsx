@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import { Boxes } from '@signozhq/icons';
 import { InframonitoringtypesClusterRecordDTO } from 'api/generated/services/sigNoz.schemas';
@@ -41,7 +42,12 @@ export const k8sClustersColumnsConfig: ClusterTableColumnConfig[] = [
 	{
 		id: 'clusterGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader title="Cluster Group" titleKey="display.cluster_group" />
+			<EntityGroupHeader
+				title={i18n.t('display.cluster_group', 'Cluster Group', {
+					ns: 'infraMonitoring',
+				})}
+				titleKey="display.cluster_group"
+			/>
 		),
 		accessorFn: (row): string => row.clusterName || '',
 		width: { min: 290 },
@@ -65,7 +71,9 @@ export const k8sClustersColumnsConfig: ClusterTableColumnConfig[] = [
 		id: 'clusterName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Cluster Name"
+				title={i18n.t('display.cluster_name', 'Cluster Name', {
+					ns: 'infraMonitoring',
+				})}
 				titleKey="display.cluster_name"
 				icon={<Boxes data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/clusters#cluster-name"

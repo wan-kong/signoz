@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { QueryParams } from 'constants/query';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
@@ -38,6 +39,7 @@ const useBreakout = ({
 	handleBreakoutClick: (groupBy: BreakoutAttributeType) => void;
 } => {
 	const { redirectWithQueryBuilderData } = useQueryBuilder();
+	const { t } = useTranslation('query_table');
 
 	const redirectToViewMode = useCallback(
 		(query: Query, panelType?: PANEL_TYPES): void => {
@@ -102,7 +104,7 @@ const useBreakout = ({
 								style={{ cursor: 'pointer' }}
 								onClick={handleBackClick}
 							/>
-							<span>Breakout by</span>
+							<span>{t('breakout.breakout_by', 'Breakout by')}</span>
 						</div>
 					</ContextMenu.Header>
 					<BreakoutOptions
@@ -112,7 +114,7 @@ const useBreakout = ({
 				</>
 			),
 		};
-	}, [query, aggregateData, handleBreakoutClick, handleBackClick]);
+	}, [query, aggregateData, handleBreakoutClick, handleBackClick, t]);
 
 	return { breakoutConfig, handleBreakoutClick };
 };

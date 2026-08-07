@@ -27,23 +27,23 @@ describe('Create Alert Channel (Normal User)', () => {
 			render(<CreateAlertChannels preType={ChannelType.Slack} />);
 		});
 		it('Should check if the title is "New Notification Channels"', () => {
-			expect(screen.getByText('page_title_create')).toBeInTheDocument();
+			expect(screen.getByText('New Notification Channel')).toBeInTheDocument();
 		});
 		it('Should check if the name label and textbox are displayed properly', () => {
 			testLabelInputAndHelpValue({
-				labelText: 'field_channel_name',
+				labelText: 'Name',
 				testId: 'channel-name-textbox',
 			});
 		});
 		it('Should check if Send resolved alerts label and checkbox are displayed properly', () => {
 			testLabelInputAndHelpValue({
-				labelText: 'field_send_resolved',
+				labelText: 'Send resolved alerts',
 				testId: 'field-send-resolved-checkbox',
 			});
 		});
 		it('Should check if channel type label and dropdown are displayed properly', () => {
 			testLabelInputAndHelpValue({
-				labelText: 'field_channel_type',
+				labelText: 'Type',
 				testId: 'channel-type-select',
 			});
 		});
@@ -53,21 +53,22 @@ describe('Create Alert Channel (Normal User)', () => {
 		});
 		it('Should check if Webhook URL label and input are displayed properly', () => {
 			testLabelInputAndHelpValue({
-				labelText: 'field_webhook_url',
+				labelText: 'Webhook URL',
 				testId: 'webhook-url-textbox',
 			});
 		});
 		it('Should check if Recepient label, input, and help text are displayed properly', () => {
 			testLabelInputAndHelpValue({
-				labelText: 'field_slack_recipient',
+				labelText: 'Recipient',
 				testId: 'slack-channel-textbox',
-				helpText: 'slack_channel_help',
+				helpText:
+					'Specify channel or user, use #channel-name, @username (has to be all lowercase, no whitespace)',
 			});
 		});
 
 		it('Should check if Title label and text area are displayed properly', () => {
 			testLabelInputAndHelpValue({
-				labelText: 'field_slack_title',
+				labelText: 'Title',
 				testId: 'title-textarea',
 			});
 		});
@@ -78,7 +79,7 @@ describe('Create Alert Channel (Normal User)', () => {
 		});
 		it('Should check if Description label and text area are displayed properly', () => {
 			testLabelInputAndHelpValue({
-				labelText: 'field_slack_description',
+				labelText: 'Description',
 				testId: 'description-textarea',
 			});
 		});
@@ -88,9 +89,9 @@ describe('Create Alert Channel (Normal User)', () => {
 			expect(descriptionTextArea).toHaveTextContent(slackDescriptionDefaultValue);
 		});
 		it('Should check if the form buttons are displayed properly (Save, Test, Back)', () => {
-			expect(screen.getByText('button_save_channel')).toBeInTheDocument();
-			expect(screen.getByText('button_test_channel')).toBeInTheDocument();
-			expect(screen.getByText('button_return')).toBeInTheDocument();
+			expect(screen.getByText('Save')).toBeInTheDocument();
+			expect(screen.getByText('Test')).toBeInTheDocument();
+			expect(screen.getByText('Back')).toBeInTheDocument();
 		});
 	});
 	describe('New Alert Channel Cascading Fields Based on Channel Type', () => {
@@ -104,22 +105,23 @@ describe('Create Alert Channel (Normal User)', () => {
 			});
 			it('Should check if Webhook URL label and input are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_webhook_url',
+					labelText: 'Webhook URL',
 					testId: 'webhook-url-textbox',
 				});
 			});
 			it('Should check if Webhook User Name label, input, and help text are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_webhook_username',
+					labelText: 'User Name (optional)',
 					testId: 'webhook-username-textbox',
-					helpText: 'help_webhook_username',
+					helpText:
+						'Leave empty for bearer auth or when authentication is not necessary.',
 				});
 			});
 			it('Should check if Password label and textbox, and help text are displayed properly', () => {
 				testLabelInputAndHelpValue({
 					labelText: 'Password (optional)',
 					testId: 'webhook-password-textbox',
-					helpText: 'help_webhook_password',
+					helpText: 'Specify a password or bearer token',
 				});
 			});
 		});
@@ -133,15 +135,15 @@ describe('Create Alert Channel (Normal User)', () => {
 			});
 			it('Should check if Routing key label, required, and textbox are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_pager_routing_key',
+					labelText: 'Routing Key',
 					testId: 'pager-routing-key-textbox',
 				});
 			});
 			it('Should check if Description label, required, info (Shows up as description in pagerduty), and text area are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_pager_description',
+					labelText: 'Description',
 					testId: 'pager-description-textarea',
-					helpText: 'help_pager_description',
+					helpText: 'Shows up as description in pagerduty',
 				});
 			});
 			it('Should check if the description contains default template', () => {
@@ -155,9 +157,10 @@ describe('Create Alert Channel (Normal User)', () => {
 			});
 			it('Should check if Severity label, info (help_pager_severity), and textbox are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_pager_severity',
+					labelText: 'Severity',
 					testId: 'pager-severity-textbox',
-					helpText: 'help_pager_severity',
+					helpText:
+						"Severity of the incident, must be one of the following: 'critical', 'warning', 'error' or 'info'",
 				});
 			});
 			it('Should check if Severity contains the default template', () => {
@@ -167,9 +170,9 @@ describe('Create Alert Channel (Normal User)', () => {
 			});
 			it('Should check if Additional Information label, text area, and help text (help_pager_details) are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_pager_details',
+					labelText: 'Additional Information',
 					testId: 'pager-additional-details-textarea',
-					helpText: 'help_pager_details',
+					helpText: 'Specify a key-value format (must be a valid json)',
 				});
 			});
 			it('Should check if Additional Information contains the default template', () => {
@@ -181,23 +184,23 @@ describe('Create Alert Channel (Normal User)', () => {
 			});
 			it('Should check if Group label, text area, and info (help_pager_group) are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_pager_group',
+					labelText: 'Group',
 					testId: 'pager-group-textarea',
-					helpText: 'help_pager_group',
+					helpText: 'A cluster or grouping of sources',
 				});
 			});
 			it('Should check if Class label, text area, and info (help_pager_class) are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_pager_class',
+					labelText: 'Class',
 					testId: 'pager-class-textarea',
-					helpText: 'help_pager_class',
+					helpText: 'The class/type of the event',
 				});
 			});
 			it('Should check if Client label, text area, and info (Shows up as event source in Pagerduty) are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_pager_client',
+					labelText: 'Client',
 					testId: 'pager-client-textarea',
-					helpText: 'help_pager_client',
+					helpText: 'Shows up as event source in Pagerduty',
 				});
 			});
 			it('Should check if Client input contains the default value "SigNoz Alert Manager"', () => {
@@ -207,9 +210,9 @@ describe('Create Alert Channel (Normal User)', () => {
 			});
 			it('Should check if Client URL label, text area, and info (Shows up as event source link in Pagerduty) are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_pager_client_url',
+					labelText: 'Client URL',
 					testId: 'pager-client-url-textarea',
-					helpText: 'help_pager_client_url',
+					helpText: 'Shows up as event source link in Pagerduty',
 				});
 			});
 			it('Should check if Client URL contains the default value "https://enter-signoz-host-n-port-here/alerts"', () => {
@@ -231,7 +234,7 @@ describe('Create Alert Channel (Normal User)', () => {
 
 			it('Should check if API key label, required, and textbox are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_opsgenie_api_key',
+					labelText: 'API Key',
 					testId: 'opsgenie-api-key-textbox',
 					required: true,
 				});
@@ -239,9 +242,9 @@ describe('Create Alert Channel (Normal User)', () => {
 
 			it('Should check if Message label, required, info (Shows up as message in opsgenie), and text area are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_opsgenie_message',
+					labelText: 'Message',
 					testId: 'opsgenie-message-textarea',
-					helpText: 'help_opsgenie_message',
+					helpText: 'Shows up as message in opsgenie',
 					required: true,
 				});
 			});
@@ -254,9 +257,9 @@ describe('Create Alert Channel (Normal User)', () => {
 
 			it('Should check if Description label, required, info (Shows up as description in opsgenie), and text area are displayed properly `{{ if gt (len .Alerts.Firing) 0 -}}', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_opsgenie_description',
+					labelText: 'Description',
 					testId: 'opsgenie-description-textarea',
-					helpText: 'help_opsgenie_description',
+					helpText: 'Shows up as description in opsgenie',
 					required: true,
 				});
 			});
@@ -273,9 +276,9 @@ describe('Create Alert Channel (Normal User)', () => {
 
 			it('Should check if Priority label, required, info (help_opsgenie_priority), and text area are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_opsgenie_priority',
+					labelText: 'Priority',
 					testId: 'opsgenie-priority-textarea',
-					helpText: 'help_opsgenie_priority',
+					helpText: 'Priority of the incident',
 					required: true,
 				});
 			});
@@ -296,9 +299,9 @@ describe('Create Alert Channel (Normal User)', () => {
 			});
 			it('Should check if API key label, required, info(help_email_to), and textbox are displayed properly', () => {
 				testLabelInputAndHelpValue({
-					labelText: 'field_email_to',
+					labelText: 'To',
 					testId: 'email-to-textbox',
-					helpText: 'help_email_to',
+					helpText: 'Email address(es) to send alerts to (comma separated)',
 					required: true,
 				});
 			});
@@ -313,23 +316,13 @@ describe('Create Alert Channel (Normal User)', () => {
 			});
 
 			it('Should check if the form buttons are displayed properly (Save, Test, Back)', () => {
-				expect(
-					screen.getByRole('button', { name: 'button_save_channel' }),
-				).toBeInTheDocument();
-				expect(
-					screen.getByRole('button', { name: 'button_test_channel' }),
-				).toBeInTheDocument();
-				expect(
-					screen.getByRole('button', { name: 'button_return' }),
-				).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: 'Test' })).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: 'Back' })).toBeInTheDocument();
 			});
 			it.skip('Should check if save and test buttons are disabled', () => {
-				expect(
-					screen.getByRole('button', { name: 'button_save_channel' }),
-				).toBeDisabled();
-				expect(
-					screen.getByRole('button', { name: 'button_test_channel' }),
-				).toBeDisabled();
+				expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
+				expect(screen.getByRole('button', { name: 'Test' })).toBeDisabled();
 			});
 		});
 	});

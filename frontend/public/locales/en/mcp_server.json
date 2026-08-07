@@ -1,0 +1,58 @@
+{
+	"auth_card": {
+		"admin_helper_text": "Create a service account, then add a new key inside it - paste that key into the API Key field.",
+		"api_key_label": "API Key",
+		"copy_instance_url_aria": "Copy SigNoz instance URL",
+		"create_service_account": "Create service account",
+		"description": "On first connect, your client opens a SigNoz authorization page asking for two values:",
+		"instance_url_label": "SigNoz Instance URL",
+		"non_admin_helper_text": "Only admins can create API keys. Ask your workspace admin for a key with read access, then paste it into the API Key field.",
+		"title": "Authenticate from your client"
+	},
+	"client_tabs": {
+		"add_to": "Add to {{clientLabel}}",
+		"copy_config_aria": "Copy {{clientLabel}} config",
+		"copy_endpoint_aria": "Copy MCP endpoint",
+		"or_copy_manual_setup": "Or copy the config below for manual setup.",
+		"setup_docs": "{{clientLabel}} setup docs"
+	},
+	"copy_icon": {
+		"enter_region_first": "Enter your Cloud region first",
+		"copy_to_clipboard": "Copy to clipboard"
+	},
+	"not_cloud": {
+		"title": "MCP Server is available on SigNoz",
+		"body": "Users can follow the docs to setup the MCP server against their SigNoz instance.",
+		"view_docs": "View MCP Server docs"
+	},
+	"page": {
+		"enter_region_before_copy": "Enter your Cloud region before copying",
+		"snippet_copied": "Snippet copied to clipboard",
+		"instance_url_copied": "Instance URL copied to clipboard",
+		"loading": "Loading...",
+		"title": "SigNoz MCP Server",
+		"subtitle": "Connect AI assistants like Claude, Cursor, VS Code, and Codex to your SigNoz data via the Model Context Protocol. Authenticate from your MCP client with a service-account API key.",
+		"configure_your_client": "Configure your client",
+		"configure_desc": "Add SigNoz to your MCP client. Use a one-click install where available, or copy the config for manual setup. On first connect, the client will open a SigNoz authorization page - use the instance URL and API key from step 2."
+	},
+	"use_cases": {
+		"title": "What you can do with it",
+		"item_1": "Ask your AI assistant to investigate a spiking error rate.",
+		"item_2": "Debug a slow service by walking through recent traces.",
+		"item_3": "Summarize an alert and suggest likely root causes.",
+		"item_4": "Generate dashboards or queries from a natural-language description.",
+		"see_more": "See more use cases"
+	},
+	"clients": {
+		"label_cursor": "Cursor",
+		"label_claude_code": "Claude Code",
+		"label_vscode": "VS Code",
+		"label_claude_desktop": "Claude Desktop",
+		"label_codex": "Codex",
+		"label_other": "Other",
+		"install_label_cursor": "Add to Cursor",
+		"install_label_vscode": "Add to VS Code",
+		"instructions_claude_desktop": "Open Claude Desktop, go to Settings → Connectors → Add custom connector, and paste the endpoint URL above. Claude Desktop does not read remote MCP servers from claude_desktop_config.json - the connector UI is the only supported path.",
+		"instructions_other": "Most MCP clients that support remote HTTP servers will accept the endpoint URL above. Add it as a new MCP server in your client and paste your SigNoz API key when the client prompts for authentication. See the docs for client-specific instructions."
+	}
+}

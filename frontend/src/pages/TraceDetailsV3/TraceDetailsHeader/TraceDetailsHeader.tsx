@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { Button } from '@signozhq/ui/button';
 import {
@@ -78,6 +79,7 @@ function TraceDetailsHeader({
 	isDataLoaded,
 	traceMetadata,
 }: TraceDetailsHeaderProps): JSX.Element {
+	const { t } = useTranslation('trace_details');
 	const { id: traceID } = useParams<TraceDetailV3URLProps>();
 	const [showTraceDetails, setShowTraceDetails] = useState(true);
 	const [isFilterExpanded, setIsFilterExpanded] = useState(false);
@@ -131,7 +133,7 @@ function TraceDetailsHeader({
 							size="icon"
 							className={styles.backBtn}
 							onClick={handlePreviousBtnClick}
-							aria-label="Back"
+							aria-label={t('back', 'Back')}
 						>
 							<ArrowLeft size={14} />
 						</Button>
@@ -158,13 +160,13 @@ function TraceDetailsHeader({
 												variant="ghost"
 												size="icon"
 												color="secondary"
-												aria-label="Analytics"
+												aria-label={t('analytics.title', 'Analytics')}
 												onClick={handleToggleAnalytics}
 											>
 												<ChartPie size={14} />
 											</Button>
 										</TooltipTrigger>
-										<TooltipContent>Analytics</TooltipContent>
+										<TooltipContent>{t('analytics.title', 'Analytics')}</TooltipContent>
 									</TooltipRoot>
 									<TraceOptionsMenu
 										showTraceDetails={showTraceDetails}
@@ -221,7 +223,7 @@ function TraceDetailsHeader({
 
 			<FieldsSelector
 				isOpen={isPreviewFieldsOpen}
-				title="Preview fields"
+				title={t('preview_fields', 'Preview fields')}
 				fields={previewFields}
 				onFieldsChange={setPreviewFields}
 				onClose={(): void => setIsPreviewFieldsOpen(false)}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Info } from '@signozhq/icons';
 import { Typography } from '@signozhq/ui/typography';
 import { Spin, Tooltip } from 'antd';
@@ -19,11 +20,15 @@ function ImpactPanel({
 	preview,
 	isLoading,
 }: ImpactPanelProps): JSX.Element {
+	const { t } = useTranslation('common');
 	if (mode === 'all') {
 		return (
 			<div className={styles.impactPanel} data-testid="volume-control-impact">
 				<Typography.Text size="small" color="muted">
-					All attributes remain queryable, no reduction.
+					{t(
+						'volume_control.impact_no_reduction',
+						'All attributes remain queryable, no reduction.',
+					)}
 				</Typography.Text>
 			</div>
 		);
@@ -45,10 +50,13 @@ function ImpactPanel({
 					<div className={styles.meter}>
 						<div className={styles.meterLabelRow}>
 							<Typography.Text size="xs" color="muted" className={styles.meterLabel}>
-								Full series
+								{t('volume_control.impact_full_series', 'Full series')}
 							</Typography.Text>
 							<Tooltip
-								title="Total number of series for this metric before any reduction."
+								title={t(
+									'volume_control.impact_full_series_tooltip',
+									'Total number of series for this metric before any reduction.',
+								)}
 								getPopupContainer={popupContainer}
 							>
 								<Info size={12} className={styles.meterInfo} />
@@ -61,10 +69,13 @@ function ImpactPanel({
 					<div className={styles.meter}>
 						<div className={styles.meterLabelRow}>
 							<Typography.Text size="xs" color="muted" className={styles.meterLabel}>
-								Current retained
+								{t('volume_control.impact_current_retained', 'Current retained')}
 							</Typography.Text>
 							<Tooltip
-								title="Series kept today under the metric's existing rule, or all of them if it has no rule yet."
+								title={t(
+									'volume_control.impact_current_retained_tooltip',
+									"Series kept today under the metric's existing rule, or all of them if it has no rule yet.",
+								)}
 								getPopupContainer={popupContainer}
 							>
 								<Info size={12} className={styles.meterInfo} />
@@ -77,10 +88,13 @@ function ImpactPanel({
 					<div className={styles.meter}>
 						<div className={styles.meterLabelRow}>
 							<Typography.Text size="xs" color="muted" className={styles.meterLabel}>
-								Potential retained
+								{t('volume_control.impact_potential_retained', 'Potential retained')}
 							</Typography.Text>
 							<Tooltip
-								title="Series that would be kept if you save this rule, with the reduction vs what's retained today."
+								title={t(
+									'volume_control.impact_potential_retained_tooltip',
+									"Series that would be kept if you save this rule, with the reduction vs what's retained today.",
+								)}
 								getPopupContainer={popupContainer}
 							>
 								<Info size={12} className={styles.meterInfo} />
@@ -102,7 +116,10 @@ function ImpactPanel({
 			)}
 			{!isLoading && !preview && (
 				<Typography.Text size="small" color="muted">
-					Select attributes to preview the impact.
+					{t(
+						'volume_control.impact_select_attributes',
+						'Select attributes to preview the impact.',
+					)}
 				</Typography.Text>
 			)}
 		</div>

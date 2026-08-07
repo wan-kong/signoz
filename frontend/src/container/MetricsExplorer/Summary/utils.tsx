@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import { Tooltip } from 'antd';
 import { TableColumnType as ColumnType } from 'antd';
@@ -20,7 +21,9 @@ export const getMetricsTableColumns = (
 	{
 		title: (
 			<div className="metric-name-column-header">
-				<span className="metric-name-column-header-text">METRIC</span>
+				<span className="metric-name-column-header-text">
+					{String(i18n.t('metrics_explorer.column_metric', 'METRIC'))}
+				</span>
 				<MetricNameSearch
 					queryFilterExpression={queryFilterExpression}
 					onFilterChange={onFilterChange}
@@ -35,7 +38,7 @@ export const getMetricsTableColumns = (
 		),
 	},
 	{
-		title: 'DESCRIPTION',
+		title: String(i18n.t('metrics_explorer.column_description', 'DESCRIPTION')),
 		dataIndex: 'description',
 		width: 400,
 		render: (value: string): React.ReactNode => (
@@ -45,7 +48,9 @@ export const getMetricsTableColumns = (
 	{
 		title: (
 			<div className="metric-type-column-header">
-				<span className="metric-type-column-header-text">TYPE</span>
+				<span className="metric-type-column-header-text">
+					{String(i18n.t('metrics_explorer.column_type', 'TYPE'))}
+				</span>
 				{/* <MetricTypeSearch
 					queryFilters={queryFilters}
 					onFilterChange={onFilterChange}
@@ -57,18 +62,18 @@ export const getMetricsTableColumns = (
 		width: 150,
 	},
 	{
-		title: 'UNIT',
+		title: String(i18n.t('metrics_explorer.column_unit', 'UNIT')),
 		dataIndex: 'unit',
 		width: 150,
 	},
 	{
-		title: 'SAMPLES',
+		title: String(i18n.t('metrics_explorer.samples', 'SAMPLES')),
 		dataIndex: MetricsexplorertypesTreemapModeDTO.samples,
 		width: 150,
 		sorter: true,
 	},
 	{
-		title: 'TIME SERIES',
+		title: String(i18n.t('metrics_explorer.time_series', 'TIME SERIES')),
 		dataIndex: MetricsexplorertypesTreemapModeDTO.timeseries,
 		width: 150,
 		sorter: true,

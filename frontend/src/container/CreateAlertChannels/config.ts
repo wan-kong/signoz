@@ -1,3 +1,5 @@
+import i18n from 'ReactI18';
+
 export interface Channel {
 	send_resolved?: boolean;
 	name: string;
@@ -76,22 +78,38 @@ export interface EmailChannel extends Channel {
 
 export const ValidatePagerChannel = (p: PagerChannel): string => {
 	if (!p) {
-		return 'Received unexpected input for this channel, please contact your administrator ';
+		return i18n.t(
+			'channel.unexpected_input',
+			'Received unexpected input for this channel, please contact your administrator',
+			{ ns: 'channels' },
+		);
 	}
 
 	if (!p.name || p.name === '') {
-		return 'Name is mandatory for creating a channel';
+		return i18n.t(
+			'channel.name_required',
+			'Name is mandatory for creating a channel',
+			{ ns: 'channels' },
+		);
 	}
 
 	if (!p.routing_key || p.routing_key === '') {
-		return 'Routing Key is mandatory for creating pagerduty channel';
+		return i18n.t(
+			'channel.routing_key_required',
+			'Routing Key is mandatory for creating pagerduty channel',
+			{ ns: 'channels' },
+		);
 	}
 
 	// validate details json
 	try {
 		JSON.parse(p.details || '{}');
 	} catch (e) {
-		return 'failed to parse additional information, please enter a valid json';
+		return i18n.t(
+			'channel.invalid_json',
+			'failed to parse additional information, please enter a valid json',
+			{ ns: 'channels' },
+		);
 	}
 
 	return '';

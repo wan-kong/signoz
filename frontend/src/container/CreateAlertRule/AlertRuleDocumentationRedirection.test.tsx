@@ -1,10 +1,31 @@
 import ROUTES from 'constants/routes';
 import * as usePrefillAlertConditions from 'container/FormAlertRules/usePrefillAlertConditions';
 import CreateAlertPage from 'pages/CreateAlert';
-import { act, fireEvent, render } from 'tests/test-utils';
+import { act, fireEvent, render, within } from 'tests/test-utils';
 import { AlertTypes } from 'types/api/alerts/alertTypes';
 
 import { ALERT_TYPE_TO_TITLE, ALERT_TYPE_URL_MAP } from './constants';
+
+const ALERT_TYPE_TITLE_TO_ENGLISH: Record<string, string> = {
+	metric_based_alert: 'Metric based Alert',
+	log_based_alert: 'Log-based Alert',
+	traces_based_alert: 'Trace-based Alert',
+	exceptions_based_alert: 'Exceptions-based Alert',
+	anomaly_based_alert: 'Anomaly based Alert',
+};
+
+const ALERT_TYPE_DESC_TO_ENGLISH: Record<string, string> = {
+	metric_based_alert:
+		'Send a notification when a condition occurs in the metric data.',
+	log_based_alert:
+		'Send a notification when a condition occurs in the logs data.',
+	traces_based_alert:
+		'Send a notification when a condition occurs in the traces data.',
+	exceptions_based_alert:
+		'Send a notification when a condition occurs in the exceptions data.',
+	anomaly_based_alert:
+		'Send a notification when a condition occurs in the metric data.',
+};
 
 jest.mock('react-router-dom-v5-compat', () => ({
 	...jest.requireActual('react-router-dom-v5-compat'),
@@ -81,13 +102,18 @@ describe('Alert rule documentation redirection', () => {
 		const { getByText, getAllByText } = renderResult;
 
 		// Check for the heading
-		expect(getByText('choose_alert_type')).toBeInTheDocument();
+		expect(getByText('Choose a type for the alert')).toBeInTheDocument();
 
 		// Check for alert type titles and descriptions
 		Object.values(AlertTypes).forEach((alertType) => {
-			const title = ALERT_TYPE_TO_TITLE[alertType];
-			expect(getByText(title)).toBeInTheDocument();
-			expect(getByText(`${title}_desc`)).toBeInTheDocument();
+			const titleKey = ALERT_TYPE_TO_TITLE[alertType];
+			const card = renderResult.getByTestId(`alert-type-card-${alertType}`);
+			expect(
+				within(card).getByText(ALERT_TYPE_TITLE_TO_ENGLISH[titleKey]),
+			).toBeInTheDocument();
+			expect(
+				within(card).getByText(ALERT_TYPE_DESC_TO_ENGLISH[titleKey]),
+			).toBeInTheDocument();
 		});
 
 		const clickHereLinks = getAllByText(

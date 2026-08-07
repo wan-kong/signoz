@@ -17,7 +17,7 @@ registerI18nPlugin(Backend);
 registerI18nPlugin(languageDetector);
 // pass the i18n instance to react-i18next.
 registerI18nPlugin(initReactI18next);
-// init i18next
-void initI18n(i18nInitOptions);
+// Pass a copy: i18next.init mutates the options object (fallbackLng -> array, adds 'cimode' to supportedLngs), which would corrupt the shared exported i18nInitOptions.
+void initI18n({ ...i18nInitOptions });
 
 export default i18nInstance;

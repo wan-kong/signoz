@@ -1,5 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import { Badge } from '@signozhq/ui/badge';
 
 export default function BetaTag(): JSX.Element {
-	return <Badge color="robin">Beta</Badge>;
+	const { t } = useTranslation('common');
+
+	return <Badge color="robin">{t('beta')}</Badge>;
 }

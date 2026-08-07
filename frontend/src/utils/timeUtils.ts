@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -254,18 +255,24 @@ export const validateTimeRange = (
 		return {
 			isValid: false,
 			errorDetails: {
-				message: 'Invalid date/time format',
+				message: i18n.t(
+					'constants_extra.invalid_date_format',
+					'Invalid date/time format',
+					{
+						ns: 'common',
+					},
+				),
 				code: 'INVALID_DATE_TIME_FORMAT',
-				description: `
-Enter a valid date/time. e.g. 
-
-
-Range:
-${now.subtract(1, 'hour').format(format)} - ${now.format(format)}
-
-Shortcuts:
-15m, 2h, 2d, 2w
-`,
+				description: i18n.t(
+					'constants_extra.valid_date_instructions',
+					'Enter a valid date/time. e.g. {{examples}}\n\nRange:\n{{rangeStart}} - {{rangeEnd}}\n\nShortcuts:\n15m, 2h, 2d, 2w',
+					{
+						ns: 'common',
+						examples: `${now.subtract(1, 'hour').format(format)} - ${now.format(format)}`,
+						rangeStart: now.subtract(1, 'hour').format(format),
+						rangeEnd: now.format(format),
+					},
+				),
 			},
 		};
 	}
@@ -275,10 +282,15 @@ Shortcuts:
 		return {
 			isValid: false,
 			errorDetails: {
-				message: 'Dates in the future',
+				message: i18n.t('constants_extra.dates_in_future', 'Dates in the future', {
+					ns: 'common',
+				}),
 				code: 'DATES_IN_THE_FUTURE',
-				description:
+				description: i18n.t(
+					'constants_extra.dates_future_description',
 					'Dates must not be in the future. Enter a past or current date/time.',
+					{ ns: 'common' },
+				),
 			},
 		};
 	}
@@ -288,10 +300,19 @@ Shortcuts:
 		return {
 			isValid: false,
 			errorDetails: {
-				message: 'Start time after end time',
+				message: i18n.t(
+					'constants_extra.start_after_end',
+					'Start time after end time',
+					{
+						ns: 'common',
+					},
+				),
 				code: 'START_TIME_AFTER_END_TIME',
-				description:
+				description: i18n.t(
+					'constants_extra.start_before_end_description',
 					'Start time must be before end time. Change the start or end so the range is chronological.',
+					{ ns: 'common' },
+				),
 			},
 		};
 	}

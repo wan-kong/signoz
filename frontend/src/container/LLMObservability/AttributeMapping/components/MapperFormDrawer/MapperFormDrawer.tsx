@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DrawerWrapper } from '@signozhq/ui/drawer';
 import { SelectSimple } from '@signozhq/ui/select';
@@ -31,11 +32,6 @@ import {
 } from '../../types';
 import { createEmptySource, isMapperDraftValid } from '../../utils';
 
-const FIELD_CONTEXT_OPTIONS = [
-	{ value: FieldContext.attribute, label: 'Span attribute' },
-	{ value: FieldContext.resource, label: 'Resource' },
-];
-
 interface MapperFormDrawerProps {
 	isOpen: boolean;
 	mode: MapperDraftMode;
@@ -61,8 +57,20 @@ function MapperFormDrawer({
 	isDeleting,
 	saveError,
 }: MapperFormDrawerProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	const isEdit = mode === 'edit';
 	const isValid = isMapperDraftValid(draft);
+
+	const FIELD_CONTEXT_OPTIONS = [
+		{
+			value: FieldContext.attribute,
+			label: t('mapper_form_drawer.span_attribute', 'Span attribute'),
+		},
+		{
+			value: FieldContext.resource,
+			label: t('mapper_form_drawer.resource', 'Resource'),
+		},
+	];
 
 	const [rowIds, setRowIds] = useState<string[]>(() =>
 		draft.sources.map(() => uuid()),
@@ -120,8 +128,15 @@ function MapperFormDrawer({
 					onClose();
 				}
 			}}
-			title={isEdit ? 'Edit mapping' : 'New custom mapping'}
-			subTitle="Map source attributes onto a canonical target attribute"
+			title={
+				isEdit
+					? t('mapper_form_drawer.title_edit', 'Edit mapping')
+					: t('mapper_form_drawer.title_new', 'New custom mapping')
+			}
+			subTitle={t(
+				'mapper_form_drawer.subtitle',
+				'Map source attributes onto a canonical target attribute',
+			)}
 			width="wide"
 			testId="mapper-form-drawer"
 			footer={
@@ -135,7 +150,9 @@ function MapperFormDrawer({
 							disabled={isDeleting}
 							testId="mapper-form-delete"
 						>
-							{isDeleting ? 'Deleting…' : 'Delete'}
+							{isDeleting
+								? t('mapper_form_drawer.deleting', 'Deleting…')
+								: t('mapper_form_drawer.delete', 'Delete')}
 						</Button>
 					)}
 					<div className={styles.footerActions}>
@@ -145,7 +162,7 @@ function MapperFormDrawer({
 							onClick={onClose}
 							testId="mapper-form-cancel"
 						>
-							Cancel
+							{t('mapper_form_drawer.cancel', 'Cancel')}
 						</Button>
 						<Button
 							variant="solid"
@@ -155,7 +172,11 @@ function MapperFormDrawer({
 							testId="mapper-form-save"
 						>
 							{/* eslint-disable-next-line no-nested-ternary */}
-							{isSaving ? 'Saving…' : isEdit ? 'Save mapping' : 'Create mapping'}
+							{isSaving
+								? t('mapper_form_drawer.saving', 'Saving…')
+								: isEdit
+									? t('mapper_form_drawer.save_mapping', 'Save mapping')
+									: t('mapper_form_drawer.create_mapping', 'Create mapping')}
 						</Button>
 					</div>
 				</div>
@@ -163,9 +184,14 @@ function MapperFormDrawer({
 		>
 			<div className={styles.form}>
 				<div className={styles.field}>
-					<span className={styles.label}>Target attribute</span>
+					<span className={styles.label}>
+						{t('mapper_form_drawer.target_attribute', 'Target attribute')}
+					</span>
 					<KeySearchInput
-						placeholder="e.g. gen_ai.content.prompt"
+						placeholder={t(
+							'mapper_form_drawer.target_placeholder',
+							'e.g. gen_ai.content.prompt',
+						)}
 						value={draft.name}
 						fieldContext={draft.fieldContext}
 						disabled={isEdit}
@@ -174,13 +200,18 @@ function MapperFormDrawer({
 					/>
 					{isEdit && (
 						<span className={styles.hint}>
-							The target attribute can&apos;t be changed after creation.
+							{t(
+								'mapper_form_drawer.target_read_only_hint',
+								"The target attribute can't be changed after creation.",
+							)}
 						</span>
 					)}
 				</div>
 
 				<div className={styles.field}>
-					<span className={styles.label}>Write target to</span>
+					<span className={styles.label}>
+						{t('mapper_form_drawer.write_target_to', 'Write target to')}
+					</span>
 					<SelectSimple
 						className={styles.fieldContext}
 						items={FIELD_CONTEXT_OPTIONS}
@@ -192,16 +223,22 @@ function MapperFormDrawer({
 						testId="mapper-form-field-context"
 					/>
 					<span className={styles.hint}>
-						Where the standardized attribute is written.
+						{t(
+							'mapper_form_drawer.write_target_to_hint',
+							'Where the standardized attribute is written.',
+						)}
 					</span>
 				</div>
 
 				<div className={styles.field}>
 					<span className={styles.label}>
-						Source attributes
+						{t('mapper_form_drawer.source_attributes', 'Source attributes')}
 						<span className={styles.labelHint}>
 							{' '}
-							· priority: top → bottom · drag to reorder
+							{t(
+								'mapper_form_drawer.priority_hint',
+								'· priority: top → bottom · drag to reorder',
+							)}
 						</span>
 					</span>
 
@@ -235,7 +272,7 @@ function MapperFormDrawer({
 						onClick={addSource}
 						testId="mapper-form-add-source"
 					>
-						Add another source
+						{t('mapper_form_drawer.add_another_source', 'Add another source')}
 					</Button>
 				</div>
 

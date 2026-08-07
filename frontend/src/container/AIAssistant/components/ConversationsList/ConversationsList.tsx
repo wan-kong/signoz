@@ -5,6 +5,9 @@ import { Input } from '@signozhq/ui/input';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 import { Plus, Search } from '@signozhq/icons';
 
+import { useTranslation } from 'react-i18next';
+import i18n from 'ReactI18';
+
 import logEvent from 'api/common/logEvent';
 
 import { AIAssistantEvents } from '../../events';
@@ -56,14 +59,33 @@ function groupByDate(
 		.map(([label, items]) => ({ label, items }));
 }
 
+/** Maps a `groupByDate` group label to its i18n key. */
+const GROUP_LABEL_KEYS: Record<string, string> = {
+	Today: 'today',
+	Yesterday: 'yesterday',
+	'Last 7 days': 'last_7_days',
+	'Last 30 days': 'last_30_days',
+	Older: 'older',
+};
+
+function translateGroupLabel(label: string): string {
+	const key = GROUP_LABEL_KEYS[label] ?? label;
+	return i18n.t(key, label, { ns: 'ai_assistant' });
+}
+
 /**
  * Three-dot loading indicator. Sits inside the sidebar header so the
  * conversation list is never bumped down by a skeleton row when threads
  * load — visible signal of in-flight work without any layout shift.
  */
 function HeaderLoadingDots(): JSX.Element {
+	const { t } = useTranslation('ai_assistant');
 	return (
-		<span className={styles.loadingDots} role="status" aria-label="Loading">
+		<span
+			className={styles.loadingDots}
+			role="status"
+			aria-label={t('loading', 'Loading')}
+		>
 			<span className={styles.loadingDot} />
 			<span className={styles.loadingDot} />
 			<span className={styles.loadingDot} />
@@ -77,6 +99,7 @@ export default function ConversationsList({
 	showAddNewConversation = false,
 }: ConversationsListProps): JSX.Element {
 	const variant = useVariant();
+	const { t } = useTranslation('ai_assistant');
 	const conversations = useAIAssistantStore((s) => s.conversations);
 	const activeConversationId = useAIAssistantStore(
 		(s) => s.activeConversationId,
@@ -167,17 +190,19 @@ export default function ConversationsList({
 	return (
 		<div className={cx(styles.conversationsList, variantClass)}>
 			<div className={styles.header}>
-				<span className={styles.heading}>Conversations</span>
+				<span className={styles.heading}>
+					{t('conversations', 'Conversations')}
+				</span>
 				{isLoadingThreads && <HeaderLoadingDots />}
 
 				{!isLoadingThreads && showAddNewConversation && (
-					<TooltipSimple title="New conversation">
+					<TooltipSimple title={t('new_conversation', 'New conversation')}>
 						<Button
 							variant="solid"
 							size="sm"
 							color="secondary"
 							onClick={onNewConversation}
-							aria-label="New conversation"
+							aria-label={t('new_conversation', 'New conversation')}
 						>
 							<Plus size={12} />
 						</Button>
@@ -190,7 +215,7 @@ export default function ConversationsList({
 					type="text"
 					value={searchQuery}
 					onChange={(e): void => setSearchQuery(e.target.value)}
-					placeholder="Search conversations…"
+					placeholder={t('search_conversations', 'Search conversations…')}
 					prefix={<Search size={12} />}
 					className={styles.search}
 				/>
@@ -199,19 +224,21 @@ export default function ConversationsList({
 			<div className={styles.list} aria-busy={isLoadingThreads}>
 				{isLoadingThreads && (
 					<span className={styles.srOnly} role="status">
-						Loading conversations
+						{t('loading_conversations', 'Loading conversations')}
 					</span>
 				)}
 
 				{!isLoadingThreads && !hasAnySidebarRows && (
 					<p className={styles.empty}>
-						{isSearching ? 'No matching conversations.' : 'No conversations yet.'}
+						{isSearching
+							? t('no_matching_conversations', 'No matching conversations.')
+							: t('no_conversations_yet', 'No conversations yet.')}
 					</p>
 				)}
 
 				{groups.map(({ label, items }) => (
 					<div key={label} className={styles.group}>
-						<span className={styles.groupLabel}>{label}</span>
+						<span className={styles.groupLabel}>{translateGroupLabel(label)}</span>
 						{items.map((conv) => (
 							<ConversationItem
 								key={conv.id}
@@ -228,7 +255,9 @@ export default function ConversationsList({
 
 				{sortedArchived.length > 0 && (
 					<div className={cx(styles.group, styles.archived)}>
-						<span className={styles.groupLabel}>Archived Conversations</span>
+						<span className={styles.groupLabel}>
+							{t('archived_conversations', 'Archived Conversations')}
+						</span>
 						{sortedArchived.map((conv) => (
 							<ConversationItem
 								key={conv.id}

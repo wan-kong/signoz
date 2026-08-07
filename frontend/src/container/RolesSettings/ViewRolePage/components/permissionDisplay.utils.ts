@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { PermissionScope } from '../../types';
 
 export enum ScopeBadgeVariant {
@@ -13,7 +14,9 @@ export interface ScopeBadge {
 
 export function getActionLabel(actionName: string): string {
 	if (!actionName) {
-		return 'Unknown';
+		return i18n.t('role_view_unknown_action', 'Unknown', {
+			ns: 'organizationsettings',
+		});
 	}
 
 	return actionName[0].toUpperCase() + actionName.slice(1);
@@ -25,14 +28,27 @@ export function getScopeBadge(
 ): ScopeBadge {
 	switch (scope) {
 		case PermissionScope.ALL:
-			return { label: 'All', variant: ScopeBadgeVariant.ALL };
+			return {
+				label: i18n.t('all', 'All', { ns: 'organizationsettings' }),
+				variant: ScopeBadgeVariant.ALL,
+			};
 		case PermissionScope.ONLY_SELECTED:
 			return {
-				label: `Only selected · ${selectedCount}`,
+				label: i18n.t(
+					'role_view_only_selected_count',
+					'Only selected · {{selectedCount}}',
+					{
+						ns: 'organizationsettings',
+						selectedCount,
+					},
+				),
 				variant: ScopeBadgeVariant.SELECTED,
 			};
 		case PermissionScope.NONE:
 		default:
-			return { label: 'None', variant: ScopeBadgeVariant.NONE };
+			return {
+				label: i18n.t('none', 'None', { ns: 'organizationsettings' }),
+				variant: ScopeBadgeVariant.NONE,
+			};
 	}
 }

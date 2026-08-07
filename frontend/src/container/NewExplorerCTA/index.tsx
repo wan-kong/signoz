@@ -11,7 +11,10 @@ import { buttonText } from './config';
 
 import './NewExplorerCTA.styles.scss';
 
+import { useTranslation } from 'react-i18next';
+
 function NewExplorerCTA(): JSX.Element | null {
+	const { t } = useTranslation('dashboard');
 	const location = useLocation();
 	const { safeNavigate } = useSafeNavigate();
 
@@ -74,7 +77,7 @@ function NewExplorerCTA(): JSX.Element | null {
 		<span className="new-explorer-cta-with-badge">
 			{button}
 			<Badge color="robin" variant="default">
-				New
+				{t('new_explorer.new', 'New')}
 			</Badge>
 		</span>
 	);

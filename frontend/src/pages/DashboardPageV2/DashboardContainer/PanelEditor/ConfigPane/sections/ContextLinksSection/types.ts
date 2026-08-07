@@ -1,3 +1,5 @@
+import i18n from 'ReactI18';
+
 /**
  * Where a context-link variable comes from — shown as the right-hand label in the popover.
  *
@@ -10,10 +12,24 @@
  *   (e.g. `env`, `region`). Shared across every panel and driven by the dashboard's
  *   variable selectors rather than by an individual query.
  */
+export const CONTEXT_LINK_SOURCES = {
+	globalTimestamp: i18n.t(
+		'context_link_source.global_timestamp',
+		'Global timestamp',
+		{ ns: 'dashboard' },
+	),
+	queryVariable: i18n.t('context_link_source.query_variable', 'Query variable', {
+		ns: 'dashboard',
+	}),
+	dashboardVariable: i18n.t(
+		'context_link_source.dashboard_variable',
+		'Dashboard variable',
+		{ ns: 'dashboard' },
+	),
+} as const;
+
 export type VariableSource =
-	| 'Global timestamp'
-	| 'Query variable'
-	| 'Dashboard variable';
+	(typeof CONTEXT_LINK_SOURCES)[keyof typeof CONTEXT_LINK_SOURCES];
 
 /** One entry in the context-link variable autocomplete. */
 export interface VariableItem {

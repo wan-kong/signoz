@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { UniversalYAxisUnit } from 'components/YAxisUnitSelector/types';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { AlertDetectionTypes } from 'container/FormAlertRules';
@@ -35,17 +36,27 @@ export function validateCreateAlertState(
 
 	// Validate alert name
 	if (!basicAlertState.name) {
-		return 'Please enter an alert name';
+		return i18n.t('alert_name_required', 'Please enter an alert name', {
+			ns: 'create_alert',
+		});
 	}
 
 	// Validate threshold state if routing policies is not enabled
 	for (let i = 0; i < thresholdState.thresholds.length; i++) {
 		const threshold = thresholdState.thresholds[i];
 		if (!threshold.label) {
-			return 'Please enter a label for each threshold';
+			return i18n.t(
+				'threshold_label_required',
+				'Please enter a label for each threshold',
+				{ ns: 'create_alert' },
+			);
 		}
 		if (!notificationSettings.routingPolicies && !threshold.channels.length) {
-			return 'Please select at least one channel for each threshold or enable routing policies';
+			return i18n.t(
+				'threshold_channel_required',
+				'Please select at least one channel for each threshold or enable routing policies',
+				{ ns: 'create_alert' },
+			);
 		}
 	}
 

@@ -1,0 +1,61 @@
+{
+	"model_pricing": {
+		"model_costs_tab": "模型费用",
+		"unpriced_models_tab": "未定价模型"
+	},
+	"unpriced_models": {
+		"banner": "在 Trace 中检测到没有定价的模型。请将每个模型映射到计费模型或为其创建定价，以便计算估算成本。",
+		"load_error": "加载未定价模型失败。请重试。",
+		"map_success": "模型已映射",
+		"map_failed": "映射失败"
+	},
+	"map_confirm_dialog": {
+		"title": "映射到计费模型",
+		"input_per_million": "输入 / 1M",
+		"output_per_million": "输出 / 1M",
+		"cancel": "取消",
+		"map_model": "映射模型",
+		"body": "来自此模型的 Span 将使用所选计费模型进行定价。"
+	},
+	"map_to_billing": {
+		"select_placeholder": "选择 / 创建定价模型",
+		"search_placeholder": "搜索计费模型",
+		"no_models_found": "未找到计费模型",
+		"create_pricing_for": "为 \"{{modelName}}\" 创建定价"
+	},
+	"unpriced_table": {
+		"column_model": "模型（来自 Span）",
+		"column_provider": "提供方",
+		"provider_unknown": "未知",
+		"column_spans": "Span 数",
+		"column_map_to": "映射到计费模型",
+		"empty_text": "你的 Trace 中的所有模型都已定价。"
+	},
+	"constants": {
+		"toast_model_cost_added": "模型成本已添加",
+		"toast_model_cost_updated": "模型成本已更新",
+		"toast_model_cost_deleted": "模型成本已删除",
+		"source_all": "所有来源",
+		"source_user_override": "用户覆盖",
+		"source_auto": "自动",
+		"provider_self_hosted": "自托管",
+		"provider_other": "其他",
+		"cache_mode_subtract": "减去（OpenAI 风格）",
+		"cache_mode_additive": "累加（Anthropic 风格）",
+		"cache_mode_unknown": "未知"
+	},
+	"utils": {
+		"source_auto": "自动",
+		"source_user_override": "用户覆盖",
+		"billing_model_id_required": "必须填写计费模型 ID。",
+		"provider_required": "必须填写提供方。",
+		"input_cost_positive": "输入成本必须大于 0。",
+		"output_cost_positive": "输出成本必须大于 0。",
+		"cache_costs_non_negative": "缓存成本必须为非负数。"
+	},
+	"tabs": {
+		"overview": "概览",
+		"model_pricing": "模型定价",
+		"attribute_mapping": "属性映射"
+	}
+}

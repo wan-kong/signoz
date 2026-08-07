@@ -1,0 +1,55 @@
+{
+	"alerts_section": {
+		"title": "告警"
+	},
+	"axes": {
+		"title": "坐标轴",
+		"soft_min": "软最小值",
+		"soft_max": "软最大值",
+		"y_axis_scale": "Y 轴刻度",
+		"linear": "线性",
+		"logarithmic": "对数"
+	},
+	"chart_appearance": {
+		"title": "图表外观",
+		"show_points": "显示数据点",
+		"show_points_description": "在图表上显示各个数据点"
+	},
+	"context_links": {
+		"title": "上下文链接"
+	},
+	"formatting": {
+		"title": "格式与单位",
+		"unit": "单位",
+		"y_axis_unit": "Y 轴单位",
+		"decimal_precision": "小数精度"
+	},
+	"legend": {
+		"title": "图例",
+		"position": "位置",
+		"bottom": "底部",
+		"right": "右侧",
+		"colors_title": "图例颜色",
+		"no_legends": "没有可用的图例。运行查询以查看图例选项。",
+		"reset_all": "全部重置",
+		"reset": "重置"
+	},
+	"thresholds": {
+		"title": "阈值",
+		"add": "添加阈值"
+	},
+	"visualization": {
+		"title": "可视化",
+		"panel_type": "面板类型",
+		"panel_time_preference": "面板时间偏好",
+		"stack_series": "堆叠系列",
+		"fill_gaps": "填充间隙",
+		"fill_gaps_description": "用 0 填充数据中的间隙以保持连续性"
+	},
+	"color_selector": {
+		"custom_color": "自定义颜色"
+	},
+	"column_unit": {
+		"title": "列单位"
+	}
+}

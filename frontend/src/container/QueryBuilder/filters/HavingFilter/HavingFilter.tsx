@@ -216,7 +216,7 @@ export function HavingFilter({
 				});
 				setSearchText('');
 			} else {
-				setErrorMessage('Invalid HAVING clause');
+				setErrorMessage(t('having_filter.invalid_clause', { ns: 'pipeline' }));
 			}
 		}
 	}, [searchText, onChange]);

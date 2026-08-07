@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { FormInstance } from 'antd';
 import type { Rule, RuleRender } from 'antd/es/form';
 import type { NamePath } from 'antd/es/form/interface';
@@ -12,17 +13,85 @@ type ProcessorType = {
 };
 
 export const processorTypes: Array<ProcessorType> = [
-	{ key: 'grok_parser', value: 'grok_parser', label: 'Grok' },
-	{ key: 'regex_parser', value: 'regex_parser', label: 'Regex' },
-	{ key: 'json_parser', value: 'json_parser', label: 'Json Parser' },
-	{ key: 'trace_parser', value: 'trace_parser', label: 'Trace Parser' },
-	{ key: 'time_parser', value: 'time_parser', label: 'Timestamp Parser' },
-	{ key: 'severity_parser', value: 'severity_parser', label: 'Severity Parser' },
-	{ key: 'add', value: 'add', label: 'Add' },
-	{ key: 'remove', value: 'remove', label: 'Remove' },
+	{
+		key: 'grok_parser',
+		value: 'grok_parser',
+		label: i18n.t('processor_config.processor_type.grok', 'Grok', {
+			ns: 'pipeline',
+		}),
+	},
+	{
+		key: 'regex_parser',
+		value: 'regex_parser',
+		label: i18n.t('processor_config.processor_type.regex', 'Regex', {
+			ns: 'pipeline',
+		}),
+	},
+	{
+		key: 'json_parser',
+		value: 'json_parser',
+		label: i18n.t('processor_config.processor_type.json_parser', 'Json Parser', {
+			ns: 'pipeline',
+		}),
+	},
+	{
+		key: 'trace_parser',
+		value: 'trace_parser',
+		label: i18n.t(
+			'processor_config.processor_type.trace_parser',
+			'Trace Parser',
+			{
+				ns: 'pipeline',
+			},
+		),
+	},
+	{
+		key: 'time_parser',
+		value: 'time_parser',
+		label: i18n.t(
+			'processor_config.processor_type.timestamp_parser',
+			'Timestamp Parser',
+			{ ns: 'pipeline' },
+		),
+	},
+	{
+		key: 'severity_parser',
+		value: 'severity_parser',
+		label: i18n.t(
+			'processor_config.processor_type.severity_parser',
+			'Severity Parser',
+			{ ns: 'pipeline' },
+		),
+	},
+	{
+		key: 'add',
+		value: 'add',
+		label: i18n.t('processor_config.processor_type.add', 'Add', {
+			ns: 'pipeline',
+		}),
+	},
+	{
+		key: 'remove',
+		value: 'remove',
+		label: i18n.t('processor_config.processor_type.remove', 'Remove', {
+			ns: 'pipeline',
+		}),
+	},
 	// { key: 'retain', value: 'retain', label: 'Retain' }, @Chintan - Commented as per Nitya's suggestion
-	{ key: 'move', value: 'move', label: 'Move' },
-	{ key: 'copy', value: 'copy', label: 'Copy' },
+	{
+		key: 'move',
+		value: 'move',
+		label: i18n.t('processor_config.processor_type.move', 'Move', {
+			ns: 'pipeline',
+		}),
+	},
+	{
+		key: 'copy',
+		value: 'copy',
+		label: i18n.t('processor_config.processor_type.copy', 'Copy', {
+			ns: 'pipeline',
+		}),
+	},
 ];
 
 export const DEFAULT_PROCESSOR_TYPE = processorTypes[0].value;
@@ -64,7 +133,13 @@ const traceParserFieldValidator: RuleRender = (form) => ({
 
 		if (!parseFromValues.some((v) => v?.length > 0)) {
 			return Promise.reject(
-				new Error('At least one of the trace parser fields must be specified.'),
+				new Error(
+					i18n.t(
+						'processor_config.trace_parser_fields_required',
+						'At least one of the trace parser fields must be specified.',
+						{ ns: 'pipeline' },
+					),
+				),
 			);
 		}
 
@@ -75,7 +150,9 @@ const traceParserFieldValidator: RuleRender = (form) => ({
 const commonFields = [
 	{
 		id: 3,
-		fieldName: 'Parse From',
+		fieldName: i18n.t('processor_config.parse_from', 'Parse From', {
+			ns: 'pipeline',
+		}),
 		placeholder: 'processor_parsefrom_placeholder',
 		name: 'parse_from', // optional
 		rules: [],

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import MEditor from '@monaco-editor/react';
 import { Play, RotateCcw } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
@@ -33,6 +34,7 @@ function TestTab({ spanTest }: TestTabProps): JSX.Element {
 		validationError,
 	} = spanTest;
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('llm');
 
 	function renderResults(): JSX.Element {
 		if (error) {
@@ -46,7 +48,10 @@ function TestTab({ spanTest }: TestTabProps): JSX.Element {
 			if (result.length === 0) {
 				return (
 					<div className={styles.resultEmpty} data-testid="test-results-empty">
-						No spans returned. The mappers produced no output for this input.
+						{t(
+							'test_tab.no_spans',
+							'No spans returned. The mappers produced no output for this input.',
+						)}
 					</div>
 				);
 			}
@@ -67,9 +72,14 @@ function TestTab({ spanTest }: TestTabProps): JSX.Element {
 		}
 		return (
 			<div className={styles.placeholder} data-testid="test-results-placeholder">
-				<span className={styles.placeholderTitle}>No results yet</span>
+				<span className={styles.placeholderTitle}>
+					{t('test_tab.no_results_title', 'No results yet')}
+				</span>
 				<span>
-					Run the test to see which target attributes your mappers populate.
+					{t(
+						'test_tab.no_results_desc',
+						'Run the test to see which target attributes your mappers populate.',
+					)}
 				</span>
 			</div>
 		);
@@ -79,10 +89,14 @@ function TestTab({ spanTest }: TestTabProps): JSX.Element {
 		<div className={styles.testTab} data-testid="test-tab">
 			<div className={styles.header}>
 				<div className={styles.headerText}>
-					<h3 className={styles.heading}>Test with sample span</h3>
+					<h3 className={styles.heading}>
+						{t('test_tab.heading', 'Test with sample span')}
+					</h3>
 					<p className={styles.description}>
-						Paste a JSON span object to see which target attributes get populated and
-						which source key matched.
+						{t(
+							'test_tab.description',
+							'Paste a JSON span object to see which target attributes get populated and which source key matched.',
+						)}
 					</p>
 				</div>
 
@@ -95,7 +109,7 @@ function TestTab({ spanTest }: TestTabProps): JSX.Element {
 						onClick={resetToTemplate}
 						disabled={isTemplateInput}
 					>
-						Reset to Default Span
+						{t('test_tab.reset_default', 'Reset to Default Span')}
 					</Button>
 
 					<Button
@@ -107,7 +121,7 @@ function TestTab({ spanTest }: TestTabProps): JSX.Element {
 						loading={isRunning}
 						disabled={isRunning || validationError !== null}
 					>
-						Run Test
+						{t('test_tab.run_test', 'Run Test')}
 					</Button>
 				</div>
 			</div>
@@ -116,7 +130,7 @@ function TestTab({ spanTest }: TestTabProps): JSX.Element {
 				<div
 					className={styles.editor}
 					data-testid="test-span-input"
-					aria-label="Sample span JSON"
+					aria-label={t('test_tab.aria_label', 'Sample span JSON')}
 				>
 					<MEditor
 						language="json"

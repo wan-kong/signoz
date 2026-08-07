@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Button, Flex, SelectProps } from 'antd';
 import { Switch } from '@signozhq/ui/switch';
 import { Typography } from '@signozhq/ui/typography';
@@ -76,15 +77,15 @@ export function getCategorySelectOptionByName(
 const getOperatorWord = (op: AlertThresholdOperator): string => {
 	switch (op) {
 		case AlertThresholdOperator.IS_ABOVE:
-			return 'exceed';
+			return i18n.t('op_word_exceed', 'exceed', { ns: 'create_alert' });
 		case AlertThresholdOperator.IS_BELOW:
-			return 'fall below';
+			return i18n.t('op_word_fall_below', 'fall below', { ns: 'create_alert' });
 		case AlertThresholdOperator.IS_EQUAL_TO:
-			return 'equal';
+			return i18n.t('op_word_equal', 'equal', { ns: 'create_alert' });
 		case AlertThresholdOperator.IS_NOT_EQUAL_TO:
-			return 'not equal';
+			return i18n.t('op_word_not_equal', 'not equal', { ns: 'create_alert' });
 		default:
-			return 'exceed';
+			return i18n.t('op_word_exceed', 'exceed', { ns: 'create_alert' });
 	}
 };
 
@@ -205,15 +206,29 @@ function TooltipExample({
 }): JSX.Element {
 	return (
 		<div className="tooltip-example">
-			<strong>Example:</strong>
+			<strong>
+				{String(i18n.t('tooltip_example', 'Example:', { ns: 'create_alert' }))}
+			</strong>
 			<br />
-			Say, For a 5-minute window (configured in Evaluation settings), 1 min
-			aggregation interval (set up in query) → 5{' '}
+			{String(
+				i18n.t(
+					'tooltip_say_for_window',
+					'Say, For a 5-minute window (configured in Evaluation settings), 1 min aggregation interval (set up in query) → 5',
+					{ ns: 'create_alert' },
+				),
+			)}{' '}
 			{matchType === AlertThresholdMatchType.IN_TOTAL
-				? 'error counts'
-				: 'data points'}
+				? String(i18n.t('error_counts', 'error counts', { ns: 'create_alert' }))
+				: String(i18n.t('data_points', 'data points', { ns: 'create_alert' }))}
 			: [{dataPoints.join(', ')}]<br />
-			With threshold {operatorSymbol} {thresholdValue}: {children}
+			{String(
+				i18n.t(
+					'tooltip_with_threshold',
+					'With threshold {{operatorSymbol}} {{thresholdValue}}:',
+					{ operatorSymbol, thresholdValue, ns: 'create_alert' },
+				),
+			)}{' '}
+			{children}
 		</div>
 	);
 }
@@ -227,7 +242,7 @@ function TooltipLink(): JSX.Element {
 				rel="noopener noreferrer"
 				className="tooltip-link-text"
 			>
-				Learn more
+				{String(i18n.t('learn_more', 'Learn more', { ns: 'create_alert' }))}
 			</a>
 		</div>
 	);
@@ -262,9 +277,23 @@ export const getMatchTypeTooltip = (
 			return (
 				<TooltipContent>
 					<div className="tooltip-description">
-						Data is aggregated at each interval within your evaluation window,
-						creating multiple data points. This option triggers if <span>ANY</span> of
-						those aggregated data points crosses the threshold.
+						{String(
+							i18n.t(
+								'tooltip_desc_pre',
+								'Data is aggregated at each interval within your evaluation window, creating multiple data points. This option triggers if ',
+								{ ns: 'create_alert' },
+							),
+						)}
+						<span>
+							{String(i18n.t('tooltip_any_word', 'ANY', { ns: 'create_alert' }))}
+						</span>
+						{String(
+							i18n.t(
+								'tooltip_desc_any_post',
+								' of those aggregated data points crosses the threshold.',
+								{ ns: 'create_alert' },
+							),
+						)}
 					</div>
 					<TooltipExample
 						dataPoints={dataPoints}
@@ -272,8 +301,18 @@ export const getMatchTypeTooltip = (
 						thresholdValue={thresholdValue}
 						matchType={matchType}
 					>
-						Alert triggers ({getMatchingPointsCount()} points {operatorWord}{' '}
-						{thresholdValue})
+						{String(
+							i18n.t(
+								'tooltip_triggers_points',
+								'Alert triggers ({{count}} points {{operatorWord}} {{thresholdValue}})',
+								{
+									count: getMatchingPointsCount(),
+									operatorWord,
+									thresholdValue,
+									ns: 'create_alert',
+								},
+							),
+						)}
 					</TooltipExample>
 					<TooltipLink />
 				</TooltipContent>
@@ -283,9 +322,23 @@ export const getMatchTypeTooltip = (
 			return (
 				<TooltipContent>
 					<div className="tooltip-description">
-						Data is aggregated at each interval within your evaluation window,
-						creating multiple data points. This option triggers if <span>ALL</span>{' '}
-						aggregated data points cross the threshold.
+						{String(
+							i18n.t(
+								'tooltip_desc_pre',
+								'Data is aggregated at each interval within your evaluation window, creating multiple data points. This option triggers if ',
+								{ ns: 'create_alert' },
+							),
+						)}
+						<span>
+							{String(i18n.t('tooltip_all_word', 'ALL', { ns: 'create_alert' }))}
+						</span>
+						{String(
+							i18n.t(
+								'tooltip_desc_all_post',
+								' aggregated data points cross the threshold.',
+								{ ns: 'create_alert' },
+							),
+						)}
 					</div>
 					<TooltipExample
 						dataPoints={dataPoints}
@@ -293,8 +346,21 @@ export const getMatchTypeTooltip = (
 						thresholdValue={thresholdValue}
 						matchType={matchType}
 					>
-						Alert triggers (all points {operatorWord} {thresholdValue})<br />
-						If any point was {thresholdValue}, no alert would fire
+						{String(
+							i18n.t(
+								'tooltip_triggers_all_points',
+								'Alert triggers (all points {{operatorWord}} {{thresholdValue}})',
+								{ operatorWord, thresholdValue, ns: 'create_alert' },
+							),
+						)}
+						<br />
+						{String(
+							i18n.t(
+								'tooltip_if_any_point',
+								'If any point was {{thresholdValue}}, no alert would fire',
+								{ thresholdValue, ns: 'create_alert' },
+							),
+						)}
 					</TooltipExample>
 					<TooltipLink />
 				</TooltipContent>
@@ -307,9 +373,25 @@ export const getMatchTypeTooltip = (
 			return (
 				<TooltipContent>
 					<div className="tooltip-description">
-						Data is aggregated at each interval within your evaluation window,
-						creating multiple data points. This option triggers if the{' '}
-						<span>AVERAGE</span> of all aggregated data points crosses the threshold.
+						{String(
+							i18n.t(
+								'tooltip_desc_pre_the',
+								'Data is aggregated at each interval within your evaluation window, creating multiple data points. This option triggers if the ',
+								{ ns: 'create_alert' },
+							),
+						)}
+						<span>
+							{String(
+								i18n.t('tooltip_average_word', 'AVERAGE', { ns: 'create_alert' }),
+							)}
+						</span>
+						{String(
+							i18n.t(
+								'tooltip_desc_avg_post',
+								' of all aggregated data points crosses the threshold.',
+								{ ns: 'create_alert' },
+							),
+						)}
 					</div>
 					<TooltipExample
 						dataPoints={dataPoints}
@@ -317,7 +399,13 @@ export const getMatchTypeTooltip = (
 						thresholdValue={thresholdValue}
 						matchType={matchType}
 					>
-						Alert triggers (average = {average})
+						{String(
+							i18n.t(
+								'tooltip_triggers_average',
+								'Alert triggers (average = {{average}})',
+								{ average, ns: 'create_alert' },
+							),
+						)}
 					</TooltipExample>
 					<TooltipLink />
 				</TooltipContent>
@@ -329,9 +417,23 @@ export const getMatchTypeTooltip = (
 			return (
 				<TooltipContent>
 					<div className="tooltip-description">
-						Data is aggregated at each interval within your evaluation window,
-						creating multiple data points. This option triggers if the{' '}
-						<span>SUM</span> of all aggregated data points crosses the threshold.
+						{String(
+							i18n.t(
+								'tooltip_desc_pre_the',
+								'Data is aggregated at each interval within your evaluation window, creating multiple data points. This option triggers if the ',
+								{ ns: 'create_alert' },
+							),
+						)}
+						<span>
+							{String(i18n.t('tooltip_sum_word', 'SUM', { ns: 'create_alert' }))}
+						</span>
+						{String(
+							i18n.t(
+								'tooltip_desc_avg_post',
+								' of all aggregated data points crosses the threshold.',
+								{ ns: 'create_alert' },
+							),
+						)}
 					</div>
 					<TooltipExample
 						dataPoints={dataPoints}
@@ -339,7 +441,12 @@ export const getMatchTypeTooltip = (
 						thresholdValue={thresholdValue}
 						matchType={matchType}
 					>
-						Alert triggers (total = {total})
+						{String(
+							i18n.t('tooltip_triggers_total', 'Alert triggers (total = {{total}})', {
+								total,
+								ns: 'create_alert',
+							}),
+						)}
 					</TooltipExample>
 					<TooltipLink />
 				</TooltipContent>
@@ -351,9 +458,25 @@ export const getMatchTypeTooltip = (
 			return (
 				<TooltipContent>
 					<div className="tooltip-description">
-						Data is aggregated at each interval within your evaluation window,
-						creating multiple data points. This option triggers based on the{' '}
-						<span>MOST RECENT</span> aggregated data point only.
+						{String(
+							i18n.t(
+								'tooltip_desc_pre_last',
+								'Data is aggregated at each interval within your evaluation window, creating multiple data points. This option triggers based on the ',
+								{ ns: 'create_alert' },
+							),
+						)}
+						<span>
+							{String(
+								i18n.t('tooltip_most_recent_word', 'MOST RECENT', {
+									ns: 'create_alert',
+								}),
+							)}
+						</span>
+						{String(
+							i18n.t('tooltip_desc_last_post', ' aggregated data point only.', {
+								ns: 'create_alert',
+							}),
+						)}
 					</div>
 					<TooltipExample
 						dataPoints={dataPoints}
@@ -361,7 +484,13 @@ export const getMatchTypeTooltip = (
 						thresholdValue={thresholdValue}
 						matchType={matchType}
 					>
-						Alert triggers (last point = {lastPoint})
+						{String(
+							i18n.t(
+								'tooltip_triggers_last_point',
+								'Alert triggers (last point = {{lastPoint}})',
+								{ lastPoint, ns: 'create_alert' },
+							),
+						)}
 					</TooltipExample>
 					<TooltipLink />
 				</TooltipContent>
@@ -383,10 +512,14 @@ export function NotificationChannelsNotFoundContent({
 	return (
 		<Flex justify="space-between">
 			<Flex gap={4} align="center">
-				<Typography.Text>No channels yet.</Typography.Text>
+				<Typography.Text>
+					{String(
+						i18n.t('no_channels_yet', 'No channels yet.', { ns: 'create_alert' }),
+					)}
+				</Typography.Text>
 				{user?.role === USER_ROLES.ADMIN ? (
 					<Typography.Text>
-						Create one
+						{String(i18n.t('create_one', 'Create one', { ns: 'create_alert' }))}
 						<Button
 							style={{ padding: '0 4px' }}
 							type="link"
@@ -394,15 +527,21 @@ export function NotificationChannelsNotFoundContent({
 								openInNewTab(ROUTES.CHANNELS_NEW);
 							}}
 						>
-							here.
+							{String(i18n.t('here', 'here.', { ns: 'create_alert' }))}
 						</Button>
 					</Typography.Text>
 				) : (
-					<Typography.Text>Please ask your admin to create one.</Typography.Text>
+					<Typography.Text>
+						{String(
+							i18n.t('ask_admin_to_create', 'Please ask your admin to create one.', {
+								ns: 'create_alert',
+							}),
+						)}
+					</Typography.Text>
 				)}
 			</Flex>
 			<Button type="text" onClick={refreshChannels}>
-				Refresh
+				{String(i18n.t('refresh', 'Refresh', { ns: 'create_alert' }))}
 			</Button>
 		</Flex>
 	);
@@ -416,7 +555,13 @@ export function RoutingPolicyBanner({
 	return (
 		<div className="routing-policies-info-banner">
 			<Typography.Text>
-				Use <strong>Routing Policies</strong> for dynamic routing
+				{String(i18n.t('routing_policies_use', 'Use', { ns: 'create_alert' }))}{' '}
+				<strong>Routing Policies</strong>{' '}
+				{String(
+					i18n.t('for_dynamic_routing', 'for dynamic routing', {
+						ns: 'create_alert',
+					}),
+				)}
 			</Typography.Text>
 			<div className="routing-policies-info-banner-right">
 				<Switch
@@ -435,7 +580,11 @@ export function RoutingPolicyBanner({
 					data-testid="view-routing-policies-button"
 					onClick={(): void => safeNavigate(ROUTING_POLICIES_ROUTE)}
 				>
-					View Routing Policies
+					{String(
+						i18n.t('view_routing_policies', 'View Routing Policies', {
+							ns: 'create_alert',
+						}),
+					)}
 					<ArrowRight size={14} />
 				</Button>
 			</div>

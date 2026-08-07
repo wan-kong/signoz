@@ -206,7 +206,7 @@ export function Formula({
 							onChange={handleChange}
 							size="middle"
 							value={formula.legend}
-							addonBefore="Legend Format"
+							addonBefore={t('query_add_ons.legend_format', 'Legend Format')}
 						/>
 					</Col>
 					{isAdditionalFilterEnable && (
@@ -224,7 +224,7 @@ export function Formula({
 						<Col span={24}>
 							<div className="formula-qbv2-container">
 								<div className="periscope-input-with-label">
-									<div className="label">Order By</div>
+									<div className="label">{t('query_add_ons.order_by', 'Order By')}</div>
 									<div className="input">
 										<Select
 											getPopupContainer={popupContainer}
@@ -240,7 +240,7 @@ export function Formula({
 									</div>
 								</div>
 								<InputWithLabel
-									label="Limit"
+									label={t('query_add_ons.limit', 'Limit')}
 									type="number"
 									onChange={(value): void => handleChangeLimit(Number(value))}
 									initialValue={formula?.limit ?? undefined}

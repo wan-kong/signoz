@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DrawerWrapper } from '@signozhq/ui/drawer';
 import { Input } from '@signozhq/ui/input';
@@ -38,6 +39,7 @@ function ModelCostDrawer({
 	saveError,
 	canManage,
 }: ModelCostDrawerProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	// Default mode validates on submit, then re-validates on change — so we don't
 	// flag empty fields before the user has tried to save, but errors clear live
 	// once they start fixing them.
@@ -61,11 +63,11 @@ function ModelCostDrawer({
 
 	// Non-managers can only view (write APIs are Admin-only), so the drawer is a
 	// read-only "View" rather than "Edit"/"Add".
-	let drawerTitle = 'Add model cost';
+	let drawerTitle = t('model_cost_drawer.title_add', 'Add model cost');
 	if (!canManage) {
-		drawerTitle = 'View model cost';
+		drawerTitle = t('model_cost_drawer.title_view', 'View model cost');
 	} else if (mode === 'edit') {
-		drawerTitle = 'Edit model cost';
+		drawerTitle = t('model_cost_drawer.title_edit', 'Edit model cost');
 	}
 
 	const footer = (
@@ -76,7 +78,9 @@ function ModelCostDrawer({
 				onClick={onClose}
 				testId="drawer-cancel-btn"
 			>
-				{canManage ? 'Cancel' : 'Close'}
+				{canManage
+					? t('model_cost_drawer.cancel', 'Cancel')
+					: t('model_cost_drawer.close', 'Close')}
 			</Button>
 			{canManage && (
 				<Button
@@ -87,7 +91,7 @@ function ModelCostDrawer({
 					loading={isSaving}
 					testId="drawer-save-btn"
 				>
-					Save
+					{t('model_cost_drawer.save', 'Save')}
 				</Button>
 			)}
 		</div>
@@ -110,7 +114,7 @@ function ModelCostDrawer({
 		>
 			<div className={styles.drawerSection}>
 				<label htmlFor="billing-model-id">
-					Billing Model ID{' '}
+					{t('model_cost_drawer.billing_model_id', 'Billing Model ID')}{' '}
 					<span className={styles.required} aria-hidden="true">
 						*
 					</span>
@@ -125,7 +129,10 @@ function ModelCostDrawer({
 						<>
 							<Input
 								id="billing-model-id"
-								placeholder="e.g. openai:gpt-4o"
+								placeholder={t(
+									'model_cost_drawer.model_id_placeholder',
+									'e.g. openai:gpt-4o',
+								)}
 								required
 								value={field.value}
 								disabled={mode === 'edit' || metadataReadOnly}
@@ -144,7 +151,9 @@ function ModelCostDrawer({
 			</div>
 
 			<div className={styles.drawerSection}>
-				<label htmlFor="provider-select">Provider</label>
+				<label htmlFor="provider-select">
+					{t('model_cost_drawer.provider', 'Provider')}
+				</label>
 				<Controller
 					name="provider"
 					control={control}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Empty, Table, TableColumnProps as ColumnProps, Tooltip } from 'antd';
 
 import solidInfoCircleUrl from '@/assets/Icons/solid-info-circle.svg';
@@ -19,13 +20,15 @@ function FunnelTable({
 	title,
 	tooltip,
 }: FunnelTableProps): JSX.Element {
+	const { t } = useTranslation('funnel_results');
+
 	return (
 		<div className="funnel-table">
 			<div className="funnel-table__header">
 				<div className="funnel-table__title">{title}</div>
 				<div className="funnel-table__actions">
 					<Tooltip title={tooltip ?? null}>
-						<img src={solidInfoCircleUrl} alt="info" />
+						<img src={solidInfoCircleUrl} alt={t('funnel_table.info_alt', 'info')} />
 					</Tooltip>
 				</div>
 			</div>

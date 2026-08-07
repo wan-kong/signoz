@@ -1,10 +1,11 @@
+import i18n from 'ReactI18';
 import { QueryFunctionsTypes } from 'types/common/queryBuilder';
 import { SelectOption } from 'types/common/select';
 
 export const metricQueryFunctionOptions: SelectOption<string, string>[] = [
 	{
 		value: QueryFunctionsTypes.CUTOFF_MIN,
-		label: 'Cut Off Min',
+		label: i18n.t('constants.cut_off_min', 'Cut Off Min', { ns: 'common' }),
 	},
 	{
 		value: QueryFunctionsTypes.CUTOFF_MAX,

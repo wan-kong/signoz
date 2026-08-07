@@ -37,19 +37,19 @@ describe('Should check if the edit alert channel is properly displayed', () => {
 		jest.clearAllMocks();
 	});
 	it('Should check if the title is "Edit Notification Channels"', () => {
-		expect(screen.getByText('page_title_edit')).toBeInTheDocument();
+		expect(screen.getByText('Edit Notification Channels')).toBeInTheDocument();
 	});
 
 	it('Should check if the name label and textbox are displayed properly', () => {
 		testLabelInputAndHelpValue({
-			labelText: 'field_channel_name',
+			labelText: 'Name',
 			testId: 'channel-name-textbox',
 			value: 'Dummy-Channel',
 		});
 	});
 	it('Should check if Send resolved alerts label and checkbox are displayed properly and the checkbox is checked', () => {
 		testLabelInputAndHelpValue({
-			labelText: 'field_send_resolved',
+			labelText: 'Send resolved alerts',
 			testId: 'field-send-resolved-checkbox',
 		});
 		expect(screen.getByTestId('field-send-resolved-checkbox')).toBeChecked();
@@ -57,7 +57,7 @@ describe('Should check if the edit alert channel is properly displayed', () => {
 
 	it('Should check if channel type label and dropdown are displayed properly', () => {
 		testLabelInputAndHelpValue({
-			labelText: 'field_channel_type',
+			labelText: 'Type',
 			testId: 'channel-type-select',
 		});
 	});
@@ -68,7 +68,7 @@ describe('Should check if the edit alert channel is properly displayed', () => {
 
 	it('Should check if Webhook URL label and input are displayed properly', () => {
 		testLabelInputAndHelpValue({
-			labelText: 'field_webhook_url',
+			labelText: 'Webhook URL',
 			testId: 'webhook-url-textbox',
 			value:
 				'https://discord.com/api/webhooks/dummy_webhook_id/dummy_webhook_token/slack',
@@ -77,16 +77,17 @@ describe('Should check if the edit alert channel is properly displayed', () => {
 
 	it('Should check if Recepient label, input, and help text are displayed properly', () => {
 		testLabelInputAndHelpValue({
-			labelText: 'field_slack_recipient',
+			labelText: 'Recipient',
 			testId: 'slack-channel-textbox',
-			helpText: 'slack_channel_help',
+			helpText:
+				'Specify channel or user, use #channel-name, @username (has to be all lowercase, no whitespace)',
 			value: '#dummy_channel',
 		});
 	});
 
 	it('Should check if Title label and text area are displayed properly', () => {
 		testLabelInputAndHelpValue({
-			labelText: 'field_slack_title',
+			labelText: 'Title',
 			testId: 'title-textarea',
 		});
 	});
@@ -99,7 +100,7 @@ describe('Should check if the edit alert channel is properly displayed', () => {
 
 	it('Should check if Description label and text area are displayed properly', () => {
 		testLabelInputAndHelpValue({
-			labelText: 'field_slack_description',
+			labelText: 'Description',
 			testId: 'description-textarea',
 		});
 	});
@@ -113,8 +114,8 @@ describe('Should check if the edit alert channel is properly displayed', () => {
 	});
 
 	it('Should check if the form buttons are displayed properly (Save, Test, Back)', () => {
-		expect(screen.getByText('button_save_channel')).toBeInTheDocument();
-		expect(screen.getByText('button_test_channel')).toBeInTheDocument();
-		expect(screen.getByText('button_return')).toBeInTheDocument();
+		expect(screen.getByText('Save')).toBeInTheDocument();
+		expect(screen.getByText('Test')).toBeInTheDocument();
+		expect(screen.getByText('Back')).toBeInTheDocument();
 	});
 });

@@ -1,5 +1,6 @@
 //@ts-nocheck
 
+import i18n from 'ReactI18';
 import {
 	cloneDeep,
 	find,
@@ -125,7 +126,7 @@ export const getTooltip = (link: {
 }): string => {
 	return `<div style="color:#333333;padding:12px;background: white;border-radius: 2px;">
 								<div class="keyval">
-									<div class="key">P99 latency:</div>
+									<div class="key">${i18n.t('servicemap.p99_latency', 'P99 latency:', { ns: 'common' })}</div>
 									<div class="val">${getRound2DigitsAfterDecimal(link.p99 / 1000000)}ms</div>
 								</div>
 								<div class="keyval">

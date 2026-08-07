@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import { Select } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -39,9 +40,11 @@ export default function FormattingUnitsSection({
 	allowPanelColumnPreference,
 	decimapPrecisionOptions,
 }: FormattingUnitsSectionProps): JSX.Element {
+	const { t } = useTranslation('new_widget_settings');
+
 	return (
 		<SettingsSection
-			title="Formatting & Units"
+			title={t('formatting.title', 'Formatting & Units')}
 			icon={<SlidersHorizontal size={14} />}
 		>
 			{allowYAxisUnit && (
@@ -51,8 +54,8 @@ export default function FormattingUnitsSection({
 					fieldLabel={
 						selectedPanelDisplay === PanelDisplay.VALUE ||
 						selectedPanelDisplay === PanelDisplay.PIE
-							? 'Unit'
-							: 'Y Axis Unit'
+							? t('formatting.unit', 'Unit')
+							: t('formatting.y_axis_unit', 'Y Axis Unit')
 					}
 					shouldUpdateYAxisUnit={isNewDashboard}
 				/>
@@ -61,7 +64,7 @@ export default function FormattingUnitsSection({
 			{allowDecimalPrecision && (
 				<section className="decimal-precision-selector control-container">
 					<Typography.Text className="section-heading">
-						Decimal Precision
+						{t('formatting.decimal_precision', 'Decimal Precision')}
 					</Typography.Text>
 					<Select
 						options={decimapPrecisionOptions}

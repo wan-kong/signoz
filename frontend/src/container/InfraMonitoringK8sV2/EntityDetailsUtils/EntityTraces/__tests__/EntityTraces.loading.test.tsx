@@ -12,7 +12,7 @@ describe('EntityTraces - Loading State', () => {
 		});
 
 		await expect(
-			screen.findByText(/pending_data_placeholder/i),
+			screen.findByText(/Retrieving your traces!/i),
 		).resolves.toBeInTheDocument();
 	});
 
@@ -24,13 +24,13 @@ describe('EntityTraces - Loading State', () => {
 		});
 
 		await expect(
-			screen.findByText(/pending_data_placeholder/i),
+			screen.findByText(/Retrieving your traces!/i),
 		).resolves.toBeInTheDocument();
 
 		await waitFor(
 			() => {
 				expect(
-					screen.queryByText(/pending_data_placeholder/i),
+					screen.queryByText(/Retrieving your traces!/i),
 				).not.toBeInTheDocument();
 			},
 			{ timeout: 3000 },

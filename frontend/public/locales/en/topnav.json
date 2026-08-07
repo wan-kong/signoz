@@ -1,0 +1,29 @@
+{
+	"auto_refresh": {
+		"interval": {
+			"off": "off",
+			"5_seconds": "5 seconds",
+			"10_seconds": "10 seconds",
+			"30_seconds": "30 seconds",
+			"1_minute": "1 minute",
+			"5_minutes": "5 minutes",
+			"10_minutes": "10 minutes",
+			"30_minutes": "30 minutes",
+			"1_hour": "1 hour",
+			"2_hours": "2 hours",
+			"1_day": "1 day"
+		},
+		"enable_label": "Auto Refresh",
+		"interval_title": "Refresh Interval",
+		"set_auto_refresh_tooltip": "Set auto refresh"
+	},
+	"date_time_selection": {
+		"reset": "Reset",
+		"reset_to": "Reset to {{value}}",
+		"refreshed_months_ago": "Refreshed {{count}} months ago",
+		"refreshed_days_ago": "Refreshed {{count}} days ago",
+		"refreshed_hours_ago": "Refreshed {{count}} hrs ago",
+		"refreshed_minutes_ago": "Refreshed {{count}} mins ago",
+		"refreshed_seconds_ago": "Refreshed {{count}} sec ago"
+	}
+}

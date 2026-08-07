@@ -51,21 +51,31 @@ function IntegrationsHeader(props: IntegrationsHeaderProps): JSX.Element {
 			});
 
 			if (response.statusCode === 200) {
-				toast.success('Integration Request Submitted', {
-					position: 'top-right',
-				});
+				toast.success(
+					t(
+						'integrations.integration_request_submitted',
+						'Integration Request Submitted',
+					),
+					{
+						position: 'top-right',
+					},
+				);
 				setRequestedIntegrationName('');
 				setIsRequestIntegrationDialogOpen(false);
 				setIsSubmittingRequestForIntegration(false);
 			} else {
-				toast.error(response.error || 'Something went wrong', {
-					position: 'top-right',
-				});
+				toast.error(
+					response.error ||
+						t('integrations.something_went_wrong', 'Something went wrong'),
+					{
+						position: 'top-right',
+					},
+				);
 
 				setIsSubmittingRequestForIntegration(false);
 			}
 		} catch (error) {
-			toast.error('Something went wrong', {
+			toast.error(t('integrations.something_went_wrong', 'Something went wrong'), {
 				position: 'top-right',
 			});
 			setIsSubmittingRequestForIntegration(false);
@@ -74,14 +84,19 @@ function IntegrationsHeader(props: IntegrationsHeaderProps): JSX.Element {
 
 	return (
 		<div className="integrations-header">
-			<Typography.Title className="title">Integrations</Typography.Title>
+			<Typography.Title className="title">
+				{t('integrations.title', 'Integrations')}
+			</Typography.Title>
 			<Flex
 				justify="space-between"
 				align="center"
 				className="integrations-header__subrow"
 			>
 				<Typography.Text className="subtitle">
-					Manage integrations for this workspace.
+					{t(
+						'integrations.manage_integrations',
+						'Manage integrations for this workspace.',
+					)}
 				</Typography.Text>
 			</Flex>
 
@@ -100,18 +115,24 @@ function IntegrationsHeader(props: IntegrationsHeaderProps): JSX.Element {
 					prefix={<Cable size={14} />}
 					onClick={(): void => setIsRequestIntegrationDialogOpen(true)}
 				>
-					Request Integration
+					{t('integrations.request_integration', 'Request Integration')}
 				</Button>
 
 				<DialogWrapper
 					className="request-integration-dialog"
-					title="Request New Integration"
+					title={t(
+						'integrations.request_new_integration',
+						'Request New Integration',
+					)}
 					open={isRequestIntegrationDialogOpen}
 					onOpenChange={setIsRequestIntegrationDialogOpen}
 				>
 					<div className="request-integration-form">
 						<div className="request-integration-form-title">
-							Which integration are you looking for?
+							{t(
+								'integrations.which_integration',
+								'Which integration are you looking for?',
+							)}
 						</div>
 						<Input
 							placeholder={t('integrations.enter_integration_name')}
@@ -141,7 +162,7 @@ function IntegrationsHeader(props: IntegrationsHeaderProps): JSX.Element {
 								requestedIntegrationName?.trim().length === 0
 							}
 						>
-							Submit
+							{t('submit', 'Submit')}
 						</Button>
 					</div>
 				</DialogWrapper>
@@ -152,7 +173,9 @@ function IntegrationsHeader(props: IntegrationsHeaderProps): JSX.Element {
 						color="primary"
 						onClick={(): void => history.push(ROUTES.GET_STARTED_WITH_CLOUD)}
 					>
-						<span>View 150+ Data Sources</span>
+						<span>
+							{t('integrations.view_data_sources', 'View 150+ Data Sources')}
+						</span>
 						<ArrowRight size={14} />
 					</Button>
 				)}

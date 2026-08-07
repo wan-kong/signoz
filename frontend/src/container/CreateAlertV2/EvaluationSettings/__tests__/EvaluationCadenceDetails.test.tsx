@@ -63,7 +63,7 @@ describe('EvaluationCadenceDetails', () => {
 				setIsCustomScheduleButtonVisible={mockSetIsCustomScheduleButtonVisible}
 			/>,
 		);
-		expect(screen.getByText('Add Custom Schedule')).toBeInTheDocument();
+		expect(screen.getByText('Add custom schedule')).toBeInTheDocument();
 
 		expect(screen.getByTestId(EDITOR_VIEW_TEST_ID)).toBeInTheDocument();
 		expect(screen.queryByTestId('rrule-view')).not.toBeInTheDocument();
@@ -94,7 +94,7 @@ describe('EvaluationCadenceDetails', () => {
 		).not.toBeInTheDocument();
 		expect(screen.getByTestId(NO_SCHEDULE_TEST_ID)).toBeInTheDocument();
 
-		expect(screen.getByText('STARTING ON')).toBeInTheDocument();
+		expect(screen.getByText('Starting on')).toBeInTheDocument();
 		expect(screen.getByText('AT')).toBeInTheDocument();
 		expect(
 			screen.getByPlaceholderText(ENTER_RRULE_PLACEHOLDER),

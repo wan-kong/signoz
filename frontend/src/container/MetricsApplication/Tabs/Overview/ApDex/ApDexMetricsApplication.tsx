@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Spinner from 'components/Spinner';
 import { useGetMetricMeta } from 'hooks/apDex/useGetMetricMeta';
 import useErrorNotification from 'hooks/useErrorNotification';
@@ -17,6 +18,7 @@ function ApDexMetricsApplication({
 	thresholdValue,
 	topLevelOperationsRoute,
 }: ApDexDataSwitcherProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { servicename: encodedServiceName } = useParams<IServiceName>();
 	const servicename = decodeURIComponent(encodedServiceName);
 
@@ -36,7 +38,9 @@ function ApDexMetricsApplication({
 	useErrorNotification(error);
 
 	if (isLoading) {
-		return <Spinner height="40vh" tip="Loading..." />;
+		return (
+			<Spinner height="40vh" tip={t('loading', 'Loading...', { ns: 'common' })} />
+		);
 	}
 
 	return (

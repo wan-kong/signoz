@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Col, Modal, Row, Skeleton, Space } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import ROUTES from 'constants/routes';
@@ -11,6 +12,7 @@ import featureGraphicCorrelationUrl from '@/assets/Images/feature-graphic-correl
 import './WorkspaceAccessRestricted.styles.scss';
 
 function WorkspaceAccessRestricted(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { activeLicense, isFetchingActiveLicense } = useAppContext();
 
 	useEffect(() => {
@@ -37,7 +39,7 @@ function WorkspaceAccessRestricted(): JSX.Element {
 				title={
 					<div className="workspace-access-restricted__modal__header">
 						<span className="workspace-access-restricted__modal__title">
-							Your workspace access is restricted
+							{t('workspace_access_restricted')}
 						</span>
 					</div>
 				}

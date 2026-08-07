@@ -1,4 +1,5 @@
 /* eslint-disable sonarjs/cognitive-complexity */
+import { useTranslation } from 'react-i18next';
 import { useMemo, useRef, useState } from 'react';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { Button, Input, InputNumber, Select, Space } from 'antd';
@@ -9,7 +10,6 @@ import { YAxisSource } from 'components/YAxisUnitSelector/types';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { unitOptions } from 'container/NewWidget/utils';
 import { useIsDarkMode } from 'hooks/useDarkMode';
-import { useTranslation } from 'react-i18next';
 import { getColumnUnit } from 'lib/query/createTableColumnsFromQuery';
 import { Check, Pencil, Trash2, X } from '@signozhq/icons';
 

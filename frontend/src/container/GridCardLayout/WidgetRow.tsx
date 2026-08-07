@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Layout } from 'react-grid-layout';
 import { Button, Popover } from 'antd';
 import useComponentPermission from 'hooks/useComponentPermission';
@@ -36,6 +37,7 @@ export function WidgetRowHeader(props: WidgetRowHeaderProps): JSX.Element {
 		setIsSettingsModalOpen,
 		id,
 	} = props;
+	const { t } = useTranslation('dashboard');
 	const [isRowSettingsOpen, setIsRowSettingsOpen] = useState<boolean>(false);
 
 	const setIsPanelTypeSelectionModalOpen = usePanelTypeSelectionModalStore(
@@ -76,7 +78,7 @@ export function WidgetRowHeader(props: WidgetRowHeaderProps): JSX.Element {
 								setIsRowSettingsOpen(false);
 							}}
 						>
-							Rename
+							{t('dashboard_page_v2.section_actions.rename', 'Rename')}
 						</Button>
 					</section>
 					<section className="section-1">
@@ -95,7 +97,7 @@ export function WidgetRowHeader(props: WidgetRowHeaderProps): JSX.Element {
 								setIsPanelTypeSelectionModalOpen(true);
 							}}
 						>
-							New Panel
+							{t('dashboard_page_v2.section_actions.new_panel', 'New Panel')}
 						</Button>
 					</section>
 					{!rowWidgetProperties.collapsed && (
@@ -111,7 +113,10 @@ export function WidgetRowHeader(props: WidgetRowHeaderProps): JSX.Element {
 									setIsRowSettingsOpen(false);
 								}}
 							>
-								Remove Section
+								{t(
+									'dashboard_page_v2.section_actions.remove_section',
+									'Remove Section',
+								)}
 							</Button>
 						</section>
 					)}

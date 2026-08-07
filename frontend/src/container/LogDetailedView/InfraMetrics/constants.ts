@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
 import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
@@ -2883,7 +2884,11 @@ export const hostWidgetInfo = [
 		docPath: '/infrastructure-monitoring/host-monitoring/#memory-usage-1',
 	},
 	{
-		title: 'Disk Usage (%) by mountpoint',
+		title: i18n.t(
+			'infra_metrics.disk_usage_by_mountpoint',
+			'Disk Usage (%) by mountpoint',
+			{ ns: 'infraMonitoring' },
+		),
 		yAxisUnit: 'percentunit',
 		docPath:
 			'/infrastructure-monitoring/host-monitoring/#disk-usage--by-mountpoint',

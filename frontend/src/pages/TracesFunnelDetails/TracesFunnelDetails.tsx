@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import Spinner from 'components/Spinner';
 import { NotFoundContainer } from 'container/GridCardLayout/GridCard/FullView/styles';
@@ -12,16 +13,21 @@ import './TracesFunnelDetails.styles.scss';
 
 function TracesFunnelDetails(): JSX.Element {
 	const { funnelId } = useParams<{ funnelId: string }>();
+	const { t } = useTranslation('funnel_results');
 	const { data, isLoading, isError } = useFunnelDetails({ funnelId });
 
 	if (isLoading || !data?.payload) {
-		return <Spinner size="large" tip="Loading..." />;
+		return (
+			<Spinner size="large" tip={t('funnel_details.loading', 'Loading...')} />
+		);
 	}
 
 	if (isError) {
 		return (
 			<NotFoundContainer>
-				<Typography>Error loading funnel details</Typography>
+				<Typography>
+					{t('funnel_details.error_loading', 'Error loading funnel details')}
+				</Typography>
 			</NotFoundContainer>
 		);
 	}

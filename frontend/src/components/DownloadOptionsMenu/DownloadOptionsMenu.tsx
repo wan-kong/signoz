@@ -29,7 +29,8 @@ export default function DownloadOptionsMenu({
 	panelType,
 }: DownloadOptionsMenuProps): JSX.Element {
 	const { t: translate } = useTranslation('common');
-	const t = (key: string): string => String(translate(key));
+	const t = (key: string, defaultValue?: string): string =>
+		String(translate(key, defaultValue));
 	const [exportFormat, setExportFormat] = useState<string>(DownloadFormats.CSV);
 	const [rowLimit, setRowLimit] = useState<number>(DownloadRowCounts.TEN_K);
 	const [columnsScope, setColumnsScope] = useState<string>(
@@ -66,11 +67,13 @@ export default function DownloadOptionsMenu({
 			<div
 				className="export-options-container"
 				role="dialog"
-				aria-label={t('export_options')}
+				aria-label={t('export_options', 'Export options')}
 				aria-modal="true"
 			>
 				<div className="export-format">
-					<Typography.Text className="title">{t('format')}</Typography.Text>
+					<Typography.Text className="title">
+						{t('format', 'FORMAT')}
+					</Typography.Text>
 					<RadioGroup value={exportFormat} onChange={setExportFormat}>
 						<RadioGroupItem value={DownloadFormats.CSV}>csv</RadioGroupItem>
 						<RadioGroupItem value={DownloadFormats.JSONL}>jsonl</RadioGroupItem>
@@ -80,7 +83,9 @@ export default function DownloadOptionsMenu({
 				<div className="horizontal-line" />
 
 				<div className="row-limit">
-					<Typography.Text className="title">{t('number_of_rows')}</Typography.Text>
+					<Typography.Text className="title">
+						{t('number_of_rows', 'Number of Rows')}
+					</Typography.Text>
 					<RadioGroup
 						value={String(rowLimit)}
 						onChange={(value): void => setRowLimit(Number(value))}
@@ -102,13 +107,15 @@ export default function DownloadOptionsMenu({
 						<div className="horizontal-line" />
 
 						<div className="columns-scope">
-							<Typography.Text className="title">{t('columns')}</Typography.Text>
+							<Typography.Text className="title">
+								{t('columns', 'Columns')}
+							</Typography.Text>
 							<RadioGroup value={columnsScope} onChange={setColumnsScope}>
 								<RadioGroupItem value={DownloadColumnsScopes.ALL}>
-									{t('all')}
+									{t('all', 'All')}
 								</RadioGroupItem>
 								<RadioGroupItem value={DownloadColumnsScopes.SELECTED}>
-									{t('selected')}
+									{t('selected', 'Selected')}
 								</RadioGroupItem>
 							</RadioGroup>
 						</div>
@@ -123,7 +130,7 @@ export default function DownloadOptionsMenu({
 					disabled={isDownloading}
 					loading={isDownloading}
 				>
-					{t('export')}
+					{t('export', 'Export')}
 				</Button>
 			</div>
 		),
@@ -147,7 +154,7 @@ export default function DownloadOptionsMenu({
 			onOpenChange={setIsPopoverOpen}
 			rootClassName="download-popover"
 		>
-			<Tooltip title={t('download')} placement="top">
+			<Tooltip title={t('download', 'Download')} placement="top">
 				<Button
 					className="periscope-btn ghost"
 					icon={

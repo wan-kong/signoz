@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { useCallback, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import {
@@ -79,7 +80,11 @@ export function useDeleteRoleModal(
 	const isDeleteModalOpen = deleteTargetRoleId !== null;
 
 	const isDeleteDisabled = isManaged;
-	const deleteDisabledReason = 'Managed roles cannot be deleted';
+	const deleteDisabledReason = i18n.t(
+		'role_view_managed_roles_cannot_be_deleted',
+		'Managed roles cannot be deleted',
+		{ ns: 'organizationsettings' },
+	);
 
 	return {
 		isDeleteModalOpen,

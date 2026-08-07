@@ -1,0 +1,38 @@
+{
+	"context_config": {
+		"filter_by": "Filter by {{filterKey}}"
+	},
+	"data_links": {
+		"view_trace_details": "View Trace Details"
+	},
+	"menu_options": {
+		"is_this": "Is this",
+		"is_not_this": "Is not this",
+		"is_greater_than_or_equal_to": "Is greater than or equal to",
+		"is_less_than_or_equal_to": "Is less than or equal to",
+		"is_less_than": "Is less than",
+		"dashboard_variables": "Dashboard Variables",
+		"view_in_logs": "View in Logs",
+		"view_in_traces": "View in Traces",
+		"breakout_by": "Breakout by .."
+	},
+	"breakout": {
+		"breakout_by": "Breakout by"
+	},
+	"dashboard_var": {
+		"title": "Dashboard Variables",
+		"unset": "Unset",
+		"set": "Set",
+		"to": "to",
+		"create_var": "Create var",
+		"variable_created_from": "Variable created from drilldown for field: {{fieldName}} (source: {{source}})"
+	},
+	"table_utils": {
+		"name": "Name",
+		"p50_in_ns": "P50 (in ns)",
+		"p90_in_ns": "P90 (in ns)",
+		"p99_in_ns": "P99 (in ns)",
+		"number_of_calls": "Number Of Calls",
+		"error_rate": "Error Rate (%)"
+	}
+}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import SignozModal from 'components/SignozModal/SignozModal';
 import { Trash2, X } from '@signozhq/icons';
 import { useFunnelContext } from 'pages/TracesFunnels/FunnelContext';
@@ -16,6 +17,7 @@ function DeleteFunnelStep({
 	onStepRemove,
 }: DeleteFunnelStepProps): JSX.Element {
 	const { handleRunFunnel } = useFunnelContext();
+	const { t } = useTranslation('funnel_config');
 	const handleStepRemoval = (): void => {
 		onStepRemove();
 		handleRunFunnel();
@@ -25,12 +27,12 @@ function DeleteFunnelStep({
 	return (
 		<SignozModal
 			open={isOpen}
-			title="Delete this step"
+			title={t('delete_step.title', 'Delete this step')}
 			width={390}
 			onCancel={onClose}
 			rootClassName="funnel-modal delete-funnel-modal"
-			cancelText="Cancel"
-			okText="Delete Step"
+			cancelText={t('delete_step.cancel', 'Cancel')}
+			okText={t('delete_step.delete_step', 'Delete Step')}
 			okButtonProps={{
 				icon: <Trash2 size={14} />,
 				type: 'primary',
@@ -46,8 +48,10 @@ function DeleteFunnelStep({
 			destroyOnClose
 		>
 			<div className="delete-funnel-modal-content">
-				Deleting this step would stop further analytics using this step of the
-				funnel.
+				{t(
+					'delete_step.description',
+					'Deleting this step would stop further analytics using this step of the funnel.',
+				)}
 			</div>
 		</SignozModal>
 	);

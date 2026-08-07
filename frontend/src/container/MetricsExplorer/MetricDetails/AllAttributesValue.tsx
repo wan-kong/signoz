@@ -15,17 +15,25 @@ export function AllAttributesEmptyText({
 	isErrorAttributes,
 	refetchAttributes,
 }: AllAttributesEmptyTextProps): JSX.Element {
+	const { t } = useTranslation('common');
 	if (isErrorAttributes) {
 		return (
 			<div className="all-attributes-error-state">
 				<MetricDetailsErrorState
 					refetch={refetchAttributes}
-					errorMessage="Something went wrong while fetching attributes"
+					errorMessage={t(
+						'metrics_explorer.fetch_attributes_error',
+						'Something went wrong while fetching attributes',
+					)}
 				/>
 			</div>
 		);
 	}
-	return <Typography.Text>No attributes found</Typography.Text>;
+	return (
+		<Typography.Text>
+			{t('metrics_explorer.no_attributes_found', 'No attributes found')}
+		</Typography.Text>
+	);
 }
 
 export function AllAttributesValue({
@@ -78,12 +86,12 @@ export function AllAttributesValue({
 				items={[
 					{
 						icon: <SquareArrowOutUpRight size={14} />,
-						label: 'Open in Metric Explorer',
+						label: t('metrics_explorer.open_in_explorer', 'Open in Metric Explorer'),
 						key: 'open-in-explorer',
 					},
 					{
 						icon: <Copy size={14} />,
-						label: 'Copy Value',
+						label: t('metrics_explorer.copy_value', 'Copy Value'),
 						key: 'copy-value',
 					},
 				]}
@@ -125,7 +133,13 @@ export function AllAttributesValue({
 									{attribute}
 								</Typography.Text>
 								<div className="all-values-item-actions">
-									<Tooltip title={isCopied ? 'Copied!' : 'Copy value'}>
+									<Tooltip
+										title={
+											isCopied
+												? t('metrics_explorer.copied', 'Copied!')
+												: t('metrics_explorer.copy_value_tooltip', 'Copy value')
+										}
+									>
 										<Button
 											type="text"
 											size="small"
@@ -136,7 +150,12 @@ export function AllAttributesValue({
 											}}
 										/>
 									</Tooltip>
-									<Tooltip title="Open in Metric Explorer">
+									<Tooltip
+										title={t(
+											'metrics_explorer.open_in_explorer',
+											'Open in Metric Explorer',
+										)}
+									>
 										<Button
 											type="text"
 											size="small"
@@ -153,7 +172,7 @@ export function AllAttributesValue({
 					})}
 				{allValuesOpen && filteredAllValues.length === 0 && (
 					<Typography.Text color="muted" className="all-values-empty">
-						No values found
+						{t('no_values_found', 'No values found')}
 					</Typography.Text>
 				)}
 			</div>
@@ -206,7 +225,9 @@ export function AllAttributesValue({
 					overlayClassName="metric-details-popover all-values-popover-overlay"
 				>
 					<Button type="text" className="all-values-button">
-						All values ({filterValue.length})
+						{t('metrics_explorer.all_values', 'All values ({{count}})', {
+							count: Number(filterValue.length),
+						})}
 					</Button>
 				</Popover>
 			)}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useState } from 'react';
 import { toast } from '@signozhq/ui/sonner';
 import { useQueryClient } from 'react-query';
@@ -33,6 +34,7 @@ interface UseUnpricedModelMappingResult {
 // the unmapped list and the rules list are invalidated on success so the mapped
 // model drops out of this tab immediately.
 export function useUnpricedModelMapping(): UseUnpricedModelMappingResult {
+	const { t } = useTranslation('llm_unpriced');
 	const queryClient = useQueryClient();
 	const [isSaving, setIsSaving] = useState(false);
 
@@ -53,17 +55,20 @@ export function useUnpricedModelMapping(): UseUnpricedModelMappingResult {
 						queryKey: getListLLMPricingRulesQueryKey(),
 					}),
 				]);
-				toast.success('Mapped model');
+				toast.success(t('unpriced_models.map_success', 'Mapped model'));
 				return true;
 			} catch (error) {
-				const message = error instanceof Error ? error.message : 'Mapping failed';
+				const message =
+					error instanceof Error
+						? error.message
+						: t('unpriced_models.map_failed', 'Mapping failed');
 				toast.error(message);
 				return false;
 			} finally {
 				setIsSaving(false);
 			}
 		},
-		[createOrUpdate, queryClient],
+		[createOrUpdate, queryClient, t],
 	);
 
 	return { mapModel, isSaving };

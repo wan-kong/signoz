@@ -1,8 +1,13 @@
+import i18n from 'ReactI18';
 import type { StateCreator } from 'zustand';
 
 import type { DashboardStore } from '../useDashboardStore';
 
-export const DASHBOARD_LOCKED_REASON = 'This dashboard is locked';
+export const DASHBOARD_LOCKED_REASON = i18n.t(
+	'dashboard_locked_reason',
+	'This dashboard is locked',
+	{ ns: 'dashboard' },
+);
 export const DASHBOARD_NO_EDIT_PERMISSION_REASON =
 	'You don’t have permission to edit this dashboard';
 

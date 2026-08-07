@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Select } from 'antd';
 import { ATTRIBUTE_TYPES, PANEL_TYPES } from 'constants/queryBuilder';
 
@@ -20,6 +21,8 @@ export default function SpaceAggregationOptions({
 	operators,
 	qbVersion,
 }: SpaceAggregationOptionsProps): JSX.Element {
+	const { t } = useTranslation('query_builder');
+
 	return (
 		<div
 			className="spaceAggregationOptionsContainer"
@@ -34,7 +37,9 @@ export default function SpaceAggregationOptions({
 				{operators.map((operator) => (
 					<Select.Option key={operator.value} value={operator.value}>
 						{operator.label}{' '}
-						{panelType !== PANEL_TYPES.VALUE && qbVersion === 'v2' ? ' By' : ''}
+						{panelType !== PANEL_TYPES.VALUE && qbVersion === 'v2'
+							? t('space_aggregation.by', ' By')
+							: ''}
 					</Select.Option>
 				))}
 			</Select>

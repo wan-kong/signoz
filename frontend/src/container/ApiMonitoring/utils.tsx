@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import { TableColumnType as ColumnType, Tooltip } from 'antd';
 import { Progress } from '@signozhq/ui/progress';
@@ -84,7 +85,7 @@ export const convertFiltersWithUrlHandling = (
 export const ApiMonitoringQuickFiltersConfig: IQuickFiltersConfig[] = [
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'Environment',
+		title: i18n.t('api_monitoring.environment', 'Environment', { ns: 'common' }),
 
 		attributeKey: {
 			key: 'deployment.environment',
@@ -96,7 +97,9 @@ export const ApiMonitoringQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'Service Name',
+		title: i18n.t('api_monitoring.service_name', 'Service Name', {
+			ns: 'common',
+		}),
 		attributeKey: {
 			key: 'service.name',
 			dataType: DataTypes.String,
@@ -107,7 +110,7 @@ export const ApiMonitoringQuickFiltersConfig: IQuickFiltersConfig[] = [
 	},
 	{
 		type: FiltersType.CHECKBOX,
-		title: 'RPC Method',
+		title: i18n.t('api_monitoring.rpc_method', 'RPC Method', { ns: 'common' }),
 		attributeKey: {
 			key: 'rpc.method',
 			dataType: DataTypes.String,
@@ -129,28 +132,53 @@ export const getLastUsedRelativeTime = (lastRefresh: number): string => {
 	const monthsDiff = currentTime.diff(lastRefresh, 'months');
 
 	if (monthsDiff > 0) {
-		return `${monthsDiff} ${monthsDiff === 1 ? 'month' : 'months'} ago`;
+		return i18n.t(
+			monthsDiff === 1
+				? 'api_monitoring.months_ago_one'
+				: 'api_monitoring.months_ago_other',
+			monthsDiff === 1 ? '{{count}} month ago' : '{{count}} months ago',
+			{ count: Number(monthsDiff), ns: 'common' },
+		);
 	}
 
 	if (daysDiff > 0) {
-		return `${daysDiff} ${daysDiff === 1 ? 'day' : 'days'} ago`;
+		return i18n.t(
+			daysDiff === 1
+				? 'api_monitoring.days_ago_one'
+				: 'api_monitoring.days_ago_other',
+			daysDiff === 1 ? '{{count}} day ago' : '{{count}} days ago',
+			{ count: Number(daysDiff), ns: 'common' },
+		);
 	}
 
 	if (hoursDiff > 0) {
-		return `${hoursDiff}h ago`;
+		return i18n.t('api_monitoring.hours_ago', '{{count}}h ago', {
+			count: Number(hoursDiff),
+			ns: 'common',
+		});
 	}
 
 	if (minutedDiff > 0) {
-		return `${minutedDiff}m ago`;
+		return i18n.t('api_monitoring.minutes_ago', '{{count}}m ago', {
+			count: Number(minutedDiff),
+			ns: 'common',
+		});
 	}
 
-	return `${secondsDiff}s ago`;
+	return i18n.t('api_monitoring.seconds_ago', '{{count}}s ago', {
+		count: Number(secondsDiff),
+		ns: 'common',
+	});
 };
 
 // Rename this to a proper name
 export const columnsConfig: ColumnType<APIDomainsRowData>[] = [
 	{
-		title: <div className="domain-list-name-col-header">Domain</div>,
+		title: (
+			<div className="domain-list-name-col-header">
+				{String(i18n.t('api_monitoring.domain', 'Domain', { ns: 'common' }))}
+			</div>
+		),
 		dataIndex: 'domainName',
 		key: 'domainName',
 		width: '23.7%',
@@ -163,7 +191,15 @@ export const columnsConfig: ColumnType<APIDomainsRowData>[] = [
 		),
 	},
 	{
-		title: <div>Endpoints in use</div>,
+		title: (
+			<div>
+				{String(
+					i18n.t('api_monitoring.endpoints_in_use', 'Endpoints in use', {
+						ns: 'common',
+					}),
+				)}
+			</div>
+		),
 		dataIndex: 'endpointCount',
 		key: 'endpointCount',
 		width: '14.2%',
@@ -195,7 +231,11 @@ export const columnsConfig: ColumnType<APIDomainsRowData>[] = [
 		className: `column`,
 	},
 	{
-		title: <div>Last used</div>,
+		title: (
+			<div>
+				{String(i18n.t('api_monitoring.last_used', 'Last used', { ns: 'common' }))}
+			</div>
+		),
 		dataIndex: 'lastUsed',
 		key: 'lastUsed',
 		width: '14.2%',
@@ -221,7 +261,8 @@ export const columnsConfig: ColumnType<APIDomainsRowData>[] = [
 	{
 		title: (
 			<div>
-				Rate <span className="round-metric-tag">ops/s</span>
+				{String(i18n.t('api_monitoring.rate', 'Rate', { ns: 'common' }))}{' '}
+				<span className="round-metric-tag">ops/s</span>
 			</div>
 		),
 		dataIndex: 'rate',
@@ -238,7 +279,8 @@ export const columnsConfig: ColumnType<APIDomainsRowData>[] = [
 	{
 		title: (
 			<div>
-				Error <span className="round-metric-tag">%</span>
+				{String(i18n.t('api_monitoring.error', 'Error', { ns: 'common' }))}{' '}
+				<span className="round-metric-tag">%</span>
 			</div>
 		),
 		dataIndex: 'errorRate',
@@ -280,7 +322,10 @@ export const columnsConfig: ColumnType<APIDomainsRowData>[] = [
 	{
 		title: (
 			<div>
-				Avg. Latency <span className="round-metric-tag">ms</span>
+				{String(
+					i18n.t('api_monitoring.avg_latency', 'Avg. Latency', { ns: 'common' }),
+				)}{' '}
+				<span className="round-metric-tag">ms</span>
 			</div>
 		),
 		dataIndex: 'latency',
@@ -792,7 +837,9 @@ export const getEndPointsQueryPayload = (
 							queryName: 'F1',
 							expression: '(D/A)*100',
 							disabled: false,
-							legend: 'error percentage',
+							legend: i18n.t('api_monitoring.error_percentage', 'error percentage', {
+								ns: 'common',
+							}),
 						},
 					],
 					queryTraceOperator: [],
@@ -946,7 +993,13 @@ export const getEndPointsColumnsConfig = (
 	{
 		title: (
 			<div className="endpoint-name-header">
-				{isGroupedByAttribute ? 'Endpoint group' : 'Endpoint'}
+				{String(
+					isGroupedByAttribute
+						? i18n.t('api_monitoring.endpoint_group', 'Endpoint group', {
+								ns: 'common',
+							})
+						: i18n.t('api_monitoring.endpoint', 'Endpoint', { ns: 'common' }),
+				)}
 			</div>
 		),
 		dataIndex: 'endpointName',
@@ -983,7 +1036,11 @@ export const getEndPointsColumnsConfig = (
 		},
 	},
 	{
-		title: <div className="column-header">Port</div>,
+		title: (
+			<div className="column-header">
+				{String(i18n.t('api_monitoring.port', 'Port', { ns: 'common' }))}
+			</div>
+		),
 		dataIndex: 'port',
 		key: 'port',
 		width: 180,
@@ -995,7 +1052,10 @@ export const getEndPointsColumnsConfig = (
 	{
 		title: (
 			<div className="column-header">
-				Num of calls <ArrowUpDown size={14} />
+				{String(
+					i18n.t('api_monitoring.num_of_calls', 'Num of calls', { ns: 'common' }),
+				)}{' '}
+				<ArrowUpDown size={14} />
 			</div>
 		),
 		dataIndex: 'callCount',
@@ -1008,7 +1068,8 @@ export const getEndPointsColumnsConfig = (
 	{
 		title: (
 			<div>
-				Error <span className="round-metric-tag">%</span>
+				{String(i18n.t('api_monitoring.error', 'Error', { ns: 'common' }))}{' '}
+				<span className="round-metric-tag">%</span>
 			</div>
 		),
 		dataIndex: 'errorRate',
@@ -1043,7 +1104,8 @@ export const getEndPointsColumnsConfig = (
 	{
 		title: (
 			<div>
-				Latency <span className="round-metric-tag">ms</span>
+				{String(i18n.t('api_monitoring.latency', 'Latency', { ns: 'common' }))}{' '}
+				<span className="round-metric-tag">ms</span>
 			</div>
 		),
 		dataIndex: 'latency',
@@ -1054,7 +1116,11 @@ export const getEndPointsColumnsConfig = (
 		className: `column`,
 	},
 	{
-		title: <div>Last used</div>,
+		title: (
+			<div>
+				{String(i18n.t('api_monitoring.last_used', 'Last used', { ns: 'common' }))}
+			</div>
+		),
 		dataIndex: 'lastUsed',
 		key: 'lastUsed',
 		width: 120,
@@ -1286,7 +1352,11 @@ export const getTopErrorsCoRelationQueryFilters = (
 export const getTopErrorsColumnsConfig =
 	(): ColumnType<TopErrorsTableRowData>[] => [
 		{
-			title: <div className="endpoint-name-header">Endpoint</div>,
+			title: (
+				<div className="endpoint-name-header">
+					{String(i18n.t('api_monitoring.endpoint', 'Endpoint', { ns: 'common' }))}
+				</div>
+			),
 			dataIndex: 'endpointName',
 			key: 'endpointName',
 			width: 180,
@@ -1296,14 +1366,26 @@ export const getTopErrorsColumnsConfig =
 			render: (text: string, record: TopErrorsTableRowData): React.ReactNode => {
 				const { endpoint } = extractPortAndEndpoint(record.endpointName);
 				return (
-					<Tooltip title="Click to open traces">
+					<Tooltip
+						title={String(
+							i18n.t('api_monitoring.click_to_open_traces', 'Click to open traces', {
+								ns: 'common',
+							}),
+						)}
+					>
 						<div className="endpoint-name-value">{endpoint}</div>
 					</Tooltip>
 				);
 			},
 		},
 		{
-			title: <div className="column-header">Status code</div>,
+			title: (
+				<div className="column-header">
+					{String(
+						i18n.t('api_monitoring.status_code', 'Status code', { ns: 'common' }),
+					)}
+				</div>
+			),
 			dataIndex: 'statusCode',
 			key: 'statusCode',
 			width: 180,
@@ -1313,7 +1395,15 @@ export const getTopErrorsColumnsConfig =
 			className: `column`,
 		},
 		{
-			title: <div className="column-header">Status message</div>,
+			title: (
+				<div className="column-header">
+					{String(
+						i18n.t('api_monitoring.status_message', 'Status message', {
+							ns: 'common',
+						}),
+					)}
+				</div>
+			),
 			dataIndex: 'statusMessage',
 			key: 'statusMessage',
 			width: 180,
@@ -1322,7 +1412,11 @@ export const getTopErrorsColumnsConfig =
 			className: `column`,
 		},
 		{
-			title: <div>Count</div>,
+			title: (
+				<div>
+					{String(i18n.t('api_monitoring.count', 'Count', { ns: 'common' }))}
+				</div>
+			),
 			dataIndex: 'count',
 			key: 'count',
 			width: 120,
@@ -1402,7 +1496,7 @@ export const getEndPointDetailsQueryPayload = (
 						functions: [],
 						groupBy: [],
 						having: [],
-						legend: 'Rate',
+						legend: i18n.t('api_monitoring.rate', 'Rate', { ns: 'common' }),
 						limit: null,
 						orderBy: [],
 						queryName: 'A',
@@ -1492,7 +1586,7 @@ export const getEndPointDetailsQueryPayload = (
 						functions: [],
 						groupBy: [],
 						having: [],
-						legend: 'Last seen',
+						legend: i18n.t('api_monitoring.last_seen', 'Last seen', { ns: 'common' }),
 						limit: null,
 						orderBy: [],
 						queryName: 'D',
@@ -1522,7 +1616,7 @@ export const getEndPointDetailsQueryPayload = (
 						functions: [],
 						groupBy: [],
 						having: [],
-						legend: 'total',
+						legend: i18n.t('api_monitoring.total', 'total', { ns: 'common' }),
 						limit: null,
 						orderBy: [],
 						queryName: 'E',
@@ -1537,7 +1631,9 @@ export const getEndPointDetailsQueryPayload = (
 						queryName: 'F1',
 						expression: '(C/E)*100',
 						disabled: false,
-						legend: 'error percentage',
+						legend: i18n.t('api_monitoring.error_percentage', 'error percentage', {
+							ns: 'common',
+						}),
 					},
 				],
 				queryTraceOperator: [],
@@ -1600,7 +1696,9 @@ export const getEndPointDetailsQueryPayload = (
 							},
 						],
 						having: [],
-						legend: 'number of calls',
+						legend: i18n.t('api_monitoring.number_of_calls', 'number of calls', {
+							ns: 'common',
+						}),
 						limit: null,
 						orderBy: [],
 						queryName: 'A',
@@ -1636,7 +1734,9 @@ export const getEndPointDetailsQueryPayload = (
 							},
 						],
 						having: [],
-						legend: 'p99 latency',
+						legend: i18n.t('api_monitoring.p99_latency_lower', 'p99 latency', {
+							ns: 'common',
+						}),
 						limit: null,
 						orderBy: [],
 						queryName: 'B',
@@ -1679,7 +1779,7 @@ export const getEndPointDetailsQueryPayload = (
 								id: 'response_status_code--string----true',
 							},
 						],
-						legend: 'rate',
+						legend: i18n.t('api_monitoring.rate_lower', 'rate', { ns: 'common' }),
 						reduceTo: ReduceOperators.AVG,
 					},
 				],
@@ -1816,7 +1916,7 @@ export const getEndPointDetailsQueryPayload = (
 							},
 						],
 						having: [],
-						legend: 'count',
+						legend: i18n.t('api_monitoring.count_lower', 'count', { ns: 'common' }),
 						limit: null,
 						orderBy: [],
 						queryName: 'A',
@@ -1853,7 +1953,9 @@ export const getEndPointDetailsQueryPayload = (
 							},
 						],
 						having: [],
-						legend: 'p99 latency',
+						legend: i18n.t('api_monitoring.p99_latency_lower', 'p99 latency', {
+							ns: 'common',
+						}),
 						limit: null,
 						orderBy: [],
 						queryName: 'B',
@@ -1890,7 +1992,13 @@ export const getEndPointDetailsQueryPayload = (
 							},
 						],
 						having: [],
-						legend: 'request per second',
+						legend: i18n.t(
+							'api_monitoring.request_per_second',
+							'request per second',
+							{
+								ns: 'common',
+							},
+						),
 						limit: null,
 						orderBy: [],
 						queryName: 'C',
@@ -1927,7 +2035,7 @@ export const getEndPointDetailsQueryPayload = (
 							},
 						],
 						having: [],
-						legend: 'count',
+						legend: i18n.t('api_monitoring.count_lower', 'count', { ns: 'common' }),
 						limit: null,
 						orderBy: [],
 						queryName: 'D',
@@ -1942,7 +2050,9 @@ export const getEndPointDetailsQueryPayload = (
 						queryName: 'F1',
 						expression: '(D/A)*100',
 						disabled: false,
-						legend: 'error percentage',
+						legend: i18n.t('api_monitoring.error_percentage', 'error percentage', {
+							ns: 'common',
+						}),
 					},
 				],
 				queryTraceOperator: [],
@@ -2299,7 +2409,15 @@ export const getFormattedEndPointStatusCodeData = (
 
 export const endPointStatusCodeColumns: ColumnType<EndPointStatusCodeData>[] = [
 	{
-		title: <div className="status-code-header">STATUS CODE</div>,
+		title: (
+			<div className="status-code-header">
+				{String(
+					i18n.t('api_monitoring.status_code_upper', 'STATUS CODE', {
+						ns: 'common',
+					}),
+				)}
+			</div>
+		),
 		dataIndex: 'statusCode',
 		key: 'statusCode',
 		render: (text): JSX.Element => (
@@ -2316,7 +2434,12 @@ export const endPointStatusCodeColumns: ColumnType<EndPointStatusCodeData>[] = [
 	{
 		title: (
 			<div className="column-header">
-				NUMBER OF CALLS <ArrowUpDown size={14} />
+				{String(
+					i18n.t('api_monitoring.number_of_calls_upper', 'NUMBER OF CALLS', {
+						ns: 'common',
+					}),
+				)}{' '}
+				<ArrowUpDown size={14} />
 			</div>
 		),
 		dataIndex: 'count',
@@ -2329,7 +2452,7 @@ export const endPointStatusCodeColumns: ColumnType<EndPointStatusCodeData>[] = [
 		},
 	},
 	{
-		title: 'RATE',
+		title: String(i18n.t('api_monitoring.rate_upper', 'RATE', { ns: 'common' })),
 		dataIndex: 'rate',
 		key: 'rate',
 		align: 'right',
@@ -2343,7 +2466,9 @@ export const endPointStatusCodeColumns: ColumnType<EndPointStatusCodeData>[] = [
 		},
 	},
 	{
-		title: 'P99 Latency',
+		title: String(
+			i18n.t('api_monitoring.p99_latency', 'P99 Latency', { ns: 'common' }),
+		),
 		dataIndex: 'p99Latency',
 		key: 'p99Latency',
 		align: 'right',
@@ -2443,7 +2568,15 @@ export const getFormattedDependentServicesData = (
 
 export const dependentServicesColumns: ColumnType<DependentServicesData>[] = [
 	{
-		title: <span className="title-wrapper col-title">Dependent Services</span>,
+		title: (
+			<span className="title-wrapper col-title">
+				{String(
+					i18n.t('api_monitoring.dependent_services', 'Dependent Services', {
+						ns: 'common',
+					}),
+				)}
+			</span>
+		),
 		dataIndex: 'serviceData',
 		key: 'serviceData',
 		render: (serviceData: ServiceData): ReactNode => (
@@ -2451,7 +2584,14 @@ export const dependentServicesColumns: ColumnType<DependentServicesData>[] = [
 				<div className="top-services-item-progress">
 					<div className="top-services-item-key">{serviceData.serviceName}</div>
 					<div className="top-services-item-count">
-						{serviceData.count !== '-' ? `${serviceData.count} Calls` : '-'}
+						{serviceData.count !== '-'
+							? String(
+									i18n.t('api_monitoring.calls_count', '{{count}} Calls', {
+										count: Number(serviceData.count),
+										ns: 'common',
+									}),
+								)
+							: '-'}
 					</div>
 					<div
 						className="top-services-item-progress-bar"
@@ -2480,7 +2620,11 @@ export const dependentServicesColumns: ColumnType<DependentServicesData>[] = [
 	{
 		title: (
 			<span className="top-services-item-latency-title col-title">
-				AVG. LATENCY
+				{String(
+					i18n.t('api_monitoring.avg_latency_upper', 'AVG. LATENCY', {
+						ns: 'common',
+					}),
+				)}
 			</span>
 		),
 		dataIndex: 'latency',
@@ -2501,7 +2645,11 @@ export const dependentServicesColumns: ColumnType<DependentServicesData>[] = [
 	{
 		title: (
 			<span className="top-services-item-error-percentage-title col-title">
-				ERROR %
+				{String(
+					i18n.t('api_monitoring.error_percentage_upper', 'ERROR %', {
+						ns: 'common',
+					}),
+				)}
 			</span>
 		),
 		dataIndex: 'errorPercentage',
@@ -2544,7 +2692,11 @@ export const dependentServicesColumns: ColumnType<DependentServicesData>[] = [
 	},
 	{
 		title: (
-			<span className="top-services-item-rate-title col-title">AVG. RATE</span>
+			<span className="top-services-item-rate-title col-title">
+				{String(
+					i18n.t('api_monitoring.avg_rate_upper', 'AVG. RATE', { ns: 'common' }),
+				)}
+			</span>
 		),
 		dataIndex: 'rate',
 		key: 'rate',
@@ -2840,8 +2992,16 @@ export const getAllEndpointsWidgetData = (
 
 	const widget = getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Endpoint Overview',
-			description: 'Endpoint Overview',
+			title: i18n.t('api_monitoring.endpoint_overview', 'Endpoint Overview', {
+				ns: 'common',
+			}),
+			description: i18n.t(
+				'api_monitoring.endpoint_overview',
+				'Endpoint Overview',
+				{
+					ns: 'common',
+				},
+			),
 			panelTypes: PANEL_TYPES.TABLE,
 			queryData: [
 				{
@@ -2867,7 +3027,9 @@ export const getAllEndpointsWidgetData = (
 						? [...defaultGroupBy, ...groupBy]
 						: defaultGroupBy,
 					having: [],
-					legend: 'Num of Calls',
+					legend: i18n.t('api_monitoring.num_of_calls_legend', 'Num of Calls', {
+						ns: 'common',
+					}),
 					limit: 1000,
 					orderBy: [],
 					queryName: 'A',
@@ -2899,7 +3061,9 @@ export const getAllEndpointsWidgetData = (
 						? [...defaultGroupBy, ...groupBy]
 						: defaultGroupBy,
 					having: [],
-					legend: 'Latency (ms)',
+					legend: i18n.t('api_monitoring.latency_ms', 'Latency (ms)', {
+						ns: 'common',
+					}),
 					limit: 1000,
 					orderBy: [],
 					queryName: 'B',
@@ -2931,7 +3095,9 @@ export const getAllEndpointsWidgetData = (
 						? [...defaultGroupBy, ...groupBy]
 						: defaultGroupBy,
 					having: [],
-					legend: 'Last Used',
+					legend: i18n.t('api_monitoring.last_used_legend', 'Last Used', {
+						ns: 'common',
+					}),
 					limit: 1000,
 					orderBy: [],
 					queryName: 'C',
@@ -2978,7 +3144,9 @@ export const getAllEndpointsWidgetData = (
 					queryName: 'F1',
 					expression: '(D/A)*100',
 					disabled: false,
-					legend: 'error percentage',
+					legend: i18n.t('api_monitoring.error_percentage', 'error percentage', {
+						ns: 'common',
+					}),
 				},
 			],
 			yAxisUnit: 'ops/s',
@@ -3044,8 +3212,12 @@ export const getAllEndpointsWidgetData = (
 	};
 
 	widget.customColTitles = {
-		[SPAN_ATTRIBUTES.HTTP_URL]: 'Endpoint',
-		[SPAN_ATTRIBUTES.SERVER_PORT]: 'Port',
+		[SPAN_ATTRIBUTES.HTTP_URL]: i18n.t('api_monitoring.endpoint', 'Endpoint', {
+			ns: 'common',
+		}),
+		[SPAN_ATTRIBUTES.SERVER_PORT]: i18n.t('api_monitoring.port', 'Port', {
+			ns: 'common',
+		}),
 	};
 
 	widget.title = (
@@ -3063,8 +3235,20 @@ export const getAllEndpointsWidgetData = (
 				lineHeight: '18px',
 			}}
 		>
-			Endpoint Overview
-			<Tooltip title="Click on any row to get corresponding endpoint stats">
+			{String(
+				i18n.t('api_monitoring.endpoint_overview', 'Endpoint Overview', {
+					ns: 'common',
+				}),
+			)}
+			<Tooltip
+				title={String(
+					i18n.t(
+						'api_monitoring.click_row_for_stats',
+						'Click on any row to get corresponding endpoint stats',
+						{ ns: 'common' },
+					),
+				)}
+			>
 				<Info size={16} color="white" />
 			</Tooltip>
 		</div>
@@ -3114,8 +3298,16 @@ export const getRateOverTimeWidgetData = (
 
 	return getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Rate Over Time',
-			description: 'Rate over time.',
+			title: i18n.t('api_monitoring.rate_over_time', 'Rate Over Time', {
+				ns: 'common',
+			}),
+			description: i18n.t(
+				'api_monitoring.rate_over_time_desc',
+				'Rate over time.',
+				{
+					ns: 'common',
+				},
+			),
 			queryData: [
 				{
 					aggregations: [
@@ -3164,8 +3356,14 @@ export const getLatencyOverTimeWidgetData = (
 
 	return getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Latency Over Time',
-			description: 'Latency over time.',
+			title: i18n.t('api_monitoring.latency_over_time', 'Latency Over Time', {
+				ns: 'common',
+			}),
+			description: i18n.t(
+				'api_monitoring.latency_over_time_desc',
+				'Latency over time.',
+				{ ns: 'common' },
+			),
 			queryData: [
 				{
 					aggregations: [

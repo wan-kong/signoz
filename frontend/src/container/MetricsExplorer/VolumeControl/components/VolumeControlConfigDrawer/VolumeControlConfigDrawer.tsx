@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DrawerWrapper } from '@signozhq/ui/drawer';
 import { Typography } from '@signozhq/ui/typography';
@@ -23,6 +24,7 @@ function VolumeControlConfigDrawer({
 	open,
 	onClose,
 }: VolumeControlConfigDrawerProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const {
 		mode,
 		setMode,
@@ -43,7 +45,10 @@ function VolumeControlConfigDrawer({
 	const footer = (
 		<div className={styles.footer}>
 			<Typography.Text size="small" color="muted">
-				Changes take effect about 5 minutes after saving.
+				{t(
+					'volume_control.changes_take_effect',
+					'Changes take effect about 5 minutes after saving.',
+				)}
 			</Typography.Text>
 			<div className={styles.footerSpacer} />
 			<Button
@@ -52,7 +57,7 @@ function VolumeControlConfigDrawer({
 				onClick={onClose}
 				data-testid="volume-control-cancel"
 			>
-				Cancel
+				{t('cancel', 'Cancel')}
 			</Button>
 			{hasExistingRule && (
 				<Button
@@ -62,7 +67,7 @@ function VolumeControlConfigDrawer({
 					loading={isRemoving}
 					data-testid="volume-control-remove"
 				>
-					Remove rule
+					{t('volume_control.remove_rule', 'Remove rule')}
 				</Button>
 			)}
 			<Button
@@ -73,7 +78,7 @@ function VolumeControlConfigDrawer({
 				loading={isSaving}
 				data-testid="volume-control-save"
 			>
-				Save rule
+				{t('volume_control.save_rule', 'Save rule')}
 			</Button>
 		</div>
 	);
@@ -86,7 +91,13 @@ function VolumeControlConfigDrawer({
 					onClose();
 				}
 			}}
-			title={`Manage attributes · ${metricName}`}
+			title={t(
+				'volume_control.manage_attributes',
+				'Manage attributes · {{metricName}}',
+				{
+					metricName,
+				},
+			)}
 			direction="right"
 			showCloseButton
 			width="wide"
@@ -103,7 +114,7 @@ function VolumeControlConfigDrawer({
 						color="warning"
 						className={styles.adminOnlyTag}
 					>
-						Admin only
+						{t('volume_control.admin_only', 'Admin only')}
 					</Typography.Text>
 				</div>
 				<ModeSelector mode={mode} onChange={setMode} />

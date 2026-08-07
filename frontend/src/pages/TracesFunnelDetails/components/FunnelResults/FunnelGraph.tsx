@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Loader } from '@signozhq/icons';
 import { Empty, Spin } from 'antd';
 import {
@@ -29,6 +30,7 @@ Chart.register(
 );
 
 function FunnelGraph(): JSX.Element {
+	const { t } = useTranslation('funnel_results');
 	const { funnelId, startTime, endTime, steps } = useFunnelContext();
 
 	const payload = {
@@ -83,7 +85,7 @@ function FunnelGraph(): JSX.Element {
 	if (!data) {
 		return (
 			<div className="funnel-graph">
-				<Empty description="No data" />
+				<Empty description={t('funnel_graph.no_data', 'No data')} />
 			</div>
 		);
 	}
@@ -91,7 +93,12 @@ function FunnelGraph(): JSX.Element {
 	if (isError) {
 		return (
 			<div className="funnel-graph">
-				<Empty description="Error fetching data. If the problem persists, please contact support." />
+				<Empty
+					description={t(
+						'funnel_graph.error_fetching',
+						'Error fetching data. If the problem persists, please contact support.',
+					)}
+				/>
 			</div>
 		);
 	}

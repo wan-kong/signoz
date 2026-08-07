@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ChangeEvent, useCallback } from 'react';
 import { Input } from 'antd';
 import { LEGEND } from 'constants/global';
@@ -19,6 +20,7 @@ function PromQLQueryBuilder({
 	queryIndex,
 	deletable,
 }: IPromQLQueryBuilderProps): JSX.Element {
+	const { t } = useTranslation('new_widget');
 	const { handleSetQueryItemData, removeQueryTypeItemByIndex } =
 		useQueryBuilder();
 
@@ -62,7 +64,7 @@ function PromQLQueryBuilder({
 				size="middle"
 				name="query"
 				defaultValue={queryData?.query}
-				addonBefore="PromQL Query"
+				addonBefore={t('left.query_builder.promql.query', 'PromQL Query')}
 				style={{ marginBottom: '0.5rem' }}
 				data-testid="promql-query-input"
 			/>
@@ -72,7 +74,7 @@ function PromQLQueryBuilder({
 				size="middle"
 				name="legend"
 				defaultValue={queryData?.legend}
-				addonBefore="Legend Format"
+				addonBefore={t('left.query_builder.promql.legend_format', 'Legend Format')}
 				style={{ marginBottom: '0.5rem' }}
 				data-testid="promql-legend-input"
 			/>

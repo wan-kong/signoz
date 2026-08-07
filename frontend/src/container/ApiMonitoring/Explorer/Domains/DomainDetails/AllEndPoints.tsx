@@ -243,7 +243,9 @@ function AllEndPoints({
 				</div>
 			</div>
 			<div className="group-by-container">
-				<div className="group-by-label">{t('api_monitoring.group_by_label')}</div>
+				<div className="group-by-label">
+					{t('api_monitoring.group_by_label', 'Group by')}
+				</div>
 				<Select
 					className="group-by-select"
 					loading={isLoadingGroupByFilters}

@@ -1,4 +1,5 @@
 import { Configure, Plus } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 
@@ -17,6 +18,7 @@ interface DashboardEmptyStateProps {
 function DashboardEmptyState({
 	canAddPanel,
 }: DashboardEmptyStateProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { isPickerOpen, openPicker, closePicker, createPanel } =
 		useCreatePanel();
 	const isEditable = useDashboardStore((s) => s.isEditable);
@@ -28,10 +30,10 @@ function DashboardEmptyState({
 				<div className={styles.heading}>
 					<img src={dashboardEmojiUrl} alt="" className={styles.emoji} />
 					<Typography.Text className={styles.welcome}>
-						Welcome to your new dashboard
+						{t('dashboard_empty_state.welcome')}
 					</Typography.Text>
 					<Typography.Text className={styles.welcomeInfo}>
-						Follow the steps to populate it with data and share with your teammates
+						{t('dashboard_empty_state.follow_steps')}
 					</Typography.Text>
 				</div>
 
@@ -41,10 +43,10 @@ function DashboardEmptyState({
 							<Configure size={14} className={styles.stepIcon} />
 							<div className={styles.stepCopy}>
 								<Typography.Text className={styles.stepTitle}>
-									Configure your new dashboard
+									{t('dashboard_empty_state.configure_title')}
 								</Typography.Text>
 								<Typography.Text className={styles.stepInfo}>
-									Give it a name, add description, tags and variables
+									{t('dashboard_empty_state.configure_desc')}
 								</Typography.Text>
 							</div>
 						</div>
@@ -56,7 +58,7 @@ function DashboardEmptyState({
 								onClick={(): void => requestSettings({ tab: 'Overview' })}
 								testId="empty-configure"
 							>
-								Configure
+								{t('dashboard_empty_state.configure_btn')}
 							</Button>
 						)}
 					</div>
@@ -66,10 +68,10 @@ function DashboardEmptyState({
 							<img src={landscapeUrl} alt="" className={styles.stepIcon} />
 							<div className={styles.stepCopy}>
 								<Typography.Text className={styles.stepTitle}>
-									Add panels
+									{t('dashboard_empty_state.add_panels')}
 								</Typography.Text>
 								<Typography.Text className={styles.stepInfo}>
-									Add panels to visualize your data
+									{t('dashboard_empty_state.add_panels_desc')}
 								</Typography.Text>
 							</div>
 						</div>
@@ -80,7 +82,7 @@ function DashboardEmptyState({
 								onClick={(): void => openPicker()}
 								testId="add-panel"
 							>
-								New Panel
+								{t('dashboard_empty_state.new_panel_btn')}
 							</Button>
 						)}
 					</div>

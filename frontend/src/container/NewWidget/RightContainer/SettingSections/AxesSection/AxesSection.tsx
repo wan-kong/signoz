@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import { InputNumber, Select } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -33,6 +34,8 @@ export default function AxesSection({
 	isLogScale,
 	setIsLogScale,
 }: AxesSectionProps): JSX.Element {
+	const { t } = useTranslation('new_widget_settings');
+
 	const softMinHandler = (value: number | null): void => {
 		setSoftMin(value);
 	};
@@ -42,11 +45,13 @@ export default function AxesSection({
 	};
 
 	return (
-		<SettingsSection title="Axes" icon={<Axis3D size={14} />}>
+		<SettingsSection title={t('axes.title', 'Axes')} icon={<Axis3D size={14} />}>
 			{allowSoftMinMax && (
 				<section className="soft-min-max">
 					<section className="container">
-						<Typography.Text className="text">Soft Min</Typography.Text>
+						<Typography.Text className="text">
+							{t('axes.soft_min', 'Soft Min')}
+						</Typography.Text>
 						<InputNumber
 							type="number"
 							value={softMin}
@@ -55,7 +60,9 @@ export default function AxesSection({
 						/>
 					</section>
 					<section className="container">
-						<Typography.Text className="text">Soft Max</Typography.Text>
+						<Typography.Text className="text">
+							{t('axes.soft_max', 'Soft Max')}
+						</Typography.Text>
 						<InputNumber
 							value={softMax}
 							type="number"
@@ -68,7 +75,9 @@ export default function AxesSection({
 
 			{allowLogScale && (
 				<section className="log-scale control-container">
-					<Typography.Text className="section-heading">Y Axis Scale</Typography.Text>
+					<Typography.Text className="section-heading">
+						{t('axes.y_axis_scale', 'Y Axis Scale')}
+					</Typography.Text>
 					<Select
 						onChange={(value): void => setIsLogScale(value === LogScale.LOGARITHMIC)}
 						value={isLogScale ? LogScale.LOGARITHMIC : LogScale.LINEAR}
@@ -80,7 +89,9 @@ export default function AxesSection({
 								<div className="icon">
 									<ChartLine size={16} />
 								</div>
-								<Typography.Text className="display">Linear</Typography.Text>
+								<Typography.Text className="display">
+									{t('axes.linear', 'Linear')}
+								</Typography.Text>
 							</div>
 						</Option>
 						<Option value={LogScale.LOGARITHMIC}>
@@ -88,7 +99,9 @@ export default function AxesSection({
 								<div className="icon">
 									<Spline size={16} />
 								</div>
-								<Typography.Text className="display">Logarithmic</Typography.Text>
+								<Typography.Text className="display">
+									{t('axes.logarithmic', 'Logarithmic')}
+								</Typography.Text>
 							</div>
 						</Option>
 					</Select>

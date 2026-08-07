@@ -160,9 +160,23 @@ function MetricNameSearch({
 		if (isLoadingMetricNameFilterValues) {
 			items.push(<Spin />);
 		} else if (isErrorMetricNameFilterValues) {
-			items.push(<Empty description="Error fetching metric names" />);
+			items.push(
+				<Empty
+					description={t(
+						'metrics_explorer.fetch_metric_names_error',
+						'Error fetching metric names',
+					)}
+				/>,
+			);
 		} else if (metricNameFilterValues?.length === 0) {
-			items.push(<Empty description="No metric names found" />);
+			items.push(
+				<Empty
+					description={t(
+						'metrics_explorer.no_metric_names_found',
+						'No metric names found',
+					)}
+				/>,
+			);
 		} else {
 			items.push(
 				...metricNameFilterValues.map((filterValue, index) => (

@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
@@ -8,6 +9,7 @@ import { ALL_SELECTED_VALUE } from '../constants';
 import { useCreateAlertState } from '../context';
 
 function MultipleNotifications(): JSX.Element {
+	const { t } = useTranslation('create_alert');
 	const { notificationSettings, setNotificationSettings } =
 		useCreateAlertState();
 	const { currentQuery } = useQueryBuilder();
@@ -36,7 +38,7 @@ function MultipleNotifications(): JSX.Element {
 		if (options.length > 0) {
 			return [
 				{
-					label: 'All',
+					label: t('all', 'All'),
 					value: ALL_SELECTED_VALUE,
 					'data-testid': 'multiple-notifications-select-option',
 				},
@@ -44,7 +46,7 @@ function MultipleNotifications(): JSX.Element {
 			];
 		}
 		return options;
-	}, [currentQuery.builder.queryData, isAllOptionSelected]);
+	}, [currentQuery.builder.queryData, isAllOptionSelected, t]);
 
 	const isMultipleNotificationsEnabled = spaceAggregationOptions.length > 0;
 
@@ -71,20 +73,23 @@ function MultipleNotifications(): JSX.Element {
 
 	const groupByDescription = useMemo(() => {
 		if (isAllOptionSelected) {
-			return 'All = grouping of alerts is disabled';
+			return t('all_grouping_disabled', 'All = grouping of alerts is disabled');
 		}
 		if (notificationSettings.multipleNotifications?.length) {
-			return `Alerts with same ${notificationSettings.multipleNotifications?.join(
-				', ',
-			)} will be grouped`;
+			return t('alerts_grouped_by', 'Alerts with same {{field}} will be grouped', {
+				field: notificationSettings.multipleNotifications?.join(', '),
+			});
 		}
-		return 'Empty = all matching alerts combined into one notification';
-	}, [isAllOptionSelected, notificationSettings.multipleNotifications]);
+		return t(
+			'empty_combined_notification',
+			'Empty = all matching alerts combined into one notification',
+		);
+	}, [isAllOptionSelected, notificationSettings.multipleNotifications, t]);
 
 	const multipleNotificationsInput = useMemo(() => {
 		const placeholder = isMultipleNotificationsEnabled
-			? 'Select fields to group by (optional)'
-			: 'No grouping fields available';
+			? t('select_fields_group_by', 'Select fields to group by (optional)')
+			: t('no_grouping_fields', 'No grouping fields available');
 		let input = (
 			<div>
 				<Select
@@ -107,7 +112,12 @@ function MultipleNotifications(): JSX.Element {
 		);
 		if (!isMultipleNotificationsEnabled) {
 			input = (
-				<Tooltip title="Add 'Group by' fields to your query to enable alert grouping">
+				<Tooltip
+					title={t(
+						'add_group_by_tooltip',
+						"Add 'Group by' fields to your query to enable alert grouping",
+					)}
+				>
 					{input}
 				</Tooltip>
 			);
@@ -119,19 +129,28 @@ function MultipleNotifications(): JSX.Element {
 		notificationSettings.multipleNotifications,
 		onSelectChange,
 		spaceAggregationOptions,
+		t,
 	]);
 
 	return (
 		<div className="multiple-notifications-container">
 			<div className="multiple-notifications-header">
 				<Typography.Text className="multiple-notifications-header-title">
-					Group alerts by{' '}
-					<Tooltip title="Group similar alerts together to reduce notification volume. Leave empty to combine all matching alerts into one notification without grouping.">
+					{t('group_alerts_by', 'Group alerts by')}{' '}
+					<Tooltip
+						title={t(
+							'group_alerts_tooltip',
+							'Group similar alerts together to reduce notification volume. Leave empty to combine all matching alerts into one notification without grouping.',
+						)}
+					>
 						<Info size={16} />
 					</Tooltip>
 				</Typography.Text>
 				<Typography.Text className="multiple-notifications-header-description">
-					Combine alerts with the same field values into a single notification.
+					{t(
+						'combine_alerts_same_fields',
+						'Combine alerts with the same field values into a single notification.',
+					)}
 				</Typography.Text>
 			</div>
 			{multipleNotificationsInput}

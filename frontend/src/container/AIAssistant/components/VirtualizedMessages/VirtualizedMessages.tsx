@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 import Noz from 'components/Noz/Noz';
+import { useTranslation } from 'react-i18next';
 
 import logEvent from 'api/common/logEvent';
 
@@ -34,6 +35,7 @@ export default function VirtualizedMessages({
 	isStreaming,
 	onSendSuggestedPrompt,
 }: VirtualizedMessagesProps): JSX.Element {
+	const { t } = useTranslation('ai_assistant');
 	const regenerateAssistantMessage = useAIAssistantStore(
 		(s) => s.regenerateAssistantMessage,
 	);
@@ -154,7 +156,10 @@ export default function VirtualizedMessages({
 				</div>
 				<h3 className={styles.emptyTitle}>Noz</h3>
 				<p className={styles.emptySubtitle}>
-					Ask questions about your traces, logs, metrics, and infrastructure.
+					{t(
+						'empty_state_subtitle',
+						'Ask questions about your traces, logs, metrics, and infrastructure.',
+					)}
 				</p>
 				<div className={styles.suggestions}>
 					{emptyStateChips.map((chip) => (

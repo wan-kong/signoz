@@ -13,6 +13,7 @@ import cx from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@signozhq/ui/button';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
+import { useTranslation } from 'react-i18next';
 import type { MessageActionDTO } from 'api/ai-assistant/sigNozAIAssistantAPI.schemas';
 import {
 	ApplyFilterSignalDTO,
@@ -398,6 +399,7 @@ export default function ActionsSection({
 	const sendMessage = useAIAssistantStore((s) => s.sendMessage);
 	const { threadId, page, mode } = useAIAssistantAnalyticsContext();
 	const { redirectWithQueryBuilderData, handleSetQueryData } = useQueryBuilder();
+	const { t } = useTranslation('ai_assistant');
 
 	// Per-chip click state, keyed by chip key (see `key` below). Persists
 	// loading/success/error so the chip reflects the rollback outcome until
@@ -472,7 +474,9 @@ export default function ActionsSection({
 			setResult(key, { state: 'success' });
 		} catch (err) {
 			const message =
-				err instanceof Error ? err.message : 'Failed to open saved view';
+				err instanceof Error
+					? err.message
+					: t('failed_to_open_saved_view', 'Failed to open saved view');
 			setResult(key, { state: 'error', error: message });
 		}
 	};
@@ -490,7 +494,7 @@ export default function ActionsSection({
 			await call(action.actionMetadataId);
 			setResult(key, { state: 'success' });
 		} catch (err) {
-			const message = err instanceof Error ? err.message : 'Failed';
+			const message = err instanceof Error ? err.message : t('failed', 'Failed');
 			setResult(key, { state: 'error', error: message });
 		}
 	};
@@ -594,7 +598,9 @@ export default function ActionsSection({
 		<div className={styles.section}>
 			<div className={styles.heading}>
 				<Sparkles size={12} className={styles.headingIcon} />
-				<span className={styles.headingText}>Suggested actions</span>
+				<span className={styles.headingText}>
+					{t('suggested_actions', 'Suggested actions')}
+				</span>
 			</div>
 
 			<div className={styles.list}>

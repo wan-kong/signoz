@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import {
 	Dispatch,
 	MouseEvent as ReactMouseEvent,
@@ -204,7 +205,11 @@ export function useFlamegraphHover(
 				setHoveredSpanId(span.spanId);
 				setTooltipContent({
 					serviceName: getFlamegraphServiceName(span),
-					spanName: span.name || 'unknown',
+					spanName:
+						span.name ||
+						i18n.t('trace_flamegraph.unknown', 'unknown', {
+							ns: 'traceDetails',
+						}),
 					status: span.hasError ? 'error' : 'ok',
 					startMs: span.timestamp - traceMetadata.startTime,
 					durationMs: span.durationNano / 1e6,
@@ -240,7 +245,11 @@ export function useFlamegraphHover(
 				setHoveredSpanId(span.spanId);
 				setTooltipContent({
 					serviceName: getFlamegraphServiceName(span),
-					spanName: span.name || 'unknown',
+					spanName:
+						span.name ||
+						i18n.t('trace_flamegraph.unknown', 'unknown', {
+							ns: 'traceDetails',
+						}),
 					status: span.hasError ? 'error' : 'ok',
 					startMs: span.timestamp - traceMetadata.startTime,
 					durationMs: span.durationNano / 1e6,

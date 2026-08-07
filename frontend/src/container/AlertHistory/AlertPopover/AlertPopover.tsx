@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Color } from '@signozhq/design-tokens';
 import { Popover } from 'antd';
@@ -23,6 +24,7 @@ function PopoverContent({
 	relatedLogsLink?: Props['relatedLogsLink'];
 }): JSX.Element {
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('alert_history');
 	return (
 		<div className="contributor-row-popover-buttons">
 			{!!relatedLogsLink && (
@@ -33,7 +35,7 @@ function PopoverContent({
 					<div className="icon">
 						<LogsIcon />
 					</div>
-					<div className="text">View Logs</div>
+					<div className="text">{t('alert_popover.view_logs', 'View Logs')}</div>
 				</Link>
 			)}
 			{!!relatedTracesLink && (
@@ -47,7 +49,7 @@ function PopoverContent({
 							color={isDarkMode ? Color.BG_VANILLA_400 : Color.TEXT_INK_400}
 						/>
 					</div>
-					<div className="text">View Traces</div>
+					<div className="text">{t('alert_popover.view_traces', 'View Traces')}</div>
 				</Link>
 			)}
 		</div>

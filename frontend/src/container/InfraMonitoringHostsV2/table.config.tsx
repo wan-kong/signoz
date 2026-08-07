@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import React from 'react';
 import { Color } from '@signozhq/design-tokens';
 import { Container } from '@signozhq/icons';
@@ -89,7 +90,12 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 	{
 		id: 'hostGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader title="Host Group" titleKey="display.host_group" />
+			<EntityGroupHeader
+				title={i18n.t('display.host_group', 'Host Group', {
+					ns: 'infraMonitoring',
+				})}
+				titleKey="display.host_group"
+			/>
 		),
 		accessorFn: (row): string => row.hostName ?? '',
 		width: { min: 290 },
@@ -108,7 +114,7 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		id: 'hostName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Hostname"
+				title={i18n.t('display.hostname', 'Hostname', { ns: 'infraMonitoring' })}
 				titleKey="display.hostname"
 				icon={<Container size={14} />}
 				docPath="/infrastructure-monitoring/host-monitoring#hostname"
@@ -133,7 +139,7 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 				tooltipKey="display.sent_system_metrics_in_last_10_mins_period"
 				docPath="/infrastructure-monitoring/host-monitoring#status"
 			>
-				Status
+				{String(i18n.t('hosts_table.status', 'Status', { ns: 'infraMonitoring' }))}
 			</ColumnHeader>
 		),
 		accessorFn: (row): string => row.status,
@@ -183,7 +189,9 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		id: 'cpu',
 		header: (): React.ReactNode => (
 			<ColumnHeader docPath="/infrastructure-monitoring/host-monitoring#cpu-usage">
-				CPU Usage
+				{String(
+					i18n.t('hosts_table.cpu_usage', 'CPU Usage', { ns: 'infraMonitoring' }),
+				)}
 			</ColumnHeader>
 		),
 		accessorFn: (row): number => row.cpu,
@@ -213,7 +221,11 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 				tooltipKey="display.excluding_cache_memory_period"
 				docPath="/infrastructure-monitoring/host-monitoring#memory-usage"
 			>
-				Memory Usage (WSS)
+				{String(
+					i18n.t('hosts_table.memory_usage_wss', 'Memory Usage (WSS)', {
+						ns: 'infraMonitoring',
+					}),
+				)}
 			</ColumnHeader>
 		),
 		accessorFn: (row): number => row.memory,
@@ -239,7 +251,9 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		id: 'diskUsage',
 		header: (): React.ReactNode => (
 			<ColumnHeader docPath="/infrastructure-monitoring/host-monitoring#disk-usage">
-				Disk Usage
+				{String(
+					i18n.t('hosts_table.disk_usage', 'Disk Usage', { ns: 'infraMonitoring' }),
+				)}
 			</ColumnHeader>
 		),
 		accessorFn: (row): number => row.diskUsage,
@@ -266,7 +280,7 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		id: 'wait',
 		header: (): React.ReactNode => (
 			<ColumnHeader docPath="/infrastructure-monitoring/host-monitoring#iowait">
-				IOWait
+				{String(i18n.t('hosts_table.iowait', 'IOWait', { ns: 'infraMonitoring' }))}
 			</ColumnHeader>
 		),
 		accessorFn: (row): number => row.wait,
@@ -293,7 +307,11 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		id: 'load15',
 		header: (): React.ReactNode => (
 			<ColumnHeader docPath="/infrastructure-monitoring/host-monitoring#load-avg">
-				Load Avg (15min)
+				{String(
+					i18n.t('hosts_table.load_avg_15min', 'Load Avg (15min)', {
+						ns: 'infraMonitoring',
+					}),
+				)}
 			</ColumnHeader>
 		),
 		accessorFn: (row): number => row.load15,

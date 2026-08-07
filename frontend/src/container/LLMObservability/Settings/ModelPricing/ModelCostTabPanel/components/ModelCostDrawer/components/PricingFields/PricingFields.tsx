@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Input } from '@signozhq/ui/input';
 import { Lock } from '@signozhq/icons';
 import cx from 'classnames';
@@ -21,25 +22,28 @@ function PricingFields({
 	isReadOnly,
 	onChange,
 }: PricingFieldsProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	return (
 		<div className={cx(styles.drawerSection, styles.drawerSurface)}>
 			<div className={styles.drawerSurfaceHead}>
 				<Typography.Text size="base" weight="bold">
-					Pricing (per 1M tokens, USD)
+					{t('pricing_fields.title', 'Pricing (per 1M tokens, USD)')}
 				</Typography.Text>
 
 				{isReadOnly && (
 					<span className={styles.managedLabel} data-testid="drawer-readonly-label">
 						<Lock size={12} />
 
-						<Typography.Text color="muted">Read-only</Typography.Text>
+						<Typography.Text color="muted">
+							{t('pricing_fields.read_only', 'Read-only')}
+						</Typography.Text>
 					</span>
 				)}
 			</div>
 			<div className={styles.pricingGrid}>
 				<div className={styles.pricingField}>
 					<label htmlFor="input-cost">
-						Input Cost{' '}
+						{t('pricing_fields.input_cost', 'Input Cost')}{' '}
 						<span className={styles.required} aria-hidden="true">
 							*
 						</span>
@@ -59,7 +63,7 @@ function PricingFields({
 				</div>
 				<div className={styles.pricingField}>
 					<label htmlFor="output-cost">
-						Output Cost{' '}
+						{t('pricing_fields.output_cost', 'Output Cost')}{' '}
 						<span className={styles.required} aria-hidden="true">
 							*
 						</span>

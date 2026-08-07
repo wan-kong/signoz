@@ -1,0 +1,61 @@
+{
+	"add_description": {
+		"success": "成功",
+		"success_message": "漏斗描述保存成功",
+		"error_message": "保存漏斗描述失败",
+		"title": "添加漏斗描述",
+		"cancel": "取消",
+		"save_changes": "保存更改",
+		"description_label": "描述",
+		"description_placeholder": "(可选) 例如：结账漏斗流失"
+	},
+	"delete_step": {
+		"title": "删除此步骤",
+		"cancel": "取消",
+		"delete_step": "删除步骤",
+		"description": "删除此步骤将停止使用该漏斗步骤进行进一步分析。"
+	},
+	"breadcrumb": {
+		"all_funnels": "所有漏斗"
+	},
+	"funnel_config": {
+		"no_permission_description": "您需要编辑者或管理员权限才能编辑漏斗描述",
+		"edit_description": "编辑漏斗描述",
+		"add_description": "添加漏斗描述",
+		"edit_description_aria": "编辑漏斗描述",
+		"no_description": "尚未添加描述。"
+	},
+	"step_popover": {
+		"add_details": "添加详情",
+		"no_permission_delete": "您需要编辑者或管理员权限才能删除步骤",
+		"min_steps_required": "至少需要 2 个步骤",
+		"delete": "删除",
+		"no_permission_add_details": "您需要编辑者或管理员权限才能为步骤添加详情"
+	},
+	"inter_step": {
+		"latency_type": "延迟类型"
+	},
+	"steps_content": {
+		"no_permission_replace": "您需要编辑者或管理员权限才能替换步骤",
+		"replace": "替换",
+		"no_permission_add": "您需要编辑者或管理员权限才能添加步骤",
+		"add_for_new_step": "为新步骤添加",
+		"add_funnel_step": "添加漏斗步骤"
+	},
+	"steps_footer": {
+		"no_service_span_names": "没有服务 / 跨度名称",
+		"missing_service_span_names": "缺少服务 / 跨度名称",
+		"no_valid_traces": "未找到有效跟踪",
+		"valid_traces": "找到有效跟踪",
+		"steps_count": "{{stepsCount}} 个步骤",
+		"save_funnel": "保存漏斗"
+	},
+	"steps_header": {
+		"funnel_steps": "漏斗步骤"
+	},
+	"graph": {
+		"success_spans": "成功跨度",
+		"error_spans": "错误跨度",
+		"total_spans": "总跨度"
+	}
+}

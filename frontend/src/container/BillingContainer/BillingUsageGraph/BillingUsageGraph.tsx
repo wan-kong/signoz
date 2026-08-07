@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, Flex } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import BarChart from 'container/DashboardContainer/visualization/charts/BarChart/BarChart';
@@ -32,6 +33,7 @@ const numberFormatter = new Intl.NumberFormat('en-US');
 
 export function BillingUsageGraph(props: BillingUsageGraphProps): JSX.Element {
 	const { data, billAmount } = props;
+	const { t } = useTranslation('billings');
 
 	const graphRef = useRef<HTMLDivElement>(null);
 	const isDarkMode = useIsDarkMode();
@@ -121,7 +123,7 @@ export function BillingUsageGraph(props: BillingUsageGraphProps): JSX.Element {
 			<Flex justify="space-between">
 				<Flex vertical gap={6}>
 					<Typography.Text className={styles.totalSpentTitle}>
-						TOTAL SPENT
+						{t('total_spent', 'TOTAL SPENT')}
 					</Typography.Text>
 					<Typography.Text className={styles.totalSpent}>
 						${numberFormatter.format(billAmount)}

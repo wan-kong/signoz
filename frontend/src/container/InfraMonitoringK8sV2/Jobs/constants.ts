@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { InframonitoringtypesJobRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
@@ -29,19 +30,23 @@ export const k8sJobGetSelectedItemExpression = (
 export const k8sJobDetailsMetadataConfig: K8sDetailsMetadataConfig<InframonitoringtypesJobRecordDTO>[] =
 	[
 		{
-			label: 'Job Name',
+			label: i18n.t('display.job_name', 'Job Name', { ns: 'infraMonitoring' }),
 			labelKey: 'display.job_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_JOB_NAME] ?? '',
 		},
 		{
-			label: 'Cluster Name',
+			label: i18n.t('display.cluster_name', 'Cluster Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.cluster_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME] ?? '',
 		},
 		{
-			label: 'Namespace Name',
+			label: i18n.t('display.namespace_name', 'Namespace Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.namespace_name',
 			getValue: (p): string =>
 				p.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_NAMESPACE_NAME] ?? '',

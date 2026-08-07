@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { rangeUtil } from '@grafana/data';
 import { Callout } from '@signozhq/ui/callout';
@@ -13,6 +14,7 @@ export default function DisconnectValuesThresholdInput({
 	onChange,
 	minValue,
 }: DisconnectValuesThresholdInputProps): JSX.Element {
+	const { t } = useTranslation('new_widget_components');
 	const [inputValue, setInputValue] = useState<string>(
 		rangeUtil.secondsToHms(value),
 	);
@@ -34,20 +36,31 @@ export default function DisconnectValuesThresholdInput({
 			} else {
 				const parsed = Number(txt);
 				if (Number.isNaN(parsed) || parsed <= 0) {
-					setError('Enter a valid duration (e.g. 1h, 10m, 1d)');
+					setError(
+						t(
+							'disconnect_values.invalid_duration',
+							'Enter a valid duration (e.g. 1h, 10m, 1d)',
+						),
+					);
 					return;
 				}
 				seconds = parsed;
 			}
 			if (minValue !== undefined && seconds < minValue) {
-				setError(`Threshold should be > ${rangeUtil.secondsToHms(minValue)}`);
+				setError(
+					t('disconnect_values.threshold_min', 'Threshold should be > {{min}}', {
+						min: rangeUtil.secondsToHms(minValue),
+					}),
+				);
 				return;
 			}
 			setError(null);
 			setInputValue(txt);
 			onChange(seconds);
 		} catch {
-			setError('Invalid threshold value');
+			setError(
+				t('disconnect_values.invalid_threshold', 'Invalid threshold value'),
+			);
 		}
 	};
 

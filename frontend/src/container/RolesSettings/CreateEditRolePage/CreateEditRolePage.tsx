@@ -205,7 +205,9 @@ function CreateEditRolePageContent(): JSX.Element {
 					<Typography.Title level={3}>
 						{isCreateMode
 							? t('create_role')
-							: `${t('edit_role')} - ${formData.name || t('role_loading')}`}
+							: t('edit_role_title', 'Role - {{name}}', {
+									name: formData.name || t('role_loading'),
+								})}
 					</Typography.Title>
 				</div>
 

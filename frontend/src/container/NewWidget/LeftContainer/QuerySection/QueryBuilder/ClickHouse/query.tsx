@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ChangeEvent, useCallback } from 'react';
 import MEditor, { Monaco } from '@monaco-editor/react';
 import { Color } from '@signozhq/design-tokens';
@@ -22,6 +23,7 @@ function ClickHouseQueryBuilder({
 	queryIndex,
 	deletable,
 }: IClickHouseQueryBuilderProps): JSX.Element | null {
+	const { t } = useTranslation('new_widget');
 	const { handleSetQueryItemData, removeQueryTypeItemByIndex } =
 		useQueryBuilder();
 
@@ -124,7 +126,10 @@ function ClickHouseQueryBuilder({
 				size="middle"
 				defaultValue={queryData?.legend}
 				value={queryData?.legend}
-				addonBefore="Legend Format"
+				addonBefore={t(
+					'left.query_builder.clickhouse.legend_format',
+					'Legend Format',
+				)}
 			/>
 		</QueryHeader>
 	);

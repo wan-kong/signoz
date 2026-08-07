@@ -43,7 +43,8 @@ function SearchBar({
 	isOpenedFromFooter = false,
 }: SearchBarProps): JSX.Element {
 	const { t: translate } = useTranslation('common');
-	const t = (key: string): string => String(translate(key));
+	const t = (key: string, defaultValue?: string): string =>
+		String(translate(key, defaultValue));
 	const handleKeyDown = useCallback(
 		(e: React.KeyboardEvent): void => {
 			if (e.key === 'Escape') {
@@ -69,7 +70,7 @@ function SearchBar({
 				<Input
 					type="text"
 					className="timezone-picker__input"
-					placeholder={t('time.search_timezones')}
+					placeholder={t('time.search_timezones', 'Search timezones...')}
 					value={value}
 					onChange={(e): void => onChange(e.target.value)}
 					onKeyDown={handleKeyDown}

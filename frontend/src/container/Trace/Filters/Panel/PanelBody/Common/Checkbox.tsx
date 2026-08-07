@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'antd';
@@ -37,6 +38,7 @@ function CheckBoxComponent(props: CheckBoxProps): JSX.Element {
 	const { keyValue, name, value } = props;
 
 	const dispatch = useDispatch<Dispatch<AppActions>>();
+	const { t } = useTranslation('common');
 
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -152,12 +154,15 @@ function CheckBoxComponent(props: CheckBoxProps): JSX.Element {
 				setIsLoading(false);
 
 				notifications.error({
-					message: response.error || 'Something went wrong',
+					message:
+						response.error || t('something_went_wrong', 'Something went wrong'),
 				});
 			}
 		} catch (error) {
 			notifications.error({
-				message: (error as AxiosError).toString() || 'Something went wrong',
+				message:
+					(error as AxiosError).toString() ||
+					t('something_went_wrong', 'Something went wrong'),
 			});
 			setIsLoading(false);
 		}

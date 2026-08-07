@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import {
 	FiltersType,
 	IQuickFiltersConfig,
@@ -722,32 +723,70 @@ export function GetJobsQuickFiltersConfig(): IQuickFiltersConfig[] {
 export const getInvalidValueTooltipText = (
 	entity: InfraMonitoringEntity,
 	attribute: string,
-): string => `Some ${entity} do not have ${attribute}s.`;
+): string =>
+	i18n.t(
+		'entity.no_attribute_tooltip',
+		'Some {{entity}} do not have {{attribute}}s.',
+		{ ns: 'infraMonitoring', entity, attribute },
+	);
 
 export const ENTITY_FILTER_PLACEHOLDERS: Record<InfraMonitoringEntity, string> =
 	{
-		[InfraMonitoringEntity.HOSTS]:
+		[InfraMonitoringEntity.HOSTS]: i18n.t(
+			'entity_filter_placeholder.host',
 			"Enter your filter query (e.g., host.name = 'web-server-01' AND os.type = 'linux')",
-		[InfraMonitoringEntity.PODS]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.PODS]: i18n.t(
+			'entity_filter_placeholder.pod',
 			"Enter your filter query (e.g., k8s.namespace.name = 'production' AND k8s.deployment.name = 'api-server')",
-		[InfraMonitoringEntity.NODES]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.NODES]: i18n.t(
+			'entity_filter_placeholder.node',
 			"Enter your filter query (e.g., k8s.node.name = 'node-01' AND k8s.cluster.name = 'prod-cluster')",
-		[InfraMonitoringEntity.NAMESPACES]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.NAMESPACES]: i18n.t(
+			'entity_filter_placeholder.namespace',
 			"Enter your filter query (e.g., k8s.namespace.name = 'production' AND k8s.cluster.name = 'prod-cluster')",
-		[InfraMonitoringEntity.CLUSTERS]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.CLUSTERS]: i18n.t(
+			'entity_filter_placeholder.cluster',
 			"Enter your filter query (e.g., k8s.cluster.name = 'prod-cluster' AND deployment.environment = 'production')",
-		[InfraMonitoringEntity.DEPLOYMENTS]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.DEPLOYMENTS]: i18n.t(
+			'entity_filter_placeholder.deployment',
 			"Enter your filter query (e.g., k8s.deployment.name = 'api-server' AND k8s.namespace.name = 'production')",
-		[InfraMonitoringEntity.STATEFULSETS]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.STATEFULSETS]: i18n.t(
+			'entity_filter_placeholder.statefulset',
 			"Enter your filter query (e.g., k8s.statefulset.name = 'postgres' AND k8s.namespace.name = 'databases')",
-		[InfraMonitoringEntity.DAEMONSETS]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.DAEMONSETS]: i18n.t(
+			'entity_filter_placeholder.daemonset',
 			"Enter your filter query (e.g., k8s.daemonset.name = 'fluentd' AND k8s.namespace.name = 'logging')",
-		[InfraMonitoringEntity.CONTAINERS]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.CONTAINERS]: i18n.t(
+			'entity_filter_placeholder.container',
 			"Enter your filter query (e.g., k8s.container.name = 'nginx' AND k8s.namespace.name = 'production')",
-		[InfraMonitoringEntity.JOBS]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.JOBS]: i18n.t(
+			'entity_filter_placeholder.job',
 			"Enter your filter query (e.g., k8s.job.name = 'backup-job' AND k8s.namespace.name = 'cron-jobs')",
-		[InfraMonitoringEntity.VOLUMES]:
+			{ ns: 'infraMonitoring' },
+		),
+		[InfraMonitoringEntity.VOLUMES]: i18n.t(
+			'entity_filter_placeholder.pvc',
 			"Enter your filter query (e.g., k8s.persistentvolumeclaim.name = 'data-pvc' AND k8s.namespace.name = 'storage')",
+			{ ns: 'infraMonitoring' },
+		),
 	};
 
 export const INFRA_MONITORING_K8S_PARAMS_KEYS = {

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
 import {
@@ -103,37 +104,45 @@ export const entityTracesColumns = [
 	{
 		dataIndex: 'timestamp',
 		key: 'timestamp',
-		title: 'Timestamp',
+		title: i18n.t('trace_column.timestamp', 'Timestamp', {
+			ns: 'infraMonitoring',
+		}),
 		width: 200,
 		render: (timestamp: string): string => new Date(timestamp).toLocaleString(),
 	},
 	{
-		title: 'Service Name',
+		title: i18n.t('trace_column.service_name', 'Service Name', {
+			ns: 'infraMonitoring',
+		}),
 		dataIndex: ['data', 'serviceName'],
 		key: 'serviceName-string-tag',
 		width: 150,
 	},
 	{
-		title: 'Name',
+		title: i18n.t('trace_column.name', 'Name', { ns: 'infraMonitoring' }),
 		dataIndex: ['data', 'name'],
 		key: 'name-string-tag',
 		width: 145,
 	},
 	{
-		title: 'Duration',
+		title: i18n.t('trace_column.duration', 'Duration', { ns: 'infraMonitoring' }),
 		dataIndex: ['data', 'durationNano'],
 		key: 'durationNano-float64-tag',
 		width: 145,
 		render: (duration: number): string => `${nanoToMilli(duration)}ms`,
 	},
 	{
-		title: 'HTTP Method',
+		title: i18n.t('trace_column.http_method', 'HTTP Method', {
+			ns: 'infraMonitoring',
+		}),
 		dataIndex: ['data', 'httpMethod'],
 		key: 'httpMethod-string-tag',
 		width: 145,
 	},
 	{
-		title: 'Status Code',
+		title: i18n.t('trace_column.status_code', 'Status Code', {
+			ns: 'infraMonitoring',
+		}),
 		dataIndex: ['data', 'responseStatusCode'],
 		key: 'responseStatusCode-string-tag',
 		width: 145,

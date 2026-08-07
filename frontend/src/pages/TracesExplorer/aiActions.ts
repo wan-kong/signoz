@@ -10,6 +10,7 @@
  * URL parser shape via `redirectWithQueryBuilderData`.
  */
 
+import i18n from 'ReactI18';
 import { convertFiltersToExpression } from 'components/QueryBuilderV2/utils';
 import {
 	aiFilterToTagFilterItem,
@@ -62,19 +63,36 @@ export function tracesRunQueryAction(
 ): PageAction<RunQueryParams> {
 	return {
 		id: 'traces.runQuery',
-		description: 'Replace the active trace filters and re-run the query',
+		description: i18n.t(
+			'ai_actions.replace_filters',
+			'Replace the active trace filters and re-run the query',
+			{
+				ns: 'common',
+				dataSource: 'trace',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
 				filters: {
 					type: 'array',
-					description: 'Replacement filter list',
+					description: i18n.t(
+						'ai_actions.replacement_filter_list',
+						'Replacement filter list',
+						{
+							ns: 'common',
+						},
+					),
 					items: {
 						type: 'object',
 						properties: {
 							key: {
 								type: 'string',
-								description: 'Attribute key, e.g. service.name, http.status_code',
+								description: i18n.t(
+									'ai_actions.trace_attribute_key_description',
+									'Attribute key, e.g. service.name, http.status_code',
+									{ ns: 'common' },
+								),
 							},
 							op: {
 								type: 'string',
@@ -95,7 +113,16 @@ export function tracesRunQueryAction(
 		execute: async ({ filters }): Promise<ActionResult> => {
 			const baseQuery = deps.currentQuery.builder.queryData[0];
 			if (!baseQuery) {
-				throw new Error('No active query found in Traces Explorer.');
+				throw new Error(
+					i18n.t(
+						'ai_actions.no_active_query',
+						'No active query found in Traces Explorer.',
+						{
+							ns: 'common',
+							explorer: 'Traces Explorer',
+						},
+					),
+				);
 			}
 
 			const tagItems = filters.map(aiFilterToTagFilterItem);
@@ -112,7 +139,11 @@ export function tracesRunQueryAction(
 			);
 
 			return {
-				summary: `Query updated with ${filters.length} filter(s) and re-run.`,
+				summary: i18n.t(
+					'ai_actions.query_updated',
+					'Query updated with {{count}} filter(s) and re-run.',
+					{ ns: 'common', count: filters.length },
+				),
 			};
 		},
 		getContext: (): Record<string, unknown> => ({
@@ -137,13 +168,24 @@ export function tracesAddFilterAction(
 ): PageAction<AddFilterParams> {
 	return {
 		id: 'traces.addFilter',
-		description: 'Add a single filter to the current trace query and re-run',
+		description: i18n.t(
+			'ai_actions.add_single_filter',
+			'Add a single filter to the current trace query and re-run',
+			{
+				ns: 'common',
+				dataSource: 'trace',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
 				key: {
 					type: 'string',
-					description: 'Attribute key, e.g. service.name, http.status_code',
+					description: i18n.t(
+						'ai_actions.trace_attribute_key_description',
+						'Attribute key, e.g. service.name, http.status_code',
+						{ ns: 'common' },
+					),
 				},
 				op: {
 					type: 'string',
@@ -160,7 +202,16 @@ export function tracesAddFilterAction(
 		execute: async ({ key, op, value }): Promise<ActionResult> => {
 			const baseQuery = deps.currentQuery.builder.queryData[0];
 			if (!baseQuery) {
-				throw new Error('No active query found in Traces Explorer.');
+				throw new Error(
+					i18n.t(
+						'ai_actions.no_active_query',
+						'No active query found in Traces Explorer.',
+						{
+							ns: 'common',
+							explorer: 'Traces Explorer',
+						},
+					),
+				);
 			}
 
 			const existing = baseQuery.filters?.items ?? [];
@@ -177,7 +228,13 @@ export function tracesAddFilterAction(
 				replaceFirstQueryData(deps.currentQuery, updatedBuilderQuery),
 			);
 
-			return { summary: `Filter added: ${key} ${op} "${value}". Query re-run.` };
+			return {
+				summary: i18n.t(
+					'ai_actions.filter_added',
+					'Filter added: {{key}} {{op}} "{{value}}". Query re-run.',
+					{ ns: 'common', key, op, value },
+				),
+			};
 		},
 	};
 }
@@ -190,22 +247,40 @@ export function tracesChangeViewAction(deps: {
 }): PageAction<ChangeViewParams> {
 	return {
 		id: 'traces.changeView',
-		description:
+		description: i18n.t(
+			'ai_actions.change_view',
 			'Switch the Traces Explorer between list, timeseries, table, and trace views',
+			{ ns: 'common', explorer: 'Traces Explorer' },
+		),
 		parameters: {
 			type: 'object',
 			properties: {
 				view: {
 					type: 'string',
 					enum: ['list', 'timeseries', 'table', 'trace'],
-					description: 'The panel view to switch to',
+					description: i18n.t(
+						'ai_actions.switch_to_view',
+						'The panel view to switch to',
+						{
+							ns: 'common',
+						},
+					),
 				},
 			},
 			required: ['view'],
 		},
 		execute: async ({ view }): Promise<ActionResult> => {
 			deps.onChangeView(view);
-			return { summary: `Switched to the "${view}" view.` };
+			return {
+				summary: i18n.t(
+					'ai_actions.switched_to_view',
+					'Switched to the "{{view}}" view.',
+					{
+						ns: 'common',
+						view,
+					},
+				),
+			};
 		},
 	};
 }
@@ -219,17 +294,38 @@ export function tracesSaveViewAction(deps: {
 }): PageAction<SaveViewParams> {
 	return {
 		id: 'traces.saveView',
-		description: 'Save the current trace query as a named view',
+		description: i18n.t(
+			'ai_actions.save_current_query',
+			'Save the current trace query as a named view',
+			{
+				ns: 'common',
+				dataSource: 'trace',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
-				name: { type: 'string', description: 'Name for the saved view' },
+				name: {
+					type: 'string',
+					description: i18n.t(
+						'ai_actions.name_for_saved_view',
+						'Name for the saved view',
+						{
+							ns: 'common',
+						},
+					),
+				},
 			},
 			required: ['name'],
 		},
 		execute: async ({ name }): Promise<ActionResult> => {
 			await deps.onSaveView(name);
-			return { summary: `View "${name}" saved.` };
+			return {
+				summary: i18n.t('ai_actions.view_saved', 'View "{{name}}" saved.', {
+					ns: 'common',
+					name,
+				}),
+			};
 		},
 	};
 }

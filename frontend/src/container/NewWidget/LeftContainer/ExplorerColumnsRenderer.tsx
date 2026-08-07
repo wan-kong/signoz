@@ -230,7 +230,7 @@ function ExplorerColumnsRenderer({
 	return (
 		<div className="explorer-columns-renderer">
 			<div className="title">
-				<Typography.Text>Columns</Typography.Text>
+				<Typography.Text>{t('columns', 'Columns')}</Typography.Text>
 				{isError && (
 					<Tooltip title={SOMETHING_WENT_WRONG}>
 						<CircleAlert size={16} data-testid="alert-circle-icon" />

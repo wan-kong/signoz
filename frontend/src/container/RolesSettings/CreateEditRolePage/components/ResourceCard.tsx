@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronRight } from '@signozhq/icons';
 import type { AuthZResource, AuthZVerb } from 'lib/authz/hooks/useAuthZ/types';
 
@@ -34,6 +35,7 @@ function ResourceCard({
 	onExpandChange,
 	validationErrors,
 }: ResourceCardProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
 	const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
 	const isControlled = controlledExpanded !== undefined;
 	const isExpanded = isControlled ? controlledExpanded : internalExpanded;
@@ -97,7 +99,11 @@ function ResourceCard({
 				className={styles.resourceCardHeader}
 				onClick={handleToggleExpand}
 				aria-expanded={isExpanded}
-				aria-label={`${resource.resourceLabel}: ${grantedCount} of ${totalCount} permissions granted`}
+				aria-label={t('role_form_resource_aria', {
+					resourceLabel: resource.resourceLabel,
+					grantedCount,
+					totalCount,
+				})}
 				data-testid={`resource-card-header-${resource.resourceId}`}
 			>
 				<div className={styles.resourceCardHeaderLeft}>
@@ -110,7 +116,7 @@ function ResourceCard({
 				</div>
 				<div className={styles.resourceCardHeaderRight}>
 					<Typography as="span" size="base" color="muted">
-						{grantedCount} / {totalCount} granted
+						{grantedCount} / {totalCount} {t('granted')}
 					</Typography>
 				</div>
 			</button>

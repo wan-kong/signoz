@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { SelectSimple } from '@signozhq/ui/select';
 import { useSortable } from '@dnd-kit/sortable';
@@ -13,16 +14,6 @@ import {
 } from 'container/LLMObservability/AttributeMapping/types';
 import KeySearchInput from '../../../KeySearchInput/KeySearchInput';
 import styles from './SourceAttributeRow.module.scss';
-
-const CONTEXT_OPTIONS = [
-	{ value: FieldContext.attribute, label: 'Attribute' },
-	{ value: FieldContext.resource, label: 'Resource' },
-];
-
-const OPERATION_OPTIONS = [
-	{ value: MapperOperation.move, label: 'Move' },
-	{ value: MapperOperation.copy, label: 'Copy' },
-];
 
 interface SourceAttributeRowProps {
 	id: string;
@@ -40,6 +31,29 @@ function SourceAttributeRow({
 	onChange,
 	onRemove,
 }: SourceAttributeRowProps): JSX.Element {
+	const { t } = useTranslation('llm');
+
+	const CONTEXT_OPTIONS = [
+		{
+			value: FieldContext.attribute,
+			label: t('source_attribute_row.attribute', 'Attribute'),
+		},
+		{
+			value: FieldContext.resource,
+			label: t('source_attribute_row.resource', 'Resource'),
+		},
+	];
+
+	const OPERATION_OPTIONS = [
+		{
+			value: MapperOperation.move,
+			label: t('source_attribute_row.move', 'Move'),
+		},
+		{
+			value: MapperOperation.copy,
+			label: t('source_attribute_row.copy', 'Copy'),
+		},
+	];
 	const {
 		attributes,
 		listeners,
@@ -68,7 +82,7 @@ function SourceAttributeRow({
 			<span className={styles.sourceIndex}>{index + 1}</span>
 			<KeySearchInput
 				className={styles.sourceInput}
-				placeholder="Source attribute key"
+				placeholder={t('source_attribute_row.placeholder', 'Source attribute key')}
 				value={value.key}
 				fieldContext={value.context}
 				onChange={(key): void => onChange(index, { key })}
@@ -98,7 +112,7 @@ function SourceAttributeRow({
 				variant="ghost"
 				color="secondary"
 				size="icon"
-				aria-label="Remove source"
+				aria-label={t('source_attribute_row.remove_aria', 'Remove source')}
 				disabled={!canRemove}
 				onClick={(): void => onRemove(index)}
 				testId={`mapper-form-source-remove-${index}`}

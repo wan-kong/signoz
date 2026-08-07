@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { memo, useMemo } from 'react';
 import { orange } from '@ant-design/colors';
 import { Popover, Tooltip } from 'antd';
@@ -42,7 +43,9 @@ export const renderMaxTagPlaceholder = (
 	const hasMore = omittedValues.length > MAX_TAG_DISPLAY_VALUES;
 	const tooltipText =
 		valuesToShow.map(({ value: v }) => v ?? '').join(', ') +
-		(hasMore ? ` + ${omittedValues.length - MAX_TAG_DISPLAY_VALUES} more` : '');
+		(hasMore
+			? ` + ${omittedValues.length - MAX_TAG_DISPLAY_VALUES} ${i18n.t('more', 'more', { ns: 'common' })}`
+			: '');
 
 	return (
 		<Tooltip title={tooltipText}>
@@ -78,7 +81,9 @@ function SelectVariableInput({
 			defaultValue,
 
 			// setup props
-			placeholder: 'Select value',
+			placeholder: i18n.t('variable.placeholder_select_value', 'Select value', {
+				ns: 'dashboard',
+			}),
 			className: 'variable-select',
 			popupClassName: 'dropdown-styles',
 			getPopupContainer: popupContainer,

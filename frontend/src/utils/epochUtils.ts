@@ -1,5 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import i18n from 'ReactI18';
 
 import { roundHalfUp } from './round';
 
@@ -26,7 +27,15 @@ interface ValidationResult {
  */
 function normalizeToSeconds(epoch: EpochInput): number {
 	if (!Number.isFinite(epoch)) {
-		throw new Error('Epoch value must be a finite number');
+		throw new Error(
+			i18n.t(
+				'constants_extra.epoch_finite',
+				'Epoch value must be a finite number',
+				{
+					ns: 'common',
+				},
+			),
+		);
 	}
 
 	// Heuristic:
@@ -55,17 +64,39 @@ export function validateEpochRange(
 	const endTime = dayjs.unix(endSeconds);
 
 	if (!startTime.isValid()) {
-		return { isValid: false, error: 'Invalid startTime epoch', range: null };
+		return {
+			isValid: false,
+			error: i18n.t(
+				'constants_extra.invalid_start_epoch',
+				'Invalid startTime epoch',
+				{
+					ns: 'common',
+				},
+			),
+			range: null,
+		};
 	}
 
 	if (!endTime.isValid()) {
-		return { isValid: false, error: 'Invalid endTime epoch', range: null };
+		return {
+			isValid: false,
+			error: i18n.t('constants_extra.invalid_end_epoch', 'Invalid endTime epoch', {
+				ns: 'common',
+			}),
+			range: null,
+		};
 	}
 
 	if (!endTime.isAfter(startTime)) {
 		return {
 			isValid: false,
-			error: 'endTime must be after startTime',
+			error: i18n.t(
+				'constants_extra.end_after_start',
+				'endTime must be after startTime',
+				{
+					ns: 'common',
+				},
+			),
 			range: null,
 		};
 	}

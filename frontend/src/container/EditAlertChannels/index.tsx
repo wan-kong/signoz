@@ -86,7 +86,7 @@ function EditAlertChannels({
 
 		if (selectedConfig?.api_url === '') {
 			notifications.error({
-				message: 'Error',
+				message: t('error', { ns: 'common' }),
 				description: t('webhook_url_required'),
 			});
 			setSavingState(false);
@@ -96,7 +96,7 @@ function EditAlertChannels({
 		try {
 			await editSlackApi(prepareSlackRequest());
 			notifications.success({
-				message: 'Success',
+				message: t('success', { ns: 'common' }),
 				description: t('channel_edit_done'),
 			});
 
@@ -135,7 +135,7 @@ function EditAlertChannels({
 
 		const showError = (msg: string): void => {
 			notifications.error({
-				message: 'Error',
+				message: t('error', { ns: 'common' }),
 				description: msg,
 			});
 		};
@@ -155,7 +155,7 @@ function EditAlertChannels({
 		try {
 			await editWebhookApi(prepareWebhookRequest());
 			notifications.success({
-				message: 'Success',
+				message: t('success', { ns: 'common' }),
 				description: t('channel_edit_done'),
 			});
 
@@ -195,7 +195,7 @@ function EditAlertChannels({
 		try {
 			await editEmail(request);
 			notifications.success({
-				message: 'Success',
+				message: t('success', { ns: 'common' }),
 				description: t('channel_edit_done'),
 			});
 			history.replace(ROUTES.ALL_CHANNELS);
@@ -240,7 +240,7 @@ function EditAlertChannels({
 
 		if (validationError !== '') {
 			notifications.error({
-				message: 'Error',
+				message: t('error', { ns: 'common' }),
 				description: validationError,
 			});
 			setSavingState(false);
@@ -250,7 +250,7 @@ function EditAlertChannels({
 		try {
 			await editPagerApi(preparePagerRequest());
 			notifications.success({
-				message: 'Success',
+				message: t('success', { ns: 'common' }),
 				description: t('channel_edit_done'),
 			});
 			history.replace(ROUTES.ALL_CHANNELS);
@@ -288,7 +288,7 @@ function EditAlertChannels({
 
 		if (selectedConfig?.api_key === '') {
 			notifications.error({
-				message: 'Error',
+				message: t('error', { ns: 'common' }),
 				description: t('api_key_required'),
 			});
 			setSavingState(false);
@@ -297,7 +297,7 @@ function EditAlertChannels({
 		try {
 			await editOpsgenie(prepareOpsgenieRequest());
 			notifications.success({
-				message: 'Success',
+				message: t('success', { ns: 'common' }),
 				description: t('channel_edit_done'),
 			});
 			history.replace(ROUTES.ALL_CHANNELS);
@@ -334,7 +334,7 @@ function EditAlertChannels({
 
 		if (selectedConfig?.webhook_url === '') {
 			notifications.error({
-				message: 'Error',
+				message: t('error', { ns: 'common' }),
 				description: t('webhook_url_required'),
 			});
 			setSavingState(false);
@@ -344,7 +344,7 @@ function EditAlertChannels({
 		try {
 			await editMsTeamsApi(prepareMsTeamsRequest());
 			notifications.success({
-				message: 'Success',
+				message: t('success', { ns: 'common' }),
 				description: t('channel_edit_done'),
 			});
 			history.replace(ROUTES.ALL_CHANNELS);
@@ -440,7 +440,7 @@ function EditAlertChannels({
 						break;
 					default:
 						notifications.error({
-							message: 'Error',
+							message: t('error', { ns: 'common' }),
 							description: t('test_unsupported'),
 						});
 						setTestingState(false);
@@ -448,7 +448,7 @@ function EditAlertChannels({
 				}
 
 				notifications.success({
-					message: 'Success',
+					message: t('success', { ns: 'common' }),
 					description: t('channel_test_done'),
 				});
 				logEvent('Alert Channel: Test notification', {

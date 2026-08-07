@@ -27,6 +27,8 @@ import {
 	X,
 } from '@signozhq/icons';
 
+import { useTranslation } from 'react-i18next';
+
 import { useAIAssistantStore } from '../../store/useAIAssistantStore';
 
 import styles from './ApprovalCard.module.scss';
@@ -50,6 +52,7 @@ export default function ApprovalCard({
 	const isStreaming = useAIAssistantStore(
 		(s) => s.streams[conversationId]?.isStreaming ?? false,
 	);
+	const { t } = useTranslation('ai_assistant');
 
 	const [decided, setDecided] = useState<'approved' | 'rejected' | null>(null);
 	const [diffExpanded, setDiffExpanded] = useState(false);
@@ -71,7 +74,9 @@ export default function ApprovalCard({
 		return (
 			<div className={cx(styles.card, styles.decided)}>
 				<Check size={13} className={cx(styles.statusIcon, styles.ok)} />
-				<span className={styles.statusText}>Approved — resuming…</span>
+				<span className={styles.statusText}>
+					{t('approved_resuming', 'Approved — resuming…')}
+				</span>
 			</div>
 		);
 	}
@@ -80,7 +85,7 @@ export default function ApprovalCard({
 		return (
 			<div className={cx(styles.card, styles.decided)}>
 				<X size={13} className={cx(styles.statusIcon, styles.no)} />
-				<span className={styles.statusText}>Rejected.</span>
+				<span className={styles.statusText}>{t('rejected', 'Rejected.')}</span>
 			</div>
 		);
 	}
@@ -89,7 +94,9 @@ export default function ApprovalCard({
 		<div className={styles.card}>
 			<div className={styles.header}>
 				<Shield size={13} className={styles.shieldIcon} />
-				<span className={styles.headerLabel}>Action requires approval</span>
+				<span className={styles.headerLabel}>
+					{t('action_requires_approval', 'Action requires approval')}
+				</span>
 				<span className={styles.resourceBadge}>
 					{approval.actionType} · {approval.resourceType}
 				</span>
@@ -100,14 +107,14 @@ export default function ApprovalCard({
 			{approval.diff && (
 				<div className={styles.diffSection}>
 					<div className={styles.diffHeader}>
-						<span className={styles.diffHeaderLabel}>Diff</span>
-						<TooltipSimple title="Expand diff">
+						<span className={styles.diffHeaderLabel}>{t('diff', 'Diff')}</span>
+						<TooltipSimple title={t('expand_diff', 'Expand diff')}>
 							<Button
 								variant="link"
 								size="sm"
 								color="secondary"
 								onClick={(): void => setDiffExpanded(true)}
-								aria-label="Expand diff"
+								aria-label={t('expand_diff', 'Expand diff')}
 								prefix={<Maximize2 size={12} />}
 							/>
 						</TooltipSimple>
@@ -124,7 +131,7 @@ export default function ApprovalCard({
 					onOpenAutoFocus={(e): void => e.preventDefault()}
 				>
 					<DialogHeader>
-						<DialogTitle>Approval diff</DialogTitle>
+						<DialogTitle>{t('approval_diff', 'Approval diff')}</DialogTitle>
 						<DialogSubtitle>
 							{approval.actionType} · {approval.resourceType}
 						</DialogSubtitle>
@@ -146,12 +153,12 @@ export default function ApprovalCard({
 								items={[
 									{
 										value: 'split',
-										'aria-label': 'Split view',
+										'aria-label': t('split_view', 'Split view'),
 										label: <Columns2 size={12} />,
 									},
 									{
 										value: 'unified',
-										'aria-label': 'Unified view',
+										'aria-label': t('unified_view', 'Unified view'),
 										label: <List size={12} />,
 									},
 								]}
@@ -164,7 +171,9 @@ export default function ApprovalCard({
 								items={[
 									{
 										value: 'wrap',
-										'aria-label': wrapText ? 'Disable text wrap' : 'Wrap long lines',
+										'aria-label': wrapText
+											? t('disable_text_wrap', 'Disable text wrap')
+											: t('wrap_long_lines', 'Wrap long lines'),
 										label: <WrapText size={12} />,
 									},
 								]}
@@ -191,7 +200,7 @@ export default function ApprovalCard({
 					disabled={isStreaming}
 					prefix={<Check />}
 				>
-					Approve
+					{t('approve', 'Approve')}
 				</Button>
 				<Button
 					variant="outlined"
@@ -201,7 +210,7 @@ export default function ApprovalCard({
 					disabled={isStreaming}
 					prefix={<X />}
 				>
-					Reject
+					{t('reject', 'Reject')}
 				</Button>
 			</div>
 		</div>
@@ -225,6 +234,7 @@ function DiffView({
 	wrapText = false,
 	viewMode = 'split',
 }: DiffViewProps): JSX.Element {
+	const { t } = useTranslation('ai_assistant');
 	const beforeText =
 		diff.before !== undefined ? JSON.stringify(diff.before, null, 2) : '';
 	const afterText =
@@ -239,7 +249,7 @@ function DiffView({
 				{diff.before !== undefined && (
 					<div className={cx(styles.diffBlock, styles.before)}>
 						<div className={styles.diffBlockHeader}>
-							<span className={styles.diffLabel}>Before</span>
+							<span className={styles.diffLabel}>{t('before', 'Before')}</span>
 						</div>
 						<pre className={jsonClass}>{beforeText}</pre>
 					</div>
@@ -247,7 +257,7 @@ function DiffView({
 				{diff.after !== undefined && (
 					<div className={cx(styles.diffBlock, styles.after)}>
 						<div className={styles.diffBlockHeader}>
-							<span className={styles.diffLabel}>After</span>
+							<span className={styles.diffLabel}>{t('after', 'After')}</span>
 						</div>
 						<pre className={jsonClass}>{afterText}</pre>
 					</div>
@@ -267,7 +277,7 @@ function DiffView({
 		return (
 			<div className={cx(styles.diff, styles.expanded, styles.unified)}>
 				<div className={styles.diffBlockHeader}>
-					<span className={styles.diffLabel}>Diff</span>
+					<span className={styles.diffLabel}>{t('diff', 'Diff')}</span>
 					<div className={styles.diffHeaderActions}>
 						<CopyButton text={unifiedText} label="diff" />
 					</div>
@@ -440,6 +450,7 @@ interface CopyButtonProps {
 }
 
 function CopyButton({ text, label }: CopyButtonProps): JSX.Element {
+	const { t } = useTranslation('ai_assistant');
 	const [copied, setCopied] = useState(false);
 	const [, copyToClipboard] = useCopyToClipboard();
 	// Track the timeout so an unmount mid-flight doesn't try to setState on
@@ -465,13 +476,23 @@ function CopyButton({ text, label }: CopyButtonProps): JSX.Element {
 	};
 
 	return (
-		<TooltipSimple title={copied ? `Copied ${label}` : `Copy ${label}`}>
+		<TooltipSimple
+			title={
+				copied
+					? t('copied_label', 'Copied {{label}}', { label })
+					: t('copy_label', 'Copy {{label}}', { label })
+			}
+		>
 			<Button
 				variant="ghost"
 				size="sm"
 				color="secondary"
 				onClick={handleCopy}
-				aria-label={copied ? `Copied ${label}` : `Copy ${label}`}
+				aria-label={
+					copied
+						? t('copied_label', 'Copied {{label}}', { label })
+						: t('copy_label', 'Copy {{label}}', { label })
+				}
 			>
 				{copied ? <Check size={12} /> : <Copy size={12} />}
 			</Button>

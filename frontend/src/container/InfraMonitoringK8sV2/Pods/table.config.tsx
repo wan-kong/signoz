@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Container } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
 import {
@@ -47,7 +48,11 @@ export type PodTableColumnConfig =
 export const k8sPodColumnsConfig: PodTableColumnConfig[] = [
 	{
 		id: 'podGroup',
-		header: (): React.ReactNode => <EntityGroupHeader title="Pod Group" />,
+		header: (): React.ReactNode => (
+			<EntityGroupHeader
+				title={i18n.t('display.pod_group', 'Pod Group', { ns: 'infraMonitoring' })}
+			/>
+		),
 		accessorFn: (row): string =>
 			row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_POD_NAME] || '',
 		width: { min: 290 },
@@ -71,7 +76,7 @@ export const k8sPodColumnsConfig: PodTableColumnConfig[] = [
 		id: 'podName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Pod Name"
+				title={i18n.t('display.pod_name', 'Pod Name', { ns: 'infraMonitoring' })}
 				icon={<Container data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/pods#pod-name"
 			/>

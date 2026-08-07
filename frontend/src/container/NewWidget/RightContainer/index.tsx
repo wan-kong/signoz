@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { UseQueryResult } from 'react-query';
 import { Typography } from '@signozhq/ui/typography';
@@ -111,6 +112,7 @@ function RightContainer({
 	enableDrillDown = false,
 	isNewDashboard,
 }: RightContainerProps): JSX.Element {
+	const { t } = useTranslation('new_widget');
 	const { dashboardVariables } = useDashboardVariables();
 
 	const selectedPanelDisplay = PanelTypesWithData.find(
@@ -147,12 +149,24 @@ function RightContainer({
 
 	const decimapPrecisionOptions = useMemo(
 		() => [
-			{ label: '0 decimals', value: PrecisionOptionsEnum.ZERO },
-			{ label: '1 decimal', value: PrecisionOptionsEnum.ONE },
-			{ label: '2 decimals', value: PrecisionOptionsEnum.TWO },
-			{ label: '3 decimals', value: PrecisionOptionsEnum.THREE },
+			{
+				label: t('right.decimal_precision.zero_decimals', '0 decimals'),
+				value: PrecisionOptionsEnum.ZERO,
+			},
+			{
+				label: t('right.decimal_precision.one_decimal', '1 decimal'),
+				value: PrecisionOptionsEnum.ONE,
+			},
+			{
+				label: t('right.decimal_precision.two_decimals', '2 decimals'),
+				value: PrecisionOptionsEnum.TWO,
+			},
+			{
+				label: t('right.decimal_precision.three_decimals', '3 decimals'),
+				value: PrecisionOptionsEnum.THREE,
+			},
 		],
-		[],
+		[t],
 	);
 
 	const isAxisSectionVisible = useMemo(
@@ -206,7 +220,9 @@ function RightContainer({
 		<div className="right-container">
 			<section className="header">
 				<div className="purple-dot" />
-				<Typography.Text className="header-text">Panel Settings</Typography.Text>
+				<Typography.Text className="header-text">
+					{t('right.panel_settings', 'Panel Settings')}
+				</Typography.Text>
 			</section>
 
 			<GeneralSettingsSection

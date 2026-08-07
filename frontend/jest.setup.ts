@@ -10,6 +10,8 @@ import '@testing-library/jest-dom/extend-expect';
 import 'jest-styled-components';
 
 import { server } from './src/mocks-server/server';
+import { createTestI18nInstance } from './src/ReactI18/testUtils';
+import { enResources } from './src/ReactI18/testResources';
 
 import './src/styles.scss';
 // Establish API mocking before all tests.
@@ -91,3 +93,11 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 
 afterAll(() => server.close());
+
+// Register a global en-resources i18next instance as react-i18next's module-level
+// "reactI18nextInstance". Components rendered with a bare `@testing-library/react`
+// render (no I18nextProvider) fall back to this instance, so they render real English
+// instead of raw keys. Tests using customRender/AllTheProviders get their own instance
+// from createTestI18nInstance and are unaffected. Runs last (after all imports, incl.
+// the app's i18n init triggered via mocks-server) so it wins as the global instance.
+createTestI18nInstance({ language: 'en', resources: enResources });

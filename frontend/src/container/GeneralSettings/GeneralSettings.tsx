@@ -192,7 +192,10 @@ function GeneralSettings({
 		(type: TTTLType) => {
 			if (!setRetentionPermission) {
 				notifications.error({
-					message: `Sorry you don't have permission to make these changes`,
+					message: t(
+						'no_permission_message',
+						"Sorry you don't have permission to make these changes",
+					),
 				});
 				return;
 			}
@@ -226,9 +229,17 @@ function GeneralSettings({
 		// Various methods to return dynamic error message text.
 		const messages = {
 			compareError: (name: string | number): string =>
-				t('retention_comparison_error', { name }),
+				t(
+					'retention_comparison_error',
+					'Total retention period for {{name}} can’t be lower or equal to the period after which data is moved to s3.',
+					{ name },
+				),
 			nullValueError: (name: string | number): string =>
-				t('retention_null_value_error', { name }),
+				t(
+					'retention_null_value_error',
+					'Retention Period for {{name}} is not set yet. Please set by choosing below',
+					{ name },
+				),
 		};
 
 		// Defaults to button not disabled and empty error message text.
@@ -386,13 +397,16 @@ function GeneralSettings({
 				hasSetTTLFailed = true;
 				if ((error as APIError).getHttpStatusCode() === StatusCodes.CONFLICT) {
 					notifications.error({
-						message: 'Error',
-						description: t('retention_request_race_condition'),
+						message: t('error', 'Error'),
+						description: t(
+							'retention_request_race_condition',
+							'Your request to change retention period has failed, as another request is still in process.',
+						),
 						placement: 'topRight',
 					});
 				} else {
 					notifications.error({
-						message: 'Error',
+						message: t('error', 'Error'),
 						description: (error as APIError).getErrorMessage(),
 						placement: 'topRight',
 					});
@@ -438,8 +452,11 @@ function GeneralSettings({
 			}
 		} catch (error) {
 			notifications.error({
-				message: 'Error',
-				description: t('retention_failed_message'),
+				message: t('error', 'Error'),
+				description: t(
+					'retention_failed_message',
+					'There was an issue in changing the retention period. Please try again or reach out to support@signoz.io',
+				),
 				placement: 'topRight',
 			});
 		}
@@ -460,12 +477,15 @@ function GeneralSettings({
 			icon: <BarChart size={14} />,
 			retentionFields: [
 				{
-					name: t('total_retention_period'),
+					name: t('total_retention_period', 'Total Retention Period'),
 					value: metricsTotalRetentionPeriod,
 					setValue: setMetricsTotalRetentionPeriod,
 				},
 				{
-					name: t('move_to_s3'),
+					name: t(
+						'move_to_s3',
+						'Move to S3\n(should be lower than total retention period)',
+					),
 					value: metricsS3RetentionPeriod,
 					setValue: setMetricsS3RetentionPeriod,
 					hide: !s3Enabled,
@@ -483,10 +503,14 @@ function GeneralSettings({
 								size="small"
 								indicator={<Loader className="animate-spin" />}
 							/>{' '}
-							{t('retention_save_button.pending', { name: 'metrics' })}
+							{t(
+								'retention_save_button.pending',
+								'Updating {{name}} retention period',
+								{ name: 'metrics' },
+							)}
 						</span>
 					) : (
-						<span>{t('retention_save_button.success')}</span>
+						<span>{t('retention_save_button.success', 'Save')}</span>
 					),
 				isDisabled:
 					metricsTtlValuesPayload.status === 'pending' || isMetricsSaveDisabled,
@@ -507,12 +531,15 @@ function GeneralSettings({
 			icon: <Compass size={14} />,
 			retentionFields: [
 				{
-					name: t('total_retention_period'),
+					name: t('total_retention_period', 'Total Retention Period'),
 					value: tracesTotalRetentionPeriod,
 					setValue: setTracesTotalRetentionPeriod,
 				},
 				{
-					name: t('move_to_s3'),
+					name: t(
+						'move_to_s3',
+						'Move to S3\n(should be lower than total retention period)',
+					),
 					value: tracesS3RetentionPeriod,
 					setValue: setTracesS3RetentionPeriod,
 					hide: !s3Enabled,
@@ -530,10 +557,14 @@ function GeneralSettings({
 								size="small"
 								indicator={<Loader className="animate-spin" />}
 							/>{' '}
-							{t('retention_save_button.pending', { name: 'traces' })}
+							{t(
+								'retention_save_button.pending',
+								'Updating {{name}} retention period',
+								{ name: 'traces' },
+							)}
 						</span>
 					) : (
-						<span>{t('retention_save_button.success')}</span>
+						<span>{t('retention_save_button.success', 'Save')}</span>
 					),
 				isDisabled:
 					tracesTtlValuesPayload.status === 'pending' || isTracesSaveDisabled,
@@ -552,12 +583,15 @@ function GeneralSettings({
 			icon: <ScrollText size={14} />,
 			retentionFields: [
 				{
-					name: t('total_retention_period'),
+					name: t('total_retention_period', 'Total Retention Period'),
 					value: logsTotalRetentionPeriod,
 					setValue: setLogsTotalRetentionPeriod,
 				},
 				{
-					name: t('move_to_s3'),
+					name: t(
+						'move_to_s3',
+						'Move to S3\n(should be lower than total retention period)',
+					),
 					value: logsS3RetentionPeriod,
 					setValue: setLogsS3RetentionPeriod,
 					hide: !s3Enabled,
@@ -576,10 +610,14 @@ function GeneralSettings({
 								size="small"
 								indicator={<Loader className="animate-spin" />}
 							/>{' '}
-							{t('retention_save_button.pending', { name: 'logs' })}
+							{t(
+								'retention_save_button.pending',
+								'Updating {{name}} retention period',
+								{ name: 'logs' },
+							)}
 						</span>
 					) : (
-						<span>{t('retention_save_button.success')}</span>
+						<span>{t('retention_save_button.success', 'Save')}</span>
 					),
 				isDisabled: logsTtlValuesPayload.status === 'pending' || isLogsSaveDisabled,
 			},
@@ -636,25 +674,26 @@ function GeneralSettings({
 
 					{!isCloudUserVal && (
 						<Modal
-							title={t('retention_confirmation')}
+							title={t(
+								'retention_confirmation',
+								'Are you sure you want to change the retention period?',
+							)}
 							focusTriggerAfterClose
 							forceRender
 							destroyOnClose
 							closable
-							onCancel={(): void =>
-								onModalToggleHandler(category.name.toLowerCase() as TTTLType)
-							}
-							onOk={(): Promise<void> =>
-								onOkHandler(category.name.toLowerCase() as TTTLType)
-							}
+							onCancel={(): void => onModalToggleHandler(category.type as TTTLType)}
+							onOk={(): Promise<void> => onOkHandler(category.type as TTTLType)}
 							centered
 							open={category.save.modal}
 							confirmLoading={category.save.apiLoading}
 						>
 							<p className="retention-modal-description">
-								{t('retention_confirmation_description', {
-									name: category.name.toLowerCase(),
-								})}
+								{t(
+									'retention_confirmation_description',
+									'This will change the amount of storage needed for saving {{name}}.',
+									{ name: category.type },
+								)}
 							</p>
 						</Modal>
 					)}
@@ -667,9 +706,11 @@ function GeneralSettings({
 	return (
 		<div className="general-settings-page">
 			<div className="general-settings-header">
-				<span className="general-settings-title">Workspace</span>
+				<span className="general-settings-title">
+					{t('workspace', 'Workspace')}
+				</span>
 				<span className="general-settings-subtitle">
-					Manage your workspace settings.
+					{t('workspace_settings_description', 'Manage your workspace settings.')}
 				</span>
 			</div>
 
@@ -690,7 +731,9 @@ function GeneralSettings({
 
 			<div className="retention-controls-container">
 				<div className="retention-controls-header">
-					<span className="retention-controls-header-label">Retention Controls</span>
+					<span className="retention-controls-header-label">
+						{t('retention_controls', 'Retention Controls')}
+					</span>
 				</div>
 				{renderConfig}
 			</div>
@@ -700,7 +743,10 @@ function GeneralSettings({
 					{!isCloudUserVal && (
 						<TextToolTip
 							{...{
-								text: `More details on how to set retention period`,
+								text: t(
+									'retention_period_details',
+									'More details on how to set retention period',
+								),
 								url: 'https://signoz.io/docs/userguide/retention-period/',
 							}}
 						/>

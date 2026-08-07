@@ -1,4 +1,5 @@
 import { MouseEvent, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Button } from '@signozhq/ui/button';
 import { Callout } from '@signozhq/ui/callout';
@@ -29,6 +30,7 @@ export interface InstrumentationChecksCalloutProps {
 export function K8sInstrumentationChecksCallout({
 	entity,
 }: InstrumentationChecksCalloutProps): JSX.Element | null {
+	const { t } = useTranslation('infraMonitoring');
 	const checkType = ENTITY_TO_CHECK_TYPE[entity];
 	const queryClient = useQueryClient();
 
@@ -86,7 +88,7 @@ export function K8sInstrumentationChecksCallout({
 				size="medium"
 				title={
 					<div className={styles.header}>
-						Instrumentation checks
+						{t('instrumentation_checks', 'Instrumentation checks')}
 						<Button
 							variant="outlined"
 							color="warning"
@@ -96,7 +98,7 @@ export function K8sInstrumentationChecksCallout({
 							prefix={<RefreshCw size={12} />}
 							data-testid="instrumentation-checks-recheck-btn"
 						>
-							Recheck
+							{t('recheck', 'Recheck')}
 						</Button>
 					</div>
 				}
@@ -110,7 +112,7 @@ export function K8sInstrumentationChecksCallout({
 							<PresentEntryRow
 								key={`present-default-${entry.associatedComponent.name}`}
 								entry={entry}
-								typeLabel="Default enabled metrics"
+								typeLabel={t('default_enabled_metrics', 'Default enabled metrics')}
 								itemType="metrics"
 							/>
 						))}
@@ -118,7 +120,7 @@ export function K8sInstrumentationChecksCallout({
 							<PresentEntryRow
 								key={`present-optional-${entry.associatedComponent.name}`}
 								entry={entry}
-								typeLabel="Optional metrics"
+								typeLabel={t('optional_metrics', 'Optional metrics')}
 								itemType="metrics"
 							/>
 						))}
@@ -126,7 +128,7 @@ export function K8sInstrumentationChecksCallout({
 							<PresentEntryRow
 								key={`present-attrs-${entry.associatedComponent.name}`}
 								entry={entry}
-								typeLabel="Required attributes"
+								typeLabel={t('required_attributes', 'Required attributes')}
 								itemType="attributes"
 							/>
 						))}
@@ -134,7 +136,7 @@ export function K8sInstrumentationChecksCallout({
 							<MissingEntryRow
 								key={`missing-default-${entry.associatedComponent.name}`}
 								entry={entry}
-								typeLabel="Missing default metrics"
+								typeLabel={t('missing_default_metrics', 'Missing default metrics')}
 								itemType="metrics"
 							/>
 						))}
@@ -142,7 +144,7 @@ export function K8sInstrumentationChecksCallout({
 							<MissingEntryRow
 								key={`missing-optional-${entry.associatedComponent.name}`}
 								entry={entry}
-								typeLabel="Missing optional metrics"
+								typeLabel={t('missing_optional_metrics', 'Missing optional metrics')}
 								itemType="metrics"
 							/>
 						))}
@@ -150,7 +152,10 @@ export function K8sInstrumentationChecksCallout({
 							<MissingEntryRow
 								key={`missing-attrs-${entry.associatedComponent.name}`}
 								entry={entry}
-								typeLabel="Missing required attributes"
+								typeLabel={t(
+									'missing_required_attributes',
+									'Missing required attributes',
+								)}
 								itemType="attributes"
 							/>
 						))}

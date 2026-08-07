@@ -1,5 +1,6 @@
 import styles from './MissingEntryRow.module.scss';
 import { ExternalLink, TriangleAlert } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { Divider } from '@signozhq/ui/divider';
 import type {
@@ -24,6 +25,7 @@ export function MissingEntryRow({
 	typeLabel,
 	itemType,
 }: MissingEntryRowProps): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const items = itemType === 'metrics' ? entry.metrics : entry.attributes;
 
 	return (
@@ -56,7 +58,7 @@ export function MissingEntryRow({
 					size="base"
 					className={styles.learnMoreLink}
 				>
-					Learn here
+					{t('learn_here')}
 					<ExternalLink size={12} />
 				</Typography.Link>
 			)}

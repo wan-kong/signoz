@@ -1,42 +1,64 @@
+import i18n from 'ReactI18';
+
 export const timeItems: timePreferance[] = [
 	{
-		name: 'Global Time',
+		name: i18n.t('time_items.global_time', 'Global Time', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'GLOBAL_TIME',
 	},
 	{
-		name: 'Last 5 min',
+		name: i18n.t('time_items.last_5_min', 'Last 5 min', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_5_MIN',
 	},
 	{
-		name: 'Last 15 min',
+		name: i18n.t('time_items.last_15_min', 'Last 15 min', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_15_MIN',
 	},
 	{
-		name: 'Last 30 min',
+		name: i18n.t('time_items.last_30_min', 'Last 30 min', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_30_MIN',
 	},
 	{
-		name: 'Last 1 hr',
+		name: i18n.t('time_items.last_1_hr', 'Last 1 hr', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_1_HR',
 	},
 	{
-		name: 'Last 6 hr',
+		name: i18n.t('time_items.last_6_hr', 'Last 6 hr', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_6_HR',
 	},
 	{
-		name: 'Last 1 day',
+		name: i18n.t('time_items.last_1_day', 'Last 1 day', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_1_DAY',
 	},
 	{
-		name: 'Last 3 days',
+		name: i18n.t('time_items.last_3_days', 'Last 3 days', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_3_DAYS',
 	},
 	{
-		name: 'Last 1 week',
+		name: i18n.t('time_items.last_1_week', 'Last 1 week', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_1_WEEK',
 	},
 	{
-		name: 'Last 1 month',
+		name: i18n.t('time_items.last_1_month', 'Last 1 month', {
+			ns: 'new_widget_components',
+		}),
 		enum: 'LAST_1_MONTH',
 	},
 ];

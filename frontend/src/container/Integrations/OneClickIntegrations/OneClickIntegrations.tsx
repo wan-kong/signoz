@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Badge } from '@signozhq/ui/badge';
 import { IntegrationsProps } from 'types/api/integrations/types';
 
@@ -16,6 +17,7 @@ interface OneClickIntegrationsProps {
 
 function OneClickIntegrations(props: OneClickIntegrationsProps): JSX.Element {
 	const { searchQuery, setSelectedIntegration } = props;
+	const { t } = useTranslation('integrations');
 
 	const filteredIntegrations = useMemo(() => {
 		const query = searchQuery.trim().toLowerCase();
@@ -38,13 +40,13 @@ function OneClickIntegrations(props: OneClickIntegrationsProps): JSX.Element {
 		<div className="one-click-integrations">
 			<div className="one-click-integrations-header">
 				<div className="one-click-integrations-header-title">
-					One Click Integrations
+					{t('one_click_integrations', 'One Click Integrations')}
 				</div>
 
 				<div className="one-click-integrations-header-dotted-double-line">
 					<img
 						src={dottedDoubleLineUrl}
-						alt="dotted-double-line"
+						alt={t('dotted_double_line_alt', 'Dotted double line')}
 						width="100%"
 						height="100%"
 					/>
@@ -57,11 +59,13 @@ function OneClickIntegrations(props: OneClickIntegrationsProps): JSX.Element {
 						<div className="integrations-not-found-content">
 							<img
 								src={awwSnapIconUrl}
-								alt="no-integrations"
+								alt={t('no_integrations_alt', 'No integrations')}
 								className="integrations-not-found-image"
 							/>
 							<div className="integrations-not-found-text">
-								No integrations found for &ldquo;{searchQuery.trim()}&rdquo;
+								{t('no_integrations_found', 'No integrations found for "{{query}}"', {
+									query: searchQuery.trim(),
+								})}
 							</div>
 						</div>
 					</div>
@@ -83,7 +87,7 @@ function OneClickIntegrations(props: OneClickIntegrationsProps): JSX.Element {
 									{integration.is_new && (
 										<div className="one-click-integrations-list-item-new-tag">
 											<Badge color="robin" variant="default">
-												NEW
+												{t('new', 'NEW')}
 											</Badge>
 										</div>
 									)}

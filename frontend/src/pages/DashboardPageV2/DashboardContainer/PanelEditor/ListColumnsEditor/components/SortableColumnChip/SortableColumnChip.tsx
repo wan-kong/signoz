@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@signozhq/ui/button';
@@ -18,6 +19,7 @@ function SortableColumnChip({
 	name,
 	onRemove,
 }: SortableColumnChipProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const {
 		attributes,
 		listeners,
@@ -42,7 +44,7 @@ function SortableColumnChip({
 				color="secondary"
 				size="icon"
 				className={styles.grip}
-				aria-label={`Reorder ${name}`}
+				aria-label={t('sortable.reorder', { name })}
 				{...attributes}
 				{...listeners}
 			>
@@ -57,7 +59,7 @@ function SortableColumnChip({
 				color="secondary"
 				size="icon"
 				className={styles.remove}
-				aria-label={`Remove ${name}`}
+				aria-label={t('sortable.remove', { name })}
 				testId="list-column-remove"
 				onClick={(): void => onRemove(name)}
 			>

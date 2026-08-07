@@ -1,3 +1,5 @@
+import i18n from 'ReactI18';
+
 // intentionally omitting few query types
 // from pkg/types/querybuildertypes/querybuildertypesv5/query_type.go
 export type QueryTypeId = 'builder_query' | 'promql' | 'clickhouse_sql';
@@ -12,7 +14,9 @@ export interface QueryTypeOption {
 export const QUERY_TYPES: readonly QueryTypeOption[] = [
 	{
 		id: 'builder_query',
-		label: 'Builder Query',
+		label: i18n.t('role_form_builder_query', 'Builder Query', {
+			ns: 'organizationsettings',
+		}),
 		supportsKeyScoping: true,
 	},
 	{

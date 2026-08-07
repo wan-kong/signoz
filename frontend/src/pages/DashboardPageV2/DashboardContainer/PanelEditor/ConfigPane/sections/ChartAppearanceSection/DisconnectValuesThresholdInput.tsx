@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { type ChangeEvent, useEffect, useState } from 'react';
 import { rangeUtil } from '@grafana/data';
 import { Callout } from '@signozhq/ui/callout';
@@ -28,10 +29,18 @@ function validationError(raw: string, minValue?: number): string | null {
 		seconds = NaN;
 	}
 	if (!Number.isFinite(seconds) || seconds <= 0) {
-		return 'Enter a valid duration (e.g. 30s, 1m, 1h)';
+		return i18n.t(
+			'disconnect_threshold.invalid_duration',
+			'Enter a valid duration (e.g. 30s, 1m, 1h)',
+			{ ns: 'dashboard' },
+		);
 	}
 	if (minValue !== undefined && seconds < minValue) {
-		return `Threshold should be > ${rangeUtil.secondsToHms(minValue)}`;
+		return i18n.t(
+			'disconnect_threshold.below_min',
+			'Threshold should be > {{min}}',
+			{ min: rangeUtil.secondsToHms(minValue), ns: 'dashboard' },
+		);
 	}
 	return null;
 }

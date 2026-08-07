@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueries, useQueryClient } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
@@ -52,6 +53,7 @@ function TimeSeries({
 	metrics,
 	isCancelled = false,
 }: TimeSeriesProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { stagedQuery, currentQuery } = useQueryBuilder();
 
 	const {
@@ -199,13 +201,17 @@ function TimeSeries({
 				},
 				{
 					onSuccess: () => {
-						toast.success('Unit saved successfully');
+						toast.success(
+							t('metrics_explorer.unit_saved_successfully', 'Unit saved successfully'),
+						);
 						invalidateGetMetricMetadata(queryClient, {
 							metricName: metricNames[0],
 						});
 					},
 					onError: () => {
-						toast.error('Failed to save unit');
+						toast.error(
+							t('metrics_explorer.failed_to_save_unit', 'Failed to save unit'),
+						);
 					},
 				},
 			);
@@ -226,7 +232,10 @@ function TimeSeries({
 						{showSaveUnitButton && (
 							<div className="save-unit-container">
 								<Typography.Text>
-									Set the selected unit as the metric unit?
+									{t(
+										'metrics_explorer.set_selected_unit_as_metric_unit',
+										'Set the selected unit as the metric unit?',
+									)}
 								</Typography.Text>
 								<Button
 									type="primary"
@@ -234,7 +243,7 @@ function TimeSeries({
 									disabled={isUpdatingMetricMetadata}
 									onClick={handleSaveUnit}
 								>
-									<Typography.Text>Yes</Typography.Text>
+									<Typography.Text>{t('metrics_explorer.yes', 'Yes')}</Typography.Text>
 								</Button>
 							</div>
 						)}
@@ -248,7 +257,12 @@ function TimeSeries({
 			>
 				{metricNames.length === 0 && <EmptyMetricsSearch />}
 				{isCancelled && metricNames.length > 0 && (
-					<QueryCancelledPlaceholder subText='Click "Run Query" to load metrics.' />
+					<QueryCancelledPlaceholder
+						subText={t(
+							'metrics_explorer.click_run_query_to_load_metrics',
+							'Click "Run Query" to load metrics.',
+						)}
+					/>
 				)}
 				{!isCancelled &&
 					metricNames.length > 0 &&
@@ -284,13 +298,16 @@ function TimeSeries({
 										className="no-unit-warning"
 										title={
 											<Typography.Text>
-												No unit is set for this metric. You can assign one from the{' '}
+												{t(
+													'metrics_explorer.no_unit_set_for_metric',
+													'No unit is set for this metric. You can assign one from the',
+												)}{' '}
 												<Typography.Link
 													onClick={(): void => handleOpenMetricDetails(metricName)}
 												>
-													metric details
+													{t('metrics_explorer.metric_details', 'metric details')}
 												</Typography.Link>{' '}
-												page.
+												{t('metrics_explorer.unit_page', 'page.')}
 											</Typography.Text>
 										}
 									>
@@ -298,7 +315,10 @@ function TimeSeries({
 											size={16}
 											color={Color.BG_AMBER_400}
 											role="img"
-											aria-label="no unit warning"
+											aria-label={t(
+												'metrics_explorer.no_unit_warning_aria',
+												'no unit warning',
+											)}
 										/>
 									</Tooltip>
 								)}

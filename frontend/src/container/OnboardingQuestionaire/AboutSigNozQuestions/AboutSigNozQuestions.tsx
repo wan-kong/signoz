@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import i18n from 'ReactI18';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Checkbox } from '@signozhq/ui/checkbox';
@@ -25,12 +26,31 @@ interface AboutSigNozQuestionsProps {
 }
 
 const interestedInOptions: Record<string, string> = {
-	loweringCosts: 'Lowering observability costs',
-	otelNativeStack: 'Interested in OTel-native stack',
-	deploymentFlexibility: 'Deployment flexibility (Cloud/Self-Host) in future',
-	singleTool:
+	loweringCosts: i18n.t(
+		'onboarding.lowering_costs',
+		'Lowering observability costs',
+		{ ns: 'onboarding' },
+	),
+	otelNativeStack: i18n.t(
+		'onboarding.otel_native',
+		'Interested in OTel-native stack',
+		{ ns: 'onboarding' },
+	),
+	deploymentFlexibility: i18n.t(
+		'onboarding.deployment_flex',
+		'Deployment flexibility (Cloud/Self-Host) in future',
+		{ ns: 'onboarding' },
+	),
+	singleTool: i18n.t(
+		'onboarding.single_tool',
 		'Single Tool (logs, metrics & traces) to reduce operational overhead',
-	correlateSignals: 'Correlate signals for faster troubleshooting',
+		{ ns: 'onboarding' },
+	),
+	correlateSignals: i18n.t(
+		'onboarding.correlate_signals',
+		'Correlate signals for faster troubleshooting',
+		{ ns: 'onboarding' },
+	),
 	openSourceTooling: 'Prefer open-source tooling',
 };
 

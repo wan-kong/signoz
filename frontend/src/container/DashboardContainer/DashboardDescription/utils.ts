@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { DashboardData, IDashboardVariable } from 'types/api/dashboard/getAll';
 
 export function sanitizeDashboardData(
@@ -37,4 +38,8 @@ export function downloadObjectAsJson(
 	downloadAnchorNode.remove();
 }
 
-export const DEFAULT_ROW_NAME = 'Sample Row';
+export const DEFAULT_ROW_NAME = i18n.t(
+	'dashboard_description.default_row_name',
+	'Sample Row',
+	{ ns: 'common' },
+);

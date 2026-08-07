@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import useUrlQuery from 'hooks/useUrlQuery';
 import { useGetAlertRuleDetailsTimelineGraphData } from 'pages/AlertDetails/hooks';
 import DataStateRenderer from 'periscope/components/DataStateRenderer/DataStateRenderer';
@@ -13,6 +14,7 @@ function GraphWrapper({
 }: {
 	totalCurrentTriggers: number;
 }): JSX.Element {
+	const { t } = useTranslation('alert_history');
 	const urlQuery = useUrlQuery();
 
 	const relativeTime = urlQuery.get('relativeTime');
@@ -34,7 +36,10 @@ function GraphWrapper({
 	return (
 		<div className="timeline-graph">
 			<div className="timeline-graph__title">
-				{totalCurrentTriggers} triggers in {relativeTime}
+				{t('timeline.triggers_in', '{{count}} triggers in {{time}}', {
+					count: totalCurrentTriggers,
+					time: relativeTime,
+				})}
 			</div>
 			<div className="timeline-graph__chart">
 				<DataStateRenderer

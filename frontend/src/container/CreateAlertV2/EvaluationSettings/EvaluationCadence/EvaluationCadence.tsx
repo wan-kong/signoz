@@ -47,13 +47,21 @@ function EvaluationCadence(): JSX.Element {
 			<div className="advanced-option-item evaluation-cadence-item">
 				<div className="advanced-option-item-left-content">
 					<Typography.Text className="advanced-option-item-title">
-						{t('how_often_to_check')}
-						<Tooltip title={t('evaluation_cadence_tooltip')}>
+						{t('how_often_to_check', 'How often to check')}
+						<Tooltip
+							title={t(
+								'evaluation_cadence_tooltip',
+								'Controls how frequently the alert evaluates your conditions. For most alerts, 1-5 minutes is sufficient.',
+							)}
+						>
 							<Info data-testid="evaluation-cadence-tooltip-icon" size={16} />
 						</Tooltip>
 					</Typography.Text>
 					<Typography.Text className="advanced-option-item-description">
-						{t('how_frequently_check_desc')}
+						{t(
+							'how_frequently_check_desc',
+							'How frequently this alert checks your data. Default: Every 1 minute',
+						)}
 					</Typography.Text>
 				</div>
 				{isCustomScheduleButtonVisible && (
@@ -64,7 +72,7 @@ function EvaluationCadence(): JSX.Element {
 						<Input.Group className="advanced-option-item-input-group">
 							<Input
 								type="number"
-								placeholder={t('enter_time')}
+								placeholder={t('enter_time', 'Enter time')}
 								style={{ width: 180 }}
 								value={advancedOptions.evaluationCadence.default.value}
 								onChange={(value): void =>
@@ -83,7 +91,7 @@ function EvaluationCadence(): JSX.Element {
 							/>
 							<Select
 								options={ADVANCED_OPTIONS_TIME_UNIT_OPTIONS}
-								placeholder={t('select_time_unit')}
+								placeholder={t('select_time_unit', 'Select time unit')}
 								style={{ width: 120 }}
 								value={advancedOptions.evaluationCadence.default.timeUnit}
 								onChange={(value): void =>

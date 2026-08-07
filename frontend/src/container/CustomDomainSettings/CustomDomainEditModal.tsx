@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { CircleAlert, CircleCheck, LoaderCircle } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
@@ -33,6 +34,7 @@ export default function CustomDomainEditModal({
 	const initialSubdomain = customDomainSubdomain ?? '';
 	const [value, setValue] = useState(initialSubdomain);
 	const [validationError, setValidationError] = useState<string | null>(null);
+	const { t } = useTranslation('organizationsettings');
 
 	useEffect(() => {
 		if (isOpen) {
@@ -60,16 +62,20 @@ export default function CustomDomainEditModal({
 
 	const handleSubmit = (): void => {
 		if (value === initialSubdomain) {
-			setValidationError('Input is unchanged');
+			setValidationError(t('custom_domain.input_unchanged', 'Input is unchanged'));
 			return;
 		}
 
 		if (!value) {
-			setValidationError('This field is required');
+			setValidationError(
+				t('custom_domain.field_required', 'This field is required'),
+			);
 			return;
 		}
 		if (value.length < 3) {
-			setValidationError('Minimum 3 characters required');
+			setValidationError(
+				t('custom_domain.min_length', 'Minimum 3 characters required'),
+			);
 			return;
 		}
 		onSubmit(value);
@@ -85,7 +91,10 @@ export default function CustomDomainEditModal({
 		validationError ??
 		(is409
 			? (apiErrorMessage ??
-				"You've already updated the custom domain once today. Please contact support.")
+				t(
+					'custom_domain.update_limit_reached',
+					"You've already updated the custom domain once today. Please contact support.",
+				))
 			: apiErrorMessage);
 
 	const hasError = Boolean(errorMessage);
@@ -109,7 +118,7 @@ export default function CustomDomainEditModal({
 	return (
 		<DialogWrapper
 			className="edit-workspace-modal"
-			title="Edit Workspace Link"
+			title={t('custom_domain.edit_workspace_link', 'Edit Workspace Link')}
 			open={isOpen}
 			onOpenChange={(open: boolean): void => {
 				if (!open) {
@@ -120,15 +129,17 @@ export default function CustomDomainEditModal({
 		>
 			<div className="edit-workspace-modal-content">
 				<p className="edit-modal-description">
-					Enter your preferred subdomain to create a unique URL for your team. Need
-					help?{' '}
+					{t(
+						'custom_domain.modal_description',
+						'Enter your preferred subdomain to create a unique URL for your team. Need help?',
+					)}{' '}
 					<a
 						href="https://signoz.io/support"
 						target="_blank"
 						rel="noreferrer"
 						className="edit-modal-link"
 					>
-						Contact support.
+						{t('custom_domain.contact_support', 'Contact support.')}
 					</a>
 				</p>
 
@@ -139,7 +150,7 @@ export default function CustomDomainEditModal({
 							hasError ? ' edit-modal-label--error' : ''
 						}`}
 					>
-						Workspace URL
+						{t('custom_domain.workspace_url', 'Workspace URL')}
 					</label>
 
 					<div
@@ -170,15 +181,20 @@ export default function CustomDomainEditModal({
 					>
 						{hasError
 							? errorMessage
-							: "To help you easily explore SigNoz, we've selected a tenant sub domain name for you."}
+							: t(
+									'custom_domain.helper_text',
+									"To help you easily explore SigNoz, we've selected a tenant sub domain name for you.",
+								)}
 					</span>
 				</div>
 
 				<div className="edit-modal-note">
 					<span className="edit-modal-note-emoji">🚧</span>
 					<span className="edit-modal-note-text">
-						Note that your previous URL still remains accessible. Your access
-						credentials for the new URL remain the same.
+						{t(
+							'custom_domain.note',
+							'Note that your previous URL still remains accessible. Your access credentials for the new URL remain the same.',
+						)}
 					</span>
 				</div>
 
@@ -188,7 +204,7 @@ export default function CustomDomainEditModal({
 							attributes={{ screen: 'Custom Domain Settings' }}
 							eventName="Custom Domain Settings: Facing Issues Updating Custom Domain"
 							message="Hi Team, I need help with updating custom domain"
-							buttonText="Contact Support"
+							buttonText={t('custom_domain.contact_support_button', 'Contact Support')}
 						/>
 					) : (
 						<Button
@@ -200,7 +216,7 @@ export default function CustomDomainEditModal({
 							disabled={isLoading || value === initialSubdomain}
 							loading={isLoading}
 						>
-							Apply Changes
+							{t('custom_domain.apply_changes', 'Apply Changes')}
 						</Button>
 					)}
 				</div>

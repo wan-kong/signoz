@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import LearnMore from 'components/LearnMore/LearnMore';
 import { MCP_USE_CASES_URL } from '../clients';
@@ -9,6 +10,8 @@ interface UseCasesCardProps {
 }
 
 function UseCasesCard({ onDocsLinkClick }: UseCasesCardProps): JSX.Element {
+	const { t } = useTranslation('mcp_server');
+
 	const handleClick = useCallback(
 		() => onDocsLinkClick('use-cases'),
 		[onDocsLinkClick],
@@ -16,15 +19,37 @@ function UseCasesCard({ onDocsLinkClick }: UseCasesCardProps): JSX.Element {
 
 	return (
 		<section className="mcp-use-cases-card">
-			<h3 className="mcp-use-cases-card__title">What you can do with it</h3>
+			<h3 className="mcp-use-cases-card__title">
+				{t('use_cases.title', 'What you can do with it')}
+			</h3>
 			<ul className="mcp-use-cases-card__list">
-				<li>Ask your AI assistant to investigate a spiking error rate.</li>
-				<li>Debug a slow service by walking through recent traces.</li>
-				<li>Summarize an alert and suggest likely root causes.</li>
-				<li>Generate dashboards or queries from a natural-language description.</li>
+				<li>
+					{t(
+						'use_cases.item_1',
+						'Ask your AI assistant to investigate a spiking error rate.',
+					)}
+				</li>
+				<li>
+					{t(
+						'use_cases.item_2',
+						'Debug a slow service by walking through recent traces.',
+					)}
+				</li>
+				<li>
+					{t(
+						'use_cases.item_3',
+						'Summarize an alert and suggest likely root causes.',
+					)}
+				</li>
+				<li>
+					{t(
+						'use_cases.item_4',
+						'Generate dashboards or queries from a natural-language description.',
+					)}
+				</li>
 			</ul>
 			<LearnMore
-				text="See more use cases"
+				text={t('use_cases.see_more', 'See more use cases')}
 				url={MCP_USE_CASES_URL}
 				onClick={handleClick}
 			/>

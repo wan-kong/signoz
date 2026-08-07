@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Empty } from 'antd';
 import { Checkbox } from '@signozhq/ui/checkbox';
 import { AxiosResponse } from 'axios';
@@ -23,10 +24,15 @@ function ExplorerAttributeColumns({
 	handleCheckboxChange,
 	dataSource,
 }: ExplorerAttributeColumnsProps): JSX.Element {
+	const { t } = useTranslation('new_widget');
 	if (isLoading) {
 		return (
 			<div className="attribute-columns">
-				<Spinner size="large" tip="Loading..." height="2vh" />
+				<Spinner
+					size="large"
+					tip={t('left.explorer_attributes.loading', 'Loading...')}
+					height="2vh"
+				/>
 			</div>
 		);
 	}
@@ -42,7 +48,12 @@ function ExplorerAttributeColumns({
 	if (filteredAttributeKeys.length === 0) {
 		return (
 			<div className="attribute-columns">
-				<Empty description="No columns found" />
+				<Empty
+					description={t(
+						'left.explorer_attributes.no_columns_found',
+						'No columns found',
+					)}
+				/>
 			</div>
 		);
 	}

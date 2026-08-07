@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Divider } from '@signozhq/ui/divider';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 import { Typography } from '@signozhq/ui/typography';
@@ -13,6 +14,7 @@ const TOOLTIP_CONTENT_PROPS = {
 };
 
 function FieldRenderer({ field }: FieldRendererProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { dataType, newField, logType } = getFieldAttributes(field);
 
 	return (
@@ -33,14 +35,14 @@ function FieldRenderer({ field }: FieldRendererProps): JSX.Element {
 					<div className="tags">
 						<TagContainer>
 							<TagLabel>
-								type
+								{t('type', { ns: 'common' })}
 								<Divider type="vertical" />{' '}
 							</TagLabel>
 							<TagValue>{logType}</TagValue>
 						</TagContainer>
 						<TagContainer>
 							<TagLabel>
-								data type <Divider type="vertical" />{' '}
+								{t('data_type', { ns: 'common' })} <Divider type="vertical" />{' '}
 							</TagLabel>
 							<TagValue>{dataType}</TagValue>
 						</TagContainer>

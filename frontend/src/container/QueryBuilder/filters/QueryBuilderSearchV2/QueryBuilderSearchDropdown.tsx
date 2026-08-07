@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
 import {
@@ -41,6 +42,7 @@ export default function QueryBuilderSearchDropdown(
 		onChange,
 		isLogsDataSource,
 	} = props;
+	const { t } = useTranslation('pipeline');
 	const userOs = getUserOperatingSystem();
 	return (
 		<>
@@ -48,11 +50,13 @@ export default function QueryBuilderSearchDropdown(
 				className={cx('content', { 'non-logs-data-source': !isLogsDataSource })}
 			>
 				{!currentFilterItem?.key ? (
-					<div className="suggested-filters">Suggested Filters</div>
+					<div className="suggested-filters">
+						{t('query_builder_search.suggested_filters', 'Suggested Filters')}
+					</div>
 				) : !currentFilterItem?.op ? (
 					<div className="operator-for">
 						<Typography.Text className="operator-for-text">
-							Operator for{' '}
+							{t('query_builder_search.operator_for', 'Operator for ')}
 						</Typography.Text>
 						<Typography.Text className="operator-for-value">
 							{currentFilterItem?.key?.key}
@@ -61,7 +65,7 @@ export default function QueryBuilderSearchDropdown(
 				) : (
 					<div className="value-for">
 						<Typography.Text className="value-for-text">
-							Value(s) for{' '}
+							{t('query_builder_search.value_for', 'Value(s) for ')}
 						</Typography.Text>
 						<Typography.Text className="value-for-value">
 							{currentFilterItem?.key?.key} {currentFilterItem?.op}
@@ -71,7 +75,9 @@ export default function QueryBuilderSearchDropdown(
 				{menu}
 				{!searchValue && tags.length === 0 && exampleQueries.length > 0 && (
 					<div className="example-queries">
-						<div className="heading"> Example Queries </div>
+						<div className="heading">
+							{t('query_builder_search.example_queries', 'Example Queries')}
+						</div>
 						<div className="query-container">
 							{convertExampleQueriesToOptions(exampleQueries).map((query) => (
 								<ExampleQueriesRendererForLogs
@@ -90,11 +96,15 @@ export default function QueryBuilderSearchDropdown(
 				<section className="navigate">
 					<ArrowDown size={10} className="icons" />
 					<ArrowUp size={10} className="icons" />
-					<span className="keyboard-text">to navigate</span>
+					<span className="keyboard-text">
+						{t('query_builder_search.to_navigate', 'to navigate')}
+					</span>
 				</section>
 				<section className="update-query">
 					<CornerDownLeft size={10} className="icons" />
-					<span className="keyboard-text">to update query</span>
+					<span className="keyboard-text">
+						{t('query_builder_search.to_update_query', 'to update query')}
+					</span>
 				</section>
 				{!currentFilterItem?.key && options.length > 3 && (
 					<section className="show-all-filter-items">
@@ -105,7 +115,12 @@ export default function QueryBuilderSearchDropdown(
 						)}
 						+
 						<Slash size={14} className="icons" />
-						<span className="keyboard-text">Show all filter items</span>
+						<span className="keyboard-text">
+							{t(
+								'query_builder_search.show_all_filter_items',
+								'Show all filter items',
+							)}
+						</span>
 					</section>
 				)}
 			</div>

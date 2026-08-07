@@ -54,8 +54,8 @@ const V2_LIST_ENDPOINT = '*/api/v2/users/me/dashboards';
 const V2_CREATE_ENDPOINT = '*/api/v2/dashboards';
 
 // "Create new dashboard" names the dashboard from the `new_dashboard_title` i18n
-// key; the test-utils react-i18next mock returns the key verbatim.
-const NEW_DASHBOARD_TITLE = 'new_dashboard_title';
+// key (dashboard namespace), which resolves to "Sample Title" in English.
+const NEW_DASHBOARD_TITLE = 'Sample Title';
 
 // Use the existing mock query from the codebase
 const mockQuery: Query = {

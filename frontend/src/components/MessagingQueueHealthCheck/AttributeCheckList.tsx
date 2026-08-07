@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { ReactNode, useEffect, useState } from 'react';
@@ -131,7 +132,11 @@ function treeTitleAndKey({
 				</Typography.Text>
 				{isLeaf && (
 					<div className="success-attribute-icon">
-						<Tooltip title="Success">
+						<Tooltip
+							title={String(
+								i18n.t('mq_health_check.success', 'Success', { ns: 'common' }),
+							)}
+						>
 							<Check size={14} />
 						</Tooltip>
 					</div>

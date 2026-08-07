@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { generatePath, useParams } from 'react-router-dom';
 import { Card } from 'antd';
@@ -63,6 +64,7 @@ function DashboardWidgetInternal({
 	widgetId: string;
 	graphType: PANEL_TYPES;
 }): JSX.Element | null {
+	const { t } = useTranslation('common');
 	const [dashboardData, setDashboardData] = useState<Dashboard | undefined>(
 		undefined,
 	);
@@ -92,7 +94,7 @@ function DashboardWidgetInternal({
 	});
 
 	if (isFetchingDashboardResponse) {
-		return <Spinner tip="Loading.." />;
+		return <Spinner tip={t('loading', { ns: 'common' })} />;
 	}
 
 	if (isErrorDashboardResponse) {

@@ -14,7 +14,11 @@ function QueryCancelledPlaceholder({
 	const { t } = useTranslation('common');
 	return (
 		<div className={styles.placeholder}>
-			<img className={styles.emoji} src={eyesEmojiUrl} alt="eyes emoji" />
+			<img
+				className={styles.emoji}
+				src={eyesEmojiUrl}
+				alt={t('eyes_emoji_alt', { ns: 'common' })}
+			/>
 			<Typography className={styles.text}>
 				{t('query_cancelled')}
 				<span className={styles.subText}>

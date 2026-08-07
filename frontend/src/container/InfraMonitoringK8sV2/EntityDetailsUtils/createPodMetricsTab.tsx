@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Container } from '@signozhq/icons';
 import { InfraMonitoringEvents } from 'constants/events';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
@@ -53,7 +54,9 @@ export function createPodMetricsTab<T>({
 
 	return {
 		key: VIEW_TYPES.POD_METRICS,
-		label: 'Pod Metrics',
+		label: i18n.t('display.pod_metrics', 'Pod Metrics', {
+			ns: 'infraMonitoring',
+		}),
 		icon: <Container size={14} />,
 		render: ({ entity }) => (
 			<EntityMetrics

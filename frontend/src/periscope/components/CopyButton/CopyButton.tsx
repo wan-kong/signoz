@@ -2,6 +2,7 @@ import { CSSProperties, type MouseEvent, useCallback } from 'react';
 import { Check, Copy } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CopyButton.module.scss';
 import { useCopyButton } from './useCopyButton';
@@ -26,11 +27,14 @@ export interface CopyButtonProps {
 function CopyButton({
 	value,
 	size = 14,
-	ariaLabel = 'Copy',
+	ariaLabel,
 	className,
 	testId,
 }: CopyButtonProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { copyToClipboard, isCopied } = useCopyButton();
+
+	const resolvedAriaLabel = ariaLabel ?? t('copy');
 
 	const handleClick = useCallback(
 		(e: MouseEvent<HTMLButtonElement>): void => {
@@ -49,7 +53,7 @@ function CopyButton({
 			size="icon"
 			className={cx(styles.copyButton, className)}
 			onClick={handleClick}
-			aria-label={isCopied ? 'Copied' : ariaLabel}
+			aria-label={isCopied ? t('copied') : resolvedAriaLabel}
 			testId={testId}
 		>
 			<span className={styles.iconStack} style={stackStyle} data-copied={isCopied}>
@@ -62,7 +66,6 @@ function CopyButton({
 
 CopyButton.defaultProps = {
 	size: 14,
-	ariaLabel: 'Copy',
 	className: undefined,
 	testId: undefined,
 };

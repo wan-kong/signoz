@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { SolidAlertTriangle } from '@signozhq/icons';
 import { ConfirmDialog } from '@signozhq/ui/dialog';
 import { Typography } from '@signozhq/ui/typography';
@@ -19,13 +20,18 @@ export default function DiscardChangesModal({
 	onDiscard,
 	onClose,
 }: DiscardChangesModalProps): JSX.Element {
+	const { t } = useTranslation('new_widget');
 	const dashboardName = dashboardTitle ? (
 		<>
 			{' '}
-			to <strong>{dashboardTitle}</strong>
+			{t('discard_changes.to', 'to')} <strong>{dashboardTitle}</strong>
 		</>
 	) : null;
-	const panelLabel = panelTitle ? <strong>{panelTitle}</strong> : 'this panel';
+	const panelLabel = panelTitle ? (
+		<strong>{panelTitle}</strong>
+	) : (
+		t('discard_changes.this_panel', 'this panel')
+	);
 
 	return (
 		<ConfirmDialog
@@ -35,18 +41,24 @@ export default function DiscardChangesModal({
 					onClose();
 				}
 			}}
-			title="Discard changes?"
+			title={t('discard_changes.title', 'Discard changes?')}
 			titleIcon={<SolidAlertTriangle size={14} color="#fdd600" />}
-			confirmText="Discard"
+			confirmText={t('discard_changes.confirm', 'Discard')}
 			confirmColor="destructive"
-			cancelText="Keep editing"
+			cancelText={t('discard_changes.cancel', 'Keep editing')}
 			onConfirm={onDiscard}
 			onCancel={onClose}
 		>
 			{isNewPanel ? (
-				<Typography>This new panel won&apos;t be added{dashboardName}.</Typography>
+				<Typography>
+					{t('discard_changes.new_panel_message', "This new panel won't be added")}
+					{dashboardName}.
+				</Typography>
 			) : (
-				<Typography>Your unsaved edits to {panelLabel} will be lost.</Typography>
+				<Typography>
+					{t('discard_changes.edits_lost_prefix', 'Your unsaved edits to')}{' '}
+					{panelLabel} {t('discard_changes.will_be_lost_suffix', 'will be lost.')}
+				</Typography>
 			)}
 		</ConfirmDialog>
 	);

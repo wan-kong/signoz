@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import { Table } from 'antd';
@@ -44,6 +45,7 @@ const DEFAULT_PARAMS: VolumeControlTableParams = {
 };
 
 function VolumeControlTab(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { isVolumeControlEnabled, canManageVolumeControl } =
 		useVolumeControlFeatureGate();
 	const [selectedRule, setSelectedRule] =
@@ -97,7 +99,7 @@ function VolumeControlTab(): JSX.Element {
 		useMemo(
 			() => [
 				{
-					title: 'METRIC',
+					title: t('volume_control.col_metric', 'METRIC'),
 					dataIndex: 'metricName',
 					key: OrderBy.metric,
 					sorter: true,
@@ -109,7 +111,7 @@ function VolumeControlTab(): JSX.Element {
 					),
 				},
 				{
-					title: 'STATUS',
+					title: t('volume_control.col_status', 'STATUS'),
 					key: 'status',
 					width: 130,
 					render: (
@@ -118,7 +120,7 @@ function VolumeControlTab(): JSX.Element {
 					): JSX.Element => <VolumeControlBadge rule={rule} />,
 				},
 				{
-					title: 'MODE',
+					title: t('volume_control.col_mode', 'MODE'),
 					key: 'mode',
 					width: 110,
 					render: (
@@ -131,7 +133,7 @@ function VolumeControlTab(): JSX.Element {
 					),
 				},
 				{
-					title: 'ATTRIBUTES',
+					title: t('volume_control.col_attributes', 'ATTRIBUTES'),
 					key: 'attributes',
 					render: (
 						_value: unknown,
@@ -149,7 +151,7 @@ function VolumeControlTab(): JSX.Element {
 				{
 					title: (
 						<>
-							INGESTED{' '}
+							{t('volume_control.col_ingested', 'INGESTED')}{' '}
 							<Typography.Text size="small" color="muted">
 								(1h)
 							</Typography.Text>
@@ -179,7 +181,7 @@ function VolumeControlTab(): JSX.Element {
 				{
 					title: (
 						<>
-							RETAINED{' '}
+							{t('volume_control.col_retained', 'RETAINED')}{' '}
 							<Typography.Text size="small" color="muted">
 								(1h)
 							</Typography.Text>
@@ -207,7 +209,7 @@ function VolumeControlTab(): JSX.Element {
 					),
 				},
 				{
-					title: 'CHANGE',
+					title: t('volume_control.col_change', 'CHANGE'),
 					width: 140,
 					render: (
 						_value: unknown,
@@ -245,7 +247,7 @@ function VolumeControlTab(): JSX.Element {
 					},
 				},
 				{
-					title: 'LAST CONFIGURED',
+					title: t('volume_control.col_last_configured', 'LAST CONFIGURED'),
 					key: OrderBy.last_updated,
 					width: 240,
 					sorter: true,
@@ -276,14 +278,14 @@ function VolumeControlTab(): JSX.Element {
 										onClick={(): void => setSelectedRule(rule)}
 										data-testid={`volume-control-manage-${rule.metricName}`}
 									>
-										Manage
+										{t('volume_control.manage', 'Manage')}
 									</Button>
 								),
 							},
 						] as TableColumnsType<MetricreductionruletypesGettableReductionRuleDTO>)
 					: []),
 			],
-			[canManageVolumeControl, sortOrderFor],
+			[canManageVolumeControl, sortOrderFor, t],
 		);
 
 	const handleTableChange: TableProps<MetricreductionruletypesGettableReductionRuleDTO>['onChange'] =
@@ -307,7 +309,10 @@ function VolumeControlTab(): JSX.Element {
 		return (
 			<div className={styles.unavailable} data-testid="volume-control-unavailable">
 				<Typography.Text color="muted">
-					Volume control is available on enterprise and cloud plans.
+					{t(
+						'volume_control.enterprise_only_message',
+						'Volume control is available on enterprise and cloud plans.',
+					)}
 				</Typography.Text>
 			</div>
 		);
@@ -348,14 +353,19 @@ function VolumeControlTab(): JSX.Element {
 					emptyText: isListError ? (
 						<div className={styles.empty} data-testid="volume-control-tab-error">
 							<Typography.Text color="danger">
-								Failed to load volume control rules. Please try again.
+								{t(
+									'volume_control.table_load_error',
+									'Failed to load volume control rules. Please try again.',
+								)}
 							</Typography.Text>
 						</div>
 					) : (
 						<div className={styles.empty} data-testid="volume-control-tab-empty">
 							<Typography.Text color="muted">
-								No volume control rules yet. Open a metric and set one up to start
-								reducing its series volume.
+								{t(
+									'volume_control.no_rules_yet',
+									'No volume control rules yet. Open a metric and set one up to start reducing its series volume.',
+								)}
 							</Typography.Text>
 						</div>
 					),

@@ -1,11 +1,16 @@
+import i18n from 'ReactI18';
 import { SIGNAL_DATA_SOURCE_MAP } from 'components/QuickFilters/QuickFiltersSettings/constants';
 import { Filter as FilterType } from 'types/api/quickFilters/getCustomFilters';
 
 import { FiltersType, IQuickFiltersConfig, SignalType } from './types';
 
 const FILTER_TITLE_MAP: Record<string, string> = {
-	duration_nano: 'Duration',
-	hasError: 'Has Error (Status)',
+	duration_nano: i18n.t('quick_filter_utils.duration', 'Duration', {
+		ns: 'quick_filters',
+	}),
+	hasError: i18n.t('quick_filter_utils.has_error', 'Has Error (Status)', {
+		ns: 'quick_filters',
+	}),
 };
 
 const FILTER_TYPE_MAP: Record<string, FiltersType> = {

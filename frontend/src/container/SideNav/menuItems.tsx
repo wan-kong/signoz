@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { MenuProps } from 'antd';
 import ROUTES from 'constants/routes';
 import {
@@ -442,7 +443,9 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 		key: 'documentation',
 		label: (
 			<div className="nav-item-label-container">
-				<span>Documentation</span>
+				<span>
+					{String(i18n.t('nav.documentation', 'Documentation', { ns: 'common' }))}
+				</span>
 				<ArrowUpRight size={14} />
 			</div>
 		),
@@ -456,7 +459,7 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 		key: 'github',
 		label: (
 			<div className="nav-item-label-container">
-				<span>GitHub</span>
+				<span>{String(i18n.t('nav.github', 'GitHub', { ns: 'common' }))}</span>
 				<ArrowUpRight size={14} />
 			</div>
 		),
@@ -471,7 +474,11 @@ export const helpSupportDropdownMenuItems: SidebarItem[] = [
 		key: 'slack',
 		label: (
 			<div className="nav-item-label-container">
-				<span>Community Slack</span>
+				<span>
+					{String(
+						i18n.t('nav.community_slack', 'Community Slack', { ns: 'common' }),
+					)}
+				</span>
 				<ArrowUpRight size={14} />
 			</div>
 		),
@@ -513,7 +520,11 @@ export const getUserSettingsDropdownMenuItems = ({
 			key: 'label',
 			label: (
 				<div className="user-settings-dropdown-logged-in-section">
-					<span className="user-settings-dropdown-label-text">LOGGED IN AS</span>
+					<span className="user-settings-dropdown-label-text">
+						{String(
+							i18n.t('side_nav.logged_in_as', 'LOGGED IN AS', { ns: 'common' }),
+						)}
+					</span>
 					<span className="user-settings-dropdown-label-email">{userEmail}</span>
 				</div>
 			),
@@ -554,7 +565,9 @@ export const getUserSettingsDropdownMenuItems = ({
 		{
 			key: 'logout',
 			label: (
-				<span className="user-settings-dropdown-logout-section">Sign out</span>
+				<span className="user-settings-dropdown-logout-section">
+					{String(i18n.t('side_nav.sign_out', 'Sign out', { ns: 'common' }))}
+				</span>
 			),
 			icon: (
 				<LogOut

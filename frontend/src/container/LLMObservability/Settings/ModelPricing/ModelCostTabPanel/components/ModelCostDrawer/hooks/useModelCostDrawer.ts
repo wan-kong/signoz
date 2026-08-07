@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useState } from 'react';
 import { toast } from '@signozhq/ui/sonner';
 import { useQueryClient } from 'react-query';
@@ -36,6 +37,7 @@ interface UseModelCostDrawerResult {
 }
 
 export function useModelCostDrawer(): UseModelCostDrawerResult {
+	const { t } = useTranslation('llm');
 	const queryClient = useQueryClient();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [mode, setMode] = useState<DrawerMode>('add');
@@ -101,7 +103,10 @@ export function useModelCostDrawer(): UseModelCostDrawerResult {
 					mode === 'edit' ? TOAST_MODEL_COST_UPDATED : TOAST_MODEL_COST_ADDED,
 				);
 			} catch (error) {
-				const message = error instanceof Error ? error.message : 'Save failed';
+				const message =
+					error instanceof Error
+						? error.message
+						: t('model_cost_drawer.save_failed', 'Save failed');
 				setSaveError(message);
 			}
 		},

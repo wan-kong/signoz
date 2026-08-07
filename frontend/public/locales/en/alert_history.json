@@ -1,0 +1,27 @@
+{
+	"alert_popover": {
+		"view_logs": "View Logs",
+		"view_traces": "View Traces"
+	},
+	"stats_cards": {
+		"total_triggered": "Total Triggered",
+		"none_triggered": "None Triggered.",
+		"avg_resolution_time": "Avg. Resolution Time",
+		"no_resolutions": "No Resolutions."
+	},
+	"top_contributors": {
+		"empty_message": "Top contributors highlight the most frequently triggering group-by attributes in multi-dimensional alerts",
+		"title": "top contributors"
+	},
+	"view_all": {
+		"button": "View all",
+		"title": "Viewing All Contributors"
+	},
+	"total_triggered": {
+		"title": "Total Triggered"
+	},
+	"timeline": {
+		"title": "Timeline",
+		"triggers_in": "{{count}} triggers in {{time}}"
+	}
+}

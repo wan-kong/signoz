@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Button } from '@signozhq/ui/button';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
@@ -14,6 +15,7 @@ import { openAIAssistant } from 'container/AIAssistant/store/useAIAssistantStore
 import { useIsAIAssistantEnabled } from 'hooks/useIsAIAssistantEnabled';
 
 export default function NozButton(): JSX.Element | null {
+	const { t } = useTranslation('trace');
 	const { pathname } = useLocation();
 	const isAIAssistantEnabled = useIsAIAssistantEnabled();
 
@@ -36,7 +38,7 @@ export default function NozButton(): JSX.Element | null {
 				size="icon"
 				color="secondary"
 				className="noz-wave"
-				aria-label="Open Noz"
+				aria-label={t('trace_header.open_noz')}
 				onClick={handleOpenNoz}
 			>
 				<Noz size={16} />

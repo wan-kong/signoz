@@ -1,4 +1,5 @@
 import { TableProps } from 'antd';
+import i18n from 'ReactI18';
 import { ServicesList } from 'types/api/metrics/getService';
 
 export type ServiceColumn = NonNullable<
@@ -49,47 +50,65 @@ export enum TimeIntervalsEnum {
 export const TIME_PICKER_OPTIONS = [
 	{
 		value: TimeIntervalsEnum.LAST_5_MINUTES,
-		label: 'Last 5 minutes',
+		label: i18n.t('time_ranges.last_5_minutes', 'Last 5 minutes', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_5_minutes',
 	},
 	{
 		value: TimeIntervalsEnum.LAST_15_MINUTES,
-		label: 'Last 15 minutes',
+		label: i18n.t('time_ranges.last_15_minutes', 'Last 15 minutes', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_15_minutes',
 	},
 	{
 		value: TimeIntervalsEnum.LAST_30_MINUTES,
-		label: 'Last 30 minutes',
+		label: i18n.t('time_ranges.last_30_minutes', 'Last 30 minutes', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_30_minutes',
 	},
 	{
 		value: TimeIntervalsEnum.LAST_1_HOUR,
-		label: 'Last 1 hour',
+		label: i18n.t('time_ranges.last_1_hour', 'Last 1 hour', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_1_hour',
 	},
 	{
 		value: TimeIntervalsEnum.LAST_6_HOURS,
-		label: 'Last 6 hours',
+		label: i18n.t('time_ranges.last_6_hours', 'Last 6 hours', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_6_hours',
 	},
 	{
 		value: TimeIntervalsEnum.LAST_1_DAY,
-		label: 'Last 1 day',
+		label: i18n.t('time_ranges.last_1_day', 'Last 1 day', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_1_day',
 	},
 	{
 		value: TimeIntervalsEnum.LAST_3_DAYS,
-		label: 'Last 3 days',
+		label: i18n.t('time_ranges.last_3_days', 'Last 3 days', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_3_days',
 	},
 	{
 		value: TimeIntervalsEnum.LAST_7_DAYS,
-		label: 'Last 1 week',
+		label: i18n.t('time_ranges.last_1_week', 'Last 1 week', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_1_week',
 	},
 	{
 		value: TimeIntervalsEnum.LAST_30_DAYS,
-		label: 'Last 1 month',
+		label: i18n.t('time_ranges.last_1_month', 'Last 1 month', {
+			ns: 'common',
+		}),
 		labelKey: 'time.last_1_month',
 	},
 ];

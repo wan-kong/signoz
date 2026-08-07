@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCopyToClipboard } from 'react-use';
 import { Button, Skeleton, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -38,6 +39,7 @@ const ONBOARDING_V3_ANALYTICS_EVENTS_MAP = {
 };
 
 export default function OnboardingIngestionDetails(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { notifications } = useNotifications();
 	const [, handleCopyToClipboard] = useCopyToClipboard();
 
@@ -66,7 +68,7 @@ export default function OnboardingIngestionDetails(): JSX.Element {
 	const handleCopyKey = (text: string): void => {
 		handleCopyToClipboard(text);
 		notifications.success({
-			message: 'Copied to clipboard',
+			message: t('copied_to_clipboard', { ns: 'common' }),
 		});
 	};
 

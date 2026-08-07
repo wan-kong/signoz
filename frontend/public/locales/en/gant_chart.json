@@ -1,0 +1,10 @@
+{
+	"gant_span": {
+		"duration": "Duration : {{value}}",
+		"start_time": "Start Time: {{startTime}}ms [{{timeStamp}}]"
+	},
+	"gant_chart": {
+		"collapse_all": "Collapse All",
+		"expand_all": "Expand All"
+	}
+}

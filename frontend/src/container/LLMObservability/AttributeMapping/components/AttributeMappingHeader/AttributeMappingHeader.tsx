@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 
@@ -17,16 +18,20 @@ function AttributeMappingHeader({
 	onDiscard,
 	onSave,
 }: AttributeMappingHeaderProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	const canManage = useCanManageAttributeMapping();
 	return (
 		<header className={styles.pageHeader}>
 			<Typography.Text as="p" size="base" color="muted">
-				Configure source-to-target attribute remapping for LLM traces
+				{t(
+					'attribute_mappings_header.description',
+					'Configure source-to-target attribute remapping for LLM traces',
+				)}
 			</Typography.Text>
 			{canManage && isDirty && (
 				<div className={styles.pageHeaderActions}>
 					<span className={styles.unsavedChanges} data-testid="unsaved-changes">
-						Unsaved changes
+						{t('attribute_mappings_header.unsaved_changes', 'Unsaved changes')}
 					</span>
 					<Button
 						variant="outlined"
@@ -35,7 +40,7 @@ function AttributeMappingHeader({
 						disabled={isSaving}
 						testId="discard-changes-btn"
 					>
-						Discard
+						{t('attribute_mappings_header.discard', 'Discard')}
 					</Button>
 					<Button
 						variant="solid"
@@ -45,7 +50,9 @@ function AttributeMappingHeader({
 						disabled={isSaving}
 						testId="save-changes-btn"
 					>
-						{isSaving ? 'Saving…' : 'Save changes'}
+						{isSaving
+							? t('attribute_mappings_header.saving', 'Saving…')
+							: t('attribute_mappings_header.save_changes', 'Save changes')}
 					</Button>
 				</div>
 			)}

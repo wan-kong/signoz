@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
 	Dialog,
 	DialogCloseButton,
@@ -31,7 +32,11 @@ function ViewPanelModal({
 	open,
 	onClose,
 }: ViewPanelModalProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const name = panel?.spec.display.name ?? '';
+	const title = name
+		? t('view_panel_modal.title_with_name', { name })
+		: t('view_panel_modal.view_mode');
 
 	// Render antd popups into the dialog (not document.body) so they stay inside the
 	// modal's interactive, focus-trapped layer instead of being blocked by Radix.
@@ -55,9 +60,7 @@ function ViewPanelModal({
 				<DialogHeader>
 					<DialogTitle>
 						<TooltipSimple title={name} arrow>
-							<Typography.Text className={styles.title}>
-								{name ? `${name} - (View mode)` : 'View mode'}
-							</Typography.Text>
+							<Typography.Text className={styles.title}>{title}</Typography.Text>
 						</TooltipSimple>
 					</DialogTitle>
 				</DialogHeader>

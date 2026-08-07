@@ -41,6 +41,7 @@
 	"roles_custom_role_button": "自定义角色",
 	"create_role": "创建角色",
 	"edit_role": "编辑角色",
+	"edit_role_title": "角色 - {{name}}",
 	"save_changes": "保存更改",
 	"unsaved_changes": "未保存的更改",
 	"role_name_label": "名称",
@@ -63,5 +64,10 @@
 	"sa_filter_all": "所有账号",
 	"sa_filter_active": "活跃",
 	"sa_filter_deleted": "已删除",
-	"sa_fetch_error": "获取服务账号时发生意外错误。"
+	"sa_fetch_error": "获取服务账号时发生意外错误。",
+	"settings_page_title": "设置",
+	"nav": {
+		"identity_access": "身份与访问",
+		"authentication": "身份验证"
+	}
 }

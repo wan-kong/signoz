@@ -48,7 +48,11 @@ function ErrorState({
 
 	return (
 		<div className={styles.wrapper}>
-			<img src={awwSnapUrl} alt="something went wrong" className={styles.img} />
+			<img
+				src={awwSnapUrl}
+				alt={t('error_state.something_went_wrong_alt')}
+				className={styles.img}
+			/>
 
 			{isClientError ? (
 				<>

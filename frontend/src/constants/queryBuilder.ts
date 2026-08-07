@@ -1,4 +1,5 @@
 // ** Helpers
+import i18n from 'ReactI18';
 import { MetrictypesTypeDTO } from 'api/generated/services/sigNoz.schemas';
 import { defaultTraceSelectedColumns } from 'container/OptionsMenu/constants';
 import { createIdFromObjectFields } from 'lib/createIdFromObjectFields';
@@ -53,7 +54,11 @@ import {
 export const MAX_FORMULAS = 20;
 export const MAX_QUERIES = 26;
 
-export const TRACE_OPERATOR_QUERY_NAME = 'Trace Operator';
+export const TRACE_OPERATOR_QUERY_NAME = i18n.t(
+	'constants.trace_operator_name',
+	'Trace Operator',
+	{ ns: 'common' },
+);
 
 export const idDivider = '--';
 export const selectValueDivider = '__';
@@ -103,30 +108,78 @@ export const metricsSpaceAggregationOperatorsByType = {
 
 export const mapOfQueryFilters: Record<DataSource, QueryAdditionalFilter[]> = {
 	metrics: [
-		{ text: 'Aggregation interval', field: 'stepInterval' },
-		{ text: 'Having', field: 'having' },
+		{
+			text: i18n.t(
+				'query_builder_labels.aggregation_interval',
+				'Aggregation interval',
+				{ ns: 'common' },
+			),
+			field: 'stepInterval',
+		},
+		{
+			text: i18n.t('query_builder_labels.having', 'Having', { ns: 'common' }),
+			field: 'having',
+		},
 	],
 	logs: [
-		{ text: 'Order by', field: 'orderBy' },
-		{ text: 'Limit', field: 'limit' },
-		{ text: 'Having', field: 'having' },
-		{ text: 'Aggregation interval', field: 'stepInterval' },
+		{
+			text: i18n.t('query_builder_labels.order_by', 'Order by', { ns: 'common' }),
+			field: 'orderBy',
+		},
+		{
+			text: i18n.t('query_builder_labels.limit', 'Limit', { ns: 'common' }),
+			field: 'limit',
+		},
+		{
+			text: i18n.t('query_builder_labels.having', 'Having', { ns: 'common' }),
+			field: 'having',
+		},
+		{
+			text: i18n.t(
+				'query_builder_labels.aggregation_interval',
+				'Aggregation interval',
+				{ ns: 'common' },
+			),
+			field: 'stepInterval',
+		},
 	],
 	traces: [
-		{ text: 'Order by', field: 'orderBy' },
-		{ text: 'Limit', field: 'limit' },
-		{ text: 'Having', field: 'having' },
-		{ text: 'Aggregation interval', field: 'stepInterval' },
+		{
+			text: i18n.t('query_builder_labels.order_by', 'Order by', { ns: 'common' }),
+			field: 'orderBy',
+		},
+		{
+			text: i18n.t('query_builder_labels.limit', 'Limit', { ns: 'common' }),
+			field: 'limit',
+		},
+		{
+			text: i18n.t('query_builder_labels.having', 'Having', { ns: 'common' }),
+			field: 'having',
+		},
+		{
+			text: i18n.t(
+				'query_builder_labels.aggregation_interval',
+				'Aggregation interval',
+				{ ns: 'common' },
+			),
+			field: 'stepInterval',
+		},
 	],
 };
 
 const commonFormulaFilters: QueryAdditionalFilter[] = [
 	{
-		text: 'Having',
+		text: i18n.t('query_builder_labels.having', 'Having', { ns: 'common' }),
 		field: 'having',
 	},
-	{ text: 'Order by', field: 'orderBy' },
-	{ text: 'Limit', field: 'limit' },
+	{
+		text: i18n.t('query_builder_labels.order_by', 'Order by', { ns: 'common' }),
+		field: 'orderBy',
+	},
+	{
+		text: i18n.t('query_builder_labels.limit', 'Limit', { ns: 'common' }),
+		field: 'limit',
+	},
 ];
 
 export const mapOfFormulaToFilters: Record<
@@ -139,11 +192,46 @@ export const mapOfFormulaToFilters: Record<
 };
 
 export const REDUCE_TO_VALUES: SelectOption<ReduceOperators, string>[] = [
-	{ value: ReduceOperators.LAST, label: 'Latest of values in timeframe' },
-	{ value: ReduceOperators.SUM, label: 'Sum of values in timeframe' },
-	{ value: ReduceOperators.AVG, label: 'Average of values in timeframe' },
-	{ value: ReduceOperators.MAX, label: 'Max of values in timeframe' },
-	{ value: ReduceOperators.MIN, label: 'Min of values in timeframe' },
+	{
+		value: ReduceOperators.LAST,
+		label: i18n.t(
+			'query_builder_labels.latest_of_values',
+			'Latest of values in timeframe',
+			{ ns: 'common' },
+		),
+	},
+	{
+		value: ReduceOperators.SUM,
+		label: i18n.t(
+			'query_builder_labels.sum_of_values',
+			'Sum of values in timeframe',
+			{ ns: 'common' },
+		),
+	},
+	{
+		value: ReduceOperators.AVG,
+		label: i18n.t(
+			'query_builder_labels.average_of_values',
+			'Average of values in timeframe',
+			{ ns: 'common' },
+		),
+	},
+	{
+		value: ReduceOperators.MAX,
+		label: i18n.t(
+			'query_builder_labels.max_of_values',
+			'Max of values in timeframe',
+			{ ns: 'common' },
+		),
+	},
+	{
+		value: ReduceOperators.MIN,
+		label: i18n.t(
+			'query_builder_labels.min_of_values',
+			'Min of values in timeframe',
+			{ ns: 'common' },
+		),
+	},
 ];
 
 export const initialHavingValues: HavingForm = {

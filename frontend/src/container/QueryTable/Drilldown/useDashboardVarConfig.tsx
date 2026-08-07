@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import OverlayScrollbar from 'components/OverlayScrollbar/OverlayScrollbar';
 import { useDashboardVariablesByType } from 'hooks/dashboard/useDashboardVariablesByType';
 import { ArrowLeft, Plus, Settings, X } from '@signozhq/icons';
@@ -35,6 +36,7 @@ const useDashboardVarConfig = ({
 } => {
 	const dashboardDynamicVariables = useDashboardVariablesByType('DYNAMIC');
 	const { onValueUpdate, createVariable } = useDashboardVariableUpdate();
+	const { t } = useTranslation('query_table');
 
 	// Function to determine the source from query data
 	const getSourceFromQuery = useCallback(():
@@ -94,13 +96,17 @@ const useDashboardVarConfig = ({
 				fieldName,
 				fieldValue,
 				// 'DYNAMIC',
-				`Variable created from drilldown for field: ${fieldName} (source: ${source})`,
+				t(
+					'dashboard_var.variable_created_from',
+					'Variable created from drilldown for field: {{fieldName}} (source: {{source}})',
+					{ fieldName, source },
+				),
 				source,
 				// widgetId,
 			);
 			onClose();
 		},
-		[createVariable, getSourceFromQuery, onClose],
+		[createVariable, getSourceFromQuery, onClose, t],
 	);
 
 	const contextItems = useMemo(
@@ -136,7 +142,7 @@ const useDashboardVarConfig = ({
 										handleUnsetVariable(fieldName, [dashboardVarKey, dashboardVarData])
 									}
 								>
-									Unset <strong>${fieldName}</strong>
+									{t('dashboard_var.unset', 'Unset')} <strong>${fieldName}</strong>
 								</ContextMenu.Item>
 							);
 						}
@@ -152,7 +158,8 @@ const useDashboardVarConfig = ({
 									)
 								}
 							>
-								Set <strong>${fieldName}</strong> to <strong>{fieldValue}</strong>
+								{t('dashboard_var.set', 'Set')} <strong>${fieldName}</strong>{' '}
+								{t('dashboard_var.to', 'to')} <strong>{fieldValue}</strong>
 							</ContextMenu.Item>
 						);
 					}
@@ -162,7 +169,8 @@ const useDashboardVarConfig = ({
 							icon={<Plus size={16} />}
 							onClick={(): void => handleCreateVariable(fieldName, value)}
 						>
-							Create var <strong>${fieldName}</strong>:<strong>{value}</strong>
+							{t('dashboard_var.create_var', 'Create var')}{' '}
+							<strong>${fieldName}</strong>:<strong>{value}</strong>
 						</ContextMenu.Item>
 					);
 				})}
@@ -174,6 +182,7 @@ const useDashboardVarConfig = ({
 			handleSetVariable,
 			handleUnsetVariable,
 			handleCreateVariable,
+			t,
 		],
 	);
 
@@ -192,7 +201,7 @@ const useDashboardVarConfig = ({
 								style={{ cursor: 'pointer' }}
 								onClick={handleBackClick}
 							/>
-							<span>Dashboard Variables</span>
+							<span>{t('dashboard_var.title', 'Dashboard Variables')}</span>
 						</div>
 					</ContextMenu.Header>
 					<div>
@@ -210,7 +219,7 @@ const useDashboardVarConfig = ({
 				</>
 			),
 		}),
-		[contextItems, handleBackClick],
+		[contextItems, handleBackClick, t],
 	);
 
 	return { dashbaordVariablesConfig };

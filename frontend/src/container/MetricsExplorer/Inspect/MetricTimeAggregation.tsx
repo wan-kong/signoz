@@ -27,11 +27,15 @@ function MetricTimeAggregation({
 					'selected-step': inspectionStep === InspectionStep.TIME_AGGREGATION,
 				})}
 			>
-				<Typography.Text>AGGREGATE BY TIME</Typography.Text>
+				<Typography.Text>
+					{t('metrics_explorer_inspect.aggregate_by_time', 'AGGREGATE BY TIME')}
+				</Typography.Text>
 			</div>
 			<div className="metric-time-aggregation-content">
 				<div className="inspect-metrics-input-group">
-					<Typography.Text>Align with</Typography.Text>
+					<Typography.Text>
+						{t('metrics_explorer_inspect.align_with', 'Align with')}
+					</Typography.Text>
 					<Select
 						value={currentMetricInspectionOptions.timeAggregationOption}
 						onChange={(value): void => {
@@ -50,7 +54,7 @@ function MetricTimeAggregation({
 							}
 						}}
 						style={{ width: 130 }}
-						placeholder={t('select_option')}
+						placeholder={t('select_option', 'Select option')}
 					>
 						{Object.entries(TIME_AGGREGATION_OPTIONS).map(([key, value]) => (
 							<Select.Option key={key} value={key}>
@@ -60,13 +64,15 @@ function MetricTimeAggregation({
 					</Select>
 				</div>
 				<div className="inspect-metrics-input-group">
-					<Typography.Text>aggregated every</Typography.Text>
+					<Typography.Text>
+						{t('metrics_explorer_inspect.aggregated_every', 'aggregated every')}
+					</Typography.Text>
 					<Input
 						type="number"
 						className="no-arrows-input"
 						value={currentMetricInspectionOptions.timeAggregationInterval}
-						placeholder={t('select_interval')}
-						suffix="seconds"
+						placeholder={t('select_interval', 'Select interval...')}
+						suffix={t('metrics_explorer_inspect.seconds', 'seconds')}
 						onChange={(e): void => {
 							dispatchMetricInspectionOptions({
 								type: 'SET_TIME_AGGREGATION_INTERVAL',

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -22,6 +23,7 @@ import {
 } from '../MessagingQueuesUtils';
 
 function MessagingQueuesGraph(): JSX.Element {
+	const { t } = useTranslation('messagingQueues');
 	const isDarkMode = useIsDarkMode();
 
 	const urlQuery = useUrlQuery();
@@ -51,7 +53,10 @@ function MessagingQueuesGraph(): JSX.Element {
 
 	const messagingQueueCustomTooltipText = (): HTMLDivElement => {
 		const customText = document.createElement('div');
-		customText.textContent = 'Click on co-ordinate to view details';
+		customText.textContent = t(
+			'mq_graph.click_coordinate_details',
+			'Click on co-ordinate to view details',
+		);
 		customText.style.paddingTop = '8px';
 		customText.style.paddingBottom = '2px';
 		customText.style.color = '#fff';

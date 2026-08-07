@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { UseMutateAsyncFunction } from 'react-query';
 import type { NotificationInstance } from 'antd/es/notification/interface';
 import type { DefaultOptionType } from 'antd/es/select';
@@ -22,7 +23,7 @@ export const getDuration = (
 	endTime: DateTimeString,
 ): string => {
 	if (!startTime || !endTime) {
-		return 'N/A';
+		return i18n.t('n_a', 'N/A', { ns: 'common' });
 	}
 
 	const start = dayjs(startTime);
@@ -43,7 +44,7 @@ export const formatDateTime = (
 	timezone?: string,
 ): string => {
 	if (!dateTimeString) {
-		return 'N/A';
+		return i18n.t('n_a', 'N/A', { ns: 'common' });
 	}
 
 	let dt = dayjs(dateTimeString);
@@ -77,11 +78,11 @@ export const recurrenceInfo = (
 	},
 ): string => {
 	if (!schedule) {
-		return labels?.no ?? 'No';
+		return labels?.no ?? i18n.t('no', 'No', { ns: 'common' });
 	}
 	const { startTime, endTime, timezone, recurrence } = schedule;
 	if (!recurrence) {
-		return labels?.no ?? 'No';
+		return labels?.no ?? i18n.t('no', 'No', { ns: 'common' });
 	}
 
 	const { duration, repeatOn, repeatType } = recurrence;
@@ -96,7 +97,7 @@ export const recurrenceInfo = (
 		? `${labels?.on ?? 'on'} ${repeatOn.join(', ')}`
 		: '';
 	const durationString = duration
-		? `- ${labels?.duration ?? 'Duration'}: ${duration}`
+		? `- ${labels?.duration ?? i18n.t('duration', 'Duration', { ns: 'common' })}: ${duration}`
 		: '';
 
 	return `${labels?.repeats ?? 'Repeats'} - ${repeatType} ${weeklyRepeatString} ${labels?.from ?? 'from'} ${formattedStartTime} ${formattedEndTime} ${durationString}`;

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Ellipsis } from '@signozhq/icons';
 import { Button, TableColumnsType as ColumnsType, Tooltip } from 'antd';
 import { DATE_TIME_FORMATS } from 'constants/dateTimeFormats';
@@ -16,7 +17,7 @@ export const timelineTableColumns = ({
 	) => string;
 }): ColumnsType<AlertRuleTimelineTableResponse> => [
 	{
-		title: 'STATE',
+		title: String(i18n.t('alert_history_extra.state', 'STATE', { ns: 'common' })),
 		dataIndex: 'state',
 		sorter: true,
 		width: 140,
@@ -27,7 +28,9 @@ export const timelineTableColumns = ({
 		),
 	},
 	{
-		title: 'LABELS',
+		title: String(
+			i18n.t('alert_history_extra.labels', 'LABELS', { ns: 'common' }),
+		),
 		dataIndex: 'labels',
 		render: (labels): JSX.Element => (
 			<div className="alert-rule-labels">
@@ -36,7 +39,9 @@ export const timelineTableColumns = ({
 		),
 	},
 	{
-		title: 'CREATED AT',
+		title: String(
+			i18n.t('alert_history_extra.created_at', 'CREATED AT', { ns: 'common' }),
+		),
 		dataIndex: 'unixMilli',
 		width: 200,
 		render: (value): JSX.Element => (
@@ -46,13 +51,23 @@ export const timelineTableColumns = ({
 		),
 	},
 	{
-		title: 'ACTIONS',
+		title: String(
+			i18n.t('alert_history_extra.actions', 'ACTIONS', { ns: 'common' }),
+		),
 		width: 140,
 		align: 'right',
 		render: (_, record): JSX.Element => {
 			if (!record.relatedTracesLink && !record.relatedLogsLink) {
 				return (
-					<Tooltip title="No links available for this item">
+					<Tooltip
+						title={String(
+							i18n.t(
+								'alert_history_extra.no_links_available',
+								'No links available for this item',
+								{ ns: 'common' },
+							),
+						)}
+					>
 						<Button type="text" ghost disabled>
 							<Ellipsis className="dropdown-icon" size="md" />
 						</Button>

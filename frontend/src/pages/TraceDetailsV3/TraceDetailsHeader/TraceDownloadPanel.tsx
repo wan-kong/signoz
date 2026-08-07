@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Progress } from '@signozhq/ui/progress';
 import { LoaderCircle, X } from '@signozhq/icons';
@@ -12,6 +13,7 @@ const PANEL_WIDTH = 356;
 const PANEL_HEIGHT = 76;
 
 function TraceDownloadPanel(): JSX.Element {
+	const { t } = useTranslation('trace');
 	const isDownloading = useTraceDownloadStore((s) => s.isDownloading);
 	const progress = useTraceDownloadStore((s) => s.progress);
 	const cancelDownload = useTraceDownloadStore((s) => s.cancelDownload);
@@ -32,7 +34,7 @@ function TraceDownloadPanel(): JSX.Element {
 			<div className={styles.downloadPanel} data-testid="trace-download-panel">
 				<div className={`${styles.header} floating-panel__drag-handle`}>
 					<span className={styles.title}>
-						Downloading trace
+						{t('trace_details.downloading_trace', 'Downloading trace')}
 						<LoaderCircle size={14} className={`animate-spin ${styles.loader}`} />
 					</span>
 					<span className={styles.percent} data-testid="trace-download-percent">
@@ -44,7 +46,7 @@ function TraceDownloadPanel(): JSX.Element {
 						color="secondary"
 						className={styles.cancelBtn}
 						onClick={cancelDownload}
-						aria-label="Cancel download"
+						aria-label={t('trace_details.cancel_download', 'Cancel download')}
 						data-testid="trace-download-cancel"
 						prefix={<X size={16} />}
 					/>

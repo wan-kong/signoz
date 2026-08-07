@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { useMemo } from 'react';
 import { useListUsers } from 'api/generated/services/users';
 
@@ -32,7 +33,7 @@ export function useCreatorOptions({
 
 		const labelFor = (email: string): string => {
 			if (email === currentUserEmail) {
-				return `${email} (me)`;
+				return `${email}${i18n.t('dsl.me_suffix', ' (me)', { ns: 'dashboard' })}`;
 			}
 			const match = users.find((u) => u.email === email);
 			return match?.displayName ? `${match.displayName} (${email})` : email;

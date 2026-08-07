@@ -1,4 +1,5 @@
 import { CharStreams, CommonTokenStream } from 'antlr4';
+import i18n from 'ReactI18';
 import FilterQueryLexer from 'parser/FilterQueryLexer';
 import FilterQueryParser from 'parser/FilterQueryParser';
 import TraceOperatorGrammarLexer from 'parser/TraceOperatorParser/TraceOperatorGrammarLexer';
@@ -111,7 +112,9 @@ export const validateQuery = (query: string): IValidationResult => {
 	if (!query.trim()) {
 		return {
 			isValid: true,
-			message: 'Query is empty',
+			message: i18n.t('constants_extra.query_empty', 'Query is empty', {
+				ns: 'common',
+			}),
 			errors: [],
 		};
 	}
@@ -138,19 +141,31 @@ export const validateQuery = (query: string): IValidationResult => {
 		if (errorListener.hasErrors()) {
 			return {
 				isValid: false,
-				message: 'Query syntax error',
+				message: i18n.t(
+					'constants_extra.query_syntax_error',
+					'Query syntax error',
+					{
+						ns: 'common',
+					},
+				),
 				errors: errorListener.getErrors(),
 			};
 		}
 
 		return {
 			isValid: true,
-			message: 'Query is valid!',
+			message: i18n.t('constants_extra.query_valid', 'Query is valid!', {
+				ns: 'common',
+			}),
 			errors: [],
 		};
 	} catch (error) {
 		const errorMessage =
-			error instanceof Error ? error.message : 'Invalid query syntax';
+			error instanceof Error
+				? error.message
+				: i18n.t('constants_extra.invalid_query_syntax', 'Invalid query syntax', {
+						ns: 'common',
+					});
 
 		const detailedError: IDetailedError = {
 			message: errorMessage,
@@ -161,7 +176,13 @@ export const validateQuery = (query: string): IValidationResult => {
 		};
 		return {
 			isValid: false,
-			message: 'Invalid query syntax',
+			message: i18n.t(
+				'constants_extra.invalid_query_syntax',
+				'Invalid query syntax',
+				{
+					ns: 'common',
+				},
+			),
 			errors: [detailedError],
 		};
 	}
@@ -174,7 +195,13 @@ export const validateTraceOperatorQuery = (
 	if (!query.trim()) {
 		return {
 			isValid: true,
-			message: 'Trace operator query is empty',
+			message: i18n.t(
+				'constants_extra.trace_operator_empty',
+				'Trace operator query is empty',
+				{
+					ns: 'common',
+				},
+			),
 			errors: [],
 		};
 	}
@@ -201,19 +228,37 @@ export const validateTraceOperatorQuery = (
 		if (errorListener.hasErrors()) {
 			return {
 				isValid: false,
-				message: 'Trace operator syntax error',
+				message: i18n.t(
+					'constants_extra.trace_operator_syntax_error',
+					'Trace operator syntax error',
+					{
+						ns: 'common',
+					},
+				),
 				errors: errorListener.getErrors(),
 			};
 		}
 
 		return {
 			isValid: true,
-			message: 'Trace operator is valid!',
+			message: i18n.t(
+				'constants_extra.trace_operator_valid',
+				'Trace operator is valid!',
+				{
+					ns: 'common',
+				},
+			),
 			errors: [],
 		};
 	} catch (error) {
 		const errorMessage =
-			error instanceof Error ? error.message : 'Invalid trace operator syntax';
+			error instanceof Error
+				? error.message
+				: i18n.t(
+						'constants_extra.invalid_trace_operator_syntax',
+						'Invalid trace operator syntax',
+						{ ns: 'common' },
+					);
 
 		const detailedError: IDetailedError = {
 			message: errorMessage,
@@ -224,7 +269,13 @@ export const validateTraceOperatorQuery = (
 		};
 		return {
 			isValid: false,
-			message: 'Invalid trace operator syntax',
+			message: i18n.t(
+				'constants_extra.invalid_trace_operator_syntax',
+				'Invalid trace operator syntax',
+				{
+					ns: 'common',
+				},
+			),
 			errors: [detailedError],
 		};
 	}

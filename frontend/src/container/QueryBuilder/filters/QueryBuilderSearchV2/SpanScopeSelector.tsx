@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select } from 'antd';
 import { removeKeysFromExpression } from 'components/QueryBuilderV2/utils';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
@@ -46,20 +47,33 @@ const createFilterItem = (key: string): TagFilterItem => ({
 	value: 'true',
 });
 
-const SELECT_OPTIONS = [
-	{ value: SpanScope.ALL_SPANS, label: 'All Spans' },
-	{ value: SpanScope.ROOT_SPANS, label: 'Root Spans' },
-	{ value: SpanScope.ENTRYPOINT_SPANS, label: 'Entrypoint Spans' },
-];
-
 function SpanScopeSelector({
 	onChange,
 	query,
 	skipQueryBuilderRedirect,
 }: SpanScopeSelectorProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { currentQuery, redirectWithQueryBuilderData } = useQueryBuilder();
 	const [selectedScope, setSelectedScope] = useState<SpanScope>(
 		SpanScope.ALL_SPANS,
+	);
+
+	const selectOptions = useMemo(
+		() => [
+			{
+				value: SpanScope.ALL_SPANS,
+				label: t('query_builder.all_spans', 'All Spans'),
+			},
+			{
+				value: SpanScope.ROOT_SPANS,
+				label: t('query_builder.root_spans', 'Root Spans'),
+			},
+			{
+				value: SpanScope.ENTRYPOINT_SPANS,
+				label: t('query_builder.entrypoint_spans', 'Entrypoint Spans'),
+			},
+		],
+		[t],
 	);
 
 	const getCurrentScopeFromFilters = (
@@ -149,7 +163,7 @@ function SpanScopeSelector({
 			className="span-scope-selector"
 			data-testid="span-scope-selector"
 			onChange={handleScopeChange}
-			options={SELECT_OPTIONS}
+			options={selectOptions}
 		/>
 	);
 }

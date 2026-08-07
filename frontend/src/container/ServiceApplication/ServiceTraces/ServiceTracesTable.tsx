@@ -32,10 +32,19 @@ function ServiceTraceTable({
 	const tableColumns = useMemo(
 		() =>
 			getColumns(search, false, {
-				[ColumnKey.Application]: t(COLUMN_TITLE_KEYS[ColumnKey.Application]),
-				[ColumnKey.P99]: t(P99_LATENCY_TITLE_KEYS.traces),
-				[ColumnKey.ErrorRate]: t(COLUMN_TITLE_KEYS[ColumnKey.ErrorRate]),
-				[ColumnKey.Operations]: t(COLUMN_TITLE_KEYS[ColumnKey.Operations]),
+				[ColumnKey.Application]: t(
+					COLUMN_TITLE_KEYS[ColumnKey.Application],
+					'Application',
+				),
+				[ColumnKey.P99]: t(P99_LATENCY_TITLE_KEYS.traces, 'P99 latency (in ms)'),
+				[ColumnKey.ErrorRate]: t(
+					COLUMN_TITLE_KEYS[ColumnKey.ErrorRate],
+					'Error Rate (% of total)',
+				),
+				[ColumnKey.Operations]: t(
+					COLUMN_TITLE_KEYS[ColumnKey.Operations],
+					'Operations Per Second',
+				),
 			}),
 		[search, t],
 	);
@@ -65,15 +74,24 @@ function ServiceTraceTable({
 	const paginationConfig = {
 		defaultPageSize: 10,
 		showTotal: (total: number, range: number[]): string =>
-			t('table.pagination', { start: range[0], end: range[1], total }),
+			t('table.pagination', {
+				start: range[0],
+				end: range[1],
+				total,
+				defaultValue: '{{start}}-{{end}} of {{total}} items',
+			}),
 	};
 	return (
 		<div className="service-traces-table-container">
 			{RPS > MAX_RPS_LIMIT && (
 				<Flex justify="left">
 					<Typography.Title level={5} color="warning" style={{ marginTop: 0 }}>
-						<SolidAlertTriangle size="md" /> {t('rps_over_100')}
-						<a href="mailto:cloud-support@signoz.io">email</a>
+						<SolidAlertTriangle size="md" />{' '}
+						{t(
+							'rps_over_100',
+							'You are sending data at more than 100 RPS, your ingestion  may be rate limited. Please reach out to us via chat support or ',
+						)}
+						<a href="mailto:cloud-support@signoz.io">{t('email', 'email')}</a>
 					</Typography.Title>
 				</Flex>
 			)}

@@ -1,12 +1,25 @@
+import i18n from 'ReactI18';
 import { LlmpricingruletypesLLMPricingRuleCacheModeDTO as CacheModeDTO } from 'api/generated/services/sigNoz.schemas';
 
 import type { CacheBucketDef, DrawerDraft } from './types';
 
 export const PAGE_SIZE = 20;
 
-export const TOAST_MODEL_COST_ADDED = 'Model cost added';
-export const TOAST_MODEL_COST_UPDATED = 'Model cost updated';
-export const TOAST_MODEL_COST_DELETED = 'Model cost deleted';
+export const TOAST_MODEL_COST_ADDED = i18n.t(
+	'constants.toast_model_cost_added',
+	'Model cost added',
+	{ ns: 'llm_unpriced' },
+);
+export const TOAST_MODEL_COST_UPDATED = i18n.t(
+	'constants.toast_model_cost_updated',
+	'Model cost updated',
+	{ ns: 'llm_unpriced' },
+);
+export const TOAST_MODEL_COST_DELETED = i18n.t(
+	'constants.toast_model_cost_deleted',
+	'Model cost deleted',
+	{ ns: 'llm_unpriced' },
+);
 
 export const PAGE_KEY = 'page';
 export const LIMIT_KEY = 'limit';
@@ -16,9 +29,20 @@ export const SOURCE_KEY = 'source';
 
 export type SourceFilter = 'all' | 'override' | 'auto';
 export const SOURCE_FILTER_OPTIONS: { value: SourceFilter; label: string }[] = [
-	{ value: 'all', label: 'All sources' },
-	{ value: 'override', label: 'User override' },
-	{ value: 'auto', label: 'Auto' },
+	{
+		value: 'all',
+		label: i18n.t('constants.source_all', 'All sources', { ns: 'llm_unpriced' }),
+	},
+	{
+		value: 'override',
+		label: i18n.t('constants.source_user_override', 'User override', {
+			ns: 'llm_unpriced',
+		}),
+	},
+	{
+		value: 'auto',
+		label: i18n.t('constants.source_auto', 'Auto', { ns: 'llm_unpriced' }),
+	},
 ];
 
 export const SOURCE_FILTER_TO_IS_OVERRIDE: Record<
@@ -46,15 +70,38 @@ export const PROVIDER_OPTIONS = [
 	{ value: 'Anthropic', label: 'Anthropic' },
 	{ value: 'Azure OpenAI', label: 'Azure OpenAI' },
 	{ value: 'Google', label: 'Google' },
-	{ value: 'Self-hosted', label: 'Self-hosted' },
-	{ value: 'Other', label: 'Other' },
+	{
+		value: 'Self-hosted',
+		label: i18n.t('constants.provider_self_hosted', 'Self-hosted', {
+			ns: 'llm_unpriced',
+		}),
+	},
+	{
+		value: 'Other',
+		label: i18n.t('constants.provider_other', 'Other', { ns: 'llm_unpriced' }),
+	},
 ];
 
 export const CACHE_MODE_OPTIONS = [
-	{ value: CacheModeDTO.subtract, label: 'Subtract (OpenAI style)' },
-	{ value: CacheModeDTO.additive, label: 'Additive (Anthropic style)' },
+	{
+		value: CacheModeDTO.subtract,
+		label: i18n.t('constants.cache_mode_subtract', 'Subtract (OpenAI style)', {
+			ns: 'llm_unpriced',
+		}),
+	},
+	{
+		value: CacheModeDTO.additive,
+		label: i18n.t('constants.cache_mode_additive', 'Additive (Anthropic style)', {
+			ns: 'llm_unpriced',
+		}),
+	},
 	// https://app.notion.com/p/signoz/LLM-Tokens-Cost-Calculation-330fcc6bcd19805283ccc841d596358e?source=copy_link#33efcc6bcd1980e6a187e442c6ba5996
-	{ value: CacheModeDTO.unknown, label: 'Unknown' },
+	{
+		value: CacheModeDTO.unknown,
+		label: i18n.t('constants.cache_mode_unknown', 'Unknown', {
+			ns: 'llm_unpriced',
+		}),
+	},
 ];
 
 export const CACHE_BUCKETS: CacheBucketDef[] = [

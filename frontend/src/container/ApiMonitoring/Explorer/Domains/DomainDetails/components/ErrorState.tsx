@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { RotateCw } from '@signozhq/icons';
@@ -5,6 +6,7 @@ import { RotateCw } from '@signozhq/icons';
 import awwSnapUrl from '@/assets/Icons/awwSnap.svg';
 
 function ErrorState({ refetch }: { refetch: () => void }): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className="error-state-container">
 			<div className="error-state-content-wrapper">
@@ -13,9 +15,14 @@ function ErrorState({ refetch }: { refetch: () => void }): JSX.Element {
 						<img src={awwSnapUrl} alt="awwSnap" width={32} height={32} />
 					</div>
 					<div className="error-state-text">
-						<Typography.Text>Uh-oh :/ We ran into an error.</Typography.Text>
+						<Typography.Text>
+							{t('api_monitoring.ran_into_an_error', 'Uh-oh :/ We ran into an error.')}
+						</Typography.Text>
 						<Typography.Text color="muted">
-							Please refresh this panel.
+							{t(
+								'api_monitoring.please_refresh_this_panel',
+								'Please refresh this panel.',
+							)}
 						</Typography.Text>
 					</div>
 				</div>
@@ -24,7 +31,7 @@ function ErrorState({ refetch }: { refetch: () => void }): JSX.Element {
 					onClick={(): void => refetch()}
 					icon={<RotateCw size={16} />}
 				>
-					Refresh this panel
+					{t('api_monitoring.refresh_this_panel', 'Refresh this panel')}
 				</Button>
 			</div>
 		</div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Button } from 'antd';
 import { Badge } from '@signozhq/ui/badge';
@@ -30,6 +31,7 @@ function Tabs2({
 	hasResetButton,
 	buttonMinWidth = '114px',
 }: TimelineTabsProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [selectedTab, setSelectedTab] = useState<string>(
 		initialSelectedTab || tabs[0].value,
 	);
@@ -45,12 +47,12 @@ function Tabs2({
 		<div className="tabs-wrapper">
 			{hasResetButton && selectedTab !== tabs[0].value && (
 				<Button
-					value="Reset"
+					value={t('periscope_extra.reset')}
 					className="tab reset-button"
 					onClick={(): void => handleTabClick(tabs[0].value)}
 					icon={<Undo size={14} color={Color.TEXT_VANILLA_400} />}
 				>
-					Reset
+					{t('periscope_extra.reset')}
 				</Button>
 			)}
 			<Button.Group>
@@ -66,7 +68,7 @@ function Tabs2({
 					>
 						{tab.label}
 
-						{tab.isBeta && <Badge color="robin">Beta</Badge>}
+						{tab.isBeta && <Badge color="robin">{t('beta')}</Badge>}
 					</Button>
 				))}
 			</Button.Group>

@@ -41,7 +41,7 @@ function Version(): JSX.Element {
 			<header className="version-page-header">
 				<div className="version-page-header-title">
 					<Wrench size={16} />
-					Version
+					{t('version')}
 				</div>
 			</header>
 

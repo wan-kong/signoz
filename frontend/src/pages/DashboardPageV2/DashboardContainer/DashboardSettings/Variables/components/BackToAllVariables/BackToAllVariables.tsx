@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import styles from './BackToAllVariables.module.scss';
@@ -8,6 +9,7 @@ const BackToAllVariables = ({
 }: {
 	onClose: VariableFormProps['onClose'];
 }): JSX.Element => {
+	const { t } = useTranslation('dashboard');
 	return (
 		<div className={styles.backToAllVariables}>
 			<Button
@@ -19,7 +21,7 @@ const BackToAllVariables = ({
 				testId="variable-form-back"
 				size="md"
 			>
-				All variables
+				{t('variables.all_variables')}
 			</Button>
 		</div>
 	);

@@ -1,0 +1,38 @@
+{
+	"context_config": {
+		"filter_by": "按 {{filterKey}} 筛选"
+	},
+	"data_links": {
+		"view_trace_details": "查看 Trace 详情"
+	},
+	"menu_options": {
+		"is_this": "是",
+		"is_not_this": "不是",
+		"is_greater_than_or_equal_to": "大于或等于",
+		"is_less_than_or_equal_to": "小于或等于",
+		"is_less_than": "小于",
+		"dashboard_variables": "仪表盘变量",
+		"view_in_logs": "在日志中查看",
+		"view_in_traces": "在链路中查看",
+		"breakout_by": "按 .. 拆分"
+	},
+	"breakout": {
+		"breakout_by": "按字段拆分"
+	},
+	"dashboard_var": {
+		"title": "仪表盘变量",
+		"unset": "取消设置",
+		"set": "设置",
+		"to": "为",
+		"create_var": "创建变量",
+		"variable_created_from": "从下钻为字段 {{fieldName}} 创建的变量（来源：{{source}}）"
+	},
+	"table_utils": {
+		"name": "名称",
+		"p50_in_ns": "P50（纳秒）",
+		"p90_in_ns": "P90（纳秒）",
+		"p99_in_ns": "P99（纳秒）",
+		"number_of_calls": "调用次数",
+		"error_rate": "错误率 (%)"
+	}
+}

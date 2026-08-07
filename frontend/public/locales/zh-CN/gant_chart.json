@@ -1,0 +1,10 @@
+{
+	"gant_span": {
+		"duration": "持续时间:{{value}}",
+		"start_time": "开始时间:{{startTime}}ms [{{timeStamp}}]"
+	},
+	"gant_chart": {
+		"collapse_all": "全部折叠",
+		"expand_all": "全部展开"
+	}
+}

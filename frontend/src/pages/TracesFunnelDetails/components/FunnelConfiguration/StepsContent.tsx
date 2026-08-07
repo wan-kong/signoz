@@ -1,4 +1,5 @@
 import { memo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Steps, Tooltip } from 'antd';
 import logEvent from 'api/common/logEvent';
 import { Plus, Undo2 } from '@signozhq/icons';
@@ -22,6 +23,7 @@ function StepsContent({
 }): JSX.Element {
 	const { steps, handleAddStep, handleReplaceStep } = useFunnelContext();
 	const { hasEditPermission } = useAppContext();
+	const { t } = useTranslation('funnel_config');
 
 	const handleAddForNewStep = useCallback(() => {
 		if (!span || !hasEditPermission) {
@@ -52,7 +54,10 @@ function StepsContent({
 										<Tooltip
 											title={
 												!hasEditPermission
-													? 'You need editor or admin access to replace steps'
+													? t(
+															'steps_content.no_permission_replace',
+															'You need editor or admin access to replace steps',
+														)
 													: ''
 											}
 										>
@@ -69,7 +74,7 @@ function StepsContent({
 													handleReplaceStep(index, span['service.name'], span.name)
 												}
 											>
-												Replace
+												{t('steps_content.replace', 'Replace')}
 											</Button>
 										</Tooltip>
 									)}
@@ -88,7 +93,12 @@ function StepsContent({
 					description={
 						<Tooltip
 							title={
-								!hasEditPermission ? 'You need editor or admin access to add steps' : ''
+								!hasEditPermission
+									? t(
+											'steps_content.no_permission_add',
+											'You need editor or admin access to add steps',
+										)
+									: ''
 							}
 						>
 							<Button
@@ -98,7 +108,9 @@ function StepsContent({
 								icon={<Plus size={14} />}
 								disabled={!hasEditPermission}
 							>
-								{isTraceDetailsPage ? 'Add for new Step' : 'Add Funnel Step'}
+								{isTraceDetailsPage
+									? t('steps_content.add_for_new_step', 'Add for new Step')
+									: t('steps_content.add_funnel_step', 'Add Funnel Step')}
 							</Button>
 						</Tooltip>
 					}

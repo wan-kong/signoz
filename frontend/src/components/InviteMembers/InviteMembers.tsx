@@ -177,8 +177,7 @@ function InviteMembers({
 						{hasSuccesses && (
 							<Typography.Text size="small">
 								{t('invite.results.partial_success', {
-									success: successResults.length,
-									failed: failedResults.length,
+									count: successResults.length,
 								})}
 							</Typography.Text>
 						)}

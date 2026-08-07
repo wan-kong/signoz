@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Space } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import UnAuthorized from 'assets/UnAuthorized';
@@ -13,6 +14,7 @@ import { USER_ROLES } from '../../types/roles';
 import './index.styles.scss';
 
 function UnAuthorizePage(): JSX.Element {
+	const { t } = useTranslation('common');
 	const [debugCurrentRole] = useQueryState('currentRole');
 	const { user } = useAppContext();
 	const { isCloudUser: isCloudUserVal } = useGetTenantLicense();
@@ -21,8 +23,8 @@ function UnAuthorizePage(): JSX.Element {
 		debugCurrentRole === USER_ROLES.ANONYMOUS ||
 		user.role === USER_ROLES.ANONYMOUS;
 	const mistakeMessage = userIsAnonymous
-		? 'If you believe this is a mistake, please contact your administrator or'
-		: 'Please contact your administrator.';
+		? t('unauthorized.contact_admin_or')
+		: t('unauthorized.contact_admin');
 
 	const handleContactSupportClick = useCallback((): void => {
 		handleContactSupport(isCloudUserVal);
@@ -32,10 +34,10 @@ function UnAuthorizePage(): JSX.Element {
 		<Container className="unauthorized-page">
 			<Space align="center" direction="vertical">
 				<UnAuthorized width={64} height={64} />
-				<Typography.Title level={3}>Access Restricted</Typography.Title>
+				<Typography.Title level={3}>{t('unauthorized.title')}</Typography.Title>
 
 				<p className="unauthorized-page__description">
-					It looks like you don&lsquo;t have permission to view this page. <br />
+					{t('unauthorized.description')} <br />
 					{mistakeMessage}
 					{userIsAnonymous ? (
 						<Typography.Link
@@ -43,7 +45,7 @@ function UnAuthorizePage(): JSX.Element {
 							onClick={handleContactSupportClick}
 						>
 							{' '}
-							reach out to us.
+							{t('unauthorized.reach_out')}
 						</Typography.Link>
 					) : null}
 				</p>

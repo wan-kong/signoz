@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Badge } from '@signozhq/ui/badge';
 import { Switch } from '@signozhq/ui/switch';
 import { Typography } from '@signozhq/ui/typography';
@@ -31,6 +32,7 @@ function MapperRow({
 	onRemove,
 	onToggle,
 }: MapperRowProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	const canManage = useCanManageAttributeMapping();
 	const sources = mapper.sources ?? [];
 	const visibleSources = sources.slice(0, MAX_VISIBLE_SOURCES);
@@ -96,7 +98,7 @@ function MapperRow({
 						))}
 						{remainingSources > 0 && (
 							<span className={cx(styles.sourceMore, styles.muted)}>
-								+{remainingSources} more
+								+{remainingSources} {t('mapper_row.more', 'more')}
 							</span>
 						)}
 					</div>

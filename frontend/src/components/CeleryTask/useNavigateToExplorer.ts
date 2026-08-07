@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
@@ -82,6 +83,7 @@ export function useNavigateToExplorer(): (
 	const { getUpdatedQuery } = useUpdatedQuery();
 	const { dashboardData } = useDashboardStore();
 	const { notifications } = useNotifications();
+	const { t } = useTranslation('messagingQueues');
 
 	return useCallback(
 		async (props: NavigateToExplorerProps): Promise<void> => {
@@ -119,7 +121,10 @@ export function useNavigateToExplorer(): (
 					})
 					.catch(() => {
 						notifications.error({
-							message: 'Unable to resolve variables',
+							message: t(
+								'celery_task.unable_to_resolve_variables',
+								'Unable to resolve variables',
+							),
 						});
 					});
 			}
@@ -143,6 +148,7 @@ export function useNavigateToExplorer(): (
 			getUpdatedQuery,
 			dashboardData,
 			notifications,
+			t,
 		],
 	);
 }

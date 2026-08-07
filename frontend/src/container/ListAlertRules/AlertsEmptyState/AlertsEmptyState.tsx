@@ -74,7 +74,7 @@ export function AlertsEmptyState({
 						<section className={styles.heading}>
 							<img
 								src={alertEmojiUrl}
-								alt="alert-header"
+								alt={t('alert_header_alt')}
 								style={{ height: '32px', width: '32px' }}
 							/>
 							<div>

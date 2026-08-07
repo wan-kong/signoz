@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Button } from '@signozhq/ui/button';
 import classNames from 'classnames';
@@ -23,6 +24,8 @@ function AnnouncementTooltip({
 	className,
 	onClose,
 }: AnnouncementTooltipProps): JSX.Element | null {
+	const { t } = useTranslation('quick_filters');
+
 	const [visible, setVisible] = useState(show);
 
 	const closeTooltip = (): void => {
@@ -67,7 +70,7 @@ function AnnouncementTooltip({
 						prefix={<Check size={16} />}
 						className="announcement-tooltip__footer__button"
 					>
-						Okay
+						{t('announcement_tooltip.okay', 'Okay')}
 					</Button>
 				</div>
 			</div>

@@ -309,7 +309,7 @@ function GraphLayout(props: GraphLayoutProps): JSX.Element {
 		form.setFieldValue(
 			'title',
 			(widgets?.find((widget) => widget.id === currentSelectRowId)
-				?.title as string) || DEFAULT_ROW_NAME,
+				?.title as string) || t(DEFAULT_ROW_NAME),
 		);
 	}, [currentSelectRowId, form, widgets]);
 

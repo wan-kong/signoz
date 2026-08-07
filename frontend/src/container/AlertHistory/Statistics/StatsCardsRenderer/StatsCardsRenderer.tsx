@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGetAlertRuleDetailsStats } from 'pages/AlertDetails/hooks';
 import DataStateRenderer from 'periscope/components/DataStateRenderer/DataStateRenderer';
 import { StatsTimeSeriesItem } from 'types/api/alerts/def';
@@ -38,6 +39,7 @@ type AdaptedStatsData = {
 function StatsCardsRenderer({
 	setTotalCurrentTriggers,
 }: StatsCardsRendererProps): JSX.Element {
+	const { t } = useTranslation('alert_history');
 	const { isLoading, isRefetching, isError, data, isValidRuleId, ruleId } =
 		useGetAlertRuleDetailsStats();
 
@@ -100,9 +102,9 @@ function StatsCardsRenderer({
 							/>
 						) : (
 							<StatsCard
-								title="Total Triggered"
+								title={t('stats_cards.total_triggered', 'Total Triggered')}
 								isEmpty
-								emptyMessage="None Triggered."
+								emptyMessage={t('stats_cards.none_triggered', 'None Triggered.')}
 							/>
 						)}
 
@@ -117,9 +119,9 @@ function StatsCardsRenderer({
 							/>
 						) : (
 							<StatsCard
-								title="Avg. Resolution Time"
+								title={t('stats_cards.avg_resolution_time', 'Avg. Resolution Time')}
 								isEmpty
-								emptyMessage="No Resolutions."
+								emptyMessage={t('stats_cards.no_resolutions', 'No Resolutions.')}
 							/>
 						)}
 					</>

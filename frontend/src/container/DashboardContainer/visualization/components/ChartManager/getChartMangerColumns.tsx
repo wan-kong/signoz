@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import { TableColumnType as ColumnType } from 'antd';
 import { PrecisionOption, PrecisionOptionsEnum } from 'components/Graph/types';
 import CustomCheckBox from 'container/GridCardLayout/GridCard/FullView/TableRender/CustomCheckBox';
@@ -17,6 +18,7 @@ export interface GetChartManagerColumnsParams {
 	yAxisUnit?: string;
 	decimalPrecision?: PrecisionOption;
 	isGraphDisabled?: boolean;
+	t?: TFunction;
 }
 
 export function getChartManagerColumns({
@@ -27,6 +29,7 @@ export function getChartManagerColumns({
 	yAxisUnit,
 	decimalPrecision = PrecisionOptionsEnum.TWO,
 	isGraphDisabled,
+	t,
 }: GetChartManagerColumnsParams): ColumnType<ExtendedChartDataset>[] {
 	return [
 		{
@@ -45,7 +48,7 @@ export function getChartManagerColumns({
 			),
 		},
 		{
-			title: 'Label',
+			title: String(t?.('chart_manager.label') ?? 'Label'),
 			width: 300,
 			dataIndex: 'label',
 			key: 'label',
@@ -59,7 +62,7 @@ export function getChartManagerColumns({
 			),
 		},
 		{
-			title: getTableColumnTitle('Avg', yAxisUnit),
+			title: getTableColumnTitle(t?.('chart_manager.avg') ?? 'Avg', yAxisUnit),
 			width: 90,
 			dataIndex: 'avg',
 			key: 'avg',
@@ -67,7 +70,7 @@ export function getChartManagerColumns({
 				formatTableValueWithUnit(val ?? 0, yAxisUnit, decimalPrecision),
 		},
 		{
-			title: getTableColumnTitle('Sum', yAxisUnit),
+			title: getTableColumnTitle(t?.('chart_manager.sum') ?? 'Sum', yAxisUnit),
 			width: 90,
 			dataIndex: 'sum',
 			key: 'sum',
@@ -75,7 +78,7 @@ export function getChartManagerColumns({
 				formatTableValueWithUnit(val ?? 0, yAxisUnit, decimalPrecision),
 		},
 		{
-			title: getTableColumnTitle('Max', yAxisUnit),
+			title: getTableColumnTitle(t?.('chart_manager.max') ?? 'Max', yAxisUnit),
 			width: 90,
 			dataIndex: 'max',
 			key: 'max',
@@ -83,7 +86,7 @@ export function getChartManagerColumns({
 				formatTableValueWithUnit(val ?? 0, yAxisUnit, decimalPrecision),
 		},
 		{
-			title: getTableColumnTitle('Min', yAxisUnit),
+			title: getTableColumnTitle(t?.('chart_manager.min') ?? 'Min', yAxisUnit),
 			width: 90,
 			dataIndex: 'min',
 			key: 'min',

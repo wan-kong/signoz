@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { getUserOperatingSystem, UserOperatingSystem } from 'utils/getUserOS';
 
 const userOS = getUserOperatingSystem();
@@ -16,7 +17,19 @@ export const LogsExplorerShortcutsName = {
 };
 
 export const LogsExplorerShortcutsDescription = {
-	StageAndRunQuery: 'Stage and Run the current query',
-	FocusTheSearchBar: 'Shift the focus to the last query filter bar',
-	ShowAllFilters: 'Toggle all filters in the filters dropdown',
+	StageAndRunQuery: i18n.t(
+		'logs_shortcuts.stage_and_run_query',
+		'Stage and Run the current query',
+		{ ns: 'shortcuts' },
+	),
+	FocusTheSearchBar: i18n.t(
+		'logs_shortcuts.focus_the_search_bar',
+		'Shift the focus to the last query filter bar',
+		{ ns: 'shortcuts' },
+	),
+	ShowAllFilters: i18n.t(
+		'logs_shortcuts.show_all_filters',
+		'Toggle all filters in the filters dropdown',
+		{ ns: 'shortcuts' },
+	),
 };

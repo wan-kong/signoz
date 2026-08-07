@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 /**
  * AI Assistant page-action factories for the Logs Explorer.
  *
@@ -66,19 +67,36 @@ export function logsRunQueryAction(
 ): PageAction<RunQueryParams> {
 	return {
 		id: 'logs.runQuery',
-		description: 'Replace the active log filters and re-run the query',
+		description: i18n.t(
+			'ai_actions.replace_filters',
+			'Replace the active log filters and re-run the query',
+			{
+				ns: 'common',
+				dataSource: 'log',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
 				filters: {
 					type: 'array',
-					description: 'Replacement filter list',
+					description: i18n.t(
+						'ai_actions.replacement_filter_list',
+						'Replacement filter list',
+						{
+							ns: 'common',
+						},
+					),
 					items: {
 						type: 'object',
 						properties: {
 							key: {
 								type: 'string',
-								description: 'Attribute key, e.g. severity_text',
+								description: i18n.t(
+									'ai_actions.attribute_key_description',
+									'Attribute key, e.g. severity_text',
+									{ ns: 'common' },
+								),
 							},
 							op: {
 								type: 'string',
@@ -99,7 +117,16 @@ export function logsRunQueryAction(
 		execute: async ({ filters }): Promise<ActionResult> => {
 			const baseQuery = deps.currentQuery.builder.queryData[0];
 			if (!baseQuery) {
-				throw new Error('No active query found in Logs Explorer.');
+				throw new Error(
+					i18n.t(
+						'ai_actions.no_active_query',
+						'No active query found in Logs Explorer.',
+						{
+							ns: 'common',
+							explorer: 'Logs Explorer',
+						},
+					),
+				);
 			}
 
 			const tagItems = filters.map(aiFilterToTagFilterItem);
@@ -118,7 +145,11 @@ export function logsRunQueryAction(
 			);
 
 			return {
-				summary: `Query updated with ${filters.length} filter(s) and re-run.`,
+				summary: i18n.t(
+					'ai_actions.query_updated',
+					'Query updated with {{count}} filter(s) and re-run.',
+					{ ns: 'common', count: filters.length },
+				),
 			};
 		},
 		getContext: (): Record<string, unknown> => ({
@@ -142,13 +173,24 @@ export function logsAddFilterAction(
 ): PageAction<AddFilterParams> {
 	return {
 		id: 'logs.addFilter',
-		description: 'Add a single filter to the current log query and re-run',
+		description: i18n.t(
+			'ai_actions.add_single_filter',
+			'Add a single filter to the current log query and re-run',
+			{
+				ns: 'common',
+				dataSource: 'log',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
 				key: {
 					type: 'string',
-					description: 'Attribute key, e.g. severity_text',
+					description: i18n.t(
+						'ai_actions.attribute_key_description',
+						'Attribute key, e.g. severity_text',
+						{ ns: 'common' },
+					),
 				},
 				op: {
 					type: 'string',
@@ -165,7 +207,16 @@ export function logsAddFilterAction(
 		execute: async ({ key, op, value }): Promise<ActionResult> => {
 			const baseQuery = deps.currentQuery.builder.queryData[0];
 			if (!baseQuery) {
-				throw new Error('No active query found in Logs Explorer.');
+				throw new Error(
+					i18n.t(
+						'ai_actions.no_active_query',
+						'No active query found in Logs Explorer.',
+						{
+							ns: 'common',
+							explorer: 'Logs Explorer',
+						},
+					),
+				);
 			}
 
 			const existing = baseQuery.filters?.items ?? [];
@@ -182,7 +233,13 @@ export function logsAddFilterAction(
 				replaceFirstQueryData(deps.currentQuery, updatedBuilderQuery),
 			);
 
-			return { summary: `Filter added: ${key} ${op} "${value}". Query re-run.` };
+			return {
+				summary: i18n.t(
+					'ai_actions.filter_added',
+					'Filter added: {{key}} {{op}} "{{value}}". Query re-run.',
+					{ ns: 'common', key, op, value },
+				),
+			};
 		},
 	};
 }
@@ -195,22 +252,40 @@ export function logsChangeViewAction(deps: {
 }): PageAction<ChangeViewParams> {
 	return {
 		id: 'logs.changeView',
-		description:
+		description: i18n.t(
+			'ai_actions.change_view',
 			'Switch the Logs Explorer between list, timeseries, and table views',
+			{ ns: 'common', explorer: 'Logs Explorer' },
+		),
 		parameters: {
 			type: 'object',
 			properties: {
 				view: {
 					type: 'string',
 					enum: ['list', 'timeseries', 'table'],
-					description: 'The panel view to switch to',
+					description: i18n.t(
+						'ai_actions.switch_to_view',
+						'The panel view to switch to',
+						{
+							ns: 'common',
+						},
+					),
 				},
 			},
 			required: ['view'],
 		},
 		execute: async ({ view }): Promise<ActionResult> => {
 			deps.onChangeView(view);
-			return { summary: `Switched to the "${view}" view.` };
+			return {
+				summary: i18n.t(
+					'ai_actions.switched_to_view',
+					'Switched to the "{{view}}" view.',
+					{
+						ns: 'common',
+						view,
+					},
+				),
+			};
 		},
 	};
 }
@@ -223,17 +298,38 @@ export function logsSaveViewAction(deps: {
 }): PageAction<SaveViewParams> {
 	return {
 		id: 'logs.saveView',
-		description: 'Save the current log query as a named view',
+		description: i18n.t(
+			'ai_actions.save_current_query',
+			'Save the current log query as a named view',
+			{
+				ns: 'common',
+				dataSource: 'log',
+			},
+		),
 		parameters: {
 			type: 'object',
 			properties: {
-				name: { type: 'string', description: 'Name for the saved view' },
+				name: {
+					type: 'string',
+					description: i18n.t(
+						'ai_actions.name_for_saved_view',
+						'Name for the saved view',
+						{
+							ns: 'common',
+						},
+					),
+				},
 			},
 			required: ['name'],
 		},
 		execute: async ({ name }): Promise<ActionResult> => {
 			await deps.onSaveView(name);
-			return { summary: `View "${name}" saved.` };
+			return {
+				summary: i18n.t('ai_actions.view_saved', 'View "{{name}}" saved.', {
+					ns: 'common',
+					name,
+				}),
+			};
 		},
 	};
 }

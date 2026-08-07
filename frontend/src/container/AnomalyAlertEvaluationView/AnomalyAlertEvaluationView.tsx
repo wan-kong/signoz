@@ -190,7 +190,7 @@ function AnomalyAlertEvaluationView({
 		},
 		series: [
 			{
-				label: 'Time',
+				label: t('time'),
 			},
 			...(selectedSeries
 				? [

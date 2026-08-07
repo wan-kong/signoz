@@ -1,0 +1,40 @@
+{
+	"empty_results": {
+		"title": "No spans selected yet.",
+		"description": "Add spans to the funnel steps to start seeing analytics here.",
+		"alt": "Empty funnel results"
+	},
+	"funnel_details": {
+		"loading": "Loading...",
+		"error_loading": "Error loading funnel details"
+	},
+	"funnel_graph": {
+		"no_data": "No data",
+		"error_fetching": "Error fetching data. If the problem persists, please contact support."
+	},
+	"funnel_results": {
+		"missing_fields_title": "Missing service / span names",
+		"missing_fields_description": "Fill in the service and span names for all the steps",
+		"no_traces_title": "There are no traces that match the funnel steps.",
+		"no_traces_description": "Check the service / span names in the funnel steps and try again to start seeing analytics here"
+	},
+	"funnel_table": {
+		"info_alt": "info"
+	},
+	"metrics_table": {
+		"error_fetching": "Error fetching data. If the problem persists, please contact support."
+	},
+	"overall_metrics": {
+		"title": "Overall Funnel Metrics",
+		"conversion_rate": "Conversion rate"
+	},
+	"steps_transition": {
+		"conversion_rate": "Conversion rate",
+		"no_transition_selected": "No transition selected",
+		"step_to_step": "Step {{from}} → Step {{to}}"
+	},
+	"utils": {
+		"trace_id": "TRACE ID",
+		"step_transition_duration": "STEP TRANSITION DURATION"
+	}
+}

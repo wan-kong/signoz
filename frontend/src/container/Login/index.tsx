@@ -309,7 +309,12 @@ function Login(): JSX.Element {
 			<FormContainer form={form} onFinish={onSubmitHandler}>
 				<div className="login-form-header">
 					<div className="login-form-emoji">
-						<img src={tvUrl} alt="TV" width="32" height="32" />
+						<img
+							src={tvUrl}
+							alt={t('login.tv_alt', { ns: 'common' })}
+							width="32"
+							height="32"
+						/>
 					</div>
 					<Typography.Title level={4} className="login-form-title">
 						{t('workspace_login_title')}

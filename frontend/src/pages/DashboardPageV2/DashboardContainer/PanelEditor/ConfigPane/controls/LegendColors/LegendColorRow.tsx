@@ -1,6 +1,7 @@
 import { ColorPicker } from 'antd';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 
 import styles from './LegendColors.module.scss';
 
@@ -26,6 +27,7 @@ function LegendColorRow({
 	onChange,
 	onReset,
 }: LegendColorRowProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	return (
 		<div className={styles.row}>
 			<ColorPicker
@@ -54,7 +56,7 @@ function LegendColorRow({
 					onClick={onReset}
 					testId={`legend-color-reset-${label}`}
 				>
-					Reset
+					{t('legend_color_row.reset')}
 				</Button>
 			)}
 		</div>

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import React from 'react';
 import { Color } from '@signozhq/design-tokens';
 import { Badge } from '@signozhq/ui/badge';
@@ -42,7 +43,7 @@ export type HostDetailMetadataConfigType =
 	K8sDetailsMetadataConfig<InframonitoringtypesHostRecordDTO>;
 export const hostDetailsMetadataConfig: HostDetailMetadataConfigType[] = [
 	{
-		label: 'STATUS',
+		label: i18n.t('status', 'STATUS', { ns: 'infraMonitoring' }),
 		labelKey: 'display.status_uppercase',
 		getValue: (h): string =>
 			h.status === InframonitoringtypesHostStatusDTO.active
@@ -63,7 +64,9 @@ export const hostDetailsMetadataConfig: HostDetailMetadataConfigType[] = [
 		},
 	},
 	{
-		label: 'OPERATING SYSTEM',
+		label: i18n.t('operating_system', 'OPERATING SYSTEM', {
+			ns: 'infraMonitoring',
+		}),
 		labelKey: 'display.operating_system_uppercase',
 		getValue: (h): string => h.meta?.[INFRA_MONITORING_ATTR_KEYS.OS_TYPE] || '-',
 		render: (value): React.ReactNode =>
@@ -76,7 +79,7 @@ export const hostDetailsMetadataConfig: HostDetailMetadataConfigType[] = [
 			),
 	},
 	{
-		label: 'CPU USAGE',
+		label: i18n.t('cpu_usage', 'CPU USAGE', { ns: 'infraMonitoring' }),
 		labelKey: 'display.cpu_usage_uppercase',
 		getValue: (h): number => h.cpu * 100,
 		render: (value): React.ReactNode => (
@@ -88,7 +91,7 @@ export const hostDetailsMetadataConfig: HostDetailMetadataConfigType[] = [
 		),
 	},
 	{
-		label: 'MEMORY USAGE',
+		label: i18n.t('memory_usage', 'MEMORY USAGE', { ns: 'infraMonitoring' }),
 		labelKey: 'display.memory_usage_uppercase',
 		getValue: (h): number => h.memory * 100,
 		render: (value): React.ReactNode => (

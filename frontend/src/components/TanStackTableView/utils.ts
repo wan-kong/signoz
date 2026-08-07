@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import type { CSSProperties, ReactNode } from 'react';
 import type { ColumnDef } from '@tanstack/react-table';
 
@@ -157,7 +158,9 @@ export function buildPageSizeItems(
 	if (calculatedSize) {
 		items.push({
 			value: calculatedSize.toString(),
-			label: `Auto (${calculatedSize})`,
+			label: String(
+				i18n.t('table.column_auto_width', { size: calculatedSize, ns: 'common' }),
+			),
 			displayValue: calculatedSize.toString(),
 		});
 	}

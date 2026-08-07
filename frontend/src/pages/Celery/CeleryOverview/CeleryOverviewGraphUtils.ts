@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { getStepInterval } from 'components/CeleryTask/CeleryTaskGraph/CeleryTaskGraphUtils';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { getWidgetQueryBuilder } from 'container/MetricsApplication/MetricsApplication.factory';
@@ -16,8 +17,14 @@ export const celeryOverviewRequestRateWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Request Rate',
-			description: 'Represents request rate of the service',
+			title: i18n.t('celery_overview.request_rate', 'Request Rate', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'celery_overview.request_rate_desc',
+				'Represents request rate of the service',
+				{ ns: 'messagingQueues' },
+			),
 			queryData: [
 				{
 					aggregateAttribute: {
@@ -56,8 +63,12 @@ export const celeryOverviewErrorRateWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Error',
-			description: 'Represents Error in the service',
+			title: i18n.t('celery_overview.error', 'Error', { ns: 'messagingQueues' }),
+			description: i18n.t(
+				'celery_overview.error_desc',
+				'Represents Error in the service',
+				{ ns: 'messagingQueues' },
+			),
 			queryData: [
 				{
 					aggregateAttribute: {
@@ -109,8 +120,14 @@ export const celeryOverviewAvgLatencyWidgetData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Avg Latency',
-			description: 'Represents Avg Latency of the service',
+			title: i18n.t('celery_overview.avg_latency', 'Avg Latency', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'celery_overview.avg_latency_desc',
+				'Represents Avg Latency of the service',
+				{ ns: 'messagingQueues' },
+			),
 			queryData: [
 				{
 					aggregateAttribute: {
@@ -152,8 +169,14 @@ export const celeryOverviewRequestRateGraphData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Request rate',
-			description: 'Represents Request rate of the service',
+			title: i18n.t('celery_overview.request_rate_graph', 'Request rate', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'celery_overview.request_rate_graph_desc',
+				'Represents Request rate of the service',
+				{ ns: 'messagingQueues' },
+			),
 			queryData: [
 				{
 					aggregateAttribute: {
@@ -173,7 +196,9 @@ export const celeryOverviewRequestRateGraphData = (
 					functions: [],
 					groupBy: groupByFilter ? [groupByFilter] : [],
 					having: [],
-					legend: 'Request Rate',
+					legend: i18n.t('celery_overview.request_rate', 'Request Rate', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -196,8 +221,14 @@ export const celeryOverviewErrorRateGraphData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Error %',
-			description: 'Represents Error in the service',
+			title: i18n.t('celery_overview.error_percent', 'Error %', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'celery_overview.error_desc',
+				'Represents Error in the service',
+				{ ns: 'messagingQueues' },
+			),
 			queryData: [
 				{
 					dataSource: DataSource.TRACES,
@@ -310,13 +341,17 @@ export const celeryOverviewErrorRateGraphData = (
 					queryName: 'F1',
 					expression: '(A/C)*100',
 					disabled: false,
-					legend: 'True',
+					legend: i18n.t('celery_overview.legend_true', 'True', {
+						ns: 'messagingQueues',
+					}),
 				} as any,
 				{
 					queryName: 'F2',
 					expression: '(B/C)*100',
 					disabled: false,
-					legend: 'False',
+					legend: i18n.t('celery_overview.legend_false', 'False', {
+						ns: 'messagingQueues',
+					}),
 				} as any,
 			],
 			panelTypes: PANEL_TYPES.BAR,
@@ -332,8 +367,14 @@ export const celeryOverviewAvgLatencyGraphData = (
 ): Widgets =>
 	getWidgetQueryBuilder(
 		getWidgetQuery({
-			title: 'Latency',
-			description: 'Represents Latency of the service',
+			title: i18n.t('celery_overview.latency', 'Latency', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'celery_overview.latency_desc',
+				'Represents Latency of the service',
+				{ ns: 'messagingQueues' },
+			),
 			queryData: [
 				{
 					aggregateAttribute: {

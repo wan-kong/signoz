@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import { Color } from '@signozhq/design-tokens';
 import { Button, Tooltip } from 'antd';
@@ -29,6 +30,8 @@ function ExplorerOptionsHideArea({
 	onUpdateQueryHandler,
 	isEditDeleteSupported,
 }: DroppableAreaProps): JSX.Element {
+	const { t } = useTranslation('explorer');
+
 	const handleShowExplorerOption = (): void => {
 		if (setIsExplorerOptionHidden) {
 			setIsExplorerOptionHidden(false);
@@ -42,7 +45,9 @@ function ExplorerOptionsHideArea({
 				<>
 					{viewName && (
 						<div className="explorer-actions-btn">
-							<Tooltip title="Clear this view">
+							<Tooltip
+								title={t('explorer_options.clear_this_view', 'Clear this view')}
+							>
 								<Button
 									onClick={handleClearSelect}
 									className="action-btn"
@@ -51,7 +56,9 @@ function ExplorerOptionsHideArea({
 								/>
 							</Tooltip>
 							{isEditDeleteSupported && isQueryUpdated && (
-								<Tooltip title="Update this View">
+								<Tooltip
+									title={t('explorer_options.update_this_view', 'Update this View')}
+								>
 									<Button
 										onClick={onUpdateQueryHandler}
 										className="action-btn"

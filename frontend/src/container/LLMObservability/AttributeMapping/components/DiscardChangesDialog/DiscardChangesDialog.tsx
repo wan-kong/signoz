@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { AlertDialog } from '@signozhq/ui/alert-dialog';
 import { Button } from '@signozhq/ui/button';
 import { Trash2, X } from '@signozhq/icons';
@@ -13,6 +14,7 @@ function DiscardChangesDialog({
 	onConfirm,
 	onCancel,
 }: DiscardChangesDialogProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<AlertDialog
 			open={open}
@@ -22,7 +24,7 @@ function DiscardChangesDialog({
 				}
 			}}
 			width="narrow"
-			title="Discard unsaved changes?"
+			title={t('llm_observability.discard_unsaved_title')}
 			titleIcon={<Trash2 size={16} />}
 			footer={
 				<>
@@ -33,7 +35,7 @@ function DiscardChangesDialog({
 						prefix={<X size={12} />}
 						testId="discard-changes-cancel-btn"
 					>
-						Keep editing
+						{t('llm_observability.keep_editing')}
 					</Button>
 					<Button
 						variant="solid"
@@ -42,7 +44,7 @@ function DiscardChangesDialog({
 						prefix={<Trash2 size={12} />}
 						testId="discard-changes-confirm-btn"
 					>
-						Discard changes
+						{t('llm_observability.discard_changes')}
 					</Button>
 				</>
 			}

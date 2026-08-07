@@ -42,11 +42,11 @@ describe('CreateRolePage', () => {
 			expect(screen.getByTestId('create-edit-role-page')).toBeInTheDocument();
 		});
 
-		it('shows breadcrumb with "Create role" as current page', async () => {
+		it('shows breadcrumb with "Create Role" as current page', async () => {
 			await renderCreatePage();
 
 			const page = screen.getByTestId('create-edit-role-page');
-			const breadcrumbs = within(page).getAllByText('Create role');
+			const breadcrumbs = within(page).getAllByText('Create Role');
 			expect(breadcrumbs.length).toBeGreaterThanOrEqual(1);
 		});
 
@@ -71,11 +71,11 @@ describe('CreateRolePage', () => {
 			expect(nameInput).not.toBeDisabled();
 		});
 
-		it('save button shows "Create role" text', async () => {
+		it('save button shows "Create Role" text', async () => {
 			await renderCreatePage();
 
 			const saveBtn = screen.getByTestId('save-button');
-			expect(saveBtn).toHaveTextContent('Create role');
+			expect(saveBtn).toHaveTextContent('Create Role');
 		});
 
 		it('save button is disabled when no changes', async () => {

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { ORG_PREFERENCES } from 'constants/orgPreferences';
 import ROUTES from 'constants/routes';
 
@@ -41,7 +42,13 @@ export const DOCS_LINKS = {
 export const defaultChecklistItemsState: ChecklistItem[] = [
 	{
 		id: 'SETUP_WORKSPACE',
-		title: 'Set up your workspace',
+		title: i18n.t(
+			'checklist.items.SETUP_WORKSPACE.title',
+			'Set up your workspace',
+			{
+				ns: 'home',
+			},
+		),
 		description: '',
 		completed: true,
 		isSkipped: false,
@@ -50,7 +57,11 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 	},
 	{
 		id: 'ADD_DATA_SOURCE',
-		title: 'Add your first data source',
+		title: i18n.t(
+			'checklist.items.ADD_DATA_SOURCE.title',
+			'Add your first data source',
+			{ ns: 'home' },
+		),
 		description: '',
 		completed: false,
 		isSkipped: false,
@@ -61,9 +72,14 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 	},
 	{
 		id: 'SEND_LOGS',
-		title: 'Send your logs',
-		description:
+		title: i18n.t('checklist.items.SEND_LOGS.title', 'Send your logs', {
+			ns: 'home',
+		}),
+		description: i18n.t(
+			'checklist.items.SEND_LOGS.description',
 			'Send your logs to SigNoz to get more visibility into how your resources interact.',
+			{ ns: 'home' },
+		),
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -73,9 +89,14 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 	},
 	{
 		id: 'SEND_TRACES',
-		title: 'Send your traces',
-		description:
+		title: i18n.t('checklist.items.SEND_TRACES.title', 'Send your traces', {
+			ns: 'home',
+		}),
+		description: i18n.t(
+			'checklist.items.SEND_TRACES.description',
 			'Send your traces to SigNoz to get more visibility into how your resources interact.',
+			{ ns: 'home' },
+		),
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -85,9 +106,14 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 	},
 	{
 		id: 'SEND_METRICS',
-		title: 'Send your metrics',
-		description:
+		title: i18n.t('checklist.items.SEND_METRICS.title', 'Send your metrics', {
+			ns: 'home',
+		}),
+		description: i18n.t(
+			'checklist.items.SEND_METRICS.description',
 			'Send your metrics to SigNoz to get more visibility into how your resources interact.',
+			{ ns: 'home' },
+		),
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -97,9 +123,14 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 	},
 	{
 		id: 'SETUP_ALERTS',
-		title: 'Setup Alerts',
-		description:
+		title: i18n.t('checklist.items.SETUP_ALERTS.title', 'Setup Alerts', {
+			ns: 'home',
+		}),
+		description: i18n.t(
+			'checklist.items.SETUP_ALERTS.description',
 			'Setup alerts to get notified when your resources are not performing as expected.',
+			{ ns: 'home' },
+		),
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -109,9 +140,18 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 	},
 	{
 		id: 'SETUP_SAVED_VIEWS',
-		title: 'Setup Saved Views',
-		description:
+		title: i18n.t(
+			'checklist.items.SETUP_SAVED_VIEWS.title',
+			'Setup Saved Views',
+			{
+				ns: 'home',
+			},
+		),
+		description: i18n.t(
+			'checklist.items.SETUP_SAVED_VIEWS.description',
 			'Save your views to get a quick overview of your data and share it with your team.',
+			{ ns: 'home' },
+		),
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,
@@ -121,9 +161,14 @@ export const defaultChecklistItemsState: ChecklistItem[] = [
 	},
 	{
 		id: 'SETUP_DASHBOARDS',
-		title: 'Setup Dashboards',
-		description:
+		title: i18n.t('checklist.items.SETUP_DASHBOARDS.title', 'Setup Dashboards', {
+			ns: 'home',
+		}),
+		description: i18n.t(
+			'checklist.items.SETUP_DASHBOARDS.description',
 			'Create dashboards to visualize your data and share it with your team.',
+			{ ns: 'home' },
+		),
 		completed: false,
 		isSkipped: false,
 		isSkippable: true,

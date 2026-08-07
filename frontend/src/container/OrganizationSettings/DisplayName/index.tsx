@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import i18n from 'ReactI18';
 import { toast } from '@signozhq/ui/sonner';
 import { Button, Input } from 'antd';
 import { convertToApiError } from 'api/ErrorResponseHandlerForGeneratedAPIs';
@@ -85,18 +86,22 @@ function DisplayName({ index, id: orgId }: DisplayNameProps): JSX.Element {
 			autoComplete="off"
 		>
 			<div className="form-field">
-				<label htmlFor="displayName">Display name</label>
+				<label htmlFor="displayName">{t('display_name', 'Display name')}</label>
 				<Controller
 					name="displayName"
 					control={control}
-					rules={{ required: requireErrorMessage('Display name') }}
+					rules={{
+						required: requireErrorMessage(
+							i18n.t('display_name', 'Display name', { ns: 'organizationsettings' }),
+						),
+					}}
 					render={({ field, fieldState }): JSX.Element => (
 						<>
 							<Input
 								{...field}
 								id="displayName"
 								size="large"
-								placeholder={t('signoz')}
+								placeholder={t('signoz', 'SigNoz')}
 								status={fieldState.error ? 'error' : ''}
 							/>
 							{fieldState.error && (
@@ -113,7 +118,7 @@ function DisplayName({ index, id: orgId }: DisplayNameProps): JSX.Element {
 					type="primary"
 					htmlType="submit"
 				>
-					Submit
+					{t('submit', 'Submit')}
 				</Button>
 			</div>
 		</form>

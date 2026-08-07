@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import {
 	Bot,
 	ChartLine,
@@ -40,60 +41,125 @@ export interface ResourcePanelConfig {
  */
 export const RESOURCE_PANELS: Record<AuthZResource, ResourcePanelConfig> = {
 	'factor-api-key': {
-		label: 'API Keys',
-		description: 'Programmatic access tokens for the workspace.',
+		label: i18n.t('permissions.api_keys_label', 'API Keys', {
+			ns: 'organizationsettings',
+		}),
+		description: i18n.t(
+			'permissions.api_keys_description',
+			'Programmatic access tokens for the workspace.',
+			{ ns: 'organizationsettings' },
+		),
 		icon: Key,
-		selectorPlaceholder: 'Type API key ID, separate multiple with comma or space',
+		selectorPlaceholder: i18n.t(
+			'permissions.api_keys_placeholder',
+			'Type API key ID, separate multiple with comma or space',
+			{ ns: 'organizationsettings' },
+		),
 		docsAnchor: 'factor-api-key',
 	},
 	role: {
-		label: 'Roles',
-		description: 'Custom and managed roles and their assignments.',
+		label: i18n.t('permissions.roles_label', 'Roles', {
+			ns: 'organizationsettings',
+		}),
+		description: i18n.t(
+			'permissions.roles_description',
+			'Custom and managed roles and their assignments.',
+			{ ns: 'organizationsettings' },
+		),
 		icon: Shield,
-		selectorPlaceholder: 'Type role name, separate multiple with comma or space',
+		selectorPlaceholder: i18n.t(
+			'permissions.roles_placeholder',
+			'Type role name, separate multiple with comma or space',
+			{ ns: 'organizationsettings' },
+		),
 		docsAnchor: 'role',
 	},
 	serviceaccount: {
-		label: 'Service Accounts',
-		description: 'Non-human identities used by integrations.',
+		label: i18n.t('permissions.service_accounts_label', 'Service Accounts', {
+			ns: 'organizationsettings',
+		}),
+		description: i18n.t(
+			'permissions.service_accounts_description',
+			'Non-human identities used by integrations.',
+			{ ns: 'organizationsettings' },
+		),
 		icon: Bot,
-		selectorPlaceholder:
+		selectorPlaceholder: i18n.t(
+			'permissions.service_accounts_placeholder',
 			'Type service account ID, separate multiple with comma or space',
+			{ ns: 'organizationsettings' },
+		),
 		docsAnchor: 'service-account',
 	},
 	logs: {
-		label: 'Logs',
-		description: 'Log data collected across the workspace.',
+		label: i18n.t('permissions.logs_label', 'Logs', {
+			ns: 'organizationsettings',
+		}),
+		description: i18n.t(
+			'permissions.logs_description',
+			'Log data collected across the workspace.',
+			{ ns: 'organizationsettings' },
+		),
 		icon: Logs,
-		selectorPlaceholder:
+		selectorPlaceholder: i18n.t(
+			'permissions.telemetry_selector_placeholder',
 			'Enter selector as <query-type>/<key>/<value> or <query-type>/* or use wizard...',
+			{ ns: 'organizationsettings' },
+		),
 		docsAnchor: 'logs',
 		selectorType: 'telemetryBuilder',
 	},
 	traces: {
-		label: 'Traces',
-		description: 'Distributed tracing data collected across the workspace.',
+		label: i18n.t('permissions.traces_label', 'Traces', {
+			ns: 'organizationsettings',
+		}),
+		description: i18n.t(
+			'permissions.traces_description',
+			'Distributed tracing data collected across the workspace.',
+			{ ns: 'organizationsettings' },
+		),
 		icon: DraftingCompass,
-		selectorPlaceholder:
+		selectorPlaceholder: i18n.t(
+			'permissions.telemetry_selector_placeholder',
 			'Enter selector as <query-type>/<key>/<value> or <query-type>/* or use wizard...',
+			{ ns: 'organizationsettings' },
+		),
 		docsAnchor: 'traces',
 		selectorType: 'telemetryBuilder',
 	},
 	metrics: {
-		label: 'Metrics',
-		description: 'Metric data collected across the workspace.',
+		label: i18n.t('permissions.metrics_label', 'Metrics', {
+			ns: 'organizationsettings',
+		}),
+		description: i18n.t(
+			'permissions.metrics_description',
+			'Metric data collected across the workspace.',
+			{ ns: 'organizationsettings' },
+		),
 		icon: ChartLine,
-		selectorPlaceholder:
+		selectorPlaceholder: i18n.t(
+			'permissions.telemetry_selector_placeholder',
 			'Enter selector as <query-type>/<key>/<value> or <query-type>/* or use wizard...',
+			{ ns: 'organizationsettings' },
+		),
 		docsAnchor: 'metrics',
 		selectorType: 'telemetryBuilder',
 	},
 	'meter-metrics': {
-		label: 'Meter Metrics',
-		description: 'Usage metering data for the workspace.',
+		label: i18n.t('permissions.meter_metrics_label', 'Meter Metrics', {
+			ns: 'organizationsettings',
+		}),
+		description: i18n.t(
+			'permissions.meter_metrics_description',
+			'Usage metering data for the workspace.',
+			{ ns: 'organizationsettings' },
+		),
 		icon: Gauge,
-		selectorPlaceholder:
+		selectorPlaceholder: i18n.t(
+			'permissions.telemetry_selector_placeholder',
 			'Enter selector as <query-type>/<key>/<value> or <query-type>/* or use wizard...',
+			{ ns: 'organizationsettings' },
+		),
 		docsAnchor: 'meter-metrics',
 		selectorType: 'telemetryBuilder',
 	},
@@ -112,9 +178,17 @@ export function getResourcePanel(resource: AuthZResource): ResourcePanelConfig {
 	// that is newer than frontend, we should have this as fallback to avoid crashing the UI
 	return {
 		label: resource,
-		description: 'Manage permissions for this resource.',
+		description: i18n.t(
+			'permissions.fallback_description',
+			'Manage permissions for this resource.',
+			{ ns: 'organizationsettings' },
+		),
 		icon: Shield,
-		selectorPlaceholder: 'Type ID, separate multiple with comma or space',
+		selectorPlaceholder: i18n.t(
+			'permissions.fallback_placeholder',
+			'Type ID, separate multiple with comma or space',
+			{ ns: 'organizationsettings' },
+		),
 		docsAnchor: '',
 	};
 }

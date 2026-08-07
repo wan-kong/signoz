@@ -147,7 +147,9 @@ describe('SaveView', () => {
 		fireEvent.click(deleteButton[0]);
 
 		await expect(
-			screen.findByText('delete_confirm_message'),
+			screen.findByText(
+				/Are you sure you want to delete .* view\? Deleting a view is irreversible and cannot be undone\./,
+			),
 		).resolves.toBeInTheDocument();
 
 		const confirmButton = await screen.findByTestId('confirm-delete');

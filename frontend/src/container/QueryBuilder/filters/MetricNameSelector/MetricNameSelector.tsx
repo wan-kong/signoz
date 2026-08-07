@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { flushSync } from 'react-dom';
 import { AutoComplete, Spin } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -85,6 +86,7 @@ export const MetricNameSelector = memo(function MetricNameSelector({
 	signalSource,
 	'data-testid': dataTestId,
 }: MetricNameSelectorProps): JSX.Element {
+	const { t } = useTranslation('pipeline');
 	const getPopupContainer = useSelectPopupContainer();
 	const currentMetricName =
 		(query.aggregations?.[0] as MetricAggregation)?.metricName ||
@@ -211,10 +213,13 @@ export const MetricNameSelector = memo(function MetricNameSelector({
 
 	const placeholder = useMemo(() => {
 		if (signalSource === 'meter') {
-			return 'Search for a meter metric...';
+			return t(
+				'metric_name_selector.search_meter',
+				'Search for a meter metric...',
+			);
 		}
-		return 'Search for a metric...';
-	}, [signalSource]);
+		return t('metric_name_selector.search_metric', 'Search for a metric...');
+	}, [signalSource, t]);
 
 	const handleChange = useCallback((value: string): void => {
 		setInputValue(value);
@@ -284,7 +289,7 @@ export const MetricNameSelector = memo(function MetricNameSelector({
 					<Spin size="small" />
 				) : isError ? (
 					<Typography.Text color="danger" style={{ fontSize: 12 }}>
-						Failed to load metrics
+						{t('metric_name_selector.failed_to_load', 'Failed to load metrics')}
 					</Typography.Text>
 				) : null
 			}

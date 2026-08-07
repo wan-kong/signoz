@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import type { PanelDefinition } from '../../types/panelDefinition';
 import Renderer from './Renderer';
 import { sections } from './sections';
@@ -7,7 +8,7 @@ import { EQueryType } from 'types/common/dashboard';
 
 export const definition: PanelDefinition<'signoz/ListPanel'> = {
 	kind: 'signoz/ListPanel',
-	displayName: 'List',
+	displayName: i18n.t('panel.types.list', 'List', { ns: 'dashboard' }),
 	Renderer,
 	// Raw records come from logs and traces; metrics don't produce row data.
 	supportedSignals: [

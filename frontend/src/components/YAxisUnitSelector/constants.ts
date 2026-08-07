@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { UnitFamilyConfig, UniversalYAxisUnit, YAxisUnit } from './types';
 
 export enum YAxisCategoryNames {
@@ -30,6 +31,150 @@ export enum YAxisCategoryNames {
 	Velocity = 'Velocity',
 	Volume = 'Volume',
 }
+
+// Display labels for each category, localized at module load time.
+export const Y_AXIS_CATEGORY_LABELS: Record<YAxisCategoryNames, string> = {
+	[YAxisCategoryNames.Time]: i18n.t('y_axis_unit.category_time', 'Time', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.Data]: i18n.t('y_axis_unit.category_data', 'Data', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.DataRate]: i18n.t(
+		'y_axis_unit.category_data_rate',
+		'Data Rate',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Count]: i18n.t('y_axis_unit.category_count', 'Count', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.Operations]: i18n.t(
+		'y_axis_unit.category_operations',
+		'Operations',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Percentage]: i18n.t(
+		'y_axis_unit.category_percentage',
+		'Percentage',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Boolean]: i18n.t(
+		'y_axis_unit.category_boolean',
+		'Boolean',
+		{ ns: 'common' },
+	),
+	[YAxisCategoryNames.None]: i18n.t('y_axis_unit.category_none', 'None', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.HashRate]: i18n.t(
+		'y_axis_unit.category_hash_rate',
+		'Hash Rate',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Miscellaneous]: i18n.t(
+		'y_axis_unit.category_miscellaneous',
+		'Miscellaneous',
+		{ ns: 'common' },
+	),
+	[YAxisCategoryNames.Acceleration]: i18n.t(
+		'y_axis_unit.category_acceleration',
+		'Acceleration',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Angular]: i18n.t(
+		'y_axis_unit.category_angular',
+		'Angular',
+		{ ns: 'common' },
+	),
+	[YAxisCategoryNames.Area]: i18n.t('y_axis_unit.category_area', 'Area', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.Flops]: i18n.t('y_axis_unit.category_flops', 'FLOPs', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.Concentration]: i18n.t(
+		'y_axis_unit.category_concentration',
+		'Concentration',
+		{ ns: 'common' },
+	),
+	[YAxisCategoryNames.Currency]: i18n.t(
+		'y_axis_unit.category_currency',
+		'Currency',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Datetime]: i18n.t(
+		'y_axis_unit.category_datetime',
+		'Datetime',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.PowerElectrical]: i18n.t(
+		'y_axis_unit.category_power_electrical',
+		'Power/Electrical',
+		{ ns: 'common' },
+	),
+	[YAxisCategoryNames.Flow]: i18n.t('y_axis_unit.category_flow', 'Flow', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.Force]: i18n.t('y_axis_unit.category_force', 'Force', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.Mass]: i18n.t('y_axis_unit.category_mass', 'Mass', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.Length]: i18n.t('y_axis_unit.category_length', 'Length', {
+		ns: 'common',
+	}),
+	[YAxisCategoryNames.Pressure]: i18n.t(
+		'y_axis_unit.category_pressure',
+		'Pressure',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Radiation]: i18n.t(
+		'y_axis_unit.category_radiation',
+		'Radiation',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.RotationSpeed]: i18n.t(
+		'y_axis_unit.category_rotation_speed',
+		'Rotation Speed',
+		{ ns: 'common' },
+	),
+	[YAxisCategoryNames.Temperature]: i18n.t(
+		'y_axis_unit.category_temperature',
+		'Temperature',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Velocity]: i18n.t(
+		'y_axis_unit.category_velocity',
+		'Velocity',
+		{
+			ns: 'common',
+		},
+	),
+	[YAxisCategoryNames.Volume]: i18n.t('y_axis_unit.category_volume', 'Volume', {
+		ns: 'common',
+	}),
+};
 
 // Mapping of universal y-axis units to their AWS, UCUM, and OpenMetrics equivalents (if available)
 export const UniversalYAxisUnitMappings: Partial<

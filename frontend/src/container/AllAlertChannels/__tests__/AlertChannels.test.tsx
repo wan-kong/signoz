@@ -26,7 +26,9 @@ describe('Alert Channels Settings List page', () => {
 		jest.setSystemTime(new Date('2023-10-20'));
 		render(<AlertChannels />);
 		await waitFor(() =>
-			expect(screen.getByText('sending_channels_note')).toBeInTheDocument(),
+			expect(
+				screen.getByText('The alerts will be sent to all the configured channels.'),
+			).toBeInTheDocument(),
 		);
 	});
 	afterEach(() => {
@@ -35,10 +37,12 @@ describe('Alert Channels Settings List page', () => {
 	});
 	describe('Should display the Alert Channels page properly', () => {
 		it('Should check if "The alerts will be sent to all the configured channels." is visible', () => {
-			expect(screen.getByText('sending_channels_note')).toBeInTheDocument();
+			expect(
+				screen.getByText('The alerts will be sent to all the configured channels.'),
+			).toBeInTheDocument();
 		});
 		it('Should check if "New Alert Channel" Button is visble', () => {
-			expect(screen.getByText('button_new_channel')).toBeInTheDocument();
+			expect(screen.getByText('New Alert Channel')).toBeInTheDocument();
 		});
 		it('Should check if the help icon is visible and displays "tooltip_notification_channels', async () => {
 			const helpIcon = screen.getByRole('img', { name: /help/i });
@@ -46,22 +50,24 @@ describe('Alert Channels Settings List page', () => {
 			fireEvent.mouseOver(helpIcon);
 
 			await waitFor(() => {
-				const tooltip = screen.getByText('tooltip_notification_channels');
+				const tooltip = screen.getByText(
+					'More details on how to setting notification channels',
+				);
 				expect(tooltip).toBeInTheDocument();
 			});
 		});
 	});
 	describe('Should check if the channels table is properly displayed', () => {
 		it('Should check if the table columns are properly displayed', () => {
-			expect(screen.getByText('column_channel_name')).toBeInTheDocument();
-			expect(screen.getByText('column_channel_type')).toBeInTheDocument();
-			expect(screen.getByText('column_channel_action')).toBeInTheDocument();
+			expect(screen.getByText('Name')).toBeInTheDocument();
+			expect(screen.getByText('Type')).toBeInTheDocument();
+			expect(screen.getByText('Action')).toBeInTheDocument();
 		});
 
 		it('Should check if the data in the table is displayed properly', () => {
 			expect(screen.getByText('Dummy-Channel')).toBeInTheDocument();
 			expect(screen.getAllByText('slack')[0]).toBeInTheDocument();
-			expect(screen.getAllByText('column_channel_edit')[0]).toBeInTheDocument();
+			expect(screen.getAllByText('Edit')[0]).toBeInTheDocument();
 			expect(screen.getAllByText('Delete')[0]).toBeInTheDocument();
 		});
 
@@ -76,7 +82,7 @@ describe('Alert Channels Settings List page', () => {
 			await waitFor(() => {
 				expect(successNotification).toHaveBeenCalledWith({
 					message: 'Success',
-					description: 'channel_delete_success',
+					description: 'Channel Deleted Successfully',
 				});
 			});
 		});

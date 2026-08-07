@@ -1,4 +1,5 @@
 import { Button } from '@signozhq/ui/button';
+import { useTranslation } from 'react-i18next';
 import { Popover, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { Fullscreen } from '@signozhq/icons';
@@ -18,6 +19,7 @@ function AttributeWithExpandablePopover({
 	attributeValue,
 	onExpand,
 }: AttributeWithExpandablePopoverProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const popoverContent = (
 		<div className={popoverStyles.popover}>
 			<pre className={popoverStyles.preview}>{attributeValue}</pre>
@@ -27,7 +29,7 @@ function AttributeWithExpandablePopover({
 				className={popoverStyles.expandButton}
 				prefix={<Fullscreen size={14} />}
 			>
-				Expand
+				{t('span_details.expand')}
 			</Button>
 		</div>
 	);

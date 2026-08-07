@@ -82,6 +82,7 @@ function SpanDetailsContent({
 	traceStartTime?: number;
 	traceEndTime?: number;
 }): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [bodyRef, { width: bodyWidth }] = useMeasure<HTMLDivElement>();
 	const spanAttributeActions = useSpanAttributeActions();
 	const logTraceEvent = useTraceDetailLogEvent('v3', selectedSpan.trace_id);
@@ -298,10 +299,10 @@ function SpanDetailsContent({
 					<TabsRoot defaultValue="overview" onValueChange={handleTabChange}>
 						<TabsList variant="secondary">
 							<TabsTrigger value="overview" variant="secondary">
-								<Bookmark size={14} /> Overview
+								<Bookmark size={14} /> {t('span_details.overview')}
 							</TabsTrigger>
 							<TabsTrigger value="events" variant="secondary">
-								<ScrollText size={14} /> Events
+								<ScrollText size={14} /> {t('span_details.events')}
 								{eventsCount > 0 && (
 									<Badge color="secondary" className={styles.eventsBadge}>
 										{eventsCount}
@@ -309,11 +310,11 @@ function SpanDetailsContent({
 								)}
 							</TabsTrigger>
 							<TabsTrigger value="logs" variant="secondary">
-								<List size={14} /> Logs
+								<List size={14} /> {t('span_details.logs')}
 							</TabsTrigger>
 							{infraMetadata && (
 								<TabsTrigger value="metrics" variant="secondary">
-									<ChartColumnBig size={14} /> Metrics
+									<ChartColumnBig size={14} /> {t('span_details.metrics')}
 								</TabsTrigger>
 							)}
 						</TabsList>

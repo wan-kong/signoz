@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { Spline } from '@signozhq/icons';
 import { EQueryType } from 'types/common/dashboard';
@@ -10,6 +11,7 @@ interface IPlotTagProps {
 }
 
 function PlotTag({ queryType, panelType }: IPlotTagProps): JSX.Element | null {
+	const { t } = useTranslation('new_widget');
 	if (queryType === undefined || panelType === PANEL_TYPES.LIST) {
 		return null;
 	}
@@ -17,7 +19,8 @@ function PlotTag({ queryType, panelType }: IPlotTagProps): JSX.Element | null {
 	return (
 		<div className="plot-tag">
 			<Spline size={14} />
-			Plotted with <QueryTypeTag queryType={queryType} />
+			{t('widget.plot_tag.plotted_with', 'Plotted with ')}
+			<QueryTypeTag queryType={queryType} />
 		</div>
 	);
 }

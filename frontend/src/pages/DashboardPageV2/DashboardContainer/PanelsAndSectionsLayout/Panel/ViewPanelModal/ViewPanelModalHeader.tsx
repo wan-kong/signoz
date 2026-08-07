@@ -90,7 +90,7 @@ function ViewPanelModalHeader({
 					onClick={onSwitchToEdit}
 					data-testid="view-panel-switch-to-edit"
 				>
-					Switch to Edit Mode
+					{t('view_panel_modal.switch_to_edit')}
 				</Button>
 			)}
 			<Button
@@ -99,7 +99,7 @@ function ViewPanelModalHeader({
 				onClick={onResetQuery}
 				data-testid="view-panel-reset-query"
 			>
-				Reset Query
+				{t('view_panel_modal.reset_query')}
 			</Button>
 			<div className={styles.toolbarTime}>
 				<DateTimeSelectionV2

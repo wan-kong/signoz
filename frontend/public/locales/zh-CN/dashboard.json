@@ -1,4 +1,5 @@
 {
+	"breadcrumb_dashboard": "仪表盘 /",
 	"create_dashboard": "创建仪表盘",
 	"import_json": "导入仪表盘 JSON",
 	"view_template": "查看模板",
@@ -293,6 +294,8 @@
 			"public_dashboard_url": "公开仪表盘 URL",
 			"variables_not_supported": "仪表盘变量在公开仪表盘中不可用",
 			"update_published_dashboard": "更新已发布的仪表盘",
+			"collapsed_widget_count_one": "({{count}} 个 widget)",
+			"collapsed_widget_count_other": "({{count}} 个 widget)",
 			"time_ranges": {
 				"5m": "最近 5 分钟",
 				"15m": "最近 15 分钟",
@@ -344,6 +347,27 @@
 			"filter_series": "筛选序列",
 			"graphs_legends_saved": "更新后的图表和图例已保存"
 		}
+	},
+	"dashboard_empty_state": {
+		"welcome": "欢迎来到你的新仪表盘",
+		"follow_steps": "按照步骤填充数据并与团队分享",
+		"configure_title": "配置你的新仪表盘",
+		"configure_desc": "添加名称、描述、标签和变量",
+		"configure_btn": "配置",
+		"add_panels": "添加面板",
+		"add_panels_desc": "添加面板以可视化数据",
+		"new_panel_btn": "新建面板",
+		"empty_widget_click_to_add": "点击上方的一种组件类型（时序图 / 数值）来添加内容",
+		"configuration_drawer_title": "仪表盘配置"
+	},
+	"widget_graph_component": {
+		"panel_cloned_success": "面板克隆成功，正在跳转到新副本。",
+		"delete": "删除",
+		"delete_confirm": "确定要删除此面板吗",
+		"view": "查看"
+	},
+	"display_threshold": {
+		"threshold": "阈值"
 	},
 	"dashboard_page_v2": {
 		"loading": "加载中...",
@@ -408,9 +432,9 @@
 			"invalid": "无效 JSON",
 			"invalid_image": "\"image\" 必须是 /assets/Icons/<name> 或 /assets/Logos/<name> 路径，或 base64 图片 data URI",
 			"dangling_panels": "{{count}} 个面板未出现在布局中，保存后不会显示。",
-			"dangling_panels_plural": "{{count}} 个面板未出现在布局中，保存后不会显示。",
+			"dangling_panels_other": "{{count}} 个面板未出现在布局中，保存后不会显示。",
 			"missing_refs": "{{count}} 个布局项引用了已不存在的面板。",
-			"missing_refs_plural": "{{count}} 个布局项引用了已不存在的面板。",
+			"missing_refs_other": "{{count}} 个布局项引用了已不存在的面板。",
 			"cancel": "取消",
 			"apply_changes": "应用更改",
 			"format": "格式化",
@@ -574,8 +598,10 @@
 			"enter_value": "输入值",
 			"add_variable": "添加变量",
 			"include_variables": "包含变量",
+			"less": "收起",
 			"depends_on": "依赖于",
-			"used_by": "被使用于"
+			"used_by": "被使用于",
+			"all": "全部"
 		},
 		"panel_config": {
 			"panel_details": "面板详情",
@@ -825,6 +851,7 @@
 			"add_panel": "添加面板",
 			"clone_section": "克隆分区",
 			"delete_section": "删除分区",
+			"remove_section": "移除分区",
 			"section_actions": "分区操作",
 			"group_panels_title": "将面板分组成分区？",
 			"continue": "继续",
@@ -855,5 +882,15 @@
 			"title": "仪表盘已在别处更新",
 			"description": "此仪表盘已在其他标签页或被其他用户修改。重新加载可查看最新版本。"
 		}
+	},
+	"sortable": {
+		"remove": "移除 {{name}}",
+		"reorder": "重新排序 {{name}}"
+	},
+	"span_details": {
+		"linked_spans_zero": "0 个关联 span",
+		"linked_span_one": "{{count}} 个关联 span",
+		"linked_span_other": "{{count}} 个关联 span",
+		"linked_span_id": "关联 Span ID"
 	}
 }

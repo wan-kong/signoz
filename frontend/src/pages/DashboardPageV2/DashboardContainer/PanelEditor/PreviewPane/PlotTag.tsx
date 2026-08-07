@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Spline } from '@signozhq/icons';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import QueryTypeTag from 'container/NewWidget/LeftContainer/QueryTypeTag';
@@ -11,7 +12,7 @@ interface PlotTagProps {
 }
 
 /**
- * "Plotted with <query mode>" chip for the editor preview; V2 counterpart of V1's
+ * "{t('panel.plotted_with')} <query mode>" chip for the editor preview; V2 counterpart of V1's
  * PlotTag (duplicated per the split policy). Hidden for list panels and before a
  * query exists, where the mode is irrelevant.
  */
@@ -20,6 +21,7 @@ function PlotTag({
 	panelType,
 	className,
 }: PlotTagProps): JSX.Element | null {
+	const { t } = useTranslation('dashboard');
 	if (queryType === undefined || panelType === PANEL_TYPES.LIST) {
 		return null;
 	}
@@ -27,7 +29,7 @@ function PlotTag({
 	return (
 		<div className={className} data-testid="panel-editor-plot-tag">
 			<Spline size={14} />
-			Plotted with <QueryTypeTag queryType={queryType} />
+			{t('panel.plotted_with')} <QueryTypeTag queryType={queryType} />
 		</div>
 	);
 }

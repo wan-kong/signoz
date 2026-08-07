@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from '@signozhq/ui/sonner';
@@ -78,7 +79,12 @@ export function useCreateEditRolePageActions(
 	});
 
 	const loadError = rolePermissionsError
-		? toAPIError(rolePermissionsError, 'Failed to load role')
+		? toAPIError(
+				rolePermissionsError,
+				i18n.t('role_form_failed_to_load_role', 'Failed to load role', {
+					ns: 'organizationsettings',
+				}),
+			)
 		: null;
 
 	const { mutateAsync: createRole, isLoading: isCreating } =
@@ -141,7 +147,9 @@ export function useCreateEditRolePageActions(
 					httpStatusCode: 400,
 					error: {
 						code: 'VALIDATION_ERROR',
-						message: 'Role name is required',
+						message: i18n.t('role_form_role_name_required', 'Role name is required', {
+							ns: 'organizationsettings',
+						}),
 						url: '',
 						errors: [],
 					},
@@ -184,7 +192,17 @@ export function useCreateEditRolePageActions(
 				});
 			}
 			toast.success(
-				isCreateMode ? 'Role created successfully' : 'Role updated successfully',
+				isCreateMode
+					? String(
+							i18n.t('role_form_role_created', 'Role created successfully', {
+								ns: 'organizationsettings',
+							}),
+						)
+					: String(
+							i18n.t('role_form_role_updated', 'Role updated successfully', {
+								ns: 'organizationsettings',
+							}),
+						),
 				{ position: 'bottom-center' },
 			);
 			return true;
@@ -192,7 +210,9 @@ export function useCreateEditRolePageActions(
 			setSaveError(
 				toAPIError(
 					error as ErrorType<RenderErrorResponseDTO>,
-					'Failed to save role',
+					i18n.t('role_form_failed_to_save_role', 'Failed to save role', {
+						ns: 'organizationsettings',
+					}),
 				),
 			);
 			return false;

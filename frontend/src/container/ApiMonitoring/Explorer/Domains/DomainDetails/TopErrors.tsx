@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { QueryFunctionContext, useQueries, useQuery } from 'react-query';
 import { Spin, Table, Tooltip } from 'antd';
 import { Info, Loader } from '@signozhq/icons';
@@ -43,6 +44,7 @@ function TopErrors({
 	};
 	initialFilters: IBuilderQuery['filters'];
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const { startTime: minTime, endTime: maxTime } = timeRange;
 
 	const [endPointName, setSelectedEndPointName] = useState<string>('');
@@ -173,9 +175,14 @@ function TopErrors({
 				<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
 					<Switch value={showStatusCodeErrors} onChange={setShowStatusCodeErrors} />
 					<span style={{ color: 'white', fontSize: '14px' }}>
-						Status Message Exists
+						{t('api_monitoring.status_message_exists', 'Status Message Exists')}
 					</span>
-					<Tooltip title="When enabled, shows errors that have a status message. When disabled, shows all errors regardless of status message">
+					<Tooltip
+						title={t(
+							'api_monitoring.status_message_exists_tooltip',
+							'When enabled, shows errors that have a status message. When disabled, shows all errors regardless of status message',
+						)}
+					>
 						<Info size={16} color="white" />
 					</Tooltip>
 				</div>
@@ -183,12 +190,23 @@ function TopErrors({
 
 			<div className="endpoints-table-container">
 				<div className="endpoints-table-header">
-					{showStatusCodeErrors ? 'Errors with Status Message' : 'All Errors'}{' '}
+					{showStatusCodeErrors
+						? t(
+								'api_monitoring.errors_with_status_message',
+								'Errors with Status Message',
+							)
+						: t('api_monitoring.all_errors', 'All Errors')}{' '}
 					<Tooltip
 						title={
 							showStatusCodeErrors
-								? 'Shows errors that have a status message'
-								: 'Shows all errors regardless of status message'
+								? t(
+										'api_monitoring.shows_errors_with_status_message',
+										'Shows errors that have a status message',
+									)
+								: t(
+										'api_monitoring.shows_all_errors',
+										'Shows all errors regardless of status message',
+									)
 						}
 					>
 						<Info size={16} color="white" />
@@ -216,8 +234,14 @@ function TopErrors({
 
 										<Typography.Text className="no-filtered-endpoints-message">
 											{showStatusCodeErrors
-												? 'Please disable "Status Message Exists" toggle to see all errors'
-												: 'This query had no results. Edit your query and try again!'}
+												? t(
+														'api_monitoring.disable_status_message_toggle',
+														'Please disable "Status Message Exists" toggle to see all errors',
+													)
+												: t(
+														'api_monitoring.no_results',
+														'This query had no results. Edit your query and try again!',
+													)}
 										</Typography.Text>
 									</div>
 								</div>

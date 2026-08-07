@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
 
 import { TagContainer, TagLabel, TagValue } from './style';
@@ -10,6 +11,7 @@ function OptionRenderer({
 	dataType,
 	type,
 }: OptionRendererProps): JSX.Element {
+	const { t } = useTranslation('pipeline');
 	return (
 		<span className="option">
 			{type ? (
@@ -22,11 +24,13 @@ function OptionRenderer({
 						<div className="option-value">{value}</div>
 						<div className="option-meta-data-container">
 							<TagContainer>
-								<TagLabel>Type: </TagLabel>
+								<TagLabel>{t('query_builder_search.type_label', 'Type: ')}</TagLabel>
 								<TagValue>{type}</TagValue>
 							</TagContainer>
 							<TagContainer>
-								<TagLabel>Data type: </TagLabel>
+								<TagLabel>
+									{t('query_builder_search.data_type_label', 'Data type: ')}
+								</TagLabel>
 								<TagValue>{dataType}</TagValue>
 							</TagContainer>
 						</div>

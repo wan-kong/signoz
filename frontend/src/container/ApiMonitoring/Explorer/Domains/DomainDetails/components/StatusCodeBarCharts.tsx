@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
 import { Color } from '@signozhq/design-tokens';
 import { Button, Card, Skeleton } from 'antd';
@@ -57,6 +58,8 @@ function StatusCodeBarCharts({
 	};
 	onDragSelect: (start: number, end: number) => void;
 }): JSX.Element {
+	const { t } = useTranslation('common');
+
 	// 0 : Status Code Count
 	// 1 : Status Code Latency
 	const [currentWidgetInfoIndex, setCurrentWidgetInfoIndex] = useState(0);
@@ -265,7 +268,9 @@ function StatusCodeBarCharts({
 		<div>
 			<Card bordered className="endpoint-details-card">
 				<div className="header">
-					<Typography.Text>Call response status</Typography.Text>
+					<Typography.Text>
+						{t('api_monitoring.call_response_status', 'Call response status')}
+					</Typography.Text>
 					<Button.Group className="views-tabs">
 						<Button
 							value={0}
@@ -273,14 +278,14 @@ function StatusCodeBarCharts({
 							disabled={false}
 							onClick={(): void => setCurrentWidgetInfoIndex(0)}
 						>
-							Number of calls
+							{t('api_monitoring.number_of_calls_title', 'Number of calls')}
 						</Button>
 						<Button
 							value={1}
 							className={currentWidgetInfoIndex === 1 ? 'selected_view tab' : 'tab'}
 							onClick={(): void => setCurrentWidgetInfoIndex(1)}
 						>
-							Latency
+							{t('api_monitoring.latency', 'Latency')}
 						</Button>
 					</Button.Group>
 				</div>

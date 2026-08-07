@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { connect, useSelector } from 'react-redux';
 import { ChevronRight, Plus } from '@signozhq/icons';
@@ -30,6 +31,7 @@ function AllTags({
 	updateTagVisibility,
 	updateFilters,
 }: AllTagsProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const traces = useSelector<AppState, TraceReducer>((state) => state.traces);
 
 	const [localSelectedTags, setLocalSelectedTags] = useState<
@@ -77,12 +79,17 @@ function AllTags({
 		return (
 			<ErrorContainer>
 				<Text style={{ color: 'var(--warning-background)' }}>
-					Unrecognized query format. Please reset your query by clicking `X` in the
-					search bar above.
+					{t(
+						'all_tags.unrecognized_query_format',
+						'Unrecognized query format. Please reset your query by clicking `X` in the search bar above.',
+					)}
 				</Text>
 
 				<Text style={{ color: 'var(--warning-background)' }}>
-					Please click on the search bar to get a drop down to select relevant tags
+					{t(
+						'all_tags.click_search_bar',
+						'Please click on the search bar to get a drop down to select relevant tags',
+					)}
 				</Text>
 			</ErrorContainer>
 		);
@@ -90,7 +97,7 @@ function AllTags({
 
 	return (
 		<Container>
-			<Typography>Tags</Typography>
+			<Typography>{t('all_tags.tags', 'Tags')}</Typography>
 
 			<CurrentTagsContainer>
 				{localSelectedTags.map((tags, index) => (
@@ -109,22 +116,27 @@ function AllTags({
 				<Button type="primary" onClick={onTagAddHandler}>
 					<Flex gap={4} align="center">
 						<Plus size="md" />
-						Add Tags Filter
+						{t('all_tags.add_tags_filter', 'Add Tags Filter')}
 					</Flex>
 				</Button>
 
 				<Text truncate={1}>
-					Results will include spans with ALL the specified tags ( Rows are `ANDed` )
+					{t(
+						'all_tags.results_description',
+						'Results will include spans with ALL the specified tags ( Rows are `ANDed` )',
+					)}
 				</Text>
 			</Space>
 
 			<ButtonContainer>
 				<Space align="start">
-					<Button onClick={onResetHandler}>Reset</Button>
+					<Button onClick={onResetHandler}>
+						{t('filter_panel.reset', 'Reset')}
+					</Button>
 					<Button type="primary" onClick={onRunQueryHandler}>
 						<Flex gap={4} align="center">
 							<ChevronRight size="md" />
-							Run Query
+							{t('all_tags.run_query', 'Run Query')}
 						</Flex>
 					</Button>
 				</Space>

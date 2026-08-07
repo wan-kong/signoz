@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SolidAlertTriangle } from '@signozhq/icons';
 import { Button, ButtonGroup } from '@signozhq/ui/button';
 import { ConfirmDialog } from '@signozhq/ui/dialog';
@@ -34,6 +35,7 @@ function PermissionEditor({
 	validationErrors,
 }: PermissionEditorProps): JSX.Element {
 	const jsonEditorRef = useRef<JsonEditorRef>(null);
+	const { t } = useTranslation('organizationsettings');
 
 	const handleJsonValidityChange = useCallback(
 		(hasError: boolean): void => {
@@ -155,7 +157,7 @@ function PermissionEditor({
 					color="muted"
 					className={styles.permissionEditorTitle}
 				>
-					Transaction Groups
+					{t('role_form_transaction_groups')}
 				</Typography>
 				<hr className={styles.permissionEditorDivider} />
 				<RadioGroup
@@ -170,7 +172,7 @@ function PermissionEditor({
 						className={styles.permissionEditorModeInput}
 						testId="permission-editor-mode-interactive"
 					>
-						Interactive
+						{t('role_form_interactive')}
 					</RadioGroupItem>
 					<RadioGroupItem
 						value="json"
@@ -194,10 +196,10 @@ function PermissionEditor({
 								testId="toggle-all-group"
 							>
 								<Button onClick={handleExpandAll} data-testid="expand-all-button">
-									Expand all
+									{t('expand_all')}
 								</Button>
 								<Button onClick={handleCollapseAll} data-testid="collapse-all-button">
-									Collapse all
+									{t('collapse_all')}
 								</Button>
 							</ButtonGroup>
 						</div>
@@ -232,18 +234,15 @@ function PermissionEditor({
 						handleDiscardCancel();
 					}
 				}}
-				title="Discard JSON changes?"
+				title={t('role_form_discard_json_changes_title')}
 				titleIcon={<SolidAlertTriangle size={14} color="#fdd600" />}
-				confirmText="Discard"
+				confirmText={t('discard')}
 				confirmColor="destructive"
-				cancelText="Stay in JSON"
+				cancelText={t('role_form_stay_in_json')}
 				onConfirm={handleDiscardConfirm}
 				onCancel={handleDiscardCancel}
 			>
-				<Typography>
-					The JSON contains errors and cannot be parsed. Switching to Interactive
-					mode will discard your changes.
-				</Typography>
+				<Typography>{t('role_form_discard_body')}</Typography>
 			</ConfirmDialog>
 		</div>
 	);

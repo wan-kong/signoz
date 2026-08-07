@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import type { Monaco } from '@monaco-editor/react';
 import permissionsType from 'lib/authz/hooks/useAuthZ/permissions.type';
 import transactionGroupSchema from 'schemas/generated/transactionGroups.schema.json';
@@ -48,7 +49,11 @@ function createGrantAllPermissionSnippet(
 }`,
 			)
 			.join(',\n'),
-		documentation: `Grant all permissions (${allowedVerbs.join(', ')}) on ${kind}`,
+		documentation: i18n.t(
+			'json_schema.grant_all_permissions',
+			'Grant all permissions ({{verbs}}) on {{kind}}',
+			{ verbs: allowedVerbs.join(', '), kind, ns: 'organizationsettings' },
+		),
 	};
 }
 
@@ -66,7 +71,11 @@ function createGrantPermissionToVerbAndKind(
   },
   "relation": "${verb}"
 }`,
-		documentation: `${verb} permission on ${kind}`,
+		documentation: i18n.t(
+			'json_schema.verb_permission_on_kind',
+			'{{verb}} permission on {{kind}}',
+			{ verb, kind, ns: 'organizationsettings' },
+		),
 	};
 }
 
@@ -93,7 +102,11 @@ function createGrantPermissionAsReadonly(
 				);
 			})
 			.join(',\n'),
-		documentation: 'Read-only access to all resources (read + list)',
+		documentation: i18n.t(
+			'json_schema.readonly_access',
+			'Read-only access to all resources (read + list)',
+			{ ns: 'organizationsettings' },
+		),
 	};
 }
 

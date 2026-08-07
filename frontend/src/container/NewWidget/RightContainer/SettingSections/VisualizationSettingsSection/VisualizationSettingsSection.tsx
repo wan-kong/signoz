@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Select } from 'antd';
 import { Switch } from '@signozhq/ui/switch';
@@ -44,6 +45,7 @@ export default function VisualizationSettingsSection({
 	allowStackingBarChart,
 	allowFillSpans,
 }: VisualizationSettingsSectionProps): JSX.Element {
+	const { t } = useTranslation('new_widget_settings');
 	const { currentQuery } = useQueryBuilder();
 	const [graphTypes, setGraphTypes] = useState<ItemsProps[]>(PanelTypesWithData);
 
@@ -63,12 +65,14 @@ export default function VisualizationSettingsSection({
 
 	return (
 		<SettingsSection
-			title="Visualization"
+			title={t('visualization.title', 'Visualization')}
 			defaultOpen
 			icon={<LayoutDashboard size={14} />}
 		>
 			<section className="panel-type control-container">
-				<Typography.Text className="section-heading">Panel Type</Typography.Text>
+				<Typography.Text className="section-heading">
+					{t('visualization.panel_type', 'Panel Type')}
+				</Typography.Text>
 				<Select
 					onChange={setGraphHandler}
 					value={selectedGraph}
@@ -90,7 +94,7 @@ export default function VisualizationSettingsSection({
 			{allowPanelTimePreference && (
 				<section className="panel-time-preference control-container">
 					<Typography.Text className="section-heading">
-						Panel Time Preference
+						{t('visualization.panel_time_preference', 'Panel Time Preference')}
 					</Typography.Text>
 					<TimePreference
 						{...{
@@ -103,7 +107,9 @@ export default function VisualizationSettingsSection({
 
 			{allowStackingBarChart && (
 				<section className="stack-chart control-container">
-					<Typography.Text className="section-heading">Stack series</Typography.Text>
+					<Typography.Text className="section-heading">
+						{t('visualization.stack_series', 'Stack series')}
+					</Typography.Text>
 					<Switch
 						value={stackedBarChart}
 						onChange={(checked): void => setStackedBarChart(checked)}
@@ -114,9 +120,14 @@ export default function VisualizationSettingsSection({
 			{allowFillSpans && (
 				<section className="fill-gaps toggle-card">
 					<div className="toggle-card-text-container">
-						<Typography className="section-heading">Fill gaps</Typography>
+						<Typography className="section-heading">
+							{t('visualization.fill_gaps', 'Fill gaps')}
+						</Typography>
 						<Typography.Text className="toggle-card-description">
-							Fill gaps in data with 0 for continuity
+							{t(
+								'visualization.fill_gaps_description',
+								'Fill gaps in data with 0 for continuity',
+							)}
 						</Typography.Text>
 					</div>
 					<Switch

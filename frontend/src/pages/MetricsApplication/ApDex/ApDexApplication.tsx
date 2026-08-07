@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { Popover } from 'antd';
 import { IServiceName } from 'container/MetricsApplication/Tabs/types';
@@ -10,6 +11,7 @@ import ApDexSettings from './ApDexSettings';
 import { Settings } from '@signozhq/icons';
 
 function ApDexApplication(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { servicename: encodedServiceName } = useParams<IServiceName>();
 	const servicename = decodeURIComponent(encodedServiceName);
 
@@ -61,7 +63,7 @@ function ApDexApplication(): JSX.Element {
 			<div className="ap-dex-settings-popover-content">
 				<Button size="middle">
 					<ButtonContainer>
-						<Settings size="md" /> Settings
+						<Settings size="md" /> {t('settings')}
 					</ButtonContainer>
 				</Button>
 			</div>

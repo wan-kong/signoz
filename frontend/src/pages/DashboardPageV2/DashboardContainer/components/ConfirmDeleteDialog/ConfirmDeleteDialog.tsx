@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Trash2, X } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
@@ -24,16 +25,18 @@ function ConfirmDeleteDialog({
 	open,
 	title,
 	description,
-	confirmLabel = 'Delete',
+	confirmLabel,
 	isLoading = false,
 	onConfirm,
 	onClose,
 }: ConfirmDeleteDialogProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+
 	const footer = (
 		<div className={styles.footer}>
 			<Button variant="solid" color="secondary" onClick={onClose}>
 				<X size={12} />
-				Cancel
+				{t('cancel', { ns: 'common' })}
 			</Button>
 			<Button
 				variant="solid"
@@ -43,7 +46,7 @@ function ConfirmDeleteDialog({
 				testId="confirm-delete"
 			>
 				<Trash2 size={12} />
-				{confirmLabel}
+				{confirmLabel || t('confirm_delete.delete')}
 			</Button>
 		</div>
 	);

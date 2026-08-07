@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { Button } from '@signozhq/ui/button';
@@ -115,6 +116,7 @@ function ServiceDetails({
 }: {
 	type: IntegrationType;
 }): JSX.Element | null {
+	const { t } = useTranslation('integrations');
 	const urlQuery = useUrlQuery();
 	const cloudAccountId = urlQuery.get('cloudAccountId');
 	const serviceId = urlQuery.get('service');
@@ -309,9 +311,12 @@ function ServiceDetails({
 						onError: (error) => {
 							console.error('Failed to update service config:', error);
 
-							toast.error('Failed to update service config', {
-								description: error?.message,
-							});
+							toast.error(
+								t('failed_to_update_service_config', 'Failed to update service config'),
+								{
+									description: error?.message,
+								},
+							);
 						},
 					},
 				);
@@ -328,6 +333,7 @@ function ServiceDetails({
 			type,
 			isLogsSupported,
 			isMetricsSupported,
+			t,
 		],
 	);
 
@@ -367,7 +373,7 @@ function ServiceDetails({
 							<div className="aws-service-details-overview-configuration-logs">
 								<div className="aws-service-details-overview-configuration-title">
 									<div className="aws-service-details-overview-configuration-title-text">
-										<span>Log Collection</span>
+										<span>{t('log_collection', 'Log Collection')}</span>
 									</div>
 									<div className="configuration-action">
 										<Controller<ServiceConfigFormValues, 'logsEnabled'>
@@ -408,7 +414,7 @@ function ServiceDetails({
 							<div className="aws-service-details-overview-configuration-metrics">
 								<div className="aws-service-details-overview-configuration-title">
 									<div className="aws-service-details-overview-configuration-title-text">
-										<span>Metric Collection</span>
+										<span>{t('metric_collection', 'Metric Collection')}</span>
 									</div>
 									<div className="configuration-action">
 										<Controller<ServiceConfigFormValues, 'metricsEnabled'>
@@ -439,7 +445,7 @@ function ServiceDetails({
 									className="discard-btn"
 									type="button"
 								>
-									Discard
+									{t('discard', 'Discard')}
 								</Button>
 								<Button
 									variant="solid"
@@ -451,7 +457,7 @@ function ServiceDetails({
 									loading={isUpdatingServiceConfig}
 									disabled={isS3SyncBucketsMissing || isUpdatingServiceConfig}
 								>
-									Save
+									{t('save', 'Save')}
 								</Button>
 							</div>
 						)}
@@ -491,12 +497,12 @@ function ServiceDetails({
 					{
 						children: renderOverview(),
 						key: 'overview',
-						label: 'Overview',
+						label: t('overview', 'Overview'),
 					},
 					{
 						children: renderDataCollected(),
 						key: 'data-collected',
-						label: 'Data Collected',
+						label: t('data_collected', 'Data Collected'),
 					},
 				]}
 				variant="secondary"

@@ -3,6 +3,7 @@ import { Color } from '@signozhq/design-tokens';
 import { FunnelStepGraphMetrics } from 'api/traceFunnels';
 import { Chart, ChartConfiguration } from 'chart.js';
 import ChangePercentagePill from 'components/ChangePercentagePill/ChangePercentagePill';
+import { useTranslation } from 'react-i18next';
 
 const CHART_CONFIG: Partial<ChartConfiguration> = {
 	type: 'bar',
@@ -72,6 +73,8 @@ function useFunnelGraph({
 	data,
 	hoveredBar,
 }: UseFunnelGraphProps): UseFunnelGraph {
+	const { t } = useTranslation('funnel_config');
+
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const chartRef = useRef<Chart | null>(null);
 	const [localHoveredBar, setLocalHoveredBar] = useState<{
@@ -145,7 +148,7 @@ function useFunnelGraph({
 				labels: Array.from({ length: totalSteps }, (_, i) => String(i + 1)),
 				datasets: [
 					{
-						label: 'Success spans',
+						label: t('graph.success_spans', 'Success spans'),
 						data: successSteps,
 						backgroundColor: successSteps.map(() => Color.BG_ROBIN_500),
 						stack: 'Stack 0',
@@ -153,7 +156,7 @@ function useFunnelGraph({
 						borderSkipped: false,
 					},
 					{
-						label: 'Error spans',
+						label: t('graph.error_spans', 'Error spans'),
 						data: errorSteps,
 						backgroundColor: errorSteps.map(() => Color.BG_CHERRY_500),
 						stack: 'Stack 0',
@@ -228,7 +231,9 @@ function useFunnelGraph({
 					>
 						<div className="legend-item__left">
 							<span className="legend-item__dot legend-item--total" />
-							<span className="legend-item__label">Total spans</span>
+							<span className="legend-item__label">
+								{t('graph.total_spans', 'Total spans')}
+							</span>
 						</div>
 						<div className="legend-item__right">
 							<span className="legend-item__value">{totalSpans}</span>
@@ -247,7 +252,9 @@ function useFunnelGraph({
 					>
 						<div className="legend-item__left">
 							<span className="legend-item__dot legend-item--error" />
-							<span className="legend-item__label">Error spans</span>
+							<span className="legend-item__label">
+								{t('graph.error_spans', 'Error spans')}
+							</span>
 						</div>
 						<div className="legend-item__right">
 							<span className="legend-item__value">{errorSpans}</span>
@@ -256,7 +263,7 @@ function useFunnelGraph({
 				</div>
 			);
 		},
-		[getPercentageChange],
+		[getPercentageChange, t],
 	);
 
 	const { successSteps, errorSteps, totalSteps } = getStepGraphData();

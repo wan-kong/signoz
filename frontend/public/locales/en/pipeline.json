@@ -37,15 +37,159 @@
 	"processor_pattern_placeholder": "Pattern",
 	"processor_field_placeholder": "Field",
 	"processor_value_placeholder": "Value",
-		"path_prefix": "Path Prefix",
-		"path_prefix_placeholder": "Path Prefix",
-		"enable_paths": "Enable Paths",
-		"enable_mapping": "Enable Mapping",
-		"mapping_priority_tooltip": "The order of filled keys will determine the priority of keys i.e. earlier keys have higher precedence",
+	"path_prefix": "Path Prefix",
+	"path_prefix_placeholder": "Path Prefix",
+	"enable_paths": "Enable Paths",
+	"enable_mapping": "Enable Mapping",
+	"mapping_priority_tooltip": "The order of filled keys will determine the priority of keys i.e. earlier keys have higher precedence",
 	"processor_description_placeholder": "example rule: %{word:first}",
 	"processor_trace_id_placeholder": "Parse Trace ID from",
 	"processor_span_id_placeholder": "Parse Span ID from",
 	"processor_trace_flags_placeholder": "Parse Trace flags from",
 	"processor_from_placeholder": "From",
-	"processor_to_placeholder": "To"
+	"processor_to_placeholder": "To",
+	"additional_filters": {
+		"and_separator": " and ",
+		"add_conditions_for": "Add conditions for"
+	},
+	"formula": {
+		"legend_format": "Legend Format",
+		"order_by": "Order By",
+		"limit": "Limit"
+	},
+	"entity_options": {
+		"uncollapse": "Uncollapse",
+		"collapse": "Collapse",
+		"show": "Show",
+		"hide": "Hide",
+		"clone_query": "Clone Query {{name}}"
+	},
+	"query_functions": {
+		"early_access_notice": "Functions are in early access. You can add a maximum of {{max}} function as of now."
+	},
+	"aggregator_filter": {
+		"meter_name": "Meter name",
+		"metric_name": "Metric name",
+		"aggregate_attribute": "Aggregate attribute"
+	},
+	"builder_units": {
+		"y_axis_unit": "Y-axis unit"
+	},
+	"group_by_filter": {
+		"everything_no_breakdown": "Everything (no breakdown)"
+	},
+	"having_filter": {
+		"invalid_clause": "Invalid HAVING clause"
+	},
+	"metric_name_selector": {
+		"search_meter": "Search for a meter metric...",
+		"search_metric": "Search for a metric...",
+		"failed_to_load": "Failed to load metrics"
+	},
+	"query_builder_search": {
+		"type_label": "Type: ",
+		"data_type_label": "Data type: ",
+		"placeholder": "Search Filter : select options from suggested values, for IN/NOT IN operators - press \"Enter\" after selecting options",
+		"operator_for": "Operator for ",
+		"show_all_filter_items": "Show all filter items",
+		"suggested_filters": "Suggested Filters",
+		"example_queries": "Example Queries",
+		"show_all_filters": "Show all filters properties",
+		"to_navigate": "to navigate",
+		"to_update_query": "to update query",
+		"value_for": "Value(s) for "
+	},
+	"quick_filters": {
+		"announcement_tooltip": "New filters available"
+	},
+	"query_v2": {
+		"metrics_select": {
+			"placeholder": "Select a metric"
+		},
+		"having_filter": {
+			"label": "HAVING"
+		},
+		"aggregation": {
+			"label": "Aggregation"
+		},
+		"query_search": {
+			"placeholder": "Search...",
+			"no_results": "No results found"
+		},
+		"trace_operator": {
+			"label": "Operator"
+		}
+	},
+	"change_history": {
+		"title": "Change History",
+		"in_progress": "In Progress",
+		"deployed": "Deployed",
+		"dirty": "Dirty",
+		"failed": "Failed",
+		"unknown": "Unknown",
+		"version": "Version",
+		"deployment_stage": "Deployment Stage",
+		"last_deploy_message": "Last Deploy Message",
+		"last_deployed_time": "Last Deployed Time",
+		"edited_by": "Edited by"
+	},
+	"add_processor": {
+		"title": "Add New Processor"
+	},
+	"mode_config": {
+		"mode": "Mode",
+		"configuration": "Configuration"
+	},
+	"pipeline_view": {
+		"title": "Pipelines",
+		"preview": "Preview",
+		"sample_logs": "Sample Logs",
+		"simulator": "Logs Processing Simulator",
+		"simulation_result": "Simulation Result",
+		"interval_selector": "Preview Interval",
+		"logs_count": "Logs Count",
+		"sample_response": "Sample Response",
+		"preview_action": "Preview"
+	},
+	"pipeline_lists": {
+		"name": "Name",
+		"description": "Description",
+		"filter": "Filter",
+		"pipeline_name": "Pipeline Name",
+		"filters": "Filters",
+		"last_edited": "Last Edited",
+		"edited_by": "Edited By"
+	},
+	"preview": {
+		"filtered_logs_preview": "Filtered Logs Preview",
+		"select_filter": "Please select a filter",
+		"simulate_processing": "Simulate Processing",
+		"error": "There was an error",
+		"loading": "Loading...",
+		"no_logs": "No logs found",
+		"sample_logs": "Sample logs",
+		"processed_output": "Processed Output",
+		"matches_in": "{{count}} matches in",
+		"sample_logs_error": "An error occured while querying sample logs",
+		"preview_for": "Logs processing preview for {{name}}"
+	},
+	"processor_config": {
+		"processor_type": {
+			"grok": "Grok",
+			"regex": "Regex",
+			"json_parser": "Json Parser",
+			"trace_parser": "Trace Parser",
+			"timestamp_parser": "Timestamp Parser",
+			"severity_parser": "Severity Parser",
+			"add": "Add",
+			"remove": "Remove",
+			"move": "Move",
+			"copy": "Copy"
+		},
+		"trace_parser_fields_required": "At least one of the trace parser fields must be specified.",
+		"parse_from": "Parse From"
+	},
+	"tag_input": {
+		"placeholder": "Enter tags"
+	}
 }

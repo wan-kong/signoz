@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { Button } from '@signozhq/ui/button';
 import { Slider } from '@signozhq/ui/slider';
@@ -88,6 +89,7 @@ function OptimiseSignozNeeds({
 	onWillDoLater,
 	isNextDisabled,
 }: OptimiseSignozNeedsProps): JSX.Element {
+	const { t } = useTranslation('onboarding');
 	const [logsPerDay, setLogsPerDay] = useState<number>(
 		optimiseSignozDetails?.logsPerDay || 0,
 	);
@@ -188,21 +190,24 @@ function OptimiseSignozNeeds({
 	return (
 		<div className="questions-container">
 			<OnboardingQuestionHeader
-				title="Set up your workspace"
-				subtitle="Tailor SigNoz to suit your observability needs."
+				title={t('setup_workspace', 'Set up your workspace')}
+				subtitle={t(
+					'setup_workspace_subtitle',
+					'Tailor SigNoz to suit your observability needs.',
+				)}
 			/>
 
 			<div className="questions-form-container">
 				<div className="questions-form">
 					<div className="form-group">
 						<Typography.Text className="question">
-							What does your scale approximately look like?
+							{t('scale_question', 'What does your scale approximately look like?')}
 						</Typography.Text>
 					</div>
 
 					<div className="form-group">
 						<label className="question-slider" htmlFor="organisationName">
-							Logs / Day
+							{t('logs_per_day', 'Logs / Day')}
 						</label>
 						<div className="slider-container">
 							<div>
@@ -229,7 +234,7 @@ function OptimiseSignozNeeds({
 
 					<div className="form-group">
 						<label className="question-slider" htmlFor="organisationName">
-							Metrics <Minus size={14} /> Number of Hosts
+							Metrics <Minus size={14} /> {t('number_of_hosts', 'Number of Hosts')}
 						</label>
 						<div className="slider-container">
 							<div>
@@ -256,7 +261,7 @@ function OptimiseSignozNeeds({
 
 					<div className="form-group">
 						<label className="question-slider" htmlFor="organisationName">
-							Number of services
+							{t('number_of_services', 'Number of services')}
 						</label>
 						<div className="slider-container">
 							<div>
@@ -299,7 +304,7 @@ function OptimiseSignozNeeds({
 							)
 						}
 					>
-						Next
+						{t('next', 'Next')}
 					</Button>
 					<Button
 						variant="ghost"
@@ -308,7 +313,7 @@ function OptimiseSignozNeeds({
 						onClick={handleWillDoLater}
 						disabled={isUpdatingProfile}
 					>
-						I&apos;ll do this later
+						{t('do_later', "I'll do this later")}
 					</Button>
 				</div>
 			</div>

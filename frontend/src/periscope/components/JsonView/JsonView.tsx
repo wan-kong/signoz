@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import MEditor, { EditorProps, Monaco } from '@monaco-editor/react';
 import { Color } from '@signozhq/design-tokens';
 import { Switch } from '@signozhq/ui/switch';
@@ -57,6 +58,7 @@ function setEditorTheme(monaco: Monaco): void {
 }
 
 function JsonView({ data, height = '575px' }: JsonViewProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [isWrapWord, setIsWrapWord] = useState(true);
 	const isDarkMode = useIsDarkMode();
 
@@ -73,7 +75,7 @@ function JsonView({ data, height = '575px' }: JsonViewProps): JSX.Element {
 			/>
 			<div className="json-view__footer">
 				<div className="json-view__wrap-toggle">
-					<Typography.Text>Wrap text</Typography.Text>
+					<Typography.Text>{t('periscope_extra.wrap_text')}</Typography.Text>
 					<Switch
 						value={isWrapWord}
 						onChange={(checked): void => setIsWrapWord(checked)}

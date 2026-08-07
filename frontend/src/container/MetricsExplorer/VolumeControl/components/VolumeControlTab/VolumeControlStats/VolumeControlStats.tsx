@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Info } from '@signozhq/icons';
 import { Typography } from '@signozhq/ui/typography';
 import { Skeleton, Tooltip } from 'antd';
@@ -37,6 +38,7 @@ function VolumeControlStats({
 	isLoading = false,
 	isError = false,
 }: VolumeControlStatsProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const overallReduction =
 		ingestedSeries > 0
 			? Math.round((1 - retainedSeries / ingestedSeries) * 100)
@@ -49,51 +51,64 @@ function VolumeControlStats({
 
 	const items: StatItem[] = [
 		{
-			label: 'Configured rules',
+			label: t('volume_control.configured_rules', 'Configured rules'),
 			value: String(activeRules),
-			tooltip: 'Volume-control rules currently configured for this workspace.',
+			tooltip: t(
+				'volume_control.configured_rules_tooltip',
+				'Volume-control rules currently configured for this workspace.',
+			),
 		},
 		{
-			label: 'Ingested series',
+			label: t('volume_control.ingested_series', 'Ingested series'),
 			value: formatCompact(ingestedSeries),
-			tooltip:
+			tooltip: t(
+				'volume_control.ingested_series_tooltip',
 				'Distinct time series across all metrics in the last 1 hour, before any reduction.',
+			),
 		},
 		{
-			label: 'Retained series',
+			label: t('volume_control.retained_series', 'Retained series'),
 			value: formatCompact(retainedSeries),
 			delta: overallReduction > 0 ? `−${overallReduction}%` : undefined,
-			tooltip:
+			tooltip: t(
+				'volume_control.retained_series_tooltip',
 				'Distinct time series kept across all metrics in the last 1 hour; everything except what the rules reduce away. Lower than ingested means more reduction.',
+			),
 		},
 		{
-			label: 'Ingested samples',
+			label: t('volume_control.ingested_samples', 'Ingested samples'),
 			value: formatCompact(ingestedSamples),
-			tooltip:
+			tooltip: t(
+				'volume_control.ingested_samples_tooltip',
 				'Sample data points across all metrics in the last 1 hour, before any reduction.',
+			),
 		},
 		{
-			label: 'Retained samples',
+			label: t('volume_control.retained_samples', 'Retained samples'),
 			value: formatCompact(retainedSamples),
 			delta: sampleReduction > 0 ? `−${sampleReduction}%` : undefined,
-			tooltip:
+			tooltip: t(
+				'volume_control.retained_samples_tooltip',
 				'Sample data points kept across all metrics in the last 1 hour; everything except what the rules reduce. Samples reduce more than series because series do not all carry the same sample volume.',
+			),
 		},
 		{
-			label: 'Est. monthly savings',
+			label: t('volume_control.est_monthly_savings', 'Est. monthly savings'),
 			value: formatUsd(estimatedMonthlySavingsUsd),
 			unit: '/mo',
 			highlighted: true,
 			valueGood: true,
-			tooltip:
+			tooltip: t(
+				'volume_control.est_monthly_savings_tooltip',
 				'Rough monthly estimate: the samples the rules reduced in the last 1 hour, scaled to a month at 1-month standard retention. It is extrapolated from a single rolling hour.',
+			),
 		},
 	];
 
 	return (
 		<div className={styles.statsSection}>
 			<Typography.Text size="small" color="muted">
-				Last 1 hour
+				{t('time.last_1_hour', 'Last 1 hour')}
 			</Typography.Text>
 			<div className={styles.stats} data-testid="volume-control-stats">
 				{items.map((item) => (
@@ -125,7 +140,7 @@ function VolumeControlStats({
 								color="danger"
 								className={styles.statCardValue}
 							>
-								Failed to load
+								{t('volume_control.failed_to_load', 'Failed to load')}
 							</Typography.Text>
 						)}
 						{!isLoading && !isError && (

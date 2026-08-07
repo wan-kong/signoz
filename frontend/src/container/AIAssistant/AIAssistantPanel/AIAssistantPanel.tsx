@@ -5,6 +5,7 @@ import { TooltipSimple } from '@signozhq/ui/tooltip';
 import ROUTES from 'constants/routes';
 import { History, Maximize2, Plus, X } from '@signozhq/icons';
 import Noz from 'components/Noz/Noz';
+import { useTranslation } from 'react-i18next';
 
 import logEvent from 'api/common/logEvent';
 
@@ -21,6 +22,7 @@ const AI_ASSISTANT_PANEL_OPEN_CLASS = 'ai-assistant-panel-open';
 const AI_ASSISTANT_PANEL_WIDTH_VAR = '--ai-assistant-panel-width';
 
 export default function AIAssistantPanel(): JSX.Element | null {
+	const { t } = useTranslation('ai_assistant');
 	const history = useHistory();
 	const { pathname } = useLocation();
 	const [showHistory, setShowHistory] = useState(false);
@@ -144,47 +146,53 @@ export default function AIAssistantPanel(): JSX.Element | null {
 					</div>
 
 					<div className={styles.actions}>
-						<TooltipSimple title={showHistory ? 'Back to chat' : 'Conversations'}>
+						<TooltipSimple
+							title={
+								showHistory
+									? t('back_to_chat', 'Back to chat')
+									: t('conversations', 'Conversations')
+							}
+						>
 							<Button
 								variant="ghost"
 								size="icon"
 								color="secondary"
 								onClick={(): void => setShowHistory((v) => !v)}
-								aria-label="Toggle conversations"
+								aria-label={t('toggle_conversations', 'Toggle conversations')}
 								prefix={<History size={14} />}
 							/>
 						</TooltipSimple>
 
-						<TooltipSimple title="New conversation">
+						<TooltipSimple title={t('new_conversation', 'New conversation')}>
 							<Button
 								variant="ghost"
 								size="icon"
 								color="secondary"
 								onClick={handleNew}
-								aria-label="New conversation"
+								aria-label={t('new_conversation', 'New conversation')}
 								prefix={<Plus size={14} />}
 							/>
 						</TooltipSimple>
 
-						<TooltipSimple title="Open full screen">
+						<TooltipSimple title={t('open_full_screen', 'Open full screen')}>
 							<Button
 								variant="ghost"
 								size="icon"
 								color="secondary"
 								onClick={handleExpand}
 								disabled={!activeConversationId}
-								aria-label="Open full screen"
+								aria-label={t('open_full_screen', 'Open full screen')}
 								prefix={<Maximize2 size={14} />}
 							/>
 						</TooltipSimple>
 
-						<TooltipSimple title="Close">
+						<TooltipSimple title={t('close', 'Close')}>
 							<Button
 								variant="ghost"
 								size="icon"
 								color="secondary"
 								onClick={closeDrawer}
-								aria-label="Close panel"
+								aria-label={t('close_panel', 'Close panel')}
 								prefix={<X size={14} />}
 							/>
 						</TooltipSimple>

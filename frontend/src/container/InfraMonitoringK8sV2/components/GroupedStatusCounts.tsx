@@ -5,6 +5,7 @@ import { Typography } from '@signozhq/ui/typography';
 import { TextNoData } from './TextNoData';
 import { MouseEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
 
 export interface StatusBreakdownItem {
@@ -27,7 +28,10 @@ interface GroupedStatusCountsProps {
 	showZeroValues?: boolean;
 }
 
-function buildTooltipContent(item: StatusCountItem): React.ReactNode {
+function buildTooltipContent(
+	item: StatusCountItem,
+	t: TFunction,
+): React.ReactNode {
 	const onClickHandle: MouseEventHandler = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -51,7 +55,9 @@ function buildTooltipContent(item: StatusCountItem): React.ReactNode {
 					{item.label}
 				</Typography.Text>
 
-				<Typography.Text>No errors</Typography.Text>
+				<Typography.Text>
+					{String(t('grouped_status_counts.no_errors', 'No errors'))}
+				</Typography.Text>
 			</div>
 		);
 	}
@@ -102,7 +108,7 @@ export function GroupedStatusCounts({
 				<TanStackTable.HoverTooltip
 					key={item.label}
 					rowId={rowId}
-					title={buildTooltipContent(item)}
+					title={buildTooltipContent(item, t)}
 					arrow
 					align="start"
 				>

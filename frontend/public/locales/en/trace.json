@@ -20,6 +20,14 @@
 		"funnels": "Funnels",
 		"views": "Views"
 	},
+	"trace_table": {
+		"date": "Date",
+		"service": "Service",
+		"operation": "Operation",
+		"duration": "Duration",
+		"method": "Method",
+		"status_code": "Status Code"
+	},
 	"trace_details": {
 		"analytics": {
 			"exec_time": "% exec time",
@@ -28,12 +36,17 @@
 			"spans": "Spans",
 			"title": "Analytics"
 		},
+		"back": "Back",
 		"colour_by": "Colour by",
 		"colour_by_label": "COLOUR BY",
 		"copy_span_link": "Copy Span Link",
 		"copy_trace_id": "Click to copy trace ID",
 		"download_trace": "Download trace",
+		"downloading_trace": "Downloading trace",
+		"cancel_download": "Cancel download",
+		"add_to_trace_funnel": "Add to Trace Funnel",
 		"events": {
+			"event_details": "EVENT DETAILS",
 			"no_data_for_span": "No {{name}} found for selected span",
 			"search_placeholder": "Search for events...",
 			"since_span_start": "since span start",
@@ -91,6 +104,8 @@
 	"group_by": "Group By",
 	"please_select": "Please select",
 	"no_tags_available": "No tags available",
+	"no_trace_found": "No Trace found with the id: {{id}}",
+	"root_spans_note": "This tab only shows Root Spans. More details",
 	"operator_labels": {
 		"Equals": "EQUALS",
 		"NotEquals": "NOT EQUALS",
@@ -116,7 +131,46 @@
 		"duration": "Duration",
 		"this_span": "(this span)"
 	},
+	"duration_filter": {
+		"min": "MIN",
+		"max": "MAX",
+		"min_label": "Min",
+		"max_label": "Max"
+	},
+	"all_tags": {
+		"add_tags_filter": "Add Tags Filter",
+		"click_search_bar": "Please click on the search bar to get a drop down to select relevant tags",
+		"results_description": "Results will include spans with ALL the specified tags ( Rows are `ANDed` )",
+		"run_query": "Run Query",
+		"tags": "Tags",
+		"unrecognized_query_format": "Unrecognized query format. Please reset your query by clicking `X` in the search bar above."
+	},
+	"query_result": {
+		"api_error": "API error",
+		"no_results_found": "No results found",
+		"something_went_wrong": "Something went wrong"
+	},
+	"filter_panel": {
+		"filters": "Filters",
+		"reset": "Reset",
+		"collapse": "Collapse"
+	},
+	"filter_keys": {
+		"duration": "Duration",
+		"environment": "Environment",
+		"status": "Status",
+		"service_name": "Service Name",
+		"operation_name": "Operation / Name",
+		"rpc_method": "RPC Method",
+		"status_code": "Status Code",
+		"http_host": "HTTP Host",
+		"http_method": "HTTP Method",
+		"http_route": "HTTP Route",
+		"http_url": "HTTP URL",
+		"trace_id": "Trace ID"
+	},
 	"funnels": {
+		"header_subtitle": "Create and manage tracing funnels.",
 		"search_placeholder": "Search by name, description, or tags...",
 		"all_funnels": "All funnels",
 		"add_span_to_funnel": "Add span to funnel",
@@ -153,8 +207,69 @@
 		"slowest_5_traces": "Slowest 5 traces",
 		"slowest_traces_tooltip": "A list of the slowest traces in the funnel",
 		"traces_with_errors": "Traces with errors",
-		"errors_tooltip": "A list of the traces with errors in the funnel"
+		"errors_tooltip": "A list of the traces with errors in the funnel",
+		"something_went_wrong": "Something went wrong"
+	},
+	"delete_funnel": {
+		"title": "Delete this funnel",
+		"cancel_text": "Cancel",
+		"ok_text": "Delete Funnel",
+		"content": "Deleting the funnel would stop further analytics using this funnel. This is irreversible and cannot be undone.",
+		"delete_success": "Funnel deleted successfully",
+		"delete_failed": "Failed to delete funnel"
+	},
+	"filter_section": {
+		"clear_all": "Clear All"
+	},
+	"funnel_popover": {
+		"rename": "Rename",
+		"delete": "Delete",
+		"no_permission": "You need editor or admin access to edit funnels"
+	},
+	"funnels_empty": {
+		"icon_alt": "funnels-empty-icon",
+		"title": "No funnels yet. ",
+		"subtitle": "Create a funnel to start analyzing your data"
+	},
+	"funnels_list": {
+		"open_funnel": "Open funnel"
+	},
+	"rename_funnel": {
+		"title": "Rename Funnel",
+		"cancel_text": "Cancel",
+		"ok_text": "Rename Funnel",
+		"enter_new_name": "Enter a new name",
+		"rename_success": "Funnel renamed successfully",
+		"rename_failed": "Failed to rename funnel"
 	},
 	"no_data_found": "No data found",
-	"show_more": "Show More"
+	"show_more": "Show More",
+	"no_data": "No data",
+	"span_hover": {
+		"duration": "duration",
+		"error": "error",
+		"event": "Event",
+		"events": "Events",
+		"ok": "ok",
+		"start": "start",
+		"status": "status"
+	},
+	"trace_header": {
+		"missing_spans": "Missing spans detected",
+		"open_noz": "Open Noz",
+		"download_trace": "Download Trace"
+	},
+	"trace_waterfall": {
+		"error": "Error loading trace",
+		"no_data": "No spans found",
+		"query_result": "Query result",
+		"success": "Success",
+		"category_filter": "Filter by category"
+	},
+	"trace_waterfall_states": {
+		"error": "Error",
+		"no_data": "No data",
+		"success_filters": "Filters",
+		"something_went_wrong": "Something went wrong!"
+	}
 }

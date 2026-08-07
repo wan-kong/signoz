@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-use';
 import { AxiosError } from 'axios';
@@ -17,6 +18,7 @@ import { useErrorModal } from 'providers/ErrorModalProvider';
 import APIError from 'types/api/error';
 
 function ResetPassword(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { user, isLoggedIn } = useAppContext();
 	const { showErrorModal } = useErrorModal();
 	const { search } = useLocation();
@@ -66,11 +68,19 @@ function ResetPassword(): JSX.Element {
 	}, [versionError, showErrorModal]);
 
 	if (!token) {
-		return <Spinner tip="Loading..." />;
+		return <Spinner tip={t('loading', { ns: 'common' })} />;
 	}
 
 	if (isVersionLoading || isVerifying) {
-		return <Spinner tip="Validating your reset password token..." />;
+		return (
+			<Spinner
+				tip={t(
+					'validating_reset_token',
+					'Validating your reset password token...',
+					{ ns: 'common' },
+				)}
+			/>
+		);
 	}
 
 	if (isTokenError) {

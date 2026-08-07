@@ -1,4 +1,6 @@
 import { ChangeEvent, ReactNode, useCallback, useMemo } from 'react';
+import i18n from 'ReactI18';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DrawerWrapper } from '@signozhq/ui/drawer';
 import { Input } from '@signozhq/ui/input';
@@ -50,9 +52,12 @@ function toColumnPickerItems<T>(
 }
 
 const FONT_SIZE_OPTIONS: { value: FontSize; label: string }[] = [
-	{ value: 'small', label: 'Small' },
-	{ value: 'medium', label: 'Medium' },
-	{ value: 'large', label: 'Large' },
+	{ value: 'small', label: i18n.t('small', 'Small', { ns: 'infraMonitoring' }) },
+	{
+		value: 'medium',
+		label: i18n.t('medium', 'Medium', { ns: 'infraMonitoring' }),
+	},
+	{ value: 'large', label: i18n.t('large', 'Large', { ns: 'infraMonitoring' }) },
 ];
 
 function K8sOptionsSidePanel<TData>({
@@ -68,6 +73,7 @@ function K8sOptionsSidePanel<TData>({
 	storageKey: string;
 	entity: InfraMonitoringEntity;
 }): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const columnPickerItems = useMemo(
 		() => toColumnPickerItems(columns),
 		[columns],
@@ -133,7 +139,7 @@ function K8sOptionsSidePanel<TData>({
 		<>
 			<div className={styles.sectionTitle}>
 				<Typography.Text size="sm" className={styles.sectionTitleText}>
-					Font Size
+					{t('font_size')}
 				</Typography.Text>
 			</div>
 			<div className={styles.fontSizeContainer}>
@@ -158,7 +164,7 @@ function K8sOptionsSidePanel<TData>({
 
 			<div className={styles.sectionTitle}>
 				<Typography.Text size="sm" className={styles.sectionTitleText}>
-					Max lines per row
+					{t('max_lines_per_row')}
 				</Typography.Text>
 			</div>
 			<div className={styles.lineClampContainer}>
@@ -200,7 +206,7 @@ function K8sOptionsSidePanel<TData>({
 
 			<div className={styles.sectionTitle}>
 				<Typography.Text size="sm" className={styles.sectionTitleText}>
-					Columns
+					{t('columns')}
 				</Typography.Text>
 			</div>
 			<div className={styles.columnsList}>
@@ -222,7 +228,7 @@ function K8sOptionsSidePanel<TData>({
 							{column.canBeHidden ? (
 								switchElement
 							) : (
-								<TooltipSimple title="Required column cannot be hidden" arrow>
+								<TooltipSimple title={t('required_column_cannot_hide')} arrow>
 									{switchElement}
 								</TooltipSimple>
 							)}
@@ -241,7 +247,7 @@ function K8sOptionsSidePanel<TData>({
 					onClose();
 				}
 			}}
-			title="Options"
+			title={t('options')}
 			direction="right"
 			width="narrow"
 			showCloseButton

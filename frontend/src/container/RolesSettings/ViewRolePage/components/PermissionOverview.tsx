@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { Button, ButtonGroup } from '@signozhq/ui/button';
 import { Skeleton } from 'antd';
@@ -20,6 +21,7 @@ function PermissionOverview({
 	expandedResources: externalExpanded,
 	onExpandedResourcesChange,
 }: PermissionOverviewProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
 	const { data: permissions, isLoading, isError } = useRolePermissions(roleId);
 	const [internalExpanded, setInternalExpanded] = useState<Set<string>>(
 		new Set(),
@@ -80,7 +82,7 @@ function PermissionOverview({
 		return (
 			<div className={styles.container} data-testid="permission-overview-error">
 				<Typography.Text className={styles.errorText} align="center" color="danger">
-					Failed to load permissions
+					{t('role_view_failed_to_load_permissions')}
 				</Typography.Text>
 			</div>
 		);
@@ -96,10 +98,10 @@ function PermissionOverview({
 					testId="toggle-all-group"
 				>
 					<Button onClick={handleExpandAll} data-testid="expand-all-button">
-						Expand all
+						{t('expand_all')}
 					</Button>
 					<Button onClick={handleCollapseAll} data-testid="collapse-all-button">
-						Collapse all
+						{t('collapse_all')}
 					</Button>
 				</ButtonGroup>
 			</div>

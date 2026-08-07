@@ -1,4 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import i18n from 'ReactI18';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useCopyToClipboard } from 'react-use';
@@ -150,12 +151,24 @@ type ExpiryOption = {
 };
 
 export const API_KEY_EXPIRY_OPTIONS: ExpiryOption[] = [
-	{ value: '1', label: '1 day' },
-	{ value: '7', label: '1 week' },
-	{ value: '30', label: '1 month' },
-	{ value: '90', label: '3 months' },
-	{ value: '365', label: '1 year' },
-	{ value: '0', label: 'No Expiry' },
+	{ value: '1', label: i18n.t('ingestion.day_1', '1 day', { ns: 'common' }) },
+	{ value: '7', label: i18n.t('ingestion.week_1', '1 week', { ns: 'common' }) },
+	{
+		value: '30',
+		label: i18n.t('ingestion.month_1', '1 month', { ns: 'common' }),
+	},
+	{
+		value: '90',
+		label: i18n.t('ingestion.months_3', '3 months', { ns: 'common' }),
+	},
+	{
+		value: '365',
+		label: i18n.t('ingestion.year_1', '1 year', { ns: 'common' }),
+	},
+	{
+		value: '0',
+		label: i18n.t('ingestion.no_expiry', 'No Expiry', { ns: 'common' }),
+	},
 ];
 
 const countToUnit = (count: number): { value: number; unit: string } => {

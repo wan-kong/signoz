@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronRight } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
@@ -55,14 +56,17 @@ export function LinkedSpansToggle({
 	isOpen: boolean;
 	toggleOpen: () => void;
 }): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	if (count === 0) {
-		return <span className={styles.label}>0 linked spans</span>;
+		return (
+			<span className={styles.label}>{t('span_details.linked_spans_zero')}</span>
+		);
 	}
 
 	return (
 		<button type="button" className={styles.toggle} onClick={toggleOpen}>
 			<span className={styles.label}>
-				{count} linked span{count !== 1 ? 's' : ''}
+				{t('span_details.linked_span', { count })}
 			</span>
 			{isOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
 		</button>
@@ -76,6 +80,7 @@ export function LinkedSpansPanel({
 	linkedSpans: SpanReference[];
 	isOpen: boolean;
 }): JSX.Element | null {
+	const { t } = useTranslation('dashboard');
 	const getLink = useCallback(
 		(item: SpanReference): string =>
 			`${ROUTES.TRACE}/${item.traceId}?spanId=${item.spanId}`,
@@ -91,7 +96,7 @@ export function LinkedSpansPanel({
 			{linkedSpans.map((item) => (
 				<KeyValueLabel
 					key={item.spanId}
-					badgeKey="Linked Span ID"
+					badgeKey={t('span_details.linked_span_id')}
 					badgeValue={
 						<Link to={getLink(item)}>
 							<Badge color="vanilla">{item.spanId}</Badge>

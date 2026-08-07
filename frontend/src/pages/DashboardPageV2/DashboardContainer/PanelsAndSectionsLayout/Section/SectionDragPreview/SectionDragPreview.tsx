@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { DashboardSection } from '../../../utils';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import styles from './SectionDragPreview.module.scss';
@@ -12,10 +13,11 @@ interface SectionDragPreviewProps {
  * cheap and never triggers RGL width re-measurement.
  */
 function SectionDragPreview({ section }: SectionDragPreviewProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const panelCount = section.items.length;
-	const title = `${section.title ?? ''} · ${panelCount} ${
-		panelCount === 1 ? 'panel' : 'panels'
-	}`;
+	const title = `${section.title ?? ''} · ${t('section_drag.panel_count', {
+		count: panelCount,
+	})}`;
 
 	return (
 		<div className={styles.preview}>

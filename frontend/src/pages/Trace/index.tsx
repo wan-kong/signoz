@@ -1,4 +1,5 @@
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { connect, useDispatch, useSelector } from 'react-redux';
 import * as Sentry from '@sentry/react';
@@ -41,6 +42,7 @@ function Trace({
 	getSpans,
 	getInitialFilter,
 }: Props): JSX.Element {
+	const { t } = useTranslation('common');
 	const { maxTime, minTime } = useSelector<AppState, GlobalReducer>(
 		(state) => state.globalTime,
 	);
@@ -153,7 +155,7 @@ function Trace({
 			<Container>
 				<div>
 					<ClearAllFilter onClick={onClickHandler} type="primary">
-						Clear all filters
+						{t('clear_all_filters', { ns: 'common' })}
 					</ClearAllFilter>
 					<LeftContainer>
 						<Filters />

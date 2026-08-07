@@ -1,16 +1,18 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import Modal from 'components/Modal';
 
 function SkipOnBoardingModal({ onContinueClick }: Props): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<Modal
-			title="Setup instrumentation"
+			title={t('setup_instrumentation')}
 			isModalVisible
 			closable={false}
 			footer={[
 				<Button key="submit" type="primary" onClick={onContinueClick}>
-					Continue without instrumentation
+					{t('continue_without_instrumentation')}
 				</Button>,
 			]}
 		>
@@ -25,15 +27,15 @@ function SkipOnBoardingModal({ onContinueClick }: Props): JSX.Element {
 					title="youtube_video"
 				/>
 				<div>
-					<Typography>No instrumentation data.</Typography>
+					<Typography>{t('no_instrumentation_data')}</Typography>
 					<Typography>
-						Please instrument your application as mentioned&nbsp;
+						{t('please_instrument_app')}&nbsp;
 						<a
 							href="https://signoz.io/docs/instrumentation/overview"
 							target="_blank"
 							rel="noreferrer"
 						>
-							here
+							{t('here')}
 						</a>
 					</Typography>
 				</div>

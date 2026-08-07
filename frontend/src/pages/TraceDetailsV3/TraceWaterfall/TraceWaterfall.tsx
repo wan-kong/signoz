@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Skeleton } from 'antd';
 import { AxiosError } from 'axios';
 import Spinner from 'components/Spinner';
@@ -36,6 +37,7 @@ interface ITraceWaterfallProps {
 }
 
 function TraceWaterfall(props: ITraceWaterfallProps): JSX.Element {
+	const { t } = useTranslation('traceDetails');
 	const {
 		traceData,
 		isFetchingTraceData,
@@ -136,7 +138,11 @@ function TraceWaterfall(props: ITraceWaterfallProps): JSX.Element {
 					/>
 				);
 			default:
-				return <Spinner tip="Fetching the trace!" />;
+				return (
+					<Spinner
+						tip={t('trace_waterfall.fetching_trace', 'Fetching the trace!')}
+					/>
+				);
 		}
 	}, [
 		errorFetchingTraceData,

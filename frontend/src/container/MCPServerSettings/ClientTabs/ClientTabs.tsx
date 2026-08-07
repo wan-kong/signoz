@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Button } from '@signozhq/ui/button';
 import { Tabs } from '@signozhq/ui/tabs';
@@ -28,6 +29,8 @@ function ClientTabs({
 	onInstallClick,
 	onDocsLinkClick,
 }: ClientTabsProps): JSX.Element {
+	const { t } = useTranslation('mcp_server');
+
 	const items = useMemo(
 		() =>
 			MCP_CLIENTS.map((client: McpClient) => {
@@ -37,7 +40,11 @@ function ClientTabs({
 				const installHref =
 					client.installUrl && endpoint ? client.installUrl(endpoint) : null;
 
-				const installLabel = client.installLabel ?? `Add to ${client.label}`;
+				const installLabel =
+					client.installLabel ??
+					t('client_tabs.add_to', 'Add to {{clientLabel}}', {
+						clientLabel: client.label,
+					});
 
 				return {
 					key: client.key,
@@ -48,7 +55,11 @@ function ClientTabs({
 								<div className="mcp-client-tabs__endpoint-value mcp-client-tabs__snippet">
 									<pre className="mcp-client-tabs__snippet-pre">{snippet}</pre>
 									<CopyIconButton
-										ariaLabel={`Copy ${client.label} config`}
+										ariaLabel={t(
+											'client_tabs.copy_config_aria',
+											'Copy {{clientLabel}} config',
+											{ clientLabel: client.label },
+										)}
 										disabled={!endpoint}
 										onCopy={(): void => onCopySnippet(client.key, snippet)}
 									/>
@@ -60,7 +71,7 @@ function ClientTabs({
 											{endpoint || ENDPOINT_PLACEHOLDER}
 										</pre>
 										<CopyIconButton
-											ariaLabel="Copy MCP endpoint"
+											ariaLabel={t('client_tabs.copy_endpoint_aria', 'Copy MCP endpoint')}
 											disabled={!endpoint}
 											onCopy={(): void => onCopySnippet(client.key, endpoint)}
 										/>
@@ -96,13 +107,18 @@ function ClientTabs({
 										</Button>
 									)}
 									<span className="mcp-client-tabs__helper-text">
-										Or copy the config below for manual setup.
+										{t(
+											'client_tabs.or_copy_manual_setup',
+											'Or copy the config below for manual setup.',
+										)}
 									</span>
 								</div>
 							)}
 
 							<LearnMore
-								text={`${client.label} setup docs`}
+								text={t('client_tabs.setup_docs', '{{clientLabel}} setup docs', {
+									clientLabel: client.label,
+								})}
 								url={docsUrl(client.docsPath)}
 								onClick={(): void => onDocsLinkClick(`client-${client.key}`)}
 							/>

@@ -1,4 +1,5 @@
 import { Color } from '@signozhq/design-tokens';
+import { useTranslation } from 'react-i18next';
 import WarningPopover from 'components/WarningPopover/WarningPopover';
 import { Querybuildertypesv5QueryWarnDataDTO } from 'api/generated/services/sigNoz.schemas';
 
@@ -12,6 +13,7 @@ export type K8sPaginationWarningProps = {
 export function K8sPaginationWarning({
 	warning,
 }: K8sPaginationWarningProps): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	return (
 		<span data-testid="k8s-list-warning-popover">
 			<WarningPopover
@@ -24,7 +26,7 @@ export function K8sPaginationWarning({
 				}}
 			>
 				<div className={styles.paginationWarning}>
-					Your data contains some warnings
+					{t('k8s_empty_state.warnings')}
 					<TriangleAlert
 						size={16}
 						className={styles.warningIcon}

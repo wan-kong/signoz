@@ -54,7 +54,7 @@ describe('CheckboxFilterV2Header', () => {
 			render(<CheckboxFilterV2Header {...defaultProps} isOpen showClearAll />);
 
 			expect(screen.getByTestId('checkbox-filter-clear-all')).toBeInTheDocument();
-			expect(screen.getByText('Clear')).toBeInTheDocument();
+			expect(screen.getByText('Clear All')).toBeInTheDocument();
 		});
 
 		it('hides clear button when showClearAll=false', () => {

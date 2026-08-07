@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import i18n from 'ReactI18';
 import { Dock, PanelBottom, PanelRight } from '@signozhq/icons';
 import { ToggleGroup, ToggleGroupItem } from '@signozhq/ui/toggle-group';
 import {
@@ -20,17 +21,23 @@ const DOCK_OPTIONS: DockOption[] = [
 	{
 		value: SpanDetailVariant.DIALOG,
 		icon: <Dock size={14} />,
-		tooltip: 'Open as floating panel',
+		tooltip: i18n.t('span_details.open_floating', 'Open as floating panel', {
+			ns: 'dashboard',
+		}),
 	},
 	{
 		value: SpanDetailVariant.DOCKED,
 		icon: <PanelBottom size={14} />,
-		tooltip: 'Dock at the bottom',
+		tooltip: i18n.t('span_details.dock_bottom', 'Dock at the bottom', {
+			ns: 'dashboard',
+		}),
 	},
 	{
 		value: SpanDetailVariant.DOCKED_RIGHT,
 		icon: <PanelRight size={14} />,
-		tooltip: 'Dock on the right',
+		tooltip: i18n.t('span_details.dock_right', 'Dock on the right', {
+			ns: 'dashboard',
+		}),
 	},
 ];
 

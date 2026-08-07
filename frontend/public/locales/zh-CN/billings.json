@@ -12,5 +12,6 @@
 	"upgrade_now_text": "立即升级，避免访问中断",
 	"billing_start_info": "账单只会在试用期结束后开始计费",
 	"checkout_plans": "查看付费套餐功能",
-	"here": "这里"
+	"here": "这里",
+	"total_spent": "总支出"
 }

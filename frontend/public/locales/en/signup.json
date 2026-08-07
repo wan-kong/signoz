@@ -9,7 +9,7 @@
   "placeholder_orgname": "Your Company",
   "prompt_keepme_posted": "Keep me updated on new SigNoz features",
   "prompt_anonymise": "Anonymise my usage data. We collect data to measure product usage",
-  "failed_confirm_password": "Passwords don’t match. Please try again",
+  "failed_confirm_password": "Passwords don't match. Please try again.",
   "unexpected_error": "Something went wrong",
   "failed_to_initiate_login": "Signup completed but failed to initiate login",
   "token_required": "Invite token is required for signup, please request one from your admin",

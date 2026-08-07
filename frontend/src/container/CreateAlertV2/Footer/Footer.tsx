@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { toast } from '@signozhq/ui/sonner';
 import { Tooltip } from 'antd';
@@ -44,6 +45,7 @@ function Footer(): JSX.Element {
 		isEditMode,
 		ruleId,
 	} = useCreateAlertState();
+	const { t } = useTranslation('create_alert');
 	const { currentQuery } = useQueryBuilder();
 	const { safeNavigate } = useSafeNavigate();
 	const { showErrorModal } = useErrorModal();
@@ -100,11 +102,14 @@ function Footer(): JSX.Element {
 				onSuccess: (response) => {
 					if (response.data?.alertCount === 0) {
 						toast.error(
-							'No alerts found during the evaluation. This happens when rule condition is unsatisfied. You may adjust the rule threshold and retry.',
+							t(
+								'no_alerts_found',
+								'No alerts found during the evaluation. This happens when rule condition is unsatisfied. You may adjust the rule threshold and retry.',
+							),
 						);
 						return;
 					}
-					toast.success('Test notification sent successfully');
+					toast.success(t('rule_test_fired', 'Test notification sent successfully'));
 				},
 				onError: handleApiError,
 			},
@@ -142,7 +147,9 @@ function Footer(): JSX.Element {
 						void invalidateGetRuleByID(queryClient, { id: ruleId });
 						void invalidateListRules(queryClient);
 
-						toast.success('Alert rule updated successfully');
+						toast.success(
+							t('alert_rule_updated_successfully', 'Alert rule updated successfully'),
+						);
 						safeNavigate('/alerts');
 					},
 					onError: handleApiError,
@@ -153,7 +160,9 @@ function Footer(): JSX.Element {
 				{ data: toPostableRuleDTO(payload) },
 				{
 					onSuccess: () => {
-						toast.success('Alert rule created successfully');
+						toast.success(
+							t('alert_rule_created_successfully', 'Alert rule created successfully'),
+						);
 						safeNavigate('/alerts');
 					},
 					onError: handleApiError,
@@ -192,7 +201,7 @@ function Footer(): JSX.Element {
 				) : (
 					<Check data-testid="save-alert-rule-check-icon" size={14} />
 				)}
-				Save Alert Rule
+				{t('save_alert_rule', 'Save Alert Rule')}
 			</Button>
 		);
 		if (alertValidationMessage) {
@@ -224,7 +233,7 @@ function Footer(): JSX.Element {
 				) : (
 					<Send data-testid="test-notification-send-icon" size={14} />
 				)}
-				Test Notification
+				{t('button_testrule', 'Test Notification')}
 			</Button>
 		);
 		if (alertValidationMessage) {
@@ -250,7 +259,7 @@ function Footer(): JSX.Element {
 				onClick={handleDiscard}
 				disabled={disableButtons}
 			>
-				<X size={14} /> Discard
+				<X size={14} /> {t('discard', 'Discard')}
 			</Button>
 			<div className="button-group">
 				{testAlertButton}

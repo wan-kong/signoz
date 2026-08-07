@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Info, Plus } from '@signozhq/icons';
 import { Badge } from '@signozhq/ui/badge';
 import { Button } from '@signozhq/ui/button';
@@ -38,6 +39,7 @@ function ItemInputSelector({
 	hasError = false,
 	prefixElement,
 }: ItemInputSelectorProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
 	const [inputValue, setInputValue] = useState('');
 	const badgesRef = useRef<HTMLDivElement>(null);
 
@@ -142,7 +144,7 @@ function ItemInputSelector({
 						data-testid={`item-input-selector-add-btn-${testId}`}
 					>
 						<Plus size={14} />
-						Add
+						{t('add')}
 					</Button>
 				}
 			/>
@@ -157,7 +159,7 @@ function ItemInputSelector({
 								className={styles.itemInputSelectorBadge}
 								testId={`item-badge-${testId}-${index}`}
 								closable
-								closeAriaLabel={`Remove ${id}`}
+								closeAriaLabel={t('role_form_remove_id', { id })}
 								onClose={(e): void => handleBadgeClose(e, id, index)}
 							>
 								<Typography as="span" size="small" truncate={1} title={id}>
@@ -169,15 +171,15 @@ function ItemInputSelector({
 					<TooltipSimple
 						title={
 							<Typography align="left">
-								Still not sure on how to add selectors? <br />
+								{t('role_form_selector_tooltip_help')} <br />
 								<Typography.Link
 									href={`${BASE_DOCS_URL}#${docsAnchor}`}
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									Check the docs
+									{t('role_form_check_docs')}
 								</Typography.Link>{' '}
-								to understand selectors for this resource.
+								{t('role_form_selector_docs_suffix')}
 							</Typography>
 						}
 					>
@@ -186,15 +188,15 @@ function ItemInputSelector({
 				</div>
 			) : (
 				<Typography className={styles.itemInputSelectorHint}>
-					Not sure what to type here?{' '}
+					{t('role_form_selector_hint')}{' '}
 					<Typography.Link
 						href={`${BASE_DOCS_URL}#${docsAnchor}`}
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						Check the docs
+						{t('role_form_check_docs')}
 					</Typography.Link>{' '}
-					to understand selectors for this resource.
+					{t('role_form_selector_docs_suffix')}
 				</Typography>
 			)}
 		</div>

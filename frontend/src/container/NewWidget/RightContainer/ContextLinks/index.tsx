@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import {
 	closestCenter,
@@ -91,6 +92,7 @@ function ContextLinks({
 	setContextLinks: Dispatch<SetStateAction<ContextLinksData>>;
 	selectedWidget?: Widgets;
 }): JSX.Element {
+	const { t } = useTranslation('new_widget_components');
 	// Use the custom hook for modal functionality
 	const {
 		isModalOpen,
@@ -138,7 +140,7 @@ function ContextLinks({
 					style={{ width: '100%' }}
 					onClick={handleAddContextLink}
 				>
-					Add Context Link
+					{t('context_links.add', 'Add Context Link')}
 				</Button>
 				<OverlayScrollbar>
 					<DndContext
@@ -164,7 +166,11 @@ function ContextLinks({
 			</div>
 
 			<Modal
-				title={selectedContextLink ? 'Edit context link' : 'Add a context link'}
+				title={
+					selectedContextLink
+						? t('context_links.edit_title', 'Edit context link')
+						: t('context_links.add_title', 'Add a context link')
+				}
 				open={isModalOpen}
 				onCancel={handleCancelModal}
 				destroyOnClose

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 // oxlint-disable import/no-cycle
 import { FiltersType } from 'components/QuickFilters/types';
 import type { IQuickFiltersConfig } from 'components/QuickFilters/types';
@@ -749,7 +750,12 @@ export function GetJobsQuickFiltersConfig(
 export const getInvalidValueTooltipText = (
 	entity: InfraMonitoringEntity,
 	attribute: string,
-): string => `Some ${entity} do not have ${attribute}s.`;
+): string =>
+	i18n.t(
+		'entity.no_attribute_tooltip',
+		'Some {{entity}} do not have {{attribute}}s.',
+		{ entity, attribute, ns: 'infraMonitoring' },
+	);
 
 export const INFRA_MONITORING_K8S_PARAMS_KEYS = {
 	CATEGORY: 'category',

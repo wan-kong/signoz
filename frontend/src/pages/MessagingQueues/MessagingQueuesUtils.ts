@@ -16,6 +16,7 @@ import { DataTypes } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { TagFilterItem } from 'types/api/queryBuilder/queryBuilderData';
 import { EQueryType } from 'types/common/dashboard';
 import { DataSource, ReduceOperators } from 'types/common/queryBuilder';
+import i18n from 'ReactI18';
 import { v4 as uuid } from 'uuid';
 
 export const KAFKA_SETUP_DOC_LINK =
@@ -44,9 +45,17 @@ export const ConsumerLagDetailTitle: Record<
 	MessagingQueueServiceDetailType,
 	string
 > = {
-	'consumer-details': 'Consumer Groups Details',
-	'producer-details': 'Producer Details',
-	'network-latency': 'Network Latency',
+	'consumer-details': i18n.t(
+		'mq.consumer_groups_details',
+		'Consumer Groups Details',
+		{ ns: 'common' },
+	),
+	'producer-details': i18n.t('mq.producer_details', 'Producer Details', {
+		ns: 'common',
+	}),
+	'network-latency': i18n.t('mq.network_latency', 'Network Latency', {
+		ns: 'common',
+	}),
 	'partition-host-metric': 'Partition Host Metrics',
 };
 

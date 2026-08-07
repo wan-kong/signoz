@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Skeleton } from 'antd';
 import useGetTraceFlamegraphV3 from 'hooks/trace/useGetTraceFlamegraphV3';
@@ -27,6 +28,7 @@ function TraceFlamegraph({
 	selectedSpan,
 	totalSpansCount,
 }: TraceFlamegraphProps): JSX.Element {
+	const { t } = useTranslation('traceDetails');
 	const { id: traceId } = useParams<TraceDetailFlamegraphURLProps>();
 	const urlQuery = useUrlQuery();
 	const history = useHistory();
@@ -125,7 +127,17 @@ function TraceFlamegraph({
 			return <Error error={(fetchError || workerError) as any} />;
 		}
 		if (data?.spans && data.spans.length === 0) {
-			return <div>No data found for trace {traceId}</div>;
+			return (
+				<div>
+					{t(
+						'trace_flamegraph.no_data_found',
+						'No data found for trace {{traceId}}',
+						{
+							traceId,
+						},
+					)}
+				</div>
+			);
 		}
 		return (
 			<FlamegraphCanvas
@@ -153,6 +165,7 @@ function TraceFlamegraph({
 		isFilterActive,
 		isFetching,
 		layout,
+		t,
 		traceId,
 		workerError,
 	]);

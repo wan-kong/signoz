@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { DOCS_BASE_URL } from 'constants/app';
 
 export interface McpClient {
@@ -21,7 +22,7 @@ function b64url(input: string): string {
 export const MCP_CLIENTS: McpClient[] = [
 	{
 		key: 'cursor',
-		label: 'Cursor',
+		label: i18n.t('clients.label_cursor', 'Cursor'),
 		docsPath: '/docs/ai/signoz-mcp-server/#cursor',
 		snippet: (endpoint): string =>
 			JSON.stringify(
@@ -39,18 +40,18 @@ export const MCP_CLIENTS: McpClient[] = [
 			const config = b64url(JSON.stringify({ url: endpoint }));
 			return `cursor://anysphere.cursor-deeplink/mcp/install?name=SigNoz&config=${config}`;
 		},
-		installLabel: 'Add to Cursor',
+		installLabel: i18n.t('clients.install_label_cursor', 'Add to Cursor'),
 	},
 	{
 		key: 'claude-code',
-		label: 'Claude Code',
+		label: i18n.t('clients.label_claude_code', 'Claude Code'),
 		docsPath: '/docs/ai/signoz-mcp-server/#claude-code',
 		snippet: (endpoint): string =>
 			`claude mcp add --scope user --transport http signoz ${endpoint}`,
 	},
 	{
 		key: 'vscode',
-		label: 'VS Code',
+		label: i18n.t('clients.label_vscode', 'VS Code'),
 		docsPath: '/docs/ai/signoz-mcp-server/#vs-code',
 		snippet: (endpoint): string =>
 			JSON.stringify(
@@ -74,29 +75,33 @@ export const MCP_CLIENTS: McpClient[] = [
 			);
 			return `vscode:mcp/install?${payload}`;
 		},
-		installLabel: 'Add to VS Code',
+		installLabel: i18n.t('clients.install_label_vscode', 'Add to VS Code'),
 	},
 	{
 		key: 'claude-desktop',
-		label: 'Claude Desktop',
+		label: i18n.t('clients.label_claude_desktop', 'Claude Desktop'),
 		docsPath: '/docs/ai/signoz-mcp-server/#claude-desktop',
 		snippet: null,
-		instructions:
+		instructions: i18n.t(
+			'clients.instructions_claude_desktop',
 			'Open Claude Desktop, go to Settings → Connectors → Add custom connector, and paste the endpoint URL above. Claude Desktop does not read remote MCP servers from claude_desktop_config.json - the connector UI is the only supported path.',
+		),
 	},
 	{
 		key: 'codex',
-		label: 'Codex',
+		label: i18n.t('clients.label_codex', 'Codex'),
 		docsPath: '/docs/ai/signoz-mcp-server/#codex',
 		snippet: (endpoint): string => `codex mcp add signoz --url ${endpoint}`,
 	},
 	{
 		key: 'other',
-		label: 'Other',
+		label: i18n.t('clients.label_other', 'Other'),
 		docsPath: '/docs/ai/signoz-mcp-server/',
 		snippet: null,
-		instructions:
+		instructions: i18n.t(
+			'clients.instructions_other',
 			'Most MCP clients that support remote HTTP servers will accept the endpoint URL above. Add it as a new MCP server in your client and paste your SigNoz API key when the client prompts for authentication. See the docs for client-specific instructions.',
+		),
 	},
 ];
 

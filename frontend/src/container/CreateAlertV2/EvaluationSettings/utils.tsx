@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import * as Sentry from '@sentry/react';
 import dayjs, { Dayjs } from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
@@ -18,9 +19,11 @@ export const getEvaluationWindowTypeText = (
 ): string => {
 	switch (windowType) {
 		case 'rolling':
-			return 'Rolling';
+			return i18n.t('eval_window_rolling', 'Rolling', { ns: 'create_alert' });
 		case 'cumulative':
-			return 'Cumulative';
+			return i18n.t('eval_window_cumulative', 'Cumulative', {
+				ns: 'create_alert',
+			});
 		default:
 			return '';
 	}
@@ -31,11 +34,36 @@ export const getCumulativeWindowTimeframeText = (
 ): string => {
 	switch (evaluationWindow.timeframe) {
 		case CumulativeWindowTimeframes.CURRENT_HOUR:
-			return `Current hour, starting at minute ${evaluationWindow.startingAt.number} (${evaluationWindow.startingAt.timezone})`;
+			return i18n.t(
+				'eval_current_hour_starting_at',
+				'Current hour, starting at minute {{number}} ({{timezone}})',
+				{
+					number: evaluationWindow.startingAt.number,
+					timezone: evaluationWindow.startingAt.timezone,
+					ns: 'create_alert',
+				},
+			);
 		case CumulativeWindowTimeframes.CURRENT_DAY:
-			return `Current day, starting from ${evaluationWindow.startingAt.time} (${evaluationWindow.startingAt.timezone})`;
+			return i18n.t(
+				'eval_current_day_starting_from',
+				'Current day, starting from {{time}} ({{timezone}})',
+				{
+					time: evaluationWindow.startingAt.time,
+					timezone: evaluationWindow.startingAt.timezone,
+					ns: 'create_alert',
+				},
+			);
 		case CumulativeWindowTimeframes.CURRENT_MONTH:
-			return `Current month, starting from day ${evaluationWindow.startingAt.number} at ${evaluationWindow.startingAt.time} (${evaluationWindow.startingAt.timezone})`;
+			return i18n.t(
+				'eval_current_month_starting_from',
+				'Current month, starting from day {{number}} at {{time}} ({{timezone}})',
+				{
+					number: evaluationWindow.startingAt.number,
+					time: evaluationWindow.startingAt.time,
+					timezone: evaluationWindow.startingAt.timezone,
+					ns: 'create_alert',
+				},
+			);
 		default:
 			return '';
 	}
@@ -46,19 +74,33 @@ export const getRollingWindowTimeframeText = (
 ): string => {
 	switch (timeframe) {
 		case RollingWindowTimeframes.LAST_5_MINUTES:
-			return 'Last 5 minutes';
+			return i18n.t('eval_last_5_minutes', 'Last 5 minutes', {
+				ns: 'create_alert',
+			});
 		case RollingWindowTimeframes.LAST_10_MINUTES:
-			return 'Last 10 minutes';
+			return i18n.t('eval_last_10_minutes', 'Last 10 minutes', {
+				ns: 'create_alert',
+			});
 		case RollingWindowTimeframes.LAST_15_MINUTES:
-			return 'Last 15 minutes';
+			return i18n.t('eval_last_15_minutes', 'Last 15 minutes', {
+				ns: 'create_alert',
+			});
 		case RollingWindowTimeframes.LAST_30_MINUTES:
-			return 'Last 30 minutes';
+			return i18n.t('eval_last_30_minutes', 'Last 30 minutes', {
+				ns: 'create_alert',
+			});
 		case RollingWindowTimeframes.LAST_1_HOUR:
-			return 'Last 1 hour';
+			return i18n.t('eval_last_1_hour', 'Last 1 hour', {
+				ns: 'create_alert',
+			});
 		case RollingWindowTimeframes.LAST_2_HOURS:
-			return 'Last 2 hours';
+			return i18n.t('eval_last_2_hours', 'Last 2 hours', {
+				ns: 'create_alert',
+			});
 		case RollingWindowTimeframes.LAST_4_HOURS:
-			return 'Last 4 hours';
+			return i18n.t('eval_last_4_hours', 'Last 4 hours', {
+				ns: 'create_alert',
+			});
 		default:
 			return '';
 	}
@@ -67,11 +109,13 @@ export const getRollingWindowTimeframeText = (
 export const getCustomRollingWindowTimeframeText = (
 	evaluationWindow: EvaluationWindowState,
 ): string =>
-	`Last ${evaluationWindow.startingAt.number} ${
-		ADVANCED_OPTIONS_TIME_UNIT_OPTIONS.find(
+	i18n.t('eval_last_n_units', 'Last {{number}} {{unit}}', {
+		number: evaluationWindow.startingAt.number,
+		unit: ADVANCED_OPTIONS_TIME_UNIT_OPTIONS.find(
 			(option) => option.value === evaluationWindow.startingAt.unit,
-		)?.label
-	}`;
+		)?.label,
+		ns: 'create_alert',
+	});
 
 export const getTimeframeText = (
 	evaluationWindow: EvaluationWindowState,

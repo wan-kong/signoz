@@ -123,6 +123,7 @@ export default function ChartManager({
 				yAxisUnit,
 				isGraphDisabled: isDashboardLocked,
 				decimalPrecision,
+				t,
 			}),
 		[
 			tableDataSet,
@@ -131,6 +132,7 @@ export default function ChartManager({
 			onToggleSeriesVisibility,
 			yAxisUnit,
 			isDashboardLocked,
+			t,
 			decimalPrecision,
 		],
 	);

@@ -34,7 +34,7 @@ function ErrorContent({ error, icon }: ErrorContentProps): JSX.Element {
 				url: undefined,
 				errors: [],
 				code: error.code || 500,
-				message: error.message || 'Something went wrong',
+				message: error.message || t('error_modal.something_went_wrong'),
 			};
 	return (
 		<section className="error-content">

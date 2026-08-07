@@ -17,7 +17,6 @@ import { OptionType } from './types';
 
 function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 	const { t } = useTranslation(['alerts']);
-	const { t: tTranslation } = useTranslation('translation');
 	const { featureFlags } = useAppContext();
 
 	const isAnomalyDetectionEnabled =
@@ -69,14 +68,18 @@ function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 				{optionList.map((option: OptionType) => (
 					<AlertTypeCard
 						key={option.selection}
-						title={tTranslation(option.title)}
-						extra={option.isBeta ? <Badge color="robin">Beta</Badge> : undefined}
+						title={t(option.title)}
+						extra={
+							option.isBeta ? (
+								<Badge color="robin">{t('beta_badge', 'Beta')}</Badge>
+							) : undefined
+						}
 						onClick={(e): void => {
 							onSelect(option.selection, isModifierKeyPressed(e));
 						}}
 						data-testid={`alert-type-card-${option.selection}`}
 					>
-						{tTranslation(option.description)}{' '}
+						{t(option.description)}{' '}
 						<Typography.Link
 							onClick={(e): void => {
 								e.preventDefault();
@@ -84,13 +87,16 @@ function SelectAlertType({ onSelect }: SelectAlertTypeProps): JSX.Element {
 								handleRedirection(option.selection);
 							}}
 						>
-							Click here to see how to create a sample alert.
+							{t(
+								'click_here_to_see_how_to_create_sample_alert',
+								'Click here to see how to create a sample alert.',
+							)}
 						</Typography.Link>{' '}
 					</AlertTypeCard>
 				))}
 			</>
 		),
-		[onSelect, optionList, tTranslation],
+		[onSelect, optionList, t],
 	);
 
 	return (

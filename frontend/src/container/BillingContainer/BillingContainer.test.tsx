@@ -53,7 +53,7 @@ describe('BillingContainer', () => {
 		const dollar = await screen.findByText(/\$1,278.3/i);
 		expect(dollar).toBeInTheDocument();
 
-		const currentBill = await screen.findByText('billing');
+		const currentBill = await screen.findByText('Billing');
 		expect(currentBill).toBeInTheDocument();
 	});
 
@@ -80,7 +80,7 @@ describe('BillingContainer', () => {
 			jest.runOnlyPendingTimers();
 
 			await expect(screen.findByText('Free Trial')).resolves.toBeInTheDocument();
-			await expect(screen.findByText('billing')).resolves.toBeInTheDocument();
+			await expect(screen.findByText('Billing')).resolves.toBeInTheDocument();
 			await expect(screen.findByText(/\$0/i)).resolves.toBeInTheDocument();
 
 			await expect(
@@ -90,17 +90,17 @@ describe('BillingContainer', () => {
 			).resolves.toBeInTheDocument();
 
 			await expect(
-				screen.findByText(/1 days_remaining/i),
+				screen.findByText(/1 days remaining in your billing period/i),
 			).resolves.toBeInTheDocument();
 
 			const upgradeButtons = await screen.findAllByRole('button', {
-				name: /upgrade_plan/i,
+				name: /upgrade plan/i,
 			});
 			expect(upgradeButtons).toHaveLength(2);
 			expect(upgradeButtons[1]).toBeInTheDocument();
 
 			await expect(
-				screen.findByText(/checkout_plans/i),
+				screen.findByText(/check out features in paid plans/i),
 			).resolves.toBeInTheDocument();
 			await expect(
 				screen.findByRole('link', { name: /here/i }),
@@ -124,7 +124,7 @@ describe('BillingContainer', () => {
 				);
 			});
 
-			const currentBill = await screen.findByText('billing');
+			const currentBill = await screen.findByText('Billing');
 			expect(currentBill).toBeInTheDocument();
 
 			const dollar0 = await screen.findByText(/\$0/i);
@@ -136,17 +136,18 @@ describe('BillingContainer', () => {
 			expect(onTrail).toBeInTheDocument();
 
 			const receivedCardDetails = await screen.findByText(
-				/card_details_recieved_and_billing_info/i,
+				/We have received your card details/i,
 			);
 			expect(receivedCardDetails).toBeInTheDocument();
 
 			const manageBillingButton = await screen.findByRole('button', {
-				name: /manage_billing/i,
+				name: /manage billing/i,
 			});
 			expect(manageBillingButton).toBeInTheDocument();
 
-			const dayRemainingInBillingPeriod =
-				await screen.findByText(/1 days_remaining/i);
+			const dayRemainingInBillingPeriod = await screen.findByText(
+				/1 days remaining in your billing period/i,
+			);
 			expect(dayRemainingInBillingPeriod).toBeInTheDocument();
 
 			await expect(
@@ -184,7 +185,7 @@ describe('BillingContainer', () => {
 					},
 				},
 			);
-			await screen.findByText('billing');
+			await screen.findByText('Billing');
 			expect(
 				screen.queryByText('Cancel your subscription', { selector: 'span' }),
 			).not.toBeInTheDocument();
@@ -223,7 +224,7 @@ describe('BillingContainer', () => {
 			],
 		])('should not render for %s', async (_, overrides) => {
 			render(<BillingContainer />, {}, { appContextOverrides: overrides });
-			await screen.findByText('billing');
+			await screen.findByText('Billing');
 			expect(
 				screen.queryByText('Cancel your subscription', { selector: 'span' }),
 			).not.toBeInTheDocument();
@@ -248,7 +249,7 @@ describe('BillingContainer', () => {
 		const billingPeriod = await findByText(billingPeriodText);
 		expect(billingPeriod).toBeInTheDocument();
 
-		const currentBill = await screen.findByText('billing');
+		const currentBill = await screen.findByText('Billing');
 		expect(currentBill).toBeInTheDocument();
 
 		const dollar0 = await screen.findByText(/\$1,278.3/i);

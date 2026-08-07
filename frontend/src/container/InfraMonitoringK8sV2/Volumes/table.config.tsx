@@ -1,4 +1,5 @@
 import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
+import i18n from 'ReactI18';
 import { InframonitoringtypesVolumeRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import { ExpandButtonWrapper } from 'container/InfraMonitoringK8sV2/components';
 
@@ -45,7 +46,12 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 	{
 		id: 'volumeGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader title="display.volume_group" />
+			<EntityGroupHeader
+				title={i18n.t('display.volume_group', 'Volume Group', {
+					ns: 'infraMonitoring',
+				})}
+				titleKey="display.volume_group"
+			/>
 		),
 		accessorFn: (row): string => row.persistentVolumeClaimName || '',
 		width: { min: 290 },
@@ -69,7 +75,10 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		id: 'pvcName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="display.pvc_name"
+				title={i18n.t('volumes_table.pvc_name', 'PVC Name', {
+					ns: 'infraMonitoring',
+				})}
+				titleKey="volumes_table.pvc_name"
 				icon={<HardDrive data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/volumes#pvc-name"
 			/>
@@ -90,7 +99,7 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/volumes#namespace-name"
-				title="display.namespace"
+				title={i18n.t('display.namespace', 'Namespace', { ns: 'infraMonitoring' })}
 			/>
 		),
 		accessorFn: (row): string =>
@@ -106,7 +115,9 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-capacity"
-				title="display.capacity"
+				title={i18n.t('volumes_table.capacity', 'Capacity', {
+					ns: 'infraMonitoring',
+				})}
 			/>
 		),
 		accessorFn: (row): number => row.volumeCapacity,
@@ -131,7 +142,7 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-used"
-				title="display.used"
+				title={i18n.t('volumes_table.used', 'Used', { ns: 'infraMonitoring' })}
 			/>
 		),
 		accessorFn: (row): number => row.volumeUsage,
@@ -156,7 +167,9 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-available"
-				title="display.available"
+				title={i18n.t('volumes_table.available', 'Available', {
+					ns: 'infraMonitoring',
+				})}
 			/>
 		),
 		accessorFn: (row): number => row.volumeAvailable,
@@ -181,7 +194,7 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes"
-				title="display.inodes"
+				title={i18n.t('volumes_table.inodes', 'Inodes', { ns: 'infraMonitoring' })}
 			/>
 		),
 		accessorFn: (row): number => row.volumeInodes,
@@ -206,7 +219,9 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes-used"
-				title="display.inodes_used"
+				title={i18n.t('volumes_table.inodes_used', 'Inodes Used', {
+					ns: 'infraMonitoring',
+				})}
 			/>
 		),
 		accessorFn: (row): number => row.volumeInodesUsed,
@@ -231,7 +246,9 @@ export const k8sVolumesColumnsConfig: VolumeTableColumnConfig[] = [
 		header: (): React.ReactNode => (
 			<ColumnHeader
 				docPath="/infrastructure-monitoring/kubernetes/volumes#volume-inodes-free"
-				title="display.inodes_free"
+				title={i18n.t('volumes_table.inodes_free', 'Inodes Free', {
+					ns: 'infraMonitoring',
+				})}
 			/>
 		),
 		accessorFn: (row): number => row.volumeInodesFree,

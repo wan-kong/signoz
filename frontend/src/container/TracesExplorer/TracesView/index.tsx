@@ -7,6 +7,7 @@ import {
 	useEffect,
 	useMemo,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
 import { Typography } from '@signozhq/ui/typography';
@@ -50,6 +51,7 @@ function TracesView({
 	setIsLoadingQueries,
 	queryKeyRef,
 }: TracesViewProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const { stagedQuery, panelType } = useQueryBuilder();
 
 	const {
@@ -145,10 +147,10 @@ function TracesView({
 			{(tableData || []).length !== 0 && (
 				<ActionsContainer>
 					<Typography>
-						This tab only shows Root Spans. More details
+						{t('root_spans_note', 'This tab only shows Root Spans. More details')}
 						<Typography.Link href={DOCLINKS.TRACES_DETAILS_LINK} target="_blank">
 							{' '}
-							here
+							{t('common:here', 'here')}
 						</Typography.Link>
 					</Typography>
 

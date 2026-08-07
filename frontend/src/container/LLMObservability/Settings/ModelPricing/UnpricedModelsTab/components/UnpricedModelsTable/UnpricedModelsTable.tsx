@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import TanStackTable from 'components/TanStackTableView';
 
@@ -23,6 +24,7 @@ function UnpricedModelsTable({
 	isLoading,
 	columnsConfig,
 }: UnpricedModelsTableProps): JSX.Element {
+	const { t } = useTranslation('llm_unpriced');
 	const columns = useMemo(
 		() => getUnpricedModelsColumns(columnsConfig),
 		[columnsConfig],
@@ -34,7 +36,7 @@ function UnpricedModelsTable({
 				className={styles.unpricedModelsEmpty}
 				data-testid="unpriced-models-empty"
 			>
-				All models in your traces are priced.
+				{t('unpriced_table.empty_text', 'All models in your traces are priced.')}
 			</div>
 		);
 	}

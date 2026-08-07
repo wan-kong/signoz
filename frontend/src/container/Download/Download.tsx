@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { CloudDownload } from '@signozhq/icons';
 import { DropdownMenuSimple, type MenuProps } from '@signozhq/ui/dropdown-menu';
@@ -9,6 +10,7 @@ import { DownloadProps } from './Download.types';
 import './Download.styles.scss';
 
 function Download({ data, isLoading, fileName }: DownloadProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [isDownloading, setIsDownloading] = useState(false);
 
 	const downloadExcelFile = async (): Promise<void> => {
@@ -56,12 +58,12 @@ function Download({ data, isLoading, fileName }: DownloadProps): JSX.Element {
 		items: [
 			{
 				key: 'download-as-excel',
-				label: 'Excel',
+				label: t('excel_format'),
 				onClick: downloadExcelFile,
 			},
 			{
 				key: 'download-as-csv',
-				label: 'CSV',
+				label: t('csv_format'),
 				onClick: downloadCsvFile,
 			},
 		],
@@ -77,7 +79,7 @@ function Download({ data, isLoading, fileName }: DownloadProps): JSX.Element {
 			>
 				<Flex align="center" gap={4}>
 					<CloudDownload size="md" />
-					Download
+					{t('download.title')}
 				</Flex>
 			</Button>
 		</DropdownMenuSimple>

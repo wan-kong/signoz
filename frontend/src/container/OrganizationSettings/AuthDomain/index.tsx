@@ -1,5 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus, Trash2, X } from '@signozhq/icons';
+
+import i18n from 'ReactI18';
+
 import { Button } from '@signozhq/ui/button';
 import { toast } from '@signozhq/ui/sonner';
 import { Modal, Table, TableColumnsType as ColumnsType } from 'antd';
@@ -26,13 +30,20 @@ import './AuthDomain.styles.scss';
 import '../../IngestionSettings/IngestionSettings.styles.scss';
 
 export const SSOType = new Map<string, string>([
-	['google_auth', 'Google Auth'],
+	[
+		'google_auth',
+		i18n.t('auth_domain.google_auth', 'Google Auth', { ns: 'common' }),
+	],
 	['saml', 'SAML'],
-	['email_password', 'Email Password'],
+	[
+		'email_password',
+		i18n.t('auth_domain.email_password', 'Email Password', { ns: 'common' }),
+	],
 	['oidc', 'OIDC'],
 ]);
 
 function AuthDomain(): JSX.Element {
+	const { t } = useTranslation('common');
 	const [record, setRecord] = useState<AuthtypesGettableAuthDomainDTO>();
 	const [addDomain, setAddDomain] = useState<boolean>(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -74,7 +85,7 @@ function AuthDomain(): JSX.Element {
 			{ pathParams: { id: activeDomain.id } },
 			{
 				onSuccess: () => {
-					toast.success('Domain deleted successfully');
+					toast.success(t('auth_domain.domain_deleted'));
 					void refetchAuthDomainListResponse();
 					hideDeleteModal();
 				},
@@ -94,6 +105,7 @@ function AuthDomain(): JSX.Element {
 
 		refetchAuthDomainListResponse,
 		showErrorModal,
+		t,
 	]);
 
 	const formattedError = useMemo(() => {
@@ -113,7 +125,7 @@ function AuthDomain(): JSX.Element {
 	const columns: ColumnsType<AuthtypesGettableAuthDomainDTO> = useMemo(
 		() => [
 			{
-				title: 'Domain',
+				title: t('auth_domain.domain'),
 				dataIndex: 'name',
 				key: 'name',
 				width: 100,
@@ -171,7 +183,7 @@ function AuthDomain(): JSX.Element {
 				),
 			},
 		],
-		[showDeleteModal],
+		[showDeleteModal, t],
 	);
 
 	return (

@@ -1,14 +1,15 @@
+import i18n from 'ReactI18';
 import {
 	MetrictypesTemporalityDTO,
 	MetrictypesTypeDTO,
 } from 'api/generated/services/sigNoz.schemas';
 
 export const METRIC_METADATA_KEYS = {
-	description: 'Description',
-	unit: 'Unit',
-	type: 'Metric Type',
-	temporality: 'Temporality',
-	isMonotonic: 'Monotonic',
+	description: i18n.t('metrics_explorer.metadata_description', 'Description'),
+	unit: i18n.t('metrics_explorer.metadata_unit', 'Unit'),
+	type: i18n.t('metrics_explorer.metadata_metric_type', 'Metric Type'),
+	temporality: i18n.t('metrics_explorer.metadata_temporality', 'Temporality'),
+	isMonotonic: i18n.t('metrics_explorer.metadata_monotonic', 'Monotonic'),
 };
 
 export const METRIC_METADATA_TEMPORALITY_OPTIONS: Array<{
@@ -17,11 +18,11 @@ export const METRIC_METADATA_TEMPORALITY_OPTIONS: Array<{
 }> = [
 	{
 		value: MetrictypesTemporalityDTO.delta,
-		label: 'Delta',
+		label: i18n.t('metrics_explorer.metadata_delta', 'Delta'),
 	},
 	{
 		value: MetrictypesTemporalityDTO.cumulative,
-		label: 'Cumulative',
+		label: i18n.t('metrics_explorer.metadata_cumulative', 'Cumulative'),
 	},
 ];
 
@@ -31,25 +32,30 @@ export const METRIC_METADATA_TYPE_OPTIONS: Array<{
 }> = [
 	{
 		value: MetrictypesTypeDTO.sum,
-		label: 'Sum',
+		label: i18n.t('metrics_explorer.metadata_sum', 'Sum'),
 	},
 	{
 		value: MetrictypesTypeDTO.gauge,
-		label: 'Gauge',
+		label: i18n.t('metrics_explorer.metadata_gauge', 'Gauge'),
 	},
 	{
 		value: MetrictypesTypeDTO.histogram,
-		label: 'Histogram',
+		label: i18n.t('metrics_explorer.metadata_histogram', 'Histogram'),
 	},
 	{
 		value: MetrictypesTypeDTO.summary,
-		label: 'Summary',
+		label: i18n.t('metrics_explorer.metadata_summary', 'Summary'),
 	},
 	{
 		value: MetrictypesTypeDTO.exponentialhistogram,
-		label: 'Exponential Histogram',
+		label: i18n.t(
+			'metrics_explorer.metadata_exponential_histogram',
+			'Exponential Histogram',
+		),
 	},
 ];
 
-export const METRIC_METADATA_UPDATE_ERROR_MESSAGE =
-	'Failed to update metadata, please try again. If the issue persists, please contact support.';
+export const METRIC_METADATA_UPDATE_ERROR_MESSAGE = i18n.t(
+	'metrics_explorer.metadata_update_error',
+	'Failed to update metadata, please try again. If the issue persists, please contact support.',
+);

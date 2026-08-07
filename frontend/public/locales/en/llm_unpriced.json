@@ -1,0 +1,61 @@
+{
+	"model_pricing": {
+		"model_costs_tab": "Model Costs",
+		"unpriced_models_tab": "Unpriced models"
+	},
+	"unpriced_models": {
+		"banner": "Models detected in traces without pricing. Map each to a billing model or create pricing so estimated cost can be computed.",
+		"load_error": "Failed to load unpriced models. Please try again.",
+		"map_success": "Mapped model",
+		"map_failed": "Mapping failed"
+	},
+	"map_confirm_dialog": {
+		"title": "Map to billing model",
+		"input_per_million": "Input / 1M",
+		"output_per_million": "Output / 1M",
+		"cancel": "Cancel",
+		"map_model": "Map model",
+		"body": "Spans from this model will be priced using the selected billing model."
+	},
+	"map_to_billing": {
+		"select_placeholder": "Select / Create a pricing model",
+		"search_placeholder": "Search billing models",
+		"no_models_found": "No billing models found",
+		"create_pricing_for": "Create pricing for \"{{modelName}}\""
+	},
+	"unpriced_table": {
+		"column_model": "Model (from spans)",
+		"column_provider": "Provider",
+		"provider_unknown": "Unknown",
+		"column_spans": "Spans",
+		"column_map_to": "Map to billing model",
+		"empty_text": "All models in your traces are priced."
+	},
+	"constants": {
+		"toast_model_cost_added": "Model cost added",
+		"toast_model_cost_updated": "Model cost updated",
+		"toast_model_cost_deleted": "Model cost deleted",
+		"source_all": "All sources",
+		"source_user_override": "User override",
+		"source_auto": "Auto",
+		"provider_self_hosted": "Self-hosted",
+		"provider_other": "Other",
+		"cache_mode_subtract": "Subtract (OpenAI style)",
+		"cache_mode_additive": "Additive (Anthropic style)",
+		"cache_mode_unknown": "Unknown"
+	},
+	"utils": {
+		"source_auto": "Auto",
+		"source_user_override": "User override",
+		"billing_model_id_required": "Billing model ID is required.",
+		"provider_required": "Provider is required.",
+		"input_cost_positive": "Input cost must be greater than 0.",
+		"output_cost_positive": "Output cost must be greater than 0.",
+		"cache_costs_non_negative": "Cache costs must be non-negative."
+	},
+	"tabs": {
+		"overview": "Overview",
+		"model_pricing": "Model pricing",
+		"attribute_mapping": "Attribute Mapping"
+	}
+}

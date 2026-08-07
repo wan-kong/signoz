@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { AggregateData } from 'container/QueryTable/Drilldown/useAggregateDrilldown';
 import { Query } from 'types/api/queryBuilder/queryBuilderData';
 import { v4 as uuid } from 'uuid';
@@ -23,7 +24,9 @@ export const getDataLinks = (
 	if (traceId) {
 		dataLinks.push({
 			id: uuid(),
-			label: 'View Trace Details',
+			label: i18n.t('data_links.view_trace_details', 'View Trace Details', {
+				ns: 'query_table',
+			}),
 			url: `/trace/${traceId}`,
 		});
 	}

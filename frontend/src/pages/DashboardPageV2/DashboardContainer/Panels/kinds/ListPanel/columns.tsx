@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import type { ReactNode } from 'react';
 import type { TableProps } from 'antd';
 import { Badge } from '@signozhq/ui/badge';
@@ -101,7 +102,11 @@ function makeTimestampRenderer(
 function makeTraceRenderer(name: string) {
 	return (value: unknown): ReactNode => {
 		if (value == null || value === '') {
-			return <Typography.Text data-testid={name}>N/A</Typography.Text>;
+			return (
+				<Typography.Text data-testid={name}>
+					{String(i18n.t('panel.na', 'N/A', { ns: 'dashboard' }))}
+				</Typography.Text>
+			);
 		}
 		if (HTTP_FIELDS.has(name)) {
 			return (

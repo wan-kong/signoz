@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Plus } from '@signozhq/icons';
 import { Callout } from '@signozhq/ui/callout';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
@@ -10,6 +11,7 @@ import ClickHouseQueryBuilder from './query';
 import './ClickHouse.styles.scss';
 
 function ClickHouseQueryContainer(): JSX.Element | null {
+	const { t } = useTranslation('new_widget');
 	const { currentQuery, addNewQueryItem } = useQueryBuilder();
 	const addQueryHandler = (): void => {
 		addNewQueryItem(EQueryType.CLICKHOUSE);
@@ -28,11 +30,17 @@ function ClickHouseQueryContainer(): JSX.Element | null {
 								target="_blank"
 								rel="noopener"
 							>
-								Learn to write faster, optimized queries
+								{t(
+									'left.query_builder.clickhouse.learn_queries',
+									'Learn to write faster, optimized queries',
+								)}
 							</a>
-							{' · Using AI? '}
+							{t('left.query_builder.clickhouse.using_ai', ' · Using AI? ')}
 							<a href={DOCLINKS.AGENT_SKILL_INSTALL} target="_blank" rel="noopener">
-								Install the SigNoz ClickHouse query agent skill
+								{t(
+									'left.query_builder.clickhouse.install_skill',
+									'Install the SigNoz ClickHouse query agent skill',
+								)}
 							</a>
 						</span>
 					}
@@ -52,7 +60,7 @@ function ClickHouseQueryContainer(): JSX.Element | null {
 				icon={<Plus size="md" />}
 				style={{ margin: '0.4rem 1rem' }}
 			>
-				Query
+				{t('left.query_builder.add_query', 'Query')}
 			</QueryButton>
 		</>
 	);

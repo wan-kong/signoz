@@ -107,9 +107,11 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 		image = Base64Icons[0],
 	} = selectedData || {};
 
+	const { t } = useTranslation(['dashboard', 'common']);
+
 	const [updatedTitle, setUpdatedTitle] = useState<string>(title);
 
-	const [sectionName, setSectionName] = useState<string>(DEFAULT_ROW_NAME);
+	const [sectionName, setSectionName] = useState<string>(t(DEFAULT_ROW_NAME));
 
 	const updateDashboardMutation = useUpdateDashboard();
 
@@ -191,8 +193,6 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 	};
 
 	const [state, setCopy] = useCopyToClipboard();
-
-	const { t } = useTranslation(['dashboard', 'common']);
 
 	// used to set the initial value for the updatedTitle
 	// the context value is sometimes not available during the initial render
@@ -282,7 +282,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 				}
 
 				setIsPanelNameModalOpen(false);
-				setSectionName(DEFAULT_ROW_NAME);
+				setSectionName(t(DEFAULT_ROW_NAME));
 			},
 		});
 	}
@@ -338,7 +338,11 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 			<DashboardHeader />
 			<section className="dashboard-details">
 				<div className="left-section">
-					<img src={image} alt="dashboard-img" className="dashboard-img" />
+					<img
+						src={image}
+						alt={t('placeholder.dashboard_img')}
+						className="dashboard-img"
+					/>
 					<Tooltip title={title.length > 30 ? title : ''}>
 						<Typography.Text
 							className="dashboard-title"
@@ -581,7 +585,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 				onOk={(): void => handleAddRow()}
 				onCancel={(): void => {
 					setIsPanelNameModalOpen(false);
-					setSectionName(DEFAULT_ROW_NAME);
+					setSectionName(t(DEFAULT_ROW_NAME));
 				}}
 				footer={
 					<div className="dashboard-rename">
@@ -600,7 +604,7 @@ function DashboardDescription(props: DashboardDescriptionProps): JSX.Element {
 							className="cancel-btn"
 							onClick={(): void => {
 								setIsPanelNameModalOpen(false);
-								setSectionName(DEFAULT_ROW_NAME);
+								setSectionName(t(DEFAULT_ROW_NAME));
 							}}
 						>
 							{t('cancel', { ns: 'common' })}

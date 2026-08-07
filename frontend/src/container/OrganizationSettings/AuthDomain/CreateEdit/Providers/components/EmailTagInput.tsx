@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select, Tooltip } from 'antd';
 
 import './EmailTagInput.styles.scss';
@@ -14,8 +15,10 @@ interface EmailTagInputProps {
 function EmailTagInput({
 	value = [],
 	onChange,
-	placeholder = 'Type an email and press Enter',
+	placeholder,
 }: EmailTagInputProps): JSX.Element {
+	const { t } = useTranslation('common');
+	const resolvedPlaceholder = placeholder ?? t('auth_domain.type_email_enter');
 	const [validationError, setValidationError] = useState('');
 
 	const handleChange = useCallback(
@@ -24,13 +27,13 @@ function EmailTagInput({
 			const invalidEmail = addedValues.find((v) => !EMAIL_REGEX.test(v));
 
 			if (invalidEmail) {
-				setValidationError(`"${invalidEmail}" is not a valid email`);
+				setValidationError(t('auth_domain.invalid_email', { invalidEmail }));
 				return;
 			}
 			setValidationError('');
 			onChange?.(newValues);
 		},
-		[onChange, value],
+		[onChange, value, t],
 	);
 
 	return (
@@ -44,7 +47,7 @@ function EmailTagInput({
 					mode="tags"
 					value={value}
 					onChange={handleChange}
-					placeholder={placeholder}
+					placeholder={resolvedPlaceholder}
 					tokenSeparators={[',', ' ']}
 					className="email-tag-input__select"
 					allowClear

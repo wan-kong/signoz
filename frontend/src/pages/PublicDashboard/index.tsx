@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Typography } from '@signozhq/ui/typography';
+import { useTranslation } from 'react-i18next';
 import {
 	PublicDashboardSchema,
 	useGetResolvedPublicDashboard,
@@ -14,6 +15,7 @@ import PublicDashboardV2 from './PublicDashboardV2/PublicDashboardV2';
 import './PublicDashboard.styles.scss';
 
 function PublicDashboardPage(): JSX.Element {
+	const { t } = useTranslation('common');
 	// read the dashboard id from the url
 	const { dashboardId } = useParams<{ dashboardId: string }>();
 
@@ -53,9 +55,7 @@ function PublicDashboardPage(): JSX.Element {
 						</div>
 
 						<div className="brand-tagline">
-							<Typography.Text>
-								OpenTelemetry-Native Logs, Metrics and Traces in a single pane
-							</Typography.Text>
+							<Typography.Text>{t('public_dashboard.tagline')}</Typography.Text>
 						</div>
 					</div>
 
@@ -67,11 +67,10 @@ function PublicDashboardPage(): JSX.Element {
 							<Frown size={36} />
 						</Typography.Title>
 						<Typography.Title level={4} className="public-dashboard-error-message">
-							The public dashboard you are looking for does not exist or has been
-							unpublished.
+							{t('public_dashboard.not_found_title')}
 						</Typography.Title>
 						<Typography.Text className="public-dashboard-error-message-description">
-							Please reach out to the owner of the dashboard to get access.
+							{t('public_dashboard.not_found_description')}
 						</Typography.Text>
 					</div>
 				</div>

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { MenuProps } from 'antd';
+import i18n from 'ReactI18';
 
 export type MenuItem = Required<MenuProps>['items'][number];
 
@@ -26,7 +27,11 @@ export interface SidebarItem {
 	itemKey?: string;
 }
 
-export const CHANGELOG_LABEL = 'Full Changelog';
+export const CHANGELOG_LABEL = i18n.t(
+	'side_nav_extra.full_changelog',
+	'Full Changelog',
+	{ ns: 'common' },
+);
 
 export interface SettingsNavSection {
 	title?: string;

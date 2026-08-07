@@ -1,4 +1,5 @@
 import type { ComponentProps, CSSProperties } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	forwardRef,
 	memo,
@@ -115,6 +116,7 @@ function TanStackTableInner<TData, TItemKey = string>(
 	}: TanStackTableProps<TData, TItemKey>,
 	forwardedRef: React.ForwardedRef<TanStackTableHandle>,
 ): JSX.Element {
+	const { t } = useTranslation('common');
 	if (disableVirtualScroll && onEndReached) {
 		throw new Error(
 			'TanStackTable: Cannot use onEndReached with disableVirtualScroll. Infinite scroll requires virtualization.',
@@ -631,7 +633,7 @@ function TanStackTableInner<TData, TItemKey = string>(
 						>
 							<Spin
 								indicator={<Loader className="animate-spin" />}
-								tip="Loading more..."
+								tip={t('table.loading_more')}
 							/>
 						</div>
 					)}
@@ -643,8 +645,15 @@ function TanStackTableInner<TData, TItemKey = string>(
 									className={viewStyles.paginationTotalCount}
 									data-testid="pagination-total-count"
 								>
-									Showing {(page - 1) * limit + 1} -{' '}
-									{Math.min(page * limit, effectiveTotalCount)} of {effectiveTotalCount}
+									{t(
+										'tanstack_table.showing_range',
+										'Showing {{start}} - {{end}} of {{total}}',
+										{
+											start: (page - 1) * limit + 1,
+											end: Math.min(page * limit, effectiveTotalCount),
+											total: effectiveTotalCount,
+										},
+									)}
 									{pagination.totalCountLabel ? ` ${pagination.totalCountLabel}` : ''}
 								</span>
 							)}

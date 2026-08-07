@@ -124,11 +124,15 @@ function HeaderRightSection({
 							aria-label={
 								showHeaderPendingBadge
 									? pendingUserInputCount === 1
-										? t('open_noz_one_action')
-										: t('open_noz_many_actions', {
-												count: pendingUserInputCount,
-											})
-									: t('open_noz')
+										? t('open_noz_one_action', 'Open Noz, 1 action needs your response')
+										: t(
+												'open_noz_many_actions',
+												'Open Noz, {{count}} actions need your response',
+												{
+													count: pendingUserInputCount,
+												},
+											)
+									: t('open_noz', 'Open Noz')
 							}
 							prefix={<Noz size={20} />}
 						>
@@ -156,7 +160,7 @@ function HeaderRightSection({
 						variant="ghost"
 						size="icon"
 						className="share-feedback-btn"
-						aria-label={t('feedback')}
+						aria-label={t('feedback', 'Feedback')}
 						prefix={<SquarePen size={14} />}
 						onClick={handleOpenFeedbackModal}
 					/>
@@ -178,7 +182,7 @@ function HeaderRightSection({
 					<Button
 						variant="ghost"
 						size="icon"
-						aria-label={t('announcements')}
+						aria-label={t('announcements', 'Announcements')}
 						prefix={<Inbox size={14} />}
 						onClick={(): void => {
 							void logEvent('Announcements: Clicked', {
@@ -204,7 +208,7 @@ function HeaderRightSection({
 					<Button
 						variant="ghost"
 						size="icon"
-						aria-label={t('share')}
+						aria-label={t('share', 'Share')}
 						prefix={<Globe size={14} />}
 						onClick={handleOpenShareURLModal}
 					/>

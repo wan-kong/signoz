@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { themeColors } from 'constants/theme';
 import getLabelName from 'lib/getLabelName';
@@ -26,6 +27,7 @@ export const useGetGraphCustomSeries = ({
 }: UseGetGraphCustomSeriesProps): {
 	getCustomSeries: (data: QueryData[]) => uPlot.Series[];
 } => {
+	const { t } = useTranslation('messagingQueues');
 	const getGraphSeries = (color: string, label: string): any => ({
 		drawStyle,
 		paths,
@@ -45,7 +47,7 @@ export const useGetGraphCustomSeries = ({
 
 	const getCustomSeries = (data: QueryData[]): uPlot.Series[] => {
 		const configurations: uPlot.Series[] = [
-			{ label: 'Timestamp', stroke: 'purple' },
+			{ label: t('celery_task.timestamp', 'Timestamp'), stroke: 'purple' },
 		];
 
 		for (let i = 0; i < data.length; i += 1) {

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { Button } from 'antd';
 import cx from 'classnames';
@@ -16,6 +17,7 @@ interface MessagingQueueHealthCheckProps {
 function MessagingQueueHealthCheck({
 	serviceToInclude,
 }: MessagingQueueHealthCheckProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [loading, setLoading] = useState(false);
 	const [checkListOpen, setCheckListOpen] = useState(false);
 
@@ -98,8 +100,14 @@ function MessagingQueueHealthCheck({
 			>
 				<div className="config-btn-content">
 					{missingConfiguration
-						? `Missing Configuration (${missingConfiguration})`
-						: 'Configuration'}
+						? t(
+								'mq_health_check.missing_config',
+								'Missing Configuration ({{missing}})',
+								{
+									missing: missingConfiguration,
+								},
+							)
+						: t('mq_health_check.configuration', 'Configuration')}
 				</div>
 				<FolderTree size={14} />
 			</Button>

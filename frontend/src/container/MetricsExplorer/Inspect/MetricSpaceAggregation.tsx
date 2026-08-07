@@ -24,13 +24,15 @@ function MetricSpaceAggregation({
 					'selected-step': inspectionStep === InspectionStep.SPACE_AGGREGATION,
 				})}
 			>
-				<Typography.Text>AGGREGATE BY LABELS</Typography.Text>
+				<Typography.Text>
+					{t('metrics_explorer_inspect.aggregate_by_labels', 'AGGREGATE BY LABELS')}
+				</Typography.Text>
 			</div>
 			<div className="metric-space-aggregation-content">
 				<div className="metric-space-aggregation-content-left">
 					<Select
 						value={currentMetricInspectionOptions.spaceAggregationOption}
-						placeholder={t('select_option')}
+						placeholder={t('select_option', 'Select option')}
 						onChange={(value): void => {
 							dispatchMetricInspectionOptions({
 								type: 'SET_SPACE_AGGREGATION_OPTION',
@@ -51,7 +53,7 @@ function MetricSpaceAggregation({
 				<Select
 					mode="multiple"
 					style={{ width: '100%' }}
-					placeholder={t('search_for_attributes')}
+					placeholder={t('search_for_attributes', 'Search for attributes...')}
 					value={currentMetricInspectionOptions.spaceAggregationLabels}
 					onChange={(value): void => {
 						dispatchMetricInspectionOptions({

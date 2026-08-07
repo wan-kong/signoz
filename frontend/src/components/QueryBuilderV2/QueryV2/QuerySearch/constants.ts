@@ -1,5 +1,17 @@
-export const RECENTS_SECTION = { name: 'Recent searches', rank: 1 } as const;
-export const SUGGESTIONS_SECTION = { name: 'Suggestions', rank: 2 } as const;
+import i18n from 'ReactI18';
+
+export const RECENTS_SECTION = {
+	name: i18n.t('query_search_extra.recent_searches', 'Recent searches', {
+		ns: 'common',
+	}),
+	rank: 1,
+} as const;
+export const SUGGESTIONS_SECTION = {
+	name: i18n.t('query_search_extra.suggestions', 'Suggestions', {
+		ns: 'common',
+	}),
+	rank: 2,
+} as const;
 
 export const SUGGESTION_FETCH_DEBOUNCE_MS = 300;
 

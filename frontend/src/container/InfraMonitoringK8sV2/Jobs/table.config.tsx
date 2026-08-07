@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import { InframonitoringtypesJobRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
@@ -43,7 +44,10 @@ export const k8sJobsColumnsConfig: JobTableColumnConfig[] = [
 	{
 		id: 'jobGroup',
 		header: (): React.ReactNode => (
-			<EntityGroupHeader title="Job Group" titleKey="display.job_group" />
+			<EntityGroupHeader
+				title={i18n.t('display.job_group', 'Job Group', { ns: 'infraMonitoring' })}
+				titleKey="display.job_group"
+			/>
 		),
 		accessorFn: (row): string =>
 			row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_JOB_NAME] || '',
@@ -68,7 +72,7 @@ export const k8sJobsColumnsConfig: JobTableColumnConfig[] = [
 		id: 'jobName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="Job Name"
+				title={i18n.t('display.job_name', 'Job Name', { ns: 'infraMonitoring' })}
 				titleKey="display.job_name"
 				icon={<Bolt data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/jobs#job-name"

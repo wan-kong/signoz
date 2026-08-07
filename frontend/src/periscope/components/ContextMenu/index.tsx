@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import { Popover } from 'antd';
 
 import { Coordinates, PopoverPosition } from './types';
@@ -67,6 +68,8 @@ export function ContextMenu({
 	onClose,
 	children,
 }: ContextMenuProps): JSX.Element | null {
+	const { t } = useTranslation('common');
+
 	if (!coordinates || !items) {
 		return null;
 	}
@@ -89,7 +92,7 @@ export function ContextMenu({
 			}}
 			role="button"
 			tabIndex={0}
-			aria-label="Close context menu"
+			aria-label={t('periscope_extra.close_context_menu')}
 		/>,
 		document.body,
 	);

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import type { NotificationInstance } from 'antd/es/notification/interface';
 import axios from 'axios';
 import { SOMETHING_WENT_WRONG } from 'constants/api';
@@ -144,7 +145,11 @@ export const saveViewHandler = ({
 					[QueryParams.viewKey]: data.data.data,
 				});
 				notifications.success({
-					message: 'View Saved Successfully',
+					message: String(
+						i18n.t('explorer_card.view_saved', 'View Saved Successfully', {
+							ns: 'common',
+						}),
+					),
 				});
 			},
 			onError: (err) => {
@@ -186,7 +191,11 @@ export const deleteViewHandler = ({
 				);
 			}
 			notifications.success({
-				message: 'View Deleted Successfully',
+				message: String(
+					i18n.t('save_view_extra.view_deleted', 'View Deleted Successfully', {
+						ns: 'common',
+					}),
+				),
 			});
 			refetchAllView();
 		},

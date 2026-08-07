@@ -32,6 +32,7 @@ import {
 import { QueryBuilderContextType } from 'types/common/queryBuilder';
 import { ROLES, USER_ROLES } from 'types/roles';
 import { createTestI18nInstance } from '../ReactI18/testUtils';
+import { enResources } from '../ReactI18/testResources';
 // import { MemoryRouter as V5MemoryRouter } from 'react-router-dom-v5-compat';
 
 // Mock ResizeObserver
@@ -322,8 +323,8 @@ AllTheProviders.defaultProps = {
 	appContextOverrides: {},
 	queryBuilderOverrides: undefined,
 	initialRoute: '/',
-	i18nLanguage: 'cimode',
-	i18nResources: {},
+	i18nLanguage: 'en',
+	i18nResources: enResources,
 };
 
 interface ProviderProps {
@@ -345,8 +346,8 @@ const customRender = (
 		appContextOverrides = {},
 		queryBuilderOverrides,
 		initialRoute = '/',
-		i18nLanguage = 'cimode',
-		i18nResources = {},
+		i18nLanguage = 'en',
+		i18nResources = enResources,
 	} = providerProps;
 
 	return render(ui, {

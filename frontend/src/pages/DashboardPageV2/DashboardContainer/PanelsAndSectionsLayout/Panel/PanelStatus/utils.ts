@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { convertToApiError } from 'api/ErrorResponseHandlerForGeneratedAPIs';
 import type {
 	DashboardtypesPanelDTO,
@@ -49,7 +50,9 @@ export function panelStatusFromWarning(
 	}
 
 	return {
-		message: warning.message || 'Warning',
+		message:
+			warning.message ||
+			i18n.t('panel_status.warning', 'Warning', { ns: 'dashboard' }),
 		docsUrl: warning.url || undefined,
 		messages: (warning.warnings ?? [])
 			.map((w) => w.message)
@@ -71,10 +74,17 @@ export function panelStatusFromMultipleEnabledQueries(
 		return null;
 	}
 	return {
-		message:
+		message: i18n.t(
+			'panel_status.single_value_warning',
 			'This panel shows a single value, but more than one query is enabled.',
+			{ ns: 'dashboard' },
+		),
 		messages: [
-			"Disable the queries you don't want to display, keeping only the one whose value you want to show.",
+			i18n.t(
+				'panel_status.disable_queries_hint',
+				"Disable the queries you don't want to display, keeping only the one whose value you want to show.",
+				{ ns: 'dashboard' },
+			),
 		],
 	};
 }

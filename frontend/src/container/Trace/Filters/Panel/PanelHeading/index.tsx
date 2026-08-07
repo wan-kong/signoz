@@ -1,4 +1,5 @@
 import { MouseEventHandler, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
 import { ChevronDown, ChevronRight } from '@signozhq/icons';
@@ -32,6 +33,7 @@ import {
 const { Text } = Typography;
 
 function PanelHeading(props: PanelHeadingProps): JSX.Element {
+	const { t } = useTranslation('trace');
 	const {
 		filterLoading,
 		filterToFetchData,
@@ -57,7 +59,9 @@ function PanelHeading(props: PanelHeadingProps): JSX.Element {
 
 	const dispatch = useDispatch<Dispatch<AppActions>>();
 
-	const defaultErrorMessage = 'Something went wrong';
+	const defaultErrorMessage = t('something_went_wrong', 'Something went wrong', {
+		ns: 'common',
+	});
 
 	const { notifications } = useNotifications();
 
@@ -238,7 +242,7 @@ function PanelHeading(props: PanelHeadingProps): JSX.Element {
 				);
 			} else {
 				notifications.error({
-					message: response.error || 'Something went wrong',
+					message: response.error || defaultErrorMessage,
 				});
 			}
 			setIsLoading(false);
@@ -342,7 +346,7 @@ function PanelHeading(props: PanelHeadingProps): JSX.Element {
 								onClick={onClearAllHandler}
 								type="link"
 							>
-								Clear All
+								{t('filter_section.clear_all', 'Clear All')}
 							</ButtonComponent>
 						</ButtonContainer>
 					)}

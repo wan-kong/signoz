@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import logEvent from 'api/common/logEvent';
 import type { DashboardtypesJSONPatchOperationDTO } from 'api/generated/services/sigNoz.schemas';
@@ -27,6 +28,7 @@ interface Result {
  * atomic patch. Used once the user confirms the migration prompt.
  */
 export function useFirstSectionMigration({ sections }: Params): Result {
+	const { t } = useTranslation('dashboard');
 	const dashboardId = useDashboardStore((s) => s.dashboardId);
 	const { patchAsync } = useOptimisticPatch();
 	const [isSaving, setIsSaving] = useState(false);
@@ -43,7 +45,14 @@ export function useFirstSectionMigration({ sections }: Params): Result {
 			let counter = 1;
 			sections.forEach((s) => {
 				if (!s.title && s.items.length > 0) {
-					ops.push(titleUntitledSectionOp(s.layoutIndex, `Section ${counter}`));
+					ops.push(
+						titleUntitledSectionOp(
+							s.layoutIndex,
+							t('section_title.untitled_section', 'Section {{sectionNumber}}', {
+								sectionNumber: counter,
+							}),
+						),
+					);
 					counter += 1;
 				}
 			});
@@ -61,7 +70,7 @@ export function useFirstSectionMigration({ sections }: Params): Result {
 				setIsSaving(false);
 			}
 		},
-		[sections, dashboardId, patchAsync, showErrorModal],
+		[sections, dashboardId, patchAsync, showErrorModal, t],
 	);
 
 	return { migrate, isSaving };

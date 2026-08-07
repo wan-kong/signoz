@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Typography } from '@signozhq/ui/typography';
 import { TriangleAlert } from '@signozhq/icons';
@@ -17,6 +18,7 @@ import { useUnpricedModelMapping } from './hooks/useUnpricedModelMapping';
 import { usePendingMappingStore } from './usePendingMappingStore';
 
 function UnpricedModelsTab(): JSX.Element {
+	const { t } = useTranslation('llm_unpriced');
 	const { data, isLoading, isError } = useListUnmappedLLMModels();
 
 	const { user } = useAppContext();
@@ -83,15 +85,20 @@ function UnpricedModelsTab(): JSX.Element {
 			<div className={styles.banner}>
 				<TriangleAlert size="sm" className={styles.bannerIcon} />
 				<Typography.Text as="span" size="small" color="warning">
-					Models detected in traces without pricing. Map each to a billing model or
-					create pricing so estimated cost can be computed.
+					{t(
+						'unpriced_models.banner',
+						'Models detected in traces without pricing. Map each to a billing model or create pricing so estimated cost can be computed.',
+					)}
 				</Typography.Text>
 			</div>
 
 			{isError && (
 				<div className={styles.error}>
 					<Typography.Text as="p" size="small" color="danger" role="alert">
-						Failed to load unpriced models. Please try again.
+						{t(
+							'unpriced_models.load_error',
+							'Failed to load unpriced models. Please try again.',
+						)}
 					</Typography.Text>
 				</div>
 			)}

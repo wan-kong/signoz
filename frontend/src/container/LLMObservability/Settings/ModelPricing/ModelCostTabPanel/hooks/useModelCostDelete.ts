@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useState } from 'react';
 import { toast } from '@signozhq/ui/sonner';
 import { useQueryClient } from 'react-query';
@@ -25,6 +26,7 @@ interface UseModelCostDeleteResult {
 // add/edit drawer — delete is triggered from the table row menu, so this state
 // lives at the panel level rather than inside useModelCostDrawer.
 export function useModelCostDelete(): UseModelCostDeleteResult {
+	const { t } = useTranslation('llm');
 	const queryClient = useQueryClient();
 	// The rule queued for deletion. Non-null drives the confirm dialog open.
 	const [pendingDelete, setPendingDelete] = useState<PendingDelete | null>(null);
@@ -52,7 +54,10 @@ export function useModelCostDelete(): UseModelCostDeleteResult {
 			setPendingDelete(null);
 			toast.success(TOAST_MODEL_COST_DELETED);
 		} catch (error) {
-			const message = error instanceof Error ? error.message : 'Delete failed';
+			const message =
+				error instanceof Error
+					? error.message
+					: t('model_cost_delete.delete_failed', 'Delete failed');
 			toast.error(message);
 		}
 	}, [deleteRuleApi, pendingDelete, queryClient]);

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useIsMutating } from 'react-query';
 import { Button, Skeleton } from 'antd';
 import { REACT_QUERY_KEY } from 'constants/reactQueryKeys';
@@ -19,6 +20,7 @@ function ValidTracesCount(): JSX.Element {
 		validTracesCount,
 		funnelId,
 	} = useFunnelContext();
+	const { t } = useTranslation('funnel_config');
 
 	const isFunnelUpdateMutating = useIsMutating([
 		REACT_QUERY_KEY.UPDATE_FUNNEL_STEPS,
@@ -27,14 +29,19 @@ function ValidTracesCount(): JSX.Element {
 
 	if (hasAllEmptyStepFields) {
 		return (
-			<span className="steps-footer__valid-traces">No service / span names</span>
+			<span className="steps-footer__valid-traces">
+				{t('steps_footer.no_service_span_names', 'No service / span names')}
+			</span>
 		);
 	}
 
 	if (hasIncompleteStepFields) {
 		return (
 			<span className="steps-footer__valid-traces">
-				Missing service / span names
+				{t(
+					'steps_footer.missing_service_span_names',
+					'Missing service / span names',
+				)}
 			</span>
 		);
 	}
@@ -46,23 +53,30 @@ function ValidTracesCount(): JSX.Element {
 	if (validTracesCount === 0) {
 		return (
 			<span className="steps-footer__valid-traces steps-footer__valid-traces--none">
-				No valid traces found
+				{t('steps_footer.no_valid_traces', 'No valid traces found')}
 			</span>
 		);
 	}
 
-	return <span className="steps-footer__valid-traces">Valid traces found</span>;
+	return (
+		<span className="steps-footer__valid-traces">
+			{t('steps_footer.valid_traces', 'Valid traces found')}
+		</span>
+	);
 }
 
 function StepsFooter({ stepsCount, isSaving }: StepsFooterProps): JSX.Element {
 	const { hasIncompleteStepFields, handleSaveFunnel, hasUnsavedChanges } =
 		useFunnelContext();
+	const { t } = useTranslation('funnel_config');
 
 	return (
 		<div className="steps-footer">
 			<div className="steps-footer__left">
 				<Cone className="funnel-icon" size={14} />
-				<span>{stepsCount} steps</span>
+				<span>
+					{t('steps_footer.steps_count', '{{stepsCount}} steps', { stepsCount })}
+				</span>
 				<span>·</span>
 				<ValidTracesCount />
 			</div>
@@ -75,7 +89,7 @@ function StepsFooter({ stepsCount, isSaving }: StepsFooterProps): JSX.Element {
 					icon={<Check size={14} />}
 					loading={isSaving}
 				>
-					Save funnel
+					{t('steps_footer.save_funnel', 'Save funnel')}
 				</Button>
 			</div>
 		</div>

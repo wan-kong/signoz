@@ -1,4 +1,5 @@
 import { Color } from '@signozhq/design-tokens';
+import { useTranslation } from 'react-i18next';
 import { Button } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { Info } from '@signozhq/icons';
@@ -9,11 +10,12 @@ function MetricDetailsErrorState({
 	refetch,
 	errorMessage,
 }: MetricDetailsErrorStateProps): JSX.Element {
+	const { t } = useTranslation('alerts');
 	return (
 		<div className="metric-details-error-state">
 			<Info size={20} color={Color.BG_CHERRY_500} />
 			<Typography.Text>{errorMessage}</Typography.Text>
-			{refetch && <Button onClick={refetch}>Retry</Button>}
+			{refetch && <Button onClick={refetch}>{t('retry', 'Retry')}</Button>}
 		</div>
 	);
 }

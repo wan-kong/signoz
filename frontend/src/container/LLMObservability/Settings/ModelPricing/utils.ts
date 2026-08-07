@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import {
 	LlmpricingruletypesLLMPricingRuleCacheModeDTO as CacheModeDTO,
 	LlmpricingruletypesLLMPricingRuleUnitDTO as UnitDTO,
@@ -62,8 +63,12 @@ export const getExtraBuckets = (rule: PricingRule): ExtraBucket[] => {
 	return buckets;
 };
 
-export const getSourceLabel = (rule: PricingRule): 'Auto' | 'User override' =>
-	rule.isOverride ? 'User override' : 'Auto';
+export const getSourceLabel = (rule: PricingRule): string =>
+	rule.isOverride
+		? i18n.t('utils.source_user_override', 'User override', {
+				ns: 'llm_unpriced',
+			})
+		: i18n.t('utils.source_auto', 'Auto', { ns: 'llm_unpriced' });
 
 export const getRelativeLastSeen = (rule: PricingRule): string =>
 	getRelativeTime(rule.updatedAt || rule.syncedAt || rule.createdAt);
@@ -139,10 +144,22 @@ export const validateModelName = (
 	modelName: string,
 	mode: DrawerMode,
 ): true | string =>
-	mode === 'add' && !modelName.trim() ? 'Billing model ID is required.' : true;
+	mode === 'add' && !modelName.trim()
+		? String(
+				i18n.t('utils.billing_model_id_required', 'Billing model ID is required.', {
+					ns: 'llm_unpriced',
+				}),
+			)
+		: true;
 
 export const validateProvider = (provider: string): true | string =>
-	provider.trim() ? true : 'Provider is required.';
+	provider.trim()
+		? true
+		: String(
+				i18n.t('utils.provider_required', 'Provider is required.', {
+					ns: 'llm_unpriced',
+				}),
+			);
 
 export const validatePricing = (
 	pricing: DrawerDraft['pricing'],
@@ -152,13 +169,29 @@ export const validatePricing = (
 		return true;
 	}
 	if (pricing.input === null || pricing.input <= 0) {
-		return 'Input cost must be greater than 0.';
+		return String(
+			i18n.t('utils.input_cost_positive', 'Input cost must be greater than 0.', {
+				ns: 'llm_unpriced',
+			}),
+		);
 	}
 	if (pricing.output === null || pricing.output <= 0) {
-		return 'Output cost must be greater than 0.';
+		return String(
+			i18n.t('utils.output_cost_positive', 'Output cost must be greater than 0.', {
+				ns: 'llm_unpriced',
+			}),
+		);
 	}
 	if ((pricing.cacheRead ?? 0) < 0 || (pricing.cacheWrite ?? 0) < 0) {
-		return 'Cache costs must be non-negative.';
+		return String(
+			i18n.t(
+				'utils.cache_costs_non_negative',
+				'Cache costs must be non-negative.',
+				{
+					ns: 'llm_unpriced',
+				},
+			),
+		);
 	}
 	return true;
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Popover, Tooltip } from 'antd';
 import cx from 'classnames';
 import { Ellipsis, PencilLine, Trash2 } from '@signozhq/icons';
@@ -38,6 +39,7 @@ function FunnelStepActions({
 	stepsCount,
 	hasEditPermission,
 }: FunnelStepActionsProps): JSX.Element {
+	const { t } = useTranslation('funnel_config');
 	return (
 		<div className="funnel-item__actions">
 			<Button
@@ -50,16 +52,19 @@ function FunnelStepActions({
 					setIsAddDetailsModalOpen(true);
 				}}
 			>
-				Add details
+				{t('step_popover.add_details', 'Add details')}
 			</Button>
 
 			<Tooltip
 				title={
 					!hasEditPermission
-						? 'You need editor or admin access to delete steps'
+						? t(
+								'step_popover.no_permission_delete',
+								'You need editor or admin access to delete steps',
+							)
 						: stepsCount <= 2
-							? 'Minimum 2 steps required'
-							: 'Delete'
+							? t('step_popover.min_steps_required', 'Minimum 2 steps required')
+							: t('step_popover.delete', 'Delete')
 				}
 			>
 				<Button
@@ -74,7 +79,7 @@ function FunnelStepActions({
 						}
 					}}
 				>
-					Delete
+					{t('step_popover.delete', 'Delete')}
 				</Button>
 			</Tooltip>
 		</div>
@@ -93,6 +98,7 @@ function FunnelStepPopover({
 }: FunnelStepPopoverProps): JSX.Element {
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 	const { hasEditPermission } = useAppContext();
+	const { t } = useTranslation('funnel_config');
 
 	const preventDefault = (e: React.MouseEvent | React.KeyboardEvent): void => {
 		e.preventDefault();
@@ -101,7 +107,12 @@ function FunnelStepPopover({
 
 	if (!hasEditPermission) {
 		return (
-			<Tooltip title="You need editor or admin access to add details to step">
+			<Tooltip
+				title={t(
+					'step_popover.no_permission_add_details',
+					'You need editor or admin access to add details to step',
+				)}
+			>
 				<Button
 					type="text"
 					className="funnel-item__action-btn"

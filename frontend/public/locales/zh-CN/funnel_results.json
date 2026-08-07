@@ -1,0 +1,40 @@
+{
+	"empty_results": {
+		"title": "尚未选择任何 span。",
+		"description": "将 span 添加到漏斗步骤中,即可在此处开始查看分析结果。",
+		"alt": "空漏斗结果"
+	},
+	"funnel_details": {
+		"loading": "加载中...",
+		"error_loading": "加载漏斗详情时出错"
+	},
+	"funnel_graph": {
+		"no_data": "暂无数据",
+		"error_fetching": "获取数据时出错。如果问题持续存在,请联系支持人员。"
+	},
+	"funnel_results": {
+		"missing_fields_title": "缺少服务 / span 名称",
+		"missing_fields_description": "请为所有步骤填写服务和 span 名称",
+		"no_traces_title": "没有与漏斗步骤匹配的 trace。",
+		"no_traces_description": "请检查漏斗步骤中的服务 / span 名称,然后重试以开始查看分析结果"
+	},
+	"funnel_table": {
+		"info_alt": "信息"
+	},
+	"metrics_table": {
+		"error_fetching": "获取数据时出错。如果问题持续存在,请联系支持人员。"
+	},
+	"overall_metrics": {
+		"title": "整体漏斗指标",
+		"conversion_rate": "转化率"
+	},
+	"steps_transition": {
+		"conversion_rate": "转化率",
+		"no_transition_selected": "未选择步骤转换",
+		"step_to_step": "步骤 {{from}} → 步骤 {{to}}"
+	},
+	"utils": {
+		"trace_id": "TRACE ID",
+		"step_transition_duration": "步骤转换时长"
+	}
+}

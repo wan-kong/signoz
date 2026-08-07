@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import { Skeleton, Table, TableColumnsType as ColumnsType } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import getIngestionData from 'api/settings/getIngestionData';
@@ -8,6 +9,7 @@ import { IngestionDataType } from 'types/api/settings/ingestion';
 import './IngestionSettings.styles.scss';
 
 export default function IngestionSettings(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { user } = useAppContext();
 
 	const { data: ingestionData, isFetching } = useQuery({
@@ -17,7 +19,7 @@ export default function IngestionSettings(): JSX.Element {
 
 	const columns: ColumnsType<IngestionDataType> = [
 		{
-			title: 'Name',
+			title: t('ingestion.name'),
 			dataIndex: 'name',
 			key: 'name',
 			render: (text): JSX.Element => <Typography.Text> {text} </Typography.Text>,
@@ -49,12 +51,12 @@ export default function IngestionSettings(): JSX.Element {
 	const data: IngestionDataType[] = [
 		{
 			key: '1',
-			name: 'Ingestion URL',
+			name: t('ingestion.url'),
 			value: injectionDataPayload?.ingestionURL,
 		},
 		{
 			key: '2',
-			name: 'Ingestion Key',
+			name: t('ingestion.key'),
 			value: injectionDataPayload?.ingestionKey,
 		},
 		{

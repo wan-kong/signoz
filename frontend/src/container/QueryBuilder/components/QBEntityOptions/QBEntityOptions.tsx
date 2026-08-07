@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Button, Col, Tooltip } from 'antd';
 import cx from 'classnames';
@@ -66,6 +67,8 @@ export default function QBEntityOptions({
 	showTraceOperator = false,
 	onChangeDataSource,
 }: QBEntityOptionsProps): JSX.Element {
+	const { t } = useTranslation('query_builder');
+
 	const handleCloneEntity = (): void => {
 		if (isFunction(onCloneQuery)) {
 			onCloneQuery(entityType, entityData);
@@ -86,7 +89,13 @@ export default function QBEntityOptions({
 				<div className="left-col-items">
 					<div className="options periscope-btn-group">
 						<Button.Group>
-							<Tooltip title={isCollapsed ? 'Uncollapse' : 'Collapse'}>
+							<Tooltip
+								title={
+									isCollapsed
+										? t('qb_entity.uncollapse', 'Uncollapse')
+										: t('qb_entity.collapse', 'Collapse')
+								}
+							>
 								<Button
 									value="search"
 									className="periscope-btn collapse"
@@ -95,7 +104,13 @@ export default function QBEntityOptions({
 									{isCollapsed ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
 								</Button>
 							</Tooltip>
-							<Tooltip title={entityData.disabled ? 'Show' : 'Hide'}>
+							<Tooltip
+								title={
+									entityData.disabled
+										? t('qb_entity.show', 'Show')
+										: t('qb_entity.hide', 'Hide')
+								}
+							>
 								<Button
 									value="query-builder"
 									className="periscope-btn visibility-toggle"
@@ -107,7 +122,11 @@ export default function QBEntityOptions({
 							</Tooltip>
 
 							{entityType === 'query' && showCloneOption && (
-								<Tooltip title={`Clone Query ${entityData.queryName}`}>
+								<Tooltip
+									title={t('qb_entity.clone_query', 'Clone Query {{queryName}}', {
+										queryName: entityData.queryName,
+									})}
+								>
 									<Button className={cx('periscope-btn')} onClick={handleCloneEntity}>
 										<Copy size={14} />
 									</Button>

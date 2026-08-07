@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import {
 	LogsAggregatorOperator,
 	MetricAggregateOperator,
@@ -8,7 +9,7 @@ import { SelectOption } from 'types/common/select';
 export const metricAggregateOperatorOptions: SelectOption<string, string>[] = [
 	{
 		value: MetricAggregateOperator.COUNT,
-		label: 'Count',
+		label: i18n.t('constants.count', 'Count', { ns: 'common' }),
 	},
 	{
 		value: MetricAggregateOperator.COUNT_DISTINCT,
@@ -127,7 +128,7 @@ export const metricAggregateOperatorOptions: SelectOption<string, string>[] = [
 export const meterAggregateOperatorOptions: SelectOption<string, string>[] = [
 	{
 		value: MetricAggregateOperator.COUNT,
-		label: 'Count',
+		label: i18n.t('constants.count', 'Count', { ns: 'common' }),
 	},
 	{
 		value: MetricAggregateOperator.COUNT_DISTINCT,
@@ -246,7 +247,7 @@ export const meterAggregateOperatorOptions: SelectOption<string, string>[] = [
 export const tracesAggregateOperatorOptions: SelectOption<string, string>[] = [
 	{
 		value: TracesAggregatorOperator.COUNT,
-		label: 'Count',
+		label: i18n.t('constants.count', 'Count', { ns: 'common' }),
 	},
 	{
 		value: TracesAggregatorOperator.COUNT_DISTINCT,
@@ -329,7 +330,7 @@ export const tracesAggregateOperatorOptions: SelectOption<string, string>[] = [
 export const logsAggregateOperatorOptions: SelectOption<string, string>[] = [
 	{
 		value: LogsAggregatorOperator.COUNT,
-		label: 'Count',
+		label: i18n.t('constants.count', 'Count', { ns: 'common' }),
 	},
 	{
 		value: LogsAggregatorOperator.COUNT_DISTINCT,
@@ -449,7 +450,7 @@ export const metricsGaugeAggregateOperatorOptions: SelectOption<
 	},
 	{
 		value: MetricAggregateOperator.COUNT,
-		label: 'Count',
+		label: i18n.t('constants.count', 'Count', { ns: 'common' }),
 	},
 	{
 		value: MetricAggregateOperator.COUNT_DISTINCT,
@@ -554,7 +555,7 @@ export const metricsUnknownTimeAggregateOperatorOptions: SelectOption<
 	},
 	{
 		value: MetricAggregateOperator.COUNT,
-		label: 'Count',
+		label: i18n.t('constants.count', 'Count', { ns: 'common' }),
 	},
 	{
 		value: MetricAggregateOperator.RATE,

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Callout } from '@signozhq/ui/callout';
 import { ArrowUpRight } from '@signozhq/icons';
 
@@ -8,6 +9,7 @@ const MISSING_SPANS_DOCS_URL =
 	'https://signoz.io/docs/traces-management/troubleshooting/faqs/#q-why-are-some-spans-missing-from-a-trace';
 
 function MissingSpansBanner(): JSX.Element | null {
+	const { t } = useTranslation('trace');
 	// Session-only dismissal — not persisted, so the banner returns on reload.
 	const [isDismissed, setIsDismissed] = useState(false);
 
@@ -28,14 +30,14 @@ function MissingSpansBanner(): JSX.Element | null {
 				testId="missing-spans-banner"
 				title={
 					<span className={styles.title}>
-						This trace has missing spans
+						{t('trace_details.missing_spans_banner')}
 						<a
 							className={styles.link}
 							href={MISSING_SPANS_DOCS_URL}
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							Learn More <ArrowUpRight size={14} />
+							{t('learn_more', { ns: 'common' })} <ArrowUpRight size={14} />
 						</a>
 					</span>
 				}

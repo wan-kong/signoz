@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
 import { Typography } from '@signozhq/ui/typography';
 import { DisconnectedValuesMode } from 'lib/uPlotV2/config/types';
@@ -11,6 +12,7 @@ export default function DisconnectValuesModeToggle({
 	value,
 	onChange,
 }: DisconnectValuesModeToggleProps): JSX.Element {
+	const { t } = useTranslation('new_widget_components');
 	return (
 		<ToggleGroupSimple
 			type="single"
@@ -24,17 +26,19 @@ export default function DisconnectValuesModeToggle({
 			items={[
 				{
 					value: DisconnectedValuesMode.Never,
-					'aria-label': 'Never',
+					'aria-label': t('disconnect_values.never', 'Never'),
 					label: (
-						<Typography.Text className="section-heading-small">Never</Typography.Text>
+						<Typography.Text className="section-heading-small">
+							{t('disconnect_values.never', 'Never')}
+						</Typography.Text>
 					),
 				},
 				{
 					value: DisconnectedValuesMode.Threshold,
-					'aria-label': 'Threshold',
+					'aria-label': t('disconnect_values.threshold', 'Threshold'),
 					label: (
 						<Typography.Text className="section-heading-small">
-							Threshold
+							{t('disconnect_values.threshold', 'Threshold')}
 						</Typography.Text>
 					),
 				},

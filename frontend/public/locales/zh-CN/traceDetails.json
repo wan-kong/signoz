@@ -1,11 +1,33 @@
 {
   "search_tags": "搜索标签名称",
-  "trace": "Trace",
-  "span": "Span",
-  "trace_duration": "Trace 持续时间",
-  "span_duration": "Span 持续时间",
-  "root_service_tooltip": "根服务和入口点 Span",
-  "of_total_exec_time": " 占总执行时间",
-  "entity_start_time": "{{entity}} 开始时间",
-  "root_span_status_code": "根 span 状态码"
+  "trace_details": {
+    "trace": "Trace",
+    "span": "Span",
+    "trace_duration": "Trace 持续时间",
+    "span_duration": "Span 持续时间",
+    "root_service_tooltip": "根服务和入口点 Span",
+    "of_total_exec_time": " 占总执行时间",
+    "entity_start_time": "{{entity}} 开始时间",
+    "root_span_status_code": "根 span 状态码"
+  },
+  "trace_flamegraph": {
+    "flame_graph": "火焰图",
+    "span_limit_warning": "总 span 数量超过可视化限制。火焰图中仅显示采样的 span 子集。",
+    "spans": "Span 数量：",
+    "errors": "错误：",
+    "waterfall": "瀑布图",
+    "unknown": "未知",
+    "layout_computation_failed": "火焰图布局计算失败",
+    "layout_worker_failed": "火焰图布局 worker 失败",
+    "layout_computation_timed_out": "火焰图布局计算超时",
+    "no_data_found": "未找到链路 {{traceId}} 的数据"
+  },
+  "trace_waterfall": {
+    "fetching_trace": "正在获取链路！"
+  },
+  "span_attributes": {
+    "filter_for_value": "按值筛选",
+    "filter_out_value": "按值排除",
+    "group_by_attribute": "按属性分组"
+  }
 }

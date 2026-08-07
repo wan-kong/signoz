@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 // Stage-aware autocomplete for the dashboards-list DSL: as the caret moves, it
 // suggests keys, then operators (valid for that key's field type), then values
 // (drawn from the tags/users the API reports). Grammar lives in dslGrammar.ts;
@@ -72,7 +73,9 @@ const keySuggestions = (
 			insertText: `${k} `,
 			kind: 'key',
 			// Distinguish built-in columns from org tag keys in the popup.
-			detail: reservedSet.has(k.toLowerCase()) ? 'field' : 'tag',
+			detail: reservedSet.has(k.toLowerCase())
+				? i18n.t('dsl.field_label', 'field', { ns: 'dashboard' })
+				: i18n.t('dsl.tag_label', 'tag', { ns: 'dashboard' }),
 		}));
 };
 

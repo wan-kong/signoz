@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import { InframonitoringtypesStatefulSetRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
@@ -49,7 +50,9 @@ export const k8sStatefulSetsColumnsConfig: TableColumnDef<InframonitoringtypesSt
 			id: 'statefulSetGroup',
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
-					title="StatefulSet Group"
+					title={i18n.t('display.statefulset_group', 'Statefulset Group', {
+						ns: 'infraMonitoring',
+					})}
 					titleKey="display.statefulset_group"
 				/>
 			),
@@ -76,7 +79,9 @@ export const k8sStatefulSetsColumnsConfig: TableColumnDef<InframonitoringtypesSt
 			id: 'statefulsetName',
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
-					title="StatefulSet Name"
+					title={i18n.t('display.statefulset_name', 'Statefulset Name', {
+						ns: 'infraMonitoring',
+					})}
 					titleKey="display.statefulset_name"
 					icon={<ArrowUpDown data-hide-expanded="true" size={14} />}
 					docPath="/infrastructure-monitoring/kubernetes/statefulsets#statefulset-name"

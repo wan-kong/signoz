@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import { Button } from '@signozhq/ui/button';
 import { Check, LoaderCircle, TriangleAlert, X, Zap } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 
 import { PageActionRegistry } from '../../../pageActions/PageActionRegistry';
 import { AIActionBlock } from '../../../pageActions/types';
@@ -35,6 +36,7 @@ export default function ActionBlock({
 }: {
 	data: AIActionBlock;
 }): JSX.Element {
+	const { t } = useTranslation('ai_assistant');
 	const { messageId } = useMessageContext();
 	const answeredBlocks = useAIAssistantStore((s) => s.answeredBlocks);
 	const markBlockAnswered = useAIAssistantStore((s) => s.markBlockAnswered);
@@ -66,7 +68,11 @@ export default function ActionBlock({
 		const action = PageActionRegistry.get(actionId);
 
 		if (!action) {
-			const msg = `Action "${actionId}" is not available on the current page.`;
+			const msg = t(
+				'action_not_available',
+				'Action "{{actionId}}" is not available on the current page.',
+				{ actionId },
+			);
 			setErrorMessage(msg);
 			setLocalState('error');
 			if (messageId) {
@@ -85,7 +91,8 @@ export default function ActionBlock({
 				markBlockAnswered(messageId, `applied:${result.summary}`);
 			}
 		} catch (err) {
-			const msg = err instanceof Error ? err.message : 'Unknown error';
+			const msg =
+				err instanceof Error ? err.message : t('unknown_error', 'Unknown error');
 			setErrorMessage(msg);
 			setLocalState('error');
 			if (messageId) {
@@ -128,7 +135,9 @@ export default function ActionBlock({
 		return (
 			<div className={cx(blockStyles.block, styles.applied)}>
 				<Check size={13} className={cx(styles.statusIcon, styles.ok)} />
-				<span className={styles.statusText}>{resultSummary || 'Applied.'}</span>
+				<span className={styles.statusText}>
+					{resultSummary || t('applied', 'Applied.')}
+				</span>
 			</div>
 		);
 	}
@@ -137,7 +146,7 @@ export default function ActionBlock({
 		return (
 			<div className={cx(blockStyles.block, styles.dismissed)}>
 				<X size={13} className={cx(styles.statusIcon, styles.no)} />
-				<span className={styles.statusText}>Dismissed.</span>
+				<span className={styles.statusText}>{t('dismissed', 'Dismissed.')}</span>
 			</div>
 		);
 	}
@@ -170,7 +179,9 @@ export default function ActionBlock({
 		<div className={blockStyles.block}>
 			<div className={styles.header}>
 				<Zap size={13} className={styles.zapIcon} />
-				<span className={styles.headerLabel}>Suggested Action</span>
+				<span className={styles.headerLabel}>
+					{t('suggested_action', 'Suggested Action')}
+				</span>
 			</div>
 
 			<p className={styles.description}>{description}</p>
@@ -191,11 +202,11 @@ export default function ActionBlock({
 			<div className={styles.actions}>
 				<Button variant="solid" size="sm" onClick={execute}>
 					<Check size={12} />
-					Apply
+					{t('apply', 'Apply')}
 				</Button>
 				<Button variant="outlined" size="sm" onClick={handleDismiss}>
 					<X size={12} />
-					Dismiss
+					{t('dismiss', 'Dismiss')}
 				</Button>
 			</div>
 		</div>

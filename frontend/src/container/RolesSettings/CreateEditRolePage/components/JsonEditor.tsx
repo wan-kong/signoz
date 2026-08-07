@@ -7,6 +7,7 @@ import {
 	useRef,
 } from 'react';
 import { useCopyToClipboard } from 'react-use';
+import { useTranslation } from 'react-i18next';
 import MEditor, { Monaco, OnMount } from '@monaco-editor/react';
 import { Color } from '@signozhq/design-tokens';
 import { Check, Copy } from '@signozhq/icons';
@@ -39,6 +40,7 @@ type MonacoEditor = Parameters<OnMount>[0];
 const JsonEditor = forwardRef<JsonEditorRef, JsonEditorProps>(
 	function JsonEditor({ resources, mode, onChange, onValidityChange }, ref) {
 		const isDarkMode = useIsDarkMode();
+		const { t } = useTranslation('organizationsettings');
 		const [copyState, copyToClipboard] = useCopyToClipboard();
 		const [copied, setCopied] = useState(false);
 		const [parseError, setParseError] = useState<string | null>(null);
@@ -93,10 +95,12 @@ const JsonEditor = forwardRef<JsonEditorRef, JsonEditorProps>(
 					setParseError(null);
 					onChange(resourcePermissions);
 				} catch (err) {
-					setParseError(err instanceof Error ? err.message : 'Invalid JSON format');
+					setParseError(
+						err instanceof Error ? err.message : t('role_form_invalid_json_format'),
+					);
 				}
 			},
-			[onChange],
+			[onChange, t],
 		);
 
 		const configureMonaco = useCallback((monaco: Monaco): void => {
@@ -163,7 +167,9 @@ const JsonEditor = forwardRef<JsonEditorRef, JsonEditorProps>(
 		return (
 			<div className={styles.jsonEditor} data-testid="json-editor">
 				<div className={styles.jsonEditorContainer}>
-					<TooltipSimple title={copied ? 'Copied!' : 'Copy JSON'}>
+					<TooltipSimple
+						title={copied ? t('role_form_copied') : t('role_form_copy_json')}
+					>
 						<Button
 							variant="ghost"
 							size="sm"
@@ -196,7 +202,7 @@ const JsonEditor = forwardRef<JsonEditorRef, JsonEditorProps>(
 					{parseError && (
 						<div className={styles.jsonEditorError} data-testid="json-editor-error">
 							<Typography as="span" size="base" weight="medium">
-								Parse Error:
+								{t('role_form_parse_error')}
 							</Typography>
 							<Typography
 								as="span"
@@ -213,7 +219,7 @@ const JsonEditor = forwardRef<JsonEditorRef, JsonEditorProps>(
 							data-testid="json-editor-schema-error"
 						>
 							<Typography as="span" size="base" weight="medium">
-								Schema Error:
+								{t('role_form_schema_error')}
 							</Typography>
 							<Typography
 								as="span"
@@ -221,7 +227,8 @@ const JsonEditor = forwardRef<JsonEditorRef, JsonEditorProps>(
 								className={styles.jsonEditorErrorMessage}
 							>
 								{schemaErrors[0]}
-								{schemaErrors.length > 1 && ` (+${schemaErrors.length - 1} more)`}
+								{schemaErrors.length > 1 &&
+									t('role_form_more_count', { count: schemaErrors.length - 1 })}
 							</Typography>
 						</div>
 					)}

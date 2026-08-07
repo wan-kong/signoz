@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import {
 	DashboardtypesPanelDTO,
 	DashboardtypesTimePreferenceDTO,
@@ -32,7 +33,7 @@ const TIME_PREFERENCE_LABEL: Partial<
 > = {
 	[DashboardtypesTimePreferenceDTO.last_5_min]: {
 		short: '5m',
-		full: 'Last 5 min',
+		full: i18n.t('time.last_5_min', 'Last 5 min', { ns: 'dashboard' }),
 	},
 	[DashboardtypesTimePreferenceDTO.last_15_min]: {
 		short: '15m',

@@ -50,7 +50,7 @@ function Pipelines(): JSX.Element {
 		() => [
 			{
 				key: 'pipelines',
-				label: `Pipelines`,
+				label: t('pipelines'),
 				children: (
 					<PipelinePage
 						refetchPipelineLists={refetchPipelineLists}
@@ -60,7 +60,7 @@ function Pipelines(): JSX.Element {
 			},
 			{
 				key: 'change-history',
-				label: `Change History`,
+				label: t('change_history'),
 				children: (
 					<ChangeHistory pipelineData={pipelineData?.payload as Pipeline} />
 				),
@@ -78,7 +78,9 @@ function Pipelines(): JSX.Element {
 	}, [isError, notifications, pipelineData?.error, t]);
 
 	if (isLoading) {
-		return <Spinner height="75vh" tip="Loading Pipelines..." />;
+		return (
+			<Spinner height="75vh" tip={t('loading_pipelines', { ns: 'common' })} />
+		);
 	}
 
 	return (

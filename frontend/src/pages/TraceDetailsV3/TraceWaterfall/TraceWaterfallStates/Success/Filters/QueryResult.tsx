@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp, Info, Loader } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import {
@@ -36,6 +37,7 @@ function QueryResult({
 	onNext,
 	showNavigation = true,
 }: QueryResultProps): JSX.Element | null {
+	const { t } = useTranslation('trace');
 	if (!hasExpression) {
 		return null;
 	}
@@ -76,18 +78,19 @@ function QueryResult({
 				<TooltipTrigger asChild>
 					<span className={cx(styles.filterStatus, styles.hasError)}>
 						<Info />
-						API error
+						{t('query_result.api_error', 'API error')}
 					</span>
 				</TooltipTrigger>
 				<TooltipContent>
-					{(error as AxiosError)?.message || 'Something went wrong'}
+					{(error as AxiosError)?.message ||
+						t('query_result.something_went_wrong', 'Something went wrong')}
 				</TooltipContent>
 			</TooltipRoot>
 		);
 	} else if (noData) {
 		content = (
 			<Typography.Text className={styles.filterStatus}>
-				No results found
+				{t('query_result.no_results_found', 'No results found')}
 			</Typography.Text>
 		);
 	}

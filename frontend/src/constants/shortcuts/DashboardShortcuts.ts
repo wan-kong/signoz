@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { getUserOperatingSystem, UserOperatingSystem } from 'utils/getUserOS';
 
 const userOS = getUserOperatingSystem();
@@ -13,6 +14,14 @@ export const DashboardShortcutsName = {
 };
 
 export const DashboardShortcutsDescription = {
-	SaveChanges: 'Save Changes for panel',
-	DiscardChanges: 'Discard Changes for panel',
+	SaveChanges: i18n.t(
+		'dashboard_shortcuts.save_changes',
+		'Save Changes for panel',
+		{ ns: 'shortcuts' },
+	),
+	DiscardChanges: i18n.t(
+		'dashboard_shortcuts.discard_changes',
+		'Discard Changes for panel',
+		{ ns: 'shortcuts' },
+	),
 };

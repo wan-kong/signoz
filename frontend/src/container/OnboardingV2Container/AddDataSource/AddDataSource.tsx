@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import i18n from 'ReactI18';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Check, Goal, Search, UserPlus, X } from '@signozhq/icons';
 import {
@@ -97,15 +98,19 @@ interface Entity {
 
 const setupStepItemsBase = [
 	{
-		title: 'Org Setup',
+		title: i18n.t('org_setup', 'Org Setup', { ns: 'onboarding' }),
 		description: <Typography.Text>&nbsp;</Typography.Text>,
 	},
 	{
-		title: 'Add your first data source',
+		title: i18n.t('add_first_data_source', 'Add your first data source', {
+			ns: 'onboarding',
+		}),
 		description: ' ',
 	},
 	{
-		title: 'Configure Your Product',
+		title: i18n.t('configure_your_product', 'Configure Your Product', {
+			ns: 'onboarding',
+		}),
 		description: ' ',
 	},
 ];

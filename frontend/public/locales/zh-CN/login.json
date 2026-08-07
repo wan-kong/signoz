@@ -33,5 +33,7 @@
   "forgot_password_select_org_error": "请选择你的组织",
   "forgot_password_back": "返回登录",
   "forgot_password_sending": "发送中...",
-  "forgot_password_send": "发送重置链接"
+  "forgot_password_send": "发送重置链接",
+  "forgot_password_check_your_email": "查看你的邮箱",
+  "forgot_password_reset_link_sent": "我们已将密码重置链接发送到你的邮箱。请检查收件箱并按照说明重置密码。"
 }

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { ServiceDataProps } from 'api/metrics/getTopLevelOperations';
 import { OPERATORS } from 'constants/queryBuilder';
 import {
@@ -188,7 +189,9 @@ export const serviceMetricsQuery = (
 
 	const expressions = ['B*100/C'];
 
-	const legendFormulas = ['Error Rate'];
+	const legendFormulas = [
+		i18n.t('services:key_operations.columns.error_rate', 'Error Rate'),
+	];
 
 	const groupBy: BaseAutocompleteData[] = [
 		{

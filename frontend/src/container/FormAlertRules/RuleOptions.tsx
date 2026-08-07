@@ -92,20 +92,24 @@ function RuleOptions({
 				});
 			}}
 		>
-			<Select.Option value="1">{t('option_above')}</Select.Option>
-			<Select.Option value="2">{t('option_below')}</Select.Option>
+			<Select.Option value="1">{t('option_above', 'above')}</Select.Option>
+			<Select.Option value="2">{t('option_below', 'below')}</Select.Option>
 
 			{/* hide equal and not eqaul in case of analmoy based alert */}
 
 			{ruleType !== 'anomaly_rule' && (
 				<>
-					<Select.Option value="3">{t('option_equal')}</Select.Option>
-					<Select.Option value="4">{t('option_notequal')}</Select.Option>
+					<Select.Option value="3">{t('option_equal', 'is equal to')}</Select.Option>
+					<Select.Option value="4">
+						{t('option_notequal', 'not equal to')}
+					</Select.Option>
 				</>
 			)}
 			{/* the value 5 and 6 are reserved for above or equal and below or equal */}
 			{ruleType === 'anomaly_rule' && (
-				<Select.Option value="7">{t('option_above_below')}</Select.Option>
+				<Select.Option value="7">
+					{t('option_above_below', 'above/below')}
+				</Select.Option>
 			)}
 		</InlineSelect>
 	);
@@ -118,14 +122,20 @@ function RuleOptions({
 			value={alertDef.condition?.matchType}
 			onChange={(value: string | unknown): void => handleMatchOptChange(value)}
 		>
-			<Select.Option value="1">{t('option_atleastonce')}</Select.Option>
-			<Select.Option value="2">{t('option_allthetimes')}</Select.Option>
+			<Select.Option value="1">
+				{t('option_atleastonce', 'at least once')}
+			</Select.Option>
+			<Select.Option value="2">
+				{t('option_allthetimes', 'all the times')}
+			</Select.Option>
 
 			{ruleType !== 'anomaly_rule' && (
 				<>
-					<Select.Option value="3">{t('option_onaverage')}</Select.Option>
-					<Select.Option value="4">{t('option_intotal')}</Select.Option>
-					<Select.Option value="5">{t('option_last')}</Select.Option>
+					<Select.Option value="3">
+						{t('option_onaverage', 'on average')}
+					</Select.Option>
+					<Select.Option value="4">{t('option_intotal', 'in total')}</Select.Option>
+					<Select.Option value="5">{t('option_last', 'last')}</Select.Option>
 				</>
 			)}
 		</InlineSelect>
@@ -178,12 +188,14 @@ function RuleOptions({
 			value={alertDef.evalWindow}
 			onChange={onChangeEvalWindow}
 		>
-			<Select.Option value="5m0s">{t('option_5min')}</Select.Option>
-			<Select.Option value="10m0s">{t('option_10min')}</Select.Option>
-			<Select.Option value="15m0s">{t('option_15min')}</Select.Option>
-			<Select.Option value="1h0m0s">{t('option_60min')}</Select.Option>
-			<Select.Option value="4h0m0s">{t('option_4hours')}</Select.Option>
-			<Select.Option value="24h0m0s">{t('option_24hours')}</Select.Option>
+			<Select.Option value="5m0s">{t('option_5min', '5 mins')}</Select.Option>
+			<Select.Option value="10m0s">{t('option_10min', '10 mins')}</Select.Option>
+			<Select.Option value="15m0s">{t('option_15min', '15 mins')}</Select.Option>
+			<Select.Option value="1h0m0s">{t('option_60min', '60 mins')}</Select.Option>
+			<Select.Option value="4h0m0s">{t('option_4hours', '4 hours')}</Select.Option>
+			<Select.Option value="24h0m0s">
+				{t('option_24hours', '24 hours')}
+			</Select.Option>
 		</InlineSelect>
 	);
 
@@ -195,9 +207,9 @@ function RuleOptions({
 			value={alertDef.evalWindow}
 			onChange={onChangeEvalWindow}
 		>
-			<Select.Option value="5m0s">{t('option_5min')}</Select.Option>
-			<Select.Option value="10m0s">{t('option_10min')}</Select.Option>
-			<Select.Option value="15m0s">{t('option_15min')}</Select.Option>
+			<Select.Option value="5m0s">{t('option_5min', '5 mins')}</Select.Option>
+			<Select.Option value="10m0s">{t('option_10min', '10 mins')}</Select.Option>
+			<Select.Option value="15m0s">{t('option_15min', '15 mins')}</Select.Option>
 		</InlineSelect>
 	);
 
@@ -209,7 +221,9 @@ function RuleOptions({
 			value={alertDef.condition.algorithm}
 			onChange={onChangeAlgorithm}
 		>
-			<Select.Option value="standard">Standard</Select.Option>
+			<Select.Option value="standard">
+				{t('option_standard', 'Standard')}
+			</Select.Option>
 		</InlineSelect>
 	);
 
@@ -243,28 +257,29 @@ function RuleOptions({
 			value={alertDef.condition.seasonality}
 			onChange={onChangeSeasonality}
 		>
-			<Select.Option value="hourly">Hourly</Select.Option>
-			<Select.Option value="daily">Daily</Select.Option>
-			<Select.Option value="weekly">Weekly</Select.Option>
+			<Select.Option value="hourly">{t('option_hourly', 'Hourly')}</Select.Option>
+			<Select.Option value="daily">{t('option_daily', 'Daily')}</Select.Option>
+			<Select.Option value="weekly">{t('option_weekly', 'Weekly')}</Select.Option>
 		</InlineSelect>
 	);
 
 	const renderThresholdRuleOpts = (): JSX.Element => (
 		<Form.Item>
 			<Typography.Text>
-				{t('text_condition1')}
+				{t('text_condition1', 'Send a notification when')}
 				<InlineSelect
 					getPopupContainer={popupContainer}
 					allowClear
 					showSearch
 					options={queryOptions}
-					placeholder={t('selected_query_placeholder')}
+					placeholder={t('selected_query_placeholder', 'Select query')}
 					value={alertDef.condition.selectedQueryName}
 					onChange={onChangeSelectedQueryName}
 				/>
-				<Typography.Text>is</Typography.Text>
-				{renderCompareOps()} {t('text_condition2')} {renderMatchOpts()}{' '}
-				{t('text_condition3')} {renderEvalWindows()}
+				<Typography.Text>{t('text_is', 'is')}</Typography.Text>
+				{renderCompareOps()} {t('text_condition2', 'the threshold')}{' '}
+				{renderMatchOpts()} {t('text_condition3', 'during the last')}{' '}
+				{renderEvalWindows()}
 			</Typography.Text>
 		</Form.Item>
 	);
@@ -272,19 +287,20 @@ function RuleOptions({
 	const renderPromRuleOptions = (): JSX.Element => (
 		<Form.Item>
 			<Typography.Text>
-				{t('text_condition1')}
+				{t('text_condition1', 'Send a notification when')}
 				<InlineSelect
 					getPopupContainer={popupContainer}
 					allowClear
 					showSearch
 					options={queryOptions}
-					placeholder={t('selected_query_placeholder')}
+					placeholder={t('selected_query_placeholder', 'Select query')}
 					value={alertDef.condition.selectedQueryName}
 					onChange={onChangeSelectedQueryName}
 				/>
-				<Typography.Text>is</Typography.Text>
-				{renderCompareOps()} {t('text_condition2')} {renderMatchOpts()}
-				{t('text_condition3')} {renderPromEvalWindows()}
+				<Typography.Text>{t('text_is', 'is')}</Typography.Text>
+				{renderCompareOps()} {t('text_condition2', 'the threshold')}{' '}
+				{renderMatchOpts()}
+				{t('text_condition3', 'during the last')} {renderPromEvalWindows()}
 			</Typography.Text>
 		</Form.Item>
 	);
@@ -322,25 +338,31 @@ function RuleOptions({
 	const renderAnomalyRuleOpts = (): JSX.Element => (
 		<Form.Item>
 			<Typography.Text className="rule-definition">
-				{t('text_condition1_anomaly')}
+				{t(
+					'text_condition1_anomaly',
+					'Send notification when the observed value for',
+				)}
 				<InlineSelect
 					getPopupContainer={popupContainer}
 					allowClear
 					showSearch
 					options={queryOptions}
-					placeholder={t('selected_query_placeholder')}
+					placeholder={t('selected_query_placeholder', 'Select query')}
 					value={alertDef.condition.selectedQueryName}
 					onChange={onChangeSelectedQueryName}
 				/>
-				{t('text_condition3')} {renderEvalWindows()}
-				<Typography.Text>is</Typography.Text>
+				{t('text_condition3', 'during the last')} {renderEvalWindows()}
+				<Typography.Text>{t('text_is', 'is')}</Typography.Text>
 				{renderDeviationOpts()}
-				<Typography.Text>deviations</Typography.Text>
+				<Typography.Text>{t('anomaly_deviations', 'deviations')}</Typography.Text>
 				{renderCompareOps()}
-				<Typography.Text>the predicted data</Typography.Text>
+				<Typography.Text>
+					{t('anomaly_predicted_data', 'the predicted data')}
+				</Typography.Text>
 				{renderMatchOpts()}
-				using the {renderAlgorithms()} algorithm with {renderSeasonality()}{' '}
-				seasonality
+				{t('anomaly_using_the', 'using the')} {renderAlgorithms()}{' '}
+				{t('anomaly_algorithm_with', 'algorithm with')} {renderSeasonality()}{' '}
+				{t('anomaly_seasonality', 'seasonality')}
 			</Typography.Text>
 		</Form.Item>
 	);
@@ -353,16 +375,20 @@ function RuleOptions({
 			value={alertDef.frequency}
 			onChange={onChangeFrequency}
 		>
-			<Select.Option value="1m0s">{t('option_1min')}</Select.Option>
-			<Select.Option value="5m0s">{t('option_5min')}</Select.Option>
-			<Select.Option value="10m0s">{t('option_10min')}</Select.Option>
-			<Select.Option value="15m0s">{t('option_15min')}</Select.Option>
-			<Select.Option value="30m0s">{t('option_30min')}</Select.Option>
-			<Select.Option value="1h0m0s">{t('option_60min')}</Select.Option>
-			<Select.Option value="3h0m0s">{t('option_3hours')}</Select.Option>
-			<Select.Option value="6h0m0s">{t('option_6hours')}</Select.Option>
-			<Select.Option value="12h0m0s">{t('option_12hours')}</Select.Option>
-			<Select.Option value="24h0m0s">{t('option_24hours')}</Select.Option>
+			<Select.Option value="1m0s">{t('option_1min', '1 min')}</Select.Option>
+			<Select.Option value="5m0s">{t('option_5min', '5 mins')}</Select.Option>
+			<Select.Option value="10m0s">{t('option_10min', '10 mins')}</Select.Option>
+			<Select.Option value="15m0s">{t('option_15min', '15 mins')}</Select.Option>
+			<Select.Option value="30m0s">{t('option_30min', '30 mins')}</Select.Option>
+			<Select.Option value="1h0m0s">{t('option_60min', '60 mins')}</Select.Option>
+			<Select.Option value="3h0m0s">{t('option_3hours', '3 hours')}</Select.Option>
+			<Select.Option value="6h0m0s">{t('option_6hours', '6 hours')}</Select.Option>
+			<Select.Option value="12h0m0s">
+				{t('option_12hours', '12 hours')}
+			</Select.Option>
+			<Select.Option value="24h0m0s">
+				{t('option_24hours', '24 hours')}
+			</Select.Option>
 		</InlineSelect>
 	);
 
@@ -374,7 +400,9 @@ function RuleOptions({
 
 	return (
 		<>
-			<StepHeading>{t('alert_form_step3', { step: step3Label })}</StepHeading>
+			<StepHeading>
+				{t('alert_form_step3', 'Define Alert Conditions', { step: step3Label })}
+			</StepHeading>
 			<FormContainer>
 				{queryCategory === EQueryType.PROM && renderPromRuleOptions()}
 				{queryCategory !== EQueryType.PROM &&
@@ -391,7 +419,7 @@ function RuleOptions({
 						<Space direction="horizontal" align="center">
 							<Form.Item noStyle>
 								<InputNumber
-									addonBefore={t('field_threshold')}
+									addonBefore={t('field_threshold', 'Alert Threshold')}
 									value={alertDef?.condition?.target}
 									onChange={onChange}
 									type="number"
@@ -406,7 +434,7 @@ function RuleOptions({
 									allowClear
 									showSearch
 									options={categorySelectOptions}
-									placeholder={t('field_unit')}
+									placeholder={t('field_unit', 'Threshold unit')}
 									value={alertDef.condition.targetUnit}
 									onChange={onChangeAlertUnit}
 								/>
@@ -415,11 +443,13 @@ function RuleOptions({
 					)}
 
 					<Collapse>
-						<Collapse.Panel header={t('More options')} key="1">
+						<Collapse.Panel header={t('more_options', 'More options')} key="1">
 							<Space direction="vertical" size="large">
 								<VerticalLine>
 									<Space direction="horizontal" align="center">
-										<Typography.Text>{t('text_alert_frequency')}</Typography.Text>
+										<Typography.Text>
+											{t('text_alert_frequency', 'Run alert every')}
+										</Typography.Text>
 										{renderFrequency()}
 									</Space>
 								</VerticalLine>
@@ -440,7 +470,12 @@ function RuleOptions({
 												}}
 											/>
 										</Form.Item>
-										<Typography.Text>{t('text_alert_on_absent')}</Typography.Text>
+										<Typography.Text>
+											{t(
+												'text_alert_on_absent',
+												'Send a notification if data is missing for',
+											)}
+										</Typography.Text>
 
 										<Form.Item noStyle name={['condition', 'absentFor']}>
 											<InputNumber
@@ -459,7 +494,7 @@ function RuleOptions({
 												onWheel={(e): void => e.currentTarget.blur()}
 											/>
 										</Form.Item>
-										<Typography.Text>{t('text_for')}</Typography.Text>
+										<Typography.Text>{t('text_for', 'minutes')}</Typography.Text>
 									</Space>
 								</VerticalLine>
 
@@ -479,7 +514,12 @@ function RuleOptions({
 												}}
 											/>
 										</Form.Item>
-										<Typography.Text>{t('text_require_min_points')}</Typography.Text>
+										<Typography.Text>
+											{t(
+												'text_require_min_points',
+												'Run alert evaluation only when there are minimum of',
+											)}
+										</Typography.Text>
 
 										<Form.Item noStyle name={['condition', 'requiredNumPoints']}>
 											<InputNumber
@@ -498,7 +538,9 @@ function RuleOptions({
 												onWheel={(e): void => e.currentTarget.blur()}
 											/>
 										</Form.Item>
-										<Typography.Text>{t('text_num_points')}</Typography.Text>
+										<Typography.Text>
+											{t('text_num_points', 'data points in each result group')}
+										</Typography.Text>
 									</Space>
 								</VerticalLine>
 							</Space>

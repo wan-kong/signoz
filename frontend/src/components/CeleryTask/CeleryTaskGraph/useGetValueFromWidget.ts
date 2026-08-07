@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import { useQueries } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
@@ -22,6 +23,7 @@ export const useGetValueFromWidget = (
 	widgetsData: Widgets | Widgets[],
 	queryKey: string[],
 ): UseGetValueResult => {
+	const { t } = useTranslation('messagingQueues');
 	const { maxTime, minTime } = useSelector<AppState, GlobalReducer>(
 		(state) => state.globalTime,
 	);
@@ -51,10 +53,10 @@ export const useGetValueFromWidget = (
 
 	const values = queries.map((query) => {
 		if (query.isLoading) {
-			return 'Loading...';
+			return t('celery_task.loading', 'Loading...');
 		}
 		if (query.isError) {
-			return 'Error';
+			return t('celery_task.error', 'Error');
 		}
 
 		const value = parseFloat(

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { cloneDeep } from 'lodash-es';
 import { ITraceForest, ITraceTree, Span } from 'types/api/trace/getTraceItem';
 
@@ -61,7 +62,10 @@ export const spanToTreeUtil = (inputSpanList: Span[]): ITraceForest => {
 			if (SpanId && !spanMap[SpanId]) {
 				spanMap[SpanId] = {
 					id: SpanId,
-					name: `Missing Span (${SpanId})`,
+					name: i18n.t('constants_extra.missing_span', 'Missing Span ({{spanId}})', {
+						ns: 'common',
+						spanId: SpanId,
+					}),
 					children: [],
 					serviceColour: '',
 					serviceName: '',

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 export const OPERATORS = {
 	IN: 'IN',
 	LIKE: 'LIKE',
@@ -32,7 +33,11 @@ export const TRACE_OPERATOR_OPERATORS_WITH_PRIORITY = {
 };
 
 export const TRACE_OPERATOR_OPERATORS_LABELS = {
-	[TRACE_OPERATOR_OPERATORS.DIRECT_DESCENDENT]: 'Direct Descendant',
+	[TRACE_OPERATOR_OPERATORS.DIRECT_DESCENDENT]: i18n.t(
+		'constants.direct_descendant',
+		'Direct Descendant',
+		{ ns: 'common' },
+	),
 	[TRACE_OPERATOR_OPERATORS.INDIRECT_DESCENDENT]: 'Indirect Descendant',
 };
 

@@ -36,6 +36,6 @@ describe('GeneralSettings index', () => {
 
 		render(<GeneralSettings />);
 
-		expect(screen.getByText('something_went_wrong')).toBeInTheDocument();
+		expect(screen.getByText('Something went wrong')).toBeInTheDocument();
 	});
 });

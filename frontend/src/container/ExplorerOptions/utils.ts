@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import getLocalStorageKey from 'api/browser/localstorage/get';
 import setLocalStorageKey from 'api/browser/localstorage/set';
@@ -51,7 +52,11 @@ export const saveNewViewHandler = ({
 					[QueryParams.viewKey]: data.data.data,
 				});
 				notifications.success({
-					message: 'View Saved Successfully',
+					message: String(
+						i18n.t('view_saved_successfully', 'View Saved Successfully', {
+							ns: 'common',
+						}),
+					),
 				});
 			},
 			onError: (err) => {

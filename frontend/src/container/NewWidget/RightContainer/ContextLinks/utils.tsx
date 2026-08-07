@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { CONTEXT_LINK_FIELDS } from 'container/NewWidget/RightContainer/ContextLinks/constants';
 import { resolveTexts } from 'hooks/dashboard/useContextVariables';
 import { ContextLinkProps } from 'types/api/dashboard/getAll';
@@ -6,16 +7,24 @@ import { v4 as uuid } from 'uuid';
 // Configuration for variable source types
 export const VARIABLE_SOURCE_CONFIG = {
 	TIMESTAMP: {
-		label: 'Global timestamp',
+		label: i18n.t('context_links.source_global_timestamp', 'Global timestamp', {
+			ns: 'new_widget_components',
+		}),
 	},
 	QUERY: {
-		label: 'Query variable',
+		label: i18n.t('context_links.source_query', 'Query variable', {
+			ns: 'new_widget_components',
+		}),
 	},
 	GLOBAL: {
-		label: 'Global variable',
+		label: i18n.t('context_links.source_global', 'Global variable', {
+			ns: 'new_widget_components',
+		}),
 	},
 	DASHBOARD: {
-		label: 'Dashboard variable',
+		label: i18n.t('context_links.source_dashboard', 'Dashboard variable', {
+			ns: 'new_widget_components',
+		}),
 	},
 } as const;
 

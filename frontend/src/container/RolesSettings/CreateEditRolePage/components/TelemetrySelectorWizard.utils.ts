@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { AuthZResource } from 'lib/authz/hooks/useAuthZ/types';
 
 import {
@@ -74,11 +75,23 @@ export function validateSelector(selector: string): SelectorValidation {
 	const trimmed = selector.trim();
 
 	if (!trimmed) {
-		return { message: 'Enter a selector.', isError: true };
+		return {
+			message: i18n.t('telemetry_wizard.enter_selector', 'Enter a selector.', {
+				ns: 'organizationsettings',
+			}),
+			isError: true,
+		};
 	}
 
 	if (trimmed === ANY_RESOURCE_VALUE) {
-		return { message: 'Allow every query of every type.', isError: false };
+		return {
+			message: i18n.t(
+				'telemetry_wizard.allow_every_query_of_every_type',
+				'Allow every query of every type.',
+				{ ns: 'organizationsettings' },
+			),
+			isError: false,
+		};
 	}
 
 	const parts = splitSelector(trimmed);
@@ -86,7 +99,11 @@ export function validateSelector(selector: string): SelectorValidation {
 
 	if (!option) {
 		return {
-			message: `"${parts[0]}" is not a supported query type.`,
+			message: i18n.t(
+				'telemetry_wizard.unsupported_query_type',
+				'"{{queryType}}" is not a supported query type.',
+				{ queryType: parts[0], ns: 'organizationsettings' },
+			),
 			isError: true,
 		};
 	}
@@ -95,19 +112,35 @@ export function validateSelector(selector: string): SelectorValidation {
 		if (parts.length === 2 && parts[1] !== ANY_RESOURCE_VALUE) {
 			if (!option.supportsKeyScoping) {
 				return {
-					message: `This query type does not support key scoping. Use ${option.id}/*`,
+					message: i18n.t(
+						'telemetry_wizard.no_key_scoping',
+						'This query type does not support key scoping. Use {{id}}/*',
+						{ id: option.id, ns: 'organizationsettings' },
+					),
 					isError: false, // intentionally not an error
 				};
 			}
 
 			return {
-				message: `Use <query-type>/${ANY_RESOURCE_VALUE} or <query-type>/${SUPPORTED_GRANT_KEY}/<value>.`,
+				message: i18n.t(
+					'telemetry_wizard.selector_format_hint',
+					'Use <query-type>/{{anyValue}} or <query-type>/{{grantKey}}/<value>.',
+					{
+						anyValue: ANY_RESOURCE_VALUE,
+						grantKey: SUPPORTED_GRANT_KEY,
+						ns: 'organizationsettings',
+					},
+				),
 				isError: false, // intentionally not an error
 			};
 		}
 
 		return {
-			message: `Allow every "${option.label}" query.`,
+			message: i18n.t(
+				'telemetry_wizard.allow_every_query_label',
+				'Allow every "{{label}}" query.',
+				{ label: option.label, ns: 'organizationsettings' },
+			),
 			isError: false,
 		};
 	}
@@ -116,20 +149,32 @@ export function validateSelector(selector: string): SelectorValidation {
 
 	if (value === ANY_RESOURCE_VALUE) {
 		return {
-			message: `Allow every ${key} for ${option.label} queries.`,
+			message: i18n.t(
+				'telemetry_wizard.allow_every_key_for_label',
+				'Allow every {{key}} for {{label}} queries.',
+				{ key, label: option.label, ns: 'organizationsettings' },
+			),
 			isError: false,
 		};
 	}
 
 	if (!option.supportsKeyScoping) {
 		return {
-			message: `This query type does not support key scoping. Use ${option.id}/*`,
+			message: i18n.t(
+				'telemetry_wizard.no_key_scoping',
+				'This query type does not support key scoping. Use {{id}}/*',
+				{ id: option.id, ns: 'organizationsettings' },
+			),
 			isError: false, // intentionally not an error
 		};
 	}
 
 	return {
-		message: `Allow ${key}=${value} for ${option.label} queries.`,
+		message: i18n.t(
+			'telemetry_wizard.allow_key_value_for_label',
+			'Allow {{key}}={{value}} for {{label}} queries.',
+			{ key, value, label: option.label, ns: 'organizationsettings' },
+		),
 		isError: false,
 	};
 }

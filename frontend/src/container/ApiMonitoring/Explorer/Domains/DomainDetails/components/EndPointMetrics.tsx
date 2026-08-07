@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
 import { Color } from '@signozhq/design-tokens';
 import { Skeleton, Tooltip } from 'antd';
@@ -18,6 +19,7 @@ function EndPointMetrics({
 }: {
 	endPointMetricsDataQuery: UseQueryResult<SuccessResponse<any>, unknown>;
 }): JSX.Element {
+	const { t } = useTranslation('common');
 	const { isLoading, isRefetching, isError, data, refetch } =
 		endPointMetricsDataQuery;
 
@@ -40,16 +42,16 @@ function EndPointMetrics({
 			<div className="domain-details-grid">
 				<div className="labels-row">
 					<Typography.Text color="muted" className="domain-details-metadata-label">
-						Rate
+						{t('api_monitoring.rate', 'Rate')}
 					</Typography.Text>
 					<Typography.Text color="muted" className="domain-details-metadata-label">
-						AVERAGE LATENCY
+						{t('api_monitoring.average_latency_upper', 'AVERAGE LATENCY')}
 					</Typography.Text>
 					<Typography.Text color="muted" className="domain-details-metadata-label">
-						ERROR %
+						{t('api_monitoring.error_percentage_upper', 'ERROR %')}
 					</Typography.Text>
 					<Typography.Text color="muted" className="domain-details-metadata-label">
-						LAST USED
+						{t('api_monitoring.last_used_upper', 'LAST USED')}
 					</Typography.Text>
 				</div>
 

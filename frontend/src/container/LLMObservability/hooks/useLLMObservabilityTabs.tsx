@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { type TabItemProps } from '@signozhq/ui/tabs';
@@ -23,6 +24,7 @@ interface UseLLMObservabilityTabsResult {
 // so tabs stay shareable/back-button friendly while rendering with the SigNoz
 // design-system Tabs.
 export function useLLMObservabilityTabs(): UseLLMObservabilityTabsResult {
+	const { t } = useTranslation('llm_unpriced');
 	const { pathname } = useLocation();
 	const { safeNavigate } = useSafeNavigate();
 
@@ -43,17 +45,17 @@ export function useLLMObservabilityTabs(): UseLLMObservabilityTabsResult {
 	const items: TabItemProps[] = [
 		{
 			key: OVERVIEW_KEY,
-			label: 'Overview',
+			label: t('tabs.overview', 'Overview'),
 			children: <Overview />,
 		},
 		{
 			key: CONFIGURATION_KEY,
-			label: 'Model pricing',
+			label: t('tabs.model_pricing', 'Model pricing'),
 			children: <LLMObservabilityModelPricing />,
 		},
 		{
 			key: ATTRIBUTE_MAPPING_KEY,
-			label: 'Attribute Mapping',
+			label: t('tabs.attribute_mapping', 'Attribute Mapping'),
 			children: <LLMObservabilityAttributeMapping />,
 		},
 	];

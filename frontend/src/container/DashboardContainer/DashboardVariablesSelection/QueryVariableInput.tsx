@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
@@ -219,8 +220,11 @@ function QueryVariableInput({
 				if (details.error) {
 					let message = details.error;
 					if ((details.error ?? '').toString().includes('Syntax error:')) {
-						message =
-							'Please make sure query is valid and dependent variables are selected';
+						message = i18n.t(
+							'variable.error_invalid_query',
+							'Please make sure query is valid and dependent variables are selected',
+							{ ns: 'dashboard' },
+						);
 					}
 					setErrorMessage(message);
 				}

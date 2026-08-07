@@ -1,3 +1,5 @@
+import i18n from 'ReactI18';
+
 export type SettingPeriod = 'hr' | 'day' | 'month';
 
 export interface ITimeUnit {
@@ -15,17 +17,23 @@ export enum TimeUnitsValues {
 export const TimeUnits: ITimeUnit[] = [
 	{
 		value: TimeUnitsValues.hr,
-		key: 'Hours',
+		key: i18n.t('general_settings.time_unit_hours', 'Hours', {
+			ns: 'generalSettings',
+		}),
 		multiplier: 1,
 	},
 	{
 		value: TimeUnitsValues.day,
-		key: 'Days',
+		key: i18n.t('general_settings.time_unit_days', 'Days', {
+			ns: 'generalSettings',
+		}),
 		multiplier: 1 / 24,
 	},
 	{
 		value: TimeUnitsValues.month,
-		key: 'Months',
+		key: i18n.t('general_settings.time_unit_months', 'Months', {
+			ns: 'generalSettings',
+		}),
 		multiplier: 1 / (24 * 30),
 	},
 ];

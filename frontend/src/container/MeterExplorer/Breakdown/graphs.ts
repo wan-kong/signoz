@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetWidgetQueryBuilderProps } from 'container/MetricsApplication/types';
 import { Widgets } from 'types/api/dashboard/getAll';
@@ -107,7 +108,11 @@ export const getTotalLogSizeWidgetData = (): Widgets =>
 					timeAggregation: 'increase',
 				},
 			],
-			title: 'Total size of log records ingested',
+			title: i18n.t(
+				'meter_explorer_extra.widget_total_log_size',
+				'Total size of log records ingested',
+				{ ns: 'common' },
+			),
 			description: '',
 			panelTypes: PANEL_TYPES.VALUE,
 			yAxisUnit: 'bytes',
@@ -144,7 +149,11 @@ export const getTotalTraceSizeWidgetData = (): Widgets =>
 					timeAggregation: 'increase',
 				},
 			],
-			title: 'Total size of spans ingested',
+			title: i18n.t(
+				'meter_explorer_extra.widget_total_span_size',
+				'Total size of spans ingested',
+				{ ns: 'common' },
+			),
 			description: '',
 			panelTypes: PANEL_TYPES.VALUE,
 			yAxisUnit: 'bytes',
@@ -181,7 +190,11 @@ export const getTotalMetricDatapointCountWidgetData = (): Widgets =>
 					timeAggregation: 'increase',
 				},
 			],
-			title: 'Total metric datapoints ingested',
+			title: i18n.t(
+				'meter_explorer_extra.widget_total_metric_points',
+				'Total metric datapoints ingested',
+				{ ns: 'common' },
+			),
 			description: '',
 			panelTypes: PANEL_TYPES.VALUE,
 			yAxisUnit: 'short',
@@ -218,7 +231,11 @@ export const getLogCountWidgetData = (): Widgets =>
 					timeAggregation: 'increase',
 				},
 			],
-			title: 'Count of log records ingested',
+			title: i18n.t(
+				'meter_explorer_extra.widget_log_count',
+				'Count of log records ingested',
+				{ ns: 'common' },
+			),
 			description: '',
 			panelTypes: PANEL_TYPES.BAR,
 			yAxisUnit: 'short',
@@ -255,7 +272,11 @@ export const getLogSizeWidgetData = (): Widgets =>
 					timeAggregation: 'increase',
 				},
 			],
-			title: 'Size of log records ingested',
+			title: i18n.t(
+				'meter_explorer_extra.widget_log_size',
+				'Size of log records ingested',
+				{ ns: 'common' },
+			),
 			description: '',
 			panelTypes: PANEL_TYPES.BAR,
 			yAxisUnit: 'bytes',
@@ -292,7 +313,11 @@ export const getSpanCountWidgetData = (): Widgets =>
 					timeAggregation: 'increase',
 				},
 			],
-			title: 'Count of spans ingested',
+			title: i18n.t(
+				'meter_explorer_extra.widget_span_count',
+				'Count of spans ingested',
+				{ ns: 'common' },
+			),
 			description: '',
 			panelTypes: PANEL_TYPES.BAR,
 			yAxisUnit: 'short',
@@ -329,7 +354,11 @@ export const getSpanSizeWidgetData = (): Widgets =>
 					timeAggregation: 'increase',
 				},
 			],
-			title: 'Size of spans ingested',
+			title: i18n.t(
+				'meter_explorer_extra.widget_span_size',
+				'Size of spans ingested',
+				{ ns: 'common' },
+			),
 			description: '',
 			panelTypes: PANEL_TYPES.BAR,
 			yAxisUnit: 'bytes',
@@ -366,7 +395,11 @@ export const getMetricCountWidgetData = (): Widgets =>
 					timeAggregation: 'increase',
 				},
 			],
-			title: 'Count of metric datapoints ingested',
+			title: i18n.t(
+				'meter_explorer_extra.widget_metric_points_count',
+				'Count of metric datapoints ingested',
+				{ ns: 'common' },
+			),
 			description: '',
 			panelTypes: PANEL_TYPES.BAR,
 			yAxisUnit: 'short',

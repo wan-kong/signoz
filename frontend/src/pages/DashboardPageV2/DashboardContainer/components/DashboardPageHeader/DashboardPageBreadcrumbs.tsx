@@ -1,4 +1,5 @@
 import { MouseEvent, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LayoutGrid } from '@signozhq/icons';
 import getSessionStorageApi from 'api/browser/sessionstorage/get';
 import ROUTES from 'constants/routes';
@@ -25,6 +26,7 @@ function DashboardPageBreadcrumbs({
 	title,
 	image,
 }: DashboardPageBreadcrumbsProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const { safeNavigate } = useSafeNavigate();
 
 	const dashboardPageLink = useMemo(() => {
@@ -56,13 +58,19 @@ function DashboardPageBreadcrumbs({
 						href={dashboardPageLink}
 						onClick={onDashboardLinkClick}
 					>
-						Dashboard
+						{t('breadcrumb_dashboard')}
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 				<BreadcrumbSeparator>/</BreadcrumbSeparator>
 				<BreadcrumbItem>
 					<BreadcrumbLink
-						icon={<img src={image} alt="dashboard-icon" className={styles.icon} />}
+						icon={
+							<img
+								src={image}
+								alt={t('placeholder.dashboard_icon')}
+								className={styles.icon}
+							/>
+						}
 					>
 						<span className={styles.title} title={title}>
 							{title}

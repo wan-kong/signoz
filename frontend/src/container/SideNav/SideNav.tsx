@@ -133,7 +133,8 @@ function SortableFilter({ item }: { item: SidebarItem }): JSX.Element {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 	const { t: translate } = useTranslation('common');
-	const t = (key: string): string => String(translate(key));
+	const t = (key: string, defaultValue?: string): string =>
+		String(translate(key, defaultValue));
 	const { openCmdK } = useCmdK();
 	const { pathname, search } = useLocation();
 	const { currentVersion, latestVersion, isCurrentVersionError } = useSelector<
@@ -347,7 +348,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 
 	const userSettingsMenuItem = {
 		key: ROUTES.SETTINGS,
-		label: 'Settings',
+		label: 'nav.settings',
 		icon: <Cog size={16} />,
 	};
 
@@ -539,13 +540,13 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 
 	useEffect(() => {
 		if (isCloudUser) {
-			setLicenseTag('Cloud');
+			setLicenseTag(t('side_nav.cloud', 'Cloud'));
 		} else if (isEnterpriseSelfHostedUser) {
-			setLicenseTag('Enterprise');
+			setLicenseTag(t('side_nav.enterprise', 'Enterprise'));
 		} else if (isCommunityEnterpriseUser) {
-			setLicenseTag('Free');
+			setLicenseTag(t('side_nav.free', 'Free'));
 		} else if (isCommunityUser) {
-			setLicenseTag('Community');
+			setLicenseTag(t('side_nav.community', 'Community'));
 		}
 	}, [
 		isCloudUser,
@@ -624,7 +625,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 					},
 					{
 						type: 'group',
-						label: "WHAT'S NEW",
+						label: t('side_nav.whats_new', "WHAT'S NEW"),
 					},
 					...dropdownItems,
 					{
@@ -1044,7 +1045,10 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 												changelog && (
 													<div className="version-update-notification-tooltip">
 														<div className="version-update-notification-tooltip-title">
-															There&apos;s a new version available.
+															{t(
+																'side_nav.new_version_available',
+																"There's a new version available.",
+															)}
 														</div>
 
 														<div className="version-update-notification-tooltip-content">
@@ -1100,7 +1104,9 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 									}}
 								>
 									<PackagePlus size={16} />
-									<div className="license tag nav-item-label"> New source </div>
+									<div className="license tag nav-item-label">
+										{t('side_nav.new_source', 'New source')}
+									</div>
 								</Button>
 							</div>
 						)}
@@ -1120,10 +1126,15 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 												<MousePointerClick size={16} />
 											</div>
 
-											<div className="nav-section-title-text">SHORTCUTS</div>
+											<div className="nav-section-title-text">
+												{t('side_nav.shortcuts', 'SHORTCUTS')}
+											</div>
 
 											{pinnedMenuItems.length > 1 && (
-												<Tooltip title="Manage shortcuts" placement="right">
+												<Tooltip
+													title={t('nav.manage_shortcuts', 'Manage shortcuts')}
+													placement="right"
+												>
 													<div
 														className="nav-section-title-icon reorder"
 														onClick={(): void => {
@@ -1139,7 +1150,10 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 
 										{pinnedMenuItems.length === 0 && (
 											<div className="nav-section-subtitle">
-												You have not added any shortcuts yet.
+												{t(
+													'side_nav.no_shortcuts_yet',
+													'You have not added any shortcuts yet.',
+												)}
 											</div>
 										)}
 									</div>
@@ -1184,7 +1198,9 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 												<Ellipsis size={16} />
 											</div>
 
-											<div className="nav-section-title-text">MORE</div>
+											<div className="nav-section-title-text">
+												{t('side_nav.more', 'MORE')}
+											</div>
 
 											<div className="collapse-expand-section-icon">
 												{isMoreMenuCollapsed ? (
@@ -1355,7 +1371,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 						className="periscope-btn cancel-btn secondary-btn"
 						icon={<X size={16} />}
 					>
-						Cancel
+						{t('cancel', 'Cancel')}
 					</Button>,
 					<Button
 						key="submit"
@@ -1364,7 +1380,7 @@ function SideNav({ isPinned }: { isPinned: boolean }): JSX.Element {
 						onClick={handleReorderShortcutNavItems}
 						data-testid="save-changes-btn"
 					>
-						Save Changes
+						{t('side_nav.save_changes', 'Save Changes')}
 					</Button>,
 				]}
 			>

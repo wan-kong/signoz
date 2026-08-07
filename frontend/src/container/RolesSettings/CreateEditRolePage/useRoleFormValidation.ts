@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import i18n from 'ReactI18';
 import { PermissionScope, ResourcePermissions } from '../types';
 
 interface UseRoleFormValidationResult {
@@ -29,7 +30,11 @@ export function useRoleFormValidation(): UseRoleFormValidationResult {
 
 			if (errors.size > 0) {
 				setValidationErrors(errors);
-				return 'Please add at least one selector for each "Only selected" permission.';
+				return i18n.t(
+					'role_form.only_selected_validation',
+					'Please add at least one selector for each "Only selected" permission.',
+					{ ns: 'organizationsettings' },
+				);
 			}
 
 			setValidationErrors(new Set());

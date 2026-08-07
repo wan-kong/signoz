@@ -30,7 +30,7 @@ function AuthHeader(): JSX.Element {
 				variant="solid"
 				color="none"
 			>
-				{t('buttons.get_help')}
+				{t('buttons.get_help', 'Get Help')}
 			</Button>
 		</header>
 	);

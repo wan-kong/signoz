@@ -1,13 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { RefreshCw } from '@signozhq/icons';
 import { SelectSimple } from '@signozhq/ui/select';
 import { refreshIntervalOptions } from 'container/TopNav/AutoRefreshV2/constants';
 
 import styles from './AutoRefresh.module.scss';
-
-const REFRESH_ITEMS = refreshIntervalOptions.map((option) => ({
-	value: option.key,
-	label: option.key === 'off' ? 'Off' : option.label,
-}));
 
 interface AutoRefreshProps {
 	value: string;
@@ -22,13 +18,22 @@ function AutoRefresh({
 	disabled = false,
 	onChange,
 }: AutoRefreshProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
+	const refreshItems = refreshIntervalOptions.map((option) => ({
+		value: option.key,
+		label:
+			option.key === 'off'
+				? t('dashboard_container.public_dashboard.off', 'Off')
+				: option.label,
+	}));
+
 	return (
 		<div className={styles.autoRefresh}>
 			<RefreshCw size={14} className={styles.icon} />
 			<SelectSimple
 				className={styles.select}
 				testId="public-dashboard-auto-refresh"
-				items={REFRESH_ITEMS}
+				items={refreshItems}
 				value={value}
 				disabled={disabled}
 				withPortal={false}

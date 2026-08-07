@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Button } from '@signozhq/ui/button';
 import { RadioGroup, RadioGroupItem } from '@signozhq/ui/radio-group';
@@ -22,6 +23,7 @@ function SourceSelector({
 	disableAuto = false,
 	onChange,
 }: SourceSelectorProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
 
 	const handleSourceChange = (value: 'auto' | 'override'): void => {
@@ -43,13 +45,13 @@ function SourceSelector({
 		<div className={cx(styles.drawerSection, styles.drawerSurface)}>
 			<div className={styles.drawerSurfaceHead}>
 				<Typography.Text weight="bold" size="base">
-					Source
+					{t('source_selector.title', 'Source')}
 				</Typography.Text>
 
 				{isReadOnly && (
 					<span className={styles.managedLabel} data-testid="drawer-managed-label">
 						<Lock size={12} />
-						Managed by SigNoz
+						{t('source_selector.managed_by_signoz', 'Managed by SigNoz')}
 					</span>
 				)}
 			</div>
@@ -64,11 +66,16 @@ function SourceSelector({
 					testId="drawer-source-auto"
 					disabled={disableAuto}
 				>
-					<div className={styles.sourceRadioTitle}>Auto-populated</div>
+					<div className={styles.sourceRadioTitle}>
+						{t('source_selector.auto_populated', 'Auto-populated')}
+					</div>
 					<div className={styles.sourceRadioDesc}>
 						{disableAuto
-							? 'Available once SigNoz has default pricing for this model.'
-							: 'Default pricing from SigNoz.'}
+							? t(
+									'source_selector.auto_disabled_desc',
+									'Available once SigNoz has default pricing for this model.',
+								)
+							: t('source_selector.auto_default_desc', 'Default pricing from SigNoz.')}
 					</div>
 				</RadioGroupItem>
 				<RadioGroupItem
@@ -76,17 +83,24 @@ function SourceSelector({
 					containerClassName={styles.sourceRadio}
 					testId="drawer-source-override"
 				>
-					<div className={styles.sourceRadioTitle}>User override</div>
+					<div className={styles.sourceRadioTitle}>
+						{t('source_selector.user_override', 'User override')}
+					</div>
 					<div className={styles.sourceRadioDesc}>
-						Custom pricing. Takes precedence.
+						{t('source_selector.override_desc', 'Custom pricing. Takes precedence.')}
 					</div>
 				</RadioGroupItem>
 			</RadioGroup>
 			{showResetConfirm && (
-				<div className={styles.resetConfirm} aria-label="Reset to default pricing">
+				<div
+					className={styles.resetConfirm}
+					aria-label={t('source_selector.reset_aria', 'Reset to default pricing')}
+				>
 					<p>
-						Reset to default pricing? Custom values will be discarded. It might take
-						24 hours for changes to take effect.
+						{t(
+							'source_selector.reset_confirm_message',
+							'Reset to default pricing? Custom values will be discarded. It might take 24 hours for changes to take effect.',
+						)}
 					</p>
 					<div className={styles.resetConfirmActions}>
 						<Button
@@ -95,7 +109,7 @@ function SourceSelector({
 							onClick={(): void => setShowResetConfirm(false)}
 							testId="drawer-reset-keep-btn"
 						>
-							Keep
+							{t('source_selector.keep', 'Keep')}
 						</Button>
 						<Button
 							variant="solid"
@@ -103,7 +117,7 @@ function SourceSelector({
 							onClick={confirmReset}
 							testId="drawer-reset-confirm-btn"
 						>
-							Reset
+							{t('source_selector.reset', 'Reset')}
 						</Button>
 					</div>
 				</div>

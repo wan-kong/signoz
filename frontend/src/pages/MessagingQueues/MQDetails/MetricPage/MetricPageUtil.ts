@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetWidgetQueryBuilderProps } from 'container/MetricsApplication/types';
 import { Widgets } from 'types/api/dashboard/getAll';
@@ -106,7 +107,9 @@ export const getRequestTimesWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Request Times',
+					legend: i18n.t('metric_page.request_times', 'Request Times', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -116,9 +119,14 @@ export const getRequestTimesWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Request Times',
-			description:
+			title: i18n.t('metric_page.request_times', 'Request Times', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.request_times_desc',
 				'This metric is used to measure the average latency experienced by requests across the Kafka broker.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -141,7 +149,9 @@ export const getBrokerCountWidgetData = (dotMetricsEnabled: boolean): Widgets =>
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Broker count',
+					legend: i18n.t('metric_page.broker_count_legend', 'Broker count', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -151,8 +161,14 @@ export const getBrokerCountWidgetData = (dotMetricsEnabled: boolean): Widgets =>
 					timeAggregation: 'sum',
 				},
 			],
-			title: 'Broker Count',
-			description: 'Total number of active brokers in the Kafka cluster.',
+			title: i18n.t('metric_page.broker_count', 'Broker Count', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.broker_count_desc',
+				'Total number of active brokers in the Kafka cluster.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -180,7 +196,11 @@ export const getProducerFetchRequestPurgatoryWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Producer and Fetch Request Purgatory',
+					legend: i18n.t(
+						'metric_page.producer_fetch_request_purgatory',
+						'Producer and Fetch Request Purgatory',
+						{ ns: 'messagingQueues' },
+					),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -190,9 +210,16 @@ export const getProducerFetchRequestPurgatoryWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Producer and Fetch Request Purgatory',
-			description:
+			title: i18n.t(
+				'metric_page.producer_fetch_request_purgatory',
+				'Producer and Fetch Request Purgatory',
+				{ ns: 'messagingQueues' },
+			),
+			description: i18n.t(
+				'metric_page.producer_fetch_request_purgatory_desc',
 				'Measures the number of requests that Kafka brokers have received but cannot immediately fulfill',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -224,7 +251,11 @@ export const getBrokerNetworkThroughputWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Broker Network Throughput',
+					legend: i18n.t(
+						'metric_page.broker_network_throughput',
+						'Broker Network Throughput',
+						{ ns: 'messagingQueues' },
+					),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -234,9 +265,16 @@ export const getBrokerNetworkThroughputWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Broker Network Throughput',
-			description:
+			title: i18n.t(
+				'metric_page.broker_network_throughput',
+				'Broker Network Throughput',
+				{ ns: 'messagingQueues' },
+			),
+			description: i18n.t(
+				'metric_page.broker_network_throughput_desc',
 				'Helps gauge the data throughput from the Kafka broker to consumer clients, focusing on the network usage associated with serving messages to consumers.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -266,7 +304,9 @@ export const getIoWaitTimeWidgetData = (dotMetricsEnabled: boolean): Widgets =>
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'I/O Wait Time',
+					legend: i18n.t('metric_page.io_wait_time', 'I/O Wait Time', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -276,9 +316,14 @@ export const getIoWaitTimeWidgetData = (dotMetricsEnabled: boolean): Widgets =>
 					timeAggregation: 'rate',
 				},
 			],
-			title: 'I/O Wait Time',
-			description:
+			title: i18n.t('metric_page.io_wait_time', 'I/O Wait Time', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.io_wait_time_desc',
 				'This metric measures the total time that producers are in an I/O wait state, indicating potential bottlenecks in data transmission from producers to Kafka brokers.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -309,7 +354,9 @@ export const getRequestResponseWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Request Rate',
+					legend: i18n.t('metric_page.request_rate_legend', 'Request Rate', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -339,7 +386,9 @@ export const getRequestResponseWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Response Rate',
+					legend: i18n.t('metric_page.response_rate_legend', 'Response Rate', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'B',
@@ -349,9 +398,18 @@ export const getRequestResponseWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Request and Response Rate',
-			description:
+			title: i18n.t(
+				'metric_page.request_response_rate',
+				'Request and Response Rate',
+				{
+					ns: 'messagingQueues',
+				},
+			),
+			description: i18n.t(
+				'metric_page.request_response_rate_desc',
 				"Indicates how many requests the producer is sending per second, reflecting the intensity of the producer's interaction with the Kafka cluster. Also, helps Kafka administrators gauge the responsiveness of brokers to producer requests.",
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -382,7 +440,13 @@ export const getAverageRequestLatencyWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Average Request Latency',
+					legend: i18n.t(
+						'metric_page.avg_request_latency',
+						'Average Request Latency',
+						{
+							ns: 'messagingQueues',
+						},
+					),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -392,9 +456,14 @@ export const getAverageRequestLatencyWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Average Request Latency',
-			description:
+			title: i18n.t('metric_page.avg_request_latency', 'Average Request Latency', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.avg_request_latency_desc',
 				'Helps Kafka administrators and developers understand the average latency experienced by producer requests.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -445,8 +514,11 @@ export const getKafkaProducerByteRateWidgetData = (
 			title: dotMetricsEnabled
 				? 'kafka.producer.byte_rate'
 				: 'kafka_producer_byte_rate',
-			description:
+			description: i18n.t(
+				'metric_page.producer_byte_rate_desc',
 				'Helps measure the data output rate from the producer, indicating the load a producer is placing on Kafka brokers.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -477,7 +549,9 @@ export const getBytesConsumedWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Bytes Consumed',
+					legend: i18n.t('metric_page.bytes_consumed', 'Bytes Consumed', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -488,9 +562,14 @@ export const getBytesConsumedWidgetData = (
 				},
 			],
 			// Use kebab-case title as requested
-			title: 'Bytes Consumed',
-			description:
+			title: i18n.t('metric_page.bytes_consumed', 'Bytes Consumed', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.bytes_consumed_desc',
 				'Helps Kafka administrators monitor the data consumption rate of a consumer group, showing how much data (in bytes) is being read from the Kafka cluster over time.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -550,9 +629,14 @@ export const getConsumerOffsetWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Consumer Offset',
-			description:
+			title: i18n.t('metric_page.consumer_offset', 'Consumer Offset', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.consumer_offset_desc',
 				'Current offset of each consumer group for each topic partition',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -600,8 +684,18 @@ export const getConsumerGroupMemberWidgetData = (
 					timeAggregation: 'sum',
 				},
 			],
-			title: 'Consumer Group Members',
-			description: 'Number of active users in each group',
+			title: i18n.t(
+				'metric_page.consumer_group_members',
+				'Consumer Group Members',
+				{
+					ns: 'messagingQueues',
+				},
+			),
+			description: i18n.t(
+				'metric_page.consumer_group_members_desc',
+				'Number of active users in each group',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -661,9 +755,14 @@ export const getConsumerLagByGroupWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Consumer Lag by Group',
-			description:
+			title: i18n.t('metric_page.consumer_lag_by_group', 'Consumer Lag by Group', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.consumer_lag_by_group_desc',
 				'Helps Kafka administrators assess whether consumer groups are keeping up with the incoming data stream or falling behind',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -711,9 +810,14 @@ export const getConsumerFetchRateWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Consumer Fetch Rate',
-			description:
+			title: i18n.t('metric_page.consumer_fetch_rate', 'Consumer Fetch Rate', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.consumer_fetch_rate_desc',
 				'Metric measures the rate at which fetch requests are made by a Kafka consumer to the broker, typically in requests per second.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -744,7 +848,9 @@ export const getMessagesConsumedWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'Messages Consumed',
+					legend: i18n.t('metric_page.messages_consumed', 'Messages Consumed', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -754,9 +860,14 @@ export const getMessagesConsumedWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Messages Consumed',
-			description:
+			title: i18n.t('metric_page.messages_consumed', 'Messages Consumed', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.messages_consumed_desc',
 				'Measures the rate at which a Kafka consumer is consuming records (messages) per second from Kafka brokers.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -785,7 +896,9 @@ export const getJvmGCCountWidgetData = (dotMetricsEnabled: boolean): Widgets =>
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'JVM GC Count',
+					legend: i18n.t('metric_page.jvm_gc_count', 'JVM GC Count', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -795,9 +908,14 @@ export const getJvmGCCountWidgetData = (dotMetricsEnabled: boolean): Widgets =>
 					timeAggregation: 'rate',
 				},
 			],
-			title: 'JVM GC Count',
-			description:
+			title: i18n.t('metric_page.jvm_gc_count', 'JVM GC Count', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.jvm_gc_count_desc',
 				'Tracks the total number of garbage collection (GC) events that have occurred in the Java Virtual Machine (JVM).',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -828,7 +946,9 @@ export const getJvmGcCollectionsElapsedWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'garbagecollector',
+					legend: i18n.t('metric_page.jvm_gc_elapsed_legend', 'garbagecollector', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -841,8 +961,11 @@ export const getJvmGcCollectionsElapsedWidgetData = (
 			title: dotMetricsEnabled
 				? 'jvm.gc.collections.elapsed'
 				: 'jvm_gc_collections_elapsed',
-			description:
+			description: i18n.t(
+				'metric_page.jvm_gc_elapsed_desc',
 				'Measures the total time (usually in milliseconds) spent on garbage collection (GC) events in the Java Virtual Machine (JVM).',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -873,7 +996,9 @@ export const getCpuRecentUtilizationWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'CPU utilization',
+					legend: i18n.t('metric_page.cpu_utilization_legend', 'CPU utilization', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -883,9 +1008,18 @@ export const getCpuRecentUtilizationWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'CPU Recent Utilization',
-			description:
+			title: i18n.t(
+				'metric_page.cpu_recent_utilization',
+				'CPU Recent Utilization',
+				{
+					ns: 'messagingQueues',
+				},
+			),
+			description: i18n.t(
+				'metric_page.cpu_recent_utilization_desc',
 				'This metric measures the recent CPU usage by the Java Virtual Machine (JVM), typically expressed as a percentage.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -912,7 +1046,9 @@ export const getJvmMemoryHeapWidgetData = (
 					functions: [],
 					groupBy: [],
 					having: [],
-					legend: 'JVM memory heap',
+					legend: i18n.t('metric_page.jvm_memory_heap', 'JVM memory heap', {
+						ns: 'messagingQueues',
+					}),
 					limit: null,
 					orderBy: [],
 					queryName: 'A',
@@ -922,9 +1058,14 @@ export const getJvmMemoryHeapWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'JVM memory heap',
-			description:
+			title: i18n.t('metric_page.jvm_memory_heap', 'JVM memory heap', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.jvm_memory_heap_desc',
 				'The metric represents the maximum amount of heap memory available to the Java Virtual Machine (JVM)',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -970,8 +1111,18 @@ export const getPartitionCountPerTopicWidgetData = (
 					timeAggregation: 'sum',
 				},
 			],
-			title: 'Partition Count per Topic',
-			description: 'Number of partitions for each topic',
+			title: i18n.t(
+				'metric_page.partition_count_per_topic',
+				'Partition Count per Topic',
+				{
+					ns: 'messagingQueues',
+				},
+			),
+			description: i18n.t(
+				'metric_page.partition_count_per_topic_desc',
+				'Number of partitions for each topic',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -1025,9 +1176,18 @@ export const getCurrentOffsetPartitionWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Current Offset ( Partition )',
-			description:
+			title: i18n.t(
+				'metric_page.current_offset_partition',
+				'Current Offset ( Partition )',
+				{
+					ns: 'messagingQueues',
+				},
+			),
+			description: i18n.t(
+				'metric_page.current_offset_partition_desc',
 				'Current offset of each partition, showing the latest position in each partition',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -1081,9 +1241,18 @@ export const getOldestOffsetWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'Oldest Offset (Partition)',
-			description:
+			title: i18n.t(
+				'metric_page.oldest_offset_partition',
+				'Oldest Offset (Partition)',
+				{
+					ns: 'messagingQueues',
+				},
+			),
+			description: i18n.t(
+				'metric_page.oldest_offset_partition_desc',
 				'Oldest offset of each partition to identify log retention and offset range.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);
 
@@ -1137,8 +1306,13 @@ export const getInsyncReplicasWidgetData = (
 					timeAggregation: 'avg',
 				},
 			],
-			title: 'In-Sync Replicas (ISR)',
-			description:
+			title: i18n.t('metric_page.insync_replicas', 'In-Sync Replicas (ISR)', {
+				ns: 'messagingQueues',
+			}),
+			description: i18n.t(
+				'metric_page.insync_replicas_desc',
 				'Count of in-sync replicas for each partition to ensure data availability.',
+				{ ns: 'messagingQueues' },
+			),
 		}),
 	);

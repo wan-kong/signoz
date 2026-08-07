@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Badge } from '@signozhq/ui/badge';
 
 import styles from './utils.module.scss';
@@ -45,7 +46,8 @@ export function getGroupByEl<
 	const meta = itemData.meta ?? {};
 
 	groupBy.forEach((key) => {
-		const value = meta[key] || '<no-value>';
+		const value =
+			meta[key] || i18n.t('no_value', '<no-value>', { ns: 'infraMonitoring' });
 
 		groupByValues.push(value);
 	});
@@ -59,7 +61,9 @@ export function getGroupByEl<
 					color="secondary"
 					className={styles.itemDataGroupTagItem}
 				>
-					{value === '' ? '<no-value>' : value}
+					{value === ''
+						? String(i18n.t('no_value', '<no-value>', { ns: 'infraMonitoring' }))
+						: value}
 				</Badge>
 			))}
 		</div>

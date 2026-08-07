@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Badge } from '@signozhq/ui/badge';
 import { SpantypesSpanMapperTestSpanDTO } from 'api/generated/services/sigNoz.schemas';
 import { useMemo } from 'react';
@@ -21,12 +22,12 @@ interface TestResultProps {
 const STATUS_BADGE: Partial<
 	Record<
 		AttrChangeStatus,
-		{ color: 'success' | 'robin' | 'sienna'; label: string }
+		{ color: 'success' | 'robin' | 'sienna'; labelKey: string; label: string }
 	>
 > = {
-	added: { color: 'success', label: 'populated' },
-	changed: { color: 'robin', label: 'remapped' },
-	removed: { color: 'sienna', label: 'moved out' },
+	added: { color: 'success', labelKey: 'badge_populated', label: 'populated' },
+	changed: { color: 'robin', labelKey: 'badge_remapped', label: 'remapped' },
+	removed: { color: 'sienna', labelKey: 'badge_moved_out', label: 'moved out' },
 };
 
 const ROW_CLASS: Partial<Record<AttrChangeStatus, string>> = {
@@ -46,6 +47,8 @@ function TestResult({
 	inputAttributes,
 	inputResource,
 }: TestResultProps): JSX.Element {
+	const { t } = useTranslation('llm');
+
 	const attributeEntries = useMemo(
 		() => diffAttributeMaps(inputAttributes, span.attributes ?? {}),
 		[inputAttributes, span.attributes],
@@ -58,14 +61,14 @@ function TestResult({
 	const sections: ResultSection[] = [
 		{
 			key: 'attributes',
-			title: 'Resulting attributes',
+			title: t('test_tab.resulting_attributes', 'Resulting attributes'),
 			entries: attributeEntries,
 		},
 	];
 	if (resourceEntries.length > 0) {
 		sections.push({
 			key: 'resource',
-			title: 'Resulting resource',
+			title: t('test_tab.resulting_resource', 'Resulting resource'),
 			entries: resourceEntries,
 		});
 	}
@@ -81,7 +84,9 @@ function TestResult({
 					<div className={styles.resultTitle}>{section.title}</div>
 
 					{section.entries.length === 0 ? (
-						<div className={styles.resultEmpty}>No keys in this map.</div>
+						<div className={styles.resultEmpty}>
+							{t('test_tab.no_keys_in_map', 'No keys in this map.')}
+						</div>
 					) : (
 						<div className={styles.attrRows}>
 							{section.entries.map((entry) => {
@@ -102,7 +107,7 @@ function TestResult({
 										</span>
 										{badge ? (
 											<Badge color={badge.color} variant="outline">
-												{badge.label}
+												{t(`test_tab.${badge.labelKey}`, badge.label)}
 											</Badge>
 										) : (
 											<span />

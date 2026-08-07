@@ -8,5 +8,9 @@
 	"delete_view_title": "删除视图",
 	"delete_view_button": "删除视图",
 	"edit_view_details": "编辑视图详情",
-	"label": "标签"
+	"label": "标签",
+	"explorer_options": {
+		"clear_this_view": "清除此视图",
+		"update_this_view": "更新此视图"
+	}
 }

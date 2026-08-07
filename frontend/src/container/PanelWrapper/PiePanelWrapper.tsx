@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo, useRef, useState } from 'react';
 import { Color } from '@signozhq/design-tokens';
 import { Group } from '@visx/group';
@@ -22,6 +23,7 @@ function PiePanelWrapper({
 	widget,
 	enableDrillDown = false,
 }: PanelWrapperProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const [active, setActive] = useState<{
 		label: string;
 		value: string;
@@ -152,7 +154,11 @@ function PiePanelWrapper({
 
 	return (
 		<div className="piechart-wrapper">
-			{!pieChartData.length && <div className="piechart-no-data">No data</div>}
+			{!pieChartData.length && (
+				<div className="piechart-no-data">
+					{t('dashboard_container.visualization.no_data')}
+				</div>
+			)}
 			{pieChartData.length > 0 && (
 				<>
 					<div className="piechart-container" ref={chartRef}>

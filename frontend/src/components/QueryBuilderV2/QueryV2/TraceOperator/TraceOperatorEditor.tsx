@@ -2,6 +2,7 @@
 /* eslint-disable sonarjs/no-identical-functions */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	autocompletion,
 	closeCompletion,
@@ -71,10 +72,14 @@ function TraceOperatorEditor({
 	value,
 	onChange,
 	traceOperator,
-	placeholder = 'Enter your trace operator query',
+	placeholder,
 	onRun,
 }: TraceOperatorEditorProps): JSX.Element {
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('query_builder');
+	const placeholderText =
+		placeholder ??
+		t('trace_operator.placeholder', 'Enter your trace operator query');
 	const [isFocused, setIsFocused] = useState(false);
 	const [cursorPos, setCursorPos] = useState({ line: 0, ch: 0 });
 	const editorRef = useRef<EditorView | null>(null);
@@ -125,7 +130,10 @@ function TraceOperatorEditor({
 		} catch (error) {
 			setValidation({
 				isValid: false,
-				message: 'Failed to process trace operator',
+				message: t(
+					'trace_operator.failed_to_process',
+					'Failed to process trace operator',
+				),
 				errors: [error as IDetailedError],
 			});
 		}
@@ -426,7 +434,7 @@ function TraceOperatorEditor({
 							]),
 						),
 					]}
-					placeholder={placeholder}
+					placeholder={placeholderText}
 					basicSetup={{
 						lineNumbers: false,
 					}}
@@ -486,7 +494,6 @@ function TraceOperatorEditor({
 
 TraceOperatorEditor.defaultProps = {
 	onRun: undefined,
-	placeholder: 'Enter your trace operator query',
 };
 
 export default TraceOperatorEditor;

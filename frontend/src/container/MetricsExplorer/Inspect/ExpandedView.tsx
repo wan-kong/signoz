@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/no-identical-functions */
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import type { TableColumnsType as ColumnsType } from 'antd';
 import { Card, Tooltip } from 'antd';
@@ -35,6 +36,7 @@ function ExpandedView({
 	metricInspectionAppliedOptions,
 	timeAggregatedSeriesMap,
 }: ExpandedViewProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [selectedTimeSeries, setSelectedTimeSeries] =
 		useState<InspectMetricsSeries | null>(null);
 
@@ -125,7 +127,7 @@ function ExpandedView({
 	const columns: ColumnsType<DataType> = useMemo(
 		() => [
 			{
-				title: 'Label',
+				title: t('metrics_explorer_inspect.label', 'Label'),
 				dataIndex: 'label',
 				key: 'label',
 				width: 50,
@@ -133,7 +135,7 @@ function ExpandedView({
 				className: 'labels-key',
 			},
 			{
-				title: 'Value',
+				title: t('metrics_explorer_inspect.value', 'Value'),
 				dataIndex: 'value',
 				key: 'value',
 				width: 50,
@@ -142,7 +144,7 @@ function ExpandedView({
 				className: 'labels-value',
 			},
 		],
-		[],
+		[t],
 	);
 
 	return (
@@ -150,7 +152,9 @@ function ExpandedView({
 			<div className="expanded-view-header">
 				<Typography.Title level={5}>
 					<Focus size={16} color={Color.BG_VANILLA_100} />
-					<div>POINT INSPECTOR</div>
+					<div>
+						{t('metrics_explorer_inspect.point_inspector', 'POINT INSPECTOR')}
+					</div>
 				</Typography.Title>
 			</div>
 			{/* Show only when space aggregation is completed */}
@@ -163,12 +167,18 @@ function ExpandedView({
 								{formatTimestampToFullDateTime(options?.timestamp ?? 0)}
 							</Typography.Text>
 							<Typography.Text strong>
-								{`${absoluteValue} is the ${
-									SPACE_AGGREGATION_OPTIONS_FOR_EXPANDED_VIEW[
-										metricInspectionAppliedOptions.spaceAggregationOption ??
-											SpaceAggregationOptions.SUM_BY
-									]
-								} of`}
+								{t(
+									'metrics_explorer_inspect.is_the_of',
+									'{{value}} is the {{aggregation}} of',
+									{
+										value: absoluteValue,
+										aggregation:
+											SPACE_AGGREGATION_OPTIONS_FOR_EXPANDED_VIEW[
+												metricInspectionAppliedOptions.spaceAggregationOption ??
+													SpaceAggregationOptions.SUM_BY
+											],
+									},
+								)}
 							</Typography.Text>
 						</div>
 
@@ -176,7 +186,7 @@ function ExpandedView({
 						<div className="graph-popover-section">
 							<div className="graph-popover-row">
 								<Typography.Text className="graph-popover-row-label">
-									VALUES
+									{t('metrics_explorer_inspect.values', 'VALUES')}
 								</Typography.Text>
 								<div className="graph-popover-inner-row">
 									{spaceAggregatedData?.map(({ value, title, timestamp }) => (
@@ -190,7 +200,7 @@ function ExpandedView({
 							</div>
 							<div className="graph-popover-row">
 								<Typography.Text className="graph-popover-row-label">
-									TIME SERIES
+									{t('metrics_explorer_inspect.time_series', 'TIME SERIES')}
 								</Typography.Text>
 								<div className="graph-popover-inner-row">
 									{spaceAggregatedData?.map(({ title, timeSeries }) => (
@@ -232,16 +242,21 @@ function ExpandedView({
 							)}
 							<Typography.Text strong>
 								{step === InspectionStep.COMPLETED
-									? `${
-											selectedTimeSeries?.values.find(
-												(value) => value?.timestamp >= (options?.timestamp || 0),
-											)?.value ?? options?.value
-										} is the ${
-											TIME_AGGREGATION_OPTIONS[
-												metricInspectionAppliedOptions.timeAggregationOption ??
-													TimeAggregationOptions.SUM
-											]
-										} of`
+									? t(
+											'metrics_explorer_inspect.is_the_of',
+											'{{value}} is the {{aggregation}} of',
+											{
+												value:
+													selectedTimeSeries?.values.find(
+														(value) => value?.timestamp >= (options?.timestamp || 0),
+													)?.value ?? options?.value,
+												aggregation:
+													TIME_AGGREGATION_OPTIONS[
+														metricInspectionAppliedOptions.timeAggregationOption ??
+															TimeAggregationOptions.SUM
+													],
+											},
+										)
 									: (selectedTimeSeries?.values.find(
 											(value) => value?.timestamp >= (options?.timestamp || 0),
 										)?.value ?? options?.value)}
@@ -252,7 +267,7 @@ function ExpandedView({
 						<div className="graph-popover-section">
 							<div className="graph-popover-row">
 								<Typography.Text className="graph-popover-row-label">
-									RAW VALUES
+									{t('metrics_explorer_inspect.raw_values', 'RAW VALUES')}
 								</Typography.Text>
 								<div className="graph-popover-inner-row">
 									{rawData?.map(({ value: rawValue, timestamp, title }) => (
@@ -266,7 +281,7 @@ function ExpandedView({
 							</div>
 							<div className="graph-popover-row">
 								<Typography.Text className="graph-popover-row-label">
-									TIMESTAMPS
+									{t('metrics_explorer_inspect.timestamps', 'TIMESTAMPS')}
 								</Typography.Text>
 								<div className="graph-popover-inner-row">
 									{rawData?.map(({ timestamp }) => (
@@ -295,12 +310,18 @@ function ExpandedView({
 								{formatTimestampToFullDateTime(options?.timestamp ?? 0)}
 							</Typography.Text>
 							<Typography.Text strong>
-								{`${absoluteValue} is the ${
-									TIME_AGGREGATION_OPTIONS[
-										metricInspectionAppliedOptions.timeAggregationOption ??
-											TimeAggregationOptions.SUM
-									]
-								} of`}
+								{t(
+									'metrics_explorer_inspect.is_the_of',
+									'{{value}} is the {{aggregation}} of',
+									{
+										value: absoluteValue,
+										aggregation:
+											TIME_AGGREGATION_OPTIONS[
+												metricInspectionAppliedOptions.timeAggregationOption ??
+													TimeAggregationOptions.SUM
+											],
+									},
+								)}
 							</Typography.Text>
 						</div>
 
@@ -308,7 +329,7 @@ function ExpandedView({
 						<div className="graph-popover-section">
 							<div className="graph-popover-row">
 								<Typography.Text className="graph-popover-row-label">
-									RAW VALUES
+									{t('metrics_explorer_inspect.raw_values', 'RAW VALUES')}
 								</Typography.Text>
 								<div className="graph-popover-inner-row">
 									{timeAggregatedData?.map(({ value, title, timestamp }) => (
@@ -322,7 +343,7 @@ function ExpandedView({
 							</div>
 							<div className="graph-popover-row">
 								<Typography.Text className="graph-popover-row-label">
-									TIMESTAMPS
+									{t('metrics_explorer_inspect.timestamps', 'TIMESTAMPS')}
 								</Typography.Text>
 								<div className="graph-popover-inner-row">
 									{timeAggregatedData?.map(({ timestamp }) => (
@@ -344,9 +365,11 @@ function ExpandedView({
 			{/* Labels */}
 			{selectedTimeSeries && (
 				<>
-					<Typography.Title
-						level={5}
-					>{`${selectedTimeSeries?.title} Labels`}</Typography.Title>
+					<Typography.Title level={5}>
+						{t('metrics_explorer_inspect.labels_suffix', '{{title}} Labels', {
+							title: selectedTimeSeries?.title,
+						})}
+					</Typography.Title>
 					<ResizeTable
 						columns={columns}
 						tableLayout="fixed"

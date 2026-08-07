@@ -1,4 +1,5 @@
 import { Fragment, memo, ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Col, Row } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
@@ -15,6 +16,8 @@ export const AdditionalFiltersToggler = memo(function AdditionalFiltersToggler({
 	children,
 	listOfAdditionalFilter,
 }: AdditionalFiltersProps): JSX.Element {
+	const { t } = useTranslation('query_builder');
+
 	const [isOpenedFilters, setIsOpenedFilters] = useState<boolean>(false);
 
 	const handleToggleOpenFilters = (): void => {
@@ -27,7 +30,7 @@ export const AdditionalFiltersToggler = memo(function AdditionalFiltersToggler({
 		if (index === listOfAdditionalFilter.length - 1) {
 			return (
 				<Fragment key={str}>
-					{listOfAdditionalFilter?.length > 1 && 'and'}{' '}
+					{listOfAdditionalFilter?.length > 1 && t('additional_filters.and', 'and')}{' '}
 					<StyledLink>{str.toUpperCase()}</StyledLink>
 				</Fragment>
 			);
@@ -56,7 +59,13 @@ export const AdditionalFiltersToggler = memo(function AdditionalFiltersToggler({
 					)}
 
 					{!isOpenedFilters && (
-						<Typography>Add conditions for {filtersTexts}</Typography>
+						<Typography>
+							{t(
+								'additional_filters.add_conditions_for',
+								'Add conditions for {{filters}}',
+								{ filters: filtersTexts },
+							)}
+						</Typography>
 					)}
 				</StyledInner>
 			</Col>

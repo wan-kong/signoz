@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { OperatorValues } from 'types/reducer/trace';
 
 export const OperatorConversions: Array<{
@@ -6,7 +7,7 @@ export const OperatorConversions: Array<{
 	traceValue: OperatorValues;
 }> = [
 	{
-		label: 'IN',
+		label: i18n.t('constants.operator_in', 'IN', { ns: 'common' }),
 		metricValue: '=~',
 		traceValue: 'In',
 	},

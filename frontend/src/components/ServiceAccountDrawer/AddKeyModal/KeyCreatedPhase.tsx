@@ -22,7 +22,9 @@ function KeyCreatedPhase({
 	return (
 		<div className="add-key-modal__form">
 			<div className="add-key-modal__field">
-				<span className="add-key-modal__label">Key</span>
+				<span className="add-key-modal__label">
+					{t('sa_add_key.key_label', 'Key')}
+				</span>
 				<div className="add-key-modal__key-display">
 					<span className="add-key-modal__key-text">{createdKey.key}</span>
 					<Button
@@ -38,7 +40,7 @@ function KeyCreatedPhase({
 
 			<div className="add-key-modal__expiry-meta">
 				<span className="add-key-modal__expiry-label">
-					{t('sa_add_key.expiration')}
+					{t('sa_add_key.expiration', 'Expiration')}
 				</span>
 				<Badge color="vanilla">{expiryLabel}</Badge>
 			</div>
@@ -47,7 +49,10 @@ function KeyCreatedPhase({
 				<Callout
 					type="info"
 					showIcon
-					title={t('sa_add_key.secure_storage_warning')}
+					title={t(
+						'sa_add_key.secure_storage_warning',
+						'Store the key securely. This is the only time it will be displayed.',
+					)}
 				/>
 			</div>
 		</div>

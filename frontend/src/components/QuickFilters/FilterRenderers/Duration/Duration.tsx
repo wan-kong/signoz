@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Collapse } from 'antd';
 import {
@@ -36,6 +37,8 @@ function Duration({
 	onFilterChange?: (query: Query) => void;
 	source?: QuickFiltersSource;
 }): JSX.Element {
+	const { t } = useTranslation('quick_filters');
+
 	const [selectedFilters, setSelectedFilters] =
 		useState<
 			Record<
@@ -293,7 +296,7 @@ function Duration({
 								selectedFilters={selectedFilters}
 							/>
 						),
-						label: 'Duration',
+						label: t('duration_filter.title', 'Duration'),
 					},
 				]}
 			/>
@@ -303,7 +306,7 @@ function Duration({
 					onClick={onClearHandler}
 					data-testid="collapse-duration-clearBtn"
 				>
-					Clear All
+					{t('duration_filter.clear_all', 'Clear All')}
 				</Button>
 			)}
 		</div>

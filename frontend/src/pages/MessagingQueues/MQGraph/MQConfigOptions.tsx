@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useCopyToClipboard } from 'react-use';
 import { Color } from '@signozhq/design-tokens';
@@ -18,19 +19,6 @@ import { useGetAllConfigOptions } from './useGetAllConfigOptions';
 import './MQConfigOptions.styles.scss';
 
 type ConfigOptionType = 'group' | 'topic' | 'partition';
-
-const getPlaceholder = (type: ConfigOptionType): string => {
-	switch (type) {
-		case 'group':
-			return 'Consumer Groups';
-		case 'topic':
-			return 'Topics';
-		case 'partition':
-			return 'Partitions';
-		default:
-			return '';
-	}
-};
 
 const useConfigOptions = (
 	type: ConfigOptionType,
@@ -85,6 +73,7 @@ function getConfigValuesFromQueryParams(
 }
 
 function MessagingQueuesConfigOptions(): JSX.Element {
+	const { t } = useTranslation('messagingQueues');
 	const urlQuery = useUrlQuery();
 	const location = useLocation();
 	const history = useHistory();
@@ -119,7 +108,7 @@ function MessagingQueuesConfigOptions(): JSX.Element {
 		<div className="mq-config">
 			<div className="config-options">
 				<Select
-					placeholder={getPlaceholder('group')}
+					placeholder={t('mq_config.consumer_groups', 'Consumer Groups')}
 					showSearch
 					mode="multiple"
 					options={consumerGrpOptions}
@@ -134,10 +123,12 @@ function MessagingQueuesConfigOptions(): JSX.Element {
 					notFoundContent={
 						isFetchingConsumerGrp ? (
 							<span>
-								<Spin size="small" /> Loading...
+								<Spin size="small" /> {t('mq_config.loading', 'Loading...')}
 							</span>
 						) : (
-							<span>No Consumer Groups found</span>
+							<span>
+								{t('mq_config.no_consumer_groups_found', 'No Consumer Groups found')}
+							</span>
 						)
 					}
 					onChange={(value): void => {
@@ -153,7 +144,7 @@ function MessagingQueuesConfigOptions(): JSX.Element {
 					}}
 				/>
 				<Select
-					placeholder={getPlaceholder('topic')}
+					placeholder={t('mq_config.topics', 'Topics')}
 					showSearch
 					mode="multiple"
 					options={topicOptions}
@@ -166,10 +157,10 @@ function MessagingQueuesConfigOptions(): JSX.Element {
 					notFoundContent={
 						isFetchingTopic ? (
 							<span>
-								<Spin size="small" /> Loading...
+								<Spin size="small" /> {t('mq_config.loading', 'Loading...')}
 							</span>
 						) : (
-							<span>No Topics found</span>
+							<span>{t('mq_config.no_topics_found', 'No Topics found')}</span>
 						)
 					}
 					onChange={(value): void => {
@@ -185,7 +176,7 @@ function MessagingQueuesConfigOptions(): JSX.Element {
 					}}
 				/>
 				<Select
-					placeholder={getPlaceholder('partition')}
+					placeholder={t('mq_config.partitions', 'Partitions')}
 					showSearch
 					mode="multiple"
 					options={partitionOptions}
@@ -200,10 +191,10 @@ function MessagingQueuesConfigOptions(): JSX.Element {
 					notFoundContent={
 						isFetchingPartition ? (
 							<span>
-								<Spin size="small" /> Loading...
+								<Spin size="small" /> {t('mq_config.loading', 'Loading...')}
 							</span>
 						) : (
-							<span>No Partitions found</span>
+							<span>{t('mq_config.no_partitions_found', 'No Partitions found')}</span>
 						)
 					}
 					onChange={(value): void => {
@@ -219,7 +210,7 @@ function MessagingQueuesConfigOptions(): JSX.Element {
 					}}
 				/>
 			</div>
-			<Tooltip title="Share This" arrow={false}>
+			<Tooltip title={t('mq_config.share_this', 'Share This')} arrow={false}>
 				<Button
 					className="periscope-btn copy-url-btn"
 					onClick={(): void => {

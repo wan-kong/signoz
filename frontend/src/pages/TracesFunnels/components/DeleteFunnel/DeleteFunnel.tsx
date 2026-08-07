@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import SignozModal from 'components/SignozModal/SignozModal';
@@ -29,6 +30,7 @@ function DeleteFunnel({
 	const deleteFunnelMutation = useDeleteFunnel();
 	const { notifications } = useNotifications();
 	const queryClient = useQueryClient();
+	const { t } = useTranslation('trace');
 
 	const history = useHistory();
 	const { pathname } = history.location;
@@ -47,7 +49,7 @@ function DeleteFunnel({
 			{
 				onSuccess: () => {
 					notifications.success({
-						message: 'Funnel deleted successfully',
+						message: t('delete_funnel.delete_success', 'Funnel deleted successfully'),
 					});
 					clearLocalStorageSavedSteps();
 					onClose();
@@ -63,7 +65,7 @@ function DeleteFunnel({
 				},
 				onError: () => {
 					notifications.error({
-						message: 'Failed to delete funnel',
+						message: t('delete_funnel.delete_failed', 'Failed to delete funnel'),
 					});
 				},
 			},
@@ -77,12 +79,12 @@ function DeleteFunnel({
 	return (
 		<SignozModal
 			open={isOpen}
-			title="Delete this funnel"
+			title={t('delete_funnel.title', 'Delete this funnel')}
 			width={390}
 			onCancel={handleCancel}
 			rootClassName="funnel-modal delete-funnel-modal"
-			cancelText="Cancel"
-			okText="Delete Funnel"
+			cancelText={t('delete_funnel.cancel_text', 'Cancel')}
+			okText={t('delete_funnel.ok_text', 'Delete Funnel')}
 			okButtonProps={{
 				icon: <Trash2 size={14} />,
 				loading: deleteFunnelMutation.isLoading,
@@ -99,8 +101,10 @@ function DeleteFunnel({
 			destroyOnClose
 		>
 			<div className="delete-funnel-modal-content">
-				Deleting the funnel would stop further analytics using this funnel. This is
-				irreversible and cannot be undone.
+				{t(
+					'delete_funnel.content',
+					'Deleting the funnel would stop further analytics using this funnel. This is irreversible and cannot be undone.',
+				)}
 			</div>
 		</SignozModal>
 	);

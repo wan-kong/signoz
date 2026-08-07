@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCopyToClipboard } from 'react-use';
 import MEditor from '@monaco-editor/react';
 import { Color } from '@signozhq/design-tokens';
@@ -25,6 +26,7 @@ function ReadOnlyJsonViewer({
 	permissions,
 }: ReadOnlyJsonViewerProps): JSX.Element {
 	const isDarkMode = useIsDarkMode();
+	const { t } = useTranslation('organizationsettings');
 	const [copyState, copyToClipboard] = useCopyToClipboard();
 	const [copied, setCopied] = useState(false);
 
@@ -57,7 +59,9 @@ function ReadOnlyJsonViewer({
 			data-testid="read-only-json-viewer"
 		>
 			<div className={styles.editorContainer}>
-				<TooltipSimple title={copied ? 'Copied!' : 'Copy JSON'}>
+				<TooltipSimple
+					title={copied ? t('role_view_copied') : t('role_view_copy_json')}
+				>
 					<Button
 						variant="ghost"
 						size="sm"

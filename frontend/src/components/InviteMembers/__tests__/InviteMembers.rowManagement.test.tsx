@@ -31,7 +31,7 @@ describe('InviteMembers - Row Management', () => {
 
 		render(<InviteMembers initialRowCount={3} />);
 
-		const removeButtons = screen.getAllByRole('button', { name: /remove row/i });
+		const removeButtons = screen.getAllByRole('button', { name: /remove/i });
 		expect(removeButtons).toHaveLength(3);
 
 		await user.click(removeButtons[0]);
@@ -44,21 +44,17 @@ describe('InviteMembers - Row Management', () => {
 
 		render(<InviteMembers initialRowCount={2} minRows={2} />);
 
-		expect(screen.queryAllByRole('button', { name: /remove row/i })).toHaveLength(
-			0,
-		);
+		expect(screen.queryAllByRole('button', { name: /remove/i })).toHaveLength(0);
 
 		await user.click(screen.getByRole('button', { name: /add another/i }));
 
-		const removeButtons = screen.getAllByRole('button', { name: /remove row/i });
+		const removeButtons = screen.getAllByRole('button', { name: /remove/i });
 		expect(removeButtons).toHaveLength(3);
 
 		await user.click(removeButtons[0]);
 
 		expect(screen.getAllByPlaceholderText('e.g. john@signoz.io')).toHaveLength(2);
-		expect(screen.queryAllByRole('button', { name: /remove row/i })).toHaveLength(
-			0,
-		);
+		expect(screen.queryAllByRole('button', { name: /remove/i })).toHaveLength(0);
 	});
 
 	it('cannot remove rows below minRows=1 default', async () => {
@@ -66,13 +62,11 @@ describe('InviteMembers - Row Management', () => {
 
 		render(<InviteMembers initialRowCount={2} />);
 
-		const removeButtons = screen.getAllByRole('button', { name: /remove row/i });
+		const removeButtons = screen.getAllByRole('button', { name: /remove/i });
 		await user.click(removeButtons[0]);
 
 		expect(screen.getAllByPlaceholderText('e.g. john@signoz.io')).toHaveLength(1);
-		expect(screen.queryAllByRole('button', { name: /remove row/i })).toHaveLength(
-			0,
-		);
+		expect(screen.queryAllByRole('button', { name: /remove/i })).toHaveLength(0);
 	});
 
 	it('preserves data in other rows when removing one', async () => {
@@ -84,7 +78,7 @@ describe('InviteMembers - Row Management', () => {
 		await user.type(emailInputs[0], 'first@signoz.io');
 		await user.type(emailInputs[2], 'third@signoz.io');
 
-		const removeButtons = screen.getAllByRole('button', { name: /remove row/i });
+		const removeButtons = screen.getAllByRole('button', { name: /remove/i });
 		await user.click(removeButtons[1]);
 
 		const remainingInputs = screen.getAllByPlaceholderText('e.g. john@signoz.io');

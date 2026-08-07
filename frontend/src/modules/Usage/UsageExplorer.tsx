@@ -1,6 +1,8 @@
 //@ts-nocheck
 
 import { useEffect, useState } from 'react';
+import i18n from 'ReactI18';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line no-restricted-imports
 import { connect, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -36,33 +38,37 @@ interface UsageExplorerProps {
 	totalCount: number;
 }
 const timeDaysOptions = [
-	{ value: 30, label: 'Last 30 Days' },
-	{ value: 7, label: 'Last week' },
-	{ value: 1, label: 'Last day' },
+	{
+		value: 30,
+		label: i18n.t('usage.last_30_days', 'Last 30 Days', { ns: 'common' }),
+	},
+	{ value: 7, label: i18n.t('usage.last_week', 'Last week', { ns: 'common' }) },
+	{ value: 1, label: i18n.t('usage.last_day', 'Last day', { ns: 'common' }) },
 ];
 
 const interval = [
 	{
 		value: 604800,
 		chartDivideMultiplier: 1,
-		label: 'Weekly',
+		label: i18n.t('usage.weekly', 'Weekly', { ns: 'common' }),
 		applicableOn: [timeDaysOptions[0]],
 	},
 	{
 		value: 86400,
 		chartDivideMultiplier: 30,
-		label: 'Daily',
+		label: i18n.t('usage.daily', 'Daily', { ns: 'common' }),
 		applicableOn: [timeDaysOptions[0], timeDaysOptions[1]],
 	},
 	{
 		value: 3600,
 		chartDivideMultiplier: 10,
-		label: 'Hours',
+		label: i18n.t('usage.hours', 'Hours', { ns: 'common' }),
 		applicableOn: [timeDaysOptions[2], timeDaysOptions[1]],
 	},
 ];
 
 function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [selectedTime, setSelectedTime] = useState(timeDaysOptions[1]);
 	const [selectedInterval, setSelectedInterval] = useState(interval[2]);
 	const [selectedService, setSelectedService] = useState<string>('');
@@ -95,7 +101,7 @@ function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
 		labels: usageData.map((s) => new Date(s.timestamp / 1000000)),
 		datasets: [
 			{
-				label: 'Span Count',
+				label: t('usage.span_count', 'Span Count'),
 				data: usageData.map((s) => s.count),
 				backgroundColor: 'rgba(255, 99, 132, 0.2)',
 				borderColor: 'rgba(255, 99, 132, 1)',
@@ -148,9 +154,9 @@ function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
 						onSelect={(value): void => {
 							setSelectedService(value);
 						}}
-						value={selectedService || 'All Services'}
+						value={selectedService || t('usage.all_services', 'All Services')}
 					>
-						<Option value="">All Services</Option>
+						<Option value="">{t('usage.all_services', 'All Services')}</Option>
 						{services?.map((service) => (
 							<Option key={service.serviceName} value={service.serviceName}>
 								{service.serviceName}
@@ -169,21 +175,26 @@ function _UsageExplorer(props: UsageExplorerProps): JSX.Element {
 						}}
 					>
 						<Typography>
-							No spans found. Please add instrumentation (follow this
+							{t(
+								'usage.no_spans_found',
+								'No spans found. Please add instrumentation (follow this',
+							)}
 							<a
 								href="https://signoz.io/docs/instrumentation/overview"
 								target="_blank"
 								style={{ marginLeft: 3 }}
 								rel="noreferrer"
 							>
-								guide
+								{t('usage.guide', 'guide')}
 							</a>
 							)
 						</Typography>
 					</Space>
 				) : (
 					<Space style={{ display: 'block', marginLeft: 20, width: 200 }}>
-						<Typography>{`Total count is ${totalCount}`}</Typography>
+						<Typography>
+							{t('usage.total_count', 'Total count is {{totalCount}}', { totalCount })}
+						</Typography>
 					</Space>
 				)}
 			</Space>

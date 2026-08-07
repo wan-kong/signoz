@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import { ExecStats } from 'api/v5/v5';
 import { Timezone } from 'components/CustomTimePicker/timezoneUtils';
@@ -146,7 +147,9 @@ export const getThresholds = (
 				selectedGraph: PANEL_TYPES.TIME_SERIES, // no impact
 				thresholdValue: threshold.recoveryThresholdValue,
 				thresholdLabel: threshold.label
-					? `${threshold.label} (Recovery)`
+					? `${threshold.label} (${i18n.t('chart_preview.recovery', 'Recovery', {
+							ns: 'create_alert',
+						})})`
 					: `${defaultThresholdLabel} (y=${getThresholdLabel(
 							optionName,
 							threshold.thresholdValue,

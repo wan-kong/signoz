@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { useEffect, useRef, useState } from 'react';
 import { SpantypesFlamegraphSpanDTO as FlamegraphSpan } from 'api/generated/services/sigNoz.schemas';
 
@@ -77,7 +78,14 @@ export function useVisualLayoutWorker(spans: FlamegraphSpan[][]): {
 				setLayout(e.data.layout);
 			} else {
 				setError(
-					new Error(e.data.message || 'Flamegraph layout computation failed'),
+					new Error(
+						e.data.message ||
+							i18n.t(
+								'trace_flamegraph.layout_computation_failed',
+								'Flamegraph layout computation failed',
+								{ ns: 'traceDetails' },
+							),
+					),
 				);
 			}
 			setIsComputing(false);
@@ -89,7 +97,16 @@ export function useVisualLayoutWorker(spans: FlamegraphSpan[][]): {
 			if (requestIdRef.current === currentId) {
 				setIsComputing(false);
 				isComputingRef.current = false;
-				setError(new Error(e.message || 'Flamegraph layout worker failed'));
+				setError(
+					new Error(
+						e.message ||
+							i18n.t(
+								'trace_flamegraph.layout_worker_failed',
+								'Flamegraph layout worker failed',
+								{ ns: 'traceDetails' },
+							),
+					),
+				);
 			}
 			cleanup();
 		};
@@ -102,7 +119,15 @@ export function useVisualLayoutWorker(spans: FlamegraphSpan[][]): {
 				workerRef.current = null;
 				setIsComputing(false);
 				isComputingRef.current = false;
-				setError(new Error('Flamegraph layout computation timed out'));
+				setError(
+					new Error(
+						i18n.t(
+							'trace_flamegraph.layout_computation_timed_out',
+							'Flamegraph layout computation timed out',
+							{ ns: 'traceDetails' },
+						),
+					),
+				);
 			}
 		}, WORKER_TIMEOUT_MS);
 

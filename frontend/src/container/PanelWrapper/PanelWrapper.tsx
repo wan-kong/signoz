@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { FC, useMemo } from 'react';
 import Spinner from 'components/Spinner';
 import { BaseAutocompleteData } from 'types/api/queryBuilder/queryAutocompleteResponse';
@@ -28,6 +29,7 @@ function PanelWrapper({
 	onColumnWidthsChange,
 	hidePagination,
 }: PanelWrapperProps): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const Component = PanelTypeVsPanelWrapper[
 		selectedGraph || widget.panelTypes
 	] as FC<PanelWrapperProps>;
@@ -51,7 +53,13 @@ function PanelWrapper({
 	}
 
 	if (queryResponse.isFetching || queryResponse.isLoading) {
-		return <Spinner height="100%" size="large" tip="Loading..." />;
+		return (
+			<Spinner
+				height="100%"
+				size="large"
+				tip={t('panel_wrapper.loading', 'Loading...')}
+			/>
+		);
 	}
 
 	return (

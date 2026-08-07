@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Typography } from '@signozhq/ui/typography';
 import { Spin } from 'antd';
@@ -30,6 +31,7 @@ function VolumeControlChart({ enabled }: VolumeControlChartProps): JSX.Element {
 		query: { enabled },
 	});
 
+	const { t } = useTranslation('common');
 	const isDarkMode = useIsDarkMode();
 	const { timezone } = useTimezone();
 	const graphRef = useRef<HTMLDivElement>(null);
@@ -70,10 +72,10 @@ function VolumeControlChart({ enabled }: VolumeControlChartProps): JSX.Element {
 		<div className={styles.chart} data-testid="volume-control-chart">
 			<div className={styles.chartHeader}>
 				<Typography.Text className={styles.chartTitle} size={'small'}>
-					Sample volume · ingested vs retained
+					{t('volume_control.chart_title', 'Sample volume · ingested vs retained')}
 				</Typography.Text>
 				<Typography.Text size="small" color="muted">
-					Last 6 hours
+					{t('volume_control.last_6_hours', 'Last 6 hours')}
 				</Typography.Text>
 			</div>
 			<div className={styles.chartBody} ref={graphRef}>
@@ -91,7 +93,7 @@ function VolumeControlChart({ enabled }: VolumeControlChartProps): JSX.Element {
 						data-testid="volume-control-chart-error"
 					>
 						<Typography.Text size="small" color="danger">
-							Failed to load chart
+							{t('volume_control.chart_load_error', 'Failed to load chart')}
 						</Typography.Text>
 					</div>
 				)}

@@ -39,8 +39,9 @@
 	"roles_learn_more": "Learn more",
 	"roles_search_placeholder": "Search for roles...",
 	"roles_custom_role_button": "Custom role",
-	"create_role": "Create role",
-	"edit_role": "Edit role",
+	"create_role": "Create Role",
+	"edit_role": "Edit Role",
+	"edit_role_title": "Role - {{name}}",
 	"save_changes": "Save changes",
 	"unsaved_changes": "Unsaved changes",
 	"role_name_label": "Name",
@@ -63,5 +64,10 @@
 	"sa_filter_all": "All accounts",
 	"sa_filter_active": "Active",
 	"sa_filter_deleted": "Deleted",
-	"sa_fetch_error": "An unexpected error occurred while fetching service accounts."
+	"sa_fetch_error": "An unexpected error occurred while fetching service accounts.",
+	"settings_page_title": "Settings",
+	"nav": {
+		"identity_access": "Identity & Access",
+		"authentication": "Authentication"
+	}
 }

@@ -214,7 +214,7 @@ function MembersSettings(): JSX.Element {
 						onClick={(): void => void setIsInviteModalOpen(true)}
 					>
 						<Plus size={12} />
-						{t('organizationsettings.invite_members')}
+						{t('invite_members', { ns: 'organizationsettings' })}
 					</Button>
 				</div>
 			</div>

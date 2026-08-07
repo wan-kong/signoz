@@ -1,0 +1,55 @@
+{
+	"alerts_section": {
+		"title": "Alerts"
+	},
+	"axes": {
+		"title": "Axes",
+		"soft_min": "Soft Min",
+		"soft_max": "Soft Max",
+		"y_axis_scale": "Y Axis Scale",
+		"linear": "Linear",
+		"logarithmic": "Logarithmic"
+	},
+	"chart_appearance": {
+		"title": "Chart Appearance",
+		"show_points": "Show points",
+		"show_points_description": "Display individual data points on the chart"
+	},
+	"context_links": {
+		"title": "Context Links"
+	},
+	"formatting": {
+		"title": "Formatting & Units",
+		"unit": "Unit",
+		"y_axis_unit": "Y Axis Unit",
+		"decimal_precision": "Decimal Precision"
+	},
+	"legend": {
+		"title": "Legend",
+		"position": "Position",
+		"bottom": "Bottom",
+		"right": "Right",
+		"colors_title": "Legend Colors",
+		"no_legends": "No legends available. Run a query to see legend options.",
+		"reset_all": "Reset All",
+		"reset": "Reset"
+	},
+	"thresholds": {
+		"title": "Thresholds",
+		"add": "Add Threshold"
+	},
+	"visualization": {
+		"title": "Visualization",
+		"panel_type": "Panel Type",
+		"panel_time_preference": "Panel Time Preference",
+		"stack_series": "Stack series",
+		"fill_gaps": "Fill gaps",
+		"fill_gaps_description": "Fill gaps in data with 0 for continuity"
+	},
+	"color_selector": {
+		"custom_color": "Custom Color"
+	},
+	"column_unit": {
+		"title": "Column Units"
+	}
+}

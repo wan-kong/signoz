@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import {
 	TableColumnGroupType as ColumnGroupType,
 	TableColumnType as ColumnType,
@@ -17,21 +18,23 @@ import NameInput from './AddNewPipeline/FormFields/NameInput';
 export const pipelineFields = [
 	{
 		id: 1,
-		fieldName: 'Name',
+		fieldName: i18n.t('pipeline_lists.name', 'Name', { ns: 'pipeline' }),
 		placeholder: 'pipeline_name_placeholder',
 		name: 'name',
 		component: NameInput,
 	},
 	{
 		id: 2,
-		fieldName: 'Description',
+		fieldName: i18n.t('pipeline_lists.description', 'Description', {
+			ns: 'pipeline',
+		}),
 		placeholder: 'pipeline_description_placeholder',
 		name: 'description',
 		component: DescriptionTextArea,
 	},
 	{
 		id: 3,
-		fieldName: 'Filter',
+		fieldName: i18n.t('pipeline_lists.filter', 'Filter', { ns: 'pipeline' }),
 		placeholder: 'pipeline_filter_placeholder',
 		name: 'filter',
 		component: FilterInput,
@@ -54,23 +57,31 @@ export const pipelineColumns: Array<
 	},
 	{
 		key: 'name',
-		title: 'Pipeline Name',
+		title: String(
+			i18n.t('pipeline_lists.pipeline_name', 'Pipeline Name', { ns: 'pipeline' }),
+		),
 		dataIndex: 'name',
 	},
 	{
 		key: 'filter',
-		title: 'Filters',
+		title: String(
+			i18n.t('pipeline_lists.filters', 'Filters', { ns: 'pipeline' }),
+		),
 		dataIndex: 'filter',
 	},
 
 	{
 		key: 'createdAt',
-		title: 'Last Edited',
+		title: String(
+			i18n.t('pipeline_lists.last_edited', 'Last Edited', { ns: 'pipeline' }),
+		),
 		dataIndex: 'createdAt',
 	},
 	{
 		key: 'createdBy',
-		title: 'Edited By',
+		title: String(
+			i18n.t('pipeline_lists.edited_by', 'Edited By', { ns: 'pipeline' }),
+		),
 		dataIndex: 'createdBy',
 	},
 ];
@@ -96,30 +107,46 @@ export const changeHistoryColumns: Array<
 > = [
 	{
 		key: 'version',
-		title: 'Version',
+		title: String(
+			i18n.t('change_history.version', 'Version', { ns: 'pipeline' }),
+		),
 		dataIndex: 'version',
 	},
 	{
-		title: 'Deployment Stage',
+		title: String(
+			i18n.t('change_history.deployment_stage', 'Deployment Stage', {
+				ns: 'pipeline',
+			}),
+		),
 		key: 'deployStatus',
 		dataIndex: 'deployStatus',
 		render: DeploymentStage,
 	},
 	{
 		key: 'deployResult',
-		title: 'Last Deploy Message',
+		title: String(
+			i18n.t('change_history.last_deploy_message', 'Last Deploy Message', {
+				ns: 'pipeline',
+			}),
+		),
 		dataIndex: 'deployResult',
 		ellipsis: true,
 	},
 	{
 		key: 'createdAt',
-		title: 'Last Deployed Time',
+		title: String(
+			i18n.t('change_history.last_deployed_time', 'Last Deployed Time', {
+				ns: 'pipeline',
+			}),
+		),
 		dataIndex: 'createdAt',
 		render: DeploymentTime,
 	},
 	{
 		key: 'createdByName',
-		title: 'Edited by',
+		title: String(
+			i18n.t('change_history.edited_by', 'Edited by', { ns: 'pipeline' }),
+		),
 		dataIndex: 'createdByName',
 	},
 ];

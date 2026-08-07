@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { SquareMinus, SquarePlus } from '@signozhq/icons';
 import { IIntervalUnit } from 'container/TraceDetail/utils';
@@ -21,6 +22,8 @@ function GanttChart(props: GanttChartProps): JSX.Element {
 
 	const { globalStart, spread: globalSpread } = traceMetaData;
 
+	const { t } = useTranslation('gant_chart');
+
 	const [isExpandAll, setIsExpandAll] = useState<boolean>(false);
 	const [activeSpanPath, setActiveSpanPath] = useState<string[]>([]);
 
@@ -39,7 +42,11 @@ function GanttChart(props: GanttChartProps): JSX.Element {
 		<CardContainer>
 			<CollapseButton
 				onClick={handleCollapse}
-				title={isExpandAll ? 'Collapse All' : 'Expand All'}
+				title={
+					isExpandAll
+						? t('gant_chart.collapse_all', 'Collapse All')
+						: t('gant_chart.expand_all', 'Expand All')
+				}
 			>
 				{isExpandAll ? (
 					<SquareMinus size={16} style={{ color: 'var(--accent-primary)' }} />

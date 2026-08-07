@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { EyeOpen } from '@signozhq/icons';
 import { Modal } from 'antd';
 import { Divider } from '@signozhq/ui/divider';
@@ -9,6 +10,7 @@ import { PipelineData } from 'types/api/pipeline/def';
 import { iconStyle } from '../../../config';
 
 function PreviewAction({ pipeline }: PreviewActionProps): JSX.Element | null {
+	const { t } = useTranslation('pipeline');
 	const [previewKey, setPreviewKey] = useState<string | null>(null);
 	const isModalOpen = Boolean(previewKey);
 
@@ -41,7 +43,7 @@ function PreviewAction({ pipeline }: PreviewActionProps): JSX.Element | null {
 				centered
 				width={800}
 				footer={null}
-				title={`Logs processing preview for ${pipeline.name}`}
+				title={t('preview.preview_for', { name: pipeline.name })}
 			>
 				<Divider />
 				{isModalOpen && (

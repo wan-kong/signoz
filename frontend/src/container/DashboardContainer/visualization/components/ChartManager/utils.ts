@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { PrecisionOption, PrecisionOptionsEnum } from 'components/Graph/types';
 import { getYAxisFormattedValue } from 'components/Graph/yAxisConfig';
 import { Y_AXIS_UNIT_NAMES } from 'components/YAxisUnitSelector/constants';
@@ -86,8 +87,10 @@ export function getTableColumnTitle(title: string, yAxisUnit?: string): string {
 	}
 	const universalName =
 		Y_AXIS_UNIT_NAMES[yAxisUnit as keyof typeof Y_AXIS_UNIT_NAMES];
-	if (!universalName) {
-		return `${title} (in ${yAxisUnit})`;
-	}
-	return `${title} (in ${universalName})`;
+	const unit = universalName || yAxisUnit;
+	return i18n.t('chart_manager.column_title_in', '{{title}} (in {{unit}})', {
+		ns: 'common',
+		title,
+		unit,
+	});
 }

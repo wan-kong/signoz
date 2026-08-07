@@ -47,7 +47,7 @@ export default function NoLogs({
 	return (
 		<div className="no-logs-container">
 			<div className="no-logs-container-content">
-				<img className="eyes-emoji" src={eyesEmojiUrl} alt="eyes emoji" />
+				<img className="eyes-emoji" src={eyesEmojiUrl} alt={t('eyes_emoji_alt')} />
 				<Typography className="no-logs-text">
 					<Trans
 						t={t}

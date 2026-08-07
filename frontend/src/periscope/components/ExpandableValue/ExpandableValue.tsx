@@ -1,6 +1,8 @@
 import { ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { DialogWrapper } from '@signozhq/ui/dialog';
+import i18n from 'ReactI18';
 import {
 	TooltipContent,
 	TooltipProvider,
@@ -12,7 +14,9 @@ import { Fullscreen } from '@signozhq/icons';
 import styles from './ExpandableValue.module.scss';
 
 const DEFAULT_THRESHOLD = 100;
-const DEFAULT_DIALOG_TITLE = 'Value';
+const DEFAULT_DIALOG_TITLE = i18n.t('periscope_extra.value', 'Value', {
+	ns: 'common',
+});
 
 const DEFAULT_Z_INDEX = 1100;
 
@@ -31,6 +35,7 @@ function ExpandableValue({
 	zIndex = DEFAULT_Z_INDEX,
 	children,
 }: ExpandableValueProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	if (value.length <= threshold) {
@@ -57,7 +62,7 @@ function ExpandableValue({
 						onClick={(): void => setIsDialogOpen(true)}
 						className={styles.expandButton}
 					>
-						Expand
+						{t('periscope_extra.expand')}
 					</Button>
 				</TooltipContent>
 			</TooltipRoot>

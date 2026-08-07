@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import TanStackTable from 'components/TanStackTableView';
 
@@ -35,6 +36,7 @@ function ModelCostsTable({
 	onEdit,
 	onDelete,
 }: ModelCostsTableProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	const columns = useMemo(
 		() => getModelCostsColumns({ canManage, onEdit, onDelete }),
 		[canManage, onEdit, onDelete],
@@ -43,7 +45,7 @@ function ModelCostsTable({
 	if (!isLoading && rules.length === 0) {
 		return (
 			<div className={styles.modelCostsEmpty} data-testid="model-costs-empty">
-				No model costs yet.
+				{t('model_costs_table.empty', 'No model costs yet.')}
 			</div>
 		);
 	}
@@ -64,7 +66,7 @@ function ModelCostsTable({
 				total,
 				defaultLimit: PAGE_SIZE,
 				showTotalCount: true,
-				totalCountLabel: 'models',
+				totalCountLabel: t('model_costs_table.total_count_label', 'models'),
 			}}
 		/>
 	);

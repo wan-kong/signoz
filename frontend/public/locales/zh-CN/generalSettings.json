@@ -17,5 +17,31 @@
 	"retention_comparison_error": "{{name}} 的总保留周期不能小于或等于数据移动到 S3 之后的保留周期。",
 	"retention_null_value_error": "{{name}} 的保留周期尚未设置。请在下方选择并设置",
 	"retention_confirmation": "确定要更改保留周期吗？",
-	"retention_confirmation_description": "这会改变保存 {{name}} 所需的存储量。"
+	"retention_confirmation_description": "这会改变保存 {{name}} 所需的存储量。",
+	"license_key_row": {
+		"copied": "许可证密钥已复制到剪贴板。",
+		"label": "SigNoz 许可证密钥",
+		"copy_aria": "复制许可证密钥"
+	},
+	"license_row_callout": {
+		"not_ingestion_key": "这是 **NOT** 你的采集密钥或服务账号密钥。",
+		"find_your": "在此处查找你的",
+		"service_account_here": "服务账号",
+		"and": " 和 ",
+		"ingestion_key_here": "采集密钥"
+	},
+	"general_settings": {
+		"time_unit_hours": "小时",
+		"time_unit_days": "天",
+		"time_unit_months": "月",
+		"retention_change_message": "如需更改保留周期，请<1>给我们发送邮件</1>或通过聊天支持联系我们。"
+	},
+	"custom_domain": {
+		"all_workspace_urls": "所有工作区 URL",
+		"dismiss": "关闭",
+		"edit_workspace_link": "编辑工作区链接",
+		"updating_workspace_url": "正在将你的 URL 更新为 ⎯ {{subdomain}}.{{dnsSuffix}}。这可能需要几分钟。",
+		"updating_workspace_url_toast": "您的工作区 URL 正在更新为 <1>{{displayUrl}}</1>。这可能需要几分钟。",
+		"visit_new_url": "访问新 URL"
+	}
 }

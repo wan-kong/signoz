@@ -32,26 +32,26 @@ describe('SelectAlertType', () => {
 
 		render(<SelectAlertType onSelect={mockOnSelect} />);
 
-		expect(screen.getByText('metric_based_alert')).toBeInTheDocument();
-		expect(screen.getByText('log_based_alert')).toBeInTheDocument();
-		expect(screen.getByText('traces_based_alert')).toBeInTheDocument();
-		expect(screen.getByText('exceptions_based_alert')).toBeInTheDocument();
-		expect(screen.getByText('anomaly_based_alert')).toBeInTheDocument();
+		expect(screen.getByText('Metric based Alert')).toBeInTheDocument();
+		expect(screen.getByText('Log-based Alert')).toBeInTheDocument();
+		expect(screen.getByText('Trace-based Alert')).toBeInTheDocument();
+		expect(screen.getByText('Exceptions-based Alert')).toBeInTheDocument();
+		expect(screen.getByText('Anomaly based Alert')).toBeInTheDocument();
 	});
 
 	it('should render all alert type options except anomaly based alert when anomaly detection is disabled', () => {
 		render(<SelectAlertType onSelect={mockOnSelect} />);
 
-		expect(screen.getByText('metric_based_alert')).toBeInTheDocument();
-		expect(screen.getByText('log_based_alert')).toBeInTheDocument();
-		expect(screen.getByText('traces_based_alert')).toBeInTheDocument();
-		expect(screen.getByText('exceptions_based_alert')).toBeInTheDocument();
-		expect(screen.queryByText('anomaly_based_alert')).not.toBeInTheDocument();
+		expect(screen.getByText('Metric based Alert')).toBeInTheDocument();
+		expect(screen.getByText('Log-based Alert')).toBeInTheDocument();
+		expect(screen.getByText('Trace-based Alert')).toBeInTheDocument();
+		expect(screen.getByText('Exceptions-based Alert')).toBeInTheDocument();
+		expect(screen.queryByText('Anomaly based Alert')).not.toBeInTheDocument();
 	});
 
 	it('should call onSelect with metrics based alert type', () => {
 		render(<SelectAlertType onSelect={mockOnSelect} />);
-		fireEvent.click(screen.getByText('metric_based_alert'));
+		fireEvent.click(screen.getByText('Metric based Alert'));
 
 		expect(mockOnSelect).toHaveBeenCalledWith(
 			AlertTypes.METRICS_BASED_ALERT,
@@ -74,7 +74,7 @@ describe('SelectAlertType', () => {
 		});
 
 		render(<SelectAlertType onSelect={mockOnSelect} />);
-		fireEvent.click(screen.getByText('anomaly_based_alert'));
+		fireEvent.click(screen.getByText('Anomaly based Alert'));
 
 		expect(mockOnSelect).toHaveBeenCalledWith(
 			AlertTypes.ANOMALY_BASED_ALERT,
@@ -84,14 +84,14 @@ describe('SelectAlertType', () => {
 
 	it('should call onSelect with log based alert type', () => {
 		render(<SelectAlertType onSelect={mockOnSelect} />);
-		fireEvent.click(screen.getByText('log_based_alert'));
+		fireEvent.click(screen.getByText('Log-based Alert'));
 
 		expect(mockOnSelect).toHaveBeenCalledWith(AlertTypes.LOGS_BASED_ALERT, false);
 	});
 
 	it('should call onSelect with traces based alert type', () => {
 		render(<SelectAlertType onSelect={mockOnSelect} />);
-		fireEvent.click(screen.getByText('traces_based_alert'));
+		fireEvent.click(screen.getByText('Trace-based Alert'));
 
 		expect(mockOnSelect).toHaveBeenCalledWith(
 			AlertTypes.TRACES_BASED_ALERT,
@@ -101,7 +101,7 @@ describe('SelectAlertType', () => {
 
 	it('should call onSelect with exceptions based alert type', () => {
 		render(<SelectAlertType onSelect={mockOnSelect} />);
-		fireEvent.click(screen.getByText('exceptions_based_alert'));
+		fireEvent.click(screen.getByText('Exceptions-based Alert'));
 
 		expect(mockOnSelect).toHaveBeenCalledWith(
 			AlertTypes.EXCEPTIONS_BASED_ALERT,

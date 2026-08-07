@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import { ChevronDown, ChevronRight, Layers, Plus } from '@signozhq/icons';
@@ -35,6 +36,7 @@ function MappingsTable({
 	const [targetGroupId, setTargetGroupId] = useState<string | null>(null);
 	const drawer = useMapperFormDrawer();
 	const canManage = useCanManageAttributeMapping();
+	const { t } = useTranslation('llm');
 
 	const { upsertMapper, removeMapper } = editor;
 
@@ -132,7 +134,7 @@ function MappingsTable({
 						testId="add-group-row"
 						disabled={editor.isLoading}
 					>
-						Add a new group
+						{t('attribute_mappings_table.add_group', 'Add a new group')}
 					</Button>
 				</div>
 			)}
@@ -141,7 +143,7 @@ function MappingsTable({
 				<div className={styles.tableState} data-testid="mapper-groups-empty">
 					<Layers size={24} />
 					<Typography.Text as="span" size="base" color="muted">
-						No mapping groups yet.
+						{t('attribute_mappings_table.no_groups', 'No mapping groups yet.')}
 					</Typography.Text>
 				</div>
 			) : (
@@ -150,9 +152,15 @@ function MappingsTable({
 						<MappingsColgroup />
 						<thead>
 							<tr className={styles.headerRow}>
-								<th className={styles.headerCell}>Target</th>
-								<th className={styles.headerCell}>Sources</th>
-								<th className={styles.headerCell}>Actions</th>
+								<th className={styles.headerCell}>
+									{t('attribute_mappings_table.column_target', 'Target')}
+								</th>
+								<th className={styles.headerCell}>
+									{t('attribute_mappings_table.column_sources', 'Sources')}
+								</th>
+								<th className={styles.headerCell}>
+									{t('attribute_mappings_table.column_actions', 'Actions')}
+								</th>
 							</tr>
 						</thead>
 					</table>

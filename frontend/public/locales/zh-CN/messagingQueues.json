@@ -73,6 +73,100 @@
 	"drop_rate": {
 		"custom_time_placeholder": "输入自定义时间（毫秒）",
 		"evaluation_interval": "评估间隔：",
-		"select_time_interval": "选择时间间隔（毫秒）"
+		"select_time_interval": "选择时间间隔（毫秒）",
+		"show_more": "+ {{remainingCount}} 更多",
+		"of_total": " 共 {{total}}"
+	},
+	"mq_detail": {
+		"breadcrumb": "Kafka / 视图 /"
+	},
+	"mq_tables": {
+		"click_coordinate_details": "点击上方坐标以查看详情",
+		"click_row_details": "点击上方行以查看详情",
+		"of_total": " 共 {{total}}"
+	},
+	"metric_page": {
+		"request_times": "请求耗时",
+		"request_times_desc": "此指标用于衡量 Kafka broker 上请求经历的平均延迟。",
+		"broker_count_legend": "Broker 数量",
+		"broker_count": "Broker 数量",
+		"broker_count_desc": "Kafka 集群中活跃 broker 的总数。",
+		"producer_fetch_request_purgatory": "Producer 和 Fetch 请求 Purgatory",
+		"producer_fetch_request_purgatory_desc": "衡量 Kafka broker 已接收但无法立即完成的请求数量",
+		"broker_network_throughput": "Broker 网络吞吐量",
+		"broker_network_throughput_desc": "用于衡量从 Kafka broker 到 consumer 客户端的数据吞吐量，关注向消费者提供消息时的网络使用情况。",
+		"io_wait_time": "I/O 等待时间",
+		"io_wait_time_desc": "此指标衡量 producer 处于 I/O 等待状态的总时间，反映数据从 producer 传输到 Kafka broker 时可能存在的瓶颈。",
+		"request_rate_legend": "请求速率",
+		"response_rate_legend": "响应速率",
+		"request_response_rate": "请求与响应速率",
+		"request_response_rate_desc": "表示 producer 每秒发送的请求数，反映 producer 与 Kafka 集群交互的强度。同时帮助 Kafka 管理员衡量 broker 对 producer 请求的响应能力。",
+		"avg_request_latency": "平均请求延迟",
+		"avg_request_latency_desc": "帮助 Kafka 管理员和开发人员了解 producer 请求经历的平均延迟。",
+		"producer_byte_rate_desc": "用于衡量 producer 的数据输出速率，反映 producer 对 Kafka broker 造成的负载。",
+		"bytes_consumed": "已消费字节数",
+		"bytes_consumed_desc": "帮助 Kafka 管理员监控 consumer group 的数据消费速率，展示随时间从 Kafka 集群读取的数据量（以字节计）。",
+		"consumer_offset": "Consumer Offset",
+		"consumer_offset_desc": "每个 consumer group 在每个 topic 分区上的当前 offset",
+		"consumer_group_members": "Consumer Group 成员数",
+		"consumer_group_members_desc": "每个组中的活跃用户数",
+		"consumer_lag_by_group": "按组查看 Consumer Lag",
+		"consumer_lag_by_group_desc": "帮助 Kafka 管理员评估 consumer group 是否跟上了传入的数据流，或是否落后",
+		"consumer_fetch_rate": "Consumer Fetch 速率",
+		"consumer_fetch_rate_desc": "该指标衡量 Kafka consumer 向 broker 发起 fetch 请求的速率，通常以每秒请求数表示。",
+		"messages_consumed": "已消费消息数",
+		"messages_consumed_desc": "衡量 Kafka consumer 每秒从 Kafka broker 消费记录（消息）的速率。",
+		"jvm_gc_count": "JVM GC 次数",
+		"jvm_gc_count_desc": "追踪 Java 虚拟机（JVM）中发生的垃圾回收（GC）事件总数。",
+		"jvm_gc_elapsed_legend": "垃圾回收器",
+		"jvm_gc_elapsed_desc": "衡量 Java 虚拟机（JVM）中用于垃圾回收（GC）事件的总时间（通常以毫秒计）。",
+		"cpu_utilization_legend": "CPU 利用率",
+		"cpu_recent_utilization": "CPU 近期利用率",
+		"cpu_recent_utilization_desc": "此指标衡量 Java 虚拟机（JVM）近期的 CPU 使用情况，通常以百分比表示。",
+		"jvm_memory_heap": "JVM 内存堆",
+		"jvm_memory_heap_desc": "该指标表示 Java 虚拟机（JVM）可用的最大堆内存量",
+		"partition_count_per_topic": "每个 Topic 的分区数",
+		"partition_count_per_topic_desc": "每个 topic 的分区数",
+		"current_offset_partition": "当前 Offset（分区）",
+		"current_offset_partition_desc": "每个分区的当前 offset，显示每个分区的最新位置",
+		"oldest_offset_partition": "最早 Offset（分区）",
+		"oldest_offset_partition_desc": "每个分区的最早 offset，用于识别日志保留时间和 offset 范围。",
+		"insync_replicas": "同步副本（ISR）",
+		"insync_replicas_desc": "每个分区的同步副本数量，以确保数据可用性。"
+	},
+	"mq_config": {
+		"consumer_groups": "消费者组",
+		"topics": "主题",
+		"partitions": "分区",
+		"loading": "加载中...",
+		"no_consumer_groups_found": "未找到消费者组",
+		"no_topics_found": "未找到主题",
+		"no_partitions_found": "未找到分区",
+		"share_this": "分享此页面"
+	},
+	"mq_graph": {
+		"click_coordinate_details": "点击坐标查看详情"
+	},
+	"celery_task": {
+		"loading": "加载中...",
+		"error": "错误",
+		"timestamp": "时间戳",
+		"unable_to_resolve_variables": "无法解析变量"
+	},
+	"celery_overview": {
+		"title": "消息队列概览",
+		"request_rate": "请求速率",
+		"request_rate_desc": "表示服务的请求速率",
+		"error": "错误",
+		"error_desc": "表示服务中的错误",
+		"avg_latency": "平均延迟",
+		"avg_latency_desc": "表示服务的平均延迟",
+		"request_rate_graph": "请求速率",
+		"request_rate_graph_desc": "表示服务的请求速率",
+		"error_percent": "错误率",
+		"legend_true": "是",
+		"legend_false": "否",
+		"latency": "延迟",
+		"latency_desc": "表示服务的延迟"
 	}
 }

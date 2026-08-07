@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { EllipsisVertical, Pencil, Trash2 } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { DropdownMenuSimple, type MenuItem } from '@signozhq/ui/dropdown-menu';
@@ -16,17 +17,18 @@ function MapperActionsMenu({
 	onEdit,
 	onRemove,
 }: MapperActionsMenuProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const menuItems = useMemo<MenuItem[]>(
 		() => [
 			{
 				key: 'edit',
-				label: 'Edit',
+				label: t('llm_observability.edit'),
 				icon: <Pencil size={14} />,
 				onClick: (): void => onEdit(mapper),
 			},
 			{
 				key: 'delete',
-				label: 'Delete',
+				label: t('llm_observability.delete'),
 				danger: true,
 				icon: <Trash2 size={14} />,
 				onClick: (): void => onRemove(mapper.localId),
@@ -41,7 +43,7 @@ function MapperActionsMenu({
 				variant="ghost"
 				color="secondary"
 				size="icon"
-				aria-label="Mapping actions"
+				aria-label={t('llm_observability.mapping_actions')}
 				testId={`mapper-actions-${mapper.localId}`}
 			>
 				<EllipsisVertical size={16} />

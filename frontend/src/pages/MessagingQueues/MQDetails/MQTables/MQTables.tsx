@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Skeleton, Table } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
+import i18n from 'ReactI18';
 import logEvent from 'api/common/logEvent';
 import {
 	MessagingQueueServicePayload,
@@ -123,7 +125,14 @@ const showPaginationItem = (total: number, range: number[]): JSX.Element => (
 		<Typography.Text className="numbers">
 			{range[0]} &#8212; {range[1]}
 		</Typography.Text>
-		<Typography.Text className="total"> of {total}</Typography.Text>
+		<Typography.Text className="total">
+			{String(
+				i18n.t('mq_tables.of_total', ' of {{total}}', {
+					ns: 'messagingQueues',
+					total,
+				}),
+			)}
+		</Typography.Text>
 	</>
 );
 
@@ -149,6 +158,7 @@ function MessagingQueuesTable({
 	type?: 'Detail' | 'Overview';
 	option?: ProducerLatencyOptions;
 }): JSX.Element {
+	const { t } = useTranslation('messagingQueues');
 	const [columns, setColumns] = useState<any[]>([]);
 	const [tableData, setTableData] = useState<any[]>([]);
 	const { notifications } = useNotifications();
@@ -315,8 +325,14 @@ function MessagingQueuesTable({
 				<div className="no-data-style">
 					<Typography.Text>
 						{selectedView === MessagingQueuesViewType.consumerLag.value
-							? 'Click on a co-ordinate above to see the details'
-							: 'Click on a row above to see the details'}
+							? t(
+									'mq_tables.click_coordinate_details',
+									'Click on a co-ordinate above to see the details',
+								)
+							: t(
+									'mq_tables.click_row_details',
+									'Click on a row above to see the details',
+								)}
 					</Typography.Text>
 					<Skeleton />
 				</div>

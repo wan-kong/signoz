@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Table } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 
@@ -6,13 +7,15 @@ import { ALL_SHORTCUTS, generateTableData, shortcutColumns } from './utils';
 import './Shortcuts.styles.scss';
 
 function Shortcuts(): JSX.Element {
+	const { t } = useTranslation('shortcuts');
+
 	function getShortcutTable(shortcutSection: string): JSX.Element {
 		const tableData = generateTableData(shortcutSection);
 
 		return (
 			<section className="shortcut-section">
 				<Typography.Text className="shortcut-section-heading">
-					{shortcutSection}
+					{t(shortcutSection, shortcutSection)}
 				</Typography.Text>
 				<Table
 					columns={shortcutColumns}

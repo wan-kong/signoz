@@ -1,6 +1,7 @@
 import { UseMutateAsyncFunction } from 'react-query';
 import type { NotificationInstance } from 'antd/es/notification/interface';
 import logEvent from 'api/common/logEvent';
+import i18n from 'ReactI18';
 import { MenuItemLabelGeneratorProps } from 'components/ExplorerCard/types';
 import { showErrorNotification } from 'components/ExplorerCard/utils';
 import {
@@ -31,7 +32,11 @@ export const deleteViewHandler = ({
 			hideDeleteViewModal();
 			clearSearch();
 			notifications.success({
-				message: 'View Deleted Successfully',
+				message: String(
+					i18n.t('save_view_extra.view_deleted', 'View Deleted Successfully', {
+						ns: 'common',
+					}),
+				),
 			});
 			refetchAllView();
 			logEvent(MetricsExplorerEvents.ViewDeleted, {

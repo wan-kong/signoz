@@ -1,21 +1,40 @@
+import i18n from 'ReactI18';
+
 export const infoData = [
 	{
 		id: 'infoBlock-1',
-		title: 'Built for scale',
-		description:
+		title: i18n.t('info.built_for_scale', 'Built for scale', {
+			ns: 'workspaceLocked',
+		}),
+		description: i18n.t(
+			'info.built_for_scale_desc',
 			'Our powerful ingestion engine has a proven track record of handling 10TB+ data ingestion per day.',
+			{ ns: 'workspaceLocked' },
+		),
 	},
 	{
 		id: 'infoBlock-2',
-		title: 'Trusted across the globe',
-		description:
+		title: i18n.t('info.trusted_globe', 'Trusted across the globe', {
+			ns: 'workspaceLocked',
+		}),
+		description: i18n.t(
+			'info.trusted_globe_desc',
 			'Used by teams in all 5 continents ⎯ across the mountains, rivers, and the high seas.',
+			{ ns: 'workspaceLocked' },
+		),
 	},
 	{
 		id: 'infoBlock-3',
-		title: 'Powering observability for teams of all sizes',
-		description:
+		title: i18n.t(
+			'info.powering_obs',
+			'Powering observability for teams of all sizes',
+			{ ns: 'workspaceLocked' },
+		),
+		description: i18n.t(
+			'info.powering_obs_desc',
 			'Hundreds of companies ⎯from early-stage start-ups to public enterprises use SigNoz to build more reliable products.',
+			{ ns: 'workspaceLocked' },
+		),
 	},
 ];
 

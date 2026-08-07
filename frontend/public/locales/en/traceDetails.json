@@ -1,11 +1,33 @@
 {
   "search_tags": "Search Tag Names",
-  "trace": "Trace",
-  "span": "Span",
-  "trace_duration": "Trace Duration",
-  "span_duration": "Span Duration",
-  "root_service_tooltip": "Root service and entry-point span",
-  "of_total_exec_time": " of total exec time",
-  "entity_start_time": "{{entity}} start time",
-  "root_span_status_code": "Root span status code"
+  "trace_details": {
+    "trace": "Trace",
+    "span": "Span",
+    "trace_duration": "Trace Duration",
+    "span_duration": "Span Duration",
+    "root_service_tooltip": "Root service and entry-point span",
+    "of_total_exec_time": " of total exec time",
+    "entity_start_time": "{{entity}} start time",
+    "root_span_status_code": "Root span status code"
+  },
+  "trace_flamegraph": {
+    "flame_graph": "Flame Graph",
+    "span_limit_warning": "The total span count exceeds the visualization limit. Displaying a sampled subset of spans in flamegraph.",
+    "spans": "Spans: ",
+    "errors": "Errors: ",
+    "waterfall": "Waterfall",
+    "unknown": "unknown",
+    "layout_computation_failed": "Flamegraph layout computation failed",
+    "layout_worker_failed": "Flamegraph layout worker failed",
+    "layout_computation_timed_out": "Flamegraph layout computation timed out",
+    "no_data_found": "No data found for trace {{traceId}}"
+  },
+  "trace_waterfall": {
+    "fetching_trace": "Fetching the trace!"
+  },
+  "span_attributes": {
+    "filter_for_value": "Filter for value",
+    "filter_out_value": "Filter out value",
+    "group_by_attribute": "Group by attribute"
+  }
 }

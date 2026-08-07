@@ -1,4 +1,6 @@
 import { ArrowLeft, CircleAlert } from '@signozhq/icons';
+import i18n from 'ReactI18';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@signozhq/ui/button';
 import { Typography } from '@signozhq/ui/typography';
 import AuthError from 'components/AuthError/AuthError';
@@ -19,22 +21,34 @@ function getErrorContent(error?: APIError): TokenErrorContent {
 
 	if (code === 'reset_password_token_expired') {
 		return {
-			title: 'Reset Password token is expired',
-			subtitle:
+			title: i18n.t('token_expired_title', 'Reset Password token is expired', {
+				ns: 'common',
+			}),
+			subtitle: i18n.t(
+				'token_expired_subtitle',
 				'Password reset links are single-use and expire after a set period. Please request a new password reset link.',
+				{ ns: 'common' },
+			),
 		};
 	}
 
 	if (code === 'reset_password_token_not_found') {
 		return {
-			title: 'Invalid Reset Link',
-			subtitle:
+			title: i18n.t('invalid_reset_link_title', 'Invalid Reset Link', {
+				ns: 'common',
+			}),
+			subtitle: i18n.t(
+				'invalid_reset_link_subtitle',
 				'This reset password link is invalid or has already been used. Please request a new password reset link.',
+				{ ns: 'common' },
+			),
 		};
 	}
 
 	return {
-		title: 'Reset Link Unavailable',
+		title: i18n.t('reset_link_unavailable_title', 'Reset Link Unavailable', {
+			ns: 'common',
+		}),
 		subtitle:
 			'We could not validate your reset password link. Please request a new one.',
 	};
@@ -45,6 +59,7 @@ interface TokenErrorProps {
 }
 
 function TokenError({ error }: TokenErrorProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const { title, subtitle } = getErrorContent(error);
 
 	return (
@@ -69,7 +84,7 @@ function TokenError({ error }: TokenErrorProps): JSX.Element {
 						prefix={<ArrowLeft size={12} />}
 						onClick={(): void => history.push(ROUTES.LOGIN)}
 					>
-						Back to login
+						{t('back_to_login')}
 					</Button>
 				</div>
 			</div>

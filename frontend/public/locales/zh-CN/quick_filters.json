@@ -1,0 +1,29 @@
+{
+	"checkbox_filter": {
+		"section": {
+			"selected": "已选择",
+			"related": "相关",
+			"related_tooltip": "根据您当前的选择筛选出的值。",
+			"all_values": "全部值",
+			"all": "全部",
+			"only": "仅"
+		}
+	},
+	"duration_filter": {
+		"title": "时长",
+		"clear_all": "全部清除"
+	},
+	"slider_filter": {
+		"placeholder": "滑块"
+	},
+	"announcement_tooltip": {
+		"okay": "好的"
+	},
+	"filter_settings": {
+		"updated_successfully": "快捷筛选器更新成功"
+	},
+	"quick_filter_utils": {
+		"duration": "时长",
+		"has_error": "有错误（状态）"
+	}
+}

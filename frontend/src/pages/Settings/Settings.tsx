@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import logEvent from 'api/common/logEvent';
 import RouteTab from 'components/RouteTab';
@@ -24,6 +25,7 @@ import './Settings.styles.scss';
 
 function SettingsPage(): JSX.Element {
 	const { pathname, search } = useLocation();
+	const { t } = useTranslation('settings');
 
 	const { user, featureFlags, trialInfo, isFetchingActiveLicense } =
 		useAppContext();
@@ -280,7 +282,7 @@ function SettingsPage(): JSX.Element {
 					data-testid="settings-page-title"
 				>
 					<Cog size={16} />
-					Settings
+					{t('settings_page_title', 'Settings')}
 				</div>
 			</header>
 
@@ -303,7 +305,7 @@ function SettingsPage(): JSX.Element {
 								}`}
 							>
 								{section.title && (
-									<div className="settings-nav-section-title">{section.title}</div>
+									<div className="settings-nav-section-title">{t(section.title)}</div>
 								)}
 								{enabledItems.map((item) => (
 									<NavItem

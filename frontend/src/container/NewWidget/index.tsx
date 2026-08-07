@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
 // eslint-disable-next-line no-restricted-imports
 import { useSelector } from 'react-redux';
@@ -90,6 +91,7 @@ function NewWidget({
 	selectedGraph,
 	enableDrillDown = false,
 }: NewWidgetProps): JSX.Element {
+	const { t } = useTranslation('new_widget');
 	const { safeNavigate } = useSafeNavigate();
 	const setToScrollWidgetId = useScrollToWidgetIdStore(
 		(s) => s.setToScrollWidgetId,
@@ -816,7 +818,7 @@ function NewWidget({
 					/>
 					<Flex align="center" gap={24}>
 						<Typography.Text className="configure-panel">
-							Configure panel
+							{t('new_widget.configure_panel', 'Configure panel')}
 						</Typography.Text>
 					</Flex>
 				</div>
@@ -833,7 +835,7 @@ function NewWidget({
 							disabled={isSaveDisabled || !currentQuery}
 							onClick={handleSwitchToViewMode}
 						>
-							Switch to View Mode
+							{t('new_widget.switch_to_view_mode', 'Switch to View Mode')}
 						</Button>
 					)}
 					{isSaveDisabled && (
@@ -845,7 +847,7 @@ function NewWidget({
 							onClick={onSaveDashboard}
 							className="save-btn"
 						>
-							Save Changes
+							{t('new_widget.save_changes', 'Save Changes')}
 						</Button>
 					)}
 					{!isSaveDisabled && (
@@ -858,7 +860,7 @@ function NewWidget({
 							prefix={<Check size={14} />}
 							className="save-btn"
 						>
-							Save Changes
+							{t('new_widget.save_changes', 'Save Changes')}
 						</Button>
 					)}
 				</div>

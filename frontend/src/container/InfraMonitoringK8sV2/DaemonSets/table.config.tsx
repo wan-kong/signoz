@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Color } from '@signozhq/design-tokens';
 import { InframonitoringtypesDaemonSetRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
@@ -50,7 +51,9 @@ export const k8sDaemonSetsColumnsConfig: DaemonSetTableColumnConfig[] = [
 		id: 'daemonSetGroup',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="DaemonSet Group"
+				title={i18n.t('display.daemonset_group', 'Daemonset Group', {
+					ns: 'infraMonitoring',
+				})}
 				titleKey="display.daemonset_group"
 			/>
 		),
@@ -77,7 +80,9 @@ export const k8sDaemonSetsColumnsConfig: DaemonSetTableColumnConfig[] = [
 		id: 'daemonsetName',
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
-				title="DaemonSet Name"
+				title={i18n.t('display.daemonset_name', 'Daemonset Name', {
+					ns: 'infraMonitoring',
+				})}
 				titleKey="display.daemonset_name"
 				icon={<Group data-hide-expanded="true" size={14} />}
 				docPath="/infrastructure-monitoring/kubernetes/daemonsets#daemonset-name"

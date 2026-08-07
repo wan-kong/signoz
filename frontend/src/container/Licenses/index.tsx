@@ -20,7 +20,7 @@ function Licenses(): JSX.Element {
 			<header className="licenses-page-header">
 				<div className="licenses-page-header-title">
 					<Wrench size={16} />
-					License
+					{t('license')}
 				</div>
 			</header>
 

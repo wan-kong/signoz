@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 import { SolidInfoCircle } from '@signozhq/icons';
 import QueryCancelledPlaceholder from 'components/QueryCancelledPlaceholder';
@@ -25,6 +26,7 @@ function WidgetGraph({
 	enableDrillDown = false,
 	isCancelled = false,
 }: WidgetGraphContainerProps): JSX.Element {
+	const { t } = useTranslation('new_widget');
 	const { currentQuery } = useQueryBuilder();
 
 	const isDarkMode = useIsDarkMode();
@@ -32,7 +34,7 @@ function WidgetGraph({
 	if (selectedWidget === undefined) {
 		return (
 			<Card $panelType={selectedGraph} isDarkMode={isDarkMode}>
-				Invalid widget
+				{t('widget.graph.invalid_widget', 'Invalid widget')}
 			</Card>
 		);
 	}
@@ -55,7 +57,12 @@ function WidgetGraph({
 			)}
 
 			{isCancelled ? (
-				<QueryCancelledPlaceholder subText='Click "Run Query" to reload the chart.' />
+				<QueryCancelledPlaceholder
+					subText={t(
+						'widget.graph.reload_chart',
+						'Click "Run Query" to reload the chart.',
+					)}
+				/>
 			) : (
 				<WidgetGraphComponent
 					isLoadingPanelData={isLoadingPanelData}

@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { InframonitoringtypesClusterRecordDTO } from 'api/generated/services/sigNoz.schemas';
 import { PANEL_TYPES } from 'constants/queryBuilder';
 import { GetQueryResultsProps } from 'lib/dashboard/getQueryResults';
@@ -29,7 +30,9 @@ export const k8sClusterGetSelectedItemExpression = (
 export const k8sClusterDetailsMetadataConfig: K8sDetailsMetadataConfig<InframonitoringtypesClusterRecordDTO>[] =
 	[
 		{
-			label: 'Cluster Name',
+			label: i18n.t('display.cluster_name', 'Cluster Name', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.cluster_name',
 			getValue: (p): string => p.clusterName || '',
 		},
@@ -38,37 +41,41 @@ export const k8sClusterDetailsMetadataConfig: K8sDetailsMetadataConfig<Inframoni
 export const k8sClusterDetailsCountsConfig: K8sDetailsCountConfig<InframonitoringtypesClusterRecordDTO>[] =
 	[
 		{
-			label: 'Namespaces',
+			label: i18n.t('display.namespaces', 'Namespaces', { ns: 'infraMonitoring' }),
 			labelKey: 'display.namespaces',
 			getValue: (p): number => p.counts?.namespaces ?? 0,
 			targetCategory: InfraMonitoringEntity.NAMESPACES,
 		},
 		{
-			label: 'Nodes',
+			label: i18n.t('display.nodes', 'Nodes', { ns: 'infraMonitoring' }),
 			labelKey: 'display.nodes',
 			getValue: (p): number => p.counts?.nodes ?? 0,
 			targetCategory: InfraMonitoringEntity.NODES,
 		},
 		{
-			label: 'Deployments',
+			label: i18n.t('display.deployments', 'Deployments', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.deployments',
 			getValue: (p): number => p.counts?.deployments ?? 0,
 			targetCategory: InfraMonitoringEntity.DEPLOYMENTS,
 		},
 		{
-			label: 'StatefulSets',
+			label: i18n.t('display.statefulsets', 'StatefulSets', {
+				ns: 'infraMonitoring',
+			}),
 			labelKey: 'display.statefulsets',
 			getValue: (p): number => p.counts?.statefulSets ?? 0,
 			targetCategory: InfraMonitoringEntity.STATEFULSETS,
 		},
 		{
-			label: 'DaemonSets',
+			label: i18n.t('display.daemonsets', 'DaemonSets', { ns: 'infraMonitoring' }),
 			labelKey: 'display.daemonsets',
 			getValue: (p): number => p.counts?.daemonSets ?? 0,
 			targetCategory: InfraMonitoringEntity.DAEMONSETS,
 		},
 		{
-			label: 'Jobs',
+			label: i18n.t('display.jobs', 'Jobs', { ns: 'infraMonitoring' }),
 			labelKey: 'display.jobs',
 			getValue: (p): number => p.counts?.jobs ?? 0,
 			targetCategory: InfraMonitoringEntity.JOBS,

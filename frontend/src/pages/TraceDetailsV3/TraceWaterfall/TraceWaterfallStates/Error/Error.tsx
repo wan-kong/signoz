@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import { AxiosError } from 'axios';
@@ -10,11 +11,12 @@ interface IErrorProps {
 
 function Error(props: IErrorProps): JSX.Element {
 	const { error } = props;
+	const { t } = useTranslation('trace');
 
 	return (
 		<div className={styles.root}>
 			<Typography.Text className={styles.text}>
-				Something went wrong!
+				{t('trace_waterfall_states.something_went_wrong', 'Something went wrong!')}
 			</Typography.Text>
 			<Tooltip title={error?.message}>
 				<Typography.Text

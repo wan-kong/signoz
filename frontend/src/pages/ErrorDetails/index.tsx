@@ -65,7 +65,7 @@ function ErrorDetails(): JSX.Element {
 
 	// when the api is in loading state
 	if (status === 'loading' || IdStatus === 'loading') {
-		return <Spinner tip="Loading.." />;
+		return <Spinner tip={t('loading', { ns: 'common' })} />;
 	}
 
 	// if any error occurred while loading

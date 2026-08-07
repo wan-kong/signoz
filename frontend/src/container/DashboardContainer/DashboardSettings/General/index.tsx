@@ -145,7 +145,7 @@ function GeneralDashboardSettings(): JSX.Element {
 									<Option value={icon} key={icon}>
 										<img
 											src={icon}
-											alt="dashboard-icon"
+											alt={t('placeholder.dashboard_icon')}
 											className={styles.listItemImage}
 										/>
 									</Option>

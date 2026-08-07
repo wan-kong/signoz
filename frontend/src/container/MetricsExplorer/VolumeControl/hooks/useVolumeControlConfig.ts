@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
 	invalidateListMetricReductionRules,
 	invalidateListMetrics,
@@ -58,6 +59,7 @@ export function useVolumeControlConfig({
 	onClose,
 }: UseVolumeControlConfigParams): UseVolumeControlConfigResult {
 	const { notifications } = useNotifications();
+	const { t } = useTranslation('common');
 	const queryClient = useQueryClient();
 	const { minTime, maxTime } = useSelector<AppState, GlobalReducer>(
 		(state) => state.globalTime,
@@ -99,7 +101,9 @@ export function useVolumeControlConfig({
 				{
 					onError: (error) =>
 						notifications.error({
-							message: error.response?.data?.error?.message ?? PREVIEW_ERROR_MESSAGE,
+							message:
+								error.response?.data?.error?.message ??
+								t('volume_control.preview_error', PREVIEW_ERROR_MESSAGE),
 						}),
 					onSettled: () => setIsPreviewPending(false),
 				},
@@ -114,6 +118,7 @@ export function useVolumeControlConfig({
 		previewMutate,
 		previewReset,
 		notifications,
+		t,
 	]);
 
 	const createMutation = useCreateMetricReductionRule();
@@ -134,17 +139,21 @@ export function useVolumeControlConfig({
 			{ pathParams: { id: existingRuleId } },
 			{
 				onSuccess: () => {
-					notifications.success({ message: 'Volume control rule removed' });
+					notifications.success({
+						message: t('volume_control.rule_removed', 'Volume control rule removed'),
+					});
 					invalidate();
 					onClose();
 				},
 				onError: (error) =>
 					notifications.error({
-						message: error.response?.data?.error?.message ?? REMOVE_ERROR_MESSAGE,
+						message:
+							error.response?.data?.error?.message ??
+							t('volume_control.remove_error', REMOVE_ERROR_MESSAGE),
 					}),
 			},
 		);
-	}, [deleteMutation, existingRuleId, notifications, invalidate, onClose]);
+	}, [deleteMutation, existingRuleId, notifications, invalidate, onClose, t]);
 
 	const save = useCallback((): void => {
 		if (mode === 'all') {
@@ -158,8 +167,10 @@ export function useVolumeControlConfig({
 
 		const onSuccess = (): void => {
 			notifications.success({
-				message:
+				message: t(
+					'volume_control.rule_saved',
 					'Volume control rule saved. It takes about 5 minutes to take effect.',
+				),
 			});
 			invalidate();
 			onClose();
@@ -175,7 +186,9 @@ export function useVolumeControlConfig({
 					onSuccess,
 					onError: (error) =>
 						notifications.error({
-							message: error.response?.data?.error?.message ?? SAVE_ERROR_MESSAGE,
+							message:
+								error.response?.data?.error?.message ??
+								t('volume_control.save_error', SAVE_ERROR_MESSAGE),
 						}),
 				},
 			);
@@ -190,7 +203,9 @@ export function useVolumeControlConfig({
 				onSuccess,
 				onError: (error) =>
 					notifications.error({
-						message: error.response?.data?.error?.message ?? SAVE_ERROR_MESSAGE,
+						message:
+							error.response?.data?.error?.message ??
+							t('volume_control.save_error', SAVE_ERROR_MESSAGE),
 					}),
 			},
 		);
@@ -205,6 +220,7 @@ export function useVolumeControlConfig({
 		notifications,
 		invalidate,
 		onClose,
+		t,
 	]);
 
 	return {

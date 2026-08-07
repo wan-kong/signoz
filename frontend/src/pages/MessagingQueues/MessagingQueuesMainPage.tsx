@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import i18n from 'ReactI18';
 import RouteTab from 'components/RouteTab';
 import { TabRoutes } from 'components/RouteTab/types';
 import ROUTES from 'constants/routes';
@@ -49,7 +50,8 @@ export const Overview: TabRoutes = {
 	Component: CeleryOverview,
 	name: (
 		<div className="tab-item">
-			<Rows3 size={16} /> Overview
+			<Rows3 size={16} />{' '}
+			{String(i18n.t('overview', 'Overview', { ns: 'common' }))}
 		</div>
 	),
 	route: ROUTES.MESSAGING_QUEUES_OVERVIEW,

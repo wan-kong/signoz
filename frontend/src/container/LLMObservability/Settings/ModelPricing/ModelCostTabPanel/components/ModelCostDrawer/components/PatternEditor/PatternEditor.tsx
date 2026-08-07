@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Badge } from '@signozhq/ui/badge';
 import { Button } from '@signozhq/ui/button';
@@ -19,6 +20,7 @@ function PatternEditor({
 	isReadOnly,
 	onChange,
 }: PatternEditorProps): JSX.Element {
+	const { t } = useTranslation('llm');
 	const [patternInput, setPatternInput] = useState<string>('');
 
 	const addPattern = (): void => {
@@ -38,9 +40,9 @@ function PatternEditor({
 	return (
 		<div className={styles.drawerSection}>
 			<Typography.Text as="span">
-				Model name patterns{' '}
+				{t('pattern_editor.title', 'Model name patterns')}{' '}
 				<Typography.Text as="span" color="muted">
-					(prefix match)
+					{t('pattern_editor.prefix_match_hint', '(prefix match)')}
 				</Typography.Text>
 			</Typography.Text>
 			<div className={styles.patternBox}>
@@ -56,7 +58,11 @@ function PatternEditor({
 							{!isReadOnly && (
 								<button
 									type="button"
-									aria-label={`Remove pattern ${pattern}`}
+									aria-label={t(
+										'pattern_editor.remove_pattern_aria',
+										'Remove pattern {{pattern}}',
+										{ pattern },
+									)}
 									className={styles.patternChipRemove}
 									onClick={(): void => removePattern(pattern)}
 								>
@@ -69,7 +75,7 @@ function PatternEditor({
 				{!isReadOnly && (
 					<div className={styles.patternAdd}>
 						<Input
-							placeholder="Add pattern…"
+							placeholder={t('pattern_editor.add_placeholder', 'Add pattern…')}
 							value={patternInput}
 							onChange={(e): void => setPatternInput(e.target.value)}
 							onKeyDown={(e): void => {
@@ -86,14 +92,15 @@ function PatternEditor({
 							onClick={addPattern}
 							testId="drawer-pattern-add-btn"
 						>
-							+ Add
+							{t('pattern_editor.add', '+ Add')}
 						</Button>
 					</div>
 				)}
 			</div>
 			<Typography.Text as="p" size="small" color="muted">
-				Each pattern uses <strong>prefix matching</strong> against{' '}
-				<code>gen_ai.request.model</code>.
+				{t('pattern_editor.each_pattern_uses', 'Each pattern uses')}{' '}
+				<strong>{t('pattern_editor.prefix_matching', 'prefix matching')}</strong>{' '}
+				{t('pattern_editor.against', 'against')} <code>gen_ai.request.model</code>.
 			</Typography.Text>
 		</div>
 	);

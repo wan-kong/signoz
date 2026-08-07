@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Ellipsis } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
@@ -22,21 +23,22 @@ function ModelCostActionsMenu({
 	onEdit,
 	onDelete,
 }: ModelCostActionsMenuProps): JSX.Element | null {
+	const { t } = useTranslation('llm');
 	const menuItems = useMemo<MenuItem[]>(
 		() => [
 			{
 				key: 'edit',
-				label: 'Edit',
+				label: t('model_cost_actions.edit', 'Edit'),
 				onClick: (): void => onEdit(rule),
 			},
 			{
 				key: 'delete',
-				label: 'Delete',
+				label: t('model_cost_actions.delete', 'Delete'),
 				danger: true,
 				onClick: (): void => onDelete(rule),
 			},
 		],
-		[onEdit, onDelete, rule],
+		[onEdit, onDelete, rule, t],
 	);
 
 	if (!canManage) {

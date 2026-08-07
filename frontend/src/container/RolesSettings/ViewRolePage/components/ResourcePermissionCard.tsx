@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronRight } from '@signozhq/icons';
 
 import { getResourcePanel } from '../../permissions.config';
@@ -22,6 +23,7 @@ function ResourcePermissionCard({
 	isExpanded: controlledExpanded,
 	onExpandChange,
 }: ResourcePermissionCardProps): JSX.Element {
+	const { t } = useTranslation('organizationsettings');
 	const [internalExpanded, setInternalExpanded] = useState(false);
 	const isControlled = controlledExpanded !== undefined;
 	const isExpanded = isControlled ? controlledExpanded : internalExpanded;
@@ -51,7 +53,11 @@ function ResourcePermissionCard({
 				className={styles.header}
 				onClick={handleToggleExpand}
 				aria-expanded={isExpanded}
-				aria-label={`${resourceLabel}: ${grantedCount} of ${totalCount} permissions granted`}
+				aria-label={t('role_view_resource_aria', {
+					resourceLabel,
+					grantedCount,
+					totalCount,
+				})}
 				data-testid={`resource-card-header-${resourceKind}`}
 			>
 				<div className={styles.headerLeft}>
@@ -72,7 +78,7 @@ function ResourcePermissionCard({
 					className={styles.grantedCount}
 					testId={`granted-count-${resourceKind}`}
 				>
-					{grantedCount} / {totalCount} granted
+					{grantedCount} / {totalCount} {t('granted')}
 				</Typography>
 			</button>
 

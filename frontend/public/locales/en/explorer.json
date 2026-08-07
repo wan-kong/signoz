@@ -8,5 +8,9 @@
     "delete_view_title": "Delete view",
     "delete_view_button": "Delete view",
     "edit_view_details": "Edit view details",
-    "label": "Label"
+    "label": "Label",
+    "explorer_options": {
+        "clear_this_view": "Clear this view",
+        "update_this_view": "Update this View"
+    }
 }

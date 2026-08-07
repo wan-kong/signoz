@@ -229,7 +229,9 @@ function CancelSubscriptionBanner(): JSX.Element {
 								onClick={handleCopyTemplate}
 								data-testid="copy-email-template-btn"
 							>
-								{copied ? t('copied') : t('billings.copy_email_template')}
+								{copied
+									? t('billings.copied', 'Copied!')
+									: t('billings.copy_email_template')}
 							</Button>
 							<Button
 								asChild

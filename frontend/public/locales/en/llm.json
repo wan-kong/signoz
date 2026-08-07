@@ -1,0 +1,149 @@
+{
+	"model_cost_tab": {
+		"search_placeholder": "Search by model or provider",
+		"clear_search": "Clear search",
+		"add_model_cost": "Add model cost",
+		"load_error": "Failed to load pricing rules. Please try again."
+	},
+	"model_cost_delete": {
+		"title": "Delete Model Cost Data ",
+		"cancel": "Cancel",
+		"delete": "Delete",
+		"confirm_message_prefix": "Are you sure you want to delete",
+		"confirm_message_suffix": "Once deleted, this action cannot be undone.",
+		"delete_failed": "Delete failed"
+	},
+	"model_cost_drawer": {
+		"title_add": "Add model cost",
+		"title_view": "View model cost",
+		"title_edit": "Edit model cost",
+		"cancel": "Cancel",
+		"close": "Close",
+		"save": "Save",
+		"billing_model_id": "Billing Model ID",
+		"model_id_placeholder": "e.g. openai:gpt-4o",
+		"provider": "Provider",
+		"save_failed": "Save failed"
+	},
+	"extra_pricing": {
+		"title": "Extra Pricing Buckets",
+		"optional": "Optional",
+		"per_1m_tokens_tooltip": "Pricing per 1M tokens",
+		"remove_bucket_aria": "Remove {{bucketLabel}}",
+		"cache_mode": "Cache mode",
+		"add_bucket": "Add pricing bucket",
+		"add_bucket_title": "Add a pricing bucket",
+		"cancel": "Cancel"
+	},
+	"pattern_editor": {
+		"title": "Model name patterns",
+		"prefix_match_hint": "(prefix match)",
+		"remove_pattern_aria": "Remove pattern {{pattern}}",
+		"add_placeholder": "Add pattern…",
+		"add": "+ Add",
+		"each_pattern_uses": "Each pattern uses",
+		"prefix_matching": "prefix matching",
+		"against": "against"
+	},
+	"pricing_fields": {
+		"title": "Pricing (per 1M tokens, USD)",
+		"read_only": "Read-only",
+		"input_cost": "Input Cost",
+		"output_cost": "Output Cost"
+	},
+	"source_selector": {
+		"title": "Source",
+		"managed_by_signoz": "Managed by SigNoz",
+		"auto_populated": "Auto-populated",
+		"auto_disabled_desc": "Available once SigNoz has default pricing for this model.",
+		"auto_default_desc": "Default pricing from SigNoz.",
+		"user_override": "User override",
+		"override_desc": "Custom pricing. Takes precedence.",
+		"reset_aria": "Reset to default pricing",
+		"reset_confirm_message": "Reset to default pricing? Custom values will be discarded. It might take 24 hours for changes to take effect.",
+		"keep": "Keep",
+		"reset": "Reset"
+	},
+	"model_costs_table": {
+		"empty": "No model costs yet.",
+		"total_count_label": "models",
+		"column_model": "Model",
+		"column_provider": "Provider",
+		"column_input": "Input / 1M",
+		"column_output": "Output / 1M",
+		"column_extra_buckets": "Extra buckets",
+		"column_source": "Source",
+		"column_last_seen": "Last seen"
+	},
+	"model_cost_actions": {
+		"edit": "Edit",
+		"delete": "Delete"
+	},
+	"attribute_mappings_table": {
+		"add_group": "Add a new group",
+		"no_groups": "No mapping groups yet.",
+		"column_target": "Target",
+		"column_sources": "Sources",
+		"column_actions": "Actions",
+		"load_error": "Failed to load mapping groups. Please try again."
+	},
+	"attribute_mappings_tab": {
+		"attribute_mappings": "Attribute Mappings",
+		"test": "Test"
+	},
+	"source_attribute_row": {
+		"attribute": "Attribute",
+		"resource": "Resource",
+		"move": "Move",
+		"copy": "Copy",
+		"placeholder": "Source attribute key",
+		"remove_aria": "Remove source"
+	},
+	"attribute_mappings_header": {
+		"description": "Configure source-to-target attribute remapping for LLM traces",
+		"unsaved_changes": "Unsaved changes",
+		"discard": "Discard",
+		"saving": "Saving…",
+		"save_changes": "Save changes"
+	},
+	"mapper_form_drawer": {
+		"title_edit": "Edit mapping",
+		"title_new": "New custom mapping",
+		"subtitle": "Map source attributes onto a canonical target attribute",
+		"deleting": "Deleting…",
+		"delete": "Delete",
+		"cancel": "Cancel",
+		"saving": "Saving…",
+		"save_mapping": "Save mapping",
+		"create_mapping": "Create mapping",
+		"target_attribute": "Target attribute",
+		"target_placeholder": "e.g. gen_ai.content.prompt",
+		"target_read_only_hint": "The target attribute can't be changed after creation.",
+		"write_target_to": "Write target to",
+		"write_target_to_hint": "Where the standardized attribute is written.",
+		"source_attributes": "Source attributes",
+		"priority_hint": "· priority: top → bottom · drag to reorder",
+		"add_another_source": "Add another source",
+		"span_attribute": "Span attribute",
+		"resource": "Resource"
+	},
+	"mapper_row": {
+		"more": "more"
+	},
+	"test_tab": {
+		"aria_label": "Sample span JSON",
+		"badge_moved_out": "moved out",
+		"badge_populated": "populated",
+		"badge_remapped": "remapped",
+		"description": "Paste a JSON span object to see which target attributes get populated and which source key matched.",
+		"heading": "Test with sample span",
+		"no_keys_in_map": "No keys in this map.",
+		"no_results_desc": "Run the test to see which target attributes your mappers populate.",
+		"no_results_title": "No results yet",
+		"no_spans": "No spans returned. The mappers produced no output for this input.",
+		"reset_default": "Reset to Default Span",
+		"resulting_attributes": "Resulting attributes",
+		"resulting_resource": "Resulting resource",
+		"run_test": "Run Test"
+	}
+}

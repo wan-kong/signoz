@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import TopContributorsRows from './TopContributorsRows';
 import { TopContributorsCardProps } from './types';
 
@@ -5,6 +6,7 @@ function TopContributorsContent({
 	topContributorsData,
 	totalCurrentTriggers,
 }: TopContributorsCardProps): JSX.Element {
+	const { t } = useTranslation('alert_history');
 	const isEmpty = !topContributorsData.length;
 
 	if (isEmpty) {
@@ -12,8 +14,10 @@ function TopContributorsContent({
 			<div className="empty-content">
 				<div className="empty-content__icon">ℹ️</div>
 				<div className="empty-content__text">
-					Top contributors highlight the most frequently triggering group-by
-					attributes in multi-dimensional alerts
+					{t(
+						'top_contributors.empty_message',
+						'Top contributors highlight the most frequently triggering group-by attributes in multi-dimensional alerts',
+					)}
 				</div>
 			</div>
 		);

@@ -1,4 +1,5 @@
 import { OptionData } from 'components/NewSelect/types';
+import i18n from 'ReactI18';
 import { SOMETHING_WENT_WRONG } from 'constants/api';
 import { textContainsVariableReference } from 'lib/dashboardVariables/variableReference';
 import { isEmpty } from 'lodash-es';
@@ -298,8 +299,12 @@ export const getOptionsForDynamicVariable = (
 		relatedValues: string;
 		allValues: string;
 	} = {
-		relatedValues: 'Related Values',
-		allValues: 'All Values',
+		relatedValues: i18n.t('variable.label_related_values', 'Related Values', {
+			ns: 'dashboard',
+		}),
+		allValues: i18n.t('variable.label_all_values', 'All Values', {
+			ns: 'dashboard',
+		}),
 	},
 ): OptionData[] => {
 	const options: OptionData[] = [];
@@ -486,6 +491,10 @@ export function extractErrorMessage(
 	}
 	return (
 		error.message ||
-		'Please make sure configuration is valid and you have required setup and permissions'
+		i18n.t(
+			'variable.error_invalid_config',
+			'Please make sure configuration is valid and you have required setup and permissions',
+			{ ns: 'dashboard' },
+		)
 	);
 }

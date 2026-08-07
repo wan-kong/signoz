@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { Badge } from '@signozhq/ui/badge';
 import { Typography } from '@signozhq/ui/typography';
 import type { TableColumnDef } from 'components/TanStackTableView';
@@ -31,7 +32,9 @@ export function getUnpricedModelsColumns({
 	return [
 		{
 			id: 'model',
-			header: 'Model (from spans)',
+			header: i18n.t('unpriced_table.column_model', 'Model (from spans)', {
+				ns: 'llm_unpriced',
+			}),
 			accessorFn: (row): string => row.modelName,
 			width: { min: 240, default: '100%' },
 			enableMove: false,
@@ -48,14 +51,22 @@ export function getUnpricedModelsColumns({
 		},
 		{
 			id: 'provider',
-			header: 'Provider',
+			header: i18n.t('unpriced_table.column_provider', 'Provider', {
+				ns: 'llm_unpriced',
+			}),
 			width: { min: 140 },
 			enableMove: false,
-			cell: ({ row }): string => row.provider || 'Unknown',
+			cell: ({ row }): string =>
+				row.provider ||
+				i18n.t('unpriced_table.provider_unknown', 'Unknown', {
+					ns: 'llm_unpriced',
+				}),
 		},
 		{
 			id: 'spans',
-			header: 'Spans',
+			header: i18n.t('unpriced_table.column_spans', 'Spans', {
+				ns: 'llm_unpriced',
+			}),
 			width: { min: 100 },
 			enableMove: false,
 			cell: ({ row }): JSX.Element => (
@@ -71,7 +82,9 @@ export function getUnpricedModelsColumns({
 		},
 		{
 			id: 'mapTo',
-			header: 'Map to billing model',
+			header: i18n.t('unpriced_table.column_map_to', 'Map to billing model', {
+				ns: 'llm_unpriced',
+			}),
 			width: { min: 280, default: '100%' },
 			enableMove: false,
 			enableRemove: false,

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useMemo, useState } from 'react';
 import { AxiosError } from 'axios';
 import { convertToApiError } from 'api/ErrorResponseHandlerForGeneratedAPIs';
@@ -27,6 +28,7 @@ const isRowTouched = (row: InviteMemberRow): boolean =>
 export function useInviteMembers(
 	options: UseInviteMembersOptions = {},
 ): UseInviteMembersReturn {
+	const { t } = useTranslation('ai_assistant');
 	const {
 		initialRowCount = 3,
 		onSuccess,
@@ -195,7 +197,7 @@ export function useInviteMembers(
 				results.push({
 					email: row.email,
 					success: false,
-					error: apiErr?.getErrorMessage() ?? 'Unknown error',
+					error: apiErr?.getErrorMessage() ?? t('unknown_error', 'Unknown error'),
 				});
 			}
 		}
@@ -215,7 +217,7 @@ export function useInviteMembers(
 		}
 
 		return results;
-	}, [validateAllRows, rows, onSuccess, onPartialSuccess, onAllFailed]);
+	}, [validateAllRows, rows, onSuccess, onPartialSuccess, onAllFailed, t]);
 
 	const canSubmit = useMemo(
 		() => !isSubmitting && touchedRows.length > 0,

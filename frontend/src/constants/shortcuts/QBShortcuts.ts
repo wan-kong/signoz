@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { getUserOperatingSystem, UserOperatingSystem } from 'utils/getUserOS';
 
 const userOS = getUserOperatingSystem();
@@ -13,5 +14,9 @@ export const QBShortcutsName = {
 };
 
 export const QBShortcutsDescription = {
-	StageAndRunQuery: 'Stage and Run the current query',
+	StageAndRunQuery: i18n.t(
+		'qb_shortcuts.stage_and_run_query',
+		'Stage and Run the current query',
+		{ ns: 'shortcuts' },
+	),
 };

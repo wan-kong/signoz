@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Divider } from '@signozhq/ui/divider';
 import { Tabs } from '@signozhq/ui/tabs';
 import { useConfirmableAction } from 'hooks/useConfirmableAction';
@@ -17,6 +18,7 @@ const MAPPINGS_TAB_KEY = 'attribute-mappings';
 const TEST_TAB_KEY = 'test';
 
 function LLMObservabilityAttributeMapping(): JSX.Element {
+	const { t } = useTranslation('llm');
 	const editor = useAttributeMappingEditor();
 	const groupDrawer = useGroupFormDrawer();
 	const spanTest = useTestSpanMapper(editor.snapshot, editor.groups);
@@ -38,7 +40,7 @@ function LLMObservabilityAttributeMapping(): JSX.Element {
 	const tabItems = [
 		{
 			key: MAPPINGS_TAB_KEY,
-			label: 'Attribute Mappings',
+			label: t('attribute_mappings_tab.attribute_mappings', 'Attribute Mappings'),
 			children: (
 				<AttributeMappingsTab
 					editor={editor}
@@ -49,7 +51,7 @@ function LLMObservabilityAttributeMapping(): JSX.Element {
 		},
 		{
 			key: TEST_TAB_KEY,
-			label: 'Test',
+			label: t('attribute_mappings_tab.test', 'Test'),
 			children: <TestTab spanTest={spanTest} />,
 		},
 	];

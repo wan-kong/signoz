@@ -316,7 +316,7 @@ function SaveView(): JSX.Element {
 				</Typography.Text>
 				<div className="search-input-container">
 					<Input
-						placeholder={t('common:search.placeholder', { field: 'views' })}
+						placeholder={t('common:search_for_views')}
 						prefix={<Search size={12} color={Color.BG_VANILLA_400} />}
 						value={searchValue}
 						onChange={handleSearch}

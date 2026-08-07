@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { ENTITY_VERSION_V5 } from 'constants/app';
 import {
 	initialQueryBuilderFormValuesMap,
@@ -210,8 +211,16 @@ export const ALERTS_VALUES_MAP: Record<AlertTypes, AlertDef> = {
 };
 
 export const ALERT_TYPE_BREADCRUMB_TITLE: Record<AlertTypes, string> = {
-	[AlertTypes.ANOMALY_BASED_ALERT]: 'Anomaly-Based Alert',
-	[AlertTypes.METRICS_BASED_ALERT]: 'Metric-Based Alert',
+	[AlertTypes.ANOMALY_BASED_ALERT]: i18n.t(
+		'anomaly_based_alert',
+		'Anomaly-Based Alert',
+		{ ns: 'alerts' },
+	),
+	[AlertTypes.METRICS_BASED_ALERT]: i18n.t(
+		'metrics_based_alert',
+		'Metric-Based Alert',
+		{ ns: 'alerts' },
+	),
 	[AlertTypes.LOGS_BASED_ALERT]: 'Log-Based Alert',
 	[AlertTypes.TRACES_BASED_ALERT]: 'Traces-Based Alert',
 	[AlertTypes.EXCEPTIONS_BASED_ALERT]: 'Exceptions-Based Alert',

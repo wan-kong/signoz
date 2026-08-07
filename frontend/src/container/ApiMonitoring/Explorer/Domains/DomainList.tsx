@@ -178,13 +178,17 @@ function DomainList(): JSX.Element {
 
 							<div className="no-filtered-domains-message">
 								<div className="no-domain-title">
-									No External API calls detected with applied filters.
+									{t(
+										'api_monitoring.no_external_api_calls',
+										'No External API calls detected with applied filters.',
+									)}
 								</div>
 								<div className="no-domain-subtitle">
 									{t('api_monitoring.ensure_http_spans_1')}{' '}
 									<span className="attribute">Client</span>{' '}
 									{t('api_monitoring.ensure_http_spans_2')}{' '}
-									<span className="attribute">url.full</span> or{' '}
+									<span className="attribute">url.full</span>{' '}
+									{t('api_monitoring.or', 'or')}{' '}
 									<span className="attribute">http.url</span>{' '}
 									{t('api_monitoring.ensure_http_spans_3')}.
 								</div>
@@ -194,7 +198,10 @@ function DomainList(): JSX.Element {
 									rel="noreferrer"
 									className="external-api-doc-link"
 								>
-									Learn how External API monitoring works in SigNoz{' '}
+									{t(
+										'api_monitoring.learn_external_api',
+										'Learn how External API monitoring works in SigNoz',
+									)}{' '}
 									<MoveUpRight size={14} />
 								</a>
 							</div>

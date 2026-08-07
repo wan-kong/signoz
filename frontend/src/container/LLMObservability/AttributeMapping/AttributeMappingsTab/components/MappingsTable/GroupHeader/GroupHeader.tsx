@@ -1,4 +1,5 @@
 import { Info } from '@signozhq/icons';
+import { useTranslation } from 'react-i18next';
 import { TooltipSimple } from '@signozhq/ui/tooltip';
 import { Typography } from '@signozhq/ui/typography';
 
@@ -12,6 +13,7 @@ interface GroupHeaderProps {
 }
 
 function GroupHeader({ group }: GroupHeaderProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const conditionCount = group.attributes.length + group.resource.length;
 
 	return (
@@ -40,7 +42,10 @@ function GroupHeader({ group }: GroupHeaderProps): JSX.Element {
 					className={styles.conditionCount}
 					data-testid={`group-condition-count-${group.localId}`}
 				>
-					· {conditionCount} {conditionCount === 1 ? 'condition' : 'conditions'}
+					· {conditionCount}{' '}
+					{conditionCount === 1
+						? t('llm_observability.condition', 'condition')
+						: t('llm_observability.conditions', 'conditions')}
 					<Info size={12} className={styles.conditionInfoIcon} />
 				</span>
 			</TooltipSimple>

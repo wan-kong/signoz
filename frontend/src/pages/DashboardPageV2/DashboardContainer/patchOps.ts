@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import type {
 	DashboardGridItemDTO,
 	DashboardtypesJSONPatchOperationDTO,
@@ -42,7 +43,9 @@ export function createDefaultPanel(
 	return {
 		kind: DashboardtypesPanelKindDTO.Panel,
 		spec: {
-			display: { name: 'New panel' },
+			display: {
+				name: i18n.t('panel.new_panel', 'New panel', { ns: 'dashboard' }),
+			},
 			// `plugin` is a discriminated union; kind is runtime-chosen, so assert here.
 			plugin: {
 				kind: pluginKind,

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,6 +36,7 @@ function AutoRefresh({
 	disabled = false,
 	showAutoRefreshBtnPrimary = true,
 }: AutoRefreshProps): JSX.Element {
+	const { t } = useTranslation('topnav');
 	const globalTime = useSelector<AppState, GlobalReducer>(
 		(state) => state.globalTime,
 	);
@@ -172,13 +174,13 @@ function AutoRefresh({
 						disabled={isDisabled}
 						className="auto-refresh-checkbox"
 					>
-						Auto Refresh
+						{t('auto_refresh.enable_label', 'Auto Refresh')}
 					</Checkbox>
 					<Typography.Text disabled={isDisabled} className="refresh-interval-text">
-						Refresh Interval
+						{t('auto_refresh.interval_title', 'Refresh Interval')}
 					</Typography.Text>
 					{refreshIntervalOptions
-						.filter((e) => e.label !== 'off')
+						.filter((e) => e.key !== 'off')
 						.map((option) => (
 							<Button
 								type="text"
@@ -196,7 +198,7 @@ function AutoRefresh({
 			}
 		>
 			<ButtonContainer
-				title="Set auto refresh"
+				title={t('auto_refresh.set_auto_refresh_tooltip', 'Set auto refresh')}
 				type={showAutoRefreshBtnPrimary ? 'primary' : 'default'}
 			>
 				<ChevronDown size={14} />

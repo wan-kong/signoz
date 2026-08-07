@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
 	CloudintegrationtypesServiceDashboardDTO,
 	CloudintegrationtypesServiceDTO,
@@ -13,6 +14,7 @@ function ServiceDashboards({
 	service: Pick<CloudintegrationtypesServiceDTO, 'assets'>;
 	isInteractive?: boolean;
 }): JSX.Element {
+	const { t } = useTranslation('integrations');
 	const dashboards = service?.assets?.dashboards || [];
 	if (!dashboards.length) {
 		return <></>;
@@ -20,7 +22,9 @@ function ServiceDashboards({
 
 	return (
 		<div className="aws-service-dashboards">
-			<div className="aws-service-dashboards-title">Dashboards</div>
+			<div className="aws-service-dashboards-title">
+				{t('dashboards', 'Dashboards')}
+			</div>
 			<div className="aws-service-dashboards-items">
 				{dashboards.map(
 					(dashboard: CloudintegrationtypesServiceDashboardDTO, index: number) => {

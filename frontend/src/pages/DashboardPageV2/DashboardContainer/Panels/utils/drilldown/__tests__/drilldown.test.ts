@@ -467,7 +467,8 @@ describe('getDataLinks', () => {
 		).toStrictEqual([
 			{
 				id: 'view-trace-details',
-				label: 'View Trace Details',
+				// Translation key resolved by the DrilldownMenu consumer; en value: "View Trace Details".
+				labelKey: 'dashboard_page_v2.drilldown.view_trace_details',
 				url: '/trace/abc123',
 			},
 		]);

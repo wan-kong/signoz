@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
+import { useTranslation } from 'react-i18next';
 import { Color } from '@signozhq/design-tokens';
 import { Button } from 'antd';
 import { useIsDarkMode } from 'hooks/useDarkMode';
@@ -8,6 +9,7 @@ import { CircleCheck, Link2 } from '@signozhq/icons';
 import './CopyToClipboard.styles.scss';
 
 function CopyToClipboard({ textToCopy }: { textToCopy: string }): JSX.Element {
+	const { t } = useTranslation('common');
 	const [state, copyToClipboard] = useCopyToClipboard();
 	const [success, setSuccess] = useState(false);
 	const isDarkMode = useIsDarkMode();
@@ -29,7 +31,7 @@ function CopyToClipboard({ textToCopy }: { textToCopy: string }): JSX.Element {
 				icon={<CircleCheck size={16} color={Color.BG_FOREST_400} />}
 				className="copy-to-clipboard copy-to-clipboard--success"
 			>
-				Copied
+				{t('copied')}
 			</Button>
 		);
 	}
@@ -46,7 +48,7 @@ function CopyToClipboard({ textToCopy }: { textToCopy: string }): JSX.Element {
 			onClick={(): void => copyToClipboard(textToCopy)}
 			className="copy-to-clipboard"
 		>
-			Copy link
+			{t('periscope_extra.copy_link')}
 		</Button>
 	);
 }

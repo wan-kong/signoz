@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Tooltip } from 'antd';
 import { Typography } from '@signozhq/ui/typography';
 import cx from 'classnames';
@@ -86,6 +87,8 @@ export default function QueryFunctions({
 	onChange,
 	maxFunctions = 3,
 }: QueryFunctionsProps): JSX.Element {
+	const { t } = useTranslation('query_builder');
+
 	const [functions, setFunctions] = useState<QueryFunction[]>(
 		queryFunctions.map((func) => ({
 			...func,
@@ -208,12 +211,14 @@ export default function QueryFunctions({
 			<Tooltip
 				title={
 					functions && functions.length >= 3 ? (
-						`Functions are in early access. You can add a maximum of ${
-							hasAnomalyFunction ? 2 : 3
-						} function as of now.`
+						t(
+							'query_functions.max_functions_limit',
+							'Functions are in early access. You can add a maximum of {{max}} function as of now.',
+							{ max: hasAnomalyFunction ? 2 : 3 },
+						)
 					) : (
 						<div style={{ textAlign: 'center' }}>
-							Add new function
+							{t('query_functions.add_new_function', 'Add new function')}
 							<Typography.Link
 								style={{ textDecoration: 'underline' }}
 								href="https://signoz.io/docs/querying/functions-extended-analysis/?utm_source=product&utm_medium=query-builder"
@@ -221,7 +226,7 @@ export default function QueryFunctions({
 							>
 								{' '}
 								<br />
-								Learn more
+								{t('query_functions.learn_more', 'Learn more')}
 							</Typography.Link>
 						</div>
 					)

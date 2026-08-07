@@ -120,13 +120,19 @@ export default function WorkspaceBlocked(): JSX.Element {
 		void logEvent('Workspace Blocked: User Clicked Extend Trial', {});
 
 		notifications.info({
-			message: t('extendTrial'),
+			message: t('extendTrial', 'Extend Trial'),
 			duration: 0,
 			description: (
 				<Typography>
-					{t('extendTrialMsgPart1')}{' '}
+					{t(
+						'extendTrialMsgPart1',
+						'If you have a specific reason why you were not able to finish your PoC in the trial period, please write to us on',
+					)}{' '}
 					<a href="mailto:cloud-support@signoz.io">cloud-support@signoz.io</a>{' '}
-					{t('extendTrialMsgPart2')}
+					{t(
+						'extendTrialMsgPart2',
+						'with the reason. Sometimes we can extend trial by a few days on a case by case basis',
+					)}
 				</Typography>
 			),
 		});
@@ -157,7 +163,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 	const tabItems: TabsProps['items'] = [
 		{
 			key: 'whyChooseSignoz',
-			label: t('whyChooseSignoz'),
+			label: t('whyChooseSignoz', 'Why choose Signoz'),
 			children: (
 				<Row align="middle" justify="center">
 					<Col span={12}>
@@ -169,9 +175,14 @@ export default function WorkspaceBlocked(): JSX.Element {
 								<Space size="large" direction="vertical">
 									<Flex vertical>
 										<Typography.Title level={3}>
-											{t('enterpriseGradeObservability')}
+											{t('enterpriseGradeObservability', 'Enterprise-grade Observability')}
 										</Typography.Title>
-										<Typography>{t('observabilityDescription')}</Typography>
+										<Typography>
+											{t(
+												'observabilityDescription',
+												'Get access to observability at any scale with advanced security and compliance.',
+											)}
+										</Typography>
 									</Flex>
 									<List
 										itemLayout="horizontal"
@@ -193,7 +204,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 										loading={isLoading}
 										onClick={handleUpdateCreditCard}
 									>
-										{t('continueToUpgrade')}
+										{t('continueToUpgrade', 'Continue to Upgrade')}
 									</Button>
 								</Col>
 							)}
@@ -204,7 +215,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 		},
 		{
 			key: 'youAreInGoodCompany',
-			label: t('youAreInGoodCompany'),
+			label: t('youAreInGoodCompany', 'You are in good company'),
 			children: (
 				<Row gutter={[24, 16]} justify="center">
 					{/* #FIXME: please suggest if there is any better way to loop in different columns to get the masonry layout */}
@@ -230,7 +241,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 									loading={isLoading}
 									onClick={handleUpdateCreditCard}
 								>
-									{t('continueToUpgrade')}
+									{t('continueToUpgrade', 'Continue to Upgrade')}
 								</Button>
 							</Flex>
 						</Col>
@@ -246,7 +257,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 		// },
 		{
 			key: 'faqs',
-			label: t('faqs'),
+			label: t('faqs', 'FAQs'),
 			children: (
 				<Row align="middle" justify="center">
 					<Col span={12}>
@@ -268,7 +279,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 									loading={isLoading}
 									onClick={handleUpdateCreditCard}
 								>
-									{t('continueToUpgrade')}
+									{t('continueToUpgrade', 'Continue to Upgrade')}
 								</Button>
 							)}
 						</Space>
@@ -285,7 +296,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 				title={
 					<div className="workspace-locked__modal__header">
 						<span className="workspace-locked__modal__title">
-							{t('trialPlanExpired')}
+							{t('trialPlanExpired', 'Trial Plan Expired')}
 						</span>
 						<span className="workspace-locked__modal__header__actions">
 							{isAdmin && (
@@ -297,7 +308,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 										role="button"
 										onClick={(e): void => handleViewBilling(e)}
 									>
-										View Billing
+										{t('viewBilling', 'View Billing')}
 									</Button>
 
 									<RefreshPaymentStatus />
@@ -313,7 +324,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 								className="periscope-btn"
 								onClick={handleContactUsClick}
 							>
-								Contact Us
+								{t('contactUs', 'Contact Us')}
 							</Button>
 						</span>
 					</div>
@@ -332,16 +343,24 @@ export default function WorkspaceBlocked(): JSX.Element {
 								<Col>
 									<Space direction="vertical" align="center">
 										<Typography.Title level={2}>
-											<div className="workspace-locked__title">Upgrade to Continue</div>
+											<div className="workspace-locked__title">
+												{t('upgradeToContinue', 'Upgrade to Continue')}
+											</div>
 										</Typography.Title>
 										<Typography.Text className="workspace-locked__details">
-											{t('upgradeNow')}
+											{t(
+												'upgradeNow',
+												'Upgrade now to keep enjoying all the great features you’ve been using.',
+											)}
 											<br />
-											{t('yourDataIsSafe')}{' '}
+											{t('yourDataIsSafe', 'Your data is safe with us until')}{' '}
 											<span className="workspace-locked__details__highlight">
 												{getFormattedDate(trialInfo?.gracePeriodEnd || Date.now())}
 											</span>{' '}
-											{t('actNow')}
+											{t(
+												'actNow',
+												'Act now to avoid any disruptions and continue where you left off.',
+											)}
 										</Typography.Text>
 									</Space>
 								</Col>
@@ -355,7 +374,10 @@ export default function WorkspaceBlocked(): JSX.Element {
 								>
 									<Col>
 										<Alert
-											message="Contact your admin to proceed with the upgrade."
+											message={t(
+												'contactAdmin',
+												'Contact your admin to proceed with the upgrade.',
+											)}
 											type="info"
 										/>
 									</Col>
@@ -377,7 +399,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 												loading={isLoading}
 												onClick={handleUpdateCreditCard}
 											>
-												Continue my Journey
+												{t('continueMyJourney', 'Continue My Journey')}
 											</Button>
 										</Col>
 										<Col>
@@ -388,7 +410,7 @@ export default function WorkspaceBlocked(): JSX.Element {
 												className="periscope-btn"
 												onClick={handleExtendTrial}
 											>
-												{t('needMoreTime')}
+												{t('needMoreTime', 'Need More Time?')}
 											</Button>
 										</Col>
 									</Row>

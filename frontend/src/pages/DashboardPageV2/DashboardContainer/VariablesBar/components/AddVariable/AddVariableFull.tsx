@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Plus } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 
@@ -9,6 +10,7 @@ import styles from './AddVariable.module.scss';
  * variables exist. Opens the Variables settings tab with the add form primed.
  */
 function AddVariableFull(): JSX.Element {
+	const { t } = useTranslation('dashboard');
 	const requestSettings = useDashboardStore((s) => s.requestSettings);
 
 	return (
@@ -23,7 +25,7 @@ function AddVariableFull(): JSX.Element {
 				requestSettings({ tab: 'Variables', addVariable: true })
 			}
 		>
-			Add variable
+			{t('dashboard_page_v2.variables_bar.add_variable', 'Add variable')}
 		</Button>
 	);
 }

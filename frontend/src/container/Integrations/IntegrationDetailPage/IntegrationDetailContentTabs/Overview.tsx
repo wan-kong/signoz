@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@signozhq/ui/typography';
 import { MarkdownRenderer } from 'components/MarkdownRenderer/MarkdownRenderer';
 
@@ -16,6 +17,7 @@ interface OverviewProps {
 }
 
 function Overview(props: OverviewProps): JSX.Element {
+	const { t } = useTranslation('integrations');
 	const { categories, assets, overviewContent } = props;
 	const assetsCount = [
 		assets?.logs?.pipelines?.length || 0,
@@ -23,13 +25,19 @@ function Overview(props: OverviewProps): JSX.Element {
 		assets?.alerts?.length || 0,
 	];
 
-	const assetLabelMap = ['Pipelines', 'Dashboards', 'Alerts'];
+	const assetLabelMap = [
+		t('pipelines', 'Pipelines'),
+		t('dashboards', 'Dashboards'),
+		t('alerts', 'Alerts'),
+	];
 
 	return (
 		<div className="integration-detail-overview">
 			<div className="integration-detail-overview-left-container">
 				<div className="integration-detail-overview-category">
-					<Typography.Text className="heading">Category</Typography.Text>
+					<Typography.Text className="heading">
+						{t('category', 'Category')}
+					</Typography.Text>
 					<div className="category-tabs">
 						{categories.map((category) => (
 							<div key={category} className="category-tab">
@@ -39,7 +47,9 @@ function Overview(props: OverviewProps): JSX.Element {
 					</div>
 				</div>
 				<div className="integration-detail-overview-assets">
-					<Typography.Text className="heading">Assets</Typography.Text>
+					<Typography.Text className="heading">
+						{t('assets', 'Assets')}
+					</Typography.Text>
 					<ul className="assets-list">
 						{assetsCount.map((count, index) => {
 							if (count === 0) {

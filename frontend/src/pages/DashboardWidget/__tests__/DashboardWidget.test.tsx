@@ -108,7 +108,7 @@ describe('DashboardWidget', () => {
 
 		renderAtRoute({ widgetId: WIDGET_ID, graphType: PANEL_TYPES.TIME_SERIES });
 
-		expect(screen.getByLabelText('loading')).toBeInTheDocument();
+		expect(screen.getByLabelText('Loading...')).toBeInTheDocument();
 	});
 
 	it('shows error message when dashboard fetch fails', async () => {

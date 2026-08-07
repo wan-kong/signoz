@@ -2,6 +2,7 @@ import { Check, ChevronDown, RefreshCw } from '@signozhq/icons';
 import { Checkbox } from '@signozhq/ui/checkbox';
 import { Typography } from '@signozhq/ui/typography';
 import { Button, Popover } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { refreshIntervalOptions } from 'container/TopNav/AutoRefreshV2/constants';
 import { popupContainer } from 'utils/selectPopupContainer';
 
@@ -30,13 +31,14 @@ function PublicAutoRefresh({
 	onIntervalChange,
 	onRefresh,
 }: PublicAutoRefreshProps): JSX.Element {
+	const { t } = useTranslation('common');
 	return (
 		<div className={styles.refreshActions}>
 			<div className={styles.refreshButton}>
 				<Button
 					icon={<RefreshCw size={16} />}
 					onClick={onRefresh}
-					title="Refresh"
+					title={t('public_dashboard.refresh')}
 					data-testid="public-dashboard-refresh"
 				/>
 			</div>
@@ -53,10 +55,10 @@ function PublicAutoRefresh({
 							disabled={disabled}
 							className="auto-refresh-checkbox"
 						>
-							Auto Refresh
+							{t('public_dashboard.auto_refresh')}
 						</Checkbox>
 						<Typography.Text disabled={disabled} className="refresh-interval-text">
-							Refresh Interval
+							{t('public_dashboard.refresh_interval')}
 						</Typography.Text>
 						{refreshIntervalOptions
 							.filter((option) => option.label !== 'off')
@@ -75,7 +77,7 @@ function PublicAutoRefresh({
 				}
 			>
 				<Button
-					title="Set auto refresh"
+					title={t('public_dashboard.set_auto_refresh')}
 					data-testid="public-dashboard-auto-refresh"
 				>
 					<ChevronDown size={14} />

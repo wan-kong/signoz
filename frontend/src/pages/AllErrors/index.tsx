@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { Filter } from '@signozhq/icons';
@@ -25,6 +26,7 @@ import { useAllErrorsQueryState } from './QueryStateContext';
 import './AllErrors.styles.scss';
 
 function AllErrors(): JSX.Element {
+	const { t } = useTranslation('common');
 	const { pathname } = useLocation();
 	const { handleRunQuery } = useQueryBuilder();
 	const queryClient = useQueryClient();
@@ -79,7 +81,7 @@ function AllErrors(): JSX.Element {
 							showAutoRefresh={false}
 							leftActions={
 								!showFilters ? (
-									<Tooltip title="Show Filters">
+									<Tooltip title={t('show_filters')}>
 										<Button onClick={handleFilterVisibilityChange} className="filter-btn">
 											<Filter size="md" />
 										</Button>

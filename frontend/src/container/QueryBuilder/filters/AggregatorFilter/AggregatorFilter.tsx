@@ -1,5 +1,6 @@
 // ** Components
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery, useQueryClient } from 'react-query';
 import { AutoComplete, Spin } from 'antd';
 // ** Api
@@ -41,6 +42,7 @@ export const AggregatorFilter = memo(function AggregatorFilter({
 }: AgregatorFilterProps): JSX.Element {
 	const getPopupContainer = useSelectPopupContainer();
 	const queryClient = useQueryClient();
+	const { t } = useTranslation('common');
 	const [optionsData, setOptionsData] = useState<ExtendedSelectOption[]>([]);
 
 	// this function is only relevant for metrics and now operators are part of aggregations
@@ -152,15 +154,18 @@ export const AggregatorFilter = memo(function AggregatorFilter({
 
 	const getPlaceholder = useCallback(() => {
 		if (signalSource === 'meter') {
-			return 'Meter name';
+			return t('query_builder.meter_name_placeholder', 'Meter name');
 		}
 
 		if (query.dataSource === DataSource.METRICS) {
-			return 'Metric name';
+			return t('query_builder.metric_name_placeholder', 'Metric name');
 		}
 
-		return 'Aggregate attribute';
-	}, [signalSource, query.dataSource]);
+		return t(
+			'query_builder.aggregate_attribute_placeholder',
+			'Aggregate attribute',
+		);
+	}, [signalSource, query.dataSource, t]);
 
 	const getAttributesData = useCallback((): BaseAutocompleteData[] => {
 		const attributeKeys =

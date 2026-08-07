@@ -11,7 +11,11 @@ export function TracesLoading(): JSX.Element {
 	return (
 		<div className="loading-traces">
 			<div className="loading-traces-content">
-				<img className="loading-gif" src={loadingPlaneUrl} alt="wait-icon" />
+				<img
+					className="loading-gif"
+					src={loadingPlaneUrl}
+					alt={t('wait_icon_alt')}
+				/>
 
 				<Typography>
 					{t('pending_data_placeholder', { dataSource: DataSource.TRACES })}

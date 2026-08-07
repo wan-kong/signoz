@@ -1,6 +1,7 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQueries } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import { getKeySuggestions } from 'api/querySuggestions/getKeySuggestions';
 import { TelemetryFieldKey } from 'api/v5/v5';
 import { AxiosResponse } from 'axios';
@@ -56,6 +57,7 @@ const useOptionsMenu = ({
 	// aggregateOperator,
 	initialOptions = {},
 }: UseOptionsMenuProps): UseOptionsMenu => {
+	const { t } = useTranslation('common');
 	const { notifications } = useNotifications();
 	const prefCtx = usePreferenceContext();
 	// TODO: send null to updateColumns and updateFormatting if dataSource is not logs or traces
@@ -286,14 +288,14 @@ const useOptionsMenu = ({
 
 			if (!newSelectedColumns?.length && dataSource !== DataSource.LOGS) {
 				notifications.error({
-					message: 'There must be at least one selected column',
+					message: t('options_menu_extra.at_least_one_selected'),
 				});
 				return;
 			}
 
 			updateColumns(newSelectedColumns || []);
 		},
-		[dataSource, notifications, preferences, updateColumns],
+		[dataSource, notifications, preferences, t, updateColumns],
 	);
 
 	const handleFormatChange = useCallback(

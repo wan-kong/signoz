@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useLocation } from 'react-router-dom';
@@ -83,6 +84,7 @@ export function K8sExpandedRow<
 	getItemKey,
 	detailsQueryKeyPrefix,
 }: K8sExpandedRowProps<T, TItemKey>): JSX.Element {
+	const { t } = useTranslation('infraMonitoring');
 	const fontSize = useInfraMonitoringFontSize();
 	const [, setGroupBy] = useInfraMonitoringGroupBy();
 	const [, setCurrentPage] = useInfraMonitoringPageListing();
@@ -279,7 +281,7 @@ export function K8sExpandedRow<
 			onClick={handleViewAllClick}
 			prefix={<CornerDownRight size={14} />}
 		>
-			View All
+			{t('view_all')}
 		</Button>
 	) : null;
 
@@ -289,7 +291,9 @@ export function K8sExpandedRow<
 			data-testid="expanded-table-container"
 		>
 			{isError && (
-				<Typography>{data?.error?.toString() || 'Something went wrong'}</Typography>
+				<Typography>
+					{data?.error?.toString() || t('something_went_wrong')}
+				</Typography>
 			)}
 
 			<div data-testid="expanded-table">

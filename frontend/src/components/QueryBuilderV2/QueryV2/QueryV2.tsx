@@ -6,6 +6,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DropdownMenuSimple } from '@signozhq/ui/dropdown-menu';
 import cx from 'classnames';
 import { ENTITY_VERSION_V4, ENTITY_VERSION_V5 } from 'constants/app';
@@ -52,6 +53,7 @@ export const QueryV2 = forwardRef(function QueryV2(
 	ref: ForwardedRef<HTMLDivElement>,
 ): JSX.Element {
 	const { cloneQuery, panelType } = useQueryBuilder();
+	const { t } = useTranslation('query_builder');
 
 	const showFunctions = query?.functions?.length > 0;
 	const { dataSource } = query;
@@ -187,7 +189,9 @@ export const QueryV2 = forwardRef(function QueryV2(
 
 									{showSpanScopeSelector && (
 										<div className="traces-search-filter-container">
-											<div className="traces-search-filter-in">in</div>
+											<div className="traces-search-filter-in">
+												{t('query_v2.in', 'in')}
+											</div>
 											<SpanScopeSelector query={query} />
 										</div>
 									)}
@@ -200,7 +204,7 @@ export const QueryV2 = forwardRef(function QueryV2(
 									menu={{
 										items: [
 											{
-												label: 'Clone',
+												label: t('query_v2.clone', 'Clone'),
 												key: 'clone-query',
 												icon: <Copy size={14} />,
 												onClick: handleCloneEntity,
@@ -208,7 +212,7 @@ export const QueryV2 = forwardRef(function QueryV2(
 											...(queriesCount && queriesCount > 1
 												? [
 														{
-															label: 'Delete',
+															label: t('query_v2.delete', 'Delete'),
 															key: 'delete-query',
 															icon: <Trash size={14} />,
 															onClick: handleDeleteQuery,
@@ -257,7 +261,9 @@ export const QueryV2 = forwardRef(function QueryV2(
 
 									{showSpanScopeSelector && (
 										<div className="traces-search-filter-container">
-											<div className="traces-search-filter-in">in</div>
+											<div className="traces-search-filter-in">
+												{t('query_v2.in', 'in')}
+											</div>
 											<SpanScopeSelector query={query} />
 										</div>
 									)}

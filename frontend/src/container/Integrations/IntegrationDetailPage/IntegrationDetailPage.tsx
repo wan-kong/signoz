@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 import { Button } from '@signozhq/ui/button';
 import { Flex, Skeleton } from 'antd';
@@ -26,6 +27,7 @@ import './IntegrationDetailPage.styles.scss';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function IntegrationDetailPage(): JSX.Element {
+	const { t } = useTranslation('integrations');
 	const history = useHistory();
 	const { integrationId } = useParams<{ integrationId?: string }>();
 	const [activeDetailTab, setActiveDetailTab] = useState<string | null>(
@@ -82,7 +84,7 @@ function IntegrationDetailPage(): JSX.Element {
 						history.push(ROUTES.INTEGRATIONS);
 					}}
 				>
-					All Integrations
+					{t('all_integrations', 'All Integrations')}
 				</Button>
 			</Flex>
 
@@ -91,7 +93,10 @@ function IntegrationDetailPage(): JSX.Element {
 					<div className="error-content">
 						<img src={awwSnapUrl} alt="error-emoji" className="error-state-svg" />
 						<Typography.Text>
-							Something went wrong :/ Please retry or contact support.
+							{t(
+								'something_went_wrong',
+								'Something went wrong :/ Please retry or contact support.',
+							)}
 						</Typography.Text>
 						<div className="error-btns">
 							<Button
@@ -100,7 +105,7 @@ function IntegrationDetailPage(): JSX.Element {
 								onClick={(): Promise<any> => refetch()}
 								prefix={<RotateCw size={14} />}
 							>
-								Retry
+								{t('retry', 'Retry')}
 							</Button>
 							<Button
 								variant="solid"
@@ -108,7 +113,7 @@ function IntegrationDetailPage(): JSX.Element {
 								onClick={(): void => handleContactSupport(isCloudUserVal)}
 								suffix={<MoveUpRight size={12} />}
 							>
-								Contact Support
+								{t('contact_support', 'Contact Support')}
 							</Button>
 						</div>
 					</div>

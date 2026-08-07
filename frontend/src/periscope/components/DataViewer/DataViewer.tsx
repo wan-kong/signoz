@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
 import logEvent from 'api/common/logEvent';
+import i18n from 'ReactI18';
 import CopyButton from 'periscope/components/CopyButton/CopyButton';
 import { JsonView } from 'periscope/components/JsonView';
 import { PrettyView, PrettyViewProps } from 'periscope/components/PrettyView';
@@ -15,8 +17,14 @@ enum ViewMode {
 const VIEW_MODE_CHANGED_EVENT = 'Data Viewer: View mode changed';
 
 const VIEW_MODE_OPTIONS: { label: string; value: ViewMode }[] = [
-	{ label: 'Pretty', value: ViewMode.Pretty },
-	{ label: 'JSON', value: ViewMode.Json },
+	{
+		label: i18n.t('periscope_extra.pretty', 'Pretty', { ns: 'common' }),
+		value: ViewMode.Pretty,
+	},
+	{
+		label: i18n.t('periscope_extra.json_view', 'JSON', { ns: 'common' }),
+		value: ViewMode.Json,
+	},
 ];
 
 export interface DataViewerProps {
@@ -31,6 +39,7 @@ function DataViewer({
 	drawerKey = 'default',
 	prettyViewProps,
 }: DataViewerProps): JSX.Element {
+	const { t } = useTranslation('common');
 	const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.Pretty);
 
 	const jsonString = useMemo(() => JSON.stringify(data, null, 2), [data]);
@@ -65,7 +74,7 @@ function DataViewer({
 					items={VIEW_MODE_OPTIONS}
 					testId="data-viewer-view-mode"
 				/>
-				<CopyButton value={jsonString} ariaLabel="Copy JSON" />
+				<CopyButton value={jsonString} ariaLabel={t('periscope_extra.copy_json')} />
 			</div>
 
 			<div className="data-viewer__content">

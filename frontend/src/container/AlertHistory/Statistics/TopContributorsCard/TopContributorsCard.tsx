@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Color } from '@signozhq/design-tokens';
 import { Button } from 'antd';
@@ -18,6 +19,7 @@ function TopContributorsCard({
 }: TopContributorsCardProps): JSX.Element {
 	const { search } = useLocation();
 	const searchParams = useMemo(() => new URLSearchParams(search), [search]);
+	const { t } = useTranslation('alert_history');
 
 	const viewAllTopContributorsParam = searchParams.get('viewAllTopContributors');
 
@@ -50,10 +52,12 @@ function TopContributorsCard({
 		<>
 			<div className="top-contributors-card">
 				<div className="top-contributors-card__header">
-					<div className="title">top contributors</div>
+					<div className="title">
+						{t('top_contributors.title', 'top contributors')}
+					</div>
 					{topContributorsData.length > 3 && (
 						<Button type="text" className="view-all" onClick={toggleViewAllDrawer}>
-							<div className="label">View all</div>
+							<div className="label">{t('view_all.button', 'View all')}</div>
 							<div className="icon">
 								<ArrowRight
 									size={14}

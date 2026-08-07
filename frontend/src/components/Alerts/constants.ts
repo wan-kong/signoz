@@ -1,13 +1,14 @@
+import i18n from 'ReactI18';
 import type { BadgeColor } from '@signozhq/ui/badge';
 
 export const STATE_ORDER = ['firing', 'pending', 'inactive', 'disabled'];
 export const SEVERITY_ORDER = ['critical', 'error', 'warning', 'info'];
 
 export const STATE_LABELS: Record<string, string> = {
-	firing: 'Firing',
-	pending: 'Pending',
-	inactive: 'OK',
-	disabled: 'Disabled',
+	firing: i18n.t('alert_rules.state.firing', 'Firing', { ns: 'alerts' }),
+	pending: i18n.t('alert_rules.state.pending', 'Pending', { ns: 'alerts' }),
+	inactive: i18n.t('alerts_constants.state_ok', 'OK', { ns: 'alerts' }),
+	disabled: i18n.t('alert_rules.state.disabled', 'Disabled', { ns: 'alerts' }),
 };
 
 export const STATE_COLORS: Record<string, string> = {

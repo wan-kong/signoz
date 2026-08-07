@@ -51,7 +51,7 @@ export default function EmptyLogsSearch({
 				<div className="empty-logs-search__content">
 					<img
 						src={emptyStateUrl}
-						alt="thinking-emoji"
+						alt={t('thinking_emoji_alt')}
 						className="empty-state-svg"
 					/>
 					{customMessage ? (

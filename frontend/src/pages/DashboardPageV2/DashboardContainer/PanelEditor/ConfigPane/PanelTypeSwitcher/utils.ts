@@ -1,3 +1,4 @@
+import i18n from 'ReactI18';
 import { TelemetrytypesSignalDTO } from 'api/generated/services/sigNoz.schemas';
 import { EQueryType } from 'types/common/dashboard';
 
@@ -47,7 +48,11 @@ export function getPanelTypeDisabledReason({
 					label,
 					queryType: QUERY_TYPE_LABEL[queryType],
 				})
-			: `${label} isn't available for ${QUERY_TYPE_LABEL[queryType]} queries`;
+			: i18n.t(
+					'dashboard_page_v2.panel_config.panel_type_disabled.query_type',
+					`${label} isn't available for ${QUERY_TYPE_LABEL[queryType]} queries`,
+					{ ns: 'dashboard', label, queryType: QUERY_TYPE_LABEL[queryType] },
+				);
 	}
 	if (signal !== undefined && !isSignalSupported(kind, signal)) {
 		return t
@@ -55,7 +60,11 @@ export function getPanelTypeDisabledReason({
 					label,
 					signal: SIGNAL_LABEL[signal],
 				})
-			: `${label} doesn't support ${SIGNAL_LABEL[signal]} data`;
+			: i18n.t(
+					'dashboard_page_v2.panel_config.panel_type_disabled.signal',
+					`${label} doesn't support ${SIGNAL_LABEL[signal]} data`,
+					{ ns: 'dashboard', label, signal: SIGNAL_LABEL[signal] },
+				);
 	}
 	return undefined;
 }
