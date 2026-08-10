@@ -9,11 +9,7 @@ import TanStackTable, {
 	useHiddenColumnIds,
 	useTableParams,
 } from 'components/TanStackTableView';
-import {
-	InfraMonitoringEvents,
-	logInfraColumnSortedEvent,
-	logInfraTimeRangeCustomizedEvent,
-} from 'constants/events';
+import { InfraMonitoringEvents } from 'constants/events';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useGlobalTimeStore } from 'store/globalTime';
 import { NANO_SECOND_MULTIPLIER } from 'store/globalTime/utils';
@@ -49,6 +45,10 @@ import { K8sInstrumentationChecksCallout } from './components/K8sInstrumentation
 
 import styles from './K8sBaseList.module.scss';
 import cx from 'classnames';
+import {
+	logInfraColumnSortedEvent,
+	logInfraTimeRangeCustomizedEvent,
+} from 'container/InfraMonitoringK8sV2/Base/events';
 
 export type K8sBaseListEmptyStateContext = {
 	isError: boolean;
@@ -130,6 +130,8 @@ export function K8sBaseList<
 
 	const { containerRef, calculatedPageSize } = useCalculatedPageSize({
 		rowHeight: 42,
+		headerHeight: 58,
+		paginationHeight: 52,
 	});
 
 	const {
@@ -438,16 +440,17 @@ export function K8sBaseList<
 				isFetching={isFetching}
 				cancelQuery={cancelQuery}
 			/>
+
+			<K8sInstrumentationChecksCallout entity={entity} />
+
+			<K8sTableToolbar
+				entity={entity}
+				eventCategory={eventCategory}
+				leftFilters={leftFilters}
+				onOpenOptionsDrawer={handleOpenOptionsDrawer}
+			/>
+
 			<div ref={containerRef} className={styles.tableContainer}>
-				<K8sInstrumentationChecksCallout entity={entity} />
-
-				<K8sTableToolbar
-					entity={entity}
-					eventCategory={eventCategory}
-					leftFilters={leftFilters}
-					onOpenOptionsDrawer={handleOpenOptionsDrawer}
-				/>
-
 				{isError && (
 					<Typography>
 						{data?.error?.toString() ||

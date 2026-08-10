@@ -86,5 +86,7 @@
 	"ask_admin_create_channel": "请联系管理员创建告警渠道",
 	"breadcrumb_channels": "渠道",
 	"breadcrumb_new_channel": "新建渠道",
-	"breadcrumb_edit_channel": "编辑渠道"
+	"breadcrumb_edit_channel": "编辑渠道",
+	"google_chat_webhook_url_invalid": "Webhook URL 必须是 chat.googleapis.com 上的 https URL",
+	"tooltip_google_chat_url": "用于发送告警的 Google Chat 空间的 [入站 Webhook](https://developers.google.com/workspace/chat/quickstart/webhooks) URL。必须是 chat.googleapis.com 上的 https URL。"
 }

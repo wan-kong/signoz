@@ -17,11 +17,7 @@ import {
 	QuickFilterChangeEventData,
 	QuickFiltersSource,
 } from 'components/QuickFilters/types';
-import {
-	InfraMonitoringEvents,
-	logInfraFilterCustomizedEvent,
-	logInfraMonitoringListViewedEvent,
-} from 'constants/events';
+import { InfraMonitoringEvents } from 'constants/events';
 import { initialQueriesMap } from 'constants/queryBuilder';
 import K8sBaseDetails, {
 	K8sDetailsFilters,
@@ -33,7 +29,7 @@ import {
 	InfraMonitoringEntity,
 	METRIC_NAMESPACE_BY_ENTITY,
 } from 'container/InfraMonitoringK8sV2/constants';
-import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
+import { translateInfraKey } from 'container/MetricsExplorer/Summary/i18n';
 import { useGetCompositeQueryParam } from 'hooks/queryBuilder/useGetCompositeQueryParam';
 import { useQueryBuilder } from 'hooks/queryBuilder/useQueryBuilder';
 import { useTranslation } from 'react-i18next';
@@ -59,6 +55,10 @@ import styles from './InfraMonitoringHosts.module.scss';
 import { ArrowUpToLine, Filter } from '@signozhq/icons';
 import { NANO_SECOND_MULTIPLIER, useGlobalTimeStore } from 'store/globalTime';
 import OverlayScrollbar from 'components/OverlayScrollbar/OverlayScrollbar';
+import {
+	logInfraFilterCustomizedEvent,
+	logInfraMonitoringListViewedEvent,
+} from 'container/InfraMonitoringK8sV2/Base/events';
 
 function Hosts(): JSX.Element {
 	const { t } = useTranslation('infraMonitoring');
@@ -143,6 +143,7 @@ function Hosts(): JSX.Element {
 					records: data.records,
 					total: data.total,
 					endTimeBeforeRetention: data.endTimeBeforeRetention,
+					warning: data.warning,
 				};
 			} catch (error) {
 				return {

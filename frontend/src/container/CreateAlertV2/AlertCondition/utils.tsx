@@ -84,6 +84,14 @@ const getOperatorWord = (op: AlertThresholdOperator): string => {
 			return i18n.t('op_word_equal', 'equal', { ns: 'create_alert' });
 		case AlertThresholdOperator.IS_NOT_EQUAL_TO:
 			return i18n.t('op_word_not_equal', 'not equal', { ns: 'create_alert' });
+		case AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO:
+			return i18n.t('op_word_equal_or_exceed', 'equal or exceed', {
+				ns: 'create_alert',
+			});
+		case AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO:
+			return i18n.t('op_word_equal_or_fall_below', 'equal or fall below', {
+				ns: 'create_alert',
+			});
 		default:
 			return i18n.t('op_word_exceed', 'exceed', { ns: 'create_alert' });
 	}
@@ -99,6 +107,10 @@ const getThresholdValue = (op: AlertThresholdOperator): number => {
 			return 100;
 		case AlertThresholdOperator.IS_NOT_EQUAL_TO:
 			return 0;
+		case AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO:
+			return 80;
+		case AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO:
+			return 50;
 		default:
 			return 80;
 	}
@@ -117,6 +129,8 @@ const getDataPoints = (
 			[AlertThresholdOperator.IS_EQUAL_TO]: [95, 100, 105, 90, 100],
 			[AlertThresholdOperator.IS_NOT_EQUAL_TO]: [5, 0, 10, 15, 0],
 			[AlertThresholdOperator.IS_ABOVE]: [75, 85, 90, 78, 95],
+			[AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO]: [75, 80, 90, 78, 95],
+			[AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO]: [60, 50, 40, 55, 35],
 			[AlertThresholdOperator.ABOVE_BELOW]: [75, 85, 90, 78, 95],
 		},
 		[AlertThresholdMatchType.ALL_THE_TIME]: {
@@ -124,6 +138,8 @@ const getDataPoints = (
 			[AlertThresholdOperator.IS_EQUAL_TO]: [100, 100, 100, 100, 100],
 			[AlertThresholdOperator.IS_NOT_EQUAL_TO]: [5, 10, 15, 8, 12],
 			[AlertThresholdOperator.IS_ABOVE]: [85, 87, 90, 88, 95],
+			[AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO]: [80, 87, 90, 88, 95],
+			[AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO]: [50, 40, 35, 42, 38],
 			[AlertThresholdOperator.ABOVE_BELOW]: [85, 87, 90, 88, 95],
 		},
 		[AlertThresholdMatchType.ON_AVERAGE]: {
@@ -131,6 +147,8 @@ const getDataPoints = (
 			[AlertThresholdOperator.IS_EQUAL_TO]: [95, 105, 100, 95, 105],
 			[AlertThresholdOperator.IS_NOT_EQUAL_TO]: [5, 10, 15, 8, 12],
 			[AlertThresholdOperator.IS_ABOVE]: [75, 85, 90, 78, 95],
+			[AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO]: [70, 85, 90, 75, 80],
+			[AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO]: [60, 40, 55, 45, 50],
 			[AlertThresholdOperator.ABOVE_BELOW]: [75, 85, 90, 78, 95],
 		},
 		[AlertThresholdMatchType.IN_TOTAL]: {
@@ -138,6 +156,8 @@ const getDataPoints = (
 			[AlertThresholdOperator.IS_EQUAL_TO]: [20, 20, 20, 20, 20],
 			[AlertThresholdOperator.IS_NOT_EQUAL_TO]: [10, 15, 25, 5, 30],
 			[AlertThresholdOperator.IS_ABOVE]: [10, 15, 25, 5, 30],
+			[AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO]: [10, 15, 25, 5, 25],
+			[AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO]: [8, 5, 10, 12, 15],
 			[AlertThresholdOperator.ABOVE_BELOW]: [10, 15, 25, 5, 30],
 		},
 		[AlertThresholdMatchType.LAST]: {
@@ -145,6 +165,8 @@ const getDataPoints = (
 			[AlertThresholdOperator.IS_EQUAL_TO]: [75, 85, 90, 78, 100],
 			[AlertThresholdOperator.IS_NOT_EQUAL_TO]: [75, 85, 90, 78, 25],
 			[AlertThresholdOperator.IS_ABOVE]: [75, 85, 90, 78, 95],
+			[AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO]: [75, 85, 90, 78, 80],
+			[AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO]: [75, 85, 90, 78, 50],
 			[AlertThresholdOperator.ABOVE_BELOW]: [75, 85, 90, 78, 95],
 		},
 	};
@@ -158,6 +180,8 @@ const getTooltipOperatorSymbol = (op: AlertThresholdOperator): string => {
 		[AlertThresholdOperator.IS_BELOW]: '<',
 		[AlertThresholdOperator.IS_EQUAL_TO]: '=',
 		[AlertThresholdOperator.IS_NOT_EQUAL_TO]: '!=',
+		[AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO]: '>=',
+		[AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO]: '<=',
 		[AlertThresholdOperator.ABOVE_BELOW]: '>',
 	};
 	return symbolMap[op] || '>';
@@ -267,6 +291,10 @@ export const getMatchTypeTooltip = (
 					return p === thresholdValue;
 				case AlertThresholdOperator.IS_NOT_EQUAL_TO:
 					return p !== thresholdValue;
+				case AlertThresholdOperator.IS_ABOVE_OR_EQUAL_TO:
+					return p >= thresholdValue;
+				case AlertThresholdOperator.IS_BELOW_OR_EQUAL_TO:
+					return p <= thresholdValue;
 				default:
 					return p > thresholdValue;
 			}

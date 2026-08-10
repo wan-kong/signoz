@@ -205,5 +205,7 @@
   "here": "here.",
   "refresh": "Refresh",
   "routing_policies_use": "Use",
-  "view_routing_policies": "View Routing Policies"
+  "view_routing_policies": "View Routing Policies",
+  "op_word_equal_or_exceed": "equal or exceed",
+  "op_word_equal_or_fall_below": "equal or fall below"
 }

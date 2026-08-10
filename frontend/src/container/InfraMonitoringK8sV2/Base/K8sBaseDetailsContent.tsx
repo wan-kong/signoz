@@ -12,11 +12,7 @@ import { TooltipSimple } from '@signozhq/ui/tooltip';
 import { Typography } from '@signozhq/ui/typography';
 import logEvent from 'api/common/logEvent';
 import { combineInitialAndUserExpression } from 'components/QueryBuilderV2/QueryV2/QuerySearch/utils';
-import {
-	InfraMonitoringEvents,
-	logInfraDrawerTabViewedEvent,
-	logInfraExplorerNavigatedEvent,
-} from 'constants/events';
+import { InfraMonitoringEvents } from 'constants/events';
 import { QueryParams } from 'constants/query';
 import {
 	initialQueryBuilderFormValuesMap,
@@ -49,9 +45,11 @@ import {
 import { EntityCountsSection } from './components/EntityCountsSection/EntityCountsSection';
 import { K8sBaseDetailsContentProps } from './types';
 import { getDrawerDurationMs } from './useDrawerLifecycleStore';
-import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
+import { translateInfraKey } from 'container/MetricsExplorer/Summary/i18n';
 
 import styles from '../EntityDetailsUtils/entityDetails.module.scss';
+import { logInfraDrawerTabViewedEvent } from 'container/InfraMonitoringK8sV2/EntityDetailsUtils/events';
+import { logInfraExplorerNavigatedEvent } from 'container/InfraMonitoringK8sV2/Base/events';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function K8sBaseDetailsContent<T>({

@@ -205,5 +205,7 @@
   "here": "一个渠道。",
   "refresh": "刷新",
   "routing_policies_use": "使用",
-  "view_routing_policies": "查看路由策略"
+  "view_routing_policies": "查看路由策略",
+  "op_word_equal_or_exceed": "等于或超过",
+  "op_word_equal_or_fall_below": "等于或低于"
 }

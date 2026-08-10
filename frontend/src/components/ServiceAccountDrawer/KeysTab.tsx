@@ -130,13 +130,14 @@ function buildColumns({
 					? labels.serviceAccountDisabled
 					: labels.revokeKey;
 				return (
-					<Tooltip title={tooltipTitle}>
+					<Tooltip title={tooltipTitle} placement="bottom">
 						<AuthZButton
 							checks={[
 								buildAPIKeyDeletePermission(record.id),
 								buildSADetachPermission(accountId),
 							]}
 							authZEnabled={!isDisabled && !!accountId}
+							withPortal={false}
 							variant="ghost"
 							size="sm"
 							color="destructive"
@@ -240,6 +241,7 @@ function KeysTab({
 				<AuthZButton
 					checks={[APIKeyCreatePermission, buildSAAttachPermission(accountId)]}
 					authZEnabled={!isDisabled && !!accountId}
+					withPortal={false}
 					variant="link"
 					color="primary"
 					onClick={async (): Promise<void> => {

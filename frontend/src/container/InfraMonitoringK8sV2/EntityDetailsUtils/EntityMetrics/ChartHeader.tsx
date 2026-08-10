@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import {
 	translateInfraKey,
 	translateInfraText,
-} from 'container/InfraMonitoringK8s/i18n';
+} from 'container/MetricsExplorer/Summary/i18n';
 import styles from './ChartHeader.module.scss';
 
 const DOCS_BASE_URL = `${process.env.DOCS_BASE_URL}/docs`;

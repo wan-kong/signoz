@@ -65,7 +65,7 @@ export const nodeWidgetInfo = [
 	{
 		title: 'display.cpu_usage_cores',
 		yAxisUnit: '',
-		docPath: '/infrastructure-monitoring/kubernetes/nodes/#cpu-usage-cores',
+		docPath: '/infrastructure-monitoring/kubernetes/nodes/#cpu-usage-cores-1',
 	},
 	{
 		title: 'display.memory_usage_bytes',

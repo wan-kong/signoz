@@ -6,7 +6,7 @@ import { TextNoData } from './TextNoData';
 import { MouseEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import { translateInfraKey } from 'container/InfraMonitoringK8s/i18n';
+import { translateInfraKey } from 'container/MetricsExplorer/Summary/i18n';
 
 export interface StatusBreakdownItem {
 	label: string;

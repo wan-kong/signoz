@@ -92,14 +92,20 @@ function OverviewTab({
 					{t('sa_overview.name_label')}
 				</label>
 				{isDisabled ? (
-					<AuthZTooltip checks={[buildSAUpdatePermission(account.id)]}>
+					<AuthZTooltip
+						checks={[buildSAUpdatePermission(account.id)]}
+						withPortal={false}
+					>
 						<div className="sa-drawer__input-wrapper sa-drawer__input-wrapper--disabled">
 							<span className="sa-drawer__input-text">{localName || '—'}</span>
 							<LockKeyhole size={14} className="sa-drawer__lock-icon" />
 						</div>
 					</AuthZTooltip>
 				) : (
-					<AuthZTooltip checks={[buildSAUpdatePermission(account.id)]}>
+					<AuthZTooltip
+						checks={[buildSAUpdatePermission(account.id)]}
+						withPortal={false}
+					>
 						<Input
 							id="sa-name"
 							value={localName}

@@ -139,7 +139,9 @@
 			"dashboard_id_copied": "仪表盘 ID 已复制",
 			"default_dashboard_name": "此仪表盘",
 			"description": "<name>{{name}}</name> 尚未迁移到新版仪表盘体验，因此无法在此打开。请将下方仪表盘 ID 分享给支持团队，我们会帮助你完成迁移。",
-			"title": "此仪表盘在新版体验中不可用"
+			"description_can_edit": "<name>{{name}}</name> 尚未迁移到新版仪表盘体验，因此无法在此打开。在我们处理完阻塞原因后，重试迁移通常可以成功。如果仍然失败，请将下方仪表盘 ID 分享给支持团队。",
+			"title": "此仪表盘在新版体验中不可用",
+			"retry_migration": "重试迁移"
 		},
 		"new_dashboard": {
 			"blank": "空白",

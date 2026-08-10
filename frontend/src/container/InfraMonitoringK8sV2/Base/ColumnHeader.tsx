@@ -6,9 +6,10 @@ import {
 	translateInfraKey,
 	translateInfraNode,
 	translateInfraText,
-} from 'container/InfraMonitoringK8s/i18n';
+} from 'container/MetricsExplorer/Summary/i18n';
 import styles from './ColumnHeader.module.scss';
 import cx from 'classnames';
+import { MouseEventHandler } from 'react';
 
 const DOCS_BASE_URL = `${process.env.DOCS_BASE_URL}/docs`;
 
@@ -17,7 +18,7 @@ interface ColumnHeaderProps {
 	title?: string;
 	titleKey?: string;
 	docPath?: string;
-	tooltip?: string;
+	tooltip?: React.ReactNode;
 	tooltipKey?: string;
 	className?: string;
 }
@@ -32,6 +33,8 @@ function ColumnHeader({
 	className,
 }: ColumnHeaderProps): JSX.Element {
 	const { t } = useTranslation('infraMonitoring');
+	const stopPropagationHandler: MouseEventHandler = (e): void =>
+		e.stopPropagation();
 
 	const renderContent = (): React.ReactNode => {
 		if (children) {
@@ -56,26 +59,35 @@ function ColumnHeader({
 
 	const renderInfoIcon = (): React.ReactNode => {
 		if (docPath) {
-			const tooltipTitle = translateInfraKey(
-				t,
-				tooltipKey,
-				tooltip || 'Not sure what this means?',
-			);
+			const tooltipTitle =
+				typeof tooltip === 'string'
+					? tooltipKey
+						? translateInfraKey(t, tooltipKey, tooltip)
+						: translateInfraText(t, tooltip)
+					: tooltip || translateInfraText(t, 'Not sure what this means?');
+			const isJustStringTitle = typeof tooltipTitle === 'string';
+
 			return (
 				<TooltipSimple
 					arrow
 					title={
-						<>
+						<div onClick={stopPropagationHandler}>
 							{tooltipTitle}{' '}
 							<a
 								href={`${DOCS_BASE_URL}${docPath}`}
 								target="_blank"
 								rel="noopener"
-								onClick={(e): void => e.stopPropagation()}
+								onClick={stopPropagationHandler}
 							>
-								{translateInfraKey(t, 'display.learn_more_period', 'Learn more.')}
+								{isJustStringTitle
+									? translateInfraKey(t, 'display.learn_more_period', 'Learn more.')
+									: translateInfraKey(
+											t,
+											'display.check_the_documentation_to_learn_more',
+											'Check the documentation to learn more.',
+										)}
 							</a>
-						</>
+						</div>
 					}
 				>
 					<div className={styles.infoIcon}>
@@ -87,7 +99,13 @@ function ColumnHeader({
 
 		if (tooltip) {
 			return (
-				<TooltipSimple title={translateInfraText(t, tooltip)}>
+				<TooltipSimple
+					title={
+						<div onClick={stopPropagationHandler}>
+							{typeof tooltip === 'string' ? translateInfraText(t, tooltip) : tooltip}
+						</div>
+					}
+				>
 					<div className={styles.infoIcon}>
 						<Info size="md" />
 					</div>

@@ -68,7 +68,7 @@ export const k8sClustersColumnsConfig: ClusterTableColumnConfig[] = [
 		},
 	},
 	{
-		id: 'clusterName',
+		id: INFRA_MONITORING_ATTR_KEYS.K8S_CLUSTER_NAME,
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title={i18n.t('display.cluster_name', 'Cluster Name', {
@@ -81,7 +81,7 @@ export const k8sClustersColumnsConfig: ClusterTableColumnConfig[] = [
 		),
 		accessorFn: (row): string => row.clusterName || '',
 		width: { min: 290 },
-		enableSort: false,
+		enableSort: true,
 		enableRemove: false,
 		enableMove: false,
 		pin: 'left',

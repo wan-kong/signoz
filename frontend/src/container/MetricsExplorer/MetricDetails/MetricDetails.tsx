@@ -88,6 +88,7 @@ function MetricDetails({
 				undefined,
 				undefined,
 				metadata?.isMonotonic,
+				metadata?.temporality,
 			);
 			handleExplorerTabChange(
 				PANEL_TYPES.TIME_SERIES,
@@ -110,6 +111,7 @@ function MetricDetails({
 		handleExplorerTabChange,
 		metadata?.type,
 		metadata?.isMonotonic,
+		metadata?.temporality,
 	]);
 
 	useEffect(() => {
@@ -201,6 +203,7 @@ function MetricDetails({
 					metricName={metricName}
 					metricType={metadata?.type}
 					isMonotonic={metadata?.isMonotonic}
+					temporality={metadata?.temporality}
 					minTime={minTime}
 					maxTime={maxTime}
 				/>

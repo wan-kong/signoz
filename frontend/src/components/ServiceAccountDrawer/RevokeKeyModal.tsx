@@ -57,6 +57,7 @@ export function RevokeKeyFooter({
 				color="destructive"
 				loading={isRevoking}
 				onClick={onConfirm}
+				withPortal={false}
 			>
 				<Trash2 size={12} />
 				{t('sa_revoke_key.revoke_key')}

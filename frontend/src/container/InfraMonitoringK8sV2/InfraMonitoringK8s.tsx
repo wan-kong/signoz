@@ -51,15 +51,15 @@ import {
 } from './hooks';
 
 import styles from './InfraMonitoringK8s.module.scss';
-import {
-	logInfraFilterCustomizedEvent,
-	logInfraMonitoringListViewedEvent,
-	InfraMonitoringEvents,
-} from 'constants/events';
+import { InfraMonitoringEvents } from 'constants/events';
 import logEvent from 'api/common/logEvent';
 import { NANO_SECOND_MULTIPLIER, useGlobalTimeStore } from 'store/globalTime';
 import OverlayScrollbar from 'components/OverlayScrollbar/OverlayScrollbar';
 import { useTranslation } from 'react-i18next';
+import {
+	logInfraFilterCustomizedEvent,
+	logInfraMonitoringListViewedEvent,
+} from 'container/InfraMonitoringK8sV2/Base/events';
 
 export default function InfraMonitoringK8s(): JSX.Element {
 	const { t } = useTranslation('infraMonitoring');

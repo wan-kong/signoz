@@ -11,6 +11,7 @@ import { SelectedItemParams } from '../hooks';
 import { formatBytes, getPodStatusItems } from '../commonUtils';
 import {
 	EntityProgressBar,
+	EntityProgressThresholds,
 	GroupedStatusCounts,
 	TextNoData,
 	ValidateColumnValueWrapper,
@@ -76,7 +77,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 			},
 		},
 		{
-			id: 'deploymentName',
+			id: INFRA_MONITORING_ATTR_KEYS.K8S_DEPLOYMENT_NAME,
 			header: (): React.ReactNode => (
 				<EntityGroupHeader
 					title={i18n.t('display.deployment_name', 'Deployment Name', {
@@ -90,7 +91,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 			accessorFn: (row): string =>
 				row.meta?.[INFRA_MONITORING_ATTR_KEYS.K8S_DEPLOYMENT_NAME] || '',
 			width: { min: 290 },
-			enableSort: false,
+			enableSort: true,
 			enableRemove: false,
 			enableMove: false,
 			pin: 'left',
@@ -171,7 +172,10 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 		{
 			id: 'cpu_request',
 			header: (): React.ReactNode => (
-				<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/deployments#cpu-req-usage-">
+				<ColumnHeader
+					docPath="/infrastructure-monitoring/kubernetes/deployments#cpu-req-usage-"
+					tooltip={<EntityProgressThresholds type="cpu-request" />}
+				>
 					CPU Request Usage (%)
 				</ColumnHeader>
 			),
@@ -189,7 +193,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 						entity={InfraMonitoringEntity.DEPLOYMENTS}
 						attribute="CPU Request"
 					>
-						<EntityProgressBar value={cpuRequest} type="request" />
+						<EntityProgressBar value={cpuRequest} type="cpu-request" />
 					</ValidateColumnValueWrapper>
 				);
 			},
@@ -197,7 +201,10 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 		{
 			id: 'cpu_limit',
 			header: (): React.ReactNode => (
-				<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/deployments#cpu-limit-usage-">
+				<ColumnHeader
+					docPath="/infrastructure-monitoring/kubernetes/deployments#cpu-limit-usage-"
+					tooltip={<EntityProgressThresholds type="cpu-limit" />}
+				>
 					CPU Limit Usage (%)
 				</ColumnHeader>
 			),
@@ -214,7 +221,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 						entity={InfraMonitoringEntity.DEPLOYMENTS}
 						attribute="CPU Limit"
 					>
-						<EntityProgressBar value={cpuLimit} type="limit" />
+						<EntityProgressBar value={cpuLimit} type="cpu-limit" />
 					</ValidateColumnValueWrapper>
 				);
 			},
@@ -247,7 +254,10 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 		{
 			id: 'memory_request',
 			header: (): React.ReactNode => (
-				<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/deployments#mem-req-usage-">
+				<ColumnHeader
+					docPath="/infrastructure-monitoring/kubernetes/deployments#mem-req-usage-"
+					tooltip={<EntityProgressThresholds type="memory-request" />}
+				>
 					Memory Request Usage (%)
 				</ColumnHeader>
 			),
@@ -265,7 +275,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 						entity={InfraMonitoringEntity.DEPLOYMENTS}
 						attribute="Memory Request"
 					>
-						<EntityProgressBar value={memoryRequest} type="request" />
+						<EntityProgressBar value={memoryRequest} type="memory-request" />
 					</ValidateColumnValueWrapper>
 				);
 			},
@@ -273,7 +283,10 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 		{
 			id: 'memory_limit',
 			header: (): React.ReactNode => (
-				<ColumnHeader docPath="/infrastructure-monitoring/kubernetes/deployments#mem-limit-usage-">
+				<ColumnHeader
+					docPath="/infrastructure-monitoring/kubernetes/deployments#mem-limit-usage-"
+					tooltip={<EntityProgressThresholds type="memory-limit" />}
+				>
 					Memory Limit Usage (%)
 				</ColumnHeader>
 			),
@@ -290,7 +303,7 @@ export const k8sDeploymentsColumnsConfig: TableColumnDef<InframonitoringtypesDep
 						entity={InfraMonitoringEntity.DEPLOYMENTS}
 						attribute="Memory Limit"
 					>
-						<EntityProgressBar value={memoryLimit} type="limit" />
+						<EntityProgressBar value={memoryLimit} type="memory-limit" />
 					</ValidateColumnValueWrapper>
 				);
 			},

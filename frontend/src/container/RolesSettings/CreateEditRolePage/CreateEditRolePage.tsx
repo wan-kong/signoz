@@ -27,6 +27,7 @@ import { useCreateEditRolePageActions } from './useCreateEditRolePageActions';
 
 import styles from './CreateEditRolePage.module.scss';
 import { BrandedPermission } from 'lib/authz/hooks/useAuthZ/types';
+import { AuthZGuardContent } from 'lib/authz/components/AuthZGuard/AuthZGuardContent';
 
 function authzCheckFn(
 	_props: object,
@@ -34,17 +35,10 @@ function authzCheckFn(
 ): BrandedPermission[] {
 	const match = router.matchPath<{ roleId: string }>(ROUTES.ROLE_DETAILS);
 	const roleId = match?.roleId ?? 'new';
-	const roleName = router.searchParams.get('name') ?? '';
 	const isCreateMode = roleId === 'new';
 
 	if (isCreateMode) {
 		return [RoleCreatePermission];
-	}
-	if (roleName) {
-		return [
-			buildRoleReadPermission(roleName),
-			buildRoleUpdatePermission(roleName),
-		];
 	}
 	return [];
 }
@@ -150,7 +144,7 @@ function CreateEditRolePageContent(): JSX.Element {
 		);
 	}
 
-	if ((isLoading && !isCreateMode) || isFeatureGateLoading) {
+	if (isFeatureGateLoading) {
 		return (
 			<div className={styles.createEditRolePage}>
 				<Skeleton active paragraph={{ rows: 8 }} />
@@ -158,32 +152,19 @@ function CreateEditRolePageContent(): JSX.Element {
 		);
 	}
 
-	if (loadError) {
-		return (
-			<div
-				className={styles.createEditRolePage}
-				data-testid="create-edit-role-page"
-			>
-				<div className={styles.createEditRolePageHeader}>
-					<div className={styles.createEditRolePageHeaderLeft}>
-						<Button
-							variant="ghost"
-							color="secondary"
-							onClick={handleCancel}
-							disabled={isSaving}
-							data-testid="cancel-button"
-							className={styles.backButton}
-						>
-							<ArrowLeft size={16} />
-						</Button>
-						<Typography.Title level={3}>{t('role_load_error')}</Typography.Title>
-					</div>
-				</div>
+	const title = isCreateMode
+		? t('create_role')
+		: t('edit_role_title', {
+				name:
+					formData.name || (isLoading ? t('role_loading') : t('role_load_error')),
+			});
 
-				<ErrorInPlace error={loadError} data-testid="role-load-error-banner" />
-			</div>
-		);
-	}
+	const canCheckRolePermissions = !isCreateMode && !!roleName;
+
+	const saveChecks = isCreateMode
+		? [RoleCreatePermission]
+		: [buildRoleReadPermission(roleName), buildRoleUpdatePermission(roleName)];
+	const isSaveCheckEnabled = isCreateMode || canCheckRolePermissions;
 
 	return (
 		<div
@@ -202,13 +183,7 @@ function CreateEditRolePageContent(): JSX.Element {
 					>
 						<ArrowLeft size={16} />
 					</Button>
-					<Typography.Title level={3}>
-						{isCreateMode
-							? t('create_role')
-							: t('edit_role_title', 'Role - {{name}}', {
-									name: formData.name || t('role_loading'),
-								})}
-					</Typography.Title>
+					<Typography.Title level={3}>{title}</Typography.Title>
 				</div>
 
 				<div className={styles.createEditRolePageActions}>
@@ -221,11 +196,8 @@ function CreateEditRolePageContent(): JSX.Element {
 						</div>
 					)}
 					<AuthZButton
-						checks={
-							isCreateMode
-								? [RoleCreatePermission]
-								: [buildRoleUpdatePermission(roleName)]
-						}
+						checks={saveChecks}
+						authZEnabled={isSaveCheckEnabled}
 						variant="solid"
 						color="primary"
 						onClick={handleSaveAndNavigate}
@@ -238,61 +210,91 @@ function CreateEditRolePageContent(): JSX.Element {
 				</div>
 			</div>
 
-			{saveError && (
-				<ErrorInPlace
-					error={saveError}
-					height="auto"
-					data-testid="save-error-banner"
-					padding={0}
-					bordered={true}
-					className={styles.errorInPlaceContainer}
-				/>
-			)}
-
-			<div className={styles.createEditRolePageContent}>
-				<div className={styles.createEditRolePageForm}>
-					<div className={styles.formRow}>
-						{isCreateMode ? (
-							<div className={styles.formField}>
-								<label htmlFor="role-name" className={styles.formLabel}>
-									{t('role_name_label')}
-								</label>
-								<Input
-									id="role-name"
-									value={formData.name}
-									onChange={(e): void => handleFormChange('name', e.target.value)}
-									placeholder={t('role_name_placeholder')}
-									data-testid="role-name-input"
-								/>
-							</div>
-						) : null}
-						<div className={styles.formField}>
-							<label htmlFor="role-description" className={styles.formLabel}>
-								{t('role_description_label')}
-							</label>
-							<Input
-								id="role-description"
-								value={formData.description}
-								onChange={(e): void => handleFormChange('description', e.target.value)}
-								placeholder={t('role_description_placeholder')}
-								data-testid="role-description-input"
-							/>
-						</div>
+			<AuthZGuardContent
+				checks={canCheckRolePermissions ? [buildRoleReadPermission(roleName)] : []}
+				fallbackOnLoading={
+					<div className={styles.createEditRolePage}>
+						<Skeleton active paragraph={{ rows: 8 }} />
 					</div>
-				</div>
+				}
+			>
+				<>
+					{isLoading && (
+						<div className={styles.createEditRolePage}>
+							<Skeleton active paragraph={{ rows: 8 }} />
+						</div>
+					)}
 
-				<div className={styles.createEditRolePageDivider} />
+					{loadError && (
+						<ErrorInPlace
+							error={loadError}
+							height="auto"
+							data-testid="role-load-error-banner"
+							padding={0}
+							bordered={true}
+							className={styles.errorInPlaceContainer}
+						/>
+					)}
 
-				<PermissionEditor
-					resources={resources}
-					mode={editorMode}
-					onModeChange={setEditorMode}
-					onResourceChange={setResources}
-					onJsonValidityChange={setHasJsonError}
-					isLoading={isLoading}
-					validationErrors={validationErrors}
-				/>
-			</div>
+					{saveError && (
+						<ErrorInPlace
+							error={saveError}
+							height="auto"
+							data-testid="save-error-banner"
+							padding={0}
+							bordered={true}
+							className={styles.errorInPlaceContainer}
+						/>
+					)}
+
+					<div className={styles.createEditRolePageContent}>
+						<div className={styles.createEditRolePageForm}>
+							<div className={styles.formRow}>
+								{isCreateMode ? (
+									<div className={styles.formField}>
+										<label htmlFor="role-name" className={styles.formLabel}>
+											{t('role_name_label')}
+										</label>
+										<Input
+											id="role-name"
+											value={formData.name}
+											onChange={(e): void => handleFormChange('name', e.target.value)}
+											placeholder={t('role_name_placeholder')}
+											data-testid="role-name-input"
+										/>
+									</div>
+								) : null}
+								<div className={styles.formField}>
+									<label htmlFor="role-description" className={styles.formLabel}>
+										{t('role_description_label')}
+									</label>
+									<Input
+										id="role-description"
+										value={formData.description}
+										onChange={(e): void =>
+											handleFormChange('description', e.target.value)
+										}
+										placeholder={t('role_description_placeholder')}
+										data-testid="role-description-input"
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className={styles.createEditRolePageDivider} />
+
+						<PermissionEditor
+							resources={resources}
+							mode={editorMode}
+							onModeChange={setEditorMode}
+							onResourceChange={setResources}
+							onJsonValidityChange={setHasJsonError}
+							isLoading={isLoading}
+							validationErrors={validationErrors}
+						/>
+					</div>
+				</>
+			</AuthZGuardContent>
 
 			<ConfirmDialog
 				open={isBlocked}

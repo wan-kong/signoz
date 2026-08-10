@@ -139,7 +139,9 @@
 			"dashboard_id_copied": "Dashboard ID copied",
 			"default_dashboard_name": "This dashboard",
 			"description": "<name>{{name}}</name> hasn't been migrated to the new dashboard experience yet, so it can't be opened here. Share the dashboard ID below with support and we'll help you move it over.",
-			"title": "This dashboard isn't available in the new experience"
+			"description_can_edit": "<name>{{name}}</name> hasn't been migrated to the new dashboard experience yet, so it can't be opened here. Retrying the migration often works once we've handled the case that blocked it. If it still fails, share the dashboard ID below with support.",
+			"title": "This dashboard isn't available in the new experience",
+			"retry_migration": "Retry migration"
 		},
 		"new_dashboard": {
 			"blank": "Blank",

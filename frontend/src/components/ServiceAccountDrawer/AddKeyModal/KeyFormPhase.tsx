@@ -6,6 +6,7 @@ import { ToggleGroupSimple } from '@signozhq/ui/toggle-group';
 import { DatePicker } from 'antd';
 import { useTranslation } from 'react-i18next';
 import AuthZButton from 'lib/authz/components/AuthZButton/AuthZButton';
+import { AuthZGuardContent } from 'lib/authz/components/AuthZGuard/AuthZGuardContent';
 import {
 	APIKeyCreatePermission,
 	buildSAAttachPermission,
@@ -38,92 +39,107 @@ function KeyFormPhase({
 	accountId,
 }: KeyFormPhaseProps): JSX.Element {
 	const { t } = useTranslation('common');
+	const checks = accountId
+		? [APIKeyCreatePermission, buildSAAttachPermission(accountId)]
+		: [];
+
 	return (
 		<>
 			<form id={FORM_ID} className="add-key-modal__form" onSubmit={onSubmit}>
-				<div className="add-key-modal__field">
-					<label className="add-key-modal__label" htmlFor="key-name">
-						{t('sa_add_key.name_label')}{' '}
-						<span style={{ color: 'var(--destructive)' }}>*</span>
-					</label>
-					<Input
-						id="key-name"
-						placeholder={t('sa_add_key.name_placeholder')}
-						className="add-key-modal__input"
-						{...register('keyName', {
-							required: true,
-							validate: (v) => !!v.trim(),
-						})}
-					/>
-				</div>
-
-				<div className="add-key-modal__field">
-					<span className="add-key-modal__label">{t('sa_add_key.expiration')}</span>
-					<Controller
-						name="expiryMode"
-						control={control}
-						render={({ field }): JSX.Element => (
-							<ToggleGroupSimple
-								type="single"
-								value={field.value}
-								onChange={(val: string): void => {
-									if (val) {
-										field.onChange(val);
-									}
-								}}
-								size="sm"
-								className="add-key-modal__expiry-toggle"
-								items={[
-									{ value: ExpiryMode.NONE, label: t('sa_add_key.no_expiration') },
-									{ value: ExpiryMode.DATE, label: t('sa_add_key.set_expiration') },
-								]}
+				<AuthZGuardContent checks={checks}>
+					<>
+						<div className="add-key-modal__field">
+							<label className="add-key-modal__label" htmlFor="key-name">
+								{t('sa_add_key.name_label')}{' '}
+								<span style={{ color: 'var(--destructive)' }}>*</span>
+							</label>
+							<Input
+								id="key-name"
+								placeholder={t('sa_add_key.name_placeholder')}
+								className="add-key-modal__input"
+								testId="add-key-name-input"
+								{...register('keyName', {
+									required: true,
+									validate: (v) => !!v.trim(),
+								})}
 							/>
-						)}
-					/>
-				</div>
+						</div>
 
-				{expiryMode === ExpiryMode.DATE && (
-					<div className="add-key-modal__field">
-						<label className="add-key-modal__label" htmlFor="expiry-date">
-							{t('sa_add_key.expiration_date')}
-						</label>
-						<div className="add-key-modal__datepicker">
+						<div className="add-key-modal__field">
+							<span className="add-key-modal__label">
+								{t('sa_add_key.expiration')}
+							</span>
 							<Controller
-								name="expiryDate"
+								name="expiryMode"
 								control={control}
 								render={({ field }): JSX.Element => (
-									<DatePicker
-										id="expiry-date"
+									<ToggleGroupSimple
+										type="single"
 										value={field.value}
-										onChange={field.onChange}
-										popupClassName="add-key-modal-datepicker-popup"
-										getPopupContainer={popupContainer}
-										disabledDate={disabledDate}
+										onChange={(val: string): void => {
+											if (val) {
+												field.onChange(val);
+											}
+										}}
+										size="sm"
+										className="add-key-modal__expiry-toggle"
+										items={[
+											{ value: ExpiryMode.NONE, label: t('sa_add_key.no_expiration') },
+											{ value: ExpiryMode.DATE, label: t('sa_add_key.set_expiration') },
+										]}
 									/>
 								)}
 							/>
 						</div>
-					</div>
-				)}
+
+						{expiryMode === ExpiryMode.DATE && (
+							<div className="add-key-modal__field">
+								<label className="add-key-modal__label" htmlFor="expiry-date">
+									{t('sa_add_key.expiration_date')}
+								</label>
+								<div className="add-key-modal__datepicker">
+									<Controller
+										name="expiryDate"
+										control={control}
+										render={({ field }): JSX.Element => (
+											<DatePicker
+												id="expiry-date"
+												value={field.value}
+												onChange={field.onChange}
+												popupClassName="add-key-modal-datepicker-popup"
+												getPopupContainer={popupContainer}
+												disabledDate={disabledDate}
+											/>
+										)}
+									/>
+								</div>
+							</div>
+						)}
+					</>
+				</AuthZGuardContent>
 			</form>
 
 			<div className="add-key-modal__footer">
 				<div className="add-key-modal__footer-right">
-					<Button variant="solid" color="secondary" onClick={onClose}>
+					<Button
+						variant="solid"
+						color="secondary"
+						onClick={onClose}
+						testId="add-key-cancel-btn"
+					>
 						{t('sa_add_key.cancel')}
 					</Button>
 					<AuthZButton
-						checks={[
-							APIKeyCreatePermission,
-							buildSAAttachPermission(accountId ?? ''),
-						]}
+						checks={checks}
 						authZEnabled={!!accountId}
+						withPortal={false}
 						type="submit"
 						form={FORM_ID}
 						variant="solid"
 						color="primary"
 						loading={isSubmitting}
 						disabled={!isValid}
+						testId="add-key-submit-btn"
 					>
 						{t('sa_add_key.create_key')}
 					</AuthZButton>

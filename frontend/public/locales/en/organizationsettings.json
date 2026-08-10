@@ -158,6 +158,7 @@
 	"role_view_failed_to_load_role": "Failed to load role",
 	"role_view_failed_to_load_role_details": "Failed to load role details",
 	"role_view_role_title": "Role - {{name}}",
+	"role_view_loading_role": "Loading role...",
 	"role_view_managed_roles_cannot_be_deleted": "Managed roles cannot be deleted",
 	"role_view_managed_roles_cannot_be_updated": "Managed roles cannot be updated",
 	"role_view_collapse_selected_items": "Collapse selected items",

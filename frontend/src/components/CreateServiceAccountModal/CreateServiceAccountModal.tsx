@@ -4,6 +4,7 @@ import { X } from '@signozhq/icons';
 import { Button } from '@signozhq/ui/button';
 import { useTranslation } from 'react-i18next';
 import AuthZButton from 'lib/authz/components/AuthZButton/AuthZButton';
+import { AuthZGuardContent } from 'lib/authz/components/AuthZGuard/AuthZGuardContent';
 import { SACreatePermission } from 'lib/authz/hooks/useAuthZ/permissions/service-account.permissions';
 import { DialogFooter, DialogWrapper } from '@signozhq/ui/dialog';
 import { Input } from '@signozhq/ui/input';
@@ -21,6 +22,7 @@ import { useErrorModal } from 'providers/ErrorModalProvider';
 import APIError from 'types/api/error';
 
 import './CreateServiceAccountModal.styles.scss';
+import { Skeleton } from 'antd';
 
 interface FormValues {
 	name: string;
@@ -97,33 +99,39 @@ function CreateServiceAccountModal(): JSX.Element {
 			testId="create-service-account-modal"
 		>
 			<div className="create-sa-modal__content">
-				<form
-					id="create-sa-form"
-					className="create-sa-form"
-					onSubmit={handleSubmit(handleCreate)}
+				<AuthZGuardContent
+					checks={[SACreatePermission]}
+					fallbackOnLoading={<Skeleton active paragraph={{ rows: 1 }} />}
 				>
-					<div className="create-sa-form__item">
-						<label htmlFor="sa-name">{t('service_account.name_label')}</label>
-						<Controller
-							name="name"
-							control={control}
-							rules={{ required: t('service_account.name_required') }}
-							render={({ field }): JSX.Element => (
-								<Input
-									id="sa-name"
-									placeholder={t('service_account.name_placeholder')}
-									className="create-sa-form__input"
-									value={field.value}
-									onChange={field.onChange}
-									onBlur={field.onBlur}
-								/>
+					<form
+						id="create-sa-form"
+						className="create-sa-form"
+						onSubmit={handleSubmit(handleCreate)}
+					>
+						<div className="create-sa-form__item">
+							<label htmlFor="sa-name">{t('service_account.name_label')}</label>
+							<Controller
+								name="name"
+								control={control}
+								rules={{ required: t('service_account.name_required') }}
+								render={({ field }): JSX.Element => (
+									<Input
+										id="sa-name"
+										placeholder={t('service_account.name_placeholder')}
+										className="create-sa-form__input"
+										value={field.value}
+										onChange={field.onChange}
+										onBlur={field.onBlur}
+										data-testid="create-sa-name-input"
+									/>
+								)}
+							/>
+							{errors.name && (
+								<p className="create-sa-form__error">{errors.name.message}</p>
 							)}
-						/>
-						{errors.name && (
-							<p className="create-sa-form__error">{errors.name.message}</p>
-						)}
-					</div>
-				</form>
+						</div>
+					</form>
+				</AuthZGuardContent>
 			</div>
 
 			<DialogFooter className="create-sa-modal__footer">
@@ -132,6 +140,7 @@ function CreateServiceAccountModal(): JSX.Element {
 					variant="solid"
 					color="secondary"
 					onClick={handleClose}
+					data-testid="create-sa-cancel-btn"
 				>
 					<X size={12} />
 					{t('buttons.cancel')}
@@ -139,12 +148,14 @@ function CreateServiceAccountModal(): JSX.Element {
 
 				<AuthZButton
 					checks={[SACreatePermission]}
+					withPortal={false}
 					type="submit"
 					form="create-sa-form"
 					variant="solid"
 					color="primary"
 					loading={isSubmitting}
 					disabled={!isValid}
+					data-testid="create-sa-submit-btn"
 				>
 					{t('service_account.create')}
 				</AuthZButton>

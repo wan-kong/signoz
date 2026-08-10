@@ -12,7 +12,7 @@ import { RowData } from 'lib/query/createTableColumnsFromQuery';
 import { BaseAutocompleteData } from 'types/api/queryBuilder/queryAutocompleteResponse';
 import { FormatTimezoneAdjustedTimestamp } from 'hooks/useTimezoneFormatter/useTimezoneFormatter';
 import { TFunction } from 'i18next';
-import { translateInfraText } from 'container/InfraMonitoringK8s/i18n';
+import { translateInfraText } from 'container/MetricsExplorer/Summary/i18n';
 import styles from './traceListColumns.module.scss';
 
 const keyToLabelMap: Record<string, string> = {

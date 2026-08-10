@@ -10,6 +10,7 @@ import TanStackTable, { TableColumnDef } from 'components/TanStackTableView';
 import { getGroupByEl } from 'container/InfraMonitoringK8sV2/Base/utils';
 import {
 	EntityProgressBar,
+	EntityProgressThresholds,
 	ExpandButtonWrapper,
 	GroupedStatusCounts,
 	ValidateColumnValueWrapper,
@@ -21,7 +22,7 @@ import {
 import { useInfraMonitoringGroupBy } from 'container/InfraMonitoringK8sV2/hooks';
 import ColumnHeader from 'container/InfraMonitoringK8sV2/Base/ColumnHeader';
 import EntityGroupHeader from 'container/InfraMonitoringK8sV2/Base/EntityGroupHeader';
-import { InfraTrans } from 'container/InfraMonitoringK8s/i18n';
+import { InfraTrans } from 'container/MetricsExplorer/Summary/i18n';
 
 import { HostnameCell } from './utils';
 
@@ -111,7 +112,7 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		),
 	},
 	{
-		id: 'hostName',
+		id: INFRA_MONITORING_ATTR_KEYS.HOST_NAME,
 		header: (): React.ReactNode => (
 			<EntityGroupHeader
 				title={i18n.t('display.hostname', 'Hostname', { ns: 'infraMonitoring' })}
@@ -122,7 +123,7 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		),
 		accessorFn: (row): string => row.hostName ?? '',
 		width: { min: 290 },
-		enableSort: false,
+		enableSort: true,
 		enableRemove: false,
 		enableMove: false,
 		pin: 'left',
@@ -188,7 +189,10 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 	{
 		id: 'cpu',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/host-monitoring#cpu-usage">
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/host-monitoring#cpu-usage"
+				tooltip={<EntityProgressThresholds type="cpu" />}
+			>
 				{String(
 					i18n.t('hosts_table.cpu_usage', 'CPU Usage', { ns: 'infraMonitoring' }),
 				)}
@@ -217,8 +221,17 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		id: 'memory',
 		header: (): React.ReactNode => (
 			<ColumnHeader
-				tooltip="Excluding cache memory."
-				tooltipKey="display.excluding_cache_memory_period"
+				tooltip={
+					<EntityProgressThresholds
+						type="memory"
+						note={String(
+							i18n.t('display.excluding_cache_memory_period', {
+								defaultValue: 'Excluding cache memory.',
+								ns: 'infraMonitoring',
+							}),
+						)}
+					/>
+				}
 				docPath="/infrastructure-monitoring/host-monitoring#memory-usage"
 			>
 				{String(
@@ -248,9 +261,12 @@ export const hostColumnsConfig: HostColumnConfigType[] = [
 		},
 	},
 	{
-		id: 'diskUsage',
+		id: 'disk_usage',
 		header: (): React.ReactNode => (
-			<ColumnHeader docPath="/infrastructure-monitoring/host-monitoring#disk-usage">
+			<ColumnHeader
+				docPath="/infrastructure-monitoring/host-monitoring#disk-usage"
+				tooltip={<EntityProgressThresholds type="disk" />}
+			>
 				{String(
 					i18n.t('hosts_table.disk_usage', 'Disk Usage', { ns: 'infraMonitoring' }),
 				)}
